@@ -1,0 +1,18 @@
+bookdown::gitbook:
+  css: style.css
+  toc_depth: 2
+  config:
+    toc:
+      collapse: section
+      before: |
+        <li><a href="./">WinCruz analysis</a></li>
+      after: |
+        <li><a href="https://github.com/emk-noaa/emk-noaa.github.io" target="blank">Eric & Amanda</a></li>
+    edit: https://github.com/emk-noaa/emk-noaa.github.io%s
+    download: ["pdf"]
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes

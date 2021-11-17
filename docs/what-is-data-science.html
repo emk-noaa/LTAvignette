@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 2 What is data science? | www.datascience.pizza</title>
+  <meta name="description" content="A resource &amp; workbook for the Sewanee DataLab" />
+  <meta name="generator" content="bookdown 0.24.3 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 2 What is data science? | www.datascience.pizza" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="A resource &amp; workbook for the Sewanee DataLab" />
+  <meta name="github-repo" content="databrew/intro-to-data-science" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 2 What is data science? | www.datascience.pizza" />
+  
+  <meta name="twitter:description" content="A resource &amp; workbook for the Sewanee DataLab" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="index.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">vignette</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome!</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-this-is-and-what-it-isnt"><i class="fa fa-check"></i>What this is, and what it isn’t</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#who-this-is-for"><i class="fa fa-check"></i>Who this is for</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-you-will-learn"><i class="fa fa-check"></i>What you will learn</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#contributors"><i class="fa fa-check"></i>Contributors</a></li>
+</ul></li>
+<li class="part"><span><b>I Core theory</b></span></li>
+<li class="chapter" data-level="2" data-path="what-is-data-science.html"><a href="what-is-data-science.html"><i class="fa fa-check"></i><b>2</b> What is data science?</a><ul>
+<li class="chapter" data-level="" data-path="what-is-data-science.html"><a href="what-is-data-science.html#what-is-the-data-life-cycle"><i class="fa fa-check"></i>What is the data life cycle?</a></li>
+<li class="chapter" data-level="" data-path="what-is-data-science.html"><a href="what-is-data-science.html#data-science-in-the-wild"><i class="fa fa-check"></i>Data science ‘in the wild’</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/emk-noaa/emk-noaa.github.io" target="blank">Eric&Amanda</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">www.datascience.pizza</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="what-is-data-science" class="section level1">
+<h1><span class="header-section-number"> 2</span> What is data science?</h1>
+<p>The definition of data science is a moving target. Thirty years ago (1990), ‘data science’ was an uncommon term that essentially just meant statistics. Twenty years ago (2000), the phrase mainly referred to querying SQL databases. Fifteen years ago (2005), it was “dashboards” and “predictive analytics”. Ten years ago (2010), it was ‘big data’ and ‘data mining’. Nowadays folks think of A.I. and machine learning.</p>
+<p>In 10 years? Who knows.</p>
+<p><strong>So what is it?</strong> There are many definitions out there. Search the internet for the answer and you will find complex diagrams, such as this one, suggesting that a data scientist is someone who has the right blend of programming skills, statistical knowledge, communication ability, and business acumen:</p>
+<center>
+<img src="img/venn1.png" />
+</center>
+<p> </p>
+<p>… or here is a more popular, simpler version of the same diagram:</p>
+<p> </p>
+<center>
+<img src="img/venn5.jpg" />
+</center>
+<p>Some argue that data science is simply <a href="https://www.statisticsviews.com/article/nate-silver-what-i-need-from-statisticians/">an extension of statistics</a>. You will also find attempts to distinguish between categories of data science, or to draw lines around what data science is and what it is not. A classic example is the bizarre delineation corporations draw between a data <em>scientist</em> and a data <em>analyst</em>:</p>
+<center>
+<img src="img/venn2.png" />
+</center>
+<p> 
+… or …
+ </p>
+<center>
+<img src="img/venn3.jpg" />
+</center>
+<p> </p>
+<p><strong>Our take?</strong> Those definitions are useful, interesting, and to some degree accurate. <em>But</em> data science is too new, and too fluid, to be fixed into some static definition. So, to keep our definition accurate, we’ll keep it broad:</p>
+<p><strong>Data science is simply “doing science with data”.</strong> And for our purposes, the only difference between our definition and the definition of science itself is not in the word “data” – since nowadays all scientists are, to some degree, “data scientists” – but rather in the word “doing”. Data science is about <em>doing</em> stuff with data – about <em>making a difference with data.</em> And that’s what this course is going to be about. <em>DOING</em>.</p>
+<p>But we’ll go one step outward. Data science is not just the combination of academic disciplines like stats and business strategy. Good data science also needs to involve (1) <strong>domain knowledge</strong> (i.e., familiarity with the problem being solved), (2) <strong>a bias to real-world effects</strong> rather than theoretical frameworks, and (3) <strong>a desire to work in the real world</strong>. To do so, data scientists generally need to be effective communicators and have an iterative mentality: they try something, evaluate its effects, try something else, and repeat.</p>
+<p>Our definition is very broad, we know. We consider the “analyst” working in business intelligence to be a data scientist; and so too do we think that a data scientist could be an engineer who is processing large amounts of data to extract basic trends. Again, data scientists are those who <em>do science with data</em>. That’s a lot of people.</p>
+<p>In our experience, the best data scientists aren’t simply the best programmers or best statisticians; the best ones are the people who consider themselves to be <em>something else first.</em> They are the journalists, artists, epidemiologists, psychologists, historians, environmentalists, sports analysts, and political commentators who <em>also</em> know how to work with data. In other words, the best data scientists are the ones already out there, on the ground, already embedded in the system they want to improve, positioned perfectly to get the right data, to ask the right questions, and to actually <em>do</em> something with insights from the data. Again, data science is about <em>DOING</em>.</p>
+<p>To summarize, data science is about applying data to problems. It is impact-driven, transdisciplinary, and suited to well-rounded, multi-dimensional professionals.</p>
+<div id="what-is-the-data-life-cycle" class="section level2 unnumbered">
+<h2>What is the data life cycle?</h2>
+<p>There is a misperception about data science work that it is largely or even exclusively interpretative: that is, a data scientist looks at a big set of data and builds a fancy statistical model, then a light bulb goes off in her head, she has some insight, and then acts on that insight.</p>
+<p>The reality is data science is much more than that. And most of data science is a combination of <em>(a)</em> getting data ready for analysis, <em>(b)</em> hypothesis testing, and <em>(c)</em> figuring out what to do with the results of <em>a</em> and <em>b</em>. That is, data science in practice is generally not some artesenal genius staring at a table of numbers until “insight” magically occurs. Rather, it is a lot of work, a lot of structured theories which can be confirmed or falsified, and a lot of <em>imagination</em> applied to the task of implementation.</p>
+<p>In other words, data goes through a whole <em>lifecycle</em> of which analysis is just a small part.</p>
+<p>What is the data lifecycle? Here’s how we conceptualize it:</p>
+<p><strong>0. Observation</strong><br />
+<strong>1. Problem identification &amp; definition</strong><br />
+<strong>2. Question formation</strong><br />
+<strong>3. Hypothesis generation</strong><br />
+<strong>4. Data collection</strong><br />
+<strong>5. Data processing</strong></p>
+<p>This step is usually the most intensive. Half the battle is wrangling raw data and making it ready for a visualization or a hypothesis test. Note that this step has <em>nothing to do with statistical tests</em> – data science is not the same as statistics!</p>
+<p><strong>6. Model building / hypothesis testing</strong></p>
+<p>Note that this step is usually where the scientific method stops. In science, once you analyze your test, you interpret your results and loop back to the beginning of the data cycle. But in <em>applied data science</em>, there are a few more steps:</p>
+<p><strong>7. Operationalization:</strong> This means determining how best to incorporate the data insights into operations.</p>
+<p><strong>8. Communication / dissemination</strong></p>
+<p><strong>9. Action:</strong> This means actually implementing the change.</p>
+<p><strong>10. Observation:</strong> back to the beginning of the cycle.</p>
+<p>Again, the above should look a lot like the scientific method. The main differences are (a) “data processing”, which in reality takes up most of any data scientist’s time, (b) the bias towards action, and (c) the iterative / looped nature of the lifecycle.</p>
+</div>
+<div id="data-science-in-the-wild" class="section level2 unnumbered">
+<h2>Data science ‘in the wild’</h2>
+<p>Enough theory. What do data scientists actually do? Again, you can search for an answer online and find complex diagrams like this one:</p>
+<p> </p>
+<center>
+<img src="img/venn4.png" />
+</center>
+<p> </p>
+<p>But to capture every problem that data scientists are working on, this diagram would have to be even more convoluted and complex.
+Data scientists are working on a <em>ton</em> of problems.</p>
+<p>The most stereotypical data science problems tend to involve advertising, social media, and corporate profiteering:</p>
+<ul>
+<li>Targeted advertising<br />
+</li>
+<li>Social media feed optimization (getting you to scroll just a little further)</li>
+<li>Facial recognition (automated tagging at Facebook)</li>
+<li>Voice recognition (‘Hey, Siri!’, ‘Alexa!’)</li>
+<li>Making video games more fun / addictive<br />
+</li>
+<li>Dynamic airline pricing<br />
+</li>
+<li>Search autocomplete<br />
+</li>
+<li>Autocorrect<br />
+</li>
+<li>Virtual assistants</li>
+</ul>
+<p>These are the kinds of problems that the best-paid data scientists in the world are working to solve. Right now there are thousands of programmers in Mountain View, Cupertino, and elsewhere in the Bay Area (and New York, and London, and Beijing) trying to solve the problem of you not spending enough time on social media.</p>
+<p>Maybe you care about these problems, maybe you don’t. Maybe they make you indignant or angry. Maybe you find it <em>problematic</em> that these things are even considered problems at all. As far as we’re concerned, it is deeply unfortunate that our highest-paid data scientists are focusing on problems like these.</p>
+<p>But take heart – there are plenty of other data scientists out there working on <em>actual</em> problems that are actually <em>important</em>:</p>
+<ul>
+<li>Identifying disease through imagery<br />
+</li>
+<li>Automating identification of credit card fraud<br />
+</li>
+<li>Filtering spam with malware or viruses.<br />
+</li>
+<li>Preventive maintenance at nuclear facilities<br />
+</li>
+<li>Improving chemotherapy dosage<br />
+</li>
+<li>Increasing voter turnout<br />
+</li>
+<li>Improve matchmaking systems (liver transplants, love, etc.)<br />
+</li>
+<li>Measuring deforestation with satellite imagery.<br />
+</li>
+<li>Efficient and equitable vaccine distribution<br />
+</li>
+<li>Identifying tax evaders<br />
+</li>
+<li>Predictive policing<br />
+</li>
+<li>Storm surge forecasting<br />
+</li>
+<li>Identifying and removing child pornography from the internet<br />
+</li>
+<li>Surveilling emergency rooms to predict disease outbreaks<br />
+</li>
+<li>Detecting fake news<br />
+</li>
+<li>Increasing accountability and legitimacy of carbon markets<br />
+</li>
+<li>Quantifying the likelihood of recidivism to prevent over-incarceration</li>
+</ul>
+<p>The list goes on. The number of worthwhile problems waiting for data scientists is limitless, there are data scientists working on problems like these right now, and the demand for civic-minded data scientists is immense.</p>
+<p>All of this matters for a lot of reasons. The first is that data science is not always a good thing; it can be weaponized by corporations and governments in spite of the public interest, and for that we need to be very careful about how we use it and how we teach it.</p>
+<p>But the second reason this matters is that data science can be an <em>equally powerful force for social good</em>. We can use data science to make progress on the most urgent and injurious social and environmental problems of our time.</p>
+<p>However – and this is the third reason all this matters – data science can only achieve social good <em>if</em> we recruit students to its ranks who are values-driven, civic-minded, and committed to using data science for good.</p>
+<p>Fourth, and finally, this matters because the Facebook data scientists are using the exact same principles and basic tools as the non-profit data scientists. At their core, the foundational skillsets are the same.</p>
+<p>And that’s what this book is all about.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/emk-noaa/emk-noaa.github.io02a-principles.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["vignette.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
