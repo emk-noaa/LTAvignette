@@ -29,15 +29,42 @@ options(scipen=999)
 ```
 
 
-# Welcome!
+# Status
 
-text here
+This status report outlines the code we are developing to process `WinCruz` data and prepare it for density estimation analysis using `distance` and related packages in `R`.  
 
-## subsection 1  {-} 
+#### Changes {-}
 
-text
+- New **status report format** (a `bookdown` vignette, compatible with a future website and PDF tutorial.)  
 
-## subsection 2  {-} 
+- **Initiation of package framework** (more efficient to design, develop, test, and document code). See `Install` chapter for details. 
 
-text
+- Implementation of **new settings system**: survey-wide and cohort-specific settings. See `Settings` chapter for description / explanation.  
+
+- Update of strata and segmentizing functions to accommodate new settings system.  See `Processing` chapter.  
+
+- The function `process_polygon()` now calculates the area, in km2, of strata and study area polygons.   
+
+
+#### Next focus {-}
+
+- Transfer code to the new settings system and package framework:  
+
+--- mapping functions  
+--- sightings processing  
+--- survey summary   
+
+- Update backlog  
+
+- Back to developing the sightings processing  
+
+
+#### Questions for Amanda {-}
+
+- Lots of structural changes (new vignette system, initiation of package framework). Lots on my list to do to complete the transfer, so not many questions for now.  
+
+- Am I getting closer with the new settings / segmentizing frameworks?  
+
+
+
 

@@ -71,10 +71,7 @@
 <li><a href="./">WinCruz analysis</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="#welcome"><i class="fa fa-check"></i><b>1</b> Welcome!</a><ul>
-<li class="chapter" data-level="" data-path=""><a href="#subsection-1"><i class="fa fa-check"></i>subsection 1</a></li>
-<li class="chapter" data-level="" data-path=""><a href="#subsection-2"><i class="fa fa-check"></i>subsection 2</a></li>
-</ul></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="#status"><i class="fa fa-check"></i><b>1</b> Status</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/emk-noaa/emk-noaa.github.io" target="blank">Eric & Amanda</a></li>
 
@@ -98,16 +95,38 @@
 <div id="header">
 <h1 class="title">vignette</h1>
 </div>
-<div id="welcome" class="section level1">
-<h1><span class="header-section-number"> 1</span> Welcome!</h1>
-<p>text here</p>
-<div id="subsection-1" class="section level2 unnumbered">
-<h2>subsection 1</h2>
-<p>text</p>
+<div id="status" class="section level1">
+<h1><span class="header-section-number"> 1</span> Status</h1>
+<p>This status report outlines the code we are developing to process <code>WinCruz</code> data and prepare it for density estimation analysis using <code>distance</code> and related packages in <code>R</code>.</p>
+<div id="changes" class="section level4 unnumbered">
+<h4>Changes</h4>
+<ul>
+<li><p>New <strong>status report format</strong> (a <code>bookdown</code> vignette, compatible with a future website and PDF tutorial.)</p></li>
+<li><p><strong>Initiation of package framework</strong> (more efficient to design, develop, test, and document code). See <code>Install</code> chapter for details.</p></li>
+<li><p>Implementation of <strong>new settings system</strong>: survey-wide and cohort-specific settings. See <code>Settings</code> chapter for description / explanation.</p></li>
+<li><p>Update of strata and segmentizing functions to accommodate new settings system. See <code>Processing</code> chapter.</p></li>
+<li><p>The function <code>process_polygon()</code> now calculates the area, in km2, of strata and study area polygons.</p></li>
+</ul>
 </div>
-<div id="subsection-2" class="section level2 unnumbered">
-<h2>subsection 2</h2>
-<p>text</p>
+<div id="next-focus" class="section level4 unnumbered">
+<h4>Next focus</h4>
+<ul>
+<li>Transfer code to the new settings system and package framework:</li>
+</ul>
+<p>— mapping functions<br />
+— sightings processing<br />
+— survey summary</p>
+<ul>
+<li><p>Update backlog</p></li>
+<li><p>Back to developing the sightings processing</p></li>
+</ul>
+</div>
+<div id="questions-for-amanda" class="section level4 unnumbered">
+<h4>Questions for Amanda</h4>
+<ul>
+<li><p>Lots of structural changes (new vignette system, initiation of package framework). Lots on my list to do to complete the transfer, so not many questions for now.</p></li>
+<li><p>Am I getting closer with the new settings / segmentizing frameworks?</p></li>
+</ul>
 
 </div>
 </div>

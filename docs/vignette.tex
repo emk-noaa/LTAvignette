@@ -89,22 +89,59 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-\hypertarget{welcome}{%
-\chapter{Welcome!}\label{welcome}}
+\hypertarget{status}{%
+\chapter{Status}\label{status}}
 
-text here
+This status report outlines the code we are developing to process \texttt{WinCruz} data and prepare it for density estimation analysis using \texttt{distance} and related packages in \texttt{R}.
 
-\hypertarget{subsection-1}{%
-\section*{subsection 1}\label{subsection-1}}
-\addcontentsline{toc}{section}{subsection 1}
+\hypertarget{changes}{%
+\subsubsection*{Changes}\label{changes}}
+\addcontentsline{toc}{subsubsection}{Changes}
 
-text
+\begin{itemize}
+\item
+  New \textbf{status report format} (a \texttt{bookdown} vignette, compatible with a future website and PDF tutorial.)
+\item
+  \textbf{Initiation of package framework} (more efficient to design, develop, test, and document code). See \texttt{Install} chapter for details.
+\item
+  Implementation of \textbf{new settings system}: survey-wide and cohort-specific settings. See \texttt{Settings} chapter for description / explanation.
+\item
+  Update of strata and segmentizing functions to accommodate new settings system. See \texttt{Processing} chapter.
+\item
+  The function \texttt{process\_polygon()} now calculates the area, in km2, of strata and study area polygons.
+\end{itemize}
 
-\hypertarget{subsection-2}{%
-\section*{subsection 2}\label{subsection-2}}
-\addcontentsline{toc}{section}{subsection 2}
+\hypertarget{next-focus}{%
+\subsubsection*{Next focus}\label{next-focus}}
+\addcontentsline{toc}{subsubsection}{Next focus}
 
-text
+\begin{itemize}
+\tightlist
+\item
+  Transfer code to the new settings system and package framework:
+\end{itemize}
+
+--- mapping functions\\
+--- sightings processing\\
+--- survey summary
+
+\begin{itemize}
+\item
+  Update backlog
+\item
+  Back to developing the sightings processing
+\end{itemize}
+
+\hypertarget{questions-for-amanda}{%
+\subsubsection*{Questions for Amanda}\label{questions-for-amanda}}
+\addcontentsline{toc}{subsubsection}{Questions for Amanda}
+
+\begin{itemize}
+\item
+  Lots of structural changes (new vignette system, initiation of package framework). Lots on my list to do to complete the transfer, so not many questions for now.
+\item
+  Am I getting closer with the new settings / segmentizing frameworks?
+\end{itemize}
 
   \bibliography{book.bib,packages.bib}
 
