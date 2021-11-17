@@ -1,1 +1,1 @@
-# LTabundR-vignette
+Development repo for vignette for `LTabundR` package
