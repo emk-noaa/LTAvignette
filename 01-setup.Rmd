@@ -1,0 +1,61 @@
+# Install `LTabundR`  {#install}
+
+
+## Option 1: Install from GitHub {-}  
+
+Since the package is currently private, this is more complicated than it will be once the package is released. 
+
+The first step is creating an `R` environment variable containing your `GitHub` personal access token.  
+
+Complete these instructions **only once:**  
+
+```{r, echo=TRUE, eval=FALSE}
+# Open your .Renviron file
+library(usethis)
+usethis::edit_r_environ()
+
+# Add your GitHub personal access token as a variable in `.Renviron`
+GITHUB_TOKEN <- 'your_token_goes_here_as_a_character_string'
+
+# Save and close your .Renviron file
+# Reload .Renviron
+readRenviron('~/.Renviron')
+```
+
+Then run this code **every time** you want to reinstall / update the package:  
+
+```{r, echo=TRUE, eval=FALSE}
+library(devtools)
+github_token <- Sys.getenv("GITHUB_TOKEN")
+devtools::install_github(repo = 'amandalbradford/LTabundR-dev',
+                         subdir='LTabundR',
+                         auth_token=github_token)
+library(LTabundR)
+```
+
+
+
+## Option 2: Install locally {-}  
+
+For now you can also install or update the package locally, using this code:  
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+library(devtools) 
+
+# Remove the package, if you have an earlier version of it on your machine
+if('LTAabundR' %in% installed.packages()){remove.packages('LTabundR')} 
+
+# Specify the path to the package's project folder.
+path_to_package <- '../LTabundR'
+
+# Update function documentation
+document(path_to_package) 
+
+# Install package and any dependencies you need
+install(path_to_package) 
+
+library(LTabundR)
+```
+
+
+

@@ -1,0 +1,235 @@
+# Appendix: Segmentizing {#segmentizing}
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
+library(dplyr)
+library(magrittr)
+library(LTabundR)
+```
+
+The package's `segmentize()` function and its associated settings were designed to give researchers full control over how data are segmented, be it for design-based density analysis (which tend to use long segments of 100 km or more and allow for non-contiguous effort to be included in the same segment) or for habitat modeling (which tend to use short segments of 5 - 10 km and disallow non-contiguous effort to be pooled into the same segment). 
+
+The  demonstration of `segmentize()` on in [Processing chapter](#processing) relies on the `settings` object that is attached as a slot in the `cruz` object. But you can override those settings with direct function inputs in `segmentize()`, which gives us a chance to explore segmentization options.  
+
+First we loadthe demo data and carry out initial processing:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4.5}
+data(settings)
+das_file <- 'data/surveys/HICEASwinter2020.das'
+das <- load_das(das_file, 
+                perform_checks = FALSE,
+                print_glimpse = FALSE)
+das <- format_das(das, settings)
+cruz <- process_strata(das,
+                       settings,
+                       verbose=FALSE)
+```
+
+And this is the histogram function we will be using to display the results of each run of `segmentize()`:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4}
+segment_histogram <- function(cohort_effort, by_day=FALSE){
+  segs <- cohort_effort$segments
+  segmax <- max(segs$dist,na.rm=TRUE)*1.1
+  
+  if(by_day){
+    main_use <- paste0('Segments (use) |  by day')
+    main_exclude <- paste0('Segments (exclude) |  by day')
+  }else{
+    main_use <- paste0('Segments (use) |  target: ',settings$survey$segment_target_km,' km')
+    main_exclude <- paste0('Segments (exclude) |  target: ',settings$survey$segment_target_km,' km')
+  }
+  par(mfrow=c(1,2))
+  par(mar=c(4.2,4.2,2.5,.5))
+  hist(segs$dist[segs$use],
+       breaks = seq(0,segmax,by=segmax/40),
+       xlab='Segment lengths (km)',
+       main=main_use,
+       cex.main = .8, cex.axis = .8, cex.lab = .8)
+
+  hist(segs$dist[!segs$use],
+       breaks = seq(0,segmax,by=segmax/40),
+       xlab='Segment lengths (km)',
+       main=main_exclude,
+       cex.main = .8, cex.axis = .8, cex.lab = .8)
+  par(mfrow=c(1,1))
+}
+```
+
+
+## Defaults {-}  
+
+Here is the `segmentize()` function parameterized with the "factory default" settings from `load_settings()`.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4.5}
+cruz_demo <- segmentize(cruz,
+                        segment_method = 'equallength',
+                        segment_target_km = 30,
+                        segment_max_interval = 48,
+                        segment_type_handling = 'separate',
+                        segment_remainder_handling = c('append','segment'),
+                        density_types = c('S','F'),
+                        density_modes = c('P','C'),
+                        density_on_off = c(TRUE),
+                        distance_types = NULL,
+                        distance_modes = NULL,
+                        distance_on_off = NULL,
+                        random_seed = NULL)
+
+# Number of segments
+cruz_demo$cohorts$default$density$segments %>% nrow
+
+# Plot
+segment_histogram(cruz_demo$cohorts$default$density)
+```
+
+```{r,eval=FALSE,echo=FALSE}
+#segments <- cruz_demo$cohorts$default$density$effort
+#for(i in 1:length(segments)){
+#  segments[[i]]$use %>% table %>% print
+#}
+```
+
+## Day vs Equal Length {-}  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4.5}
+cruz_demo <- segmentize(cruz,
+                        segment_method = 'day',
+                        segment_target_km = 30,
+                        segment_max_interval = 48,
+                        segment_type_handling = 'separate',
+                        segment_remainder_handling = c('append','segment'),
+                        density_types = c('S','F'),
+                        density_modes = c('P','C'),
+                        density_on_off = c(TRUE),
+                        distance_types = NULL,
+                        distance_modes = NULL,
+                        distance_on_off = NULL,
+                        random_seed = NULL)
+
+# Number of segments
+cruz_demo$cohorts$default$density$segments %>% nrow
+
+# Plot
+segment_histogram(cruz_demo$cohorts$default$density, by_day = TRUE)
+```
+
+
+## Contiguous vs. non-contiguous effort {-}
+
+The example above allows for non-contiguous effort; a segment is allowed to contain effort separated by gaps as large as 24 hours (`settings$max_interval`).  To coerce segments to represent only contiguous effort, make that setting very small:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4.5}
+cruz_demo <- segmentize(cruz,
+                        segment_method = 'equallength',
+                        segment_target_km = 30,
+                        segment_max_interval = .1,
+                        segment_type_handling = 'separate',
+                        segment_remainder_handling = c('append','segment'),
+                        density_types = c('S','F'),
+                        density_modes = c('P','C'),
+                        density_on_off = c(TRUE),
+                        distance_types = NULL,
+                        distance_modes = NULL,
+                        distance_on_off = NULL,
+                        random_seed = NULL)
+
+# Number of segments
+cruz_demo$cohorts$default$density$segments %>% nrow
+
+# Plot
+segment_histogram(cruz_demo$cohorts$default$density, by_day = TRUE)
+```
+
+You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.  
+
+## Segment remainder handling {-} 
+
+The default setting for `segment_remainder_handling`, `c('append','segment')`, means that remainders less than half the target length will be randomly appended to another segment, while remainders more than half will be treated as their own segment (and will be placed randomly along the trackline).  
+
+If you don't want that level of complexity, you can simply assign a single setting: `c'append')` will append the remainder in all cases, regardless of remainder length relative to the target length. The same idea goes for `c('segment')`.  
+
+The other possible setting is `disperse`, which disperses the remainder evenly across all segments. To demonstrate, let's use a target length of 100 km. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4.5}
+cruz_demo <- segmentize(cruz,
+                        segment_method = 'equallength',
+                        segment_target_km = 100,
+                        segment_max_interval = 48,
+                        segment_type_handling = 'separate',
+                        segment_remainder_handling = c('disperse'),
+                        density_types = c('S','F'),
+                        density_modes = c('P','C'),
+                        density_on_off = c(TRUE),
+                        distance_types = NULL,
+                        distance_modes = NULL,
+                        distance_on_off = NULL,
+                        random_seed = NULL)
+
+# Number of segments
+cruz_demo$cohorts$default$density$segments %>% nrow
+
+# Plot
+segment_histogram(cruz_demo$cohorts$default$density, by_day = TRUE)
+```
+
+Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4.5}
+cruz_demo <- segmentize(cruz,
+                        segment_method = 'equallength',
+                        segment_target_km = 90,
+                        segment_max_interval = 48,
+                        segment_type_handling = 'separate',
+                        segment_remainder_handling = c('disperse'),
+                        density_types = c('S','F'),
+                        density_modes = c('P','C'),
+                        density_on_off = c(TRUE),
+                        distance_types = NULL,
+                        distance_modes = NULL,
+                        distance_on_off = NULL,
+                        random_seed = NULL)
+
+# Number of segments
+cruz_demo$cohorts$default$density$segments %>% nrow
+
+# Plot
+segment_histogram(cruz_demo$cohorts$default$density, by_day = TRUE)
+```
+
+But in general, the `disperse` option may be more appropriate for shorter segment lengths.  
+
+## Typical settings {-}  
+
+### Design-based line transect analysis  {-}
+
+To replicate methods used in density estimation analyses, use large segment lengths (100 km or more) or simply segmentize by day, with `S` and `F` effort types kept separate. (See the examples above.) Remember that long segment lengths won't work well unless you allow for non-contiguous effort.
+
+
+### Habitat modeling  {-}
+
+To replicate the methods used in typical habitat modeling studies, use smaller segment lengths of contiguous effort. In these studies it may be acceptable to pool various effort types into the same segments. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.height=6, fig.width=6}
+cruz_demo <- segmentize(cruz,
+                        segment_method = 'equallength',
+                        segment_target_km = 5,
+                        segment_max_interval = .1,
+                        segment_type_handling = 'pool',
+                        segment_remainder_handling = c('append','segment'),
+                        density_types = c('S','F'),
+                        density_modes = c('P','C'),
+                        density_on_off = c(TRUE),
+                        distance_types = NULL,
+                        distance_modes = NULL,
+                        distance_on_off = NULL,
+                        random_seed = NULL)
+
+# Number of segments
+cruz_demo$cohorts$default$density$segments %>% nrow
+
+# Plot
+segment_histogram(cruz_demo$cohorts$default$density, by_day = TRUE)
+```
+
+
+

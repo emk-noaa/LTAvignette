@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 3 Settings | vignette</title>
+  <meta name="description" content=" 3 Settings | vignette" />
+  <meta name="generator" content="bookdown 0.24.3 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 3 Settings | vignette" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content=" 3 Settings | vignette" />
+  <meta name="github-repo" content="emk-noaa/emk-noaa.github.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 3 Settings | vignette" />
+  
+  <meta name="twitter:description" content=" 3 Settings | vignette" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="install.html"/>
+<link rel="next" href="processing.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">WinCruz analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Status</a></li>
+<li class="chapter" data-level="2" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>2</b> Install <code>LTabundR</code></a><ul>
+<li class="chapter" data-level="" data-path="install.html"><a href="install.html#option-1-install-from-github"><i class="fa fa-check"></i>Option 1: Install from GitHub</a></li>
+<li class="chapter" data-level="" data-path="install.html"><a href="install.html#option-2-install-locally"><i class="fa fa-check"></i>Option 2: Install locally</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="settings.html"><a href="settings.html"><i class="fa fa-check"></i><b>3</b> Settings</a><ul>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#survey-strata"><i class="fa fa-check"></i>Survey strata</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#study-area-polygon"><i class="fa fa-check"></i>Study area polygon</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#survey-wide-settings"><i class="fa fa-check"></i>Survey-wide settings</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#cohort-specific-settings"><i class="fa fa-check"></i>Cohort-specific settings</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#example-code"><i class="fa fa-check"></i>Example code</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>4</b> Data processing</a><ul>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#bring-in-cruise-data"><i class="fa fa-check"></i>Bring in cruise data</a></li>
+<li><a href="processing.html#format-das-data">Format <code>DAS</code> data</a></li>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#process-strata"><i class="fa fa-check"></i>Process strata</a></li>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#segmentize-the-data"><i class="fa fa-check"></i>Segmentize the data</a></li>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#process-sightings"><i class="fa fa-check"></i>Process sightings</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>5</b> Maps</a><ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#base-maps"><i class="fa fa-check"></i>Base maps</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-strata"><i class="fa fa-check"></i>Add strata</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-survey-tracks"><i class="fa fa-check"></i>Add survey tracks</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#customizing-effort"><i class="fa fa-check"></i>Customizing effort</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey</a></li>
+<li class="chapter" data-level="7" data-path="df.html"><a href="df.html"><i class="fa fa-check"></i><b>7</b> Detection functions</a></li>
+<li class="chapter" data-level="8" data-path="abundance.html"><a href="abundance.html"><i class="fa fa-check"></i><b>8</b> Abundance estimation</a></li>
+<li class="chapter" data-level="9" data-path="casestudies.html"><a href="casestudies.html"><i class="fa fa-check"></i><b>9</b> Case studies</a><ul>
+<li class="chapter" data-level="" data-path="casestudies.html"><a href="casestudies.html#central-north-pacific"><i class="fa fa-check"></i>Central North Pacific</a></li>
+<li class="chapter" data-level="" data-path="casestudies.html"><a href="casestudies.html#california-current-system"><i class="fa fa-check"></i>California Current System</a></li>
+<li class="chapter" data-level="" data-path="casestudies.html"><a href="casestudies.html#eastern-tropical-pacific"><i class="fa fa-check"></i>Eastern Tropical Pacific</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="practicalities.html"><a href="practicalities.html"><i class="fa fa-check"></i><b>10</b> Practicalities</a></li>
+<li class="chapter" data-level="11" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>11</b> Appendix: Strata gallery</a><ul>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#central-north-pacific-1"><i class="fa fa-check"></i>Central North Pacific</a></li>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#california-current"><i class="fa fa-check"></i>California Current</a></li>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#etp"><i class="fa fa-check"></i>ETP</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>12</b> Appendix: Segmentizing</a><ul>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#defaults-2"><i class="fa fa-check"></i>Defaults</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#day-vs-equal-length"><i class="fa fa-check"></i>Day vs Equal Length</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#contiguous-vs.-non-contiguous-effort"><i class="fa fa-check"></i>Contiguous vs. non-contiguous effort</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#segment-remainder-handling"><i class="fa fa-check"></i>Segment remainder handling</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#typical-settings"><i class="fa fa-check"></i>Typical settings</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="backlog.html"><a href="backlog.html"><i class="fa fa-check"></i><b>13</b> Appendix: Backlog</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/emk-noaa/emk-noaa.github.io" target="blank">Eric & Amanda</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">vignette</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="settings" class="section level1">
+<h1><span class="header-section-number"> 3</span> Settings</h1>
+<p>To customize the way data are processed and included in your analysis, use the <code>load_settings()</code> function. This function emulates and expands upon the settings file, <code>ABUND.INP</code>, that was used to run <code>ABUND7/9</code> in <code>FORTRAN</code>.</p>
+<p>This function allows you to use ‘factory defaults’ if you don’t wish to specify anything special such as strata or study area polygons:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="settings.html#cb4-1"></a>settings &lt;-<span class="st"> </span><span class="kw">load_settings</span>()</span></code></pre></div>
+<p>If you do not want to use all the defaults, you can give <code>load_settings()</code> some custom inputs. The function accepts four arguments:</p>
+<ul>
+<li><p><code>strata</code>: dataframe(s) of coordinates</p></li>
+<li><p><code>study_area</code>: a dataframe of coordinates</p></li>
+<li><p><code>survey</code>: settings that will apply universally to the analysis</p></li>
+<li><p><code>cohorts</code>: settings that are specific to groups of species. By providing cohort-specific settings, the code for a single analysis becomes fully flexible to prepare and more easily reproduced, since code need not be modified in order to replicate the analysis in full.</p></li>
+</ul>
+<p>The output of <code>load_settings()</code> is a named list with a slot for each of these arguments:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="settings.html#cb5-1"></a>settings <span class="op">%&gt;%</span><span class="st"> </span>names</span>
+<span id="cb5-2"><a href="settings.html#cb5-2"></a>[<span class="dv">1</span>] <span class="st">&quot;strata&quot;</span>     <span class="st">&quot;study_area&quot;</span> <span class="st">&quot;survey&quot;</span>     <span class="st">&quot;cohorts&quot;</span>   </span></code></pre></div>
+<div id="survey-strata" class="section level2 unnumbered">
+<h2>Survey strata</h2>
+<p>Stratum polygons can be provided as a named list of <code>data.frame</code> objects. Each <code>data.frame</code> must have <code>Lat</code> and <code>Lon</code> as the first two columns, providing coordinates in decimal degrees in which South and West coordinates are negative. Other columns are allowed, but the first two need to be <code>Lon</code> and <code>Lat</code>. The name of the slot holding the <code>data.frame</code> will be used as a reference name for the stratum.</p>
+<p>If <code>strata</code> is <code>NULL</code>, abundance will not be estimated; only density within the searched area (i.e., the total segment length x effective strip width).</p>
+<p>While users are welcome to upload polygons of their own, the package comes with “stock” polygons for strata that are commonly used in the main NMFS study regions: the Central North Pacific (CNP, including Hawaii) …</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="settings.html#cb6-1"></a><span class="kw">data</span>(strata_cnp) </span>
+<span id="cb6-2"><a href="settings.html#cb6-2"></a><span class="kw">names</span>(strata_cnp)</span>
+<span id="cb6-3"><a href="settings.html#cb6-3"></a>[<span class="dv">1</span>] <span class="st">&quot;HI_EEZ&quot;</span>   <span class="st">&quot;WHICEAS&quot;</span>  <span class="st">&quot;OtherCNP&quot;</span></span></code></pre></div>
+<p>…the California Current System (CCS) …</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="settings.html#cb7-1"></a><span class="kw">data</span>(strata_ccs) </span>
+<span id="cb7-2"><a href="settings.html#cb7-2"></a><span class="kw">names</span>(strata_ccs)</span>
+<span id="cb7-3"><a href="settings.html#cb7-3"></a>[<span class="dv">1</span>] <span class="st">&quot;CCS&quot;</span>         <span class="st">&quot;Southern_CA&quot;</span> <span class="st">&quot;Central_CA&quot;</span>  <span class="st">&quot;Nothern_CA&quot;</span>  <span class="st">&quot;OR_WA&quot;</span>      </span></code></pre></div>
+<p>… and the Eastern Tropical Pacific (ETP):</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="settings.html#cb8-1"></a><span class="kw">data</span>(strata_etp) </span>
+<span id="cb8-2"><a href="settings.html#cb8-2"></a><span class="kw">names</span>(strata_etp)</span>
+<span id="cb8-3"><a href="settings.html#cb8-3"></a> [<span class="dv">1</span>] <span class="st">&quot;MOPS_AreaCoreM&quot;</span>     <span class="st">&quot;MOPS_AreaIn&quot;</span>        <span class="st">&quot;MOPS_AreaIn1&quot;</span>      </span>
+<span id="cb8-4"><a href="settings.html#cb8-4"></a> [<span class="dv">4</span>] <span class="st">&quot;MOPS_AreaIn2&quot;</span>       <span class="st">&quot;MOPS_AREAINS&quot;</span>       <span class="st">&quot;MOPS_AREAMID&quot;</span>      </span>
+<span id="cb8-5"><a href="settings.html#cb8-5"></a> [<span class="dv">7</span>] <span class="st">&quot;MOPS_AreaMid1&quot;</span>      <span class="st">&quot;MOPS_AreaMid2&quot;</span>      <span class="st">&quot;MOPS_AreaMOPS&quot;</span>     </span>
+<span id="cb8-6"><a href="settings.html#cb8-6"></a>[<span class="dv">10</span>] <span class="st">&quot;MOPS_AREANORS&quot;</span>      <span class="st">&quot;MOPS_AreaOuterM&quot;</span>    <span class="st">&quot;MOPS_AreaSou&quot;</span>      </span>
+<span id="cb8-7"><a href="settings.html#cb8-7"></a>[<span class="dv">13</span>] <span class="st">&quot;MOPS_AREASOUS&quot;</span>      <span class="st">&quot;MOPS_AreaSpin&quot;</span>      <span class="st">&quot;MOPS_AreaSpinS&quot;</span>    </span>
+<span id="cb8-8"><a href="settings.html#cb8-8"></a>[<span class="dv">16</span>] <span class="st">&quot;MOPS_AREAWES&quot;</span>       <span class="st">&quot;PODS_93STRAT1&quot;</span>      <span class="st">&quot;PODS_93STRAT2&quot;</span>     </span>
+<span id="cb8-9"><a href="settings.html#cb8-9"></a>[<span class="dv">19</span>] <span class="st">&quot;PODS_Area92&quot;</span>        <span class="st">&quot;PODS_AREA92RS&quot;</span>      <span class="st">&quot;PODS_Area92s&quot;</span>      </span>
+<span id="cb8-10"><a href="settings.html#cb8-10"></a>[<span class="dv">22</span>] <span class="st">&quot;PODS_AREA93&quot;</span>        <span class="st">&quot;PODS_AREA93A&quot;</span>       <span class="st">&quot;PODS_AREA93AR&quot;</span>     </span>
+<span id="cb8-11"><a href="settings.html#cb8-11"></a>[<span class="dv">25</span>] <span class="st">&quot;PODS_AREA93AS&quot;</span>      <span class="st">&quot;PODS_AREA93BR&quot;</span>      <span class="st">&quot;PODS_AREA93M&quot;</span>      </span>
+<span id="cb8-12"><a href="settings.html#cb8-12"></a>[<span class="dv">28</span>] <span class="st">&quot;PODS_AREA93MS&quot;</span>      <span class="st">&quot;PODS_AREA93R&quot;</span>       <span class="st">&quot;PODS_AREA93R1&quot;</span>     </span>
+<span id="cb8-13"><a href="settings.html#cb8-13"></a>[<span class="dv">31</span>] <span class="st">&quot;PODS_AREA93R2&quot;</span>      <span class="st">&quot;PODS_AREA93RS&quot;</span>      <span class="st">&quot;PODS_AREA93S&quot;</span>      </span>
+<span id="cb8-14"><a href="settings.html#cb8-14"></a>[<span class="dv">34</span>] <span class="st">&quot;PODS_AREANCOR&quot;</span>      <span class="st">&quot;PODS_GOCpoly&quot;</span>       <span class="st">&quot;Pre1986_Area79ES1&quot;</span> </span>
+<span id="cb8-15"><a href="settings.html#cb8-15"></a>[<span class="dv">37</span>] <span class="st">&quot;Pre1986_Area79ES1s&quot;</span> <span class="st">&quot;Pre1986_Area79ES2&quot;</span>  <span class="st">&quot;Pre1986_Area79ES2s&quot;</span></span>
+<span id="cb8-16"><a href="settings.html#cb8-16"></a>[<span class="dv">40</span>] <span class="st">&quot;Pre1986_Area79NE1&quot;</span>  <span class="st">&quot;Pre1986_Area79NE1s&quot;</span> <span class="st">&quot;Pre1986_Area79NE2&quot;</span> </span>
+<span id="cb8-17"><a href="settings.html#cb8-17"></a>[<span class="dv">43</span>] <span class="st">&quot;Pre1986_Area79NE2s&quot;</span> <span class="st">&quot;Pre1986_Area79NE3&quot;</span>  <span class="st">&quot;Pre1986_Area79NE3s&quot;</span></span>
+<span id="cb8-18"><a href="settings.html#cb8-18"></a>[<span class="dv">46</span>] <span class="st">&quot;Pre1986_AreaCal&quot;</span>    <span class="st">&quot;Pre1986_AreaCals&quot;</span>   <span class="st">&quot;Pre1986_AreaMid&quot;</span>   </span>
+<span id="cb8-19"><a href="settings.html#cb8-19"></a>[<span class="dv">49</span>] <span class="st">&quot;Pre1986_AreaMidS&quot;</span>   <span class="st">&quot;Pre1986_AreaNorth&quot;</span>  <span class="st">&quot;Pre1986_AreaNorthS&quot;</span></span>
+<span id="cb8-20"><a href="settings.html#cb8-20"></a>[<span class="dv">52</span>] <span class="st">&quot;Pre1986_AreaSouth&quot;</span>  <span class="st">&quot;Pre1986_AreaSouthS&quot;</span> <span class="st">&quot;STAR_Area98a&quot;</span>      </span>
+<span id="cb8-21"><a href="settings.html#cb8-21"></a>[<span class="dv">55</span>] <span class="st">&quot;STAR_Area98b&quot;</span>       <span class="st">&quot;STAR_AreaCore&quot;</span>      <span class="st">&quot;STAR_AreaCore2&quot;</span>    </span>
+<span id="cb8-22"><a href="settings.html#cb8-22"></a>[<span class="dv">58</span>] <span class="st">&quot;STAR_AreaCoreS&quot;</span>     <span class="st">&quot;STAR_AreaNCoast&quot;</span>    <span class="st">&quot;STAR_AreaNCstS&quot;</span>    </span>
+<span id="cb8-23"><a href="settings.html#cb8-23"></a>[<span class="dv">61</span>] <span class="st">&quot;STAR_AreaOuter&quot;</span>     <span class="st">&quot;STAR_AreaOuter00&quot;</span>   <span class="st">&quot;STAR_AreaSCoast&quot;</span>   </span>
+<span id="cb8-24"><a href="settings.html#cb8-24"></a>[<span class="dv">64</span>] <span class="st">&quot;STAR_AreaSCstS&quot;</span>     <span class="st">&quot;STAR_AreaSPn&quot;</span>       <span class="st">&quot;STAR_AreaSPs&quot;</span>      </span>
+<span id="cb8-25"><a href="settings.html#cb8-25"></a>[<span class="dv">67</span>] <span class="st">&quot;STAR_AreaSTAR&quot;</span>      <span class="st">&quot;STAR_AreaSTAR2&quot;</span>     <span class="st">&quot;STAR_AreaSTARlite&quot;</span> </span>
+<span id="cb8-26"><a href="settings.html#cb8-26"></a>[<span class="dv">70</span>] <span class="st">&quot;STAR_Dcaparea&quot;</span>     </span></code></pre></div>
+<p>The package includes functions for visualizing and selecting from these strata. See the <a href="stratagallery.html#stratagallery">Strata Gallery</a> appendix.</p>
+</div>
+<div id="study-area-polygon" class="section level2 unnumbered">
+<h2>Study area polygon</h2>
+<p>The <code>study_area</code> argument accepts a single <code>data.frame</code>, formatted the same as those for the <code>strata</code> argument, or a numeric value indicating the area of your study area in square km. If <code>study_area</code> is <code>NULL</code>, abundance will not be estimated; only density.</p>
+<p>Study area polygons can be provided in the same format as strata: a two-column <code>csv</code> (column names <code>Lon</code> and <code>Lat</code> with decimal-degree coordinates).</p>
+<p>A stock study area polygon is available for the CNP:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="settings.html#cb9-1"></a><span class="kw">data</span>(study_cnp) </span>
+<span id="cb9-2"><a href="settings.html#cb9-2"></a>study_cnp</span>
+<span id="cb9-3"><a href="settings.html#cb9-3"></a>   Lon   Lat</span>
+<span id="cb9-4"><a href="settings.html#cb9-4"></a><span class="dv">1</span> <span class="dv">-131</span> <span class="fl">40.00</span></span>
+<span id="cb9-5"><a href="settings.html#cb9-5"></a><span class="dv">2</span> <span class="dv">-126</span> <span class="fl">32.05</span></span>
+<span id="cb9-6"><a href="settings.html#cb9-6"></a><span class="dv">3</span> <span class="dv">-120</span> <span class="fl">25.00</span></span>
+<span id="cb9-7"><a href="settings.html#cb9-7"></a><span class="dv">4</span> <span class="dv">-120</span> <span class="fl">-5.00</span></span>
+<span id="cb9-8"><a href="settings.html#cb9-8"></a><span class="dv">5</span> <span class="dv">-185</span> <span class="fl">-5.00</span></span>
+<span id="cb9-9"><a href="settings.html#cb9-9"></a><span class="dv">6</span> <span class="dv">-185</span> <span class="fl">40.00</span></span>
+<span id="cb9-10"><a href="settings.html#cb9-10"></a><span class="dv">7</span> <span class="dv">-131</span> <span class="fl">40.00</span></span></code></pre></div>
+</div>
+<div id="survey-wide-settings" class="section level2 unnumbered">
+<h2>Survey-wide settings</h2>
+<p>Survey-wide settings apply universally to all species in the analysis.</p>
+<div id="defaults" class="section level3 unnumbered">
+<h3>Defaults</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="settings.html#cb10-1"></a>settings<span class="op">$</span>survey</span>
+<span id="cb10-2"><a href="settings.html#cb10-2"></a><span class="op">$</span>segment_method</span>
+<span id="cb10-3"><a href="settings.html#cb10-3"></a>[<span class="dv">1</span>] <span class="st">&quot;day&quot;</span></span>
+<span id="cb10-4"><a href="settings.html#cb10-4"></a></span>
+<span id="cb10-5"><a href="settings.html#cb10-5"></a><span class="op">$</span>segment_target_km</span>
+<span id="cb10-6"><a href="settings.html#cb10-6"></a>[<span class="dv">1</span>] <span class="dv">150</span></span>
+<span id="cb10-7"><a href="settings.html#cb10-7"></a></span>
+<span id="cb10-8"><a href="settings.html#cb10-8"></a><span class="op">$</span>segment_max_km_gap</span>
+<span id="cb10-9"><a href="settings.html#cb10-9"></a>[<span class="dv">1</span>] <span class="dv">5</span></span>
+<span id="cb10-10"><a href="settings.html#cb10-10"></a></span>
+<span id="cb10-11"><a href="settings.html#cb10-11"></a><span class="op">$</span>segment_max_interval</span>
+<span id="cb10-12"><a href="settings.html#cb10-12"></a>[<span class="dv">1</span>] <span class="dv">48</span></span>
+<span id="cb10-13"><a href="settings.html#cb10-13"></a></span>
+<span id="cb10-14"><a href="settings.html#cb10-14"></a><span class="op">$</span>segment_type_handling</span>
+<span id="cb10-15"><a href="settings.html#cb10-15"></a>[<span class="dv">1</span>] <span class="st">&quot;separate&quot;</span> <span class="st">&quot;pool&quot;</span>    </span>
+<span id="cb10-16"><a href="settings.html#cb10-16"></a></span>
+<span id="cb10-17"><a href="settings.html#cb10-17"></a><span class="op">$</span>segment_remainder_handling</span>
+<span id="cb10-18"><a href="settings.html#cb10-18"></a>[<span class="dv">1</span>] <span class="st">&quot;append&quot;</span>  <span class="st">&quot;segment&quot;</span></span>
+<span id="cb10-19"><a href="settings.html#cb10-19"></a></span>
+<span id="cb10-20"><a href="settings.html#cb10-20"></a><span class="op">$</span>ship_list</span>
+<span id="cb10-21"><a href="settings.html#cb10-21"></a><span class="ot">NULL</span></span>
+<span id="cb10-22"><a href="settings.html#cb10-22"></a></span>
+<span id="cb10-23"><a href="settings.html#cb10-23"></a><span class="op">$</span>species_codes</span>
+<span id="cb10-24"><a href="settings.html#cb10-24"></a><span class="ot">NULL</span></span>
+<span id="cb10-25"><a href="settings.html#cb10-25"></a></span>
+<span id="cb10-26"><a href="settings.html#cb10-26"></a><span class="op">$</span>group_size_coefficients</span>
+<span id="cb10-27"><a href="settings.html#cb10-27"></a><span class="ot">NULL</span></span>
+<span id="cb10-28"><a href="settings.html#cb10-28"></a></span>
+<span id="cb10-29"><a href="settings.html#cb10-29"></a><span class="op">$</span>smear_angles</span>
+<span id="cb10-30"><a href="settings.html#cb10-30"></a>[<span class="dv">1</span>] <span class="ot">FALSE</span></span>
+<span id="cb10-31"><a href="settings.html#cb10-31"></a></span>
+<span id="cb10-32"><a href="settings.html#cb10-32"></a><span class="op">$</span>random_seed</span>
+<span id="cb10-33"><a href="settings.html#cb10-33"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb10-34"><a href="settings.html#cb10-34"></a></span>
+<span id="cb10-35"><a href="settings.html#cb10-35"></a><span class="op">$</span>verbose</span>
+<span id="cb10-36"><a href="settings.html#cb10-36"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span></code></pre></div>
+<p>Defaults for the <code>survey</code> argument list are built up efficiently using the function <code>load_survey_settings()</code> (see example code at bottom).</p>
+</div>
+<div id="details" class="section level3 unnumbered">
+<h3>Details</h3>
+<p>The <code>survey_settings</code> input accepts a list with any of the following named slots:</p>
+<ul>
+<li><p><strong><code>segment_method:</code></strong> this argument controls how effort will be “segmentized”, or chopped into discrete sections for the purposes of estimating the variance of the abundance estimate. The two options are <code>"day"</code> – all effort within the same Cruise-StudyArea-Stratum-Year-Effort will be binned into segments by calendar date – and <code>"equallength"</code> – effort within each unique effort scenario (Cruise-StudyArea-etc.) will be divided into segments of approximately equal length.</p></li>
+<li><p><strong><code>segment_target_km:</code></strong> if segmenting by <code>"equallength"</code>, this field allows you to specify what that target length is, in km.</p></li>
+<li><p><strong><code>segment_max_km_gap:</code></strong> the segmentizing function works by calculating the distance between each row of <code>DAS</code> data. If that distance exceeds the length specified here (e.g., 5 km), the function will assume that there was a break in effort.</p></li>
+<li><p><strong><code>segment_max_interval:</code></strong> if segmentizing by <code>"equallength"</code>, this setting allows you to specify the time gaps in effort contained within a single segment. For example, if your goal is a few large segments of equal length (e.g., 150-km segments, for bootstrap estimation of density variance), you are probably willing for discrete periods of effort to be concatenated into a single segment, even if the gaps between effort are as large as 1 or 2 days, in which case you would set <code>segment_max_interval</code> to 24 or 48 (hours), respectively. However, if your goal is many smaller segments (e.g., 5-km segments, for habitat modeling), you want to ensure that effort is contiguous so that segment locations can be accurately related to environmental variables, in which case you would set <code>segment_max_interval</code> to be very small (e.g., .1 or 6 minutes).</p></li>
+<li><p><strong><code>segment_type_handling:</code></strong> if <code>"pool"</code>, all effort types that qualify as valid according to <code>cohort_settings</code> (see next section) will be pooled together, making it possible for different effort types to occur in the same segment (e.g., <code>EffType</code>’s “<code>S</code>” and “<code>F</code>” are allowed to occur in the same segment; if this argument is <code>"separate"</code>, segments will only be allowed to contain a single effort type.</p></li>
+<li><p><strong><code>segment_remainder_handling:</code></strong> if segmentizing by <code>"equallength"</code>, periods of contiguous effort (as specified by <code>segment_max_interval</code>) are unlikely to be perfectly divisible by your <code>segment_target_km</code>; there is going to be a remainder. You can handle this remainder in various ways: (1) <code>"disperse"</code> allows the function to adjust <code>segment_target_km</code> so that there is in fact no remainder, effectively dispersing the remainder evenly across all segments within that period of contiguous effort; (2) <code>"append"</code> asks the function to append the remainder to a randomly selected segment; (3) <code>"segment"</code> asks the function to simply place the remainder in its own segment, placed randomly within the period of contiguous effort. Note that this setting has a second layer of versatility, because it can accept a one- or two-element character vector. If a two-element vector is provided (e.g., <code>c("append","segment")</code>), the first element will be used in the event that the remainder is less than or equal to half <code>segment_target_km</code>; if the remainder is more than half that target length, the second element will be used. This feature allows for replication of the segmentizing methods in <a href="https://www.int-res.com/abstracts/meps/v413/p163-183/">Becker et al. (2010)</a>.</p></li>
+<li><p><strong><code>ship_list:</code></strong> A <code>data.frame</code> containing a list of ship names. If not provided the default version, which was current as of the release of <code>ABUND9</code> in 2020, will be used (<code>data(ships)</code>). Supplied <code>data.frames</code> must match the column naming structure of <code>data(ships)</code>. (<em>Note: the purpose of this argument in the <code>INP</code> file is not clear to me; need to understand how/why to include this. – eric</em>)</p></li>
+<li><p><strong><code>species_codes:</code></strong> A <code>data.frame</code> containing species codes. If not provided the default version, which was current as of the release of <code>ABUND9</code> in 2020, will be used (<code>data(species_codes)</code>). Supplied <code>data.frames</code> must match the column naming structure of <code>data(species_codes)</code>.</p></li>
+<li><p><strong><code>group_size_coefficients:</code></strong> A <code>data.frame</code> of calibration factors. <em>NOTE: details needed here.</em></p></li>
+<li><p><strong><code>smear_angles:</code></strong> If <code>TRUE</code> (the default is <code>FALSE</code>), bearing angles to a group of animals will be “smeared” by adding a uniformly distributed random number between -5 and +5 degrees. This has not been used in any recent analyses because observers have not been rounding angles as much. It was suggested by Buckland as a method for dealing with rounding which is especially influential when rounding to zero places many sightings at zero perpendicular distance.</p></li>
+<li><p><strong><code>random_seed:</code></strong> a number used as the seed for stages involving random number generation. If not <code>NULL</code>, the results will be exactly reproducible. Default is <code>833171</code> (<em>sensu</em> example code in <code>ABUND9</code>).</p></li>
+<li><p><strong><code>verbose:</code></strong> If <code>TRUE</code> (the default), status updates will be printed to the <code>R</code> console.</p></li>
+</ul>
+</div>
+</div>
+<div id="cohort-specific-settings" class="section level2 unnumbered">
+<h2>Cohort-specific settings</h2>
+<p>Cohort-specific settings apply only to a group of species.</p>
+<div id="defaults-1" class="section level3 unnumbered">
+<h3>Defaults</h3>
+<p>The default is to use a single cohort for all species:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="settings.html#cb11-1"></a>settings<span class="op">$</span>cohorts <span class="op">%&gt;%</span><span class="st"> </span>names</span>
+<span id="cb11-2"><a href="settings.html#cb11-2"></a>[<span class="dv">1</span>] <span class="st">&quot;default&quot;</span></span></code></pre></div>
+<p>Default values for the <code>default</code> cohort:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="settings.html#cb12-1"></a>settings<span class="op">$</span>cohorts<span class="op">$</span>default</span>
+<span id="cb12-2"><a href="settings.html#cb12-2"></a><span class="op">$</span>id</span>
+<span id="cb12-3"><a href="settings.html#cb12-3"></a>[<span class="dv">1</span>] <span class="st">&quot;default&quot;</span></span>
+<span id="cb12-4"><a href="settings.html#cb12-4"></a></span>
+<span id="cb12-5"><a href="settings.html#cb12-5"></a><span class="op">$</span>species</span>
+<span id="cb12-6"><a href="settings.html#cb12-6"></a><span class="ot">NULL</span></span>
+<span id="cb12-7"><a href="settings.html#cb12-7"></a></span>
+<span id="cb12-8"><a href="settings.html#cb12-8"></a><span class="op">$</span>probable_species</span>
+<span id="cb12-9"><a href="settings.html#cb12-9"></a>[<span class="dv">1</span>] <span class="ot">FALSE</span></span>
+<span id="cb12-10"><a href="settings.html#cb12-10"></a></span>
+<span id="cb12-11"><a href="settings.html#cb12-11"></a><span class="op">$</span>sighting_method</span>
+<span id="cb12-12"><a href="settings.html#cb12-12"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
+<span id="cb12-13"><a href="settings.html#cb12-13"></a></span>
+<span id="cb12-14"><a href="settings.html#cb12-14"></a><span class="op">$</span>cue_range</span>
+<span id="cb12-15"><a href="settings.html#cb12-15"></a>[<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span></span>
+<span id="cb12-16"><a href="settings.html#cb12-16"></a></span>
+<span id="cb12-17"><a href="settings.html#cb12-17"></a><span class="op">$</span>school_size_range</span>
+<span id="cb12-18"><a href="settings.html#cb12-18"></a>[<span class="dv">1</span>]     <span class="dv">0</span> <span class="dv">10000</span></span>
+<span id="cb12-19"><a href="settings.html#cb12-19"></a></span>
+<span id="cb12-20"><a href="settings.html#cb12-20"></a><span class="op">$</span>use_low_if_na</span>
+<span id="cb12-21"><a href="settings.html#cb12-21"></a>[<span class="dv">1</span>] <span class="ot">FALSE</span></span>
+<span id="cb12-22"><a href="settings.html#cb12-22"></a></span>
+<span id="cb12-23"><a href="settings.html#cb12-23"></a><span class="op">$</span>io_sightings</span>
+<span id="cb12-24"><a href="settings.html#cb12-24"></a>[<span class="dv">1</span>] <span class="dv">0</span></span>
+<span id="cb12-25"><a href="settings.html#cb12-25"></a></span>
+<span id="cb12-26"><a href="settings.html#cb12-26"></a><span class="op">$</span>geometric_mean_group</span>
+<span id="cb12-27"><a href="settings.html#cb12-27"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb12-28"><a href="settings.html#cb12-28"></a></span>
+<span id="cb12-29"><a href="settings.html#cb12-29"></a><span class="op">$</span>truncation_km</span>
+<span id="cb12-30"><a href="settings.html#cb12-30"></a>[<span class="dv">1</span>] <span class="fl">5.5</span></span>
+<span id="cb12-31"><a href="settings.html#cb12-31"></a></span>
+<span id="cb12-32"><a href="settings.html#cb12-32"></a><span class="op">$</span>beaufort_range</span>
+<span id="cb12-33"><a href="settings.html#cb12-33"></a>[<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span></span>
+<span id="cb12-34"><a href="settings.html#cb12-34"></a></span>
+<span id="cb12-35"><a href="settings.html#cb12-35"></a><span class="op">$</span>abeam_sightings</span>
+<span id="cb12-36"><a href="settings.html#cb12-36"></a>[<span class="dv">1</span>] <span class="ot">FALSE</span></span>
+<span id="cb12-37"><a href="settings.html#cb12-37"></a></span>
+<span id="cb12-38"><a href="settings.html#cb12-38"></a><span class="op">$</span>strata_overlap_handling</span>
+<span id="cb12-39"><a href="settings.html#cb12-39"></a>[<span class="dv">1</span>] <span class="st">&quot;smallest&quot;</span> <span class="st">&quot;largest&quot;</span>  <span class="st">&quot;each&quot;</span>    </span>
+<span id="cb12-40"><a href="settings.html#cb12-40"></a></span>
+<span id="cb12-41"><a href="settings.html#cb12-41"></a><span class="op">$</span>density_types</span>
+<span id="cb12-42"><a href="settings.html#cb12-42"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb12-43"><a href="settings.html#cb12-43"></a></span>
+<span id="cb12-44"><a href="settings.html#cb12-44"></a><span class="op">$</span>density_modes</span>
+<span id="cb12-45"><a href="settings.html#cb12-45"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb12-46"><a href="settings.html#cb12-46"></a></span>
+<span id="cb12-47"><a href="settings.html#cb12-47"></a><span class="op">$</span>density_on_off</span>
+<span id="cb12-48"><a href="settings.html#cb12-48"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb12-49"><a href="settings.html#cb12-49"></a></span>
+<span id="cb12-50"><a href="settings.html#cb12-50"></a><span class="op">$</span>distance_types</span>
+<span id="cb12-51"><a href="settings.html#cb12-51"></a><span class="ot">NULL</span></span>
+<span id="cb12-52"><a href="settings.html#cb12-52"></a></span>
+<span id="cb12-53"><a href="settings.html#cb12-53"></a><span class="op">$</span>distance_modes</span>
+<span id="cb12-54"><a href="settings.html#cb12-54"></a><span class="ot">NULL</span></span>
+<span id="cb12-55"><a href="settings.html#cb12-55"></a></span>
+<span id="cb12-56"><a href="settings.html#cb12-56"></a><span class="op">$</span>distance_on_off</span>
+<span id="cb12-57"><a href="settings.html#cb12-57"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span></code></pre></div>
+<p>Defaults for the <code>cohorts</code> argument list is built up efficiently using the function <code>load_cohort_settings()</code> (see example code at bottom).</p>
+</div>
+<div id="details-1" class="section level3 unnumbered">
+<h3>Details</h3>
+<p>The <code>cohort_settings</code> input accepts a list of any length. Each slot in that list can contain settings for a different cohort. Each cohort list can have any of the following named slots:</p>
+<ul>
+<li><p><strong><code>id:</code></strong> An informal identifier for this cohort, to help you keep track of which cohort is which. For example, settings for a cohort of large whales species could be named <code>"big whales"</code>; settings for small delphinids and phocoenids could be named <code>"small_odontocetes"</code>; settings for beaked whales could be named <code>"beakers"</code>.</p></li>
+<li><p><strong><code>species:</code></strong> A vector of species codes to include in this cohort. If <code>NULL</code> (the default), all species will be included.</p></li>
+<li><p><strong><code>probable_species:</code></strong> If <code>TRUE</code> (default is <code>FALSE</code>), the “probable” species identifications will be used in place of the “unidentified” categories. The probable species codes are marked with an event code “?” in the data file following the “S” and “A” event codes of a sighting.</p></li>
+<li><p><strong><code>sighting_method:</code></strong> A coded integer which determines which sightings will be included based on how they were first seen. Allowable codes are 0=any method, 1=with 25X only, 2=not with 25X binos and not from helo (ie. naked eyes and 7x).</p></li>
+<li><p><strong><code>cue_range:</code></strong> Numeric vector of acceptable “observation cues” for sightings used in estimates of abundance. (0=MISSNG, 1=BRD, 2=SPLSH, 3=MAMM, 4=SHIP, 5=?, 6=BLOW, 7=HELO)</p></li>
+<li><p><strong><code>school_size_range:</code></strong> Minimum and maximum group sizes to be included in estimates of abundance. This is the overall group size, not the number of the given species that are present in a group.</p></li>
+<li><p><strong><code>use_low_if_na:</code></strong> If an observer does not make a best estimate of group size, mean group size will be calculated from “low” estimates. This will be done only if no observer has a “best” estimate.</p></li>
+<li><p><strong><code>io_sightings:</code></strong> A coded integer which specifies how sightings by the independent observer will be handled. Allowable codes are <code>_1</code>=include independent observer sightings wih all other sightings, <code>0</code>=ignore sightings by independent observer, <code>1</code>=use only sightings made by regular observer team WHEN an independent observer was present, <code>2</code>=include only sightings made by the independent observer. Used for making g(0) estimates only, otherwise IO sightings are usually ignored (code = <code>0</code>).</p></li>
+<li><p><strong><code>geometric_mean_group:</code></strong> This logical variable specifies whether to use a weighted geometric mean when calculating mean group size. Barlow, Gerrodette, and Perryman (1998) found that this gave slightly better performance than a straight mean group size. Default is <code>TRUE</code>.</p></li>
+<li><p><strong><code>truncation_km:</code></strong> Specifies the maximum perpendicular distance for groups that are to be included for abundance estimation. Also determines the bins used for grouped perpendicular distances.</p></li>
+<li><p><strong><code>beaufort_range:</code></strong> Vector of Beaufort sea states (integers) that are acceptable in estimating the detection function and density. Beaufort data with a decimal place will be rounded to the nearest integer to evaluate for inclusion.</p></li>
+<li><p><strong><code>abeam_sightings:</code></strong> = If <code>TRUE</code>, sightings that occur aft of beam are included in estimating the detectin function and densities. Default is <code>FALSE</code>: all abeam sightings will be ignored.</p></li>
+<li><p><strong><code>strata_overlap_handling:</code></strong> In the event that survey strata overlap, this setting tells <code>R</code> how to handle it. The options are <code>"smallest"</code> (the default), in which effort can belong to only a single stratum, and the smallest of overlapping strata will be used (e.g., an insular polygon nested within a larger EEZ polygon); <code>"largest"</code>, in which effort can belong to only a single stratum and the largest of overlapping strata will be used (we are not sure what use case this would server, but we offer it as an option for niche analyses); and <code>"each"</code>, in which each effort is allowed to belong to two or more strata at once and all analyses will be conducted for each overlapping polygon separately (e.g., this may be appropriate for nested strata in which you want to estimate density in the entirety of the larger stratum in addition to estimating density for the nested stratum).</p></li>
+<li><p><strong><code>density_types:</code></strong> A character vector of the effort types that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing. Accepted values are <code>"S"</code> (systematic/standard effort), <code>"F"</code> (fine-scale effort), and <code>"N"</code> (non-systematic/non-standard effort, in which systematic protocols are being used but effort is not occurring along design-based transect routes). The default values are <code>c("S","F")</code>.</p></li>
+<li><p><strong><code>density_modes:</code></strong> The effort modes that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing. Accepted values are <code>"P"</code> (passing) and <code>"C"</code> (closing), and the default values are <code>c("P","C")</code>.</p></li>
+<li><p><strong><code>density_on_off:</code></strong> The value(s) of <code>OnEffort</code> (On Effort is <code>TRUE</code>, Off Effort is <code>FALSE</code>) that will included in detection function estimation and density estimation, and therefore considered in effort segmentizing. Default is <code>TRUE</code> only.</p></li>
+<li><p><strong><code>distance_types:</code></strong> If effort types are specified in this argument, this selection will be used to filter data for estimation of the detection function. If left <code>NULL</code> (the default), the argument <code>density_types</code> will be used. This option will be rarely used, but it may prove helpful in cases in which sightings for a species are so few that including all effort types (<code>c('S','F','N')</code>) may be justifiable for estimating the detection function, even if only <code>'S'</code> and <code>'F'</code> are used for density estimation.</p></li>
+<li><p><strong><code>distance_modes:</code></strong> Same idea as <code>distance_types</code> above, but for effort modes (Passing / Closing).</p></li>
+<li><p><strong><code>distance_on_off:</code></strong> Same idea as <code>distance_types</code> above, but for <code>OnEffort</code> status (<code>TRUE</code> or <code>FALSE</code>).</p></li>
+</ul>
+</div>
+</div>
+<div id="example-code" class="section level2 unnumbered">
+<h2>Example code</h2>
+<div id="use-settings-defaults-no-strata" class="section level3 unnumbered">
+<h3>Use settings defaults (no strata)</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="settings.html#cb13-1"></a>settings &lt;-<span class="st"> </span><span class="kw">load_settings</span>()</span></code></pre></div>
+</div>
+<div id="use-settings-defaults-with-strata" class="section level3 unnumbered">
+<h3>Use settings defaults with strata</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="settings.html#cb14-1"></a><span class="co"># Load strata dataframes</span></span>
+<span id="cb14-2"><a href="settings.html#cb14-2"></a><span class="kw">data</span>(strata_cnp)</span>
+<span id="cb14-3"><a href="settings.html#cb14-3"></a><span class="kw">data</span>(study_cnp)</span>
+<span id="cb14-4"><a href="settings.html#cb14-4"></a></span>
+<span id="cb14-5"><a href="settings.html#cb14-5"></a>settings &lt;-<span class="st"> </span><span class="kw">load_settings</span>(<span class="dt">strata =</span> strata_cnp,</span>
+<span id="cb14-6"><a href="settings.html#cb14-6"></a>                          <span class="dt">study_area =</span> study_cnp)</span></code></pre></div>
+</div>
+<div id="customize-survey-but-not-cohorts" class="section level3 unnumbered">
+<h3>Customize survey, but not cohorts</h3>
+<p>When a cohort is not specified, the default values will be used.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="settings.html#cb15-1"></a><span class="co"># Load strata dataframes</span></span>
+<span id="cb15-2"><a href="settings.html#cb15-2"></a><span class="kw">data</span>(strata_cnp)</span>
+<span id="cb15-3"><a href="settings.html#cb15-3"></a><span class="kw">data</span>(study_cnp)</span>
+<span id="cb15-4"><a href="settings.html#cb15-4"></a></span>
+<span id="cb15-5"><a href="settings.html#cb15-5"></a><span class="co"># Survey settings</span></span>
+<span id="cb15-6"><a href="settings.html#cb15-6"></a>survey &lt;-<span class="st"> </span></span>
+<span id="cb15-7"><a href="settings.html#cb15-7"></a><span class="st">  </span><span class="kw">load_survey_settings</span>(<span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb15-8"><a href="settings.html#cb15-8"></a>                       <span class="dt">segment_target_km =</span> <span class="dv">30</span>,</span>
+<span id="cb15-9"><a href="settings.html#cb15-9"></a>                       <span class="dt">segment_max_km_gap =</span> <span class="dv">5</span>,</span>
+<span id="cb15-10"><a href="settings.html#cb15-10"></a>                       <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
+<span id="cb15-11"><a href="settings.html#cb15-11"></a>                       <span class="dt">segment_type_handling =</span> <span class="st">&#39;separate&#39;</span>,</span>
+<span id="cb15-12"><a href="settings.html#cb15-12"></a>                       <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
+<span id="cb15-13"><a href="settings.html#cb15-13"></a>                       <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb15-14"><a href="settings.html#cb15-14"></a></span>
+<span id="cb15-15"><a href="settings.html#cb15-15"></a><span class="co"># Load settings</span></span>
+<span id="cb15-16"><a href="settings.html#cb15-16"></a>settings &lt;-<span class="st"> </span><span class="kw">load_settings</span>(<span class="dt">strata =</span> strata_cnp,</span>
+<span id="cb15-17"><a href="settings.html#cb15-17"></a>                          <span class="dt">study_area =</span> study_cnp,</span>
+<span id="cb15-18"><a href="settings.html#cb15-18"></a>                          survey)</span></code></pre></div>
+</div>
+<div id="fully-custom-strata-study-area-survey-and-cohorts" class="section level3 unnumbered">
+<h3>Fully custom: strata, study area, survey and cohorts</h3>
+<p>These are the settings we will use in the remainder of the tutorial:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="settings.html#cb16-1"></a><span class="co"># Load strata</span></span>
+<span id="cb16-2"><a href="settings.html#cb16-2"></a><span class="kw">data</span>(strata_cnp)</span>
+<span id="cb16-3"><a href="settings.html#cb16-3"></a><span class="kw">data</span>(study_cnp)</span>
+<span id="cb16-4"><a href="settings.html#cb16-4"></a></span>
+<span id="cb16-5"><a href="settings.html#cb16-5"></a><span class="co"># Survey settings</span></span>
+<span id="cb16-6"><a href="settings.html#cb16-6"></a>survey &lt;-<span class="st"> </span></span>
+<span id="cb16-7"><a href="settings.html#cb16-7"></a><span class="st">  </span><span class="kw">load_survey_settings</span>(<span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb16-8"><a href="settings.html#cb16-8"></a>                       <span class="dt">segment_target_km =</span> <span class="dv">30</span>,</span>
+<span id="cb16-9"><a href="settings.html#cb16-9"></a>                       <span class="dt">segment_max_km_gap =</span> <span class="dv">5</span>,</span>
+<span id="cb16-10"><a href="settings.html#cb16-10"></a>                       <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
+<span id="cb16-11"><a href="settings.html#cb16-11"></a>                       <span class="dt">segment_type_handling =</span> <span class="st">&#39;separate&#39;</span>,</span>
+<span id="cb16-12"><a href="settings.html#cb16-12"></a>                       <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
+<span id="cb16-13"><a href="settings.html#cb16-13"></a>                       <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb16-14"><a href="settings.html#cb16-14"></a></span>
+<span id="cb16-15"><a href="settings.html#cb16-15"></a><span class="co"># Cohort 1 (default)</span></span>
+<span id="cb16-16"><a href="settings.html#cb16-16"></a>cohort1 &lt;-<span class="st"> </span><span class="kw">load_cohort_settings</span>()</span>
+<span id="cb16-17"><a href="settings.html#cb16-17"></a></span>
+<span id="cb16-18"><a href="settings.html#cb16-18"></a><span class="co"># Cohort 2</span></span>
+<span id="cb16-19"><a href="settings.html#cb16-19"></a>cohort2 &lt;-<span class="st"> </span></span>
+<span id="cb16-20"><a href="settings.html#cb16-20"></a><span class="st">  </span><span class="kw">load_cohort_settings</span>(<span class="dt">id=</span><span class="st">&#39;fkw_insular&#39;</span>,</span>
+<span id="cb16-21"><a href="settings.html#cb16-21"></a>                       <span class="dt">species=</span><span class="dv">33</span>,</span>
+<span id="cb16-22"><a href="settings.html#cb16-22"></a>                       <span class="dt">use_low_if_na =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb16-23"><a href="settings.html#cb16-23"></a>                       <span class="dt">truncation_km =</span> <span class="dv">5</span>,</span>
+<span id="cb16-24"><a href="settings.html#cb16-24"></a>                       <span class="dt">strata_overlap_handling =</span> <span class="st">&#39;each&#39;</span>)</span>
+<span id="cb16-25"><a href="settings.html#cb16-25"></a></span>
+<span id="cb16-26"><a href="settings.html#cb16-26"></a><span class="co"># Load settings</span></span>
+<span id="cb16-27"><a href="settings.html#cb16-27"></a>settings &lt;-<span class="st"> </span><span class="kw">load_settings</span>(<span class="dt">strata =</span> strata_cnp,</span>
+<span id="cb16-28"><a href="settings.html#cb16-28"></a>                          <span class="dt">study_area =</span> study_cnp,</span>
+<span id="cb16-29"><a href="settings.html#cb16-29"></a>                          <span class="dt">survey =</span> survey,</span>
+<span id="cb16-30"><a href="settings.html#cb16-30"></a>                          <span class="dt">cohorts=</span><span class="kw">list</span>(cohort1,</span>
+<span id="cb16-31"><a href="settings.html#cb16-31"></a>                                       cohort2))</span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="install.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="processing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/emk-noaa/emk-noaa.github.io02-settings.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["vignette.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

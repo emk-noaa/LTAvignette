@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 4 Data processing | vignette</title>
+  <meta name="description" content=" 4 Data processing | vignette" />
+  <meta name="generator" content="bookdown 0.24.3 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 4 Data processing | vignette" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content=" 4 Data processing | vignette" />
+  <meta name="github-repo" content="emk-noaa/emk-noaa.github.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 4 Data processing | vignette" />
+  
+  <meta name="twitter:description" content=" 4 Data processing | vignette" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="settings.html"/>
+<link rel="next" href="maps.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">WinCruz analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Status</a></li>
+<li class="chapter" data-level="2" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>2</b> Install <code>LTabundR</code></a><ul>
+<li class="chapter" data-level="" data-path="install.html"><a href="install.html#option-1-install-from-github"><i class="fa fa-check"></i>Option 1: Install from GitHub</a></li>
+<li class="chapter" data-level="" data-path="install.html"><a href="install.html#option-2-install-locally"><i class="fa fa-check"></i>Option 2: Install locally</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="settings.html"><a href="settings.html"><i class="fa fa-check"></i><b>3</b> Settings</a><ul>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#survey-strata"><i class="fa fa-check"></i>Survey strata</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#study-area-polygon"><i class="fa fa-check"></i>Study area polygon</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#survey-wide-settings"><i class="fa fa-check"></i>Survey-wide settings</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#cohort-specific-settings"><i class="fa fa-check"></i>Cohort-specific settings</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#example-code"><i class="fa fa-check"></i>Example code</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>4</b> Data processing</a><ul>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#bring-in-cruise-data"><i class="fa fa-check"></i>Bring in cruise data</a></li>
+<li><a href="processing.html#format-das-data">Format <code>DAS</code> data</a></li>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#process-strata"><i class="fa fa-check"></i>Process strata</a></li>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#segmentize-the-data"><i class="fa fa-check"></i>Segmentize the data</a></li>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#process-sightings"><i class="fa fa-check"></i>Process sightings</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>5</b> Maps</a><ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#base-maps"><i class="fa fa-check"></i>Base maps</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-strata"><i class="fa fa-check"></i>Add strata</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-survey-tracks"><i class="fa fa-check"></i>Add survey tracks</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#customizing-effort"><i class="fa fa-check"></i>Customizing effort</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey</a></li>
+<li class="chapter" data-level="7" data-path="df.html"><a href="df.html"><i class="fa fa-check"></i><b>7</b> Detection functions</a></li>
+<li class="chapter" data-level="8" data-path="abundance.html"><a href="abundance.html"><i class="fa fa-check"></i><b>8</b> Abundance estimation</a></li>
+<li class="chapter" data-level="9" data-path="casestudies.html"><a href="casestudies.html"><i class="fa fa-check"></i><b>9</b> Case studies</a><ul>
+<li class="chapter" data-level="" data-path="casestudies.html"><a href="casestudies.html#central-north-pacific"><i class="fa fa-check"></i>Central North Pacific</a></li>
+<li class="chapter" data-level="" data-path="casestudies.html"><a href="casestudies.html#california-current-system"><i class="fa fa-check"></i>California Current System</a></li>
+<li class="chapter" data-level="" data-path="casestudies.html"><a href="casestudies.html#eastern-tropical-pacific"><i class="fa fa-check"></i>Eastern Tropical Pacific</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="practicalities.html"><a href="practicalities.html"><i class="fa fa-check"></i><b>10</b> Practicalities</a></li>
+<li class="chapter" data-level="11" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>11</b> Appendix: Strata gallery</a><ul>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#central-north-pacific-1"><i class="fa fa-check"></i>Central North Pacific</a></li>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#california-current"><i class="fa fa-check"></i>California Current</a></li>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#etp"><i class="fa fa-check"></i>ETP</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>12</b> Appendix: Segmentizing</a><ul>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#defaults-2"><i class="fa fa-check"></i>Defaults</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#day-vs-equal-length"><i class="fa fa-check"></i>Day vs Equal Length</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#contiguous-vs.-non-contiguous-effort"><i class="fa fa-check"></i>Contiguous vs. non-contiguous effort</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#segment-remainder-handling"><i class="fa fa-check"></i>Segment remainder handling</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#typical-settings"><i class="fa fa-check"></i>Typical settings</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="backlog.html"><a href="backlog.html"><i class="fa fa-check"></i><b>13</b> Appendix: Backlog</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/emk-noaa/emk-noaa.github.io" target="blank">Eric & Amanda</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">vignette</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="processing" class="section level1">
+<h1><span class="header-section-number"> 4</span> Data processing</h1>
+<div id="bring-in-cruise-data" class="section level2 unnumbered">
+<h2>Bring in cruise data</h2>
+<p>Specify the path to your <code>.DAS</code> data file(s):</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="processing.html#cb17-1"></a>das_file &lt;-<span class="st"> &#39;data/surveys/HICEASwinter2020.das&#39;</span></span></code></pre></div>
+<p>Read in and process this <code>.DAS</code> file using the functions in Sam’s <code>swfscDAS</code> package. To do so quickly, we built a wrapper function that makes this quick and easy:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="processing.html#cb18-1"></a>das &lt;-<span class="st"> </span><span class="kw">load_das</span>(das_file, </span>
+<span id="cb18-2"><a href="processing.html#cb18-2"></a>                <span class="dt">perform_checks =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb18-3"><a href="processing.html#cb18-3"></a>                <span class="dt">print_glimpse =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>Cruise numbers: 
+2001 &lt;NA&gt; 
+  48    0 
+Rows: 22,486
+Columns: 40
+$ Event     &lt;chr&gt; &quot;*&quot;, &quot;*&quot;, &quot;*&quot;, &quot;*&quot;, &quot;*&quot;, &quot;*&quot;, &quot;*&quot;, &quot;*&quot;, &quot;*&quot;, &quot;*&quot;, &quot;B&quot;, &quot;R&quot;, …
+$ DateTime  &lt;dttm&gt; 2020-01-19 07:11:52, 2020-01-19 07:13:52, 2020-01-19 07:15:…
+$ Lat       &lt;dbl&gt; 21.79983, 21.80517, 21.81050, 21.81583, 21.82133, 21.82667, …
+$ Lon       &lt;dbl&gt; -159.7652, -159.7657, -159.7662, -159.7668, -159.7673, -159.…
+$ OnEffort  &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALS…
+$ Cruise    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 2001, 2001, 2001, 20…
+$ Mode      &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;C&quot;, &quot;C&quot;, &quot;C&quot;, &quot;C&quot;, …
+$ OffsetGMT &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, -10, -10, -10, -10, …
+$ EffType   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;F&quot;, &quot;F&quot;, &quot;F&quot;, &quot;…
+$ ESWsides  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 2, 2, 2, 2, 2, 2…
+$ Course    &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 350,…
+$ SpdKt     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 9.9,…
+$ Bft       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 4, 4, 4,…
+$ SwellHght &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 6, 6, 6,…
+$ WindSpdKt &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 15, 15, …
+$ RainFog   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ HorizSun  &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ VertSun   &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Glare     &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Vis       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ ObsL      &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;126&quot;, &quot;126&quot;…
+$ Rec       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;307&quot;, &quot;307&quot;…
+$ ObsR      &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;238&quot;, &quot;238&quot;…
+$ ObsInd    &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Data1     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;2001&quot;, &quot;F&quot;, &quot;126&quot;, …
+$ Data2     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;C&quot;, NA, &quot;307&quot;, &quot;06&quot;…
+$ Data3     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;-10&quot;, NA, &quot;238&quot;, &quot;1…
+$ Data4     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;N&quot;, NA, NA, NA, NA,…
+$ Data5     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;15.0&quot;, …
+$ Data6     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Data7     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Data8     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Data9     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Data10    &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Data11    &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Data12    &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ EffortDot &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALS…
+$ EventNum  &lt;chr&gt; &quot;001&quot;, &quot;002&quot;, &quot;003&quot;, &quot;004&quot;, &quot;005&quot;, &quot;006&quot;, &quot;007&quot;, &quot;008&quot;, &quot;009…
+$ file_das  &lt;chr&gt; &quot;HICEASwinter2020.das&quot;, &quot;HICEASwinter2020.das&quot;, &quot;HICEASwinte…
+$ line_num  &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…</code></pre>
+</div>
+<div id="format-das-data" class="section level2 unnumbered">
+<h2>Format <code>DAS</code> data</h2>
+<p>Finalize formatting: remove rows with invalid locations and calculate the distance, in km, between each row of data. Other refinements can be added to this function later on.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="processing.html#cb20-1"></a>das &lt;-<span class="st"> </span><span class="kw">format_das</span>(das, settings)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="processing.html#cb21-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb21-2"><a href="processing.html#cb21-2"></a><span class="kw">hist</span>(das<span class="op">$</span>km_int, <span class="dt">xlab=</span><span class="st">&#39;KM between each DAS row&#39;</span>, </span>
+<span id="cb21-3"><a href="processing.html#cb21-3"></a>     <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">breaks=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="kw">max</span>(das<span class="op">$</span>km_int),<span class="dt">length=</span><span class="dv">100</span>))</span>
+<span id="cb21-4"><a href="processing.html#cb21-4"></a><span class="kw">plot</span>(das<span class="op">$</span>km_cum, <span class="dt">ylab=</span><span class="st">&#39;Cumulative KM surveyed&#39;</span>, <span class="dt">main=</span><span class="ot">NULL</span>, <span class="dt">type=</span><span class="st">&#39;l&#39;</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-22-1.png" width="768" /></p>
+</div>
+<div id="process-strata" class="section level2 unnumbered">
+<h2>Process strata</h2>
+<p>Run the following function to add strata and study-area information to each sub-segment of effort:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="processing.html#cb22-1"></a>cruz &lt;-<span class="st"> </span><span class="kw">process_strata</span>(das, settings)</span>
+<span id="cb22-2"><a href="processing.html#cb22-2"></a>Spherical <span class="kw">geometry</span> (s2) switched off</span></code></pre></div>
+<p>This function loops through each stratum <code>data.frame</code> you have provided it in <code>settings$strata</code>, formats the stratum, and asks whether each DAS row occurs within it. For each stratum, a column named <code>stratum_&lt;StratumName&gt;</code> is added to the <code>das</code> object; each row in this column is <code>TRUE</code> (included) or <code>FALSE</code>.</p>
+<p>A similar procedure is run if a dataframe is provided in <code>settings$study_area</code>. A column named <code>study_area</code> is added to <code>das</code> containing a boolean (<code>TRUE</code> if the sub-segment or sighting occurs within the study area).</p>
+<p>The function then loops through each species cohort and uses that cohort’s settings to determine a single stratum assignment for each row of <code>DAS</code> data in the event of overlapping strata. The key cohort setting referenced here is <code>stratum_overlap_handling</code>.</p>
+<div id="the-cruz-object" class="section level3 unnumbered">
+<h3>The <code>cruz</code> object</h3>
+<p>The function <code>process_strata()</code> returns a list, which we have saved in an object named <code>cruz</code>, with several slots:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="processing.html#cb23-1"></a>cruz <span class="op">%&gt;%</span><span class="st"> </span>names</span>
+<span id="cb23-2"><a href="processing.html#cb23-2"></a>[<span class="dv">1</span>] <span class="st">&quot;das&quot;</span>        <span class="st">&quot;settings&quot;</span>   <span class="st">&quot;strata&quot;</span>     <span class="st">&quot;study_area&quot;</span> <span class="st">&quot;cohorts&quot;</span>   </span></code></pre></div>
+<p>The slots <code>strata</code> and <code>study_area</code> provide the area, in square km, of each polygon being used:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="processing.html#cb24-1"></a>cruz<span class="op">$</span>strata</span>
+<span id="cb24-2"><a href="processing.html#cb24-2"></a>   stratum       area</span>
+<span id="cb24-3"><a href="processing.html#cb24-3"></a><span class="dv">1</span>   HI_EEZ  <span class="fl">2491447.3</span></span>
+<span id="cb24-4"><a href="processing.html#cb24-4"></a><span class="dv">2</span>  WHICEAS   <span class="fl">419789.2</span></span>
+<span id="cb24-5"><a href="processing.html#cb24-5"></a><span class="dv">3</span> OtherCNP <span class="fl">34232739.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="processing.html#cb25-1"></a>cruz<span class="op">$</span>study_area</span>
+<span id="cb25-2"><a href="processing.html#cb25-2"></a>[<span class="dv">1</span>] <span class="dv">34232739</span></span></code></pre></div>
+<p>The slot <code>cohorts</code> is itself a list with one slot for each cohort. The slots are named using the <code>id</code> cohort setting.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="processing.html#cb26-1"></a>cruz<span class="op">$</span>cohorts <span class="op">%&gt;%</span><span class="st"> </span>names</span>
+<span id="cb26-2"><a href="processing.html#cb26-2"></a>[<span class="dv">1</span>] <span class="st">&quot;default&quot;</span>     <span class="st">&quot;fkw_insular&quot;</span></span></code></pre></div>
+<p>Each cohort slot has a copy of the <code>DAS</code> data with a stratum assignment tailored to its cohort-specific settings. For instance, the <code>default</code> cohort, whose <code>stratum_overlap_handling</code> is set to <code>"smallest"</code>, assigns the smallest stratum in the event of overlapping or nested strata:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="processing.html#cb27-1"></a>cruz<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>stratum <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">table</span>(<span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>)</span>
+<span id="cb27-2"><a href="processing.html#cb27-2"></a>.</span>
+<span id="cb27-3"><a href="processing.html#cb27-3"></a> HI_EEZ WHICEAS </span>
+<span id="cb27-4"><a href="processing.html#cb27-4"></a>    <span class="dv">142</span>   <span class="dv">22228</span> </span></code></pre></div>
+<p>The <code>fkw_insular</code> cohort, whose <code>stratum_overlap_handling</code> is set to <code>"each"</code> (i.e., effort is allowed to belong to multiple segments, if they overlap, and all analyses will be conducted for each stratum separately), has stratum assignments that look like this;</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="processing.html#cb28-1"></a>cruz<span class="op">$</span>cohorts<span class="op">$</span>fkw_insular<span class="op">$</span>stratum <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">table</span>(<span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>)</span>
+<span id="cb28-2"><a href="processing.html#cb28-2"></a>.</span>
+<span id="cb28-3"><a href="processing.html#cb28-3"></a>        HI_EEZ<span class="op">&amp;</span>OtherCNP HI_EEZ<span class="op">&amp;</span>WHICEAS<span class="op">&amp;</span>OtherCNP </span>
+<span id="cb28-4"><a href="processing.html#cb28-4"></a>                    <span class="dv">142</span>                   <span class="dv">22228</span> </span></code></pre></div>
+<p>When a row of <code>DAS</code> effort occurs in two overlapping strata, the stratum assignment for that row is a concatentation of the names of the strata it falls within, with names separated by “<code>&amp;</code>”.</p>
+<p>This list, with these five primary slots, will be referred to as a <code>cruz</code> object. The remainder of the data processing work flow is focused upon refining the effort and sighting data for each slot in <code>cohorts</code>. The other slots are no longer modified.</p>
+</div>
+</div>
+<div id="segmentize-the-data" class="section level2 unnumbered">
+<h2>Segmentize the data</h2>
+<p>To allocate survey data into discrete ‘effort segments’, which are used in variance estimation in subsequent steps, run the function <code>segmentize()</code>. This process is controlled by both survey-wide and cohort-specific <span id="settings">settings</span>, which are now carried in a slot within the <code>cruz</code> object.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="processing.html#cb29-1"></a>cruz &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz, <span class="dt">verbose=</span><span class="ot">TRUE</span>)</span>
+<span id="cb29-2"><a href="processing.html#cb29-2"></a>[<span class="dv">1</span>] <span class="st">&quot;separate&quot;</span></span>
+<span id="cb29-3"><a href="processing.html#cb29-3"></a>[<span class="dv">1</span>] <span class="st">&quot;append&quot;</span>  <span class="st">&quot;segment&quot;</span></span>
+<span id="cb29-4"><a href="processing.html#cb29-4"></a>[<span class="dv">1</span>] <span class="st">&quot;equallength&quot;</span></span>
+<span id="cb29-5"><a href="processing.html#cb29-5"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb29-6"><a href="processing.html#cb29-6"></a>[<span class="dv">1</span>] <span class="dv">172800</span></span>
+<span id="cb29-7"><a href="processing.html#cb29-7"></a>[<span class="dv">1</span>] <span class="dv">30</span></span>
+<span id="cb29-8"><a href="processing.html#cb29-8"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb29-9"><a href="processing.html#cb29-9"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb29-10"><a href="processing.html#cb29-10"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb29-11"><a href="processing.html#cb29-11"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb29-12"><a href="processing.html#cb29-12"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb29-13"><a href="processing.html#cb29-13"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb29-14"><a href="processing.html#cb29-14"></a>[<span class="dv">1</span>] <span class="st">&quot;separate&quot;</span></span>
+<span id="cb29-15"><a href="processing.html#cb29-15"></a>[<span class="dv">1</span>] <span class="st">&quot;append&quot;</span>  <span class="st">&quot;segment&quot;</span></span>
+<span id="cb29-16"><a href="processing.html#cb29-16"></a>[<span class="dv">1</span>] <span class="st">&quot;equallength&quot;</span></span>
+<span id="cb29-17"><a href="processing.html#cb29-17"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb29-18"><a href="processing.html#cb29-18"></a>[<span class="dv">1</span>] <span class="dv">172800</span></span>
+<span id="cb29-19"><a href="processing.html#cb29-19"></a>[<span class="dv">1</span>] <span class="dv">30</span></span>
+<span id="cb29-20"><a href="processing.html#cb29-20"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb29-21"><a href="processing.html#cb29-21"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb29-22"><a href="processing.html#cb29-22"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb29-23"><a href="processing.html#cb29-23"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span> <span class="st">&quot;N&quot;</span></span>
+<span id="cb29-24"><a href="processing.html#cb29-24"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb29-25"><a href="processing.html#cb29-25"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span></code></pre></div>
+<p>This function does not change the high-level structure of the <code>cruz</code> object …</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="processing.html#cb30-1"></a>cruz <span class="op">%&gt;%</span><span class="st"> </span>names</span>
+<span id="cb30-2"><a href="processing.html#cb30-2"></a>[<span class="dv">1</span>] <span class="st">&quot;das&quot;</span>        <span class="st">&quot;settings&quot;</span>   <span class="st">&quot;strata&quot;</span>     <span class="st">&quot;study_area&quot;</span> <span class="st">&quot;cohorts&quot;</span>   </span></code></pre></div>
+<p>… or the cohort names in the <code>cohorts</code> slot …</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="processing.html#cb31-1"></a>cruz<span class="op">$</span>cohorts <span class="op">%&gt;%</span><span class="st"> </span>names</span>
+<span id="cb31-2"><a href="processing.html#cb31-2"></a>[<span class="dv">1</span>] <span class="st">&quot;default&quot;</span>     <span class="st">&quot;fkw_insular&quot;</span></span></code></pre></div>
+<p>But it <em>does</em> change the structure of data within each cohort. Each cohort will now have a slot named <code>density</code> …</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="processing.html#cb32-1"></a>cruz<span class="op">$</span>cohorts<span class="op">$</span>default <span class="op">%&gt;%</span><span class="st"> </span>names</span>
+<span id="cb32-2"><a href="processing.html#cb32-2"></a>[<span class="dv">1</span>] <span class="st">&quot;density&quot;</span></span></code></pre></div>
+<p>And, if your settings specify that settings for density estimation differ from detection function estimation, a cohort will have a second slot named <code>distance</code>. This is the case for the second cohort in our example analysis: <code>fkw_insular</code>.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="processing.html#cb33-1"></a>cruz<span class="op">$</span>cohorts<span class="op">$</span>fkw_insular <span class="op">%&gt;%</span><span class="st"> </span>names</span>
+<span id="cb33-2"><a href="processing.html#cb33-2"></a>[<span class="dv">1</span>] <span class="st">&quot;density&quot;</span>  <span class="st">&quot;distance&quot;</span></span></code></pre></div>
+<p>Though their data segmentization will differ, the <code>density</code> and <code>distance</code> slots have identical structures:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="processing.html#cb34-1"></a>cruz<span class="op">$</span>cohorts<span class="op">$</span>fkw_insular<span class="op">$</span>density <span class="op">%&gt;%</span><span class="st"> </span>names</span>
+<span id="cb34-2"><a href="processing.html#cb34-2"></a>[<span class="dv">1</span>] <span class="st">&quot;segments&quot;</span> <span class="st">&quot;effort&quot;</span>   <span class="st">&quot;das&quot;</span>     </span>
+<span id="cb34-3"><a href="processing.html#cb34-3"></a></span>
+<span id="cb34-4"><a href="processing.html#cb34-4"></a>cruz<span class="op">$</span>cohorts<span class="op">$</span>fkw_insular<span class="op">$</span>distance <span class="op">%&gt;%</span><span class="st"> </span>names</span>
+<span id="cb34-5"><a href="processing.html#cb34-5"></a>[<span class="dv">1</span>] <span class="st">&quot;segments&quot;</span> <span class="st">&quot;effort&quot;</span>   <span class="st">&quot;das&quot;</span>     </span></code></pre></div>
+<p>The <code>segments</code> slot contains summary data for each effort segment, including start/mid/end coordinates, average conditions, and segment distance:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="processing.html#cb35-1"></a>cruz<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>glimpse</span>
+<span id="cb35-2"><a href="processing.html#cb35-2"></a>Rows<span class="op">:</span><span class="st"> </span><span class="dv">278</span></span>
+<span id="cb35-3"><a href="processing.html#cb35-3"></a>Columns<span class="op">:</span><span class="st"> </span><span class="dv">36</span></span>
+<span id="cb35-4"><a href="processing.html#cb35-4"></a><span class="op">$</span><span class="st"> </span>Cruise       <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="dv">2001</span>, <span class="dv">2001</span>, <span class="dv">2001</span>, <span class="dv">2001</span>, <span class="dv">2001</span>, <span class="dv">2001</span>, <span class="dv">2001</span>, <span class="dv">2001</span>, <span class="dv">2001</span>, 200…</span>
+<span id="cb35-5"><a href="processing.html#cb35-5"></a><span class="op">$</span><span class="st"> </span>stratum      <span class="op">&lt;</span>chr<span class="op">&gt;</span><span class="st"> &quot;HI_EEZ&quot;</span>, <span class="st">&quot;HI_EEZ&quot;</span>, <span class="st">&quot;HI_EEZ&quot;</span>, <span class="st">&quot;HI_EEZ&quot;</span>, <span class="st">&quot;HI_EEZ&quot;</span>, <span class="st">&quot;WHICEA…</span></span>
+<span id="cb35-6"><a href="processing.html#cb35-6"></a><span class="st">$ study_area   &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…</span></span>
+<span id="cb35-7"><a href="processing.html#cb35-7"></a><span class="st">$ seg_id       &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…</span></span>
+<span id="cb35-8"><a href="processing.html#cb35-8"></a><span class="st">$ yday         &lt;dbl&gt; 21, 22, 39, 68, 22, 19, 19, 19, 20, 20, 21, 22, 23, 23, 2…</span></span>
+<span id="cb35-9"><a href="processing.html#cb35-9"></a><span class="st">$ dist         &lt;dbl&gt; 3.2237470, 0.6118778, 29.7257476, 19.8973176, 1.2231556, …</span></span>
+<span id="cb35-10"><a href="processing.html#cb35-10"></a><span class="st">$ lat1         &lt;dbl&gt; 22.33300, 22.68750, 20.79283, 21.65833, 22.68750, 21.8520…</span></span>
+<span id="cb35-11"><a href="processing.html#cb35-11"></a><span class="st">$ lon1         &lt;dbl&gt; -161.2520, -161.1208, -153.6117, -161.7810, -161.1208, -1…</span></span>
+<span id="cb35-12"><a href="processing.html#cb35-12"></a><span class="st">$ DateTime1    &lt;dttm&gt; 2020-01-21 07:28:48, 2020-01-22 07:42:01, 2020-02-08 06:…</span></span>
+<span id="cb35-13"><a href="processing.html#cb35-13"></a><span class="st">$ timestamp1   &lt;dbl&gt; 1579591728, 1579678921, 1581144814, 1583688255, 157967892…</span></span>
+<span id="cb35-14"><a href="processing.html#cb35-14"></a><span class="st">$ lat2         &lt;dbl&gt; 22.68750, 20.79217, 21.65683, 21.66717, 22.68617, 22.1771…</span></span>
+<span id="cb35-15"><a href="processing.html#cb35-15"></a><span class="st">$ lon2         &lt;dbl&gt; -161.1208, -153.6090, -161.7753, -161.9295, -161.1158, -1…</span></span>
+<span id="cb35-16"><a href="processing.html#cb35-16"></a><span class="st">$ DateTime2    &lt;dttm&gt; 2020-01-22 07:42:01, 2020-02-08 06:51:34, 2020-03-08 17:…</span></span>
+<span id="cb35-17"><a href="processing.html#cb35-17"></a><span class="st">$ timestamp2   &lt;dbl&gt; 1579678921, 1581144694, 1583688135, 1583692815, 157967903…</span></span>
+<span id="cb35-18"><a href="processing.html#cb35-18"></a><span class="st">$ mlat         &lt;dbl&gt; 22.69117, 20.79133, 21.62583, 21.68417, 22.68750, 22.2345…</span></span>
+<span id="cb35-19"><a href="processing.html#cb35-19"></a><span class="st">$ mlon         &lt;dbl&gt; -161.1353, -153.6063, -161.6553, -161.8822, -161.1208, -1…</span></span>
+<span id="cb35-20"><a href="processing.html#cb35-20"></a><span class="st">$ mDateTime    &lt;dttm&gt; 2020-01-22 07:31:52, 2020-02-08 06:49:34, 2020-03-08 16:…</span></span>
+<span id="cb35-21"><a href="processing.html#cb35-21"></a><span class="st">$ mtimestamp   &lt;dbl&gt; 1579591728, 1579678921, 1581144814, 1583688255, 157967892…</span></span>
+<span id="cb35-22"><a href="processing.html#cb35-22"></a><span class="st">$ use          &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FA…</span></span>
+<span id="cb35-23"><a href="processing.html#cb35-23"></a><span class="st">$ Mode         &lt;chr&gt; NA, &quot;</span>P<span class="st">&quot;, NA, &quot;</span>C<span class="st">&quot;, &quot;</span>P<span class="st">&quot;, &quot;</span>C<span class="st">&quot;, &quot;</span>C<span class="st">&quot;, &quot;</span>C<span class="st">&quot;, NA, &quot;</span>C<span class="st">&quot;, &quot;</span>C<span class="st">&quot;, &quot;</span>C<span class="st">&quot;, …</span></span>
+<span id="cb35-24"><a href="processing.html#cb35-24"></a><span class="st">$ EffType      &lt;chr&gt; NA, &quot;</span>S<span class="st">&quot;, NA, &quot;</span>S<span class="st">&quot;, &quot;</span>S<span class="st">&quot;, NA, &quot;</span>N<span class="st">&quot;, &quot;</span>F<span class="st">&quot;, NA, &quot;</span>S<span class="st">&quot;, &quot;</span>F<span class="st">&quot;, &quot;</span>S<span class="st">&quot;, &quot;</span>…</span>
+<span id="cb35-25"><a href="processing.html#cb35-25"></a><span class="op">$</span><span class="st"> </span>ESWsides     <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="ot">NA</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="ot">NA</span>, <span class="dv">2</span>, <span class="dv">2</span>, 2…</span>
+<span id="cb35-26"><a href="processing.html#cb35-26"></a><span class="op">$</span><span class="st"> </span>year         <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="dv">2020</span>, <span class="dv">2020</span>, <span class="dv">2020</span>, <span class="dv">2020</span>, <span class="dv">2020</span>, <span class="dv">2020</span>, <span class="dv">2020</span>, <span class="dv">2020</span>, <span class="dv">2020</span>, 202…</span>
+<span id="cb35-27"><a href="processing.html#cb35-27"></a><span class="op">$</span><span class="st"> </span>month        <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, …</span>
+<span id="cb35-28"><a href="processing.html#cb35-28"></a><span class="op">$</span><span class="st"> </span>day          <span class="op">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">8</span>, <span class="dv">8</span>, <span class="dv">22</span>, <span class="dv">19</span>, <span class="dv">19</span>, <span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">22</span>, <span class="dv">23</span>, <span class="dv">23</span>, <span class="dv">24</span>,…</span>
+<span id="cb35-29"><a href="processing.html#cb35-29"></a><span class="op">$</span><span class="st"> </span>min_line     <span class="op">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="dv">1080</span>, <span class="dv">1549</span>, <span class="dv">9811</span>, <span class="dv">20825</span>, <span class="dv">1550</span>, <span class="dv">11</span>, <span class="dv">240</span>, <span class="dv">601</span>, <span class="dv">701</span>, <span class="dv">963</span>, 14…</span>
+<span id="cb35-30"><a href="processing.html#cb35-30"></a><span class="op">$</span><span class="st"> </span>max_line     <span class="op">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="dv">1548</span>, <span class="dv">9810</span>, <span class="dv">20824</span>, <span class="dv">20886</span>, <span class="dv">1554</span>, <span class="dv">239</span>, <span class="dv">499</span>, <span class="dv">700</span>, <span class="dv">962</span>, <span class="dv">1486</span>,…</span>
+<span id="cb35-31"><a href="processing.html#cb35-31"></a><span class="op">$</span><span class="st"> </span>n_rows       <span class="op">&lt;</span>int<span class="op">&gt;</span><span class="st"> </span><span class="dv">14</span>, <span class="dv">3</span>, <span class="dv">58</span>, <span class="dv">62</span>, <span class="dv">5</span>, <span class="dv">103</span>, <span class="dv">120</span>, <span class="dv">99</span>, <span class="dv">111</span>, <span class="dv">164</span>, <span class="dv">117</span>, <span class="dv">89</span>, <span class="dv">90</span>, 59…</span>
+<span id="cb35-32"><a href="processing.html#cb35-32"></a><span class="op">$</span><span class="st"> </span>avgBft       <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="ot">NaN</span>, <span class="ot">NaN</span>, <span class="fl">7.000000</span>, <span class="fl">6.418047</span>, <span class="fl">2.000000</span>, <span class="fl">5.150894</span>, <span class="fl">4.84389</span>…</span>
+<span id="cb35-33"><a href="processing.html#cb35-33"></a><span class="op">$</span><span class="st"> </span>avgSwellHght <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="ot">NaN</span>, <span class="ot">NaN</span>, <span class="fl">7.000000</span>, <span class="fl">7.000000</span>, <span class="fl">4.000000</span>, <span class="fl">7.433929</span>, <span class="fl">7.20666</span>…</span>
+<span id="cb35-34"><a href="processing.html#cb35-34"></a><span class="op">$</span><span class="st"> </span>avgHorizSun  <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="ot">NaN</span>, <span class="ot">NaN</span>, <span class="fl">10.958794</span>, <span class="fl">11.000000</span>, <span class="ot">NaN</span>, <span class="fl">6.954993</span>, <span class="fl">6.314060</span>, …</span>
+<span id="cb35-35"><a href="processing.html#cb35-35"></a><span class="op">$</span><span class="st"> </span>avgVertSun   <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="ot">NaN</span>, <span class="ot">NaN</span>, <span class="fl">1.058675</span>, <span class="fl">2.418106</span>, <span class="ot">NaN</span>, <span class="fl">1.419236</span>, <span class="fl">1.178142</span>, <span class="fl">2.</span>…</span>
+<span id="cb35-36"><a href="processing.html#cb35-36"></a><span class="op">$</span><span class="st"> </span>avgGlare     <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="ot">NaN</span>, <span class="ot">NaN</span>, <span class="fl">0.05867486</span>, <span class="fl">1.00000000</span>, <span class="ot">NaN</span>, <span class="fl">0.00000000</span>, <span class="fl">0.4734</span>…</span>
+<span id="cb35-37"><a href="processing.html#cb35-37"></a><span class="op">$</span><span class="st"> </span>avgVis       <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="fl">4.000000</span>, <span class="ot">NaN</span>, <span class="fl">5.000000</span>, <span class="fl">4.709023</span>, <span class="fl">6.200000</span>, <span class="fl">5.641518</span>, <span class="fl">6.</span>…</span>
+<span id="cb35-38"><a href="processing.html#cb35-38"></a><span class="op">$</span><span class="st"> </span>avgCourse    <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="ot">NaN</span>, <span class="ot">NaN</span>, <span class="fl">287.23315</span>, <span class="fl">269.55972</span>, <span class="fl">105.00000</span>, <span class="fl">247.16155</span>, 166…</span>
+<span id="cb35-39"><a href="processing.html#cb35-39"></a><span class="op">$</span><span class="st"> </span>avgSpdKt     <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="ot">NaN</span>, <span class="ot">NaN</span>, <span class="fl">9.968032</span>, <span class="fl">9.315076</span>, <span class="fl">9.000000</span>, <span class="fl">8.964329</span>, <span class="fl">8.18859</span>…</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="processing.html#cb36-1"></a><span class="co"># Number of segments</span></span>
+<span id="cb36-2"><a href="processing.html#cb36-2"></a>cruz<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb36-3"><a href="processing.html#cb36-3"></a>[<span class="dv">1</span>] <span class="dv">278</span></span>
+<span id="cb36-4"><a href="processing.html#cb36-4"></a></span>
+<span id="cb36-5"><a href="processing.html#cb36-5"></a><span class="co"># Segment length distribution</span></span>
+<span id="cb36-6"><a href="processing.html#cb36-6"></a><span class="kw">hist</span>(cruz<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>segments<span class="op">$</span>dist,</span>
+<span id="cb36-7"><a href="processing.html#cb36-7"></a>     <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">60</span>,<span class="dt">by=</span><span class="dv">1</span>),</span>
+<span id="cb36-8"><a href="processing.html#cb36-8"></a>     <span class="dt">xlab=</span><span class="st">&#39;Segment lengths (km)&#39;</span>,</span>
+<span id="cb36-9"><a href="processing.html#cb36-9"></a>     <span class="dt">main=</span><span class="kw">paste0</span>(<span class="st">&#39;Target km: &#39;</span>,settings<span class="op">$</span>survey<span class="op">$</span>segment_target_km))</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-37-1.png" width="672" /></p>
+<p>The <code>effort</code> slot is itself a list in which each slot holds the <code>DAS</code> for a single segment.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="processing.html#cb37-1"></a>cruz<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>effort <span class="op">%&gt;%</span><span class="st"> </span>length</span>
+<span id="cb37-2"><a href="processing.html#cb37-2"></a>[<span class="dv">1</span>] <span class="dv">278</span></span></code></pre></div>
+<p>And the <code>das</code> slot holds the original <code>data.frame</code> of <code>DAS</code> data, modified slightly: the column <code>OnEffort</code> has been modified according to Beaufort range conditions, and the column <code>seg_id</code> indicates which segment the event occurs within</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="processing.html#cb38-1"></a>cruz<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>das <span class="op">%&gt;%</span><span class="st"> </span>names</span>
+<span id="cb38-2"><a href="processing.html#cb38-2"></a> [<span class="dv">1</span>] <span class="st">&quot;Event&quot;</span>            <span class="st">&quot;DateTime&quot;</span>         <span class="st">&quot;Lat&quot;</span>              <span class="st">&quot;Lon&quot;</span>             </span>
+<span id="cb38-3"><a href="processing.html#cb38-3"></a> [<span class="dv">5</span>] <span class="st">&quot;OnEffort&quot;</span>         <span class="st">&quot;Cruise&quot;</span>           <span class="st">&quot;Mode&quot;</span>             <span class="st">&quot;OffsetGMT&quot;</span>       </span>
+<span id="cb38-4"><a href="processing.html#cb38-4"></a> [<span class="dv">9</span>] <span class="st">&quot;EffType&quot;</span>          <span class="st">&quot;ESWsides&quot;</span>         <span class="st">&quot;Course&quot;</span>           <span class="st">&quot;SpdKt&quot;</span>           </span>
+<span id="cb38-5"><a href="processing.html#cb38-5"></a>[<span class="dv">13</span>] <span class="st">&quot;Bft&quot;</span>              <span class="st">&quot;SwellHght&quot;</span>        <span class="st">&quot;WindSpdKt&quot;</span>        <span class="st">&quot;RainFog&quot;</span>         </span>
+<span id="cb38-6"><a href="processing.html#cb38-6"></a>[<span class="dv">17</span>] <span class="st">&quot;HorizSun&quot;</span>         <span class="st">&quot;VertSun&quot;</span>          <span class="st">&quot;Glare&quot;</span>            <span class="st">&quot;Vis&quot;</span>             </span>
+<span id="cb38-7"><a href="processing.html#cb38-7"></a>[<span class="dv">21</span>] <span class="st">&quot;ObsL&quot;</span>             <span class="st">&quot;Rec&quot;</span>              <span class="st">&quot;ObsR&quot;</span>             <span class="st">&quot;ObsInd&quot;</span>          </span>
+<span id="cb38-8"><a href="processing.html#cb38-8"></a>[<span class="dv">25</span>] <span class="st">&quot;Data1&quot;</span>            <span class="st">&quot;Data2&quot;</span>            <span class="st">&quot;Data3&quot;</span>            <span class="st">&quot;Data4&quot;</span>           </span>
+<span id="cb38-9"><a href="processing.html#cb38-9"></a>[<span class="dv">29</span>] <span class="st">&quot;Data5&quot;</span>            <span class="st">&quot;Data6&quot;</span>            <span class="st">&quot;Data7&quot;</span>            <span class="st">&quot;Data8&quot;</span>           </span>
+<span id="cb38-10"><a href="processing.html#cb38-10"></a>[<span class="dv">33</span>] <span class="st">&quot;Data9&quot;</span>            <span class="st">&quot;Data10&quot;</span>           <span class="st">&quot;Data11&quot;</span>           <span class="st">&quot;Data12&quot;</span>          </span>
+<span id="cb38-11"><a href="processing.html#cb38-11"></a>[<span class="dv">37</span>] <span class="st">&quot;EffortDot&quot;</span>        <span class="st">&quot;EventNum&quot;</span>         <span class="st">&quot;file_das&quot;</span>         <span class="st">&quot;line_num&quot;</span>        </span>
+<span id="cb38-12"><a href="processing.html#cb38-12"></a>[<span class="dv">41</span>] <span class="st">&quot;year&quot;</span>             <span class="st">&quot;month&quot;</span>            <span class="st">&quot;day&quot;</span>              <span class="st">&quot;yday&quot;</span>            </span>
+<span id="cb38-13"><a href="processing.html#cb38-13"></a>[<span class="dv">45</span>] <span class="st">&quot;km_int&quot;</span>           <span class="st">&quot;km_cum&quot;</span>           <span class="st">&quot;stratum_HI_EEZ&quot;</span>   <span class="st">&quot;stratum_WHICEAS&quot;</span> </span>
+<span id="cb38-14"><a href="processing.html#cb38-14"></a>[<span class="dv">49</span>] <span class="st">&quot;stratum_OtherCNP&quot;</span> <span class="st">&quot;study_area&quot;</span>       <span class="st">&quot;stratum&quot;</span>          <span class="st">&quot;seg_id&quot;</span>          </span></code></pre></div>
+<p>The <code>segmentize()</code> function and its associated settings were designed to give researchers full control over how data are segmented, be it for design-based density analysis (which tend to use long segments of 100 km or more and allow for non-contiguous effort to be included in the same segment) or for habitat modeling (which tend to use short segments of 5 - 10 km and disallow non-contiguous effort to be pooled into the same segment). To demonstrate that versatility, checkout the <a href="segmentizing.html#segmentizing">appendix on segmentizing</a>.</p>
+</div>
+<div id="process-sightings" class="section level2 unnumbered">
+<h2>Process sightings</h2>
+<p><em>Coming soon!</em></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="settings.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="maps.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/emk-noaa/emk-noaa.github.io03-processing.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["vignette.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,181 @@
+# Data processing {#processing}
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
+library(dplyr)
+library(magrittr)
+library(LTabundR)
+library(swfscDAS)
+
+data(settings)
+```
+
+## Bring in cruise data {-} 
+
+Specify the path to your `.DAS` data file(s):  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+das_file <- 'data/surveys/HICEASwinter2020.das'
+```
+
+Read in and process this `.DAS` file using the functions in Sam's `swfscDAS` package. To do so quickly, we built a wrapper function that makes this quick and easy: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=FALSE}
+das <- load_das(das_file, 
+                perform_checks = TRUE,
+                print_glimpse = TRUE)
+```
+
+## Format `DAS` data {-}  
+
+Finalize formatting: remove rows with invalid locations and calculate the distance, in km, between each row of data.  Other refinements can be added to this function later on.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+das <- format_das(das, settings)
+```
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=8, fig.height=4}
+par(mfrow=c(1,2))
+hist(das$km_int, xlab='KM between each DAS row', 
+     main=NULL, breaks=seq(0,max(das$km_int),length=100))
+plot(das$km_cum, ylab='Cumulative KM surveyed', main=NULL, type='l')
+```
+
+## Process strata {-}  
+
+Run the following function to add strata and study-area information to each sub-segment of effort:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz <- process_strata(das, settings)
+```
+
+This function loops through each stratum `data.frame` you have provided it in `settings$strata`, formats the stratum, and asks whether each DAS row occurs within it. For each stratum, a column named `stratum_<StratumName>` is added to the `das` object; each row in this column is `TRUE` (included) or `FALSE`.
+
+A similar procedure is run if a dataframe is provided in `settings$study_area`. A column named `study_area` is added to `das` containing a boolean (`TRUE` if the sub-segment or sighting occurs within the study area). 
+
+The function then loops through each species cohort and uses that cohort's settings to determine a single stratum assignment for each row of `DAS` data in the event of overlapping strata. The key cohort setting referenced here is `stratum_overlap_handling`.  
+
+### The `cruz` object {-}
+
+The function `process_strata()` returns a list, which we have saved in an object named `cruz`, with several slots:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz %>% names
+```
+
+The slots `strata` and `study_area` provide the area, in square km, of each polygon being used:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$strata
+```
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$study_area
+```
+
+The slot `cohorts` is itself a list with one slot for each cohort. The slots are named using the `id` cohort setting.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts %>% names
+```
+
+Each cohort slot has a copy of the `DAS` data with a stratum assignment tailored to its cohort-specific settings. For instance, the `default` cohort, whose `stratum_overlap_handling` is set to `"smallest"`, assigns the smallest stratum in the event of overlapping or nested strata:
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts$default$stratum %>% table(useNA='ifany')
+```
+
+The `fkw_insular` cohort, whose `stratum_overlap_handling` is set to `"each"` (i.e., effort is allowed to belong to multiple segments, if they overlap, and all analyses will be conducted for each stratum separately), has stratum assignments that look like this;  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts$fkw_insular$stratum %>% table(useNA='ifany')
+```
+
+When a row of `DAS` effort occurs in two overlapping strata, the stratum assignment for that row is a concatentation of the names of the strata it falls within, with names separated by "`&`".   
+
+This list, with these five primary slots, will be referred to as a `cruz` object. The remainder of the data processing work flow is focused upon refining the effort and sighting data for each slot in `cohorts`. The other slots are no longer modified.  
+
+
+## Segmentize the data {-} 
+
+To allocate survey data into discrete 'effort segments', which are used in variance estimation in subsequent steps, run the function `segmentize()`. This process is controlled by both survey-wide and cohort-specific [settings]{#settings}, which are now carried in a slot within the `cruz` object.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz <- segmentize(cruz, verbose=TRUE)
+```
+
+This function does not change the high-level structure of the `cruz` object ...
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz %>% names
+```
+
+... or the cohort names in the `cohorts` slot ...  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts %>% names
+```
+
+But it *does* change the structure of data within each cohort.  Each cohort will now have a slot named `density` ...  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts$default %>% names
+```
+
+And, if your settings specify that settings for density estimation differ from detection function estimation, a cohort will have a second slot named `distance`.  This is the case for the second cohort in our example analysis: `fkw_insular`.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts$fkw_insular %>% names
+```
+
+Though their data segmentization will differ, the `density` and `distance` slots have identical structures:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts$fkw_insular$density %>% names
+
+cruz$cohorts$fkw_insular$distance %>% names
+```
+
+The `segments` slot contains summary data for each effort segment, including start/mid/end coordinates, average conditions, and segment distance:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts$default$density$segments %>% glimpse
+```
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4.5}
+# Number of segments
+cruz$cohorts$default$density$segments %>% nrow
+
+# Segment length distribution
+hist(cruz$cohorts$default$density$segments$dist,
+     breaks = seq(0,60,by=1),
+     xlab='Segment lengths (km)',
+     main=paste0('Target km: ',settings$survey$segment_target_km))
+```
+
+The `effort` slot is itself a list in which each slot holds the `DAS` for a single segment.   
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts$default$density$effort %>% length
+```
+
+And the `das` slot holds the original `data.frame` of `DAS` data, modified slightly: the column `OnEffort` has been modified according to Beaufort range conditions, and the column `seg_id` indicates which segment the event occurs within  
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts$default$density$das %>% names
+```
+
+The `segmentize()` function and its associated settings were designed to give researchers full control over how data are segmented, be it for design-based density analysis (which tend to use long segments of 100 km or more and allow for non-contiguous effort to be included in the same segment) or for habitat modeling (which tend to use short segments of 5 - 10 km and disallow non-contiguous effort to be pooled into the same segment). To demonstrate that versatility, checkout the [appendix on segmentizing](#segmentizing).  
+
+
+## Process sightings {-}  
+
+*Coming soon!*  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+
+```
+
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
+save(cruz,file='data/cruz_proc.RData')
+```
+

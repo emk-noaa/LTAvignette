@@ -1,0 +1,43 @@
+# Appendix: Strata gallery {#stratagallery}
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
+library(dplyr)
+library(magrittr)
+library(LTabundR)
+```
+
+## Central North Pacific {-} 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, warning=FALSE, message=FALSE, fig.width=6, fig.height=4}
+strata_explore('cnp')
+```
+
+To acquire the filepath to one of these strata, pass the index (or indices) printed in the map titles above to the function `strata_select()`:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, warning=FALSE, message=FALSE, fig.width=6, fig.height=4}
+strata <- strata_select(selections = c(1,3),
+                              region = 'cnp')
+```
+
+This function returns a named list that can be passed directly to the `strata` argument in `load_settings()`.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, warning=FALSE, message=FALSE, fig.width=6, fig.height=4}
+strata %>% names
+```
+
+The second slot, `$paths`, contains the filepaths you would need to pass to the `load_settings()` function.  
+
+
+## California Current {-}  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, warning=FALSE, message=FALSE, fig.width=6, fig.height=6}
+strata_explore('ccs')
+```
+
+## ETP {-}
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, warning=FALSE, message=FALSE, fig.width=6, fig.height=4}
+strata_explore('etp')
+```
+
+

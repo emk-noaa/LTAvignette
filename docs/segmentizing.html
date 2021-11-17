@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 12 Appendix: Segmentizing | vignette</title>
+  <meta name="description" content=" 12 Appendix: Segmentizing | vignette" />
+  <meta name="generator" content="bookdown 0.24.3 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 12 Appendix: Segmentizing | vignette" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content=" 12 Appendix: Segmentizing | vignette" />
+  <meta name="github-repo" content="emk-noaa/emk-noaa.github.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 12 Appendix: Segmentizing | vignette" />
+  
+  <meta name="twitter:description" content=" 12 Appendix: Segmentizing | vignette" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="stratagallery.html"/>
+<link rel="next" href="backlog.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">WinCruz analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Status</a></li>
+<li class="chapter" data-level="2" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>2</b> Install <code>LTabundR</code></a><ul>
+<li class="chapter" data-level="" data-path="install.html"><a href="install.html#option-1-install-from-github"><i class="fa fa-check"></i>Option 1: Install from GitHub</a></li>
+<li class="chapter" data-level="" data-path="install.html"><a href="install.html#option-2-install-locally"><i class="fa fa-check"></i>Option 2: Install locally</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="settings.html"><a href="settings.html"><i class="fa fa-check"></i><b>3</b> Settings</a><ul>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#survey-strata"><i class="fa fa-check"></i>Survey strata</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#study-area-polygon"><i class="fa fa-check"></i>Study area polygon</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#survey-wide-settings"><i class="fa fa-check"></i>Survey-wide settings</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#cohort-specific-settings"><i class="fa fa-check"></i>Cohort-specific settings</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#example-code"><i class="fa fa-check"></i>Example code</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>4</b> Data processing</a><ul>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#bring-in-cruise-data"><i class="fa fa-check"></i>Bring in cruise data</a></li>
+<li><a href="processing.html#format-das-data">Format <code>DAS</code> data</a></li>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#process-strata"><i class="fa fa-check"></i>Process strata</a></li>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#segmentize-the-data"><i class="fa fa-check"></i>Segmentize the data</a></li>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#process-sightings"><i class="fa fa-check"></i>Process sightings</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>5</b> Maps</a><ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#base-maps"><i class="fa fa-check"></i>Base maps</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-strata"><i class="fa fa-check"></i>Add strata</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-survey-tracks"><i class="fa fa-check"></i>Add survey tracks</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#customizing-effort"><i class="fa fa-check"></i>Customizing effort</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey</a></li>
+<li class="chapter" data-level="7" data-path="df.html"><a href="df.html"><i class="fa fa-check"></i><b>7</b> Detection functions</a></li>
+<li class="chapter" data-level="8" data-path="abundance.html"><a href="abundance.html"><i class="fa fa-check"></i><b>8</b> Abundance estimation</a></li>
+<li class="chapter" data-level="9" data-path="casestudies.html"><a href="casestudies.html"><i class="fa fa-check"></i><b>9</b> Case studies</a><ul>
+<li class="chapter" data-level="" data-path="casestudies.html"><a href="casestudies.html#central-north-pacific"><i class="fa fa-check"></i>Central North Pacific</a></li>
+<li class="chapter" data-level="" data-path="casestudies.html"><a href="casestudies.html#california-current-system"><i class="fa fa-check"></i>California Current System</a></li>
+<li class="chapter" data-level="" data-path="casestudies.html"><a href="casestudies.html#eastern-tropical-pacific"><i class="fa fa-check"></i>Eastern Tropical Pacific</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="practicalities.html"><a href="practicalities.html"><i class="fa fa-check"></i><b>10</b> Practicalities</a></li>
+<li class="chapter" data-level="11" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>11</b> Appendix: Strata gallery</a><ul>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#central-north-pacific-1"><i class="fa fa-check"></i>Central North Pacific</a></li>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#california-current"><i class="fa fa-check"></i>California Current</a></li>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#etp"><i class="fa fa-check"></i>ETP</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>12</b> Appendix: Segmentizing</a><ul>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#defaults-2"><i class="fa fa-check"></i>Defaults</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#day-vs-equal-length"><i class="fa fa-check"></i>Day vs Equal Length</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#contiguous-vs.-non-contiguous-effort"><i class="fa fa-check"></i>Contiguous vs. non-contiguous effort</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#segment-remainder-handling"><i class="fa fa-check"></i>Segment remainder handling</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#typical-settings"><i class="fa fa-check"></i>Typical settings</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="backlog.html"><a href="backlog.html"><i class="fa fa-check"></i><b>13</b> Appendix: Backlog</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/emk-noaa/emk-noaa.github.io" target="blank">Eric & Amanda</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">vignette</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="segmentizing" class="section level1">
+<h1><span class="header-section-number"> 12</span> Appendix: Segmentizing</h1>
+<p>The package’s <code>segmentize()</code> function and its associated settings were designed to give researchers full control over how data are segmented, be it for design-based density analysis (which tend to use long segments of 100 km or more and allow for non-contiguous effort to be included in the same segment) or for habitat modeling (which tend to use short segments of 5 - 10 km and disallow non-contiguous effort to be pooled into the same segment).</p>
+<p>The demonstration of <code>segmentize()</code> on in <a href="processing.html#processing">Processing chapter</a> relies on the <code>settings</code> object that is attached as a slot in the <code>cruz</code> object. But you can override those settings with direct function inputs in <code>segmentize()</code>, which gives us a chance to explore segmentization options.</p>
+<p>First we loadthe demo data and carry out initial processing:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="segmentizing.html#cb53-1"></a><span class="kw">data</span>(settings)</span>
+<span id="cb53-2"><a href="segmentizing.html#cb53-2"></a>das_file &lt;-<span class="st"> &#39;data/surveys/HICEASwinter2020.das&#39;</span></span>
+<span id="cb53-3"><a href="segmentizing.html#cb53-3"></a>das &lt;-<span class="st"> </span><span class="kw">load_das</span>(das_file, </span>
+<span id="cb53-4"><a href="segmentizing.html#cb53-4"></a>                <span class="dt">perform_checks =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb53-5"><a href="segmentizing.html#cb53-5"></a>                <span class="dt">print_glimpse =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb53-6"><a href="segmentizing.html#cb53-6"></a>das &lt;-<span class="st"> </span><span class="kw">format_das</span>(das, settings)</span>
+<span id="cb53-7"><a href="segmentizing.html#cb53-7"></a>cruz &lt;-<span class="st"> </span><span class="kw">process_strata</span>(das,</span>
+<span id="cb53-8"><a href="segmentizing.html#cb53-8"></a>                       settings,</span>
+<span id="cb53-9"><a href="segmentizing.html#cb53-9"></a>                       <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<p>And this is the histogram function we will be using to display the results of each run of <code>segmentize()</code>:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="segmentizing.html#cb54-1"></a>segment_histogram &lt;-<span class="st"> </span><span class="cf">function</span>(cohort_effort, <span class="dt">by_day=</span><span class="ot">FALSE</span>){</span>
+<span id="cb54-2"><a href="segmentizing.html#cb54-2"></a>  segs &lt;-<span class="st"> </span>cohort_effort<span class="op">$</span>segments</span>
+<span id="cb54-3"><a href="segmentizing.html#cb54-3"></a>  segmax &lt;-<span class="st"> </span><span class="kw">max</span>(segs<span class="op">$</span>dist,<span class="dt">na.rm=</span><span class="ot">TRUE</span>)<span class="op">*</span><span class="fl">1.1</span></span>
+<span id="cb54-4"><a href="segmentizing.html#cb54-4"></a>  </span>
+<span id="cb54-5"><a href="segmentizing.html#cb54-5"></a>  <span class="cf">if</span>(by_day){</span>
+<span id="cb54-6"><a href="segmentizing.html#cb54-6"></a>    main_use &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;Segments (use) |  by day&#39;</span>)</span>
+<span id="cb54-7"><a href="segmentizing.html#cb54-7"></a>    main_exclude &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;Segments (exclude) |  by day&#39;</span>)</span>
+<span id="cb54-8"><a href="segmentizing.html#cb54-8"></a>  }<span class="cf">else</span>{</span>
+<span id="cb54-9"><a href="segmentizing.html#cb54-9"></a>    main_use &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;Segments (use) |  target: &#39;</span>,settings<span class="op">$</span>survey<span class="op">$</span>segment_target_km,<span class="st">&#39; km&#39;</span>)</span>
+<span id="cb54-10"><a href="segmentizing.html#cb54-10"></a>    main_exclude &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;Segments (exclude) |  target: &#39;</span>,settings<span class="op">$</span>survey<span class="op">$</span>segment_target_km,<span class="st">&#39; km&#39;</span>)</span>
+<span id="cb54-11"><a href="segmentizing.html#cb54-11"></a>  }</span>
+<span id="cb54-12"><a href="segmentizing.html#cb54-12"></a>  <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb54-13"><a href="segmentizing.html#cb54-13"></a>  <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="fl">4.2</span>,<span class="fl">4.2</span>,<span class="fl">2.5</span>,.<span class="dv">5</span>))</span>
+<span id="cb54-14"><a href="segmentizing.html#cb54-14"></a>  <span class="kw">hist</span>(segs<span class="op">$</span>dist[segs<span class="op">$</span>use],</span>
+<span id="cb54-15"><a href="segmentizing.html#cb54-15"></a>       <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,segmax,<span class="dt">by=</span>segmax<span class="op">/</span><span class="dv">40</span>),</span>
+<span id="cb54-16"><a href="segmentizing.html#cb54-16"></a>       <span class="dt">xlab=</span><span class="st">&#39;Segment lengths (km)&#39;</span>,</span>
+<span id="cb54-17"><a href="segmentizing.html#cb54-17"></a>       <span class="dt">main=</span>main_use,</span>
+<span id="cb54-18"><a href="segmentizing.html#cb54-18"></a>       <span class="dt">cex.main =</span> <span class="fl">.8</span>, <span class="dt">cex.axis =</span> <span class="fl">.8</span>, <span class="dt">cex.lab =</span> <span class="fl">.8</span>)</span>
+<span id="cb54-19"><a href="segmentizing.html#cb54-19"></a></span>
+<span id="cb54-20"><a href="segmentizing.html#cb54-20"></a>  <span class="kw">hist</span>(segs<span class="op">$</span>dist[<span class="op">!</span>segs<span class="op">$</span>use],</span>
+<span id="cb54-21"><a href="segmentizing.html#cb54-21"></a>       <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,segmax,<span class="dt">by=</span>segmax<span class="op">/</span><span class="dv">40</span>),</span>
+<span id="cb54-22"><a href="segmentizing.html#cb54-22"></a>       <span class="dt">xlab=</span><span class="st">&#39;Segment lengths (km)&#39;</span>,</span>
+<span id="cb54-23"><a href="segmentizing.html#cb54-23"></a>       <span class="dt">main=</span>main_exclude,</span>
+<span id="cb54-24"><a href="segmentizing.html#cb54-24"></a>       <span class="dt">cex.main =</span> <span class="fl">.8</span>, <span class="dt">cex.axis =</span> <span class="fl">.8</span>, <span class="dt">cex.lab =</span> <span class="fl">.8</span>)</span>
+<span id="cb54-25"><a href="segmentizing.html#cb54-25"></a>  <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb54-26"><a href="segmentizing.html#cb54-26"></a>}</span></code></pre></div>
+<div id="defaults-2" class="section level2 unnumbered">
+<h2>Defaults</h2>
+<p>Here is the <code>segmentize()</code> function parameterized with the “factory default” settings from <code>load_settings()</code>.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="segmentizing.html#cb55-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
+<span id="cb55-2"><a href="segmentizing.html#cb55-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb55-3"><a href="segmentizing.html#cb55-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">30</span>,</span>
+<span id="cb55-4"><a href="segmentizing.html#cb55-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
+<span id="cb55-5"><a href="segmentizing.html#cb55-5"></a>                        <span class="dt">segment_type_handling =</span> <span class="st">&#39;separate&#39;</span>,</span>
+<span id="cb55-6"><a href="segmentizing.html#cb55-6"></a>                        <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
+<span id="cb55-7"><a href="segmentizing.html#cb55-7"></a>                        <span class="dt">density_types =</span> <span class="kw">c</span>(<span class="st">&#39;S&#39;</span>,<span class="st">&#39;F&#39;</span>),</span>
+<span id="cb55-8"><a href="segmentizing.html#cb55-8"></a>                        <span class="dt">density_modes =</span> <span class="kw">c</span>(<span class="st">&#39;P&#39;</span>,<span class="st">&#39;C&#39;</span>),</span>
+<span id="cb55-9"><a href="segmentizing.html#cb55-9"></a>                        <span class="dt">density_on_off =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>),</span>
+<span id="cb55-10"><a href="segmentizing.html#cb55-10"></a>                        <span class="dt">distance_types =</span> <span class="ot">NULL</span>,</span>
+<span id="cb55-11"><a href="segmentizing.html#cb55-11"></a>                        <span class="dt">distance_modes =</span> <span class="ot">NULL</span>,</span>
+<span id="cb55-12"><a href="segmentizing.html#cb55-12"></a>                        <span class="dt">distance_on_off =</span> <span class="ot">NULL</span>,</span>
+<span id="cb55-13"><a href="segmentizing.html#cb55-13"></a>                        <span class="dt">random_seed =</span> <span class="ot">NULL</span>)</span>
+<span id="cb55-14"><a href="segmentizing.html#cb55-14"></a>[<span class="dv">1</span>] <span class="st">&quot;separate&quot;</span></span>
+<span id="cb55-15"><a href="segmentizing.html#cb55-15"></a>[<span class="dv">1</span>] <span class="st">&quot;append&quot;</span>  <span class="st">&quot;segment&quot;</span></span>
+<span id="cb55-16"><a href="segmentizing.html#cb55-16"></a>[<span class="dv">1</span>] <span class="st">&quot;equallength&quot;</span></span>
+<span id="cb55-17"><a href="segmentizing.html#cb55-17"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb55-18"><a href="segmentizing.html#cb55-18"></a>[<span class="dv">1</span>] <span class="dv">172800</span></span>
+<span id="cb55-19"><a href="segmentizing.html#cb55-19"></a>[<span class="dv">1</span>] <span class="dv">30</span></span>
+<span id="cb55-20"><a href="segmentizing.html#cb55-20"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb55-21"><a href="segmentizing.html#cb55-21"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb55-22"><a href="segmentizing.html#cb55-22"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb55-23"><a href="segmentizing.html#cb55-23"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb55-24"><a href="segmentizing.html#cb55-24"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb55-25"><a href="segmentizing.html#cb55-25"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb55-26"><a href="segmentizing.html#cb55-26"></a>[<span class="dv">1</span>] <span class="st">&quot;separate&quot;</span></span>
+<span id="cb55-27"><a href="segmentizing.html#cb55-27"></a>[<span class="dv">1</span>] <span class="st">&quot;append&quot;</span>  <span class="st">&quot;segment&quot;</span></span>
+<span id="cb55-28"><a href="segmentizing.html#cb55-28"></a>[<span class="dv">1</span>] <span class="st">&quot;equallength&quot;</span></span>
+<span id="cb55-29"><a href="segmentizing.html#cb55-29"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb55-30"><a href="segmentizing.html#cb55-30"></a>[<span class="dv">1</span>] <span class="dv">172800</span></span>
+<span id="cb55-31"><a href="segmentizing.html#cb55-31"></a>[<span class="dv">1</span>] <span class="dv">30</span></span>
+<span id="cb55-32"><a href="segmentizing.html#cb55-32"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb55-33"><a href="segmentizing.html#cb55-33"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb55-34"><a href="segmentizing.html#cb55-34"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb55-35"><a href="segmentizing.html#cb55-35"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span> <span class="st">&quot;N&quot;</span></span>
+<span id="cb55-36"><a href="segmentizing.html#cb55-36"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb55-37"><a href="segmentizing.html#cb55-37"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb55-38"><a href="segmentizing.html#cb55-38"></a></span>
+<span id="cb55-39"><a href="segmentizing.html#cb55-39"></a><span class="co"># Number of segments</span></span>
+<span id="cb55-40"><a href="segmentizing.html#cb55-40"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb55-41"><a href="segmentizing.html#cb55-41"></a>[<span class="dv">1</span>] <span class="dv">278</span></span>
+<span id="cb55-42"><a href="segmentizing.html#cb55-42"></a></span>
+<span id="cb55-43"><a href="segmentizing.html#cb55-43"></a><span class="co"># Plot</span></span>
+<span id="cb55-44"><a href="segmentizing.html#cb55-44"></a><span class="kw">segment_histogram</span>(cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-61-1.png" width="672" /></p>
+</div>
+<div id="day-vs-equal-length" class="section level2 unnumbered">
+<h2>Day vs Equal Length</h2>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="segmentizing.html#cb56-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
+<span id="cb56-2"><a href="segmentizing.html#cb56-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;day&#39;</span>,</span>
+<span id="cb56-3"><a href="segmentizing.html#cb56-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">30</span>,</span>
+<span id="cb56-4"><a href="segmentizing.html#cb56-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
+<span id="cb56-5"><a href="segmentizing.html#cb56-5"></a>                        <span class="dt">segment_type_handling =</span> <span class="st">&#39;separate&#39;</span>,</span>
+<span id="cb56-6"><a href="segmentizing.html#cb56-6"></a>                        <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
+<span id="cb56-7"><a href="segmentizing.html#cb56-7"></a>                        <span class="dt">density_types =</span> <span class="kw">c</span>(<span class="st">&#39;S&#39;</span>,<span class="st">&#39;F&#39;</span>),</span>
+<span id="cb56-8"><a href="segmentizing.html#cb56-8"></a>                        <span class="dt">density_modes =</span> <span class="kw">c</span>(<span class="st">&#39;P&#39;</span>,<span class="st">&#39;C&#39;</span>),</span>
+<span id="cb56-9"><a href="segmentizing.html#cb56-9"></a>                        <span class="dt">density_on_off =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>),</span>
+<span id="cb56-10"><a href="segmentizing.html#cb56-10"></a>                        <span class="dt">distance_types =</span> <span class="ot">NULL</span>,</span>
+<span id="cb56-11"><a href="segmentizing.html#cb56-11"></a>                        <span class="dt">distance_modes =</span> <span class="ot">NULL</span>,</span>
+<span id="cb56-12"><a href="segmentizing.html#cb56-12"></a>                        <span class="dt">distance_on_off =</span> <span class="ot">NULL</span>,</span>
+<span id="cb56-13"><a href="segmentizing.html#cb56-13"></a>                        <span class="dt">random_seed =</span> <span class="ot">NULL</span>)</span>
+<span id="cb56-14"><a href="segmentizing.html#cb56-14"></a>[<span class="dv">1</span>] <span class="st">&quot;separate&quot;</span></span>
+<span id="cb56-15"><a href="segmentizing.html#cb56-15"></a>[<span class="dv">1</span>] <span class="st">&quot;append&quot;</span>  <span class="st">&quot;segment&quot;</span></span>
+<span id="cb56-16"><a href="segmentizing.html#cb56-16"></a>[<span class="dv">1</span>] <span class="st">&quot;day&quot;</span></span>
+<span id="cb56-17"><a href="segmentizing.html#cb56-17"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb56-18"><a href="segmentizing.html#cb56-18"></a>[<span class="dv">1</span>] <span class="dv">172800</span></span>
+<span id="cb56-19"><a href="segmentizing.html#cb56-19"></a>[<span class="dv">1</span>] <span class="dv">30</span></span>
+<span id="cb56-20"><a href="segmentizing.html#cb56-20"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb56-21"><a href="segmentizing.html#cb56-21"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb56-22"><a href="segmentizing.html#cb56-22"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb56-23"><a href="segmentizing.html#cb56-23"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb56-24"><a href="segmentizing.html#cb56-24"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb56-25"><a href="segmentizing.html#cb56-25"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb56-26"><a href="segmentizing.html#cb56-26"></a>[<span class="dv">1</span>] <span class="st">&quot;separate&quot;</span></span>
+<span id="cb56-27"><a href="segmentizing.html#cb56-27"></a>[<span class="dv">1</span>] <span class="st">&quot;append&quot;</span>  <span class="st">&quot;segment&quot;</span></span>
+<span id="cb56-28"><a href="segmentizing.html#cb56-28"></a>[<span class="dv">1</span>] <span class="st">&quot;day&quot;</span></span>
+<span id="cb56-29"><a href="segmentizing.html#cb56-29"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb56-30"><a href="segmentizing.html#cb56-30"></a>[<span class="dv">1</span>] <span class="dv">172800</span></span>
+<span id="cb56-31"><a href="segmentizing.html#cb56-31"></a>[<span class="dv">1</span>] <span class="dv">30</span></span>
+<span id="cb56-32"><a href="segmentizing.html#cb56-32"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb56-33"><a href="segmentizing.html#cb56-33"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb56-34"><a href="segmentizing.html#cb56-34"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb56-35"><a href="segmentizing.html#cb56-35"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span> <span class="st">&quot;N&quot;</span></span>
+<span id="cb56-36"><a href="segmentizing.html#cb56-36"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb56-37"><a href="segmentizing.html#cb56-37"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb56-38"><a href="segmentizing.html#cb56-38"></a></span>
+<span id="cb56-39"><a href="segmentizing.html#cb56-39"></a><span class="co"># Number of segments</span></span>
+<span id="cb56-40"><a href="segmentizing.html#cb56-40"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb56-41"><a href="segmentizing.html#cb56-41"></a>[<span class="dv">1</span>] <span class="dv">96</span></span>
+<span id="cb56-42"><a href="segmentizing.html#cb56-42"></a></span>
+<span id="cb56-43"><a href="segmentizing.html#cb56-43"></a><span class="co"># Plot</span></span>
+<span id="cb56-44"><a href="segmentizing.html#cb56-44"></a><span class="kw">segment_histogram</span>(cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-63-1.png" width="672" /></p>
+</div>
+<div id="contiguous-vs.-non-contiguous-effort" class="section level2 unnumbered">
+<h2>Contiguous vs. non-contiguous effort</h2>
+<p>The example above allows for non-contiguous effort; a segment is allowed to contain effort separated by gaps as large as 24 hours (<code>settings$max_interval</code>). To coerce segments to represent only contiguous effort, make that setting very small:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="segmentizing.html#cb57-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
+<span id="cb57-2"><a href="segmentizing.html#cb57-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb57-3"><a href="segmentizing.html#cb57-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">30</span>,</span>
+<span id="cb57-4"><a href="segmentizing.html#cb57-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="fl">.1</span>,</span>
+<span id="cb57-5"><a href="segmentizing.html#cb57-5"></a>                        <span class="dt">segment_type_handling =</span> <span class="st">&#39;separate&#39;</span>,</span>
+<span id="cb57-6"><a href="segmentizing.html#cb57-6"></a>                        <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
+<span id="cb57-7"><a href="segmentizing.html#cb57-7"></a>                        <span class="dt">density_types =</span> <span class="kw">c</span>(<span class="st">&#39;S&#39;</span>,<span class="st">&#39;F&#39;</span>),</span>
+<span id="cb57-8"><a href="segmentizing.html#cb57-8"></a>                        <span class="dt">density_modes =</span> <span class="kw">c</span>(<span class="st">&#39;P&#39;</span>,<span class="st">&#39;C&#39;</span>),</span>
+<span id="cb57-9"><a href="segmentizing.html#cb57-9"></a>                        <span class="dt">density_on_off =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>),</span>
+<span id="cb57-10"><a href="segmentizing.html#cb57-10"></a>                        <span class="dt">distance_types =</span> <span class="ot">NULL</span>,</span>
+<span id="cb57-11"><a href="segmentizing.html#cb57-11"></a>                        <span class="dt">distance_modes =</span> <span class="ot">NULL</span>,</span>
+<span id="cb57-12"><a href="segmentizing.html#cb57-12"></a>                        <span class="dt">distance_on_off =</span> <span class="ot">NULL</span>,</span>
+<span id="cb57-13"><a href="segmentizing.html#cb57-13"></a>                        <span class="dt">random_seed =</span> <span class="ot">NULL</span>)</span>
+<span id="cb57-14"><a href="segmentizing.html#cb57-14"></a>[<span class="dv">1</span>] <span class="st">&quot;separate&quot;</span></span>
+<span id="cb57-15"><a href="segmentizing.html#cb57-15"></a>[<span class="dv">1</span>] <span class="st">&quot;append&quot;</span>  <span class="st">&quot;segment&quot;</span></span>
+<span id="cb57-16"><a href="segmentizing.html#cb57-16"></a>[<span class="dv">1</span>] <span class="st">&quot;equallength&quot;</span></span>
+<span id="cb57-17"><a href="segmentizing.html#cb57-17"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb57-18"><a href="segmentizing.html#cb57-18"></a>[<span class="dv">1</span>] <span class="dv">360</span></span>
+<span id="cb57-19"><a href="segmentizing.html#cb57-19"></a>[<span class="dv">1</span>] <span class="dv">30</span></span>
+<span id="cb57-20"><a href="segmentizing.html#cb57-20"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb57-21"><a href="segmentizing.html#cb57-21"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb57-22"><a href="segmentizing.html#cb57-22"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb57-23"><a href="segmentizing.html#cb57-23"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb57-24"><a href="segmentizing.html#cb57-24"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb57-25"><a href="segmentizing.html#cb57-25"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb57-26"><a href="segmentizing.html#cb57-26"></a>[<span class="dv">1</span>] <span class="st">&quot;separate&quot;</span></span>
+<span id="cb57-27"><a href="segmentizing.html#cb57-27"></a>[<span class="dv">1</span>] <span class="st">&quot;append&quot;</span>  <span class="st">&quot;segment&quot;</span></span>
+<span id="cb57-28"><a href="segmentizing.html#cb57-28"></a>[<span class="dv">1</span>] <span class="st">&quot;equallength&quot;</span></span>
+<span id="cb57-29"><a href="segmentizing.html#cb57-29"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb57-30"><a href="segmentizing.html#cb57-30"></a>[<span class="dv">1</span>] <span class="dv">360</span></span>
+<span id="cb57-31"><a href="segmentizing.html#cb57-31"></a>[<span class="dv">1</span>] <span class="dv">30</span></span>
+<span id="cb57-32"><a href="segmentizing.html#cb57-32"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb57-33"><a href="segmentizing.html#cb57-33"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb57-34"><a href="segmentizing.html#cb57-34"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb57-35"><a href="segmentizing.html#cb57-35"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span> <span class="st">&quot;N&quot;</span></span>
+<span id="cb57-36"><a href="segmentizing.html#cb57-36"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb57-37"><a href="segmentizing.html#cb57-37"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb57-38"><a href="segmentizing.html#cb57-38"></a></span>
+<span id="cb57-39"><a href="segmentizing.html#cb57-39"></a><span class="co"># Number of segments</span></span>
+<span id="cb57-40"><a href="segmentizing.html#cb57-40"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb57-41"><a href="segmentizing.html#cb57-41"></a>[<span class="dv">1</span>] <span class="dv">493</span></span>
+<span id="cb57-42"><a href="segmentizing.html#cb57-42"></a></span>
+<span id="cb57-43"><a href="segmentizing.html#cb57-43"></a><span class="co"># Plot</span></span>
+<span id="cb57-44"><a href="segmentizing.html#cb57-44"></a><span class="kw">segment_histogram</span>(cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-64-1.png" width="672" /></p>
+<p>You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.</p>
+</div>
+<div id="segment-remainder-handling" class="section level2 unnumbered">
+<h2>Segment remainder handling</h2>
+<p>The default setting for <code>segment_remainder_handling</code>, <code>c('append','segment')</code>, means that remainders less than half the target length will be randomly appended to another segment, while remainders more than half will be treated as their own segment (and will be placed randomly along the trackline).</p>
+<p>If you don’t want that level of complexity, you can simply assign a single setting: <code>c'append')</code> will append the remainder in all cases, regardless of remainder length relative to the target length. The same idea goes for <code>c('segment')</code>.</p>
+<p>The other possible setting is <code>disperse</code>, which disperses the remainder evenly across all segments. To demonstrate, let’s use a target length of 100 km.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="segmentizing.html#cb58-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
+<span id="cb58-2"><a href="segmentizing.html#cb58-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb58-3"><a href="segmentizing.html#cb58-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">100</span>,</span>
+<span id="cb58-4"><a href="segmentizing.html#cb58-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
+<span id="cb58-5"><a href="segmentizing.html#cb58-5"></a>                        <span class="dt">segment_type_handling =</span> <span class="st">&#39;separate&#39;</span>,</span>
+<span id="cb58-6"><a href="segmentizing.html#cb58-6"></a>                        <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;disperse&#39;</span>),</span>
+<span id="cb58-7"><a href="segmentizing.html#cb58-7"></a>                        <span class="dt">density_types =</span> <span class="kw">c</span>(<span class="st">&#39;S&#39;</span>,<span class="st">&#39;F&#39;</span>),</span>
+<span id="cb58-8"><a href="segmentizing.html#cb58-8"></a>                        <span class="dt">density_modes =</span> <span class="kw">c</span>(<span class="st">&#39;P&#39;</span>,<span class="st">&#39;C&#39;</span>),</span>
+<span id="cb58-9"><a href="segmentizing.html#cb58-9"></a>                        <span class="dt">density_on_off =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>),</span>
+<span id="cb58-10"><a href="segmentizing.html#cb58-10"></a>                        <span class="dt">distance_types =</span> <span class="ot">NULL</span>,</span>
+<span id="cb58-11"><a href="segmentizing.html#cb58-11"></a>                        <span class="dt">distance_modes =</span> <span class="ot">NULL</span>,</span>
+<span id="cb58-12"><a href="segmentizing.html#cb58-12"></a>                        <span class="dt">distance_on_off =</span> <span class="ot">NULL</span>,</span>
+<span id="cb58-13"><a href="segmentizing.html#cb58-13"></a>                        <span class="dt">random_seed =</span> <span class="ot">NULL</span>)</span>
+<span id="cb58-14"><a href="segmentizing.html#cb58-14"></a>[<span class="dv">1</span>] <span class="st">&quot;separate&quot;</span></span>
+<span id="cb58-15"><a href="segmentizing.html#cb58-15"></a>[<span class="dv">1</span>] <span class="st">&quot;disperse&quot;</span></span>
+<span id="cb58-16"><a href="segmentizing.html#cb58-16"></a>[<span class="dv">1</span>] <span class="st">&quot;equallength&quot;</span></span>
+<span id="cb58-17"><a href="segmentizing.html#cb58-17"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb58-18"><a href="segmentizing.html#cb58-18"></a>[<span class="dv">1</span>] <span class="dv">172800</span></span>
+<span id="cb58-19"><a href="segmentizing.html#cb58-19"></a>[<span class="dv">1</span>] <span class="dv">100</span></span>
+<span id="cb58-20"><a href="segmentizing.html#cb58-20"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb58-21"><a href="segmentizing.html#cb58-21"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb58-22"><a href="segmentizing.html#cb58-22"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb58-23"><a href="segmentizing.html#cb58-23"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb58-24"><a href="segmentizing.html#cb58-24"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb58-25"><a href="segmentizing.html#cb58-25"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb58-26"><a href="segmentizing.html#cb58-26"></a>[<span class="dv">1</span>] <span class="st">&quot;separate&quot;</span></span>
+<span id="cb58-27"><a href="segmentizing.html#cb58-27"></a>[<span class="dv">1</span>] <span class="st">&quot;disperse&quot;</span></span>
+<span id="cb58-28"><a href="segmentizing.html#cb58-28"></a>[<span class="dv">1</span>] <span class="st">&quot;equallength&quot;</span></span>
+<span id="cb58-29"><a href="segmentizing.html#cb58-29"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb58-30"><a href="segmentizing.html#cb58-30"></a>[<span class="dv">1</span>] <span class="dv">172800</span></span>
+<span id="cb58-31"><a href="segmentizing.html#cb58-31"></a>[<span class="dv">1</span>] <span class="dv">100</span></span>
+<span id="cb58-32"><a href="segmentizing.html#cb58-32"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb58-33"><a href="segmentizing.html#cb58-33"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb58-34"><a href="segmentizing.html#cb58-34"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb58-35"><a href="segmentizing.html#cb58-35"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span> <span class="st">&quot;N&quot;</span></span>
+<span id="cb58-36"><a href="segmentizing.html#cb58-36"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb58-37"><a href="segmentizing.html#cb58-37"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb58-38"><a href="segmentizing.html#cb58-38"></a></span>
+<span id="cb58-39"><a href="segmentizing.html#cb58-39"></a><span class="co"># Number of segments</span></span>
+<span id="cb58-40"><a href="segmentizing.html#cb58-40"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb58-41"><a href="segmentizing.html#cb58-41"></a>[<span class="dv">1</span>] <span class="dv">80</span></span>
+<span id="cb58-42"><a href="segmentizing.html#cb58-42"></a></span>
+<span id="cb58-43"><a href="segmentizing.html#cb58-43"></a><span class="co"># Plot</span></span>
+<span id="cb58-44"><a href="segmentizing.html#cb58-44"></a><span class="kw">segment_histogram</span>(cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-65-1.png" width="672" /></p>
+<p>Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="segmentizing.html#cb59-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
+<span id="cb59-2"><a href="segmentizing.html#cb59-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb59-3"><a href="segmentizing.html#cb59-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">90</span>,</span>
+<span id="cb59-4"><a href="segmentizing.html#cb59-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
+<span id="cb59-5"><a href="segmentizing.html#cb59-5"></a>                        <span class="dt">segment_type_handling =</span> <span class="st">&#39;separate&#39;</span>,</span>
+<span id="cb59-6"><a href="segmentizing.html#cb59-6"></a>                        <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;disperse&#39;</span>),</span>
+<span id="cb59-7"><a href="segmentizing.html#cb59-7"></a>                        <span class="dt">density_types =</span> <span class="kw">c</span>(<span class="st">&#39;S&#39;</span>,<span class="st">&#39;F&#39;</span>),</span>
+<span id="cb59-8"><a href="segmentizing.html#cb59-8"></a>                        <span class="dt">density_modes =</span> <span class="kw">c</span>(<span class="st">&#39;P&#39;</span>,<span class="st">&#39;C&#39;</span>),</span>
+<span id="cb59-9"><a href="segmentizing.html#cb59-9"></a>                        <span class="dt">density_on_off =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>),</span>
+<span id="cb59-10"><a href="segmentizing.html#cb59-10"></a>                        <span class="dt">distance_types =</span> <span class="ot">NULL</span>,</span>
+<span id="cb59-11"><a href="segmentizing.html#cb59-11"></a>                        <span class="dt">distance_modes =</span> <span class="ot">NULL</span>,</span>
+<span id="cb59-12"><a href="segmentizing.html#cb59-12"></a>                        <span class="dt">distance_on_off =</span> <span class="ot">NULL</span>,</span>
+<span id="cb59-13"><a href="segmentizing.html#cb59-13"></a>                        <span class="dt">random_seed =</span> <span class="ot">NULL</span>)</span>
+<span id="cb59-14"><a href="segmentizing.html#cb59-14"></a>[<span class="dv">1</span>] <span class="st">&quot;separate&quot;</span></span>
+<span id="cb59-15"><a href="segmentizing.html#cb59-15"></a>[<span class="dv">1</span>] <span class="st">&quot;disperse&quot;</span></span>
+<span id="cb59-16"><a href="segmentizing.html#cb59-16"></a>[<span class="dv">1</span>] <span class="st">&quot;equallength&quot;</span></span>
+<span id="cb59-17"><a href="segmentizing.html#cb59-17"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb59-18"><a href="segmentizing.html#cb59-18"></a>[<span class="dv">1</span>] <span class="dv">172800</span></span>
+<span id="cb59-19"><a href="segmentizing.html#cb59-19"></a>[<span class="dv">1</span>] <span class="dv">90</span></span>
+<span id="cb59-20"><a href="segmentizing.html#cb59-20"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb59-21"><a href="segmentizing.html#cb59-21"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb59-22"><a href="segmentizing.html#cb59-22"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb59-23"><a href="segmentizing.html#cb59-23"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb59-24"><a href="segmentizing.html#cb59-24"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb59-25"><a href="segmentizing.html#cb59-25"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb59-26"><a href="segmentizing.html#cb59-26"></a>[<span class="dv">1</span>] <span class="st">&quot;separate&quot;</span></span>
+<span id="cb59-27"><a href="segmentizing.html#cb59-27"></a>[<span class="dv">1</span>] <span class="st">&quot;disperse&quot;</span></span>
+<span id="cb59-28"><a href="segmentizing.html#cb59-28"></a>[<span class="dv">1</span>] <span class="st">&quot;equallength&quot;</span></span>
+<span id="cb59-29"><a href="segmentizing.html#cb59-29"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb59-30"><a href="segmentizing.html#cb59-30"></a>[<span class="dv">1</span>] <span class="dv">172800</span></span>
+<span id="cb59-31"><a href="segmentizing.html#cb59-31"></a>[<span class="dv">1</span>] <span class="dv">90</span></span>
+<span id="cb59-32"><a href="segmentizing.html#cb59-32"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb59-33"><a href="segmentizing.html#cb59-33"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb59-34"><a href="segmentizing.html#cb59-34"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb59-35"><a href="segmentizing.html#cb59-35"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span> <span class="st">&quot;N&quot;</span></span>
+<span id="cb59-36"><a href="segmentizing.html#cb59-36"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb59-37"><a href="segmentizing.html#cb59-37"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb59-38"><a href="segmentizing.html#cb59-38"></a></span>
+<span id="cb59-39"><a href="segmentizing.html#cb59-39"></a><span class="co"># Number of segments</span></span>
+<span id="cb59-40"><a href="segmentizing.html#cb59-40"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb59-41"><a href="segmentizing.html#cb59-41"></a>[<span class="dv">1</span>] <span class="dv">89</span></span>
+<span id="cb59-42"><a href="segmentizing.html#cb59-42"></a></span>
+<span id="cb59-43"><a href="segmentizing.html#cb59-43"></a><span class="co"># Plot</span></span>
+<span id="cb59-44"><a href="segmentizing.html#cb59-44"></a><span class="kw">segment_histogram</span>(cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-66-1.png" width="672" /></p>
+<p>But in general, the <code>disperse</code> option may be more appropriate for shorter segment lengths.</p>
+</div>
+<div id="typical-settings" class="section level2 unnumbered">
+<h2>Typical settings</h2>
+<div id="design-based-line-transect-analysis" class="section level3 unnumbered">
+<h3>Design-based line transect analysis</h3>
+<p>To replicate methods used in density estimation analyses, use large segment lengths (100 km or more) or simply segmentize by day, with <code>S</code> and <code>F</code> effort types kept separate. (See the examples above.) Remember that long segment lengths won’t work well unless you allow for non-contiguous effort.</p>
+</div>
+<div id="habitat-modeling" class="section level3 unnumbered">
+<h3>Habitat modeling</h3>
+<p>To replicate the methods used in typical habitat modeling studies, use smaller segment lengths of contiguous effort. In these studies it may be acceptable to pool various effort types into the same segments.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="segmentizing.html#cb60-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
+<span id="cb60-2"><a href="segmentizing.html#cb60-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb60-3"><a href="segmentizing.html#cb60-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">5</span>,</span>
+<span id="cb60-4"><a href="segmentizing.html#cb60-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="fl">.1</span>,</span>
+<span id="cb60-5"><a href="segmentizing.html#cb60-5"></a>                        <span class="dt">segment_type_handling =</span> <span class="st">&#39;pool&#39;</span>,</span>
+<span id="cb60-6"><a href="segmentizing.html#cb60-6"></a>                        <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
+<span id="cb60-7"><a href="segmentizing.html#cb60-7"></a>                        <span class="dt">density_types =</span> <span class="kw">c</span>(<span class="st">&#39;S&#39;</span>,<span class="st">&#39;F&#39;</span>),</span>
+<span id="cb60-8"><a href="segmentizing.html#cb60-8"></a>                        <span class="dt">density_modes =</span> <span class="kw">c</span>(<span class="st">&#39;P&#39;</span>,<span class="st">&#39;C&#39;</span>),</span>
+<span id="cb60-9"><a href="segmentizing.html#cb60-9"></a>                        <span class="dt">density_on_off =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>),</span>
+<span id="cb60-10"><a href="segmentizing.html#cb60-10"></a>                        <span class="dt">distance_types =</span> <span class="ot">NULL</span>,</span>
+<span id="cb60-11"><a href="segmentizing.html#cb60-11"></a>                        <span class="dt">distance_modes =</span> <span class="ot">NULL</span>,</span>
+<span id="cb60-12"><a href="segmentizing.html#cb60-12"></a>                        <span class="dt">distance_on_off =</span> <span class="ot">NULL</span>,</span>
+<span id="cb60-13"><a href="segmentizing.html#cb60-13"></a>                        <span class="dt">random_seed =</span> <span class="ot">NULL</span>)</span>
+<span id="cb60-14"><a href="segmentizing.html#cb60-14"></a>[<span class="dv">1</span>] <span class="st">&quot;pool&quot;</span></span>
+<span id="cb60-15"><a href="segmentizing.html#cb60-15"></a>[<span class="dv">1</span>] <span class="st">&quot;append&quot;</span>  <span class="st">&quot;segment&quot;</span></span>
+<span id="cb60-16"><a href="segmentizing.html#cb60-16"></a>[<span class="dv">1</span>] <span class="st">&quot;equallength&quot;</span></span>
+<span id="cb60-17"><a href="segmentizing.html#cb60-17"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb60-18"><a href="segmentizing.html#cb60-18"></a>[<span class="dv">1</span>] <span class="dv">360</span></span>
+<span id="cb60-19"><a href="segmentizing.html#cb60-19"></a>[<span class="dv">1</span>] <span class="dv">5</span></span>
+<span id="cb60-20"><a href="segmentizing.html#cb60-20"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb60-21"><a href="segmentizing.html#cb60-21"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb60-22"><a href="segmentizing.html#cb60-22"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb60-23"><a href="segmentizing.html#cb60-23"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb60-24"><a href="segmentizing.html#cb60-24"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb60-25"><a href="segmentizing.html#cb60-25"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb60-26"><a href="segmentizing.html#cb60-26"></a>[<span class="dv">1</span>] <span class="st">&quot;pool&quot;</span></span>
+<span id="cb60-27"><a href="segmentizing.html#cb60-27"></a>[<span class="dv">1</span>] <span class="st">&quot;append&quot;</span>  <span class="st">&quot;segment&quot;</span></span>
+<span id="cb60-28"><a href="segmentizing.html#cb60-28"></a>[<span class="dv">1</span>] <span class="st">&quot;equallength&quot;</span></span>
+<span id="cb60-29"><a href="segmentizing.html#cb60-29"></a>[<span class="dv">1</span>] <span class="dv">833171</span></span>
+<span id="cb60-30"><a href="segmentizing.html#cb60-30"></a>[<span class="dv">1</span>] <span class="dv">360</span></span>
+<span id="cb60-31"><a href="segmentizing.html#cb60-31"></a>[<span class="dv">1</span>] <span class="dv">5</span></span>
+<span id="cb60-32"><a href="segmentizing.html#cb60-32"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span></span>
+<span id="cb60-33"><a href="segmentizing.html#cb60-33"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb60-34"><a href="segmentizing.html#cb60-34"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb60-35"><a href="segmentizing.html#cb60-35"></a>[<span class="dv">1</span>] <span class="st">&quot;S&quot;</span> <span class="st">&quot;F&quot;</span> <span class="st">&quot;N&quot;</span></span>
+<span id="cb60-36"><a href="segmentizing.html#cb60-36"></a>[<span class="dv">1</span>] <span class="st">&quot;P&quot;</span> <span class="st">&quot;C&quot;</span></span>
+<span id="cb60-37"><a href="segmentizing.html#cb60-37"></a>[<span class="dv">1</span>] <span class="ot">TRUE</span></span>
+<span id="cb60-38"><a href="segmentizing.html#cb60-38"></a></span>
+<span id="cb60-39"><a href="segmentizing.html#cb60-39"></a><span class="co"># Number of segments</span></span>
+<span id="cb60-40"><a href="segmentizing.html#cb60-40"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb60-41"><a href="segmentizing.html#cb60-41"></a>[<span class="dv">1</span>] <span class="dv">1729</span></span>
+<span id="cb60-42"><a href="segmentizing.html#cb60-42"></a></span>
+<span id="cb60-43"><a href="segmentizing.html#cb60-43"></a><span class="co"># Plot</span></span>
+<span id="cb60-44"><a href="segmentizing.html#cb60-44"></a><span class="kw">segment_histogram</span>(cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-67-1.png" width="576" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="stratagallery.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="backlog.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/emk-noaa/emk-noaa.github.io91-appendix_segmentizing.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["vignette.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
