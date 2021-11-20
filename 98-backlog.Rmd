@@ -1,24 +1,24 @@
 # Appendix: Backlog {#backlog}
 
+- Handle probable species in `process_sightings()`. Probable species currently are not handled in `process_sightings()`: I need a dataset that has a probable event in order to code. Look for it in the CCS data.  
+
+- Double check use low if best NA (you might be using it for every observer, but it should only be used if NO observer has a best)  
+
+- Main Islands map bbox  
+
+- Map bbox for SoCal, Central Cal, and northern CCS  
+
 - Appendix for helper functions, incl `species_translator()`.  
 
 - Method for stratifying by Beaufort.  
 
-- Add setting to specify which species to pass on to Distance  
-
-- Handle probable species in `process_sightings`   
-
 - Add Survey summary function / section to this Rmd  
-
-- Add feature that calculates polygon area if not provided in stratum filename.  
 
 - `study_area_explore()` and `study_area_select()`.  
 
 - Figure out which ETP strata to have as defaults for both survey strata and study area polygons (there are like 100 in the folder Jeff sent us).  May be a question for Tim G.  
 
 - Test this code on lots of cruise data files to establish basic functionality for Hawaii, California Current, and ETP.   
-
-- Build up settings file functionality for processing sightings (formatting DAT files for group size coefficients, etc.)  
 
 - Plotting functions for species (or subsets of species)  
 

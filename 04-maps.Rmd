@@ -5,11 +5,13 @@ library(dplyr)
 library(magrittr)
 library(LTabundR)
 library(swfscDAS)
-
+library(tmap)
 #data(hiceas2020)
 #das <- hiceas2020
 #data(settings)
-load('data/cruz_proc.RData')
+data(cruz_proc)
+cruz <- cruz_proc
+#load('data/cruz_proc.RData')
 ```
 
 To build a flexible system for mapping cruise data, we have the following functions:  
@@ -25,7 +27,7 @@ m
 
 We also have a base map for the California Current ... 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
 m <- map_base(region='ccs')
 m
 ```
@@ -44,14 +46,12 @@ Add your research strata to your map:
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m <- map_base(region='cnp')
 m <- map_strata(m, 
-                settings, 
+                cruz$settings, 
                 region='cnp')
 m
 ```
 
 ## Add survey tracks {-}  
-
-*Note: this may take a minute to render.*  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m1 <- map_effort(m, cruz)
@@ -60,9 +60,9 @@ m1
 
 The defaults of `map_effort()` assume, for simplicity, that you want to see the segments to be included in density estimation for the first cohort specified in your settings.  You can adjust this and other defaults using the function arguments. 
 
-## Customizing effort {-}  
+### Customizing effort {-}  
 
-### Inputs  {-}  
+#### Inputs  {-}  
 
 To demonstrate some of the customization options, consider this map that shows segments to be *excluded* from the `"distance"` (detection function) analysis for our second cohort (`fkw_insular`).
 
@@ -77,7 +77,7 @@ map_effort(m, cruz,
 ```
 
 
-### Color-code conditions {-}  
+#### Color-code conditions {-}  
 
 Your second customization option is to add format variables to the `segments` slot of the cohort of interest in the `cruz` object. This gives you full control of line color, thickness, and line-type according to whatever specifications you wish to set, e.g., color-coding by effort type or Beaufort sea state.  
 
@@ -120,3 +120,43 @@ m_custom2 <-
 m_custom2
 ```
 
+## Add sightings {-}  
+
+Use the function `map_sightings()` to add sightings to your map:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+map_sightings(m, cruz)
+```
+
+### Customizing sightings {-}  
+
+To demonstrate some of the customization options, consider this map that shows sightings of false killer whales with custom dot color, shape, and size: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+map_sightings(m,
+              cruz,
+              include_species = '033',
+              color_base = 'purple',
+              shape_base = 18,
+              size_base = 1)
+```
+
+Next is a map of humpback whales and sperm whales, color-coded by species and shape-coded by whether or not the sighting will be included in the analysis: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+map_sightings(m, 
+              cruz,
+              include_species = c('076','046'),
+              color_code = TRUE,
+              shape_code = TRUE)
+```
+
+Here is an overview of the steps needed to map strata, survey tracks, and sightings all together:
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+m <- map_base('cnp') 
+m <- map_strata(m, cruz$settings)
+m <- map_effort(m, cruz)
+m <- map_sightings(m, cruz, size_base=.4)
+m 
+```

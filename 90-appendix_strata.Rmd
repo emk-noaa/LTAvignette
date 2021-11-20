@@ -6,6 +6,9 @@ library(magrittr)
 library(LTabundR)
 ```
 
+This packages comes with several built-in datasets of geographic strata that are commonly used in NOAA/NMFS surveys.  The functions `strata_explore()` and `strata_select()` were developed to help you explore those built-in options.  
+
+
 ## Central North Pacific {-} 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, warning=FALSE, message=FALSE, fig.width=6, fig.height=4}

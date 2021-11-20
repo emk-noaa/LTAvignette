@@ -158,7 +158,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#base-maps"><i class="fa fa-check"></i>Base maps</a></li>
 <li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-strata"><i class="fa fa-check"></i>Add strata</a></li>
 <li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-survey-tracks"><i class="fa fa-check"></i>Add survey tracks</a></li>
-<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#customizing-effort"><i class="fa fa-check"></i>Customizing effort</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-sightings"><i class="fa fa-check"></i>Add sightings</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey</a></li>
 <li class="chapter" data-level="7" data-path="df.html"><a href="df.html"><i class="fa fa-check"></i><b>7</b> Detection functions</a></li>
@@ -175,6 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#etp"><i class="fa fa-check"></i>ETP</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>12</b> Appendix: Segmentizing</a><ul>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#approach"><i class="fa fa-check"></i>Approach</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#defaults-2"><i class="fa fa-check"></i>Defaults</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#day-vs-equal-length"><i class="fa fa-check"></i>Day vs Equal Length</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#contiguous-vs.-non-contiguous-effort"><i class="fa fa-check"></i>Contiguous vs. non-contiguous effort</a></li>
@@ -225,8 +226,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-2"><a href="install.html#cb2-2"></a>github_token &lt;-<span class="st"> </span><span class="kw">Sys.getenv</span>(<span class="st">&quot;GITHUB_TOKEN&quot;</span>)</span>
 <span id="cb2-3"><a href="install.html#cb2-3"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="dt">repo =</span> <span class="st">&#39;amandalbradford/LTabundR-dev&#39;</span>,</span>
 <span id="cb2-4"><a href="install.html#cb2-4"></a>                         <span class="dt">subdir=</span><span class="st">&#39;LTabundR&#39;</span>,</span>
-<span id="cb2-5"><a href="install.html#cb2-5"></a>                         <span class="dt">auth_token=</span>github_token)</span>
-<span id="cb2-6"><a href="install.html#cb2-6"></a><span class="kw">library</span>(LTabundR)</span></code></pre></div>
+<span id="cb2-5"><a href="install.html#cb2-5"></a>                         <span class="dt">auth_token=</span>github_token,</span>
+<span id="cb2-6"><a href="install.html#cb2-6"></a>                         <span class="dt">force=</span><span class="ot">TRUE</span>)</span>
+<span id="cb2-7"><a href="install.html#cb2-7"></a><span class="kw">library</span>(LTabundR)</span></code></pre></div>
 </div>
 <div id="option-2-install-locally" class="section level2 unnumbered">
 <h2>Option 2: Install locally</h2>

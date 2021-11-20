@@ -158,7 +158,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#base-maps"><i class="fa fa-check"></i>Base maps</a></li>
 <li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-strata"><i class="fa fa-check"></i>Add strata</a></li>
 <li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-survey-tracks"><i class="fa fa-check"></i>Add survey tracks</a></li>
-<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#customizing-effort"><i class="fa fa-check"></i>Customizing effort</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-sightings"><i class="fa fa-check"></i>Add sightings</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey</a></li>
 <li class="chapter" data-level="7" data-path="df.html"><a href="df.html"><i class="fa fa-check"></i><b>7</b> Detection functions</a></li>
@@ -175,6 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#etp"><i class="fa fa-check"></i>ETP</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>12</b> Appendix: Segmentizing</a><ul>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#approach"><i class="fa fa-check"></i>Approach</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#defaults-2"><i class="fa fa-check"></i>Defaults</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#day-vs-equal-length"><i class="fa fa-check"></i>Day vs Equal Length</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#contiguous-vs.-non-contiguous-effort"><i class="fa fa-check"></i>Contiguous vs. non-contiguous effort</a></li>
@@ -212,31 +213,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="changes" class="section level4 unnumbered">
 <h4>Changes</h4>
 <ul>
-<li><p>New <strong>status report format</strong> (a <code>bookdown</code> vignette, compatible with a future website and PDF tutorial.)</p></li>
-<li><p><strong>Initiation of package framework</strong> (more efficient to design, develop, test, and document code). See <code>Install</code> chapter for details.</p></li>
-<li><p>Implementation of <strong>new settings system</strong>: survey-wide and cohort-specific settings. See <code>Settings</code> chapter for description / explanation.</p></li>
-<li><p>Update of strata and segmentizing functions to accommodate new settings system. See <code>Processing</code> chapter.</p></li>
-<li><p>The function <code>process_polygon()</code> now calculates the area, in km2, of strata and study area polygons.</p></li>
+<li><p>New <code>process_sightings()</code> function, with code for calibrating group sizes according to user-provided coefficient tables (mirroring <code>ABUND9</code> with slight mods, e.g., school size threshold for observers not in the <code>Coeff.DAT</code> file.). (Details: the function <code>process_sightings()</code> relies upon a utility function, <code>group_size()</code>, which in turn relies upon <code>group_size_calibrate()</code>.)</p></li>
+<li><p>Added cohort-specific setting, <code>school_size_calibrate</code>, that allows researchers to specify whether a cohort should or should not have school sizes calibrated. Example use case: <code>school_size_calibrate = TRUE</code> for a cohort of dolphin species, but make it <code>FALSE</code> for a cohort of large baleen whales.</p></li>
+<li><p>Basic function for mapping sightings (QA/QC): <code>map_sightings()</code>.</p></li>
 </ul>
 </div>
 <div id="next-focus" class="section level4 unnumbered">
 <h4>Next focus</h4>
 <ul>
-<li>Transfer code to the new settings system and package framework:</li>
-</ul>
-<p>— mapping functions<br />
-— sightings processing<br />
-— survey summary</p>
-<ul>
-<li><p>Update backlog</p></li>
-<li><p>Back to developing the sightings processing</p></li>
+<li>Document vignette<br />
+</li>
+<li>Document code<br />
+</li>
+<li>Document function manuals<br />
+</li>
+<li>Survey summary<br />
+</li>
+<li>Review INP shared by Amanda</li>
+<li>EFFORT and SIGHTINGS outputs</li>
 </ul>
 </div>
 <div id="questions-for-amanda" class="section level4 unnumbered">
 <h4>Questions for Amanda</h4>
 <ul>
-<li><p>Lots of structural changes (new vignette system, initiation of package framework). Lots on my list to do to complete the transfer, so not many questions for now.</p></li>
-<li><p>Am I getting closer with the new settings / segmentizing frameworks?</p></li>
+<li><p>FKW handling</p></li>
+<li><p>What is the ship list used for?</p></li>
 </ul>
 
 </div>

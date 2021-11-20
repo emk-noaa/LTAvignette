@@ -158,7 +158,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#base-maps"><i class="fa fa-check"></i>Base maps</a></li>
 <li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-strata"><i class="fa fa-check"></i>Add strata</a></li>
 <li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-survey-tracks"><i class="fa fa-check"></i>Add survey tracks</a></li>
-<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#customizing-effort"><i class="fa fa-check"></i>Customizing effort</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-sightings"><i class="fa fa-check"></i>Add sightings</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey</a></li>
 <li class="chapter" data-level="7" data-path="df.html"><a href="df.html"><i class="fa fa-check"></i><b>7</b> Detection functions</a></li>
@@ -175,6 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#etp"><i class="fa fa-check"></i>ETP</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>12</b> Appendix: Segmentizing</a><ul>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#approach"><i class="fa fa-check"></i>Approach</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#defaults-2"><i class="fa fa-check"></i>Defaults</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#day-vs-equal-length"><i class="fa fa-check"></i>Day vs Equal Length</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#contiguous-vs.-non-contiguous-effort"><i class="fa fa-check"></i>Contiguous vs. non-contiguous effort</a></li>
@@ -209,88 +210,118 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="base-maps" class="section level2 unnumbered">
 <h2>Base maps</h2>
 <p>Begin with a basic map, including EEZ borders:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="maps.html#cb39-1"></a>m &lt;-<span class="st"> </span><span class="kw">map_base</span>(<span class="dt">region=</span><span class="st">&#39;cnp&#39;</span>)</span>
-<span id="cb39-2"><a href="maps.html#cb39-2"></a>m</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-43-1.png" width="576" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="maps.html#cb47-1"></a>m &lt;-<span class="st"> </span><span class="kw">map_base</span>(<span class="dt">region=</span><span class="st">&#39;cnp&#39;</span>)</span>
+<span id="cb47-2"><a href="maps.html#cb47-2"></a>m</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-50-1.png" width="576" /></p>
 <p>We also have a base map for the California Current …</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="maps.html#cb40-1"></a>m &lt;-<span class="st"> </span><span class="kw">map_base</span>(<span class="dt">region=</span><span class="st">&#39;ccs&#39;</span>)</span>
-<span id="cb40-2"><a href="maps.html#cb40-2"></a>m</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-44-1.png" width="576" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="maps.html#cb48-1"></a>m &lt;-<span class="st"> </span><span class="kw">map_base</span>(<span class="dt">region=</span><span class="st">&#39;ccs&#39;</span>)</span>
+<span id="cb48-2"><a href="maps.html#cb48-2"></a>m</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-51-1.png" width="576" /></p>
 <p>And the ETP:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="maps.html#cb41-1"></a>m &lt;-<span class="st"> </span><span class="kw">map_base</span>(<span class="dt">region=</span><span class="st">&#39;etp&#39;</span>)</span>
-<span id="cb41-2"><a href="maps.html#cb41-2"></a>m</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-45-1.png" width="576" /></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="maps.html#cb49-1"></a>m &lt;-<span class="st"> </span><span class="kw">map_base</span>(<span class="dt">region=</span><span class="st">&#39;etp&#39;</span>)</span>
+<span id="cb49-2"><a href="maps.html#cb49-2"></a>m</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-52-1.png" width="576" /></p>
 </div>
 <div id="add-strata" class="section level2 unnumbered">
 <h2>Add strata</h2>
 <p>Add your research strata to your map:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="maps.html#cb42-1"></a>m &lt;-<span class="st"> </span><span class="kw">map_base</span>(<span class="dt">region=</span><span class="st">&#39;cnp&#39;</span>)</span>
-<span id="cb42-2"><a href="maps.html#cb42-2"></a>m &lt;-<span class="st"> </span><span class="kw">map_strata</span>(m, </span>
-<span id="cb42-3"><a href="maps.html#cb42-3"></a>                settings, </span>
-<span id="cb42-4"><a href="maps.html#cb42-4"></a>                <span class="dt">region=</span><span class="st">&#39;cnp&#39;</span>)</span>
-<span id="cb42-5"><a href="maps.html#cb42-5"></a>m</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-46-1.png" width="576" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="maps.html#cb50-1"></a>m &lt;-<span class="st"> </span><span class="kw">map_base</span>(<span class="dt">region=</span><span class="st">&#39;cnp&#39;</span>)</span>
+<span id="cb50-2"><a href="maps.html#cb50-2"></a>m &lt;-<span class="st"> </span><span class="kw">map_strata</span>(m, </span>
+<span id="cb50-3"><a href="maps.html#cb50-3"></a>                cruz<span class="op">$</span>settings, </span>
+<span id="cb50-4"><a href="maps.html#cb50-4"></a>                <span class="dt">region=</span><span class="st">&#39;cnp&#39;</span>)</span>
+<span id="cb50-5"><a href="maps.html#cb50-5"></a>m</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-53-1.png" width="576" /></p>
 </div>
 <div id="add-survey-tracks" class="section level2 unnumbered">
 <h2>Add survey tracks</h2>
-<p><em>Note: this may take a minute to render.</em></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="maps.html#cb43-1"></a>m1 &lt;-<span class="st"> </span><span class="kw">map_effort</span>(m, cruz)</span>
-<span id="cb43-2"><a href="maps.html#cb43-2"></a>m1</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-47-1.png" width="576" /></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="maps.html#cb51-1"></a>m1 &lt;-<span class="st"> </span><span class="kw">map_effort</span>(m, cruz)</span>
+<span id="cb51-2"><a href="maps.html#cb51-2"></a>m1</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-54-1.png" width="576" /></p>
 <p>The defaults of <code>map_effort()</code> assume, for simplicity, that you want to see the segments to be included in density estimation for the first cohort specified in your settings. You can adjust this and other defaults using the function arguments.</p>
-</div>
-<div id="customizing-effort" class="section level2 unnumbered">
-<h2>Customizing effort</h2>
-<div id="inputs" class="section level3 unnumbered">
-<h3>Inputs</h3>
+<div id="customizing-effort" class="section level3 unnumbered">
+<h3>Customizing effort</h3>
+<div id="inputs" class="section level4 unnumbered">
+<h4>Inputs</h4>
 <p>To demonstrate some of the customization options, consider this map that shows segments to be <em>excluded</em> from the <code>"distance"</code> (detection function) analysis for our second cohort (<code>fkw_insular</code>).</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="maps.html#cb44-1"></a><span class="kw">map_effort</span>(m, cruz,</span>
-<span id="cb44-2"><a href="maps.html#cb44-2"></a>           <span class="dt">cohort =</span> <span class="dv">2</span>,</span>
-<span id="cb44-3"><a href="maps.html#cb44-3"></a>           <span class="dt">analysis =</span> <span class="st">&#39;distance&#39;</span>,</span>
-<span id="cb44-4"><a href="maps.html#cb44-4"></a>           <span class="dt">use_type =</span> <span class="kw">c</span>(<span class="ot">FALSE</span>),</span>
-<span id="cb44-5"><a href="maps.html#cb44-5"></a>           <span class="dt">effort_color=</span><span class="st">&#39;firebrick&#39;</span>,</span>
-<span id="cb44-6"><a href="maps.html#cb44-6"></a>           <span class="dt">effort_stroke=</span><span class="fl">2.5</span>,</span>
-<span id="cb44-7"><a href="maps.html#cb44-7"></a>           <span class="dt">effort_linetype=</span><span class="dv">1</span>,)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-48-1.png" width="576" /></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="maps.html#cb52-1"></a><span class="kw">map_effort</span>(m, cruz,</span>
+<span id="cb52-2"><a href="maps.html#cb52-2"></a>           <span class="dt">cohort =</span> <span class="dv">2</span>,</span>
+<span id="cb52-3"><a href="maps.html#cb52-3"></a>           <span class="dt">analysis =</span> <span class="st">&#39;distance&#39;</span>,</span>
+<span id="cb52-4"><a href="maps.html#cb52-4"></a>           <span class="dt">use_type =</span> <span class="kw">c</span>(<span class="ot">FALSE</span>),</span>
+<span id="cb52-5"><a href="maps.html#cb52-5"></a>           <span class="dt">effort_color=</span><span class="st">&#39;firebrick&#39;</span>,</span>
+<span id="cb52-6"><a href="maps.html#cb52-6"></a>           <span class="dt">effort_stroke=</span><span class="fl">2.5</span>,</span>
+<span id="cb52-7"><a href="maps.html#cb52-7"></a>           <span class="dt">effort_linetype=</span><span class="dv">1</span>,)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-55-1.png" width="576" /></p>
 </div>
-<div id="color-code-conditions" class="section level3 unnumbered">
-<h3>Color-code conditions</h3>
+<div id="color-code-conditions" class="section level4 unnumbered">
+<h4>Color-code conditions</h4>
 <p>Your second customization option is to add format variables to the <code>segments</code> slot of the cohort of interest in the <code>cruz</code> object. This gives you full control of line color, thickness, and line-type according to whatever specifications you wish to set, e.g., color-coding by effort type or Beaufort sea state.</p>
 <p>This is possible because the function <code>map_effort()</code> looks for the variables <code>col</code> (line color), <code>lwd</code> (line thickness or stroke), and <code>lty</code> (line type) in the columns of <code>cruz$segments</code>. If these columns exist, the values therein will be used instead of the function defaults.</p>
 <p>For example, color-code by Beaufort scale:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="maps.html#cb45-1"></a><span class="co"># Save copy of cruz object data to modify</span></span>
-<span id="cb45-2"><a href="maps.html#cb45-2"></a>cruz2 &lt;-<span class="st"> </span>cruz</span>
-<span id="cb45-3"><a href="maps.html#cb45-3"></a>segments &lt;-<span class="st"> </span>cruz2<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>segments</span>
-<span id="cb45-4"><a href="maps.html#cb45-4"></a></span>
-<span id="cb45-5"><a href="maps.html#cb45-5"></a><span class="co"># Add column `col`: color code by BFT sea state</span></span>
-<span id="cb45-6"><a href="maps.html#cb45-6"></a>bft_colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;steelblue4&#39;</span>,<span class="st">&#39;steelblue2&#39;</span>,<span class="st">&#39;cadetblue1&#39;</span>,<span class="st">&#39;grey&#39;</span>)</span>
-<span id="cb45-7"><a href="maps.html#cb45-7"></a>segments<span class="op">$</span>col &lt;-<span class="st"> </span>bft_colors[<span class="dv">4</span>]</span>
-<span id="cb45-8"><a href="maps.html#cb45-8"></a>segments<span class="op">$</span>col[ segments<span class="op">$</span>avgBft <span class="op">&lt;=</span><span class="st"> </span><span class="dv">7</span> ] &lt;-<span class="st"> </span>bft_colors[<span class="dv">3</span>] <span class="co"># bft 5 +</span></span>
-<span id="cb45-9"><a href="maps.html#cb45-9"></a>segments<span class="op">$</span>col[ segments<span class="op">$</span>avgBft <span class="op">&lt;=</span><span class="st"> </span><span class="dv">4</span> ] &lt;-<span class="st"> </span>bft_colors[<span class="dv">2</span>] <span class="co"># bft 3 - 4</span></span>
-<span id="cb45-10"><a href="maps.html#cb45-10"></a>segments<span class="op">$</span>col[ segments<span class="op">$</span>avgBft <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span> ] &lt;-<span class="st"> </span>bft_colors[<span class="dv">1</span>] <span class="co"># bft 0 -2</span></span>
-<span id="cb45-11"><a href="maps.html#cb45-11"></a></span>
-<span id="cb45-12"><a href="maps.html#cb45-12"></a><span class="co"># Update sub_segments slot in `cruz` object</span></span>
-<span id="cb45-13"><a href="maps.html#cb45-13"></a>cruz2<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>segments &lt;-<span class="st"> </span>segments</span>
-<span id="cb45-14"><a href="maps.html#cb45-14"></a></span>
-<span id="cb45-15"><a href="maps.html#cb45-15"></a><span class="co"># Update map </span></span>
-<span id="cb45-16"><a href="maps.html#cb45-16"></a>m_custom2 &lt;-<span class="st"> </span><span class="kw">map_effort</span>(m, cruz2)</span>
-<span id="cb45-17"><a href="maps.html#cb45-17"></a></span>
-<span id="cb45-18"><a href="maps.html#cb45-18"></a><span class="co"># Add legend using native functions from mapping package `tmap`</span></span>
-<span id="cb45-19"><a href="maps.html#cb45-19"></a>m_custom2 &lt;-<span class="st"> </span></span>
-<span id="cb45-20"><a href="maps.html#cb45-20"></a><span class="st">  </span>m_custom2 <span class="op">+</span><span class="st"> </span></span>
-<span id="cb45-21"><a href="maps.html#cb45-21"></a><span class="st">  </span>tmap<span class="op">::</span><span class="kw">tm_add_legend</span>(<span class="st">&#39;line&#39;</span>, </span>
-<span id="cb45-22"><a href="maps.html#cb45-22"></a>                        <span class="dt">col =</span> bft_colors,</span>
-<span id="cb45-23"><a href="maps.html#cb45-23"></a>                        <span class="dt">lwd =</span> <span class="dv">3</span>,</span>
-<span id="cb45-24"><a href="maps.html#cb45-24"></a>                        <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&#39; 0 - 2&#39;</span>, </span>
-<span id="cb45-25"><a href="maps.html#cb45-25"></a>                                   <span class="st">&#39; 3 - 4&#39;</span>, </span>
-<span id="cb45-26"><a href="maps.html#cb45-26"></a>                                   <span class="st">&#39; 5 +&#39;</span>, </span>
-<span id="cb45-27"><a href="maps.html#cb45-27"></a>                                   <span class="st">&#39; no data&#39;</span>),</span>
-<span id="cb45-28"><a href="maps.html#cb45-28"></a>                         <span class="dt">title=</span><span class="st">&quot;Beaufort sea state&quot;</span>) <span class="op">+</span></span>
-<span id="cb45-29"><a href="maps.html#cb45-29"></a><span class="st">  </span>tmap<span class="op">::</span><span class="kw">tm_layout</span>(<span class="dt">legend.position=</span><span class="kw">c</span>(<span class="st">&#39;left&#39;</span>,<span class="st">&#39;bottom&#39;</span>))</span>
-<span id="cb45-30"><a href="maps.html#cb45-30"></a></span>
-<span id="cb45-31"><a href="maps.html#cb45-31"></a><span class="co"># Show map</span></span>
-<span id="cb45-32"><a href="maps.html#cb45-32"></a>m_custom2</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-49-1.png" width="576" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="maps.html#cb53-1"></a><span class="co"># Save copy of cruz object data to modify</span></span>
+<span id="cb53-2"><a href="maps.html#cb53-2"></a>cruz2 &lt;-<span class="st"> </span>cruz</span>
+<span id="cb53-3"><a href="maps.html#cb53-3"></a>segments &lt;-<span class="st"> </span>cruz2<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>segments</span>
+<span id="cb53-4"><a href="maps.html#cb53-4"></a></span>
+<span id="cb53-5"><a href="maps.html#cb53-5"></a><span class="co"># Add column `col`: color code by BFT sea state</span></span>
+<span id="cb53-6"><a href="maps.html#cb53-6"></a>bft_colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;steelblue4&#39;</span>,<span class="st">&#39;steelblue2&#39;</span>,<span class="st">&#39;cadetblue1&#39;</span>,<span class="st">&#39;grey&#39;</span>)</span>
+<span id="cb53-7"><a href="maps.html#cb53-7"></a>segments<span class="op">$</span>col &lt;-<span class="st"> </span>bft_colors[<span class="dv">4</span>]</span>
+<span id="cb53-8"><a href="maps.html#cb53-8"></a>segments<span class="op">$</span>col[ segments<span class="op">$</span>avgBft <span class="op">&lt;=</span><span class="st"> </span><span class="dv">7</span> ] &lt;-<span class="st"> </span>bft_colors[<span class="dv">3</span>] <span class="co"># bft 5 +</span></span>
+<span id="cb53-9"><a href="maps.html#cb53-9"></a>segments<span class="op">$</span>col[ segments<span class="op">$</span>avgBft <span class="op">&lt;=</span><span class="st"> </span><span class="dv">4</span> ] &lt;-<span class="st"> </span>bft_colors[<span class="dv">2</span>] <span class="co"># bft 3 - 4</span></span>
+<span id="cb53-10"><a href="maps.html#cb53-10"></a>segments<span class="op">$</span>col[ segments<span class="op">$</span>avgBft <span class="op">&lt;=</span><span class="st"> </span><span class="dv">2</span> ] &lt;-<span class="st"> </span>bft_colors[<span class="dv">1</span>] <span class="co"># bft 0 -2</span></span>
+<span id="cb53-11"><a href="maps.html#cb53-11"></a></span>
+<span id="cb53-12"><a href="maps.html#cb53-12"></a><span class="co"># Update sub_segments slot in `cruz` object</span></span>
+<span id="cb53-13"><a href="maps.html#cb53-13"></a>cruz2<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>density<span class="op">$</span>segments &lt;-<span class="st"> </span>segments</span>
+<span id="cb53-14"><a href="maps.html#cb53-14"></a></span>
+<span id="cb53-15"><a href="maps.html#cb53-15"></a><span class="co"># Update map </span></span>
+<span id="cb53-16"><a href="maps.html#cb53-16"></a>m_custom2 &lt;-<span class="st"> </span><span class="kw">map_effort</span>(m, cruz2)</span>
+<span id="cb53-17"><a href="maps.html#cb53-17"></a></span>
+<span id="cb53-18"><a href="maps.html#cb53-18"></a><span class="co"># Add legend using native functions from mapping package `tmap`</span></span>
+<span id="cb53-19"><a href="maps.html#cb53-19"></a>m_custom2 &lt;-<span class="st"> </span></span>
+<span id="cb53-20"><a href="maps.html#cb53-20"></a><span class="st">  </span>m_custom2 <span class="op">+</span><span class="st"> </span></span>
+<span id="cb53-21"><a href="maps.html#cb53-21"></a><span class="st">  </span>tmap<span class="op">::</span><span class="kw">tm_add_legend</span>(<span class="st">&#39;line&#39;</span>, </span>
+<span id="cb53-22"><a href="maps.html#cb53-22"></a>                        <span class="dt">col =</span> bft_colors,</span>
+<span id="cb53-23"><a href="maps.html#cb53-23"></a>                        <span class="dt">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb53-24"><a href="maps.html#cb53-24"></a>                        <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&#39; 0 - 2&#39;</span>, </span>
+<span id="cb53-25"><a href="maps.html#cb53-25"></a>                                   <span class="st">&#39; 3 - 4&#39;</span>, </span>
+<span id="cb53-26"><a href="maps.html#cb53-26"></a>                                   <span class="st">&#39; 5 +&#39;</span>, </span>
+<span id="cb53-27"><a href="maps.html#cb53-27"></a>                                   <span class="st">&#39; no data&#39;</span>),</span>
+<span id="cb53-28"><a href="maps.html#cb53-28"></a>                         <span class="dt">title=</span><span class="st">&quot;Beaufort sea state&quot;</span>) <span class="op">+</span></span>
+<span id="cb53-29"><a href="maps.html#cb53-29"></a><span class="st">  </span>tmap<span class="op">::</span><span class="kw">tm_layout</span>(<span class="dt">legend.position=</span><span class="kw">c</span>(<span class="st">&#39;left&#39;</span>,<span class="st">&#39;bottom&#39;</span>))</span>
+<span id="cb53-30"><a href="maps.html#cb53-30"></a></span>
+<span id="cb53-31"><a href="maps.html#cb53-31"></a><span class="co"># Show map</span></span>
+<span id="cb53-32"><a href="maps.html#cb53-32"></a>m_custom2</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-56-1.png" width="576" /></p>
+</div>
+</div>
+</div>
+<div id="add-sightings" class="section level2 unnumbered">
+<h2>Add sightings</h2>
+<p>Use the function <code>map_sightings()</code> to add sightings to your map:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="maps.html#cb54-1"></a><span class="kw">map_sightings</span>(m, cruz)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-57-1.png" width="576" /></p>
+<div id="customizing-sightings" class="section level3 unnumbered">
+<h3>Customizing sightings</h3>
+<p>To demonstrate some of the customization options, consider this map that shows sightings of false killer whales with custom dot color, shape, and size:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="maps.html#cb55-1"></a><span class="kw">map_sightings</span>(m,</span>
+<span id="cb55-2"><a href="maps.html#cb55-2"></a>              cruz,</span>
+<span id="cb55-3"><a href="maps.html#cb55-3"></a>              <span class="dt">include_species =</span> <span class="st">&#39;033&#39;</span>,</span>
+<span id="cb55-4"><a href="maps.html#cb55-4"></a>              <span class="dt">color_base =</span> <span class="st">&#39;purple&#39;</span>,</span>
+<span id="cb55-5"><a href="maps.html#cb55-5"></a>              <span class="dt">shape_base =</span> <span class="dv">18</span>,</span>
+<span id="cb55-6"><a href="maps.html#cb55-6"></a>              <span class="dt">size_base =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-58-1.png" width="576" /></p>
+<p>Next is a map of humpback whales and sperm whales, color-coded by species and shape-coded by whether or not the sighting will be included in the analysis:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="maps.html#cb56-1"></a><span class="kw">map_sightings</span>(m, </span>
+<span id="cb56-2"><a href="maps.html#cb56-2"></a>              cruz,</span>
+<span id="cb56-3"><a href="maps.html#cb56-3"></a>              <span class="dt">include_species =</span> <span class="kw">c</span>(<span class="st">&#39;076&#39;</span>,<span class="st">&#39;046&#39;</span>),</span>
+<span id="cb56-4"><a href="maps.html#cb56-4"></a>              <span class="dt">color_code =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb56-5"><a href="maps.html#cb56-5"></a>              <span class="dt">shape_code =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-59-1.png" width="576" /></p>
+<p>Here is an overview of the steps needed to map strata, survey tracks, and sightings all together:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="maps.html#cb57-1"></a>m &lt;-<span class="st"> </span><span class="kw">map_base</span>(<span class="st">&#39;cnp&#39;</span>) </span>
+<span id="cb57-2"><a href="maps.html#cb57-2"></a>m &lt;-<span class="st"> </span><span class="kw">map_strata</span>(m, cruz<span class="op">$</span>settings)</span>
+<span id="cb57-3"><a href="maps.html#cb57-3"></a>m &lt;-<span class="st"> </span><span class="kw">map_effort</span>(m, cruz)</span>
+<span id="cb57-4"><a href="maps.html#cb57-4"></a>m &lt;-<span class="st"> </span><span class="kw">map_sightings</span>(m, cruz, <span class="dt">size_base=</span>.<span class="dv">4</span>)</span>
+<span id="cb57-5"><a href="maps.html#cb57-5"></a>m </span></code></pre></div>
+<p><img src="figures/unnamed-chunk-60-1.png" width="576" /></p>
 
 </div>
 </div>

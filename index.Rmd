@@ -35,35 +35,28 @@ This status report outlines the code we are developing to process `WinCruz` data
 
 #### Changes {-}
 
-- New **status report format** (a `bookdown` vignette, compatible with a future website and PDF tutorial.)  
+- New `process_sightings()` function, with code for calibrating group sizes according to user-provided coefficient tables (mirroring `ABUND9` with slight mods, e.g., school size threshold for observers not in the `Coeff.DAT` file.). (Details: the function `process_sightings()` relies upon a utility function, `group_size()`, which in turn relies upon `group_size_calibrate()`.)
 
-- **Initiation of package framework** (more efficient to design, develop, test, and document code). See `Install` chapter for details. 
+- Added cohort-specific setting, `school_size_calibrate`, that allows researchers to specify whether a cohort should or should not have school sizes calibrated. Example use case: `school_size_calibrate = TRUE` for a cohort of dolphin species, but make it `FALSE` for a cohort of large baleen whales.  
 
-- Implementation of **new settings system**: survey-wide and cohort-specific settings. See `Settings` chapter for description / explanation.  
-
-- Update of strata and segmentizing functions to accommodate new settings system.  See `Processing` chapter.  
-
-- The function `process_polygon()` now calculates the area, in km2, of strata and study area polygons.   
+- Basic function for mapping sightings (QA/QC): `map_sightings()`.  
 
 
 #### Next focus {-}
 
-- Transfer code to the new settings system and package framework:  
-
---- mapping functions  
---- sightings processing  
---- survey summary   
-
-- Update backlog  
-
-- Back to developing the sightings processing  
-
+- Document vignette   
+- Document code  
+- Document function manuals  
+- Survey summary  
+- Review INP shared by Amanda
+- EFFORT and SIGHTINGS outputs  
+ 
 
 #### Questions for Amanda {-}
 
-- Lots of structural changes (new vignette system, initiation of package framework). Lots on my list to do to complete the transfer, so not many questions for now.  
+- FKW handling
 
-- Am I getting closer with the new settings / segmentizing frameworks?  
+- What is the ship list used for?   
 
 
 

@@ -9,6 +9,7 @@ library(swfscDAS)
 data(settings)
 ```
 
+
 ## Bring in cruise data {-} 
 
 Specify the path to your `.DAS` data file(s):  
@@ -141,7 +142,7 @@ The `segments` slot contains summary data for each effort segment, including sta
 cruz$cohorts$default$density$segments %>% glimpse
 ```
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4.5}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4}
 # Number of segments
 cruz$cohorts$default$density$segments %>% nrow
 
@@ -159,6 +160,7 @@ cruz$cohorts$default$density$effort %>% length
 ```
 
 And the `das` slot holds the original `data.frame` of `DAS` data, modified slightly: the column `OnEffort` has been modified according to Beaufort range conditions, and the column `seg_id` indicates which segment the event occurs within  
+
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 cruz$cohorts$default$density$das %>% names
 ```
@@ -168,12 +170,82 @@ The `segmentize()` function and its associated settings were designed to give re
 
 ## Process sightings {-}  
 
-*Coming soon!*  
+To process sightings for each cohort of species, use the function `process_sightings()`. This function has three basic steps: for each cohort, the function (1) prepares a sightings table using the function `das_sight()` from `swfscDAS`; (2) filters those sightings to species codes specified for the cohort in your `settings` input; and (3) evaluates each of those sightings, asking if each should be included in the analysis according to your `settings`.  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
-
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, max.height='100px'}
+cruz <- process_sightings(cruz)
 ```
 
+The function produces a formatted dataset and adds it to a new `sightings` slot. It does this for each analysis (`density` and, if specified, `distance`) in each cohort.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts$default$density %>% names
+cruz$cohorts$fkw_insular$density %>% names
+cruz$cohorts$fkw_insular$distance %>% names
+```
+
+Note that the `sightings` table has a column named `included` (`TRUE` = yes, use it in the analysis). Any sightings that do not meet the inclusion criteria as specified in your settings will be `included = FALSE`, but they won't be removed from the data.   
+
+Since the sightings in each cohort are processed slightly differently, and since each cohort is species-group specific, you should expect different numbers of included/excluded sightings in each cohort-analysis dataset:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts$default$density$sightings$included %>% table
+cruz$cohorts$fkw_insular$density$sightings$included %>% table
+cruz$cohorts$fkw_insular$distance$sightings$included %>% table
+```
+
+When this function's `verbose` argument is `TRUE` (the default), a message is printed each time a sighting does not meet the inclusion criteria (see above).
+
+### Sightings data structure {-}  
+
+The `sightings` table has many other variables: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts$default$density$sightings %>% names
+```
+
+Here is a glimpse of the data: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts$fkw_insular$distance$sightings %>% glimpse
+```
+
+Note that the `process_sightings()` function draws upon `cruz$settings` for inclusion criteria, but some of those settings can be overridden with the function's manual inputs if you want to explore your options. 
+
+
+### School size estimates {.unnumbered #ss_calibration} 
+
+In the settings we are using in this tutorial, school size estimates are adjusted using the calibration models from [Barlow, Gerrodette, and Perryman (1998)](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C43&q=barlow+1998+group+size+caliration&btnG=) (their analysis is refined slightly and further explained in [Gerrodette, Perryman and Barlow, 2002](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C43&q=barlow+1998+group+size+caliration&btnG=)). These calibration corrections are observer-specific. Some observers tend to underestimate school size and their estimates are adjusted up; others tend to overestimate and their estimates are adjusted down. Some observers do not have calibration coefficients, and for them a generic adjustment (upwards, by dividing estimates by 0.8625) is used. Each observer's estimate is calibrated, then all observer estimates are averaged. To do that averaging, our `settings` specify that we shall use a geometric weighted mean, instead of an arithmetic mean, that weights school size estimates from multiple observers according to the variance of their calibration coefficients.   
+
+Here are our current best estimates of school size:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz$cohorts$default$density$sightings$best %>% head(20)
+```
+
+Let's compare those estimates to unadjusted ones, in which calibration (and therefore weighted geometric mean) is turned off:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz_demo <- process_sightings(cruz, 
+                               calibrate = FALSE,
+                               verbose = FALSE)
+cruz_demo$cohorts$default$density$sightings$best %>% head(20)
+```
+
+Since calibration is only used for schools above a certain size, the difference between calibration and non-calibrated estimates becomes clearer in larger groups.  
+
+You can also carry out calibration corrections without using a geometric weighted mean (the arithmetic mean will be used instead): 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz_demo <- process_sightings(cruz, 
+                               calibrate = TRUE,
+                               geometric_mean = FALSE,
+                               verbose = FALSE)
+
+cruz_demo$cohorts$default$density$sightings$best %>% head(20)
+```
+
+Note that school size calibration is only carried out if `settings$group_size_calibration` is not `NULL`.  However, even when calibration coefficients *are* provided, calibration is only carried out for raw estimates above a minimum threshold, since observers are unlikely to mis-estimate the school size of a lone whale or pair. For observers who have calibration coefficients in the `settings$group_size_coefficients` table, that minimum is specified for each observer individually. For observers not in that table, calibration will only be applied to raw school size estimates of 4 or above.   
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
 save(cruz,file='data/cruz_proc.RData')
