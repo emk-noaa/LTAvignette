@@ -1,15 +1,15 @@
-#  Case studies {#casestudies}
+# (PART) Case studies {-}
 
+# Central North Pacific {#casestudies}
 
 To demonstrate what we are building, below is template for quickly running all of the steps detailed in subsequent chapters. 
 
+This template uses the same data and settings used throughout the vignette: 
 
-## Central North Pacific  {-} 
-
-This template use the same data and settings used throughout the vignette: 
-
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width = 6.5, fig.height = 4.5}
+library(swfscDAS)
 library(LTabundR)
+library(dplyr)
 
 # Settings =====================================================================
 
@@ -50,51 +50,110 @@ settings <- load_settings(strata = strata_cnp,
 
 # Load & format DAS
 das_file <- 'data/surveys/HICEASwinter2020.das'
-das <- load_das(das_file, 
-                perform_checks = TRUE,
-                print_glimpse = TRUE)
+das <- load_das(das_file)
 das <- format_das(das, settings)
 
 # Process strata
 cruz <- process_strata(das, settings)
 
-# Sanity-check stratum assignments
-cruz$cohorts$default$stratum %>% table(useNA='ifany')
-cruz$cohorts$fkw_insular$stratum %>% table(useNA='ifany')
-
 # Segmentize
 cruz <- segmentize(cruz, verbose=TRUE)
-
-# Review: Number of segments
-cruz$cohorts$default$density$segments %>% nrow
 
 # Review: segment length distribution
 hist(cruz$cohorts$default$density$segments$dist,
      breaks = seq(0,60,by=1),
      xlab='Segment lengths (km)',
      main=paste0('Target km: ',settings$survey$segment_target_km))
+# Process sightings
+cruz <- process_sightings(cruz)
 
-
+# Map
+m <- map_base('cnp') 
+m <- map_strata(m, cruz$settings)
+m <- map_effort(m, cruz)
+m <- map_sightings(m, cruz, size_base=.4)
+m 
 ```
 
-## California Current System  {-} 
+
+# California Current System  
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+library(swfscDAS)
 library(LTabundR)
+library(dplyr)
 
-# Read in DAS data
+# Settings =====================================================================
+
+# Load strata & study area
+data(strata_ccs)
+
+# Survey-wide
+survey <- 
+  load_survey_settings(segment_method = 'equallength',
+                       segment_target_km = 100,
+                       segment_max_km_gap = 5,
+                       segment_max_interval = 48,
+                       segment_type_handling = 'separate',
+                       segment_remainder_handling = c('append','segment'),
+                       verbose = TRUE)
+
+# Cohort 1 (default)
+cohort1 <- load_cohort_settings()
+
+# Cohort 2
+cohort2 <- 
+  load_cohort_settings(id='beakers',
+                       species=c(1,49,52:59, 61:65, 81:83, 106, 109),
+                       use_low_if_na = TRUE,
+                       distance_types = c('S','F','N'))
+
+# Finalize settings
+settings <- load_settings(strata = strata_ccs,
+                          study_area = NULL,
+                          survey = survey,
+                          cohorts=list(cohort1,
+                                       cohort2))
+
+
+# Processing ===================================================================
+
+# Load DAS & subset to a single cruise
 das_file <- 'data/surveys/CAORWA_91-09.das'
 das <- load_das(das_file)
-
-# Subset to a single cruise
 das <- das %>% filter(Cruise == 1635)
 
+# Format DAS data for LTabundR
+das <- format_das(das, settings)
+
+# Process strata
+cruz <- process_strata(das, settings)
+
+# Segmentize
+cruz <- segmentize(cruz, verbose=TRUE)
+
+# Review: segment length distribution
+kms <- cruz$cohorts$default$density$segments$dist 
+hist(kms,
+     breaks = seq(0,1.1*max(kms),by=1),
+     xlab='Segment lengths (km)',
+     main=paste0('Target km: ',settings$survey$segment_target_km))
+
+# Process sightings
+cruz <- process_sightings(cruz)
+
+# Map
+m <- map_base('ccs') 
+m <- map_strata(m, cruz$settings)
+m <- map_effort(m, cruz)
+m <- map_sightings(m, cruz, size_base=.4)
+m 
 
 ```
 
 
-## Eastern Tropical Pacific  {-}  
+# Eastern Tropical Pacific  
 
-
+*Coming soon!*
 
 

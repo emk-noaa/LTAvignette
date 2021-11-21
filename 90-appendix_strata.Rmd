@@ -1,4 +1,6 @@
-# Appendix: Strata gallery {#stratagallery}
+# (PART) Appendix {-} 
+
+# Strata gallery {#stratagallery}
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
 library(dplyr)

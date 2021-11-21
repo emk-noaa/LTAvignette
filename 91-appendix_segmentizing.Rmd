@@ -1,4 +1,4 @@
-# Appendix: Segmentizing {#segmentizing}
+# Segmentizing {#segmentizing}
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
 library(dplyr)

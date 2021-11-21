@@ -145,6 +145,10 @@ This status report outlines the code we are developing to process \texttt{WinCru
   Added cohort-specific setting, \texttt{school\_size\_calibrate}, that allows researchers to specify whether a cohort should or should not have school sizes calibrated. Example use case: \texttt{school\_size\_calibrate\ =\ TRUE} for a cohort of dolphin species, but make it \texttt{FALSE} for a cohort of large baleen whales.
 \item
   Basic function for mapping sightings (QA/QC): \texttt{map\_sightings()}.
+\item
+  Added detail/polish to vignette pages on \protect\hyperlink{settings}{Settings}, \protect\hyperlink{processing}{Processing Data}, and the \protect\hyperlink{segmentizing}{Appendix on Segmentizing}. I believe these are ready for close review.
+\item
+  Added detailed comments to code for all functions to date.
 \end{itemize}
 
 \hypertarget{next-focus}{%
@@ -152,19 +156,16 @@ This status report outlines the code we are developing to process \texttt{WinCru
 \addcontentsline{toc}{subsubsection}{Next focus}
 
 \begin{itemize}
-\tightlist
 \item
-  Document vignette\\
+  Review INP files shared by Amanda
 \item
-  Document code\\
+  EFFORT and SIGHTINGS outputs / stage for distance
 \item
-  Document function manuals\\
+  Survey summary
 \item
-  Survey summary\\
+  Efficient system for testing on various datasets
 \item
-  Review INP shared by Amanda
-\item
-  EFFORT and SIGHTINGS outputs
+  Document function manuals
 \end{itemize}
 
 \hypertarget{questions-for-amanda}{%
@@ -177,6 +178,9 @@ This status report outlines the code we are developing to process \texttt{WinCru
 \item
   What is the ship list used for?
 \end{itemize}
+
+\hypertarget{part-tutorial}{%
+\part{Tutorial}\label{part-tutorial}}
 
 \hypertarget{install}{%
 \chapter{\texorpdfstring{Install \texttt{LTabundR}}{Install LTabundR}}\label{install}}
@@ -885,7 +889,7 @@ This list, with these five primary slots, will be referred to as a \texttt{cruz}
 \section*{Segmentize the data}\label{segmentize-the-data}}
 \addcontentsline{toc}{section}{Segmentize the data}
 
-To allocate survey data into discrete `effort segments', which are used in variance estimation in subsequent steps, run the function \texttt{segmentize()}. This process is controlled by both survey-wide and cohort-specific \protect\hypertarget{settings}{}{settings}, which are now carried in a slot within the \texttt{cruz} object.
+To allocate survey data into discrete `effort segments', which are used in variance estimation in subsequent steps, run the function \texttt{segmentize()}. This process is controlled by both survey-wide and cohort-specific \protect\hypertarget{settings}{}{settings}, which are now carried in a slot within the \texttt{cruz} object. The process is outlined in detail in the \protect\hyperlink{segmentizing}{Appendix on Segmentizing}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1063,7 +1067,7 @@ The function produces a formatted dataset and adds it to a new \texttt{sightings
 
 Note that the \texttt{sightings} table has a column named \texttt{included} (\texttt{TRUE} = yes, use it in the analysis). Any sightings that do not meet the inclusion criteria as specified in your settings will be \texttt{included\ =\ FALSE}, but they won't be removed from the data.
 
-Since the sightings in each cohort are processed slightly differently, and since each cohort is species-group specific, you should expect different numbers of included/excluded sightings in each cohort-analysis dataset:
+Since the sightings in each cohort are processed slightly differently according to the cohort's specific settings, you should expect different numbers of included/excluded sightings in each cohort-analysis dataset:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1115,6 +1119,19 @@ The \texttt{sightings} table has many other variables:
 \NormalTok{[}\DecValTok{77}\NormalTok{] }\StringTok{"n_low"}            \StringTok{"n_high"}           \StringTok{"calibr"}           \StringTok{"included"}        
 \end{Highlighting}
 \end{Shaded}
+
+Columns 41 onwards correspond to sightings information. Columns of note:
+
+\begin{itemize}
+\item
+  \texttt{species} (column 68) contains the species code. There is only one species-code per row (i.e, multi-species sightings have been expanded to multiple rows).
+\item
+  \texttt{best}, \texttt{low}, and \texttt{high} (columns 69- 71) contain the refined group size estimates, averaged across observers and calibrated according to the cohort's settings specifications. For multi-species sightings, these numbers represent the number of individuals for the single species represented in the row (i.e., the original group size estimate has been scaled by the percentage attritbuted to this species).
+\item
+  The columns following those group size estimates (\texttt{prob} through \texttt{calibr}) detail how group sizes were estimated: \texttt{prob} indicates whether probable species codes were accepted; \texttt{mixed} indicates whether this species' sighting is part of a mixed-species sighting; \texttt{n\_sp} provides the number of species occurring in this sighitng; \texttt{n\_obs} gives the number of observers who contributed group size estimates; \texttt{n\_best} through \texttt{n\_high} gives the number of valid group size estimates given; and \texttt{calibr} indicates whether or not calibration was attempted for this sighting based on the settings (see next section).
+\item
+  As explained above, the final column, \texttt{included}, indicates whether this species should be included in the analysis.
+\end{itemize}
 
 Here is a glimpse of the data:
 
@@ -1206,7 +1223,7 @@ Here is a glimpse of the data:
 \end{Highlighting}
 \end{Shaded}
 
-Note that the \texttt{process\_sightings()} function draws upon \texttt{cruz\$settings} for inclusion criteria, but some of those settings can be overridden with the function's manual inputs if you want to explore your options.
+Note that the \texttt{process\_sightings()} function draws upon \texttt{cruz\$settings} for inclusion criteria, but some of those settings can be overridden with the function's manual inputs if you want to explore your options (see below).
 
 \hypertarget{ss_calibration}{%
 \subsection*{School size estimates}\label{ss_calibration}}
@@ -1239,7 +1256,7 @@ Let's compare those estimates to unadjusted ones, in which calibration (and ther
 \end{Highlighting}
 \end{Shaded}
 
-Since calibration is only used for schools above a certain size, the difference between calibration and non-calibrated estimates becomes clearer in larger groups.
+Note that, since calibration is only used for schools above a certain size, the difference between calibration and non-calibrated estimates becomes clearer in larger groups.
 
 You can also carry out calibration corrections without using a geometric weighted mean (the arithmetic mean will be used instead):
 
@@ -1259,6 +1276,78 @@ You can also carry out calibration corrections without using a geometric weighte
 
 Note that school size calibration is only carried out if \texttt{settings\$group\_size\_calibration} is not \texttt{NULL}. However, even when calibration coefficients \emph{are} provided, calibration is only carried out for raw estimates above a minimum threshold, since observers are unlikely to mis-estimate the school size of a lone whale or pair. For observers who have calibration coefficients in the \texttt{settings\$group\_size\_coefficients} table, that minimum is specified for each observer individually. For observers not in that table, calibration will only be applied to raw school size estimates of 4 or above.
 
+\hypertarget{review}{%
+\section*{Review}\label{review}}
+\addcontentsline{toc}{section}{Review}
+
+By the end of this process, you have a single data object, \texttt{cruz}, with all the data you need to move forward into the next stages of mapping and analysis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cruz }\OperatorTok{%>%}\StringTok{ }\NormalTok{names }
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"das"}        \StringTok{"settings"}   \StringTok{"strata"}     \StringTok{"study_area"} \StringTok{"cohorts"}   
+\end{Highlighting}
+\end{Shaded}
+
+Each species-specific cohort has its own list under \texttt{cruz\$cohorts}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts }\OperatorTok{%>%}\StringTok{ }\NormalTok{names }
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"default"}     \StringTok{"fkw_insular"}
+\end{Highlighting}
+\end{Shaded}
+
+Each of these cohorts can have two lists, \texttt{density} and \texttt{distance}, which contain the data to be used in those density estimation and detection function estimation, respectively:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(cruz}\OperatorTok{$}\NormalTok{cohorts,}
+    \DataTypeTok{max.level=}\DecValTok{2}\NormalTok{,}
+    \DataTypeTok{list.len =} \DecValTok{10}\NormalTok{,}
+    \DataTypeTok{vec.len =} \DecValTok{0}\NormalTok{,}
+    \DataTypeTok{give.length =} \OtherTok{FALSE}\NormalTok{,}
+    \DataTypeTok{give.attr =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{List of }\DecValTok{2}
+ \OperatorTok{$}\StringTok{ }\NormalTok{default    }\OperatorTok{:}\NormalTok{List of }\DecValTok{1}
+\NormalTok{  ..}\OperatorTok{$}\StringTok{ }\NormalTok{density}\OperatorTok{:}\NormalTok{List of }\DecValTok{4}
+ \OperatorTok{$}\StringTok{ }\NormalTok{fkw_insular}\OperatorTok{:}\NormalTok{List of }\DecValTok{2}
+\NormalTok{  ..}\OperatorTok{$}\StringTok{ }\NormalTok{density }\OperatorTok{:}\NormalTok{List of }\DecValTok{4}
+\NormalTok{  ..}\OperatorTok{$}\StringTok{ }\NormalTok{distance}\OperatorTok{:}\NormalTok{List of }\DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+Each of these \texttt{analysis} slots is a list with the same elements:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{density }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"segments"}  \StringTok{"effort"}    \StringTok{"das"}       \StringTok{"sightings"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  \texttt{segments} is a summary table of segments.
+\item
+  \texttt{effort} is a list in which each slot contains \texttt{DAS} data for a single segment.
+\item
+  \texttt{das} is the raw \texttt{DAS} data, modified with \texttt{seg\_id} to associate each row with a segment.
+\item
+  \texttt{sightings} is a dataframe of sightings processed according to this cohort's settings.
+\end{itemize}
+
+In each dataframes for each cohort-analysis (e.g., \texttt{default\$density}), there are three critically important columns to keep in mind:
+
+\begin{itemize}
+\item
+  \textbf{\texttt{seg\_id}}: this column is used to indicate the segment ID a row of data belongs to.
+\item
+  \textbf{\texttt{use}}: this column indicates whether a row of effort should be used in the analysis. Every row of data within a single segment with have the same \texttt{use} value.
+\item
+  \textbf{\texttt{included}}: this column occurs in the \texttt{sightings} dataframe only. It indicates whether the sightings should be included in the analysis based on the specified settings. Any sighting with \texttt{use\ ==\ FALSE} will also have \texttt{included\ ==\ FALSE}, but it \emph{is} possible for sightings to have \texttt{use\ ==\ TRUE} with \texttt{included\ ==\ FALSE}. For example, if the setting \texttt{abeam\_sightings} is set to \texttt{FALSE}, a sighting with a bearing angle beyond the ship's beam can be excluded from the analysis (\texttt{included\ ==\ FALSE}) even though the effort segment it occurs within will still be used (\texttt{use\ ==\ TRUE}).
+\end{itemize}
+
 \hypertarget{maps}{%
 \chapter{Maps}\label{maps}}
 
@@ -1277,7 +1366,7 @@ Begin with a basic map, including EEZ borders:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-50-1.pdf}
+\includegraphics{figures/unnamed-chunk-54-1.pdf}
 
 We also have a base map for the California Current \ldots{}
 
@@ -1288,7 +1377,7 @@ We also have a base map for the California Current \ldots{}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-51-1.pdf}
+\includegraphics{figures/unnamed-chunk-55-1.pdf}
 
 And the ETP:
 
@@ -1299,7 +1388,7 @@ And the ETP:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-52-1.pdf}
+\includegraphics{figures/unnamed-chunk-56-1.pdf}
 
 \hypertarget{add-strata}{%
 \section*{Add strata}\label{add-strata}}
@@ -1317,7 +1406,7 @@ Add your research strata to your map:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-53-1.pdf}
+\includegraphics{figures/unnamed-chunk-57-1.pdf}
 
 \hypertarget{add-survey-tracks}{%
 \section*{Add survey tracks}\label{add-survey-tracks}}
@@ -1330,7 +1419,7 @@ Add your research strata to your map:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-54-1.pdf}
+\includegraphics{figures/unnamed-chunk-58-1.pdf}
 
 The defaults of \texttt{map\_effort()} assume, for simplicity, that you want to see the segments to be included in density estimation for the first cohort specified in your settings. You can adjust this and other defaults using the function arguments.
 
@@ -1356,7 +1445,7 @@ To demonstrate some of the customization options, consider this map that shows s
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-55-1.pdf}
+\includegraphics{figures/unnamed-chunk-59-1.pdf}
 
 \hypertarget{color-code-conditions}{%
 \subsubsection*{Color-code conditions}\label{color-code-conditions}}
@@ -1405,7 +1494,7 @@ For example, color-code by Beaufort scale:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-56-1.pdf}
+\includegraphics{figures/unnamed-chunk-60-1.pdf}
 
 \hypertarget{add-sightings}{%
 \section*{Add sightings}\label{add-sightings}}
@@ -1419,7 +1508,7 @@ Use the function \texttt{map\_sightings()} to add sightings to your map:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-57-1.pdf}
+\includegraphics{figures/unnamed-chunk-61-1.pdf}
 
 \hypertarget{customizing-sightings}{%
 \subsection*{Customizing sightings}\label{customizing-sightings}}
@@ -1438,7 +1527,7 @@ To demonstrate some of the customization options, consider this map that shows s
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-58-1.pdf}
+\includegraphics{figures/unnamed-chunk-62-1.pdf}
 
 Next is a map of humpback whales and sperm whales, color-coded by species and shape-coded by whether or not the sighting will be included in the analysis:
 
@@ -1452,7 +1541,7 @@ Next is a map of humpback whales and sperm whales, color-coded by species and sh
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-59-1.pdf}
+\includegraphics{figures/unnamed-chunk-63-1.pdf}
 
 Here is an overview of the steps needed to map strata, survey tracks, and sightings all together:
 
@@ -1466,7 +1555,7 @@ Here is an overview of the steps needed to map strata, survey tracks, and sighti
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-60-1.pdf}
+\includegraphics{figures/unnamed-chunk-64-1.pdf}
 
 \hypertarget{summarize}{%
 \chapter{Summarize survey}\label{summarize}}
@@ -1483,20 +1572,21 @@ Here is an overview of the steps needed to map strata, survey tracks, and sighti
 
 \emph{Coming soon!}
 
+\hypertarget{part-case-studies}{%
+\part{Case studies}\label{part-case-studies}}
+
 \hypertarget{casestudies}{%
-\chapter{Case studies}\label{casestudies}}
+\chapter{Central North Pacific}\label{casestudies}}
 
 To demonstrate what we are building, below is template for quickly running all of the steps detailed in subsequent chapters.
 
-\hypertarget{central-north-pacific}{%
-\section*{Central North Pacific}\label{central-north-pacific}}
-\addcontentsline{toc}{section}{Central North Pacific}
-
-This template use the same data and settings used throughout the vignette:
+This template uses the same data and settings used throughout the vignette:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(swfscDAS)}
 \KeywordTok{library}\NormalTok{(LTabundR)}
+\KeywordTok{library}\NormalTok{(dplyr)}
 
 \CommentTok{# Settings =====================================================================}
 
@@ -1537,52 +1627,113 @@ This template use the same data and settings used throughout the vignette:
 
 \CommentTok{# Load & format DAS}
 \NormalTok{das_file <-}\StringTok{ 'data/surveys/HICEASwinter2020.das'}
-\NormalTok{das <-}\StringTok{ }\KeywordTok{load_das}\NormalTok{(das_file, }
-                \DataTypeTok{perform_checks =} \OtherTok{TRUE}\NormalTok{,}
-                \DataTypeTok{print_glimpse =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{das <-}\StringTok{ }\KeywordTok{load_das}\NormalTok{(das_file)}
 \NormalTok{das <-}\StringTok{ }\KeywordTok{format_das}\NormalTok{(das, settings)}
 
 \CommentTok{# Process strata}
 \NormalTok{cruz <-}\StringTok{ }\KeywordTok{process_strata}\NormalTok{(das, settings)}
 
-\CommentTok{# Sanity-check stratum assignments}
-\NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{stratum }\OperatorTok{%>%}\StringTok{ }\KeywordTok{table}\NormalTok{(}\DataTypeTok{useNA=}\StringTok{'ifany'}\NormalTok{)}
-\NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{fkw_insular}\OperatorTok{$}\NormalTok{stratum }\OperatorTok{%>%}\StringTok{ }\KeywordTok{table}\NormalTok{(}\DataTypeTok{useNA=}\StringTok{'ifany'}\NormalTok{)}
-
 \CommentTok{# Segmentize}
 \NormalTok{cruz <-}\StringTok{ }\KeywordTok{segmentize}\NormalTok{(cruz, }\DataTypeTok{verbose=}\OtherTok{TRUE}\NormalTok{)}
-
-\CommentTok{# Review: Number of segments}
-\NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{density}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
 
 \CommentTok{# Review: segment length distribution}
 \KeywordTok{hist}\NormalTok{(cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{density}\OperatorTok{$}\NormalTok{segments}\OperatorTok{$}\NormalTok{dist,}
      \DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{60}\NormalTok{,}\DataTypeTok{by=}\DecValTok{1}\NormalTok{),}
      \DataTypeTok{xlab=}\StringTok{'Segment lengths (km)'}\NormalTok{,}
      \DataTypeTok{main=}\KeywordTok{paste0}\NormalTok{(}\StringTok{'Target km: '}\NormalTok{,settings}\OperatorTok{$}\NormalTok{survey}\OperatorTok{$}\NormalTok{segment_target_km))}
+\CommentTok{# Process sightings}
+\NormalTok{cruz <-}\StringTok{ }\KeywordTok{process_sightings}\NormalTok{(cruz)}
+
+\CommentTok{# Map}
+\NormalTok{m <-}\StringTok{ }\KeywordTok{map_base}\NormalTok{(}\StringTok{'cnp'}\NormalTok{) }
+\NormalTok{m <-}\StringTok{ }\KeywordTok{map_strata}\NormalTok{(m, cruz}\OperatorTok{$}\NormalTok{settings)}
+\NormalTok{m <-}\StringTok{ }\KeywordTok{map_effort}\NormalTok{(m, cruz)}
+\NormalTok{m <-}\StringTok{ }\KeywordTok{map_sightings}\NormalTok{(m, cruz, }\DataTypeTok{size_base=}\NormalTok{.}\DecValTok{4}\NormalTok{)}
+\NormalTok{m }
 \end{Highlighting}
 \end{Shaded}
 
 \hypertarget{california-current-system}{%
-\section*{California Current System}\label{california-current-system}}
-\addcontentsline{toc}{section}{California Current System}
+\chapter{California Current System}\label{california-current-system}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(swfscDAS)}
 \KeywordTok{library}\NormalTok{(LTabundR)}
+\KeywordTok{library}\NormalTok{(dplyr)}
 
-\CommentTok{# Read in DAS data}
+\CommentTok{# Settings =====================================================================}
+
+\CommentTok{# Load strata & study area}
+\KeywordTok{data}\NormalTok{(strata_ccs)}
+
+\CommentTok{# Survey-wide}
+\NormalTok{survey <-}\StringTok{ }
+\StringTok{  }\KeywordTok{load_survey_settings}\NormalTok{(}\DataTypeTok{segment_method =} \StringTok{'equallength'}\NormalTok{,}
+                       \DataTypeTok{segment_target_km =} \DecValTok{100}\NormalTok{,}
+                       \DataTypeTok{segment_max_km_gap =} \DecValTok{5}\NormalTok{,}
+                       \DataTypeTok{segment_max_interval =} \DecValTok{48}\NormalTok{,}
+                       \DataTypeTok{segment_type_handling =} \StringTok{'separate'}\NormalTok{,}
+                       \DataTypeTok{segment_remainder_handling =} \KeywordTok{c}\NormalTok{(}\StringTok{'append'}\NormalTok{,}\StringTok{'segment'}\NormalTok{),}
+                       \DataTypeTok{verbose =} \OtherTok{TRUE}\NormalTok{)}
+
+\CommentTok{# Cohort 1 (default)}
+\NormalTok{cohort1 <-}\StringTok{ }\KeywordTok{load_cohort_settings}\NormalTok{()}
+
+\CommentTok{# Cohort 2}
+\NormalTok{cohort2 <-}\StringTok{ }
+\StringTok{  }\KeywordTok{load_cohort_settings}\NormalTok{(}\DataTypeTok{id=}\StringTok{'beakers'}\NormalTok{,}
+                       \DataTypeTok{species=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{49}\NormalTok{,}\DecValTok{52}\OperatorTok{:}\DecValTok{59}\NormalTok{, }\DecValTok{61}\OperatorTok{:}\DecValTok{65}\NormalTok{, }\DecValTok{81}\OperatorTok{:}\DecValTok{83}\NormalTok{, }\DecValTok{106}\NormalTok{, }\DecValTok{109}\NormalTok{),}
+                       \DataTypeTok{use_low_if_na =} \OtherTok{TRUE}\NormalTok{,}
+                       \DataTypeTok{distance_types =} \KeywordTok{c}\NormalTok{(}\StringTok{'S'}\NormalTok{,}\StringTok{'F'}\NormalTok{,}\StringTok{'N'}\NormalTok{))}
+
+\CommentTok{# Finalize settings}
+\NormalTok{settings <-}\StringTok{ }\KeywordTok{load_settings}\NormalTok{(}\DataTypeTok{strata =}\NormalTok{ strata_ccs,}
+                          \DataTypeTok{study_area =} \OtherTok{NULL}\NormalTok{,}
+                          \DataTypeTok{survey =}\NormalTok{ survey,}
+                          \DataTypeTok{cohorts=}\KeywordTok{list}\NormalTok{(cohort1,}
+\NormalTok{                                       cohort2))}
+
+
+\CommentTok{# Processing ===================================================================}
+
+\CommentTok{# Load DAS & subset to a single cruise}
 \NormalTok{das_file <-}\StringTok{ 'data/surveys/CAORWA_91-09.das'}
 \NormalTok{das <-}\StringTok{ }\KeywordTok{load_das}\NormalTok{(das_file)}
-
-\CommentTok{# Subset to a single cruise}
 \NormalTok{das <-}\StringTok{ }\NormalTok{das }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(Cruise }\OperatorTok{==}\StringTok{ }\DecValTok{1635}\NormalTok{)}
+
+\CommentTok{# Format DAS data for LTabundR}
+\NormalTok{das <-}\StringTok{ }\KeywordTok{format_das}\NormalTok{(das, settings)}
+
+\CommentTok{# Process strata}
+\NormalTok{cruz <-}\StringTok{ }\KeywordTok{process_strata}\NormalTok{(das, settings)}
+
+\CommentTok{# Segmentize}
+\NormalTok{cruz <-}\StringTok{ }\KeywordTok{segmentize}\NormalTok{(cruz, }\DataTypeTok{verbose=}\OtherTok{TRUE}\NormalTok{)}
+
+\CommentTok{# Review: segment length distribution}
+\NormalTok{kms <-}\StringTok{ }\NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{density}\OperatorTok{$}\NormalTok{segments}\OperatorTok{$}\NormalTok{dist }
+\KeywordTok{hist}\NormalTok{(kms,}
+     \DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{1.1}\OperatorTok{*}\KeywordTok{max}\NormalTok{(kms),}\DataTypeTok{by=}\DecValTok{1}\NormalTok{),}
+     \DataTypeTok{xlab=}\StringTok{'Segment lengths (km)'}\NormalTok{,}
+     \DataTypeTok{main=}\KeywordTok{paste0}\NormalTok{(}\StringTok{'Target km: '}\NormalTok{,settings}\OperatorTok{$}\NormalTok{survey}\OperatorTok{$}\NormalTok{segment_target_km))}
+
+\CommentTok{# Process sightings}
+\NormalTok{cruz <-}\StringTok{ }\KeywordTok{process_sightings}\NormalTok{(cruz)}
+
+\CommentTok{# Map}
+\NormalTok{m <-}\StringTok{ }\KeywordTok{map_base}\NormalTok{(}\StringTok{'ccs'}\NormalTok{) }
+\NormalTok{m <-}\StringTok{ }\KeywordTok{map_strata}\NormalTok{(m, cruz}\OperatorTok{$}\NormalTok{settings)}
+\NormalTok{m <-}\StringTok{ }\KeywordTok{map_effort}\NormalTok{(m, cruz)}
+\NormalTok{m <-}\StringTok{ }\KeywordTok{map_sightings}\NormalTok{(m, cruz, }\DataTypeTok{size_base=}\NormalTok{.}\DecValTok{4}\NormalTok{)}
+\NormalTok{m }
 \end{Highlighting}
 \end{Shaded}
 
 \hypertarget{eastern-tropical-pacific}{%
-\section*{Eastern Tropical Pacific}\label{eastern-tropical-pacific}}
-\addcontentsline{toc}{section}{Eastern Tropical Pacific}
+\chapter{Eastern Tropical Pacific}\label{eastern-tropical-pacific}}
+
+\emph{Coming soon!}
 
 \hypertarget{practicalities}{%
 \chapter{Practicalities}\label{practicalities}}
@@ -1609,13 +1760,16 @@ In the \texttt{R} package framework we are developing, the contents of a project
   An \texttt{analysis.R} file (or perhaps a \texttt{.Rmd}), containing an adaptation of the code provided in the template above. This script will contain project-specific settings (e.g., the \texttt{load\_settings()} call), which allow for the script to be reproducible.
 \end{itemize}
 
+\hypertarget{part-appendix}{%
+\part{Appendix}\label{part-appendix}}
+
 \hypertarget{stratagallery}{%
-\chapter{Appendix: Strata gallery}\label{stratagallery}}
+\chapter{Strata gallery}\label{stratagallery}}
 
 This packages comes with several built-in datasets of geographic strata that are commonly used in NOAA/NMFS surveys. The functions \texttt{strata\_explore()} and \texttt{strata\_select()} were developed to help you explore those built-in options.
 
-\hypertarget{central-north-pacific-1}{%
-\section*{Central North Pacific}\label{central-north-pacific-1}}
+\hypertarget{central-north-pacific}{%
+\section*{Central North Pacific}\label{central-north-pacific}}
 \addcontentsline{toc}{section}{Central North Pacific}
 
 \begin{Shaded}
@@ -1624,7 +1778,7 @@ This packages comes with several built-in datasets of geographic strata that are
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-64-1.pdf} \includegraphics{figures/unnamed-chunk-64-2.pdf} \includegraphics{figures/unnamed-chunk-64-3.pdf}
+\includegraphics{figures/unnamed-chunk-68-1.pdf} \includegraphics{figures/unnamed-chunk-68-2.pdf} \includegraphics{figures/unnamed-chunk-68-3.pdf}
 
 To acquire the filepath to one of these strata, pass the index (or indices) printed in the map titles above to the function \texttt{strata\_select()}:
 
@@ -1656,7 +1810,7 @@ The second slot, \texttt{\$paths}, contains the filepaths you would need to pass
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-67-1.pdf} \includegraphics{figures/unnamed-chunk-67-2.pdf} \includegraphics{figures/unnamed-chunk-67-3.pdf} \includegraphics{figures/unnamed-chunk-67-4.pdf} \includegraphics{figures/unnamed-chunk-67-5.pdf}
+\includegraphics{figures/unnamed-chunk-71-1.pdf} \includegraphics{figures/unnamed-chunk-71-2.pdf} \includegraphics{figures/unnamed-chunk-71-3.pdf} \includegraphics{figures/unnamed-chunk-71-4.pdf} \includegraphics{figures/unnamed-chunk-71-5.pdf}
 
 \hypertarget{etp}{%
 \section*{ETP}\label{etp}}
@@ -1668,10 +1822,10 @@ The second slot, \texttt{\$paths}, contains the filepaths you would need to pass
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-68-1.pdf} \includegraphics{figures/unnamed-chunk-68-2.pdf} \includegraphics{figures/unnamed-chunk-68-3.pdf} \includegraphics{figures/unnamed-chunk-68-4.pdf} \includegraphics{figures/unnamed-chunk-68-5.pdf} \includegraphics{figures/unnamed-chunk-68-6.pdf} \includegraphics{figures/unnamed-chunk-68-7.pdf} \includegraphics{figures/unnamed-chunk-68-8.pdf} \includegraphics{figures/unnamed-chunk-68-9.pdf} \includegraphics{figures/unnamed-chunk-68-10.pdf} \includegraphics{figures/unnamed-chunk-68-11.pdf} \includegraphics{figures/unnamed-chunk-68-12.pdf} \includegraphics{figures/unnamed-chunk-68-13.pdf} \includegraphics{figures/unnamed-chunk-68-14.pdf} \includegraphics{figures/unnamed-chunk-68-15.pdf} \includegraphics{figures/unnamed-chunk-68-16.pdf} \includegraphics{figures/unnamed-chunk-68-17.pdf} \includegraphics{figures/unnamed-chunk-68-18.pdf} \includegraphics{figures/unnamed-chunk-68-19.pdf} \includegraphics{figures/unnamed-chunk-68-20.pdf} \includegraphics{figures/unnamed-chunk-68-21.pdf} \includegraphics{figures/unnamed-chunk-68-22.pdf} \includegraphics{figures/unnamed-chunk-68-23.pdf} \includegraphics{figures/unnamed-chunk-68-24.pdf} \includegraphics{figures/unnamed-chunk-68-25.pdf} \includegraphics{figures/unnamed-chunk-68-26.pdf} \includegraphics{figures/unnamed-chunk-68-27.pdf} \includegraphics{figures/unnamed-chunk-68-28.pdf} \includegraphics{figures/unnamed-chunk-68-29.pdf} \includegraphics{figures/unnamed-chunk-68-30.pdf} \includegraphics{figures/unnamed-chunk-68-31.pdf} \includegraphics{figures/unnamed-chunk-68-32.pdf} \includegraphics{figures/unnamed-chunk-68-33.pdf} \includegraphics{figures/unnamed-chunk-68-34.pdf} \includegraphics{figures/unnamed-chunk-68-35.pdf} \includegraphics{figures/unnamed-chunk-68-36.pdf} \includegraphics{figures/unnamed-chunk-68-37.pdf} \includegraphics{figures/unnamed-chunk-68-38.pdf} \includegraphics{figures/unnamed-chunk-68-39.pdf} \includegraphics{figures/unnamed-chunk-68-40.pdf} \includegraphics{figures/unnamed-chunk-68-41.pdf} \includegraphics{figures/unnamed-chunk-68-42.pdf} \includegraphics{figures/unnamed-chunk-68-43.pdf} \includegraphics{figures/unnamed-chunk-68-44.pdf} \includegraphics{figures/unnamed-chunk-68-45.pdf} \includegraphics{figures/unnamed-chunk-68-46.pdf} \includegraphics{figures/unnamed-chunk-68-47.pdf} \includegraphics{figures/unnamed-chunk-68-48.pdf} \includegraphics{figures/unnamed-chunk-68-49.pdf} \includegraphics{figures/unnamed-chunk-68-50.pdf} \includegraphics{figures/unnamed-chunk-68-51.pdf} \includegraphics{figures/unnamed-chunk-68-52.pdf} \includegraphics{figures/unnamed-chunk-68-53.pdf} \includegraphics{figures/unnamed-chunk-68-54.pdf} \includegraphics{figures/unnamed-chunk-68-55.pdf} \includegraphics{figures/unnamed-chunk-68-56.pdf} \includegraphics{figures/unnamed-chunk-68-57.pdf} \includegraphics{figures/unnamed-chunk-68-58.pdf} \includegraphics{figures/unnamed-chunk-68-59.pdf} \includegraphics{figures/unnamed-chunk-68-60.pdf} \includegraphics{figures/unnamed-chunk-68-61.pdf} \includegraphics{figures/unnamed-chunk-68-62.pdf} \includegraphics{figures/unnamed-chunk-68-63.pdf} \includegraphics{figures/unnamed-chunk-68-64.pdf} \includegraphics{figures/unnamed-chunk-68-65.pdf} \includegraphics{figures/unnamed-chunk-68-66.pdf} \includegraphics{figures/unnamed-chunk-68-67.pdf} \includegraphics{figures/unnamed-chunk-68-68.pdf} \includegraphics{figures/unnamed-chunk-68-69.pdf} \includegraphics{figures/unnamed-chunk-68-70.pdf}
+\includegraphics{figures/unnamed-chunk-72-1.pdf} \includegraphics{figures/unnamed-chunk-72-2.pdf} \includegraphics{figures/unnamed-chunk-72-3.pdf} \includegraphics{figures/unnamed-chunk-72-4.pdf} \includegraphics{figures/unnamed-chunk-72-5.pdf} \includegraphics{figures/unnamed-chunk-72-6.pdf} \includegraphics{figures/unnamed-chunk-72-7.pdf} \includegraphics{figures/unnamed-chunk-72-8.pdf} \includegraphics{figures/unnamed-chunk-72-9.pdf} \includegraphics{figures/unnamed-chunk-72-10.pdf} \includegraphics{figures/unnamed-chunk-72-11.pdf} \includegraphics{figures/unnamed-chunk-72-12.pdf} \includegraphics{figures/unnamed-chunk-72-13.pdf} \includegraphics{figures/unnamed-chunk-72-14.pdf} \includegraphics{figures/unnamed-chunk-72-15.pdf} \includegraphics{figures/unnamed-chunk-72-16.pdf} \includegraphics{figures/unnamed-chunk-72-17.pdf} \includegraphics{figures/unnamed-chunk-72-18.pdf} \includegraphics{figures/unnamed-chunk-72-19.pdf} \includegraphics{figures/unnamed-chunk-72-20.pdf} \includegraphics{figures/unnamed-chunk-72-21.pdf} \includegraphics{figures/unnamed-chunk-72-22.pdf} \includegraphics{figures/unnamed-chunk-72-23.pdf} \includegraphics{figures/unnamed-chunk-72-24.pdf} \includegraphics{figures/unnamed-chunk-72-25.pdf} \includegraphics{figures/unnamed-chunk-72-26.pdf} \includegraphics{figures/unnamed-chunk-72-27.pdf} \includegraphics{figures/unnamed-chunk-72-28.pdf} \includegraphics{figures/unnamed-chunk-72-29.pdf} \includegraphics{figures/unnamed-chunk-72-30.pdf} \includegraphics{figures/unnamed-chunk-72-31.pdf} \includegraphics{figures/unnamed-chunk-72-32.pdf} \includegraphics{figures/unnamed-chunk-72-33.pdf} \includegraphics{figures/unnamed-chunk-72-34.pdf} \includegraphics{figures/unnamed-chunk-72-35.pdf} \includegraphics{figures/unnamed-chunk-72-36.pdf} \includegraphics{figures/unnamed-chunk-72-37.pdf} \includegraphics{figures/unnamed-chunk-72-38.pdf} \includegraphics{figures/unnamed-chunk-72-39.pdf} \includegraphics{figures/unnamed-chunk-72-40.pdf} \includegraphics{figures/unnamed-chunk-72-41.pdf} \includegraphics{figures/unnamed-chunk-72-42.pdf} \includegraphics{figures/unnamed-chunk-72-43.pdf} \includegraphics{figures/unnamed-chunk-72-44.pdf} \includegraphics{figures/unnamed-chunk-72-45.pdf} \includegraphics{figures/unnamed-chunk-72-46.pdf} \includegraphics{figures/unnamed-chunk-72-47.pdf} \includegraphics{figures/unnamed-chunk-72-48.pdf} \includegraphics{figures/unnamed-chunk-72-49.pdf} \includegraphics{figures/unnamed-chunk-72-50.pdf} \includegraphics{figures/unnamed-chunk-72-51.pdf} \includegraphics{figures/unnamed-chunk-72-52.pdf} \includegraphics{figures/unnamed-chunk-72-53.pdf} \includegraphics{figures/unnamed-chunk-72-54.pdf} \includegraphics{figures/unnamed-chunk-72-55.pdf} \includegraphics{figures/unnamed-chunk-72-56.pdf} \includegraphics{figures/unnamed-chunk-72-57.pdf} \includegraphics{figures/unnamed-chunk-72-58.pdf} \includegraphics{figures/unnamed-chunk-72-59.pdf} \includegraphics{figures/unnamed-chunk-72-60.pdf} \includegraphics{figures/unnamed-chunk-72-61.pdf} \includegraphics{figures/unnamed-chunk-72-62.pdf} \includegraphics{figures/unnamed-chunk-72-63.pdf} \includegraphics{figures/unnamed-chunk-72-64.pdf} \includegraphics{figures/unnamed-chunk-72-65.pdf} \includegraphics{figures/unnamed-chunk-72-66.pdf} \includegraphics{figures/unnamed-chunk-72-67.pdf} \includegraphics{figures/unnamed-chunk-72-68.pdf} \includegraphics{figures/unnamed-chunk-72-69.pdf} \includegraphics{figures/unnamed-chunk-72-70.pdf}
 
 \hypertarget{segmentizing}{%
-\chapter{Appendix: Segmentizing}\label{segmentizing}}
+\chapter{Segmentizing}\label{segmentizing}}
 
 The package's \texttt{segmentize()} function and its associated settings were designed to give researchers full control over how data are segmented, be it for design-based density analysis (which tend to use long segments of 100 km or more and allow for non-contiguous effort to be included in the same segment) or for habitat modeling (which tend to use short segments of 5 - 10 km and disallow non-contiguous effort to be pooled into the same segment).
 
@@ -1782,7 +1936,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-72-1.pdf}
+\includegraphics{figures/unnamed-chunk-76-1.pdf}
 
 \hypertarget{day-vs-equal-length}{%
 \section*{Day vs Equal Length}\label{day-vs-equal-length}}
@@ -1817,7 +1971,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-74-1.pdf}
+\includegraphics{figures/unnamed-chunk-78-1.pdf}
 
 \hypertarget{by-target-length-of-150-km}{%
 \subsection*{By target length of 150 km}\label{by-target-length-of-150-km}}
@@ -1848,7 +2002,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-75-1.pdf}
+\includegraphics{figures/unnamed-chunk-79-1.pdf}
 
 \hypertarget{contiguous-vs.-non-contiguous-effort}{%
 \section*{Contiguous vs.~non-contiguous effort}\label{contiguous-vs.-non-contiguous-effort}}
@@ -1881,7 +2035,7 @@ The example above allows for non-contiguous effort; a segment is allowed to cont
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-76-1.pdf}
+\includegraphics{figures/unnamed-chunk-80-1.pdf}
 
 You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.
 
@@ -1920,7 +2074,7 @@ The other possible setting is \texttt{\textquotesingle{}disperse\textquotesingle
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-77-1.pdf}
+\includegraphics{figures/unnamed-chunk-81-1.pdf}
 
 Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:
 
@@ -1949,7 +2103,7 @@ Note that most segments are longer than the target length, due to the impact of 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-78-1.pdf}
+\includegraphics{figures/unnamed-chunk-82-1.pdf}
 
 But in general, the \texttt{disperse} option may be more appropriate for shorter segment lengths.
 
@@ -1994,7 +2148,145 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-79-1.pdf}
+\includegraphics{figures/unnamed-chunk-83-1.pdf}
+
+\hypertarget{misc_functions}{%
+\chapter{Miscellaneous functions}\label{misc_functions}}
+
+\hypertarget{species_translator}{%
+\subsection*{\texorpdfstring{\texttt{species\_translator()}}{species\_translator()}}\label{species_translator}}
+\addcontentsline{toc}{subsection}{\texttt{species\_translator()}}
+
+To streamline the management of species codes, scientific names, common names, etc., in the functions throughout this package, we have developed a ``translator'' function that returns the various identifiers for a species according to a variety of search terms.
+
+You can search by species code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# source('R/species_translator.R`)}
+\KeywordTok{species_translator}\NormalTok{(}\DataTypeTok{id =} \StringTok{'035'}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{t}\NormalTok{()}
+                \DecValTok{35}                       
+\NormalTok{code            }\StringTok{"035"}                    
+\NormalTok{short_name      }\StringTok{"LONG_PILOT"}             
+\NormalTok{scientific_name }\StringTok{"Globicephala melas"}     
+\NormalTok{common_name1    }\StringTok{"Long-finned pilot whale"}
+\NormalTok{common_name2    }\StringTok{" Atlantic pilot whale"}  
+\NormalTok{common_name3    }\StringTok{" blackfish"}             
+\NormalTok{common_name4    }\StringTok{" pothead"}               
+\end{Highlighting}
+\end{Shaded}
+
+By the short code name:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{species_translator}\NormalTok{(}\DataTypeTok{id =} \StringTok{'LONG_PILOT'}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{t}\NormalTok{()}
+                \DecValTok{35}                       
+\NormalTok{code            }\StringTok{"035"}                    
+\NormalTok{short_name      }\StringTok{"LONG_PILOT"}             
+\NormalTok{scientific_name }\StringTok{"Globicephala melas"}     
+\NormalTok{common_name1    }\StringTok{"Long-finned pilot whale"}
+\NormalTok{common_name2    }\StringTok{" Atlantic pilot whale"}  
+\NormalTok{common_name3    }\StringTok{" blackfish"}             
+\NormalTok{common_name4    }\StringTok{" pothead"}               
+\end{Highlighting}
+\end{Shaded}
+
+By the scientific name:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{species_translator}\NormalTok{(}\DataTypeTok{id =} \StringTok{'Globicephala melas'}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{t}\NormalTok{()}
+                \DecValTok{35}                       
+\NormalTok{code            }\StringTok{"035"}                    
+\NormalTok{short_name      }\StringTok{"LONG_PILOT"}             
+\NormalTok{scientific_name }\StringTok{"Globicephala melas"}     
+\NormalTok{common_name1    }\StringTok{"Long-finned pilot whale"}
+\NormalTok{common_name2    }\StringTok{" Atlantic pilot whale"}  
+\NormalTok{common_name3    }\StringTok{" blackfish"}             
+\NormalTok{common_name4    }\StringTok{" pothead"}               
+\end{Highlighting}
+\end{Shaded}
+
+Or by one of the species' common names:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{species_translator}\NormalTok{(}\DataTypeTok{id =} \StringTok{'Long-finned pilot whale'}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{t}\NormalTok{()}
+                \DecValTok{35}                       
+\NormalTok{code            }\StringTok{"035"}                    
+\NormalTok{short_name      }\StringTok{"LONG_PILOT"}             
+\NormalTok{scientific_name }\StringTok{"Globicephala melas"}     
+\NormalTok{common_name1    }\StringTok{"Long-finned pilot whale"}
+\NormalTok{common_name2    }\StringTok{" Atlantic pilot whale"}  
+\NormalTok{common_name3    }\StringTok{" blackfish"}             
+\NormalTok{common_name4    }\StringTok{" pothead"}               
+\end{Highlighting}
+\end{Shaded}
+
+The function will return any species for which there is a partial match:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{species_translator}\NormalTok{(}\DataTypeTok{id =} \StringTok{'megap'}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{t}\NormalTok{()}
+                \DecValTok{76}                      
+\NormalTok{code            }\StringTok{"076"}                   
+\NormalTok{short_name      }\StringTok{"HUMPBACK_W"}            
+\NormalTok{scientific_name }\StringTok{"Megaptera novaeangliae"}
+\NormalTok{common_name1    }\StringTok{"Humpback whale"}        
+\NormalTok{common_name2    }\StringTok{""}                      
+\NormalTok{common_name3    }\StringTok{""}                      
+\NormalTok{common_name4    }\StringTok{""}                      
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{species_translator}\NormalTok{(}\DataTypeTok{id =} \StringTok{'killer'}\NormalTok{)}
+\NormalTok{    code short_name      scientific_name                  common_name1}
+\DecValTok{32}   \DecValTok{032}\NormalTok{ PYGMY_KLLR     Feresa attenuata            Pygmy killer whale}
+\DecValTok{33}   \DecValTok{033}\NormalTok{ FALSE_KLLR Pseudorca crassidens            False killer whale}
+\DecValTok{37}   \DecValTok{037}\NormalTok{ KILLER_WHA         Orcinus orca                  Killer whale}
+\DecValTok{110}  \DecValTok{110}\NormalTok{                    Orcinus orca        Transient killer whale}
+\DecValTok{111}  \DecValTok{111}\NormalTok{                    Orcinus orca         Resident killer whale}
+\DecValTok{112}  \DecValTok{112}\NormalTok{                    Orcinus orca         Offshore killer whale}
+\DecValTok{113}  \DecValTok{113}\NormalTok{                    Orcinus orca Type A Antarctic killer whale}
+\DecValTok{114}  \DecValTok{114}\NormalTok{                    Orcinus orca Type B Antarctic killer whale}
+\DecValTok{115}  \DecValTok{115}\NormalTok{                    Orcinus orca Type C Antarctic killer whale}
+\NormalTok{          common_name2 common_name3 common_name4}
+\DecValTok{32}\NormalTok{   slender blackfish                          }
+\DecValTok{33}                                              
+\DecValTok{37}                                              
+\DecValTok{110}                                             
+\DecValTok{111}                                             
+\DecValTok{112}                                             
+\DecValTok{113}                                             
+\DecValTok{114}                                             
+\DecValTok{115}                                             
+\end{Highlighting}
+\end{Shaded}
+
+Note that if \texttt{species\_codes} is \texttt{NULL}, as in the examples above, the list of codes used in \texttt{ABUND9} will be used as a default.
+
+\hypertarget{species_manifest}{%
+\subsubsection*{\texorpdfstring{\texttt{species\_manifest()}}{species\_manifest()}}\label{species_manifest}}
+\addcontentsline{toc}{subsubsection}{\texttt{species\_manifest()}}
+
+Inventory the species observed:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{species_manifest <-}\StringTok{ }\KeywordTok{species_inventory}\NormalTok{(cruz) }
+\end{Highlighting}
+\end{Shaded}
+
+Check out result:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{species_manifest[,}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{backlog}{%
 \chapter{Appendix: Backlog}\label{backlog}}
@@ -2003,25 +2295,15 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
 \item
   Handle probable species in \texttt{process\_sightings()}. Probable species currently are not handled in \texttt{process\_sightings()}: I need a dataset that has a probable event in order to code. Look for it in the CCS data.
 \item
-  Double check use low if best NA (you might be using it for every observer, but it should only be used if NO observer has a best)
-\item
   Main Islands map bbox
 \item
   Map bbox for SoCal, Central Cal, and northern CCS
 \item
-  Appendix for helper functions, incl \texttt{species\_translator()}.
-\item
-  Method for stratifying by Beaufort.
-\item
   Add Survey summary function / section to this Rmd
-\item
-  \texttt{study\_area\_explore()} and \texttt{study\_area\_select()}.
 \item
   Figure out which ETP strata to have as defaults for both survey strata and study area polygons (there are like 100 in the folder Jeff sent us). May be a question for Tim G.
 \item
   Test this code on lots of cruise data files to establish basic functionality for Hawaii, California Current, and ETP.
-\item
-  Plotting functions for species (or subsets of species)
 \item
   Troubleshoot why longitudes are not displayed on Hawaii base map
 \item
@@ -2030,6 +2312,10 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
   Close comparison to FORTRAN outputs
 \item
   Onward into next stages of Data Processing milestones
+\item
+  Method for stratifying by Beaufort.
+\item
+  \texttt{study\_area\_explore()} and \texttt{study\_area\_select()}.
 \end{itemize}
 
   \bibliography{book.bib,packages.bib}

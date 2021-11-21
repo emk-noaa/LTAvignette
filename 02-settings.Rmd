@@ -1,5 +1,6 @@
 # Settings {#settings}
 
+
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
 library(dplyr)
 library(magrittr)
@@ -10,7 +11,7 @@ To customize the way data are processed and included in your analysis, use the `
 
 This function allows you to use 'factory defaults' if you don't wish to specify anything special such as strata or study area polygons:  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, size='tiny'}
 settings <- load_settings()
 ```
 

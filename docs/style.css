@@ -8,9 +8,13 @@ p code {
 pre {
   word-break: normal;
   word-wrap: normal;
+  font-size: 14px;
 }
 pre code {
   white-space: inherit;
+}
+code.r{ /* Code block */
+    font-size: 8px;
 }
 h1, h2, h3, h4 {
   font-family: 'Montserrat', sans-serif;

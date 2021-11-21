@@ -41,15 +41,23 @@ This status report outlines the code we are developing to process `WinCruz` data
 
 - Basic function for mapping sightings (QA/QC): `map_sightings()`.  
 
+- Added detail/polish to vignette pages on [Settings](#settings), [Processing Data](#processing), and the [Appendix on Segmentizing](#segmentizing). I believe these are ready for close review.    
+
+- Added detailed comments to code for all functions to date.  
+
 
 #### Next focus {-}
 
-- Document vignette   
-- Document code  
-- Document function manuals  
-- Survey summary  
-- Review INP shared by Amanda
-- EFFORT and SIGHTINGS outputs  
+- Review INP files shared by Amanda 
+
+- EFFORT and SIGHTINGS outputs / stage for distance
+
+- Survey summary   
+
+- Efficient system for testing on various datasets 
+
+- Document function manuals   
+
  
 
 #### Questions for Amanda {-}

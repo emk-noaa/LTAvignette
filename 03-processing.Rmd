@@ -98,7 +98,7 @@ This list, with these five primary slots, will be referred to as a `cruz` object
 
 ## Segmentize the data {-} 
 
-To allocate survey data into discrete 'effort segments', which are used in variance estimation in subsequent steps, run the function `segmentize()`. This process is controlled by both survey-wide and cohort-specific [settings]{#settings}, which are now carried in a slot within the `cruz` object.  
+To allocate survey data into discrete 'effort segments', which are used in variance estimation in subsequent steps, run the function `segmentize()`. This process is controlled by both survey-wide and cohort-specific [settings]{#settings}, which are now carried in a slot within the `cruz` object.  The process is outlined in detail in the [Appendix on Segmentizing](#segmentizing).
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 cruz <- segmentize(cruz, verbose=TRUE)
@@ -186,7 +186,7 @@ cruz$cohorts$fkw_insular$distance %>% names
 
 Note that the `sightings` table has a column named `included` (`TRUE` = yes, use it in the analysis). Any sightings that do not meet the inclusion criteria as specified in your settings will be `included = FALSE`, but they won't be removed from the data.   
 
-Since the sightings in each cohort are processed slightly differently, and since each cohort is species-group specific, you should expect different numbers of included/excluded sightings in each cohort-analysis dataset:  
+Since the sightings in each cohort are processed slightly differently according to the cohort's specific settings, you should expect different numbers of included/excluded sightings in each cohort-analysis dataset:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 cruz$cohorts$default$density$sightings$included %>% table
@@ -204,13 +204,24 @@ The `sightings` table has many other variables:
 cruz$cohorts$default$density$sightings %>% names
 ```
 
+Columns 41 onwards correspond to sightings information.  Columns of note:  
+
+- `species` (column 68) contains the species code. There is only one species-code per row (i.e, multi-species sightings have been expanded to multiple rows).  
+
+- `best`, `low`, and `high` (columns 69- 71) contain the refined group size estimates, averaged across observers and calibrated according to the cohort's settings specifications. For multi-species sightings, these numbers represent the number of individuals for the single species represented in the row (i.e., the original group size estimate has been scaled by the percentage attritbuted to this species).  
+
+- The columns following those group size estimates (`prob` through `calibr`) detail how group sizes were estimated: `prob` indicates whether probable species codes were accepted; `mixed` indicates whether this species' sighting is part of a mixed-species sighting; `n_sp` provides the number of species occurring in this sighitng; `n_obs` gives the number of observers who contributed group size estimates; `n_best` through `n_high` gives the number of valid group size estimates given; and `calibr` indicates whether or not calibration was attempted for this sighting based on the settings (see next section).  
+
+- As explained above, the final column, `included`, indicates whether this species should be included in the analysis.  
+
+
 Here is a glimpse of the data: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 cruz$cohorts$fkw_insular$distance$sightings %>% glimpse
 ```
 
-Note that the `process_sightings()` function draws upon `cruz$settings` for inclusion criteria, but some of those settings can be overridden with the function's manual inputs if you want to explore your options. 
+Note that the `process_sightings()` function draws upon `cruz$settings` for inclusion criteria, but some of those settings can be overridden with the function's manual inputs if you want to explore your options (see below).  
 
 
 ### School size estimates {.unnumbered #ss_calibration} 
@@ -232,7 +243,7 @@ cruz_demo <- process_sightings(cruz,
 cruz_demo$cohorts$default$density$sightings$best %>% head(20)
 ```
 
-Since calibration is only used for schools above a certain size, the difference between calibration and non-calibrated estimates becomes clearer in larger groups.  
+Note that, since calibration is only used for schools above a certain size, the difference between calibration and non-calibrated estimates becomes clearer in larger groups.  
 
 You can also carry out calibration corrections without using a geometric weighted mean (the arithmetic mean will be used instead): 
 
@@ -250,4 +261,53 @@ Note that school size calibration is only carried out if `settings$group_size_ca
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
 save(cruz,file='data/cruz_proc.RData')
 ```
+
+
+## Review {-}  
+
+By the end of this process, you have a single data object, `cruz`, with all the data you need to move forward into the next stages of mapping and analysis.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+cruz %>% names 
+```
+
+Each species-specific cohort has its own list under `cruz$cohorts`:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+cruz$cohorts %>% names 
+```
+
+Each of these cohorts can have two lists, `density` and `distance`, which contain the data to be used in those density estimation and detection function estimation, respectively: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+str(cruz$cohorts,
+    max.level=2,
+    list.len = 10,
+    vec.len = 0,
+    give.length = FALSE,
+    give.attr = FALSE)
+```
+
+Each of these `analysis` slots is a list with the same elements:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+cruz$cohorts$default$density %>% names
+```
+
+- `segments` is a summary table of segments. 
+
+- `effort` is a list in which each slot contains `DAS` data for a single segment.  
+
+- `das` is the raw `DAS` data, modified with `seg_id` to associate each row with a segment.  
+
+- `sightings` is a dataframe of sightings processed according to this cohort's settings.  
+
+
+In each dataframes for each cohort-analysis (e.g., `default$density`), there are three critically important columns to keep in mind: 
+
+- **`seg_id`**: this column is used to indicate the segment ID a row of data belongs to.  
+
+- **`use`**: this column indicates whether a row of effort should be used in the analysis. Every row of data within a single segment with have the same `use` value.  
+
+- **`included`**: this column occurs in the `sightings` dataframe only. It indicates whether the sightings should be included in the analysis based on the specified settings. Any sighting with `use == FALSE` will also have `included == FALSE`, but it *is* possible for sightings to have `use == TRUE` with `included == FALSE`. For example, if the setting `abeam_sightings` is set to `FALSE`, a sighting with a bearing angle beyond the ship's beam can be excluded from the analysis  (`included == FALSE`) even though the effort segment it occurs within will still be used (`use == TRUE`).  
 
