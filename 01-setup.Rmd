@@ -17,7 +17,7 @@ library(usethis)
 usethis::edit_r_environ()
 
 # Add your GitHub personal access token as a variable in `.Renviron`
-GITHUB_TOKEN <- 'your_token_goes_here_as_a_character_string'
+GITHUB_TOKEN = 'your_token_goes_here_as_a_character_string'
 
 # Save and close your .Renviron file
 # Reload .Renviron

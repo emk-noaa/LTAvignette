@@ -51,6 +51,14 @@
 <script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.16/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
 
 <style type="text/css">
@@ -162,8 +170,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-survey-tracks"><i class="fa fa-check"></i>Add survey tracks</a></li>
 <li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#add-sightings"><i class="fa fa-check"></i>Add sightings</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey</a></li>
-<li class="chapter" data-level="7" data-path="df.html"><a href="df.html"><i class="fa fa-check"></i><b>7</b> Detection functions</a></li>
+<li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey</a><ul>
+<li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summariz-effort"><i class="fa fa-check"></i>Summariz effort</a></li>
+<li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-sightings"><i class="fa fa-check"></i>Summarize sightings</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="df.html"><a href="df.html"><i class="fa fa-check"></i><b>7</b> Detection functions</a><ul>
+<li><a href="df.html#format-for-distance">Format for <code>Distance</code></a></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="abundance.html"><a href="abundance.html"><i class="fa fa-check"></i><b>8</b> Abundance estimation</a></li>
 <li class="part"><span><b>II Case studies</b></span></li>
 <li class="chapter" data-level="9" data-path="casestudies.html"><a href="casestudies.html"><i class="fa fa-check"></i><b>9</b> Central North Pacific</a></li>
@@ -213,9 +226,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="status" class="section level1">
 <h1><span class="header-section-number"> 1</span> Status</h1>
 <p>This status report outlines the code we are developing to process <code>WinCruz</code> data and prepare it for density estimation analysis using <code>distance</code> and related packages in <code>R</code>.</p>
-<div id="changes" class="section level4 unnumbered">
-<h4>Changes</h4>
+<div id="recent-changes" class="section level4 unnumbered">
+<h4>Recent changes</h4>
 <ul>
+<li><p>New <code>format_distance()</code> function creates tables that match <code>EFFORT.csv</code> and <code>SIGHTINGS.csv</code>.</p></li>
+<li><p>Skeletonized new summary functions (see the <a href="summarize.html#summarize">Summarize page</a>).</p></li>
+<li><p>Ship name is now added to all dataframes.</p></li>
 <li><p>New <code>process_sightings()</code> function, with code for calibrating group sizes according to user-provided coefficient tables (mirroring <code>ABUND9</code> with slight mods, e.g., school size threshold for observers not in the <code>Coeff.DAT</code> file.). (Details: the function <code>process_sightings()</code> relies upon a utility function, <code>group_size()</code>, which in turn relies upon <code>group_size_calibrate()</code>.)</p></li>
 <li><p>Added cohort-specific setting, <code>school_size_calibrate</code>, that allows researchers to specify whether a cohort should or should not have school sizes calibrated. Example use case: <code>school_size_calibrate = TRUE</code> for a cohort of dolphin species, but make it <code>FALSE</code> for a cohort of large baleen whales.</p></li>
 <li><p>Basic function for mapping sightings (QA/QC): <code>map_sightings()</code>.</p></li>

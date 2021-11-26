@@ -33,7 +33,13 @@ options(scipen=999)
 
 This status report outlines the code we are developing to process `WinCruz` data and prepare it for density estimation analysis using `distance` and related packages in `R`.  
 
-#### Changes {-}
+#### Recent changes {-}
+
+- New `format_distance()` function creates tables that match `EFFORT.csv` and `SIGHTINGS.csv`.  
+
+- Skeletonized new summary functions (see the [Summarize page](#summarize)).      
+
+- Ship name is now added to all dataframes.  
 
 - New `process_sightings()` function, with code for calibrating group sizes according to user-provided coefficient tables (mirroring `ABUND9` with slight mods, e.g., school size threshold for observers not in the `Coeff.DAT` file.). (Details: the function `process_sightings()` relies upon a utility function, `group_size()`, which in turn relies upon `group_size_calibrate()`.)
 

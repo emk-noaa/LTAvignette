@@ -1,3 +1,59 @@
 # Detection functions {#df}
 
-*Coming soon!*
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
+library(dplyr)
+library(magrittr)
+library(LTabundR)
+library(swfscDAS)
+library(tmap)
+#data(hiceas2020)
+#das <- hiceas2020
+#data(settings)
+data(cruz_proc)
+cruz <- cruz_proc
+#load('data/cruz_proc.RData')
+```
+
+## Format for `Distance`  {-}
+
+To format the processed data for use in `Distance`-related analyses, use the function `format_distance()`.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+cruz_dist <- format_distance(cruz,
+                             cohort=1,
+                             analysis='density')
+```
+
+This function produces a list with four slots:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+cruz_dist %>%  names
+```
+
+The first two slots specify which cohort and analysis these data pertain to. 
+
+The second two slots, `effort` and `sightings`, mirror the format of the `EFFORT.csv` and `SIGHTINGS.csv` files produced by `ABUND 7/9`:  
+
+### Effort  {-}  
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+library(DT)
+
+cruz_dist$effort %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}"),
+          scollX = TRUE, scrollY = TRUE
+       )) 
+```
+
+### Sightings  {-}  
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+cruz_dist$sightings %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}"),
+          scrollX = TRUE, scrollY = TRUE
+       )) 
+```
+
+
