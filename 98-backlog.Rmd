@@ -1,5 +1,7 @@
 # Appendix: Backlog {#backlog}
 
+- Fix polygon area estimation! (Currently does not subtract land area! Ack!)  
+
 - Handle probable species in `process_sightings()`. Probable species currently are not handled in `process_sightings()`: I need a dataset that has a probable event in order to code. Look for it in the CCS data.  
 - Check to make sure that you have added geometric mean option in `process_sightings()`, even if geometric WEIGHTED mean is not possible.  
 

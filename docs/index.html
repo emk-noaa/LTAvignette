@@ -229,7 +229,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="recent-changes" class="section level4 unnumbered">
 <h4>Recent changes</h4>
 <ul>
-<li><p>New <code>format_distance()</code> function creates tables that match <code>EFFORT.csv</code> and <code>SIGHTINGS.csv</code>.</p></li>
+<li><p>New <code>format_distance()</code> function creates tables that match <code>EFFORT.csv</code> and <code>SIGHTINGS.csv</code>. (See <a href="df.html#df">here</a>.)</p></li>
+<li><p>New <code>process_surveys()</code> function provides a wrapper for all data processing functions in a single command. This will be the main function that researchers use to process their data. All other functions are called <em>within</em> this function, and will rarely be called directly by researchers except in special analyses. This is explained at the top of the page on <a href="processing.html#processing">Data Processing</a>.</p></li>
+<li><p>New helper function, <code>read_polygon()</code>, reads a <code>DAT</code> file of polygon coordinates and converts it to a dataframe compatible with <code>LTabundR</code> functions.</p></li>
 <li><p>Skeletonized new summary functions (see the <a href="summarize.html#summarize">Summarize page</a>).</p></li>
 <li><p>Ship name is now added to all dataframes.</p></li>
 <li><p>New <code>process_sightings()</code> function, with code for calibrating group sizes according to user-provided coefficient tables (mirroring <code>ABUND9</code> with slight mods, e.g., school size threshold for observers not in the <code>Coeff.DAT</code> file.). (Details: the function <code>process_sightings()</code> relies upon a utility function, <code>group_size()</code>, which in turn relies upon <code>group_size_calibrate()</code>.)</p></li>

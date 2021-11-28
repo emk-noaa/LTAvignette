@@ -35,7 +35,11 @@ This status report outlines the code we are developing to process `WinCruz` data
 
 #### Recent changes {-}
 
-- New `format_distance()` function creates tables that match `EFFORT.csv` and `SIGHTINGS.csv`.  
+- New `format_distance()` function creates tables that match `EFFORT.csv` and `SIGHTINGS.csv`.  (See [here](#df).)  
+
+- New `process_surveys()` function provides a wrapper for all data processing functions in a single command. This will be the main function that researchers use to process their data. All other functions are called *within* this function, and will rarely be called directly by researchers except in special analyses. This is explained at the top of the page on [Data Processing](#processing).   
+
+- New helper function, `read_polygon()`, reads a `DAT` file of polygon coordinates and converts it to a dataframe compatible with `LTabundR` functions.  
 
 - Skeletonized new summary functions (see the [Summarize page](#summarize)).      
 
