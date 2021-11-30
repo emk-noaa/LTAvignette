@@ -3,18 +3,14 @@
 - Fix polygon area estimation! (Currently does not subtract land area! Ack!)  
 
 - Handle probable species in `process_sightings()`. Probable species currently are not handled in `process_sightings()`: I need a dataset that has a probable event in order to code. Look for it in the CCS data.  
-- Check to make sure that you have added geometric mean option in `process_sightings()`, even if geometric WEIGHTED mean is not possible.  
 
 - Main Islands map bbox  
 
 - Map bbox for SoCal, Central Cal, and northern CCS  
 
-- Add Survey summary function / section to this Rmd  
-
 - Figure out which ETP strata to have as defaults for both survey strata and study area polygons (there are like 100 in the folder Jeff sent us).  May be a question for Tim G.  
 
 - Test this code on lots of cruise data files to establish basic functionality for Hawaii, California Current, and ETP.   
-
 - Troubleshoot why longitudes are not displayed on Hawaii base map
 
 - Accommodate subgroup settings for FKW analyses

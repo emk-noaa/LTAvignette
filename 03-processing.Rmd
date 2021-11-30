@@ -20,8 +20,9 @@ That single command will convert your raw `DAS` data to a "`cruz`" object, a lis
 
 That function is a wrapper for several discrete stages of data formatting/processing. Behind the scenes, each of those stages is carried out using a specific `LTabundR` function. The remainder of this page is a detailed step-by-step explanation of the data processing that occurs when you call `process_surveys()`.  
 
+## Behind the scenes {-} 
 
-## Bring in cruise data {-} 
+### Bring in cruise data {-} 
 
 Specify the path to your `.DAS` data file(s):  
 
@@ -37,38 +38,33 @@ das <- load_das(das_file,
                 print_glimpse = TRUE)
 ```
 
-## Format `DAS` data {-}  
+### Process strata {-}  
 
-Finalize formatting: remove rows with invalid locations and calculate the distance, in km, between each row of data.  Other refinements can be added to this function later on.  
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
-das <- format_das(das, settings)
-```
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=8, fig.height=4}
-par(mfrow=c(1,2))
-hist(das$km_int, xlab='KM between each DAS row', 
-     main=NULL, breaks=seq(0,max(das$km_int),length=100))
-plot(das$km_cum, ylab='Cumulative KM surveyed', main=NULL, type='l')
-```
-
-## Process strata {-}  
-
-Run the following function to add strata and study-area information to each sub-segment of effort:  
+Run the following function to add strata and study-area information to each row of `DAS` data:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
-cruz <- process_strata(das, settings)
+dass <- process_strata(das, settings)
 ```
 
 This function loops through each stratum `data.frame` you have provided it in `settings$strata`, formats the stratum, and asks whether each DAS row occurs within it. For each stratum, a column named `stratum_<StratumName>` is added to the `das` object; each row in this column is `TRUE` (included) or `FALSE`.
 
 A similar procedure is run if a dataframe is provided in `settings$study_area`. A column named `study_area` is added to `das` containing a boolean (`TRUE` if the sub-segment or sighting occurs within the study area). 
 
-The function then loops through each species cohort and uses that cohort's settings to determine a single stratum assignment for each row of `DAS` data in the event of overlapping strata. The key cohort setting referenced here is `stratum_overlap_handling`.  
+### Format `DAS` data into a `cruz` object {-}  
+
+The function `format_das()` takes care of some final formatting and initiates the `cruz` object data structure. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+cruz <- format_das(dass, verbose=TRUE)
+```
+
+This function (1) remove rows with invalid Cruise numbers, times, or locations; (ii) calculate the distance, in km, between each row of data; (iii) adds a `ship` column to the dataset, with initials for the ship corresponding to each cruise; (iv) creates a new list, `cohorts`, which copies the cruise data for each cohort specified in your settings; and (v) adds a `stratum` column to the data in each cohort. That column specifies 
+a single stratum assignment for each row of `DAS` data in the event of overlapping strata, based upon the cohort setting `stratum_overlap_handling`.  
+
 
 ### The `cruz` object {-}
 
-The function `process_strata()` returns a list, which we have saved in an object named `cruz`, with several slots:  
+The function `format_das()` returns a list, which we have saved in an object named `cruz`, with several slots:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 cruz %>% names
@@ -90,7 +86,7 @@ The slot `cohorts` is itself a list with one slot for each cohort. The slots are
 cruz$cohorts %>% names
 ```
 
-Each cohort slot has a copy of the `DAS` data with a stratum assignment tailored to its cohort-specific settings. For instance, the `default` cohort, whose `stratum_overlap_handling` is set to `"smallest"`, assigns the smallest stratum in the event of overlapping or nested strata:
+Each cohort slot has a copy of the `DAS` data with a new `stratum` column, with a stratum assignment tailored to its cohort-specific settings. For instance, the `default` cohort, whose `stratum_overlap_handling` is set to `"smallest"`, assigns the smallest stratum in the event of overlapping or nested strata:
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 cruz$cohorts$default$stratum %>% table(useNA='ifany')
@@ -104,10 +100,10 @@ cruz$cohorts$fkw_insular$stratum %>% table(useNA='ifany')
 
 When a row of `DAS` effort occurs in two overlapping strata, the stratum assignment for that row is a concatentation of the names of the strata it falls within, with names separated by "`&`".   
 
-This list, with these five primary slots, will be referred to as a `cruz` object. The remainder of the data processing work flow is focused upon refining the effort and sighting data for each slot in `cohorts`. The other slots are no longer modified.  
+This list, with these five primary slots, will be referred to as a `cruz` object. 
 
 
-## Segmentize the data {-} 
+### Segmentize the data {-} 
 
 To allocate survey data into discrete 'effort segments', which are used in variance estimation in subsequent steps, run the function `segmentize()`. This process is controlled by both survey-wide and cohort-specific [settings]{#settings}, which are now carried in a slot within the `cruz` object.  The process is outlined in detail in the [Appendix on Segmentizing](#segmentizing).
 
@@ -164,12 +160,6 @@ hist(cruz$cohorts$default$density$segments$dist,
      main=paste0('Target km: ',settings$survey$segment_target_km))
 ```
 
-The `effort` slot is itself a list in which each slot holds the `DAS` for a single segment.   
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
-cruz$cohorts$default$density$effort %>% length
-```
-
 And the `das` slot holds the original `data.frame` of `DAS` data, modified slightly: the column `OnEffort` has been modified according to Beaufort range conditions, and the column `seg_id` indicates which segment the event occurs within  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
@@ -179,7 +169,7 @@ cruz$cohorts$default$density$das %>% names
 The `segmentize()` function and its associated settings were designed to give researchers full control over how data are segmented, be it for design-based density analysis (which tend to use long segments of 100 km or more and allow for non-contiguous effort to be included in the same segment) or for habitat modeling (which tend to use short segments of 5 - 10 km and disallow non-contiguous effort to be pooled into the same segment). To demonstrate that versatility, checkout the [appendix on segmentizing](#segmentizing).  
 
 
-## Process sightings {-}  
+### Process sightings {-}  
 
 To process sightings for each cohort of species, use the function `process_sightings()`. This function has three basic steps: for each cohort, the function (1) prepares a sightings table using the function `das_sight()` from `swfscDAS`; (2) filters those sightings to species codes specified for the cohort in your `settings` input; and (3) evaluates each of those sightings, asking if each should be included in the analysis according to your `settings`.  
 
@@ -207,7 +197,7 @@ cruz$cohorts$fkw_insular$distance$sightings$included %>% table
 
 When this function's `verbose` argument is `TRUE` (the default), a message is printed each time a sighting does not meet the inclusion criteria (see above).
 
-### Sightings data structure {-}  
+#### Sightings data structure {-}  
 
 The `sightings` table has many other variables: 
 
@@ -235,7 +225,7 @@ cruz$cohorts$fkw_insular$distance$sightings %>% glimpse
 Note that the `process_sightings()` function draws upon `cruz$settings` for inclusion criteria, but some of those settings can be overridden with the function's manual inputs if you want to explore your options (see below).  
 
 
-### School size estimates {.unnumbered #ss_calibration} 
+#### School size estimates {.unnumbered #ss_calibration} 
 
 In the settings we are using in this tutorial, school size estimates are adjusted using the calibration models from [Barlow, Gerrodette, and Perryman (1998)](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C43&q=barlow+1998+group+size+caliration&btnG=) (their analysis is refined slightly and further explained in [Gerrodette, Perryman and Barlow, 2002](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C43&q=barlow+1998+group+size+caliration&btnG=)). These calibration corrections are observer-specific. Some observers tend to underestimate school size and their estimates are adjusted up; others tend to overestimate and their estimates are adjusted down. Some observers do not have calibration coefficients, and for them a generic adjustment (upwards, by dividing estimates by 0.8625) is used. Each observer's estimate is calibrated, then all observer estimates are averaged. To do that averaging, our `settings` specify that we shall use a geometric weighted mean, instead of an arithmetic mean, that weights school size estimates from multiple observers according to the variance of their calibration coefficients.   
 
@@ -267,7 +257,9 @@ cruz_demo <- process_sightings(cruz,
 cruz_demo$cohorts$default$density$sightings$best %>% head(20)
 ```
 
-Note that school size calibration is only carried out if `settings$group_size_calibration` is not `NULL`.  However, even when calibration coefficients *are* provided, calibration is only carried out for raw estimates above a minimum threshold, since observers are unlikely to mis-estimate the school size of a lone whale or pair. For observers who have calibration coefficients in the `settings$group_size_coefficients` table, that minimum is specified for each observer individually. For observers not in that table, calibration will only be applied to raw school size estimates of 4 or above.   
+Note that when `geometric_mean = TRUE` but calibration is not carried out, the simple geometric mean is calculated instead of the *weighted* geometric mean, since the weights are the variance estimates from the calibration routine.  
+
+Also note that school size calibration is only carried out if `settings$group_size_calibration` is not `NULL`.  However, even when calibration coefficients *are* provided, calibration is only carried out for raw estimates above a minimum threshold, since observers are unlikely to mis-estimate the school size of a lone whale or pair. For observers who have calibration coefficients in the `settings$group_size_coefficients` table, that minimum is specified for each observer individually. For observers not in that table, calibration will only be applied to raw school size estimates of 4 or above.   
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
 save(cruz,file='data/cruz_proc.RData')
@@ -306,8 +298,6 @@ cruz$cohorts$default$density %>% names
 ```
 
 - `segments` is a summary table of segments. 
-
-- `effort` is a list in which each slot contains `DAS` data for a single segment.  
 
 - `das` is the raw `DAS` data, modified with `seg_id` to associate each row with a segment.  
 
