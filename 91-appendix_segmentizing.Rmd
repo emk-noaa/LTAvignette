@@ -37,10 +37,10 @@ das_file <- 'data/surveys/HICEASwinter2020.das'
 das <- load_das(das_file, 
                 perform_checks = FALSE,
                 print_glimpse = FALSE)
-das <- format_das(das, settings)
 cruz <- process_strata(das,
                        settings,
                        verbose=FALSE)
+cruz <- format_das(cruz)
 ```
 
 And this is the histogram function we will be using to display the results of each run of `segmentize()`:  

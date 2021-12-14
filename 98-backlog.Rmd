@@ -1,8 +1,16 @@
 # Appendix: Backlog {#backlog}
 
+- Investigate discrepancies between output from `format_distance()` and `summarize_effort()`.  
+
+- Follow-through on converting `format_distance()` to match the formatting from `ABUND9`? (It is currently matching the format from `ABUND7`).  
+
 - Fix polygon area estimation! (Currently does not subtract land area! Ack!)  
 
-- Handle probable species in `process_sightings()`. Probable species currently are not handled in `process_sightings()`: I need a dataset that has a probable event in order to code. Look for it in the CCS data.  
+- Consider making the minimum group size for group size calibration (for unknown observers) a cohort-specific setting that users can define.  Update all package and vignette documentation accordingly. 
+
+- Consider making the km gap handling arguments for `format_das()` (and its subroutine `process_km()`) into survey settings that users can define. Update all package and vignette documentation accordingly. 
+
+- Jay uses the phrase 'stratify by IO': add segmentizing feature in which segment is reset if IO status changes. 
 
 - Main Islands map bbox  
 
@@ -11,13 +19,10 @@
 - Figure out which ETP strata to have as defaults for both survey strata and study area polygons (there are like 100 in the folder Jeff sent us).  May be a question for Tim G.  
 
 - Test this code on lots of cruise data files to establish basic functionality for Hawaii, California Current, and ETP.   
+
 - Troubleshoot why longitudes are not displayed on Hawaii base map
 
 - Accommodate subgroup settings for FKW analyses
-
-- Close comparison to FORTRAN outputs  
-
-- Onward into next stages of Data Processing milestones 
 
 - Method for stratifying by Beaufort.  
 

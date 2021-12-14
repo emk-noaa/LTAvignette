@@ -37,7 +37,6 @@ library(LTabundR)
 ```
 
 
-
 ## Option 2: Install locally {-}  
 
 For now you can also install or update the package locally, using this code:  
@@ -49,7 +48,7 @@ library(devtools)
 if('LTAabundR' %in% installed.packages()){remove.packages('LTabundR')} 
 
 # Specify the path to the package's project folder.
-path_to_package <- '../LTabundR'
+path_to_package <- '../LTabundR-dev/LTabundR'
 
 # Update function documentation
 document(path_to_package) 
@@ -60,5 +59,9 @@ install(path_to_package)
 library(LTabundR)
 ```
 
+```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+# Manually load during troubleshooting
+load_all('../LTabundR-dev/LTabundR')
+```
 
 

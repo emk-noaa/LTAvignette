@@ -48,18 +48,3 @@ species_translator(id = 'killer')
 
 Note that if `species_codes` is `NULL`, as in the examples above, the list of codes used in `ABUND9` will be used as a default.  
 
-#### `species_manifest()` {-}
-
-Inventory the species observed:
-
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
-species_manifest <- species_inventory(cruz) 
-```
-
-Check out result:  
-
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
-species_manifest[,c(1,2,5)]
-```
-
-

@@ -12,7 +12,7 @@ data(settings)
 You can process your survey data using a single function, **`process_surveys()`**, which takes two arguments: the filepath(s) to your `DAS` survey data, and your `settings` object. For example:  
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE}
-process_surveys(das_file = 'data/surveys/HICEASwinter2020.das',
+demo <- process_surveys(das_file = 'data/surveys/HICEASwinter2020.das',
                 settings = settings)
 ```
 

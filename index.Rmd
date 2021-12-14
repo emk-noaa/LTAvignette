@@ -33,7 +33,18 @@ options(scipen=999)
 
 This status report outlines the code we are developing to process `WinCruz` data and prepare it for density estimation analysis using `distance` and related packages in `R`.  
 
-#### Recent changes {-}
+### Recent changes {-}
+
+#### Week of Dec. 13 {-}  
+
+- Development of features for handling subgroup-level analysis of false killer whale sightings.  (more soon). 
+
+- A wide variety of minor improvements as part of a major push to compare `LTabundR` results to those from `ABUND7` and `ABUND9`.  This included an effort to articulate the differences between `LTabundR` and `ABUND` routines (detailed in a [new appendix](#abund9_compare)), and to quantify the correspondence (or lack thereof) between the two programs.  This involved the development of a function, `abund9_compare()`, which is not featured in this vignette but can be used to compare `LTabundR` outputs with those from `ABUND9`.  We are also documenting comparisons on [this document](https://docs.google.com/document/d/1_EZqzOnwSZZCitqTJFIbznGy2Njwbj1YOqMQcbcHI7k/edit?usp=sharing).  
+
+- Made `beaufort_range` as a cohort-specific setting, instead of a survey-wide setting.  
+
+
+#### Prior to week of Dec. 8 {-}
 
 - Added a new survey-wide setting, `out_handling`, that determines how data occurring outside of geographic strata will be handled. Currently the two options are `"remove"` (the default), which removes data occurring outside of the strata (speeds things up, reduces memory needs), and `"stratum"`, which assigns all exterior events to an `"out"` stratum.  
 
@@ -64,26 +75,25 @@ This status report outlines the code we are developing to process `WinCruz` data
 - Added detailed comments to code for all functions to date.  
 
 
-#### Next focus {-}
+### Next focus {-}
 
-- Review INP files shared by Amanda 
+- FKW subgroup handling
 
-- EFFORT and SIGHTINGS outputs / stage for distance
+- Wrap up ABUND - LTabundR comparison and troubleshooting 
 
-- Survey summary   
+- Catch up on documenting functions   
 
-- Efficient system for testing on various datasets 
 
-- Document function manuals   
+
+### Questions for Amanda {-}
+
+
+
+
+### Questions for Jay {-}
+
+- How does ABUND protect against long gaps between DAS rows in its distance-traveled calculations? From what I can tell in the FORTRAN code, it seems possible for long gaps to be mistaken for effort.   
+
+
 
  
-
-#### Questions for Amanda {-}
-
-- FKW handling
-
-- What is the ship list used for?   
-
-
-
-

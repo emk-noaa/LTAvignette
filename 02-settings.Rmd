@@ -97,9 +97,7 @@ The `survey_settings` input accepts a list with any of the following named slots
 
 - **`out_handling:`** the first slot allows you to specify how data occurring outside of geo-strata should be handled. If this is set to `"remove"`, those rows will be filtered out of the data early in the process. This reduces memory usage, speeds up processing, and gives you geographic control of how effort and sightings will be summarize.  If this is set to `"stratum"`, those data will be assigned to a fake geo-stratum, named `"out"`. Effort in the `"out"` stratum will not be segmentized, but `"out"` sightings will be processed and retained in the final datasets. This setting might be useful if you want to use `"out"` data for survey summaries and/or detection function estimation.  The default is `"remove"`, since that saves the most time and memory.  
 
-The next few slots are devoted to controlling how effort will be "segmentized", or chopped into discrete sections for the purposes of estimating the variabce of the abundance estimate. 
-
-- **`segment_method:`** the two method options are `"day"` -- all effort within the same Cruise-StudyArea-Stratum-Year-Effort scenario will be binned into segments by calendar date -- and `"equallength"` -- effort within each unique effort scenario (Cruise-StudyArea-etc.) will be divided into segments of approximately equal length. See the [Appendix on segmentizing](#segmentizing) for details. 
+- **`segment_method:`** This and the next few slots are devoted to controlling how effort will be "segmentized", or chopped into discrete sections for the purposes of estimating the variabce of the abundance estimate. The two method options are `"day"` -- all effort within the same Cruise-StudyArea-Stratum-Year-Effort scenario will be binned into segments by calendar date -- and `"equallength"` -- effort within each unique effort scenario (Cruise-StudyArea-etc.) will be divided into segments of approximately equal length. See the [Appendix on segmentizing](#segmentizing) for details. 
 
 - **`segment_target_km:`** if segmenting by `"equallength"`, this field allows you to specify what that target length is, in km.    
 
@@ -195,13 +193,15 @@ The `cohort_settings` input accepts a list of any length. Each slot in that list
 
 ## Example code {-}  
 
-### Use settings defaults (no strata) {-}  
+### Use settings defaults {-}  
+
+No strata or group size calibration.  
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE}
 settings <- load_settings()
 ```
 
-### Use settings defaults with strata {-}  
+### Use settings defaults, but with strata {-}  
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE}
 # Load strata dataframes
@@ -221,14 +221,28 @@ When a cohort is not specified, the default values will be used.
 data(strata_cnp)
 data(study_cnp)
 
+# Load group size coefficients
+data(group_size_coefficients)
+
+# Load ships
+data(ships)
+
+# Load species codes
+data(species_codes)
+
 # Survey settings
 survey <- 
-  load_survey_settings(segment_method = 'equallength',
+  load_survey_settings(out_handling = 'stratum',
+                       max_row_interval = 700,
+                       segment_method = 'equallength',
                        segment_target_km = 30,
-                       segment_max_km_gap = 5,
                        segment_max_interval = 48,
                        segment_type_handling = 'separate',
                        segment_remainder_handling = c('append','segment'),
+                       ship_list = ships,
+                       species_codes = species_codes,
+                       group_size_coefficients = group_size_coefficients,
+                       smear_angles = FALSE,
                        verbose = TRUE)
 
 # Load settings
@@ -247,14 +261,28 @@ These are the settings we will use in the remainder of the tutorial:
 data(strata_cnp)
 data(study_cnp)
 
+# Load group size coefficients
+data(group_size_coefficients)
+
+# Load ships
+data(ships)
+
+# Load species codes
+data(species_codes)
+
 # Survey settings
 survey <- 
-  load_survey_settings(segment_method = 'equallength',
+  load_survey_settings(out_handling = 'stratum',
+                       max_row_interval = 700,
+                       segment_method = 'equallength',
                        segment_target_km = 30,
-                       segment_max_km_gap = 5,
                        segment_max_interval = 48,
                        segment_type_handling = 'separate',
                        segment_remainder_handling = c('append','segment'),
+                       ship_list = ships,
+                       species_codes = species_codes,
+                       group_size_coefficients = group_size_coefficients,
+                       smear_angles = FALSE,
                        verbose = TRUE)
 
 # Cohort 1 (default)

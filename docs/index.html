@@ -157,11 +157,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#example-code"><i class="fa fa-check"></i>Example code</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>4</b> Data processing</a><ul>
-<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#bring-in-cruise-data"><i class="fa fa-check"></i>Bring in cruise data</a></li>
-<li><a href="processing.html#format-das-data">Format <code>DAS</code> data</a></li>
-<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#process-strata"><i class="fa fa-check"></i>Process strata</a></li>
-<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#segmentize-the-data"><i class="fa fa-check"></i>Segmentize the data</a></li>
-<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#process-sightings"><i class="fa fa-check"></i>Process sightings</a></li>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#behind-the-scenes"><i class="fa fa-check"></i>Behind the scenes</a></li>
 <li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#review"><i class="fa fa-check"></i>Review</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>5</b> Maps</a><ul>
@@ -197,8 +193,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#segment-remainder-handling"><i class="fa fa-check"></i>Segment remainder handling</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#typical-settings"><i class="fa fa-check"></i>Typical settings</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="misc_functions.html"><a href="misc_functions.html"><i class="fa fa-check"></i><b>15</b> Miscellaneous functions</a></li>
-<li class="chapter" data-level="16" data-path="backlog.html"><a href="backlog.html"><i class="fa fa-check"></i><b>16</b> Appendix: Backlog</a></li>
+<li class="chapter" data-level="15" data-path="abund9_compare.html"><a href="abund9_compare.html"><i class="fa fa-check"></i><b>15</b> <code>LTabundR</code> vs. <code>ABUND9</code></a><ul>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-total-effort"><i class="fa fa-check"></i>Differences in total effort</a></li>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-on-effort-distance"><i class="fa fa-check"></i>Differences in on-effort distance</a></li>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-it-total-sightings"><i class="fa fa-check"></i>Differences it total sightings</a></li>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-on-effort-sightings"><i class="fa fa-check"></i>Differences in on-effort sightings</a></li>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-school-size-estimation"><i class="fa fa-check"></i>Differences in school size estimation</a></li>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#processing-time"><i class="fa fa-check"></i>Processing time</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="misc_functions.html"><a href="misc_functions.html"><i class="fa fa-check"></i><b>16</b> Miscellaneous functions</a></li>
+<li class="chapter" data-level="17" data-path="backlog.html"><a href="backlog.html"><i class="fa fa-check"></i><b>17</b> Appendix: Backlog</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/emk-noaa/emk-noaa.github.io" target="blank">Eric & Amanda</a></li>
@@ -226,12 +230,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="status" class="section level1">
 <h1><span class="header-section-number"> 1</span> Status</h1>
 <p>This status report outlines the code we are developing to process <code>WinCruz</code> data and prepare it for density estimation analysis using <code>distance</code> and related packages in <code>R</code>.</p>
-<div id="recent-changes" class="section level4 unnumbered">
-<h4>Recent changes</h4>
+<div id="recent-changes" class="section level3 unnumbered">
+<h3>Recent changes</h3>
+<div id="week-of-dec.-13" class="section level4 unnumbered">
+<h4>Week of Dec. 13</h4>
 <ul>
+<li><p>Development of features for handling subgroup-level analysis of false killer whale sightings. (more soon).</p></li>
+<li><p>A wide variety of minor improvements as part of a major push to compare <code>LTabundR</code> results to those from <code>ABUND7</code> and <code>ABUND9</code>. This included an effort to articulate the differences between <code>LTabundR</code> and <code>ABUND</code> routines (detailed in a <a href="abund9_compare.html#abund9_compare">new appendix</a>), and to quantify the correspondence (or lack thereof) between the two programs. This involved the development of a function, <code>abund9_compare()</code>, which is not featured in this vignette but can be used to compare <code>LTabundR</code> outputs with those from <code>ABUND9</code>. We are also documenting comparisons on <a href="https://docs.google.com/document/d/1_EZqzOnwSZZCitqTJFIbznGy2Njwbj1YOqMQcbcHI7k/edit?usp=sharing">this document</a>.</p></li>
+<li><p>Made <code>beaufort_range</code> as a cohort-specific setting, instead of a survey-wide setting.</p></li>
+</ul>
+</div>
+<div id="prior-to-week-of-dec.-8" class="section level4 unnumbered">
+<h4>Prior to week of Dec. 8</h4>
+<ul>
+<li><p>Added a new survey-wide setting, <code>out_handling</code>, that determines how data occurring outside of geographic strata will be handled. Currently the two options are <code>"remove"</code> (the default), which removes data occurring outside of the strata (speeds things up, reduces memory needs), and <code>"stratum"</code>, which assigns all exterior events to an <code>"out"</code> stratum.</p></li>
+<li><p>Modified <code>segmentize()</code> function so that a list of segments is not returned to the user; that feature was created enormous objects (&gt; 1 GB for the 1986 - 2020 CNP DAS data) and is not useful enough to retain as a standing slot. A list like that can be easily produced using a <code>dplyr</code> pipe (<code>group_by(seg_id) %&gt;% group_split()</code>) when the need arises (e.g., in <code>map_effort()</code> – this function has also been updated to accommodate this new change).</p></li>
+<li><p>Fixed minutiae regarding group size estimation: sightings with missing data are given a school size estimate of 1, as done in <code>ABUND</code>; geometric mean functions have been fixed.</p></li>
+<li><p>Added progress indicator to <code>process_sightings()</code>.</p></li>
 <li><p>New <code>format_distance()</code> function creates tables that match <code>EFFORT.csv</code> and <code>SIGHTINGS.csv</code>. (See <a href="df.html#df">here</a>.)</p></li>
-<li><p>New <code>process_surveys()</code> function provides a wrapper for all data processing functions in a single command. This will be the main function that researchers use to process their data. All other functions are called <em>within</em> this function, and will rarely be called directly by researchers except in special analyses. This is explained at the top of the page on <a href="processing.html#processing">Data Processing</a>.</p></li>
-<li><p>New helper function, <code>read_polygon()</code>, reads a <code>DAT</code> file of polygon coordinates and converts it to a dataframe compatible with <code>LTabundR</code> functions.</p></li>
+<li><p>New <code>process_surveys()</code> function provides a wrapper for all data processing functions in a single command. This will be the main function that researchers use to process their data. All other functions are called <em>within</em> this function, and will rarely be called directly by researchers except in special analyses. This is explained at the top of the page on <a href="processing.html#processing">Data Processing</a>. This function includes an option for saving the result locally as a <code>RData</code> file, which allows the user to run this function once and save the result for later sessions.</p></li>
+<li><p>New helper function, <code>read_polygon()</code>, reads a <code>DAT</code> file of polygon coordinates and converts it to a dataframe compatible with <code>LTabundR</code> functions. Can handle files with multiple polygons.</p></li>
 <li><p>Skeletonized new summary functions (see the <a href="summarize.html#summarize">Summarize page</a>).</p></li>
 <li><p>Ship name is now added to all dataframes.</p></li>
 <li><p>New <code>process_sightings()</code> function, with code for calibrating group sizes according to user-provided coefficient tables (mirroring <code>ABUND9</code> with slight mods, e.g., school size threshold for observers not in the <code>Coeff.DAT</code> file.). (Details: the function <code>process_sightings()</code> relies upon a utility function, <code>group_size()</code>, which in turn relies upon <code>group_size_calibrate()</code>.)</p></li>
@@ -241,21 +259,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Added detailed comments to code for all functions to date.</p></li>
 </ul>
 </div>
-<div id="next-focus" class="section level4 unnumbered">
-<h4>Next focus</h4>
+</div>
+<div id="next-focus" class="section level3 unnumbered">
+<h3>Next focus</h3>
 <ul>
-<li><p>Review INP files shared by Amanda</p></li>
-<li><p>EFFORT and SIGHTINGS outputs / stage for distance</p></li>
-<li><p>Survey summary</p></li>
-<li><p>Efficient system for testing on various datasets</p></li>
-<li><p>Document function manuals</p></li>
+<li><p>FKW subgroup handling</p></li>
+<li><p>Wrap up ABUND - LTabundR comparison and troubleshooting</p></li>
+<li><p>Catch up on documenting functions</p></li>
 </ul>
 </div>
-<div id="questions-for-amanda" class="section level4 unnumbered">
-<h4>Questions for Amanda</h4>
+<div id="questions-for-amanda" class="section level3 unnumbered">
+<h3>Questions for Amanda</h3>
+</div>
+<div id="questions-for-jay" class="section level3 unnumbered">
+<h3>Questions for Jay</h3>
 <ul>
-<li><p>FKW handling</p></li>
-<li><p>What is the ship list used for?</p></li>
+<li>How does ABUND protect against long gaps between DAS rows in its distance-traveled calculations? From what I can tell in the FORTRAN code, it seems possible for long gaps to be mistaken for effort.</li>
 </ul>
 
 </div>
