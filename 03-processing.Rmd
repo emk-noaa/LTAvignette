@@ -265,6 +265,9 @@ Also note that school size calibration is only carried out if `settings$group_si
 save(cruz,file='data/cruz_proc.RData')
 ```
 
+#### Subgroup size estimates {.unnumbered #subgroups}
+
+After sightings data are processed, the `process_surveys()` function calls the subroutine `process_subgroups()` to find and calculate subgroup school size estimates for false killer whales , if any occur in the `DAS` data (Event code "`G`"). If subgroups are found, a `subgroups` slot is added to the analysis list for a cohort. This `subgroups` slot holds a list with three dataframes: `events` (each row is a school size estimate for a single subgroup during a single phase -- 1 or 2 -- within a single sighting); `subgroups` (each row is a single phase for a single subgroup, with all school size estimates averaged together (both arithmetically and geometrically); and `sightings` (each row is a school size estimate for a single phase for a single sighting, with all subgroup school sizes summed together). Examples of these datasets will be provided at a later date.    
 
 ## Review {-}  
 

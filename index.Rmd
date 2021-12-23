@@ -35,6 +35,14 @@ This status report outlines the code we are developing to process `WinCruz` data
 
 ### Recent changes {-}
 
+
+#### Week of Dec. 21 {-}  
+
+- Refined code for [subgroup-level school size estimation](#subgroups).  This feature is now stable.  
+
+- Next item.    
+
+
 #### Week of Dec. 13 {-}  
 
 - Development of features for handling subgroup-level analysis of false killer whale sightings.  (more soon). 
