@@ -152,7 +152,7 @@ The `cohort_settings` input accepts a list of any length. Each slot in that list
 
 - **`id:`** An informal identifier for this cohort, to help you keep track of which cohort is which.  For example, settings for a cohort of large whales species could be named `"big whales"`; settings for small delphinids and phocoenids could be named `"small_odontocetes"`; settings for beaked whales could be named `"beakers"`.  
 
-- **`species:`** A vector of species codes to include in this cohort. If `NULL` (the default), all species will be included.  
+- **`species:`** A character vector of species codes to include in this cohort. If `NULL` (the default), all species will be included.  
 
 - **`probable_species:`** If `TRUE` (default is `FALSE`), the “probable” species identifications will be used in place of the “unidentified” categories. 
 
@@ -164,6 +164,8 @@ The `cohort_settings` input accepts a list of any length. Each slot in that list
 
 - **`school_size_calibrate:`**  A logical (`TRUE` or `FALSE`) specifying whether or not to carry out school size adjustments according to the calibration table provided in `survey$group_size_coefficients` (if that table is provided). This setting allows you to toggle the survey-wide setting for certain cohorts. For example, perhaps you want to carry out calibration for a cohort of dolphin species, but not for a cohort of large whales whose group sizes tend to be smaller and easier to estimate accurately.  
 
+- **`calibration_floor:`** A numeric indicating the minimum school size estimate for which school size calibration will be attempted. This pertains only to observers who do no have an entry in the `group_size_coefficients` table provided in `load_survey_settings()` (that table has a calibration floor for each observer). The default is 0, meaning that calibration will be attempted for *all* school size estimates, regarding of the raw estimate. 
+
 - **`use_low_if_na:`**  If this setting is `TRUE`, an observer does not make a best estimate of group size, mean group size will be calculated from "low" estimates.  This will be done only if no observer has a "best" estimate.
 
 - **`io_sightings:`** A coded integer which specifies how sightings by the independent observer will be handled.  Allowable codes, which are inherited from those used in `ABUND7/9`, are `"_1"`=include independent observer sightings wih all other sightings, `"0"`=ignore sightings by independent observer, `"1"`=use only sightings made by regular observer team WHEN an independent observer was present, `"2"`=include only sightings made by the independent observer.  IO sightings are typically used only for making g(0) estimates, otherwise IO sightings are usually ignored (code = `"0"`). 
@@ -174,7 +176,7 @@ The `cohort_settings` input accepts a list of any length. Each slot in that list
 
 - **`beaufort_range:`** Vector of Beaufort sea states (integers) that are acceptable in estimating the detection function and density. Beaufort data with a decimal place will be rounded to the nearest integer to evaluate for inclusion.  
 
-- **`abeam_sightings:`** = If `TRUE`, sightings that occur aft of beam are included in estimating the detectin function and densities. Default is `FALSE`: all abeam sightings will be ignored.
+- **`abeam_sightings:`** = If `TRUE`, sightings that occur aft of beam are included in estimating the detection function and densities. Default is `FALSE`: all abeam sightings will be ignored.
 
 - **`strata_overlap_handling:`**  In the event that survey strata overlap, this setting tells `R` how to handle it. The options are `"smallest"` (the default), in which effort can belong to only a single stratum, and the smallest of overlapping strata will be used (e.g., an insular polygon nested within a larger EEZ polygon); `"largest"`, in which effort can belong to only a single stratum and the largest of overlapping strata will be used (we are not sure what use case this would serve, but we offer it as an option for niche analyses); and `"each"`, in which each effort is allowed to belong to two or more strata at once and all analyses will be conducted for each overlapping polygon separately (e.g., this may be appropriate for nested strata in which you want to estimate density in the entirety of the larger stratum in addition to estimating density for the nested stratum).   
 

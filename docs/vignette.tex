@@ -138,6 +138,17 @@ This status report outlines the code we are developing to process \texttt{WinCru
 \subsection*{Recent changes}\label{recent-changes}}
 \addcontentsline{toc}{subsection}{Recent changes}
 
+\hypertarget{week-of-dec.-21}{%
+\subsubsection*{Week of Dec.~21}\label{week-of-dec.-21}}
+\addcontentsline{toc}{subsubsection}{Week of Dec.~21}
+
+\begin{itemize}
+\item
+  Refined code for \protect\hyperlink{subgroups}{subgroup-level school size estimation}. This feature is now stable.
+\item
+  Next item.
+\end{itemize}
+
 \hypertarget{week-of-dec.-13}{%
 \subsubsection*{Week of Dec.~13}\label{week-of-dec.-13}}
 \addcontentsline{toc}{subsubsection}{Week of Dec.~13}
@@ -548,6 +559,9 @@ Default values for the \texttt{default} cohort:
 \OperatorTok{$}\NormalTok{school_size_calibrate}
 \NormalTok{[}\DecValTok{1}\NormalTok{] }\OtherTok{TRUE}
 
+\OperatorTok{$}\NormalTok{calibration_floor}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{0}
+
 \OperatorTok{$}\NormalTok{use_low_if_na}
 \NormalTok{[}\DecValTok{1}\NormalTok{] }\OtherTok{FALSE}
 
@@ -585,7 +599,7 @@ Default values for the \texttt{default} cohort:
 \OtherTok{NULL}
 
 \OperatorTok{$}\NormalTok{distance_on_off}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\OtherTok{TRUE}
+\OtherTok{NULL}
 \end{Highlighting}
 \end{Shaded}
 
@@ -601,7 +615,7 @@ The \texttt{cohort\_settings} input accepts a list of any length. Each slot in t
 \item
   \textbf{\texttt{id:}} An informal identifier for this cohort, to help you keep track of which cohort is which. For example, settings for a cohort of large whales species could be named \texttt{"big\ whales"}; settings for small delphinids and phocoenids could be named \texttt{"small\_odontocetes"}; settings for beaked whales could be named \texttt{"beakers"}.
 \item
-  \textbf{\texttt{species:}} A vector of species codes to include in this cohort. If \texttt{NULL} (the default), all species will be included.
+  \textbf{\texttt{species:}} A character vector of species codes to include in this cohort. If \texttt{NULL} (the default), all species will be included.
 \item
   \textbf{\texttt{probable\_species:}} If \texttt{TRUE} (default is \texttt{FALSE}), the ``probable'' species identifications will be used in place of the ``unidentified'' categories.
 \item
@@ -613,6 +627,8 @@ The \texttt{cohort\_settings} input accepts a list of any length. Each slot in t
 \item
   \textbf{\texttt{school\_size\_calibrate:}} A logical (\texttt{TRUE} or \texttt{FALSE}) specifying whether or not to carry out school size adjustments according to the calibration table provided in \texttt{survey\$group\_size\_coefficients} (if that table is provided). This setting allows you to toggle the survey-wide setting for certain cohorts. For example, perhaps you want to carry out calibration for a cohort of dolphin species, but not for a cohort of large whales whose group sizes tend to be smaller and easier to estimate accurately.
 \item
+  \textbf{\texttt{calibration\_floor:}} A numeric indicating the minimum school size estimate for which school size calibration will be attempted. This pertains only to observers who do no have an entry in the \texttt{group\_size\_coefficients} table provided in \texttt{load\_survey\_settings()} (that table has a calibration floor for each observer). The default is 0, meaning that calibration will be attempted for \emph{all} school size estimates, regarding of the raw estimate.
+\item
   \textbf{\texttt{use\_low\_if\_na:}} If this setting is \texttt{TRUE}, an observer does not make a best estimate of group size, mean group size will be calculated from ``low'' estimates. This will be done only if no observer has a ``best'' estimate.
 \item
   \textbf{\texttt{io\_sightings:}} A coded integer which specifies how sightings by the independent observer will be handled. Allowable codes, which are inherited from those used in \texttt{ABUND7/9}, are \texttt{"\_1"}=include independent observer sightings wih all other sightings, \texttt{"0"}=ignore sightings by independent observer, \texttt{"1"}=use only sightings made by regular observer team WHEN an independent observer was present, \texttt{"2"}=include only sightings made by the independent observer. IO sightings are typically used only for making g(0) estimates, otherwise IO sightings are usually ignored (code = \texttt{"0"}).
@@ -623,7 +639,7 @@ The \texttt{cohort\_settings} input accepts a list of any length. Each slot in t
 \item
   \textbf{\texttt{beaufort\_range:}} Vector of Beaufort sea states (integers) that are acceptable in estimating the detection function and density. Beaufort data with a decimal place will be rounded to the nearest integer to evaluate for inclusion.
 \item
-  \textbf{\texttt{abeam\_sightings:}} = If \texttt{TRUE}, sightings that occur aft of beam are included in estimating the detectin function and densities. Default is \texttt{FALSE}: all abeam sightings will be ignored.
+  \textbf{\texttt{abeam\_sightings:}} = If \texttt{TRUE}, sightings that occur aft of beam are included in estimating the detection function and densities. Default is \texttt{FALSE}: all abeam sightings will be ignored.
 \item
   \textbf{\texttt{strata\_overlap\_handling:}} In the event that survey strata overlap, this setting tells \texttt{R} how to handle it. The options are \texttt{"smallest"} (the default), in which effort can belong to only a single stratum, and the smallest of overlapping strata will be used (e.g., an insular polygon nested within a larger EEZ polygon); \texttt{"largest"}, in which effort can belong to only a single stratum and the largest of overlapping strata will be used (we are not sure what use case this would serve, but we offer it as an option for niche analyses); and \texttt{"each"}, in which each effort is allowed to belong to two or more strata at once and all analyses will be conducted for each overlapping polygon separately (e.g., this may be appropriate for nested strata in which you want to estimate density in the entirety of the larger stratum in addition to estimating density for the nested stratum).
 \item
@@ -1307,9 +1323,10 @@ Here are our current best estimates of school size:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{density}\OperatorTok{$}\NormalTok{sightings}\OperatorTok{$}\NormalTok{best }\OperatorTok{%>%}\StringTok{ }\KeywordTok{head}\NormalTok{(}\DecValTok{20}\NormalTok{)}
-\NormalTok{ [}\DecValTok{1}\NormalTok{]  }\FloatTok{1.000000} \FloatTok{19.162027}  \FloatTok{3.470288}  \FloatTok{1.000000}  \FloatTok{2.000000}  \FloatTok{2.000000}  \FloatTok{2.000000}
-\NormalTok{ [}\DecValTok{8}\NormalTok{]  }\FloatTok{3.000000}  \FloatTok{2.000000}  \FloatTok{2.000000}  \FloatTok{1.000000}  \FloatTok{1.000000}  \FloatTok{1.000000} \FloatTok{73.287843}
-\NormalTok{[}\DecValTok{15}\NormalTok{]  }\FloatTok{1.000000}  \FloatTok{1.000000}  \FloatTok{4.637681}  \FloatTok{7.777628}  \FloatTok{1.000000}  \FloatTok{1.000000}
+\NormalTok{ [}\DecValTok{1}\NormalTok{]  }\FloatTok{1.1594203} \FloatTok{19.1620266}  \FloatTok{3.4702883}  \FloatTok{1.1594203}  \FloatTok{2.3188406}  \FloatTok{2.3188406}
+\NormalTok{ [}\DecValTok{7}\NormalTok{]  }\FloatTok{2.3188406}  \FloatTok{3.4782609}  \FloatTok{2.3188406}  \FloatTok{2.3188406}  \FloatTok{1.1594203}  \FloatTok{1.1594203}
+\NormalTok{[}\DecValTok{13}\NormalTok{]  }\FloatTok{0.9370535} \FloatTok{73.2878434}  \FloatTok{1.1594203}  \FloatTok{1.1594203}  \FloatTok{4.6376812}  \FloatTok{7.7776277}
+\NormalTok{[}\DecValTok{19}\NormalTok{]  }\FloatTok{1.1594203}  \FloatTok{1.1594203}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1339,15 +1356,22 @@ You can also carry out calibration corrections without using a geometric weighte
                                \DataTypeTok{verbose =} \OtherTok{FALSE}\NormalTok{)}
 
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{density}\OperatorTok{$}\NormalTok{sightings}\OperatorTok{$}\NormalTok{best }\OperatorTok{%>%}\StringTok{ }\KeywordTok{head}\NormalTok{(}\DecValTok{20}\NormalTok{)}
-\NormalTok{ [}\DecValTok{1}\NormalTok{]  }\FloatTok{1.000000} \FloatTok{22.790620}  \FloatTok{4.127435}  \FloatTok{1.000000}  \FloatTok{2.000000}  \FloatTok{2.000000}  \FloatTok{2.000000}
-\NormalTok{ [}\DecValTok{8}\NormalTok{]  }\FloatTok{3.000000}  \FloatTok{2.000000}  \FloatTok{2.000000}  \FloatTok{1.000000}  \FloatTok{1.000000}  \FloatTok{1.000000} \FloatTok{89.937198}
-\NormalTok{[}\DecValTok{15}\NormalTok{]  }\FloatTok{1.000000}  \FloatTok{1.000000}  \FloatTok{4.637681}  \FloatTok{8.115942}  \FloatTok{1.000000}  \FloatTok{1.000000}
+\NormalTok{ [}\DecValTok{1}\NormalTok{]  }\FloatTok{1.1594203} \FloatTok{22.7906203}  \FloatTok{4.1274352}  \FloatTok{1.1594203}  \FloatTok{2.3188406}  \FloatTok{2.3188406}
+\NormalTok{ [}\DecValTok{7}\NormalTok{]  }\FloatTok{2.3188406}  \FloatTok{3.4782609}  \FloatTok{2.3188406}  \FloatTok{2.3188406}  \FloatTok{1.1594203}  \FloatTok{1.1594203}
+\NormalTok{[}\DecValTok{13}\NormalTok{]  }\FloatTok{0.9370535} \FloatTok{89.9371981}  \FloatTok{1.1594203}  \FloatTok{1.1594203}  \FloatTok{4.6376812}  \FloatTok{8.1159420}
+\NormalTok{[}\DecValTok{19}\NormalTok{]  }\FloatTok{1.1594203}  \FloatTok{1.1594203}
 \end{Highlighting}
 \end{Shaded}
 
 Note that when \texttt{geometric\_mean\ =\ TRUE} but calibration is not carried out, the simple geometric mean is calculated instead of the \emph{weighted} geometric mean, since the weights are the variance estimates from the calibration routine.
 
-Also note that school size calibration is only carried out if \texttt{settings\$group\_size\_calibration} is not \texttt{NULL}. However, even when calibration coefficients \emph{are} provided, calibration is only carried out for raw estimates above a minimum threshold, since observers are unlikely to mis-estimate the school size of a lone whale or pair. For observers who have calibration coefficients in the \texttt{settings\$group\_size\_coefficients} table, that minimum is specified for each observer individually. For observers not in that table, calibration will only be applied to raw school size estimates of 4 or above.
+Also note that school size calibration is only carried out if \texttt{settings\$group\_size\_calibration} is not \texttt{NULL}. However, even when calibration coefficients \emph{are} provided, it is possible to specify that calibration should only be carried out for raw estimates above a minimum threshold (see cohort setting \texttt{calibration\_floor}, whose default is \texttt{0}), since observers may be unlikely to mis-estimate the school size of a lone whale or pair. For observers who have calibration coefficients in the \texttt{settings\$group\_size\_coefficients} table, that minimum is specified for each observer individually. For observers not in that table, calibration will only be applied to raw school size estimates above \texttt{settings\$cohorts{[}{[}i{]}{]}\$calibration\_floor} or above.
+
+\hypertarget{subgroups}{%
+\subsubsection*{Subgroup size estimates}\label{subgroups}}
+\addcontentsline{toc}{subsubsection}{Subgroup size estimates}
+
+After sightings data are processed, the \texttt{process\_surveys()} function calls the subroutine \texttt{process\_subgroups()} to find and calculate subgroup school size estimates for false killer whales, if any occur in the \texttt{DAS} data (Event code ``\texttt{G}''). If subgroups are found, a \texttt{subgroups} slot is added to the analysis list for a cohort. This \texttt{subgroups} slot holds a list with three dataframes: \texttt{events} (each row is a school size estimate for a single subgroup during a single phase -- 1 or 2 -- within a single sighting); \texttt{subgroups} (each row is a single phase for a single subgroup, with all school size estimates averaged together (both arithmetically and geometrically); and \texttt{sightings} (each row is a school size estimate for a single phase for a single sighting, with all subgroup school sizes summed together). Examples of these datasets will be provided at a later date.
 
 \hypertarget{review}{%
 \section*{Review}\label{review}}
@@ -2574,9 +2598,13 @@ Note that if \texttt{species\_codes} is \texttt{NULL}, as in the examples above,
 \item
   Fix polygon area estimation! (Currently does not subtract land area! Ack!)
 \item
+  Should LTabundR accept Bft values of NA? Or include an option for interpolating replacement values based on the preceding and proceding values? Or just leave it to analysts to correct the DAS data?
+\item
   Consider making the minimum group size for group size calibration (for unknown observers) a cohort-specific setting that users can define. Update all package and vignette documentation accordingly.
 \item
   Consider making the km gap handling arguments for \texttt{format\_das()} (and its subroutine \texttt{process\_km()}) into survey settings that users can define. Update all package and vignette documentation accordingly.
+\item
+  Add options to \texttt{das\_load()} that allows you to determine timezone from date and lat/long, then adjust DateTime accordingly. This would avoid errors in the manual specification of GMT offset within the DAS data.
 \item
   Jay uses the phrase `stratify by IO': add segmentizing feature in which segment is reset if IO status changes.
 \item
@@ -2595,6 +2623,22 @@ Note that if \texttt{species\_codes} is \texttt{NULL}, as in the examples above,
   Method for stratifying by Beaufort.
 \item
   \texttt{study\_area\_explore()} and \texttt{study\_area\_select()}.
+\item
+  LTabundR is finding more effort in Cruise 1642 than is ABUND. See the slides detailing the ABUND v LTabundR comparison.
+\item
+  \texttt{swfscDAS} can accidentally exclude sightings when the GMTOffset field is incorrect; this can be addressed by (i) correcting the DAS file so that GMToffset is correct, (ii) modifying the swfscDAS code, or (iii) building a function for LTabundR that tests and corrects the GMToffset field based upon lat/long and the date. This currently affects only two sightings in Cruise 1004.
+\item
+  When observer positions are not entered correctly, sightings will be excluded from analysis. For example, when a sighting is manually entered without correctly establishing observer positions in a previous DAS line, the swfscDAS functions will put NA's in the ObsL and ObsR data fields. This currently affects only one sighting in Cruise 1607. This can be addressed by (i) leaving as is, (ii) assuming invalid ObsL and ObsR are allowed to be included, or (iii) developing a LTabundR feature in which NA values are replaced based on preceding/subsequent values.
+\item
+  When the Bft value is missing, LTabundR does not include the sighting in analysis. This can be addressed by (i) leaving as is (if the DAS data are incorrect, LTabundR will not fix it); (ii) assuming all Bft == NA are valid; or by (iii) developing a LTabundR feature in which NA values are replaced based on preceding/subsequent values. This currently affects two sightings (one in cruise 1607, one in cruise 1621).
+\item
+  When sightings occur exactly upon the boundary of a geostratum, LTabundR considers it `out' and excludes it from analysis. ABUND, in contrast, considers it in. This affects one sighting in cruise 1080. We have put an item in the backlog to consider changing this feature.
+\item
+  ABUND has some TotSS estimates that are less than 1 (n= about 50). Most of these sightings have `raw' SS estimates of 1 and at least 1 observer(s) who \emph{is} in the SS calibration DAT file, which means their calibration must have produced an estimate less than 1. It makes sense to me that LTabundR should implement a minimum SS of 1 for each observer's estimate, which should be applied \emph{after} calibration.
+\item
+  In the ABUND SSCAL routine, when an observer's coefficients are drawn from the DAT file, the first line of best-high-low weights is used regardless of whether the general model or the year-specific model is used. Is that how it should be? For a few observers (only a few), the second row of weights differs from the first row.
+\item
+  The ABUND SSCAL routine assumes Bft == 0 if it is NA. Are we OK with assuming that, or should we bypass calibration in the event of a missing Bft value? There is just 1 sighting with Bft == NA (Cruise 1607, 1997-04-27 07:16:01, SightNo 68, SpCode 037 killer whale).
 \end{itemize}
 
   \bibliography{book.bib,packages.bib}

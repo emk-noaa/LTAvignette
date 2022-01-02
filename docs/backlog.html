@@ -230,8 +230,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Investigate discrepancies between output from <code>format_distance()</code> and <code>summarize_effort()</code>.</p></li>
 <li><p>Follow-through on converting <code>format_distance()</code> to match the formatting from <code>ABUND9</code>? (It is currently matching the format from <code>ABUND7</code>).</p></li>
 <li><p>Fix polygon area estimation! (Currently does not subtract land area! Ack!)</p></li>
+<li><p>Should LTabundR accept Bft values of NA? Or include an option for interpolating replacement values based on the preceding and proceding values? Or just leave it to analysts to correct the DAS data?</p></li>
 <li><p>Consider making the minimum group size for group size calibration (for unknown observers) a cohort-specific setting that users can define. Update all package and vignette documentation accordingly.</p></li>
 <li><p>Consider making the km gap handling arguments for <code>format_das()</code> (and its subroutine <code>process_km()</code>) into survey settings that users can define. Update all package and vignette documentation accordingly.</p></li>
+<li><p>Add options to <code>das_load()</code> that allows you to determine timezone from date and lat/long, then adjust DateTime accordingly. This would avoid errors in the manual specification of GMT offset within the DAS data.</p></li>
 <li><p>Jay uses the phrase ‘stratify by IO’: add segmentizing feature in which segment is reset if IO status changes.</p></li>
 <li><p>Main Islands map bbox</p></li>
 <li><p>Map bbox for SoCal, Central Cal, and northern CCS</p></li>
@@ -241,6 +243,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Accommodate subgroup settings for FKW analyses</p></li>
 <li><p>Method for stratifying by Beaufort.</p></li>
 <li><p><code>study_area_explore()</code> and <code>study_area_select()</code>.</p></li>
+<li><p>LTabundR is finding more effort in Cruise 1642 than is ABUND. See the slides detailing the ABUND v LTabundR comparison.</p></li>
+<li><p><code>swfscDAS</code> can accidentally exclude sightings when the GMTOffset field is incorrect; this can be addressed by (i) correcting the DAS file so that GMToffset is correct, (ii) modifying the swfscDAS code, or (iii) building a function for LTabundR that tests and corrects the GMToffset field based upon lat/long and the date. This currently affects only two sightings in Cruise 1004.</p></li>
+<li><p>When observer positions are not entered correctly, sightings will be excluded from analysis. For example, when a sighting is manually entered without correctly establishing observer positions in a previous DAS line, the swfscDAS functions will put NA’s in the ObsL and ObsR data fields. This currently affects only one sighting in Cruise 1607. This can be addressed by (i) leaving as is, (ii) assuming invalid ObsL and ObsR are allowed to be included, or (iii) developing a LTabundR feature in which NA values are replaced based on preceding/subsequent values.</p></li>
+<li><p>When the Bft value is missing, LTabundR does not include the sighting in analysis. This can be addressed by (i) leaving as is (if the DAS data are incorrect, LTabundR will not fix it); (ii) assuming all Bft == NA are valid; or by (iii) developing a LTabundR feature in which NA values are replaced based on preceding/subsequent values. This currently affects two sightings (one in cruise 1607, one in cruise 1621).</p></li>
+<li><p>When sightings occur exactly upon the boundary of a geostratum, LTabundR considers it ‘out’ and excludes it from analysis. ABUND, in contrast, considers it in. This affects one sighting in cruise 1080. We have put an item in the backlog to consider changing this feature.</p></li>
+<li><p>ABUND has some TotSS estimates that are less than 1 (n= about 50). Most of these sightings have ‘raw’ SS estimates of 1 and at least 1 observer(s) who <em>is</em> in the SS calibration DAT file, which means their calibration must have produced an estimate less than 1. It makes sense to me that LTabundR should implement a minimum SS of 1 for each observer’s estimate, which should be applied <em>after</em> calibration.</p></li>
+<li><p>In the ABUND SSCAL routine, when an observer’s coefficients are drawn from the DAT file, the first line of best-high-low weights is used regardless of whether the general model or the year-specific model is used. Is that how it should be? For a few observers (only a few), the second row of weights differs from the first row.</p></li>
+<li><p>The ABUND SSCAL routine assumes Bft == 0 if it is NA. Are we OK with assuming that, or should we bypass calibration in the event of a missing Bft value? There is just 1 sighting with Bft == NA (Cruise 1607, 1997-04-27 07:16:01, SightNo 68, SpCode 037 killer whale).</p></li>
 </ul>
 
 </div>
