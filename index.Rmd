@@ -35,6 +35,21 @@ This status report outlines the code we are developing to process `WinCruz` data
 
 ### Recent changes {-}
 
+#### Week of Jan. 2 {-}  
+
+- Refinement of cruise summarization functions (see Chapter 6).   
+
+- Addition of interactive map (see `LTabundR::cruz_map()` documentation).  
+
+- Addition of interactive data explorer `Shiny` app (see `LTabundR::cruz_explorer()` documentation, with examples in `LTabundR-dev/test_code/CNP/data_processing.R`).  
+
+
+#### Week of Dec. 26 {-}  
+
+- Completion of comparison and reconciliation between `ABUND` and `LTabundR`, involving various minor debugs.  See details [here](https://docs.google.com/presentation/d/1Vv0Yb2_gk0cEC1OlXlm6ffL9ug99bYvkpLkczg6pb2Q/edit?usp=sharing).   
+
+- Completion of package and function documentation (to date).
+
 
 #### Week of Dec. 21 {-}  
 
@@ -85,16 +100,10 @@ This status report outlines the code we are developing to process `WinCruz` data
 
 ### Next focus {-}
 
-- FKW subgroup handling
-
-- Wrap up ABUND - LTabundR comparison and troubleshooting 
-
-- Catch up on documenting functions   
-
+- Data evaluation and big picture planning of detection function and parameter estimation.
 
 
 ### Questions for Amanda {-}
-
 
 
 

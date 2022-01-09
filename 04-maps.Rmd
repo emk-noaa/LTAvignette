@@ -16,7 +16,9 @@ cruz <- cruz_proc
 
 To build a flexible system for mapping cruise data, we have the following functions:  
 
-## Base maps {-}  
+## Publishable maps {-}
+
+### Base maps {-}  
 
 Begin with a basic map, including EEZ borders:  
 
@@ -39,7 +41,7 @@ m <- map_base(region='etp')
 m
 ```
 
-## Add strata {-}  
+### Add strata {-}  
 
 Add your research strata to your map: 
 
@@ -51,7 +53,7 @@ m <- map_strata(m,
 m
 ```
 
-## Add survey tracks {-}  
+### Add survey tracks {-}  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m1 <- map_effort(m, cruz)
@@ -60,9 +62,9 @@ m1
 
 The defaults of `map_effort()` assume, for simplicity, that you want to see the segments to be included in density estimation for the first cohort specified in your settings.  You can adjust this and other defaults using the function arguments. 
 
-### Customizing effort {-}  
+#### Customizing effort {-}  
 
-#### Inputs  {-}  
+##### Inputs  {-}  
 
 To demonstrate some of the customization options, consider this map that shows segments to be *excluded* from the `"distance"` (detection function) analysis for our second cohort (`fkw_insular`).
 
@@ -77,7 +79,7 @@ map_effort(m, cruz,
 ```
 
 
-#### Color-code conditions {-}  
+##### Color-code conditions {-}  
 
 Your second customization option is to add format variables to the `segments` slot of the cohort of interest in the `cruz` object. This gives you full control of line color, thickness, and line-type according to whatever specifications you wish to set, e.g., color-coding by effort type or Beaufort sea state.  
 
@@ -120,7 +122,7 @@ m_custom2 <-
 m_custom2
 ```
 
-## Add sightings {-}  
+### Add sightings {-}  
 
 Use the function `map_sightings()` to add sightings to your map:  
 
@@ -128,7 +130,7 @@ Use the function `map_sightings()` to add sightings to your map:
 map_sightings(m, cruz)
 ```
 
-### Customizing sightings {-}  
+#### Customizing sightings {-}  
 
 To demonstrate some of the customization options, consider this map that shows sightings of false killer whales with custom dot color, shape, and size: 
 
@@ -151,6 +153,8 @@ map_sightings(m,
               shape_code = TRUE)
 ```
 
+### Overview {-} 
+
 Here is an overview of the steps needed to map strata, survey tracks, and sightings all together:
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
@@ -160,3 +164,47 @@ m <- map_effort(m, cruz)
 m <- map_sightings(m, cruz, size_base=.4)
 m 
 ```
+
+## Interactive maps {-}
+
+`LTabundR` also has an interactive map function, which maps survey data using the `leaflet` package.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+ map_cruz(cruz,
+          cohort=1,
+          analysis='density',
+          eez_show=FALSE,
+          strata_show=FALSE,
+          effort_show=TRUE,
+          effort_resolution=1,
+          sightings_show=TRUE,
+          sightings_color = 'firebrick',
+          verbose=FALSE)
+```
+
+Note that you can also click on sightings and tracklines to see their details. Refer to the documentation for this function (`?map_cruz`) to see all the options available for stylizing these maps.
+
+## Interactive dashboard {-}
+
+Finally, note that `LTabundR` comes with an interactive data explorer app (a `Shiny` app) for filtering survey data according to effort scenario and species code, toggling `map_cruz()` settings, and reviewing summary tables of effort and sightings (including inspection of truncation distances). 
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+cruz_explorer(cruz)
+```
+
+*Screenshots from this app:*
+
+&nbsp;  
+<center>
+![](img/app-1.png){width=85%}
+&nbsp;  
+![](img/app-2.png){width=85%}
+&nbsp;  
+![](img/app-3.png){width=85%}
+&nbsp;  
+![](img/app-4.png){width=85%}
+&nbsp;  
+![](img/app-5.png){width=85%}
+</center>
+
+

@@ -138,6 +138,30 @@ This status report outlines the code we are developing to process \texttt{WinCru
 \subsection*{Recent changes}\label{recent-changes}}
 \addcontentsline{toc}{subsection}{Recent changes}
 
+\hypertarget{week-of-jan.-2}{%
+\subsubsection*{Week of Jan.~2}\label{week-of-jan.-2}}
+\addcontentsline{toc}{subsubsection}{Week of Jan.~2}
+
+\begin{itemize}
+\item
+  Refinement of cruise summarization functions (see Chapter 6).
+\item
+  Addition of interactive map (see \texttt{LTabundR::cruz\_map()} documentation).
+\item
+  Addition of interactive data explorer \texttt{Shiny} app (see \texttt{LTabundR::cruz\_explorer()} documentation, with examples in \texttt{LTabundR-dev/test\_code/CNP/data\_processing.R}).
+\end{itemize}
+
+\hypertarget{week-of-dec.-26}{%
+\subsubsection*{Week of Dec.~26}\label{week-of-dec.-26}}
+\addcontentsline{toc}{subsubsection}{Week of Dec.~26}
+
+\begin{itemize}
+\item
+  Completion of comparison and reconciliation between \texttt{ABUND} and \texttt{LTabundR}, involving various minor debugs. See details \href{https://docs.google.com/presentation/d/1Vv0Yb2_gk0cEC1OlXlm6ffL9ug99bYvkpLkczg6pb2Q/edit?usp=sharing}{here}.
+\item
+  Completion of package and function documentation (to date).
+\end{itemize}
+
 \hypertarget{week-of-dec.-21}{%
 \subsubsection*{Week of Dec.~21}\label{week-of-dec.-21}}
 \addcontentsline{toc}{subsubsection}{Week of Dec.~21}
@@ -202,12 +226,9 @@ This status report outlines the code we are developing to process \texttt{WinCru
 \addcontentsline{toc}{subsection}{Next focus}
 
 \begin{itemize}
+\tightlist
 \item
-  FKW subgroup handling
-\item
-  Wrap up ABUND - LTabundR comparison and troubleshooting
-\item
-  Catch up on documenting functions
+  Data evaluation and big picture planning of detection function and parameter estimation.
 \end{itemize}
 
 \hypertarget{questions-for-amanda}{%
@@ -1448,9 +1469,13 @@ In each dataframes for each cohort-analysis (e.g., \texttt{default\$density}), t
 
 To build a flexible system for mapping cruise data, we have the following functions:
 
+\hypertarget{publishable-maps}{%
+\section*{Publishable maps}\label{publishable-maps}}
+\addcontentsline{toc}{section}{Publishable maps}
+
 \hypertarget{base-maps}{%
-\section*{Base maps}\label{base-maps}}
-\addcontentsline{toc}{section}{Base maps}
+\subsection*{Base maps}\label{base-maps}}
+\addcontentsline{toc}{subsection}{Base maps}
 
 Begin with a basic map, including EEZ borders:
 
@@ -1486,8 +1511,8 @@ And the ETP:
 \includegraphics{figures/unnamed-chunk-56-1.pdf}
 
 \hypertarget{add-strata}{%
-\section*{Add strata}\label{add-strata}}
-\addcontentsline{toc}{section}{Add strata}
+\subsection*{Add strata}\label{add-strata}}
+\addcontentsline{toc}{subsection}{Add strata}
 
 Add your research strata to your map:
 
@@ -1504,8 +1529,8 @@ Add your research strata to your map:
 \includegraphics{figures/unnamed-chunk-57-1.pdf}
 
 \hypertarget{add-survey-tracks}{%
-\section*{Add survey tracks}\label{add-survey-tracks}}
-\addcontentsline{toc}{section}{Add survey tracks}
+\subsection*{Add survey tracks}\label{add-survey-tracks}}
+\addcontentsline{toc}{subsection}{Add survey tracks}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1519,12 +1544,12 @@ Add your research strata to your map:
 The defaults of \texttt{map\_effort()} assume, for simplicity, that you want to see the segments to be included in density estimation for the first cohort specified in your settings. You can adjust this and other defaults using the function arguments.
 
 \hypertarget{customizing-effort}{%
-\subsection*{Customizing effort}\label{customizing-effort}}
-\addcontentsline{toc}{subsection}{Customizing effort}
+\subsubsection*{Customizing effort}\label{customizing-effort}}
+\addcontentsline{toc}{subsubsection}{Customizing effort}
 
 \hypertarget{inputs}{%
-\subsubsection*{Inputs}\label{inputs}}
-\addcontentsline{toc}{subsubsection}{Inputs}
+\paragraph{Inputs}\label{inputs}}
+\addcontentsline{toc}{paragraph}{Inputs}
 
 To demonstrate some of the customization options, consider this map that shows segments to be \emph{excluded} from the \texttt{"distance"} (detection function) analysis for our second cohort (\texttt{fkw\_insular}).
 
@@ -1543,8 +1568,8 @@ To demonstrate some of the customization options, consider this map that shows s
 \includegraphics{figures/unnamed-chunk-59-1.pdf}
 
 \hypertarget{color-code-conditions}{%
-\subsubsection*{Color-code conditions}\label{color-code-conditions}}
-\addcontentsline{toc}{subsubsection}{Color-code conditions}
+\paragraph{Color-code conditions}\label{color-code-conditions}}
+\addcontentsline{toc}{paragraph}{Color-code conditions}
 
 Your second customization option is to add format variables to the \texttt{segments} slot of the cohort of interest in the \texttt{cruz} object. This gives you full control of line color, thickness, and line-type according to whatever specifications you wish to set, e.g., color-coding by effort type or Beaufort sea state.
 
@@ -1592,8 +1617,8 @@ For example, color-code by Beaufort scale:
 \includegraphics{figures/unnamed-chunk-60-1.pdf}
 
 \hypertarget{add-sightings}{%
-\section*{Add sightings}\label{add-sightings}}
-\addcontentsline{toc}{section}{Add sightings}
+\subsection*{Add sightings}\label{add-sightings}}
+\addcontentsline{toc}{subsection}{Add sightings}
 
 Use the function \texttt{map\_sightings()} to add sightings to your map:
 
@@ -1606,8 +1631,8 @@ Use the function \texttt{map\_sightings()} to add sightings to your map:
 \includegraphics{figures/unnamed-chunk-61-1.pdf}
 
 \hypertarget{customizing-sightings}{%
-\subsection*{Customizing sightings}\label{customizing-sightings}}
-\addcontentsline{toc}{subsection}{Customizing sightings}
+\subsubsection*{Customizing sightings}\label{customizing-sightings}}
+\addcontentsline{toc}{subsubsection}{Customizing sightings}
 
 To demonstrate some of the customization options, consider this map that shows sightings of false killer whales with custom dot color, shape, and size:
 
@@ -1638,6 +1663,10 @@ Next is a map of humpback whales and sperm whales, color-coded by species and sh
 
 \includegraphics{figures/unnamed-chunk-63-1.pdf}
 
+\hypertarget{overview}{%
+\subsection*{Overview}\label{overview}}
+\addcontentsline{toc}{subsection}{Overview}
+
 Here is an overview of the steps needed to map strata, survey tracks, and sightings all together:
 
 \begin{Shaded}
@@ -1651,6 +1680,55 @@ Here is an overview of the steps needed to map strata, survey tracks, and sighti
 \end{Shaded}
 
 \includegraphics{figures/unnamed-chunk-64-1.pdf}
+
+\hypertarget{interactive-maps}{%
+\section*{Interactive maps}\label{interactive-maps}}
+\addcontentsline{toc}{section}{Interactive maps}
+
+\texttt{LTabundR} also has an interactive map function, which maps survey data using the \texttt{leaflet} package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \KeywordTok{map_cruz}\NormalTok{(cruz,}
+          \DataTypeTok{cohort=}\DecValTok{1}\NormalTok{,}
+          \DataTypeTok{analysis=}\StringTok{'density'}\NormalTok{,}
+          \DataTypeTok{eez_show=}\OtherTok{FALSE}\NormalTok{,}
+          \DataTypeTok{strata_show=}\OtherTok{FALSE}\NormalTok{,}
+          \DataTypeTok{effort_show=}\OtherTok{TRUE}\NormalTok{,}
+          \DataTypeTok{effort_resolution=}\DecValTok{1}\NormalTok{,}
+          \DataTypeTok{sightings_show=}\OtherTok{TRUE}\NormalTok{,}
+          \DataTypeTok{sightings_color =} \StringTok{'firebrick'}\NormalTok{,}
+          \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Note that you can also click on sightings and tracklines to see their details. Refer to the documentation for this function (\texttt{?map\_cruz}) to see all the options available for stylizing these maps.
+
+\hypertarget{interactive-dashboard}{%
+\section*{Interactive dashboard}\label{interactive-dashboard}}
+\addcontentsline{toc}{section}{Interactive dashboard}
+
+Finally, note that \texttt{LTabundR} comes with an interactive data explorer app (a \texttt{Shiny} app) for filtering survey data according to effort scenario and species code, toggling \texttt{map\_cruz()} settings, and reviewing summary tables of effort and sightings (including inspection of truncation distances).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cruz_explorer}\NormalTok{(cruz)}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Screenshots from this app:}
+
+~\\
+
+\includegraphics[width=0.85\textwidth,height=\textheight]{img/app-1.png}
+~\\
+\includegraphics[width=0.85\textwidth,height=\textheight]{img/app-2.png}
+~\\
+\includegraphics[width=0.85\textwidth,height=\textheight]{img/app-3.png}
+~\\
+\includegraphics[width=0.85\textwidth,height=\textheight]{img/app-4.png}
+~\\
+\includegraphics[width=0.85\textwidth,height=\textheight]{img/app-5.png}
 
 \hypertarget{summarize}{%
 \chapter{Summarize survey}\label{summarize}}
@@ -1674,7 +1752,8 @@ This function summarizes effort in three default tables:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{effort_summary }\OperatorTok{%>%}\StringTok{  }\KeywordTok{names}\NormalTok{()}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"total"}            \StringTok{"total_by_cruise"}  \StringTok{"total_by_effort"}  \StringTok{"total_by_stratum"}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"total"}            \StringTok{"total_by_cruise"}  \StringTok{"total_by_year"}    \StringTok{"total_by_effort"} 
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"total_by_stratum"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2011,7 +2090,7 @@ This packages comes with several built-in datasets of geographic strata that are
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-85-1.pdf} \includegraphics{figures/unnamed-chunk-85-2.pdf} \includegraphics{figures/unnamed-chunk-85-3.pdf}
+\includegraphics{figures/unnamed-chunk-87-1.pdf} \includegraphics{figures/unnamed-chunk-87-2.pdf} \includegraphics{figures/unnamed-chunk-87-3.pdf}
 
 To acquire the filepath to one of these strata, pass the index (or indices) printed in the map titles above to the function \texttt{strata\_select()}:
 
@@ -2043,7 +2122,7 @@ The second slot, \texttt{\$paths}, contains the filepaths you would need to pass
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-88-1.pdf} \includegraphics{figures/unnamed-chunk-88-2.pdf} \includegraphics{figures/unnamed-chunk-88-3.pdf} \includegraphics{figures/unnamed-chunk-88-4.pdf} \includegraphics{figures/unnamed-chunk-88-5.pdf}
+\includegraphics{figures/unnamed-chunk-90-1.pdf} \includegraphics{figures/unnamed-chunk-90-2.pdf} \includegraphics{figures/unnamed-chunk-90-3.pdf} \includegraphics{figures/unnamed-chunk-90-4.pdf} \includegraphics{figures/unnamed-chunk-90-5.pdf}
 
 \hypertarget{etp}{%
 \section*{ETP}\label{etp}}
@@ -2055,7 +2134,7 @@ The second slot, \texttt{\$paths}, contains the filepaths you would need to pass
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-89-1.pdf} \includegraphics{figures/unnamed-chunk-89-2.pdf} \includegraphics{figures/unnamed-chunk-89-3.pdf} \includegraphics{figures/unnamed-chunk-89-4.pdf} \includegraphics{figures/unnamed-chunk-89-5.pdf} \includegraphics{figures/unnamed-chunk-89-6.pdf} \includegraphics{figures/unnamed-chunk-89-7.pdf} \includegraphics{figures/unnamed-chunk-89-8.pdf} \includegraphics{figures/unnamed-chunk-89-9.pdf} \includegraphics{figures/unnamed-chunk-89-10.pdf} \includegraphics{figures/unnamed-chunk-89-11.pdf} \includegraphics{figures/unnamed-chunk-89-12.pdf} \includegraphics{figures/unnamed-chunk-89-13.pdf} \includegraphics{figures/unnamed-chunk-89-14.pdf} \includegraphics{figures/unnamed-chunk-89-15.pdf} \includegraphics{figures/unnamed-chunk-89-16.pdf} \includegraphics{figures/unnamed-chunk-89-17.pdf} \includegraphics{figures/unnamed-chunk-89-18.pdf} \includegraphics{figures/unnamed-chunk-89-19.pdf} \includegraphics{figures/unnamed-chunk-89-20.pdf} \includegraphics{figures/unnamed-chunk-89-21.pdf} \includegraphics{figures/unnamed-chunk-89-22.pdf} \includegraphics{figures/unnamed-chunk-89-23.pdf} \includegraphics{figures/unnamed-chunk-89-24.pdf} \includegraphics{figures/unnamed-chunk-89-25.pdf} \includegraphics{figures/unnamed-chunk-89-26.pdf} \includegraphics{figures/unnamed-chunk-89-27.pdf} \includegraphics{figures/unnamed-chunk-89-28.pdf} \includegraphics{figures/unnamed-chunk-89-29.pdf} \includegraphics{figures/unnamed-chunk-89-30.pdf} \includegraphics{figures/unnamed-chunk-89-31.pdf} \includegraphics{figures/unnamed-chunk-89-32.pdf} \includegraphics{figures/unnamed-chunk-89-33.pdf} \includegraphics{figures/unnamed-chunk-89-34.pdf} \includegraphics{figures/unnamed-chunk-89-35.pdf} \includegraphics{figures/unnamed-chunk-89-36.pdf} \includegraphics{figures/unnamed-chunk-89-37.pdf} \includegraphics{figures/unnamed-chunk-89-38.pdf} \includegraphics{figures/unnamed-chunk-89-39.pdf} \includegraphics{figures/unnamed-chunk-89-40.pdf} \includegraphics{figures/unnamed-chunk-89-41.pdf} \includegraphics{figures/unnamed-chunk-89-42.pdf} \includegraphics{figures/unnamed-chunk-89-43.pdf} \includegraphics{figures/unnamed-chunk-89-44.pdf} \includegraphics{figures/unnamed-chunk-89-45.pdf} \includegraphics{figures/unnamed-chunk-89-46.pdf} \includegraphics{figures/unnamed-chunk-89-47.pdf} \includegraphics{figures/unnamed-chunk-89-48.pdf} \includegraphics{figures/unnamed-chunk-89-49.pdf} \includegraphics{figures/unnamed-chunk-89-50.pdf} \includegraphics{figures/unnamed-chunk-89-51.pdf} \includegraphics{figures/unnamed-chunk-89-52.pdf} \includegraphics{figures/unnamed-chunk-89-53.pdf} \includegraphics{figures/unnamed-chunk-89-54.pdf} \includegraphics{figures/unnamed-chunk-89-55.pdf} \includegraphics{figures/unnamed-chunk-89-56.pdf} \includegraphics{figures/unnamed-chunk-89-57.pdf} \includegraphics{figures/unnamed-chunk-89-58.pdf} \includegraphics{figures/unnamed-chunk-89-59.pdf} \includegraphics{figures/unnamed-chunk-89-60.pdf} \includegraphics{figures/unnamed-chunk-89-61.pdf} \includegraphics{figures/unnamed-chunk-89-62.pdf} \includegraphics{figures/unnamed-chunk-89-63.pdf} \includegraphics{figures/unnamed-chunk-89-64.pdf} \includegraphics{figures/unnamed-chunk-89-65.pdf} \includegraphics{figures/unnamed-chunk-89-66.pdf} \includegraphics{figures/unnamed-chunk-89-67.pdf} \includegraphics{figures/unnamed-chunk-89-68.pdf} \includegraphics{figures/unnamed-chunk-89-69.pdf} \includegraphics{figures/unnamed-chunk-89-70.pdf}
+\includegraphics{figures/unnamed-chunk-91-1.pdf} \includegraphics{figures/unnamed-chunk-91-2.pdf} \includegraphics{figures/unnamed-chunk-91-3.pdf} \includegraphics{figures/unnamed-chunk-91-4.pdf} \includegraphics{figures/unnamed-chunk-91-5.pdf} \includegraphics{figures/unnamed-chunk-91-6.pdf} \includegraphics{figures/unnamed-chunk-91-7.pdf} \includegraphics{figures/unnamed-chunk-91-8.pdf} \includegraphics{figures/unnamed-chunk-91-9.pdf} \includegraphics{figures/unnamed-chunk-91-10.pdf} \includegraphics{figures/unnamed-chunk-91-11.pdf} \includegraphics{figures/unnamed-chunk-91-12.pdf} \includegraphics{figures/unnamed-chunk-91-13.pdf} \includegraphics{figures/unnamed-chunk-91-14.pdf} \includegraphics{figures/unnamed-chunk-91-15.pdf} \includegraphics{figures/unnamed-chunk-91-16.pdf} \includegraphics{figures/unnamed-chunk-91-17.pdf} \includegraphics{figures/unnamed-chunk-91-18.pdf} \includegraphics{figures/unnamed-chunk-91-19.pdf} \includegraphics{figures/unnamed-chunk-91-20.pdf} \includegraphics{figures/unnamed-chunk-91-21.pdf} \includegraphics{figures/unnamed-chunk-91-22.pdf} \includegraphics{figures/unnamed-chunk-91-23.pdf} \includegraphics{figures/unnamed-chunk-91-24.pdf} \includegraphics{figures/unnamed-chunk-91-25.pdf} \includegraphics{figures/unnamed-chunk-91-26.pdf} \includegraphics{figures/unnamed-chunk-91-27.pdf} \includegraphics{figures/unnamed-chunk-91-28.pdf} \includegraphics{figures/unnamed-chunk-91-29.pdf} \includegraphics{figures/unnamed-chunk-91-30.pdf} \includegraphics{figures/unnamed-chunk-91-31.pdf} \includegraphics{figures/unnamed-chunk-91-32.pdf} \includegraphics{figures/unnamed-chunk-91-33.pdf} \includegraphics{figures/unnamed-chunk-91-34.pdf} \includegraphics{figures/unnamed-chunk-91-35.pdf} \includegraphics{figures/unnamed-chunk-91-36.pdf} \includegraphics{figures/unnamed-chunk-91-37.pdf} \includegraphics{figures/unnamed-chunk-91-38.pdf} \includegraphics{figures/unnamed-chunk-91-39.pdf} \includegraphics{figures/unnamed-chunk-91-40.pdf} \includegraphics{figures/unnamed-chunk-91-41.pdf} \includegraphics{figures/unnamed-chunk-91-42.pdf} \includegraphics{figures/unnamed-chunk-91-43.pdf} \includegraphics{figures/unnamed-chunk-91-44.pdf} \includegraphics{figures/unnamed-chunk-91-45.pdf} \includegraphics{figures/unnamed-chunk-91-46.pdf} \includegraphics{figures/unnamed-chunk-91-47.pdf} \includegraphics{figures/unnamed-chunk-91-48.pdf} \includegraphics{figures/unnamed-chunk-91-49.pdf} \includegraphics{figures/unnamed-chunk-91-50.pdf} \includegraphics{figures/unnamed-chunk-91-51.pdf} \includegraphics{figures/unnamed-chunk-91-52.pdf} \includegraphics{figures/unnamed-chunk-91-53.pdf} \includegraphics{figures/unnamed-chunk-91-54.pdf} \includegraphics{figures/unnamed-chunk-91-55.pdf} \includegraphics{figures/unnamed-chunk-91-56.pdf} \includegraphics{figures/unnamed-chunk-91-57.pdf} \includegraphics{figures/unnamed-chunk-91-58.pdf} \includegraphics{figures/unnamed-chunk-91-59.pdf} \includegraphics{figures/unnamed-chunk-91-60.pdf} \includegraphics{figures/unnamed-chunk-91-61.pdf} \includegraphics{figures/unnamed-chunk-91-62.pdf} \includegraphics{figures/unnamed-chunk-91-63.pdf} \includegraphics{figures/unnamed-chunk-91-64.pdf} \includegraphics{figures/unnamed-chunk-91-65.pdf} \includegraphics{figures/unnamed-chunk-91-66.pdf} \includegraphics{figures/unnamed-chunk-91-67.pdf} \includegraphics{figures/unnamed-chunk-91-68.pdf} \includegraphics{figures/unnamed-chunk-91-69.pdf} \includegraphics{figures/unnamed-chunk-91-70.pdf}
 
 \hypertarget{segmentizing}{%
 \chapter{Segmentizing}\label{segmentizing}}
@@ -2169,7 +2248,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-93-1.pdf}
+\includegraphics{figures/unnamed-chunk-95-1.pdf}
 
 \hypertarget{day-vs-equal-length}{%
 \section*{Day vs Equal Length}\label{day-vs-equal-length}}
@@ -2204,7 +2283,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-95-1.pdf}
+\includegraphics{figures/unnamed-chunk-97-1.pdf}
 
 \hypertarget{by-target-length-of-150-km}{%
 \subsection*{By target length of 150 km}\label{by-target-length-of-150-km}}
@@ -2235,7 +2314,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-96-1.pdf}
+\includegraphics{figures/unnamed-chunk-98-1.pdf}
 
 \hypertarget{contiguous-vs.-non-contiguous-effort}{%
 \section*{Contiguous vs.~non-contiguous effort}\label{contiguous-vs.-non-contiguous-effort}}
@@ -2268,7 +2347,7 @@ The example above allows for non-contiguous effort; a segment is allowed to cont
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-97-1.pdf}
+\includegraphics{figures/unnamed-chunk-99-1.pdf}
 
 You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.
 
@@ -2307,7 +2386,7 @@ The other possible setting is \texttt{\textquotesingle{}disperse\textquotesingle
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-98-1.pdf}
+\includegraphics{figures/unnamed-chunk-100-1.pdf}
 
 Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:
 
@@ -2336,7 +2415,7 @@ Note that most segments are longer than the target length, due to the impact of 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-99-1.pdf}
+\includegraphics{figures/unnamed-chunk-101-1.pdf}
 
 But in general, the \texttt{disperse} option may be more appropriate for shorter segment lengths.
 
@@ -2381,7 +2460,7 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-100-1.pdf}
+\includegraphics{figures/unnamed-chunk-102-1.pdf}
 
 \hypertarget{abund9_compare}{%
 \chapter{\texorpdfstring{\texttt{LTabundR} vs.~\texttt{ABUND9}}{LTabundR vs.~ABUND9}}\label{abund9_compare}}
