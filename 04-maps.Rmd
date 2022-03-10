@@ -6,12 +6,8 @@ library(magrittr)
 library(LTabundR)
 library(swfscDAS)
 library(tmap)
-#data(hiceas2020)
-#das <- hiceas2020
-#data(settings)
-data(cruz_proc)
-cruz <- cruz_proc
-#load('data/cruz_proc.RData')
+data(whiceas2020_proc)
+cruz <- whiceas2020_proc
 ```
 
 To build a flexible system for mapping cruise data, we have the following functions:  
@@ -71,7 +67,6 @@ To demonstrate some of the customization options, consider this map that shows s
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 map_effort(m, cruz,
            cohort = 2,
-           analysis = 'distance',
            use_type = c(FALSE),
            effort_color='firebrick',
            effort_stroke=2.5,
@@ -90,7 +85,7 @@ For example, color-code by Beaufort scale:
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 # Save copy of cruz object data to modify
 cruz2 <- cruz
-segments <- cruz2$cohorts$default$density$segments
+segments <- cruz2$cohorts$default$segments
 
 # Add column `col`: color code by BFT sea state
 bft_colors <- c('steelblue4','steelblue2','cadetblue1','grey')
@@ -100,7 +95,7 @@ segments$col[ segments$avgBft <= 4 ] <- bft_colors[2] # bft 3 - 4
 segments$col[ segments$avgBft <= 2 ] <- bft_colors[1] # bft 0 -2
 
 # Update sub_segments slot in `cruz` object
-cruz2$cohorts$default$density$segments <- segments
+cruz2$cohorts$default$segments <- segments
 
 # Update map 
 m_custom2 <- map_effort(m, cruz2)
@@ -172,7 +167,6 @@ m
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
  map_cruz(cruz,
           cohort=1,
-          analysis='density',
           eez_show=FALSE,
           strata_show=FALSE,
           effort_show=TRUE,

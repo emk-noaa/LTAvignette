@@ -1,5 +1,7 @@
 # Appendix: Backlog {#backlog}
 
+- Remove `random.seed` from settings functions.  
+
 - Investigate discrepancies between output from `format_distance()` and `summarize_effort()`.  
 
 - Follow-through on converting `format_distance()` to match the formatting from `ABUND9`? (It is currently matching the format from `ABUND7`).  

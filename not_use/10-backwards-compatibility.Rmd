@@ -1,4 +1,4 @@
-# Detection functions {#df}
+# Backwards compatibility {#backwards}
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
 library(dplyr)

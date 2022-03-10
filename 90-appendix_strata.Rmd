@@ -41,7 +41,9 @@ strata_explore('ccs')
 
 ## ETP {-}
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, warning=FALSE, message=FALSE, fig.width=6, fig.height=4}
+You can do the same for the Eastern Tropical Pacific (ETP); there are about 70 polygons built-in to `LTabundR` for this region. We won't show them here! 
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, warning=FALSE, message=FALSE, fig.width=6, fig.height=4}
 strata_explore('etp')
 ```
 

@@ -1,11 +1,5 @@
 # `LTabundR` vs. `ABUND9` {#abund9_compare}
 
-```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
-library(dplyr)
-library(magrittr)
-library(LTabundR)
-```
-
 We have tried to develop `LTabundR` with the flexibility either to replicate `ABUND` results or to produce customizable results that could potentially vary from `ABUND` quite significantly (e.g., formatted for habitat modeling). However, even when we use `LTabundR` settings intended to replicate ABUND results, there are likely to be some small differences. These are detailed below:
 
 ## Differences in total effort {-} 

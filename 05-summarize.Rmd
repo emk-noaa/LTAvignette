@@ -6,60 +6,112 @@ library(magrittr)
 library(LTabundR)
 library(swfscDAS)
 library(tmap)
-#data(hiceas2020)
-#das <- hiceas2020
-#data(settings)
-data(cruz_proc)
-cruz <- cruz_proc
-#load('data/cruz_proc.RData')
+data(whiceas2020_proc)
+cruz <- whiceas2020_proc
 ```
 
-## Summariz effort {-}
+## Summarize effort {-}
 
 The `summarize_effort()` functions builds tables with total kilometers and days surveyed.  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
-effort_summary <- summarize_effort(cruz,
-                                      cohort=1,
-                                      analysis='density')
+effort <- summarize_effort(cruz,
+                           cohort=1)
 ```
 
 This function summarizes effort in three default tables:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
-effort_summary %>%  names()
+effort %>%  names()
 ```
 
-### Total surveyed {-}  
+#### Total surveyed {-}  
 
-The slot `$total` provides the grand total distance and days surveyed: 
+The slot `$total` provides the grand total distance and unique dates surveyed: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 library(DT)
 
-effort_summary$total %>% 
+effort$total %>% 
   DT::datatable(options=list(initComplete = htmlwidgets::JS(
           "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
        )) 
 ```
 
-### Total surveyed by effort {-}  
+#### Total surveyed by effort {-}  
 
 The slot `$total_by_effort` provides the total distance and days surveyed, grouped by segments that will be included in the analysis and those that won't: 
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
-effort_summary$total_by_effort %>% 
+effort$total_by_effort %>% 
   DT::datatable(options=list(initComplete = htmlwidgets::JS(
           "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
        )) 
 ```
 
-### Total surveyed by stratum {-}  
+#### Total surveyed by stratum {-}  
 
 The slot `$total_by_stratum` provides the total distance and days surveyed within each stratum, again grouped by segments that will be included in the analysis and those that won't: 
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
-effort_summary$total_by_stratum %>% 
+effort$total_by_stratum %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       )) 
+```
+
+
+## Summarize by Beaufort {-} 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+bft <- summarize_bft(cruz, cohort=1)
+```
+
+This function summarizes effort by Beaufort in four default tables:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+bft %>%  names()
+```
+
+### Simple overall breakdown {-}
+
+The slot `$overall` provides the total effort -- and proportion of effort -- occurring in each Beaufort state:
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+bft$overall %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       )) 
+```
+
+### Breakdown by year {-}
+
+The slot `$by_year` provides the above for each year separately (note that our example data have only one year):
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+bft$by_year %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       )) 
+```
+
+### Breakdown by stratum {-}
+
+The slot `$by_stratum` provides the above for each geostratum separately:
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+bft$by_stratum %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       )) 
+```
+
+### Detailed  breakdown {-}
+
+The slot `$details` provides the above for each cruise-year-study area-geostratum combination within the data: 
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+bft$details %>% 
   DT::datatable(options=list(initComplete = htmlwidgets::JS(
           "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
        )) 
@@ -71,46 +123,45 @@ effort_summary$total_by_stratum %>%
 The `summarize_sightings()` function builds tables summarizing the sightings within each cohort-analysis. (Eventually, we may want to include an option to merge all sightings from all cohort-analyses into a single table.)  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
-sightings_summary <- summarize_sightings(cruz,
-                                         cohort=1,
-                                         analysis='density')
+sightings <- summarize_sightings(cruz,
+                                 cohort=1)
 ```
 
 This function summarizes sightings in four default tables:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
-sightings_summary %>%  names()
+sightings %>%  names()
 ```
 
-### Simple species totals {-} 
+#### Simple species totals {-} 
 
 The slot `$simple_totals` includes all sightings, even if they will not be inluded in analysis: 
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
-sightings_summary$simple_totals %>% 
+sightings$simple_totals %>% 
   DT::datatable(options=list(initComplete = htmlwidgets::JS(
           "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
        )) 
 ```
 
-### Analysis totals {-} 
+#### Analysis totals {-} 
 
 The slot `$analysis_totals`  only includes sightings that meet all inclusion criteria for the analysis:  
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
-sightings_summary$analysis_totals %>% 
+sightings$analysis_totals %>% 
   DT::datatable(options=list(initComplete = htmlwidgets::JS(
           "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
        ))
 ```
 
 
-### Simple totals for each stratum {-} 
+#### Simple totals for each stratum {-} 
 
 The slot `$stratum_simple_totals` splits the first table (simple species totals) so that sightings are tallied for each geo-stratum separately:  
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
-sightings_summary$stratum_simple_totals %>% 
+sightings$stratum_simple_totals %>% 
   dplyr::select(year:code,common_name1:ss_sd) %>% 
   DT::datatable(options=list(initComplete = htmlwidgets::JS(
           "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
@@ -118,14 +169,116 @@ sightings_summary$stratum_simple_totals %>%
 ```
 
 
-### Analysis totals for each stratum {-} 
+#### Analysis totals for each stratum {-} 
 
 The slot `$stratum_analysis_totals`  splits the second table (analysis totals for each species) so that sightings are tallied for each geo-stratum separately:  
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
-sightings_summary$stratum_analysis_totals %>% 
+sightings$stratum_analysis_totals %>% 
   dplyr::select(year:code,common_name1:ss_sd) %>% 
   DT::datatable(options=list(initComplete = htmlwidgets::JS(
           "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
        )) 
+```
+
+
+## Summarize certain species {-}  
+
+To deep-dive into details for a ceratin species (or group of species), use the function `summarize_species()`.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+species <- summarize_species(spp='046', cruz)
+```
+
+This functions a list with a variety of summaries:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+species %>% names
+```
+
+The slots `$n_total` and `$n_analysis` provide the total number of sightings and the number eligible for inclusion in the analysis: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+species$n_total
+species$n_analysis
+```
+
+#### School size details {-}
+
+This table only includes the sightings eligible for analysis:
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+species$school_size %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       ))
+```
+
+#### Annual summaries (all sightings) {-}  
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+species$yearly_total %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       ))
+```
+
+#### Annual summaries (analysis only) {-}  
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+species$yearly_analysis %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       ))
+```
+
+#### Regional summaries (all sightings) {-}  
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+species$regional_total %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       ))
+```
+
+#### Regional summaries (analysis only) {-}  
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+species$yearly_total %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       ))
+```
+
+#### Detection distances {-}  
+
+This table can be used to determine the best truncation distance to use, based on the 
+percent truncation you wish and the number of sightings available at each option.  
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+species$detection_distances %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       ))
+```
+
+#### All sightings data {-}  
+
+Finally, this last slot holds a dataframe of all sightings data for the specified species:  
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+species$sightings %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       ))
+```
+
+
+## `cruz_explorer()` {-} 
+
+Note that all of these summary tables can be viewed interactively using the function `cruz_explorer()`, 
+which allows you to efficiently subset the data according to various filters. This was already mentioned in the mapping module, but as a reminder that function can be called like so: 
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
+cruz_explorer(cruz)
 ```

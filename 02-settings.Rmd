@@ -20,11 +20,11 @@ If you do not want to use all the defaults, you can give `load_settings()` some 
 
 - `strata`: dataframe(s) of coordinates  
 
-- `study_area`: a dataframe of coordinates    
+- `study_area`: a single dataframe of coordinates    
 
 - `survey`: settings that will apply universally to the analysis   
 
-- `cohorts`: settings that are specific to groups of species. By providing cohort-specific settings, the code for a single analysis becomes fully flexible to prepare and more easily reproduced, since the code only needs to be run once without modification. 
+- `cohorts`: settings that are specific to groups of species. By providing cohort-specific settings, the code for a single analysis becomes simpler and more easily reproduced, since the code only needs to be run once without modification. 
 
 
 The output of `load_settings()` is a named list with a slot for each of these arguments:  
@@ -105,8 +105,6 @@ The `survey_settings` input accepts a list with any of the following named slots
 
 - **`segment_max_interval:`** if segmentizing by `"equallength"`, this setting allows you to specify the time gaps in effort that are allowed to be contained within a single segment. For example, if your goal is a few large segments of equal length (e.g., 150-km segments, for bootstrap estimation of density variance), you are probably willing for discrete periods of effort to be concatenated into a single segment, even if the gaps between effort are as large as 1 or 2 days, in which case you would set `segment_max_interval` to 24 or 48 (hours), respectively.  However, if your goal is many smaller segments (e.g., 5-km segments, for habitat modeling), you want to ensure that effort is contiguous so that segment locations can be accurately related to environmental variables, in which case you would set `segment_max_interval` to be very small (e.g., .2 hours, or 12 minutes). Setting this interval to a small number, such as 0.2, also allows the segmentizing function overlook momentary breaks in effort, such as when an unofficial observer logs a sighting.  
 
-- **`segment_type_handling:`** if `"pool"`, all effort types that qualify as valid according to `cohort_settings` (see next section) will be pooled together, making it possible for different effort types to occur in the same segment. Specifically, when this setting is `"pool"`, the `EffType`'s "`S`" and "`F`" are allowed to occur in the same segment; if this argument is `"separate"`, segments will only be allowed to contain a single effort type.   
-
 - **`segment_remainder_handling:`** if segmentizing by `"equallength"`, periods of effectively-contiguous effort (as specified by `segment_max_interval`) are unlikely to be perfectly divisible by your `segment_target_km`; there is going to be a remainder. You can handle this remainder in three ways: (1) `"disperse"` allows the function to adjust `segment_target_km` so that there is in fact no remainder, effectively dispersing the remainder evenly across all segments within that period of contiguous effort; (2) `"append"` asks the function to append the remainder to a randomly selected segment, such that most segments are the target length with the exception of one longer one; or (3) `"segment"` asks the function to simply place the remainder in its own segment, placed randomly within the period of contiguous effort. This setting also has a second layer of versatility, because it can accept a one- or two-element character vector. If a two-element vector is provided (e.g., `c("append","segment")`), the first element will be used in the event that the remainder is less than or equal to half your `segment_target_km`; if the remainder is more than half that target length, the second element will be used. This feature allows for replication of the segmentizing methods in [Becker et al. (2010)](https://www.int-res.com/abstracts/meps/v413/p163-183/).  
 
 The remaining slots in `survey_settings` pertain to various datasets and settings used in data processing:  
@@ -119,14 +117,12 @@ The remaining slots in `survey_settings` pertain to various datasets and setting
 
 - **`smear_angles:`** If `TRUE` (the default is `FALSE`), bearing angles to a group of animals will be "smeared" by adding a uniformly distributed random number between -5 and +5 degrees. This has not been used in any recent analyses because observers have not been rounding angles as much as they used to. It was suggested by Buckland as a method for dealing with rounding which is especially influential when rounding to zero places many sightings at zero perpendicular distance. 
 
-- **`random_seed:`** a number used as the seed for stages involving random number generation. If not `NULL`, the results will be exactly reproducible. Default is `833171` (*sensu* example code in `ABUND9`). 
-
 - **`verbose:`** If `TRUE` (the default), status updates will be printed to the `R` console.  
 
 
 ## Cohort-specific settings {-}
 
-Cohort-specific settings apply only to a group of species. Since you can add as many cohorts to a `settings` object as you need, this allows you to stage your entire analysis and run your code once, without modifying code between the analysis of each cohort.  
+Cohort-specific settings apply only to a group of species. Since you can add as many cohorts to a `settings` object as you need, this allows you to stage your entire analysis and run your code once without modifying code or creating multiple versions of your code for each analysis of each cohort.  
 
 
 ### Defaults {-}  
@@ -180,17 +176,11 @@ The `cohort_settings` input accepts a list of any length. Each slot in that list
 
 - **`strata_overlap_handling:`**  In the event that survey strata overlap, this setting tells `R` how to handle it. The options are `"smallest"` (the default), in which effort can belong to only a single stratum, and the smallest of overlapping strata will be used (e.g., an insular polygon nested within a larger EEZ polygon); `"largest"`, in which effort can belong to only a single stratum and the largest of overlapping strata will be used (we are not sure what use case this would serve, but we offer it as an option for niche analyses); and `"each"`, in which each effort is allowed to belong to two or more strata at once and all analyses will be conducted for each overlapping polygon separately (e.g., this may be appropriate for nested strata in which you want to estimate density in the entirety of the larger stratum in addition to estimating density for the nested stratum).   
 
-- **`density_types:`**  A character vector of the effort types that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing.  Accepted values are `"S"` (systematic/standard effort), `"F"` (fine-scale effort), and `"N"` (non-systematic/non-standard effort, in which systematic protocols are being used but effort is not occurring along design-based transect routes).  The default values are `c("S","F")`.  
+- **`distance_types:`**  A character vector of the effort types that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing.  Accepted values are `"S"` (systematic/standard effort), `"F"` (fine-scale effort), and `"N"` (non-systematic/non-standard effort, in which systematic protocols are being used but effort is not occurring along design-based transect routes).  The default values are `c("S","F","N")`.  
 
-- **`density_modes:`**  The effort modes that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing. Accepted values are `"P"` (passing) and `"C"` (closing), and the default values are `c("P","C")`.  
+- **`distance_modes:`**  The effort modes that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing. Accepted values are `"P"` (passing) and `"C"` (closing), and the default values are `c("P","C")`.  
 
-- **`density_on_off:`** The value(s) of `OnEffort` (On Effort is `TRUE`, Off Effort is `FALSE`) that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing. Default is `TRUE` only. (We don't expect `FALSE` or `c(TRUE,FALSE)` to be used much, if at all, but we make this option available).  
-
-- **`distance_types:`**  If effort types are specified in this argument, this selection will be used to filter data for estimation of the detection function. If left `NULL` (the default), the argument `density_types` will be used. This option will be rarely used, but it may prove helpful in cases in which sightings for a species are so few that including all effort types (`c('S','F','N')`) may be justifiable for estimating the detection function, even if only `'S'` and `'F'` are used for density estimation.  
-
-- **`distance_modes:`**  Same idea as `distance_types` above, but for effort modes (Passing / Closing).  
-
-- **`distance_on_off:`**  Same idea as `distance_types` above, but for `OnEffort` status (`TRUE` or `FALSE`).
+- **`distance_on_off:`** The value(s) of `OnEffort` (On Effort is `TRUE`, Off Effort is `FALSE`) that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing. Default is `TRUE` only. (We don't expect `FALSE` or `c(TRUE,FALSE)` to be used much, if at all, but we make this option available).  
 
 
 ## Example code {-}  
@@ -239,7 +229,6 @@ survey <-
                        segment_method = 'equallength',
                        segment_target_km = 30,
                        segment_max_interval = 48,
-                       segment_type_handling = 'separate',
                        segment_remainder_handling = c('append','segment'),
                        ship_list = ships,
                        species_codes = species_codes,
@@ -279,7 +268,6 @@ survey <-
                        segment_method = 'equallength',
                        segment_target_km = 30,
                        segment_max_interval = 48,
-                       segment_type_handling = 'separate',
                        segment_remainder_handling = c('append','segment'),
                        ship_list = ships,
                        species_codes = species_codes,

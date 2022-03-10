@@ -35,6 +35,36 @@ This status report outlines the code we are developing to process `WinCruz` data
 
 ### Recent changes {-}
 
+#### Week of Jan. 30 {-} 
+
+- Added land area removal feature to polygon processing functions (see `process_polygon()`).  
+
+- Fixed `prep_data_for_ds()` function so that the minority species in multi-species schools is correctly renamed as "Other" for detection function fitting (after Bradford et al. 2021; this feature can optionally be turned off in the above function, as well as in `lta()`).  
+
+
+#### Week of Jan. 23 {-} 
+
+- Began bootstrap tests of LTA code developed to date.  
+
+- Polished `cruz_explorer()` functionality with respect to truncation distance selection.  
+
+- Completed g(0) estimation functions (not yet added to this vignette). 
+
+
+#### Week of Jan. 16 {-} 
+
+- Development of density/abundance estimation routines, including bootstrapping (not yet added to this vignette).  
+
+- Began development of g(0) estimation functions, after Barlow et al. (2015).
+
+
+#### Week of Jan. 9 {-} 
+
+- Planning for data analysis and parameter estimation stages of the project.  
+
+- Development of detection function fitting routines (not yet added to this vignette.)  
+
+
 #### Week of Jan. 2 {-}  
 
 - Refinement of cruise summarization functions (see Chapter 6).   
@@ -98,18 +128,7 @@ This status report outlines the code we are developing to process `WinCruz` data
 - Added detailed comments to code for all functions to date.  
 
 
-### Next focus {-}
 
-- Data evaluation and big picture planning of detection function and parameter estimation.
-
-
-### Questions for Amanda {-}
-
-
-
-### Questions for Jay {-}
-
-- How does ABUND protect against long gaps between DAS rows in its distance-traveled calculations? From what I can tell in the FORTRAN code, it seems possible for long gaps to be mistaken for effort.   
 
 
 
