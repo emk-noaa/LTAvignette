@@ -1,3 +1,370 @@
 # Line-transect analysis {#lta}
 
-*Coming soon!*
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(magrittr)
+library(LTabundR)
+```
+
+Once you have produced a `cruz` object with `process_surveys()`, you are ready to carry out line-transect analyses of your survey data.   
+
+The main `LTabundR` function for doing so is `lta()`, which requires three mandatory inputs in addition to  `cruz`:
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
+lta(cruz,
+    fit_filters,
+    df_settings,
+    estimates)
+```
+
+Below we explain each of these inputs, discuss other optional inputs, and explore the results produced by `lta()`. In our examples, we will use processed data from 1986-2017 NOAA surveys in the Central North Pacific, which is provided as a dataset built-in to `LTabundR`:
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+data("cnp_1986_2020_150km")
+cruz <- cnp_1986_2020_150km
+```
+
+We will use these data to estimate the abundance of striped dolphins (*scientific*), Fraser's dolphins (*scientific*), and Melon-headed whales (*scientific*) within the Hawaii EEZ in 2010 and 2017, mirroring the analysis carried out in [Bradford et al. (2021)](https://repository.library.noaa.gov/view/noaa/29004).  
+
+## Inputs {-} 
+
+### `fit_filters` {-}  
+
+The `fit_filters` input specifies how to filter the data before fitting the detection function. It accepts a named list, which in our example will look like this: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+fit_filters = list(spp = c('013', '026', '031'), 
+                   pool = 'Multi-species pool 1',
+                   cohort = 'most',
+                   truncation_distance = 5,
+                   other_species = 'remove',
+                   years = 1986:2017,
+                   regions = NULL,
+                   not_regions = NULL)
+```
+
+- **`spp`**: A character vector of species codes. Using multiple species codes may be useful when you have low sample sizes for a cohort of similar species.  
+
+- **`cohort`**: The cohort containing these species, provided as a number indicating which slot in `cruz$cohorts` should be referenced.  
+
+- **`truncation_distance`**: The truncation distance to apply during model fitting.  
+
+*The remaining inputs are optional (i.e., they all have defaults):*
+
+- **`pool`**: A character string, providing a title for this species pool.  If not specified, the species codes used will be concatenated to produce a title automatically.  
+
+- **`other_species`**: A character vector with four recognized values: 
+
+    -  <font size="-1">If `"apply"` (the default if not specified), the species code will be changed to `"Other"` for sightings in which the species was in a mixed-species school but was not the species with the largest percentage of the total school size. In those cases, the species was not as relevant to the detection of the school as the other species were, which may bias the detection function. This creates a factor level for the detection function to use (when `"species"` is a covariate) to distinguish between cue-relevant species that are within the specified pool and those that are not.</font> 
+    - <font size="-1">The second option for `other_species` is `"ignore"`, which does **not** reassign species codes to `"Other"`, and ignores whether the species of interest held the plurality for a mixed species detection.</font> 
+    - <font size="-1">The third option is `"remove"`: any species re-assigned to `"Other"` will be removed before the detection function is fit; this can be useful if only a small number of species are re-assigned to `"Other"`, which would then obviate `species` as a viable covariate (since the sample size of all `species` levels would be unlikely to exceed `df_settings$covariates_n_per_level` -- see below). </font>
+    - <font size="-1">The fourth and final option is `coerce`, which forces *all* species codes to `"Other"` for the purposes of detection function fitting and abundance estimation. This can be useful if you want to toggle the use of `species` as a covariate for a specific species pool, and/or produce abundance estimates for unidentified taxa (e.g., an 'Unidentified dolphins' species pool that includes multiple species codes).</font>  
+
+&nbsp;
+
+- **`years`**: A numeric vector of years, used to filter data to include only effort/sightings from these years.  
+
+- **`regions`**: A character vector of geostratum names, used to filter the data. Any segment or sighting occurring within *any* (but *not* necessarily all) of the provided `regions` will be returned. This holds true for nested regions: for example, in analyses from the Central North Pacific, in which the Hawaii EEZ geostratum (`"HI-EEZ"`) is nested within the larger geostratum representing the entire CNP study area (`"OtherCNP"`), an input of `regions = "OtherCNP"` will return segments/sightings *both* inside the Hawaii EEZ *and* outside of it. 
+
+- **`not_regions`**: A character vector of geostratum names, similar to above.  Any segment or sighting occurring within any of these `not_regions` will **not** be returned. Using the example above, if `regions = "OtherCNP"` and `not_regions = "HI-EEZ"`, only segments occuring within `OtherCNP` *and* outside of `HI-EEZ` will be returned. This can be particularly useful for abundance estimates for pelagic stock that exclude nested insular stocks.
+
+Note that, generally, filters such as `years`, `regions`, and `not_regions` are less stringent for detection function fitting than they are for density/abundance estimation, since low sample size is typically an issue.  
+
+- **`cruises`**: Filter data to only certain cruises, using a numeric vector of cruise numbers. If `NULL`, this will be ignored. 
+
+- **`not_cruises`**: Filter *out* certain cruises from the data, using a numeric vector of cruise numbers. If `NULL`, this will be ignored.
+
+
+### `df_settings` {-} 
+
+The `df_settings` input specifies how to fit a detection function to the filtered data. It accepts a named list, which in our example will look like this: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+df_settings = list(covariates = c('bft','lnsstot','cruise','year','ship','species'),
+                   covariates_factor = c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE),
+                   covariates_levels = 2,
+                   covariates_n_per_level = 10,
+                   detection_function_base = 'hn',
+                   base_model = '~1',
+                   delta_aic = 2)
+```
+
+*(Note that all of these inputs have defaults.)*
+
+- **`covariates`** Covariates you wish to include as candidates in detection function models, provided as a character vector. The covariates must match columns existing within `cruz$cohorts$<cohort_name>$sightings`. #' Note that the function will ignore case, coercing all covariates to lowercase.
+
+- **`covariates_factor`** A Boolean vector, which must be the same length as `covariates`, indicating whether each covariate should be treated as a factor instead of a numeric.  
+
+- **`covariates_levels`** The minimum number of levels a factor covariate must have in order to be included as an eligible covariate.  
+
+- **`covariates_n_per_level`** The minimum number of observations within each level of a factor covariate. If this condition is not met, the covariate is excluded from the candidates.  
+
+- **`detection_function_base`** The base key for the detection function, provided as a character vector. Accepted values are `"hn"` (half-normal key, the default, which exhibit greater stability when fitting to cetacean survey data; Gerrogette and Forcada 2005), `"hr"` (hazard-rate), or `c("hn", "hr)`, which will loop through both keys and attempt model fitting.  
+
+- **`base_model`** The initial model formula, upon which to build using candidate covariates. If not provided by the user, the default is `"~ 1"`.  
+
+- **`delta_aic`** The AIC difference between the model yielding the lowest AIC and other candidate models, used to define the best-fitting models. Typically, AIC differences of less than 2 (the default) indicate effectively equal model performance. If this value is not zero, then model averaging will be done: if multiple models are within `delta_aic` of the model with the lowest AIC, all "best" models will be used in subsequent steps and their results will be averaged. See `Details` below.  
+
+
+### `estimates` {-}   
+
+The `estimates` input specifies which estimates of density and abundance to produce based on the fitted detection function. This input accepts a list of named sub-lists, which in our example will look like this: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+estimates =
+  list(
+    list(spp = '013',
+         title = 'Striped dolphin',
+         g0 = .33, g0_cv = 0.20,
+         years = 2010,
+         regions = 'HI-EEZ'),
+    list(spp = '013',
+         title = 'Striped dolphin',
+         g0 = .32, g0_cv = 0.21,
+         years = 2017,
+         regions = 'HI-EEZ'),
+    list(spp = '026',
+         title = 'Frasers dolphin',
+         g0 = .33, g0_cv = 0.20,
+         years = 2010,
+         regions = 'HI-EEZ'),
+    list(spp = '026',
+         title = 'Frasers dolphin',
+         g0 = .32, g0_cv = 0.21,
+         years = 2017,
+         regions = 'HI-EEZ'),
+    list(spp = '026',
+         title = 'Melon-headed whale',
+         g0 = .33, g0_cv = 0.20,
+         years = 2010,
+         regions = 'HI-EEZ'),
+    list(spp = '026',
+         title = 'Melon-headed whale',
+         g0 = .32, g0_cv = 0.21,
+         years = 2017,
+         regions = 'HI-EEZ'))
+```
+
+Each of these sub-lists specify the details for a single estimate of density/abundance, making it possible to produce multiple estimates from the same detection function model. Generally, there needs to be a sub-list for each species-region-year combination of interest, but there are options (*see below*) that allow for specifying multiple estimates with a single sub-list.   
+
+Each of these sub-lists accepts the following named slots:  
+
+- **`spp`**:  A character vector of species codes. If  `estimates` is a non-nested list and `spp` is `NULL`, the codes in `fit_filters$spp` will be used. If `estimates` is a list of lists, `spp` must be specified in each nested list.  
+
+- **`title`**:  A title for this abundance estimate, given as a character vector, ' e.g., `"Striped dolphin - pelagic"`. If left blank, the species code(s) will be concatenated to use as a title. Note that, if `spp_method` (below) is `'each'`, then `title` must be the same length as `spp`.  
+
+- **`spp_method`**:  A character vector; if `"each"` (the default if not specified), density/abundance will be estimated for each species code in `spp` separately; if `"pool"`, species will be pooled and a single estimate will be produced. The latter may be useful if you wish to combine a specific species code (e.g., `"075"`, blue whale) with an uncertain one (e.g., `"079`", unidentified large whale). If `c("each", "pool")` is provided, each species will be estimated separately, *then* a new estimate will be produced for all species pooled.  
+
+- **`g0`**:  A numeric vector of length 2: the `g(0)` for small and large groups. Typically, this value is drawn from previously published tables, such as Barlow (2015), but you may estimate it yourself using the `LTabundR` functions `g0_bft_model()` and `g0_weighted_var()`. Note that each list can only accept a single pair of g0 estimates (the first for small schools below `g0_threshold`, the second for large schools above that threshold), which will be applied to all species in that list.
+
+- **`g0_cv`**:  A numeric vector of length 2: the coefficient of variation in `g(0)` for small and large groups. This value can also be drawn from previously published tables (e.g., Barlow 2015), but can also be modeled using recently developed Monte Carlo methods (Moore and Barlow 2017); you may also estimate it yourself using the `LTabundR` functions `g0_bft_model()` and `g0_weighted_var()`.
+  
+- **`g0_threshold`**:  The school size threshold between small and large groups.  
+
+- **`years`**:  A numeric vector of years, used to filter data to include only effort/sightings from these years.  
+
+- **`years_method`**:  A character vector; if `"each"` (the default if not specified), density/abundance will be estimated separately for each year represented in the data; if `"pool"`, years will be pooled and a single estimate will be produced. If `c("each", "pool")` is provided, each year will be estimated separately, *then* a new estimate will be produced for all years pooled.  
+
+- **`regions`**:  A character vector of geostratum names, used to filter the data.
+#' Any segment or sighting occurring within *any* (but *not* necessarily all) of the provided `regions` will be returned. This holds true for nested regions: for example, in analyses from the Central North Pacific, in which the Hawaii EEZ geostratum (`"HI-EEZ"`) is nested within the larger geostratum representing the entire CNP study area (`"OtherCNP"`), an input of `regions = "OtherCNP"` will return segments/sightings *both* inside the Hawaii EEZ *and* outside of it.  
+
+- **`regions_method`**:  A character vector; if `"each"` (the default if not specified), density/abundance will be estimated separately for each region represented in the data; if `"pool"`, regions will be pooled and a single estimate will be produced. In this case, then the `area` slot must be used to specify an area; if not provided, density but not abundance will be estimated. If `c("each", "pool")` is provided, each region will be estimated separately, *then* a new estimate will be produced for all regions pooled.  
+
+- **`regions_remove`**:  A character vector of geostratum names, similar to above.  Any segment or sighting occurring within any of these `not_regions` will **not** be returned. Using the example above, if `regions = "OtherCNP"` and `not_regions = "HI-EEZ"`, only segments occuring within `OtherCNP` *and* outside of `HI-EEZ` will be returned. This can be particularly useful for abundance estimates for pelagic stock that exclude nested insular stocks. Note that if this argument is specified, you will need to specify an `area` argument (below) in order to obtain an abundance estimate in addition to a density estimate.
+
+- **`forced_effort`**: If this is a single numeric value instead of `NULL` (`NULL` is the default), this value will be used as the survey effort, in km, in a brute-force method; this same value will be used for every year and region. This is only helpful if you are looking for a relatively easy way to compare results from your own analysis to another (e.g., comparing `LTabundR` results to reports from NOAA reports prior to 2021, in which effort was calculated slightly differently).  
+
+- **`area`**: A numeric indicating the area, in square km, of the pooled region. This must be provided in order to get an abundance estimate (instead of just a density estimate) if `regions_method` contains `"pool"`, or if `regions_remove` is specified and not `NULL`.  
+
+
+Note that none of these inputs is actually required; all have defaults, which essentially copy from the inputs from `fit_filters()`. All the `_method` arguments have the default `"each"`.   
+
+
+## Variance estimation {-}  
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
+lta(cruz,
+    fit_filters,
+    df_settings,
+    estimates,
+    bootstraps = 1000)
+```
+
+## Other inputs {-} 
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
+lta(cruz,
+    fit_filters,
+    df_settings,
+    estimates,
+    use_g0 = TRUE,
+    ss_correction = 1,
+    bootstraps = 10
+    toplot = TRUE,
+    verbose = TRUE,)
+```
+
+- **`use_g0`**: A Boolean, with default `TRUE`, indicating whether or not to use custom `g(0)` value(s). If `FALSE`, the assumed `g(0)` value will be 1.  
+
+- **`ss_correction`**: Should a correction be applied to school sizes? School sizes will be scaled by this number. The default, `1`, means no changes will occur.  
+
+- **`toplot`**: A Boolean, with default `TRUE`, indiciating whether detection function plots (`Distance::plot.ds()`) should be displayed as the candidate models are tested.  
+
+- **`verbose`**: A Boolean, with default `TRUE`, indicating whether or not updates should be printed to the Console.
+
+
+## `lta()` output {-} 
+
+### During processing {-}  
+
+While `llta()` is running, it will print things to the Console (if `verbose` is `TRUE`) and plot detection function fits (if `toplot` is `TRUE`). To demonstrate this, we will run the estimate for striped dolphins in 2010 only:
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, fig.height=4, fig.width=6}
+# Setup inputs:
+fit_filters = list(spp = c('013', '026', '031'), 
+                   pool = 'Multi-species pool 1',
+                   cohort = 'most',
+                   truncation_distance = 5,
+                   other_species = 'remove',
+                   years = 1986:2017,
+                   regions = NULL,
+                   not_regions = NULL)
+
+df_settings = list(covariates = c('bft','lnsstot','cruise','year','ship','species'),
+                   covariates_factor = c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE),
+                   covariates_levels = 2,
+                   covariates_n_per_level = 10,
+                   detection_function_base = 'hn',
+                   base_model = '~1',
+                   delta_aic = 2)
+
+estimates =
+  list(
+    list(spp = '013',
+         title = 'Striped dolphin',
+         g0 = .32, g0_cv = 0.21,
+         years = 2017,
+         regions = 'HI-EEZ'))
+
+# Run it:
+demo <- lta(cruz,
+    fit_filters,
+    df_settings,
+    estimates)
+```
+
+### Outputs {-}  
+
+The `lta()` function returns a list of objects. To demonstrate this output, we will pull in the built-in dataset representing the result of the analysis above, for all three species in both years (with 5 bootstrap iterations): 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+data('lta_result')
+```
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+names(lta_result)
+```
+
+**`pool`**: The species pool pertaining to these estimates.
+
+**`inputs`**:  A list of the inputs used to produce these estimates. 
+
+**`estimate`**: A table of density/abundance estimates for each species/region/year combination specified in the `estimates` input.
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+demo$estimate
+```
+
+**`df`**: A named list with details for the detection function.
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+demo$df %>% names
+
+demo$df$best_models
+```
+
+**`bootstrap`**: If bootstrap variance estimation was carried out, the output would also include `bootstrap`, a named list with results from the bootstrap process, only returned if the bootstraps input is greater than 1. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+demo$bootstrap %>% names
+
+demo$bootstrap$summary
+```
+
+
+### Summary tables {-}  
+
+To summarize `lta()` results using the standard table format provided in recent NOAA stock assessment reports, use the function `lta_report()`.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+tables <- lta_report(lta_result, verbose = TRUE)
+```
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+tables %>% names
+```
+
+#### Table 2 in reports: Sample sizes {-}
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+tables$table2 %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       ))
+```
+
+#### Table 3: Parameter estimates {-}
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+tables$table3 %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       ))
+```
+
+#### Table 4: Density/abundance {-}
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+tables$table4 %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       ))
+```
+
+
+## Behind the scenes {-}  
+
+### Covariates in detection function estimation {-} 
+
+Before detection functions are modelled, any covariates supplied by the user and specified as a factor are first tested for eligibility. Only factors with at least two levels (or whatever you specified with `df_settings$covariates_levels`) and 10 observations in each level (or whatever you specified with `df_settings$covariates_n_per_level`) are eligible for inclusion.
+
+### Fitting a detection function {-}  
+
+The detection function is estimated using functions in the package `mrds`, primarily the main function `mrds::ddf()`, which uses a Horvitz-Thompson-like estimator to predict the probability of detection for each sighting. If multiple base key functions (e.g., half-normal or hazard-rate) are provided, and/or if covariates are specified, model fitting is done in a forward stepwise procedure:  
+
+- <font size="-1">In the first round, the base model (no covariates, i.e., `"~1"`) is fit first.  
+- In the second round, each covariate is added one at a time; at the end of the round, the covariate, if any, that produces the lowest AIC below the AIC from the previous round is added to the formula.  
+- This process is repeated in subsequent rounds, adding a new covariate term in each round, until the AIC no longer improves.
+- If a second base key is provided, the process is repeated for that second key.</font>
+
+All models within `delta_aic` of the model with the lowest AIC qualify as best-fitting models. The best-fitting model(s) is(are) then used to estimate the Effective Strip half-Width (ESW) based on the covariates associated with each sighting.  
+
+If multiple best-fitting models occur, we will find the average ESW for each sighting across all models, using a weighted mean approach in which we weight according to model AIC. To turn off this model averaging step, set `delta_aic` to `0` to avoid passing multiple models to the abundance estimation stage.  
+
+This stage of the `lta()` command is executed within a backend function, `LTabundR::fit_df()`, which has its own documentation for your reference.
+
+### Estimating density & abundance {-}  
+
+Estimates are produced for various combinations of species, regions, and years, according to the arguments specified in your `estimates` list(s). Before these estimates are produced, we filter the data used to fit the detection function to strictly systematic (design-based) effort (i.e., `EffType = "S"`), in which standard protocols are in use (i.e., `OnEffort = TRUE`) and the Beaufort sea state is less than 7.
+
+This stage of the `lta()` command is executed within a back-end function, `LTabundR::abundance()`, which has its own documentation for your reference.
+
+### Bootstrap variance estimation {-} 
+
+If the `bootstraps` input value is greater than 1, bootstrap variance estimation will be attempted. In each bootstrap iteration, survey segments are re-sampled with replacement before fitting the detection function and estimating density/abundance.
+
+Note that the entire process is repeated in each bootstrap: step-wise fitting of the detection function, averaging of the best-fitting models, and density/abundance estimation for all species/region/year combinations specified in your `estimates` input. At the end of the bootstrap process, results are summarized for each species/region/year combination. 95% confidence intervals are calculated using the BCA method (package `coxed`, function `bca()`).
+
+### `g(0)` values during bootstrapping {-}  
+
+When conducting the non-parametric bootstrap routine to estimate the CV of density and abundance, uncertainty is incorporated into the g(0) value in each iteration using a parametric bootstrapping subroutine:  First, a logit-transformed distribution is modeled based upon the mean and CV of g(0) provided by the user in the `estimates` input (see documentation for `LTabundR::g0_optimize()` for details on this step). This modeled distribution is used to randomly draw a g(0) value for each iteration of the density/abundance bootstrap routine. In this way, the uncertainty in g(0) is propagated into uncertainty in density/abundance.

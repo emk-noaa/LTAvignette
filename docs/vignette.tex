@@ -1921,7 +1921,489 @@ which allows you to efficiently subset the data according to various filters. Th
 \hypertarget{lta}{%
 \chapter{Line-transect analysis}\label{lta}}
 
-\emph{Coming soon!}
+Once you have produced a \texttt{cruz} object with \texttt{process\_surveys()}, you are ready to carry out line-transect analyses of your survey data.
+
+The main \texttt{LTabundR} function for doing so is \texttt{lta()}, which requires three mandatory inputs in addition to \texttt{cruz}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lta}\NormalTok{(cruz,}
+\NormalTok{    fit_filters,}
+\NormalTok{    df_settings,}
+\NormalTok{    estimates)}
+\end{Highlighting}
+\end{Shaded}
+
+Below we explain each of these inputs, discuss other optional inputs, and explore the results produced by \texttt{lta()}. In our examples, we will use processed data from 1986-2017 NOAA surveys in the Central North Pacific, which is provided as a dataset built-in to \texttt{LTabundR}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(}\StringTok{"cnp_1986_2020_150km"}\NormalTok{)}
+\NormalTok{cruz <-}\StringTok{ }\NormalTok{cnp_}\DecValTok{1986}\NormalTok{_}\DecValTok{2020}\NormalTok{_150km}
+\end{Highlighting}
+\end{Shaded}
+
+We will use these data to estimate the abundance of striped dolphins (\emph{scientific}), Fraser's dolphins (\emph{scientific}), and Melon-headed whales (\emph{scientific}) within the Hawaii EEZ in 2010 and 2017, mirroring the analysis carried out in \href{https://repository.library.noaa.gov/view/noaa/29004}{Bradford et al.~(2021)}.
+
+\hypertarget{inputs-1}{%
+\section*{Inputs}\label{inputs-1}}
+\addcontentsline{toc}{section}{Inputs}
+
+\hypertarget{fit_filters}{%
+\subsection*{\texorpdfstring{\texttt{fit\_filters}}{fit\_filters}}\label{fit_filters}}
+\addcontentsline{toc}{subsection}{\texttt{fit\_filters}}
+
+The \texttt{fit\_filters} input specifies how to filter the data before fitting the detection function. It accepts a named list, which in our example will look like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit_filters =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'013'}\NormalTok{, }\StringTok{'026'}\NormalTok{, }\StringTok{'031'}\NormalTok{), }
+                   \DataTypeTok{pool =} \StringTok{'Multi-species pool 1'}\NormalTok{,}
+                   \DataTypeTok{cohort =} \StringTok{'most'}\NormalTok{,}
+                   \DataTypeTok{truncation_distance =} \DecValTok{5}\NormalTok{,}
+                   \DataTypeTok{other_species =} \StringTok{'remove'}\NormalTok{,}
+                   \DataTypeTok{years =} \DecValTok{1986}\OperatorTok{:}\DecValTok{2017}\NormalTok{,}
+                   \DataTypeTok{regions =} \OtherTok{NULL}\NormalTok{,}
+                   \DataTypeTok{not_regions =} \OtherTok{NULL}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  \textbf{\texttt{spp}}: A character vector of species codes. Using multiple species codes may be useful when you have low sample sizes for a cohort of similar species.
+\item
+  \textbf{\texttt{cohort}}: The cohort containing these species, provided as a number indicating which slot in \texttt{cruz\$cohorts} should be referenced.
+\item
+  \textbf{\texttt{truncation\_distance}}: The truncation distance to apply during model fitting.
+\end{itemize}
+
+\emph{The remaining inputs are optional (i.e., they all have defaults):}
+
+\begin{itemize}
+\item
+  \textbf{\texttt{pool}}: A character string, providing a title for this species pool. If not specified, the species codes used will be concatenated to produce a title automatically.
+\item
+  \textbf{\texttt{other\_species}}: A character vector with four recognized values:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    If \texttt{"apply"} (the default if not specified), the species code will be changed to \texttt{"Other"} for sightings in which the species was in a mixed-species school but was not the species with the largest percentage of the total school size. In those cases, the species was not as relevant to the detection of the school as the other species were, which may bias the detection function. This creates a factor level for the detection function to use (when \texttt{"species"} is a covariate) to distinguish between cue-relevant species that are within the specified pool and those that are not.
+  \item
+    The second option for \texttt{other\_species} is \texttt{"ignore"}, which does \textbf{not} reassign species codes to \texttt{"Other"}, and ignores whether the species of interest held the plurality for a mixed species detection.
+  \item
+    The third option is \texttt{"remove"}: any species re-assigned to \texttt{"Other"} will be removed before the detection function is fit; this can be useful if only a small number of species are re-assigned to \texttt{"Other"}, which would then obviate \texttt{species} as a viable covariate (since the sample size of all \texttt{species} levels would be unlikely to exceed \texttt{df\_settings\$covariates\_n\_per\_level} -- see below). 
+  \item
+    The fourth and final option is \texttt{coerce}, which forces \emph{all} species codes to \texttt{"Other"} for the purposes of detection function fitting and abundance estimation. This can be useful if you want to toggle the use of \texttt{species} as a covariate for a specific species pool, and/or produce abundance estimates for unidentified taxa (e.g., an `Unidentified dolphins' species pool that includes multiple species codes).
+  \end{itemize}
+\end{itemize}
+
+~
+
+\begin{itemize}
+\item
+  \textbf{\texttt{years}}: A numeric vector of years, used to filter data to include only effort/sightings from these years.
+\item
+  \textbf{\texttt{regions}}: A character vector of geostratum names, used to filter the data. Any segment or sighting occurring within \emph{any} (but \emph{not} necessarily all) of the provided \texttt{regions} will be returned. This holds true for nested regions: for example, in analyses from the Central North Pacific, in which the Hawaii EEZ geostratum (\texttt{"HI-EEZ"}) is nested within the larger geostratum representing the entire CNP study area (\texttt{"OtherCNP"}), an input of \texttt{regions\ =\ "OtherCNP"} will return segments/sightings \emph{both} inside the Hawaii EEZ \emph{and} outside of it.
+\item
+  \textbf{\texttt{not\_regions}}: A character vector of geostratum names, similar to above. Any segment or sighting occurring within any of these \texttt{not\_regions} will \textbf{not} be returned. Using the example above, if \texttt{regions\ =\ "OtherCNP"} and \texttt{not\_regions\ =\ "HI-EEZ"}, only segments occuring within \texttt{OtherCNP} \emph{and} outside of \texttt{HI-EEZ} will be returned. This can be particularly useful for abundance estimates for pelagic stock that exclude nested insular stocks.
+\end{itemize}
+
+Note that, generally, filters such as \texttt{years}, \texttt{regions}, and \texttt{not\_regions} are less stringent for detection function fitting than they are for density/abundance estimation, since low sample size is typically an issue.
+
+\begin{itemize}
+\item
+  \textbf{\texttt{cruises}}: Filter data to only certain cruises, using a numeric vector of cruise numbers. If \texttt{NULL}, this will be ignored.
+\item
+  \textbf{\texttt{not\_cruises}}: Filter \emph{out} certain cruises from the data, using a numeric vector of cruise numbers. If \texttt{NULL}, this will be ignored.
+\end{itemize}
+
+\hypertarget{df_settings}{%
+\subsection*{\texorpdfstring{\texttt{df\_settings}}{df\_settings}}\label{df_settings}}
+\addcontentsline{toc}{subsection}{\texttt{df\_settings}}
+
+The \texttt{df\_settings} input specifies how to fit a detection function to the filtered data. It accepts a named list, which in our example will look like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df_settings =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{covariates =} \KeywordTok{c}\NormalTok{(}\StringTok{'bft'}\NormalTok{,}\StringTok{'lnsstot'}\NormalTok{,}\StringTok{'cruise'}\NormalTok{,}\StringTok{'year'}\NormalTok{,}\StringTok{'ship'}\NormalTok{,}\StringTok{'species'}\NormalTok{),}
+                   \DataTypeTok{covariates_factor =} \KeywordTok{c}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{),}
+                   \DataTypeTok{covariates_levels =} \DecValTok{2}\NormalTok{,}
+                   \DataTypeTok{covariates_n_per_level =} \DecValTok{10}\NormalTok{,}
+                   \DataTypeTok{detection_function_base =} \StringTok{'hn'}\NormalTok{,}
+                   \DataTypeTok{base_model =} \StringTok{'~1'}\NormalTok{,}
+                   \DataTypeTok{delta_aic =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{(Note that all of these inputs have defaults.)}
+
+\begin{itemize}
+\item
+  \textbf{\texttt{covariates}} Covariates you wish to include as candidates in detection function models, provided as a character vector. The covariates must match columns existing within \texttt{cruz\$cohorts\$\textless{}cohort\_name\textgreater{}\$sightings}. \#' Note that the function will ignore case, coercing all covariates to lowercase.
+\item
+  \textbf{\texttt{covariates\_factor}} A Boolean vector, which must be the same length as \texttt{covariates}, indicating whether each covariate should be treated as a factor instead of a numeric.
+\item
+  \textbf{\texttt{covariates\_levels}} The minimum number of levels a factor covariate must have in order to be included as an eligible covariate.
+\item
+  \textbf{\texttt{covariates\_n\_per\_level}} The minimum number of observations within each level of a factor covariate. If this condition is not met, the covariate is excluded from the candidates.
+\item
+  \textbf{\texttt{detection\_function\_base}} The base key for the detection function, provided as a character vector. Accepted values are \texttt{"hn"} (half-normal key, the default, which exhibit greater stability when fitting to cetacean survey data; Gerrogette and Forcada 2005), \texttt{"hr"} (hazard-rate), or \texttt{c("hn",\ "hr)}, which will loop through both keys and attempt model fitting.
+\item
+  \textbf{\texttt{base\_model}} The initial model formula, upon which to build using candidate covariates. If not provided by the user, the default is \texttt{"\textasciitilde{}\ 1"}.
+\item
+  \textbf{\texttt{delta\_aic}} The AIC difference between the model yielding the lowest AIC and other candidate models, used to define the best-fitting models. Typically, AIC differences of less than 2 (the default) indicate effectively equal model performance. If this value is not zero, then model averaging will be done: if multiple models are within \texttt{delta\_aic} of the model with the lowest AIC, all ``best'' models will be used in subsequent steps and their results will be averaged. See \texttt{Details} below.
+\end{itemize}
+
+\hypertarget{estimates}{%
+\subsection*{\texorpdfstring{\texttt{estimates}}{estimates}}\label{estimates}}
+\addcontentsline{toc}{subsection}{\texttt{estimates}}
+
+The \texttt{estimates} input specifies which estimates of density and abundance to produce based on the fitted detection function. This input accepts a list of named sub-lists, which in our example will look like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estimates =}
+\StringTok{  }\KeywordTok{list}\NormalTok{(}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'013'}\NormalTok{,}
+         \DataTypeTok{title =} \StringTok{'Striped dolphin'}\NormalTok{,}
+         \DataTypeTok{g0 =} \FloatTok{.33}\NormalTok{, }\DataTypeTok{g0_cv =} \FloatTok{0.20}\NormalTok{,}
+         \DataTypeTok{years =} \DecValTok{2010}\NormalTok{,}
+         \DataTypeTok{regions =} \StringTok{'HI-EEZ'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'013'}\NormalTok{,}
+         \DataTypeTok{title =} \StringTok{'Striped dolphin'}\NormalTok{,}
+         \DataTypeTok{g0 =} \FloatTok{.32}\NormalTok{, }\DataTypeTok{g0_cv =} \FloatTok{0.21}\NormalTok{,}
+         \DataTypeTok{years =} \DecValTok{2017}\NormalTok{,}
+         \DataTypeTok{regions =} \StringTok{'HI-EEZ'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'026'}\NormalTok{,}
+         \DataTypeTok{title =} \StringTok{'Frasers dolphin'}\NormalTok{,}
+         \DataTypeTok{g0 =} \FloatTok{.33}\NormalTok{, }\DataTypeTok{g0_cv =} \FloatTok{0.20}\NormalTok{,}
+         \DataTypeTok{years =} \DecValTok{2010}\NormalTok{,}
+         \DataTypeTok{regions =} \StringTok{'HI-EEZ'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'026'}\NormalTok{,}
+         \DataTypeTok{title =} \StringTok{'Frasers dolphin'}\NormalTok{,}
+         \DataTypeTok{g0 =} \FloatTok{.32}\NormalTok{, }\DataTypeTok{g0_cv =} \FloatTok{0.21}\NormalTok{,}
+         \DataTypeTok{years =} \DecValTok{2017}\NormalTok{,}
+         \DataTypeTok{regions =} \StringTok{'HI-EEZ'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'026'}\NormalTok{,}
+         \DataTypeTok{title =} \StringTok{'Melon-headed whale'}\NormalTok{,}
+         \DataTypeTok{g0 =} \FloatTok{.33}\NormalTok{, }\DataTypeTok{g0_cv =} \FloatTok{0.20}\NormalTok{,}
+         \DataTypeTok{years =} \DecValTok{2010}\NormalTok{,}
+         \DataTypeTok{regions =} \StringTok{'HI-EEZ'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'026'}\NormalTok{,}
+         \DataTypeTok{title =} \StringTok{'Melon-headed whale'}\NormalTok{,}
+         \DataTypeTok{g0 =} \FloatTok{.32}\NormalTok{, }\DataTypeTok{g0_cv =} \FloatTok{0.21}\NormalTok{,}
+         \DataTypeTok{years =} \DecValTok{2017}\NormalTok{,}
+         \DataTypeTok{regions =} \StringTok{'HI-EEZ'}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Each of these sub-lists specify the details for a single estimate of density/abundance, making it possible to produce multiple estimates from the same detection function model. Generally, there needs to be a sub-list for each species-region-year combination of interest, but there are options (\emph{see below}) that allow for specifying multiple estimates with a single sub-list.
+
+Each of these sub-lists accepts the following named slots:
+
+\begin{itemize}
+\item
+  \textbf{\texttt{spp}}: A character vector of species codes. If \texttt{estimates} is a non-nested list and \texttt{spp} is \texttt{NULL}, the codes in \texttt{fit\_filters\$spp} will be used. If \texttt{estimates} is a list of lists, \texttt{spp} must be specified in each nested list.
+\item
+  \textbf{\texttt{title}}: A title for this abundance estimate, given as a character vector, ' e.g., \texttt{"Striped\ dolphin\ -\ pelagic"}. If left blank, the species code(s) will be concatenated to use as a title. Note that, if \texttt{spp\_method} (below) is \texttt{\textquotesingle{}each\textquotesingle{}}, then \texttt{title} must be the same length as \texttt{spp}.
+\item
+  \textbf{\texttt{spp\_method}}: A character vector; if \texttt{"each"} (the default if not specified), density/abundance will be estimated for each species code in \texttt{spp} separately; if \texttt{"pool"}, species will be pooled and a single estimate will be produced. The latter may be useful if you wish to combine a specific species code (e.g., \texttt{"075"}, blue whale) with an uncertain one (e.g., \texttt{"079}", unidentified large whale). If \texttt{c("each",\ "pool")} is provided, each species will be estimated separately, \emph{then} a new estimate will be produced for all species pooled.
+\item
+  \textbf{\texttt{g0}}: A numeric vector of length 2: the \texttt{g(0)} for small and large groups. Typically, this value is drawn from previously published tables, such as Barlow (2015), but you may estimate it yourself using the \texttt{LTabundR} functions \texttt{g0\_bft\_model()} and \texttt{g0\_weighted\_var()}. Note that each list can only accept a single pair of g0 estimates (the first for small schools below \texttt{g0\_threshold}, the second for large schools above that threshold), which will be applied to all species in that list.
+\item
+  \textbf{\texttt{g0\_cv}}: A numeric vector of length 2: the coefficient of variation in \texttt{g(0)} for small and large groups. This value can also be drawn from previously published tables (e.g., Barlow 2015), but can also be modeled using recently developed Monte Carlo methods (Moore and Barlow 2017); you may also estimate it yourself using the \texttt{LTabundR} functions \texttt{g0\_bft\_model()} and \texttt{g0\_weighted\_var()}.
+\item
+  \textbf{\texttt{g0\_threshold}}: The school size threshold between small and large groups.
+\item
+  \textbf{\texttt{years}}: A numeric vector of years, used to filter data to include only effort/sightings from these years.
+\item
+  \textbf{\texttt{years\_method}}: A character vector; if \texttt{"each"} (the default if not specified), density/abundance will be estimated separately for each year represented in the data; if \texttt{"pool"}, years will be pooled and a single estimate will be produced. If \texttt{c("each",\ "pool")} is provided, each year will be estimated separately, \emph{then} a new estimate will be produced for all years pooled.
+\item
+  \textbf{\texttt{regions}}: A character vector of geostratum names, used to filter the data.
+  \#' Any segment or sighting occurring within \emph{any} (but \emph{not} necessarily all) of the provided \texttt{regions} will be returned. This holds true for nested regions: for example, in analyses from the Central North Pacific, in which the Hawaii EEZ geostratum (\texttt{"HI-EEZ"}) is nested within the larger geostratum representing the entire CNP study area (\texttt{"OtherCNP"}), an input of \texttt{regions\ =\ "OtherCNP"} will return segments/sightings \emph{both} inside the Hawaii EEZ \emph{and} outside of it.
+\item
+  \textbf{\texttt{regions\_method}}: A character vector; if \texttt{"each"} (the default if not specified), density/abundance will be estimated separately for each region represented in the data; if \texttt{"pool"}, regions will be pooled and a single estimate will be produced. In this case, then the \texttt{area} slot must be used to specify an area; if not provided, density but not abundance will be estimated. If \texttt{c("each",\ "pool")} is provided, each region will be estimated separately, \emph{then} a new estimate will be produced for all regions pooled.
+\item
+  \textbf{\texttt{regions\_remove}}: A character vector of geostratum names, similar to above. Any segment or sighting occurring within any of these \texttt{not\_regions} will \textbf{not} be returned. Using the example above, if \texttt{regions\ =\ "OtherCNP"} and \texttt{not\_regions\ =\ "HI-EEZ"}, only segments occuring within \texttt{OtherCNP} \emph{and} outside of \texttt{HI-EEZ} will be returned. This can be particularly useful for abundance estimates for pelagic stock that exclude nested insular stocks. Note that if this argument is specified, you will need to specify an \texttt{area} argument (below) in order to obtain an abundance estimate in addition to a density estimate.
+\item
+  \textbf{\texttt{forced\_effort}}: If this is a single numeric value instead of \texttt{NULL} (\texttt{NULL} is the default), this value will be used as the survey effort, in km, in a brute-force method; this same value will be used for every year and region. This is only helpful if you are looking for a relatively easy way to compare results from your own analysis to another (e.g., comparing \texttt{LTabundR} results to reports from NOAA reports prior to 2021, in which effort was calculated slightly differently).
+\item
+  \textbf{\texttt{area}}: A numeric indicating the area, in square km, of the pooled region. This must be provided in order to get an abundance estimate (instead of just a density estimate) if \texttt{regions\_method} contains \texttt{"pool"}, or if \texttt{regions\_remove} is specified and not \texttt{NULL}.
+\end{itemize}
+
+Note that none of these inputs is actually required; all have defaults, which essentially copy from the inputs from \texttt{fit\_filters()}. All the \texttt{\_method} arguments have the default \texttt{"each"}.
+
+\hypertarget{variance-estimation}{%
+\section*{Variance estimation}\label{variance-estimation}}
+\addcontentsline{toc}{section}{Variance estimation}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lta}\NormalTok{(cruz,}
+\NormalTok{    fit_filters,}
+\NormalTok{    df_settings,}
+\NormalTok{    estimates,}
+    \DataTypeTok{bootstraps =} \DecValTok{1000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{other-inputs}{%
+\section*{Other inputs}\label{other-inputs}}
+\addcontentsline{toc}{section}{Other inputs}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lta}\NormalTok{(cruz,}
+\NormalTok{    fit_filters,}
+\NormalTok{    df_settings,}
+\NormalTok{    estimates,}
+    \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+    \DataTypeTok{ss_correction =} \DecValTok{1}\NormalTok{,}
+    \DataTypeTok{bootstraps =} \DecValTok{10}
+    \DataTypeTok{toplot =} \OtherTok{TRUE}\NormalTok{,}
+    \DataTypeTok{verbose =} \OtherTok{TRUE}\NormalTok{,)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\item
+  \textbf{\texttt{use\_g0}}: A Boolean, with default \texttt{TRUE}, indicating whether or not to use custom \texttt{g(0)} value(s). If \texttt{FALSE}, the assumed \texttt{g(0)} value will be 1.
+\item
+  \textbf{\texttt{ss\_correction}}: Should a correction be applied to school sizes? School sizes will be scaled by this number. The default, \texttt{1}, means no changes will occur.
+\item
+  \textbf{\texttt{toplot}}: A Boolean, with default \texttt{TRUE}, indiciating whether detection function plots (\texttt{Distance::plot.ds()}) should be displayed as the candidate models are tested.
+\item
+  \textbf{\texttt{verbose}}: A Boolean, with default \texttt{TRUE}, indicating whether or not updates should be printed to the Console.
+\end{itemize}
+
+\hypertarget{lta-output}{%
+\section*{\texorpdfstring{\texttt{lta()} output}{lta() output}}\label{lta-output}}
+\addcontentsline{toc}{section}{\texttt{lta()} output}
+
+\hypertarget{during-processing}{%
+\subsection*{During processing}\label{during-processing}}
+\addcontentsline{toc}{subsection}{During processing}
+
+While \texttt{llta()} is running, it will print things to the Console (if \texttt{verbose} is \texttt{TRUE}) and plot detection function fits (if \texttt{toplot} is \texttt{TRUE}). To demonstrate this, we will run the estimate for striped dolphins in 2010 only:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Setup inputs:}
+\NormalTok{fit_filters =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'013'}\NormalTok{, }\StringTok{'026'}\NormalTok{, }\StringTok{'031'}\NormalTok{), }
+                   \DataTypeTok{pool =} \StringTok{'Multi-species pool 1'}\NormalTok{,}
+                   \DataTypeTok{cohort =} \StringTok{'most'}\NormalTok{,}
+                   \DataTypeTok{truncation_distance =} \DecValTok{5}\NormalTok{,}
+                   \DataTypeTok{other_species =} \StringTok{'remove'}\NormalTok{,}
+                   \DataTypeTok{years =} \DecValTok{1986}\OperatorTok{:}\DecValTok{2017}\NormalTok{,}
+                   \DataTypeTok{regions =} \OtherTok{NULL}\NormalTok{,}
+                   \DataTypeTok{not_regions =} \OtherTok{NULL}\NormalTok{)}
+
+\NormalTok{df_settings =}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{covariates =} \KeywordTok{c}\NormalTok{(}\StringTok{'bft'}\NormalTok{,}\StringTok{'lnsstot'}\NormalTok{,}\StringTok{'cruise'}\NormalTok{,}\StringTok{'year'}\NormalTok{,}\StringTok{'ship'}\NormalTok{,}\StringTok{'species'}\NormalTok{),}
+                   \DataTypeTok{covariates_factor =} \KeywordTok{c}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{),}
+                   \DataTypeTok{covariates_levels =} \DecValTok{2}\NormalTok{,}
+                   \DataTypeTok{covariates_n_per_level =} \DecValTok{10}\NormalTok{,}
+                   \DataTypeTok{detection_function_base =} \StringTok{'hn'}\NormalTok{,}
+                   \DataTypeTok{base_model =} \StringTok{'~1'}\NormalTok{,}
+                   \DataTypeTok{delta_aic =} \DecValTok{2}\NormalTok{)}
+
+\NormalTok{estimates =}
+\StringTok{  }\KeywordTok{list}\NormalTok{(}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'013'}\NormalTok{,}
+         \DataTypeTok{title =} \StringTok{'Striped dolphin'}\NormalTok{,}
+         \DataTypeTok{g0 =} \FloatTok{.32}\NormalTok{, }\DataTypeTok{g0_cv =} \FloatTok{0.21}\NormalTok{,}
+         \DataTypeTok{years =} \DecValTok{2017}\NormalTok{,}
+         \DataTypeTok{regions =} \StringTok{'HI-EEZ'}\NormalTok{))}
+
+\CommentTok{# Run it:}
+\NormalTok{demo <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz,}
+\NormalTok{    fit_filters,}
+\NormalTok{    df_settings,}
+\NormalTok{    estimates)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-100-1.pdf} \includegraphics{figures/unnamed-chunk-100-2.pdf} \includegraphics{figures/unnamed-chunk-100-3.pdf} \includegraphics{figures/unnamed-chunk-100-4.pdf} \includegraphics{figures/unnamed-chunk-100-5.pdf} \includegraphics{figures/unnamed-chunk-100-6.pdf} \includegraphics{figures/unnamed-chunk-100-7.pdf} \includegraphics{figures/unnamed-chunk-100-8.pdf} \includegraphics{figures/unnamed-chunk-100-9.pdf} \includegraphics{figures/unnamed-chunk-100-10.pdf} \includegraphics{figures/unnamed-chunk-100-11.pdf}
+
+\hypertarget{outputs}{%
+\subsection*{Outputs}\label{outputs}}
+\addcontentsline{toc}{subsection}{Outputs}
+
+The \texttt{lta()} function returns a list of objects. To demonstrate this output, we will pull in the built-in dataset representing the result of the analysis above, for all three species in both years (with 5 bootstrap iterations):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(}\StringTok{'lta_result'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{(lta_result)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"pool"}      \StringTok{"inputs"}    \StringTok{"estimate"}  \StringTok{"df"}        \StringTok{"bootstrap"}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{\texttt{pool}}: The species pool pertaining to these estimates.
+
+\textbf{\texttt{inputs}}: A list of the inputs used to produce these estimates.
+
+\textbf{\texttt{estimate}}: A table of density/abundance estimates for each species/region/year combination specified in the \texttt{estimates} input.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo}\OperatorTok{$}\NormalTok{estimate}
+\NormalTok{            title species Region    Area year segments       km Area_covered}
+\DecValTok{1}\NormalTok{ Striped dolphin     }\DecValTok{013}\NormalTok{ HI}\OperatorTok{-}\NormalTok{EEZ }\DecValTok{2454639} \DecValTok{2017}      \DecValTok{140} \FloatTok{17260.92}     \FloatTok{69221.41}
+\NormalTok{  ESW_mean  n g0_est  ER_clusters   D_clusters N_clusters size_mean  size_sd}
+\DecValTok{1} \FloatTok{4.010296} \DecValTok{16}   \FloatTok{0.32} \FloatTok{0.0009269493} \FloatTok{0.0003706212}   \FloatTok{909.7414}  \FloatTok{36.85783} \FloatTok{17.52562}
+\NormalTok{          ER          D        N}
+\DecValTok{1} \FloatTok{0.03416534} \FloatTok{0.01311434} \FloatTok{32190.98}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{\texttt{df}}: A named list with details for the detection function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo}\OperatorTok{$}\NormalTok{df }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"best_models"}  \StringTok{"all_models"}   \StringTok{"best_objects"} \StringTok{"sightings"}    \StringTok{"sample_size"} 
+
+\NormalTok{demo}\OperatorTok{$}\NormalTok{df}\OperatorTok{$}\NormalTok{best_models}
+\NormalTok{  Model Key_function                             Formula     Pmean     AIC}
+\DecValTok{1}     \DecValTok{9}\NormalTok{           hn           }\OperatorTok{~}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{ship }\OperatorTok{+}\StringTok{ }\NormalTok{bft }\OperatorTok{+}\StringTok{ }\NormalTok{lnsstot }\FloatTok{0.5576547} \FloatTok{899.071}
+\DecValTok{2}    \DecValTok{11}\NormalTok{           hn }\OperatorTok{~}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{ship }\OperatorTok{+}\StringTok{ }\NormalTok{bft }\OperatorTok{+}\StringTok{ }\NormalTok{lnsstot }\OperatorTok{+}\StringTok{ }\NormalTok{species }\FloatTok{0.5506719} \FloatTok{899.998}
+  \OperatorTok{$}\NormalTok{\textbackslash{}\textbackslash{}Delta}\OperatorTok{$}\NormalTok{AIC           Covariates tested                 pool}
+\DecValTok{1}        \FloatTok{0.000}\NormalTok{ bft, lnsstot, ship, species Multi}\OperatorTok{-}\NormalTok{species pool }\DecValTok{1}
+\DecValTok{2}        \FloatTok{0.927}\NormalTok{ bft, lnsstot, ship, species Multi}\OperatorTok{-}\NormalTok{species pool }\DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{\texttt{bootstrap}}: If bootstrap variance estimation was carried out, the output would also include \texttt{bootstrap}, a named list with results from the bootstrap process, only returned if the bootstraps input is greater than 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{demo}\OperatorTok{$}\NormalTok{bootstrap }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}
+\OtherTok{NULL}
+
+\NormalTok{demo}\OperatorTok{$}\NormalTok{bootstrap}\OperatorTok{$}\NormalTok{summary}
+\OtherTok{NULL}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{summary-tables}{%
+\subsection*{Summary tables}\label{summary-tables}}
+\addcontentsline{toc}{subsection}{Summary tables}
+
+To summarize \texttt{lta()} results using the standard table format provided in recent NOAA stock assessment reports, use the function \texttt{lta\_report()}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tables <-}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(lta_result, }\DataTypeTok{verbose =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tables }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"table2"} \StringTok{"table3"} \StringTok{"table4"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{table-2-in-reports-sample-sizes}{%
+\subsubsection*{Table 2 in reports: Sample sizes}\label{table-2-in-reports-sample-sizes}}
+\addcontentsline{toc}{subsubsection}{Table 2 in reports: Sample sizes}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tables}\OperatorTok{$}\NormalTok{table2 }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{DT}\OperatorTok{::}\KeywordTok{datatable}\NormalTok{(}\DataTypeTok{options=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{initComplete =}\NormalTok{ htmlwidgets}\OperatorTok{::}\KeywordTok{JS}\NormalTok{(}
+          \StringTok{"function(settings, json) \{$(this.api().table().container()).css(\{'font-size': '9pt'\});\}"}\NormalTok{)}
+\NormalTok{       ))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{table-3-parameter-estimates}{%
+\subsubsection*{Table 3: Parameter estimates}\label{table-3-parameter-estimates}}
+\addcontentsline{toc}{subsubsection}{Table 3: Parameter estimates}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tables}\OperatorTok{$}\NormalTok{table3 }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{DT}\OperatorTok{::}\KeywordTok{datatable}\NormalTok{(}\DataTypeTok{options=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{initComplete =}\NormalTok{ htmlwidgets}\OperatorTok{::}\KeywordTok{JS}\NormalTok{(}
+          \StringTok{"function(settings, json) \{$(this.api().table().container()).css(\{'font-size': '9pt'\});\}"}\NormalTok{)}
+\NormalTok{       ))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{table-4-densityabundance}{%
+\subsubsection*{Table 4: Density/abundance}\label{table-4-densityabundance}}
+\addcontentsline{toc}{subsubsection}{Table 4: Density/abundance}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tables}\OperatorTok{$}\NormalTok{table4 }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{DT}\OperatorTok{::}\KeywordTok{datatable}\NormalTok{(}\DataTypeTok{options=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{initComplete =}\NormalTok{ htmlwidgets}\OperatorTok{::}\KeywordTok{JS}\NormalTok{(}
+          \StringTok{"function(settings, json) \{$(this.api().table().container()).css(\{'font-size': '9pt'\});\}"}\NormalTok{)}
+\NormalTok{       ))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{behind-the-scenes-1}{%
+\section*{Behind the scenes}\label{behind-the-scenes-1}}
+\addcontentsline{toc}{section}{Behind the scenes}
+
+\hypertarget{covariates-in-detection-function-estimation}{%
+\subsection*{Covariates in detection function estimation}\label{covariates-in-detection-function-estimation}}
+\addcontentsline{toc}{subsection}{Covariates in detection function estimation}
+
+Before detection functions are modelled, any covariates supplied by the user and specified as a factor are first tested for eligibility. Only factors with at least two levels (or whatever you specified with \texttt{df\_settings\$covariates\_levels}) and 10 observations in each level (or whatever you specified with \texttt{df\_settings\$covariates\_n\_per\_level}) are eligible for inclusion.
+
+\hypertarget{fitting-a-detection-function}{%
+\subsection*{Fitting a detection function}\label{fitting-a-detection-function}}
+\addcontentsline{toc}{subsection}{Fitting a detection function}
+
+The detection function is estimated using functions in the package \texttt{mrds}, primarily the main function \texttt{mrds::ddf()}, which uses a Horvitz-Thompson-like estimator to predict the probability of detection for each sighting. If multiple base key functions (e.g., half-normal or hazard-rate) are provided, and/or if covariates are specified, model fitting is done in a forward stepwise procedure:
+
+\begin{itemize}
+\tightlist
+\item
+  In the first round, the base model (no covariates, i.e., \texttt{"\textasciitilde{}1"}) is fit first.\\
+\item
+  In the second round, each covariate is added one at a time; at the end of the round, the covariate, if any, that produces the lowest AIC below the AIC from the previous round is added to the formula.\\
+\item
+  This process is repeated in subsequent rounds, adding a new covariate term in each round, until the AIC no longer improves.
+\item
+  If a second base key is provided, the process is repeated for that second key.
+\end{itemize}
+
+All models within \texttt{delta\_aic} of the model with the lowest AIC qualify as best-fitting models. The best-fitting model(s) is(are) then used to estimate the Effective Strip half-Width (ESW) based on the covariates associated with each sighting.
+
+If multiple best-fitting models occur, we will find the average ESW for each sighting across all models, using a weighted mean approach in which we weight according to model AIC. To turn off this model averaging step, set \texttt{delta\_aic} to \texttt{0} to avoid passing multiple models to the abundance estimation stage.
+
+This stage of the \texttt{lta()} command is executed within a backend function, \texttt{LTabundR::fit\_df()}, which has its own documentation for your reference.
+
+\hypertarget{estimating-density-abundance}{%
+\subsection*{Estimating density \& abundance}\label{estimating-density-abundance}}
+\addcontentsline{toc}{subsection}{Estimating density \& abundance}
+
+Estimates are produced for various combinations of species, regions, and years, according to the arguments specified in your \texttt{estimates} list(s). Before these estimates are produced, we filter the data used to fit the detection function to strictly systematic (design-based) effort (i.e., \texttt{EffType\ =\ "S"}), in which standard protocols are in use (i.e., \texttt{OnEffort\ =\ TRUE}) and the Beaufort sea state is less than 7.
+
+This stage of the \texttt{lta()} command is executed within a back-end function, \texttt{LTabundR::abundance()}, which has its own documentation for your reference.
+
+\hypertarget{bootstrap-variance-estimation}{%
+\subsection*{Bootstrap variance estimation}\label{bootstrap-variance-estimation}}
+\addcontentsline{toc}{subsection}{Bootstrap variance estimation}
+
+If the \texttt{bootstraps} input value is greater than 1, bootstrap variance estimation will be attempted. In each bootstrap iteration, survey segments are re-sampled with replacement before fitting the detection function and estimating density/abundance.
+
+Note that the entire process is repeated in each bootstrap: step-wise fitting of the detection function, averaging of the best-fitting models, and density/abundance estimation for all species/region/year combinations specified in your \texttt{estimates} input. At the end of the bootstrap process, results are summarized for each species/region/year combination. 95\% confidence intervals are calculated using the BCA method (package \texttt{coxed}, function \texttt{bca()}).
+
+\hypertarget{g0-values-during-bootstrapping}{%
+\subsection*{\texorpdfstring{\texttt{g(0)} values during bootstrapping}{g(0) values during bootstrapping}}\label{g0-values-during-bootstrapping}}
+\addcontentsline{toc}{subsection}{\texttt{g(0)} values during bootstrapping}
+
+When conducting the non-parametric bootstrap routine to estimate the CV of density and abundance, uncertainty is incorporated into the g(0) value in each iteration using a parametric bootstrapping subroutine: First, a logit-transformed distribution is modeled based upon the mean and CV of g(0) provided by the user in the \texttt{estimates} input (see documentation for \texttt{LTabundR::g0\_optimize()} for details on this step). This modeled distribution is used to randomly draw a g(0) value for each iteration of the density/abundance bootstrap routine. In this way, the uncertainty in g(0) is propagated into uncertainty in density/abundance.
 
 \hypertarget{multistock}{%
 \chapter{Multi-stock LTA}\label{multistock}}
@@ -2124,7 +2606,7 @@ This packages comes with several built-in datasets of geographic strata that are
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-95-1.pdf} \includegraphics{figures/unnamed-chunk-95-2.pdf} \includegraphics{figures/unnamed-chunk-95-3.pdf}
+\includegraphics{figures/unnamed-chunk-114-1.pdf} \includegraphics{figures/unnamed-chunk-114-2.pdf} \includegraphics{figures/unnamed-chunk-114-3.pdf}
 
 To acquire the filepath to one of these strata, pass the index (or indices) printed in the map titles above to the function \texttt{strata\_select()}:
 
@@ -2156,7 +2638,7 @@ The second slot, \texttt{\$paths}, contains the filepaths you would need to pass
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-98-1.pdf} \includegraphics{figures/unnamed-chunk-98-2.pdf} \includegraphics{figures/unnamed-chunk-98-3.pdf} \includegraphics{figures/unnamed-chunk-98-4.pdf} \includegraphics{figures/unnamed-chunk-98-5.pdf}
+\includegraphics{figures/unnamed-chunk-117-1.pdf} \includegraphics{figures/unnamed-chunk-117-2.pdf} \includegraphics{figures/unnamed-chunk-117-3.pdf} \includegraphics{figures/unnamed-chunk-117-4.pdf} \includegraphics{figures/unnamed-chunk-117-5.pdf}
 
 \hypertarget{etp}{%
 \section*{ETP}\label{etp}}
@@ -2275,7 +2757,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-103-1.pdf}
+\includegraphics{figures/unnamed-chunk-122-1.pdf}
 
 \hypertarget{day-vs-equal-length}{%
 \section*{Day vs Equal Length}\label{day-vs-equal-length}}
@@ -2302,7 +2784,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-104-1.pdf}
+\includegraphics{figures/unnamed-chunk-123-1.pdf}
 
 \hypertarget{by-target-length-of-150-km}{%
 \subsection*{By target length of 150 km}\label{by-target-length-of-150-km}}
@@ -2325,7 +2807,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-105-1.pdf}
+\includegraphics{figures/unnamed-chunk-124-1.pdf}
 
 \hypertarget{contiguous-vs.-non-contiguous-effort}{%
 \section*{Contiguous vs.~non-contiguous effort}\label{contiguous-vs.-non-contiguous-effort}}
@@ -2350,7 +2832,7 @@ The example above allows for non-contiguous effort; a segment is allowed to cont
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-106-1.pdf}
+\includegraphics{figures/unnamed-chunk-125-1.pdf}
 
 You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.
 
@@ -2381,7 +2863,7 @@ The other possible setting is \texttt{\textquotesingle{}disperse\textquotesingle
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-107-1.pdf}
+\includegraphics{figures/unnamed-chunk-126-1.pdf}
 
 Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:
 
@@ -2402,7 +2884,7 @@ Note that most segments are longer than the target length, due to the impact of 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-108-1.pdf}
+\includegraphics{figures/unnamed-chunk-127-1.pdf}
 
 But in general, the \texttt{disperse} option may be more appropriate for shorter segment lengths.
 
@@ -2439,7 +2921,7 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-109-1.pdf}
+\includegraphics{figures/unnamed-chunk-128-1.pdf}
 
 \hypertarget{abund9_compare}{%
 \chapter{\texorpdfstring{\texttt{LTabundR} vs.~\texttt{ABUND9}}{LTabundR vs.~ABUND9}}\label{abund9_compare}}

@@ -172,7 +172,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-certain-species"><i class="fa fa-check"></i>Summarize certain species</a></li>
 <li><a href="summarize.html#cruz_explorer"><code>cruz_explorer()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="lta.html"><a href="lta.html"><i class="fa fa-check"></i><b>7</b> Line-transect analysis</a></li>
+<li class="chapter" data-level="7" data-path="lta.html"><a href="lta.html"><i class="fa fa-check"></i><b>7</b> Line-transect analysis</a><ul>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#inputs-1"><i class="fa fa-check"></i>Inputs</a></li>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#variance-estimation"><i class="fa fa-check"></i>Variance estimation</a></li>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#other-inputs"><i class="fa fa-check"></i>Other inputs</a></li>
+<li><a href="lta.html#lta-output"><code>lta()</code> output</a></li>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#behind-the-scenes-1"><i class="fa fa-check"></i>Behind the scenes</a></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="multistock.html"><a href="multistock.html"><i class="fa fa-check"></i><b>8</b> Multi-stock LTA</a></li>
 <li class="chapter" data-level="9" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>9</b> g(0)</a></li>
 <li class="part"><span><b>II Case studies</b></span></li>
@@ -230,25 +236,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This packages comes with several built-in datasets of geographic strata that are commonly used in NOAA/NMFS surveys. The functions <code>strata_explore()</code> and <code>strata_select()</code> were developed to help you explore those built-in options.</p>
 <div id="central-north-pacific" class="section level2 unnumbered">
 <h2>Central North Pacific</h2>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="stratagallery.html#cb73-1"></a><span class="kw">strata_explore</span>(<span class="st">&#39;cnp&#39;</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-95-1.png" width="576" /><img src="figures/unnamed-chunk-95-2.png" width="576" /><img src="figures/unnamed-chunk-95-3.png" width="576" /></p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="stratagallery.html#cb91-1"></a><span class="kw">strata_explore</span>(<span class="st">&#39;cnp&#39;</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-114-1.png" width="576" /><img src="figures/unnamed-chunk-114-2.png" width="576" /><img src="figures/unnamed-chunk-114-3.png" width="576" /></p>
 <p>To acquire the filepath to one of these strata, pass the index (or indices) printed in the map titles above to the function <code>strata_select()</code>:</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="stratagallery.html#cb74-1"></a>strata &lt;-<span class="st"> </span><span class="kw">strata_select</span>(<span class="dt">selections =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),</span>
-<span id="cb74-2"><a href="stratagallery.html#cb74-2"></a>                              <span class="dt">region =</span> <span class="st">&#39;cnp&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="stratagallery.html#cb92-1"></a>strata &lt;-<span class="st"> </span><span class="kw">strata_select</span>(<span class="dt">selections =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),</span>
+<span id="cb92-2"><a href="stratagallery.html#cb92-2"></a>                              <span class="dt">region =</span> <span class="st">&#39;cnp&#39;</span>)</span></code></pre></div>
 <p>This function returns a named list that can be passed directly to the <code>strata</code> argument in <code>load_settings()</code>.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="stratagallery.html#cb75-1"></a>strata <span class="op">%&gt;%</span><span class="st"> </span>names</span>
-<span id="cb75-2"><a href="stratagallery.html#cb75-2"></a>[<span class="dv">1</span>] <span class="st">&quot;HI_EEZ&quot;</span>   <span class="st">&quot;OtherCNP&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="stratagallery.html#cb93-1"></a>strata <span class="op">%&gt;%</span><span class="st"> </span>names</span>
+<span id="cb93-2"><a href="stratagallery.html#cb93-2"></a>[<span class="dv">1</span>] <span class="st">&quot;HI_EEZ&quot;</span>   <span class="st">&quot;OtherCNP&quot;</span></span></code></pre></div>
 <p>The second slot, <code>$paths</code>, contains the filepaths you would need to pass to the <code>load_settings()</code> function.</p>
 </div>
 <div id="california-current" class="section level2 unnumbered">
 <h2>California Current</h2>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="stratagallery.html#cb76-1"></a><span class="kw">strata_explore</span>(<span class="st">&#39;ccs&#39;</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-98-1.png" width="576" /><img src="figures/unnamed-chunk-98-2.png" width="576" /><img src="figures/unnamed-chunk-98-3.png" width="576" /><img src="figures/unnamed-chunk-98-4.png" width="576" /><img src="figures/unnamed-chunk-98-5.png" width="576" /></p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="stratagallery.html#cb94-1"></a><span class="kw">strata_explore</span>(<span class="st">&#39;ccs&#39;</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-117-1.png" width="576" /><img src="figures/unnamed-chunk-117-2.png" width="576" /><img src="figures/unnamed-chunk-117-3.png" width="576" /><img src="figures/unnamed-chunk-117-4.png" width="576" /><img src="figures/unnamed-chunk-117-5.png" width="576" /></p>
 </div>
 <div id="etp" class="section level2 unnumbered">
 <h2>ETP</h2>
 <p>You can do the same for the Eastern Tropical Pacific (ETP); there are about 70 polygons built-in to <code>LTabundR</code> for this region. We won’t show them here!</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="stratagallery.html#cb77-1"></a><span class="kw">strata_explore</span>(<span class="st">&#39;etp&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="stratagallery.html#cb95-1"></a><span class="kw">strata_explore</span>(<span class="st">&#39;etp&#39;</span>)</span></code></pre></div>
 
 </div>
 </div>
