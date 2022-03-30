@@ -1,3 +1,69 @@
 # Multi-stock LTA {#multistock}
 
-*Coming soon!*
+In a relatively small study focused on only a few species, the `lta()` function 
+will suffice for completing your analysis. However, some studies cover dozens of species
+across multiple years, and analyses are often updated every year or so. In such complex and repetitive muilti-stock analyses, a more efficient option is to use the `lta_multistock()` function.  
+
+This function allows you to use a *GoogleSheet* to parameterize density/abundance estimates for many species at once. You can then conduct all analyses with a single function call.
+
+
+## Setup your *GoogleSheet* {-} 
+
+The key to using this function is setting up your GoogleSheet correctly.
+See an example [here](https://docs.google.com/spreadsheets/d/15uLleqIqoRKFRrnNttMcJx-Q_i7BfuepuUfOOjEP7Dw/edit?usp=sharing). This example *GoogleSheet* is set up to estimate the density/abundance of about 20 species in the Central North Pacific in the years 2010 and 2017.  
+
+When building up your own *GoogleSheet*, we recommend copying the file above as a template, then customizing according to your needs. **Note:** Be sure to change "Share" settings to 'Anyone can view', and then copy the share link.
+
+This GoogleSheet needs to have the following sheets (they can occur in any order):  
+
+- **`"species"`** A table of species codes and related names (common, scientific, etc.).
+Crucially, this table has a column, `"cohort"`, that specifies which cohort each species belongs to.
+Recall from the `process_surveys()` documentation that a cohort is a group of species
+for which survey data are processed in a common way. Typically, most species belong
+to a majority cohort (in the GoogleSheet example above, this cohort is named "most"),
+with only a few exceptions (if any) in a separate cohort.  
+
+- **`"ships"`** A table with the ship associated with each cruise number.  
+
+- **`"process_surveys"`** Survey-specific settings, used to process `DAS` data and produce a `cruz` object. These settings are explained in `?load_survey_settings()`.  
+
+- **`"process_cohorts"`** Cohort-specific settings. These settings are explained in `?load_cohort_settings()`.  
+
+- **`"species_pools"`** A table defining species pools for line-transect analysis.
+A species pool is a group of species that share detection qualities, therefore their
+sightings are pooled together to estimate a detection function. This can be useful for
+uncommon or cryptic species with few sightings. Common species with a sufficient number
+of sightings will typically be alone in their own dedicated species pool.
+Each pool needs a `"title"`, a vector of species codes that belong to the pool, and
+values for filtering data for fitting the detection function. See details for
+these arguments in the `fit_filters` input for the function `?lta()`.  
+
+- **`"LTA"`** Settings to specify how line-transect analysis will proceed,
+including which covariates to use when fitting a detection function,
+how many bootstrap iterations to use (if any) to estimate variance, etc.
+See details for these arguments in the documentation for `?lta()`.
+
+- **`"estimates"`** This will typically be the largest and most complex table
+in your GoogleSheet. It has a row for every density/abundance estimate that you want.
+The columns represent settings for each estimate (these are detailed in the
+`estimates` input for `?lta()`). Note the first column, `"run"`, which you can
+use to ignore certain rows while you develop your analysis. Any row in which `"run"` is `1` will
+be attempted, any row in which `"run"` is `0` or empty will be ignored.
+
+
+## Run it {-} 
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
+# Bring in processed survey data
+data("cnp_1986_2020_150km")
+
+# Save GoogleSheet URL
+url <- 'https://docs.google.com/spreadsheets/d/15uLleqIqoRKFRrnNttMcJx-Q_i7BfuepuUfOOjEP7Dw/edit?usp=sharing'
+# Run it
+mr <- lta_multistock(cruz = cnp_1986_2020_150km,
+                     source_path = url)
+```
+
+The `lta_multistock()` function returns a list with a slot containing `lta()` output for each "species pool". See documentation for `?lta()` for details on the contents of each slot.  
+
+Note that as `lta_multistock()` works, it will produce tables that allow you to check estimates as they are produced. After the analysis for each species pool is completed, `lta_report()` will be run on the results to update these summary tables. See details for `?lta_report` for details.  

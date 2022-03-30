@@ -179,8 +179,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="lta.html#lta-output"><code>lta()</code> output</a></li>
 <li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#behind-the-scenes-1"><i class="fa fa-check"></i>Behind the scenes</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="multistock.html"><a href="multistock.html"><i class="fa fa-check"></i><b>8</b> Multi-stock LTA</a></li>
-<li class="chapter" data-level="9" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>9</b> g(0)</a></li>
+<li class="chapter" data-level="8" data-path="multistock.html"><a href="multistock.html"><i class="fa fa-check"></i><b>8</b> Multi-stock LTA</a><ul>
+<li><a href="multistock.html#setup-your-googlesheet">Setup your <em>GoogleSheet</em></a></li>
+<li class="chapter" data-level="" data-path="multistock.html"><a href="multistock.html#run-it"><i class="fa fa-check"></i>Run it</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>9</b> Estimating g(0)</a><ul>
+<li><a href="g0.html#relative-g0">Relative <code>g(0)</code></a></li>
+<li><a href="g0.html#weighted-average-g0">Weighted average <code>g(0)</code></a></li>
+</ul></li>
 <li class="part"><span><b>II Case studies</b></span></li>
 <li class="chapter" data-level="10" data-path="casestudies.html"><a href="casestudies.html"><i class="fa fa-check"></i><b>10</b> Central North Pacific</a></li>
 <li class="chapter" data-level="11" data-path="california-current-system.html"><a href="california-current-system.html"><i class="fa fa-check"></i><b>11</b> California Current System</a></li>
@@ -247,117 +253,117 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Setting up this demo</h3>
 <p>The demonstration of <code>segmentize()</code> on in <a href="processing.html#processing">Processing chapter</a> relies on the <code>settings</code> list that is attached as a slot in the <code>cruz</code> object. But you can override those settings with direct function inputs in <code>segmentize()</code>, which gives us a chance to explore segmentization options.</p>
 <p>First we load the demo data and carry out initial processing:</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="segmentizing.html#cb96-1"></a><span class="kw">data</span>(settings)</span>
-<span id="cb96-2"><a href="segmentizing.html#cb96-2"></a>das_file &lt;-<span class="st"> &#39;data/surveys/HICEASwinter2020.das&#39;</span></span>
-<span id="cb96-3"><a href="segmentizing.html#cb96-3"></a>das &lt;-<span class="st"> </span><span class="kw">load_das</span>(das_file, </span>
-<span id="cb96-4"><a href="segmentizing.html#cb96-4"></a>                <span class="dt">perform_checks =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb96-5"><a href="segmentizing.html#cb96-5"></a>                <span class="dt">print_glimpse =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb96-6"><a href="segmentizing.html#cb96-6"></a>cruz &lt;-<span class="st"> </span><span class="kw">process_strata</span>(das,</span>
-<span id="cb96-7"><a href="segmentizing.html#cb96-7"></a>                       settings,</span>
-<span id="cb96-8"><a href="segmentizing.html#cb96-8"></a>                       <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
-<span id="cb96-9"><a href="segmentizing.html#cb96-9"></a>cruz &lt;-<span class="st"> </span><span class="kw">format_das</span>(cruz)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="segmentizing.html#cb108-1"></a><span class="kw">data</span>(settings)</span>
+<span id="cb108-2"><a href="segmentizing.html#cb108-2"></a>das_file &lt;-<span class="st"> &#39;data/surveys/HICEASwinter2020.das&#39;</span></span>
+<span id="cb108-3"><a href="segmentizing.html#cb108-3"></a>das &lt;-<span class="st"> </span><span class="kw">load_das</span>(das_file, </span>
+<span id="cb108-4"><a href="segmentizing.html#cb108-4"></a>                <span class="dt">perform_checks =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb108-5"><a href="segmentizing.html#cb108-5"></a>                <span class="dt">print_glimpse =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb108-6"><a href="segmentizing.html#cb108-6"></a>cruz &lt;-<span class="st"> </span><span class="kw">process_strata</span>(das,</span>
+<span id="cb108-7"><a href="segmentizing.html#cb108-7"></a>                       settings,</span>
+<span id="cb108-8"><a href="segmentizing.html#cb108-8"></a>                       <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
+<span id="cb108-9"><a href="segmentizing.html#cb108-9"></a>cruz &lt;-<span class="st"> </span><span class="kw">format_das</span>(cruz)</span></code></pre></div>
 <p>And this is the histogram function we will be using to display the results of each run of <code>segmentize()</code>:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="segmentizing.html#cb97-1"></a>segment_histogram &lt;-<span class="st"> </span><span class="cf">function</span>(cruz, <span class="dt">cohort=</span><span class="dv">1</span>, <span class="dt">by_day=</span><span class="ot">FALSE</span>){</span>
-<span id="cb97-2"><a href="segmentizing.html#cb97-2"></a>  (settings &lt;-<span class="st"> </span>cruz<span class="op">$</span>settings)</span>
-<span id="cb97-3"><a href="segmentizing.html#cb97-3"></a>  (segs &lt;-<span class="st"> </span>cruz<span class="op">$</span>cohorts[[cohort]]<span class="op">$</span>segments)</span>
-<span id="cb97-4"><a href="segmentizing.html#cb97-4"></a>  (segmax &lt;-<span class="st"> </span><span class="kw">max</span>(segs<span class="op">$</span>dist,<span class="dt">na.rm=</span><span class="ot">TRUE</span>)<span class="op">*</span><span class="fl">1.1</span>)</span>
-<span id="cb97-5"><a href="segmentizing.html#cb97-5"></a>  </span>
-<span id="cb97-6"><a href="segmentizing.html#cb97-6"></a>  <span class="cf">if</span>(by_day){</span>
-<span id="cb97-7"><a href="segmentizing.html#cb97-7"></a>    main_use &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;Segments (use) |  by day&#39;</span>)</span>
-<span id="cb97-8"><a href="segmentizing.html#cb97-8"></a>    main_exclude &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;Segments (exclude) |  by day&#39;</span>)</span>
-<span id="cb97-9"><a href="segmentizing.html#cb97-9"></a>  }<span class="cf">else</span>{</span>
-<span id="cb97-10"><a href="segmentizing.html#cb97-10"></a>    (main_use &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;Segments (use) |  target: &#39;</span>,settings<span class="op">$</span>survey<span class="op">$</span>segment_target_km,<span class="st">&#39; km&#39;</span>))</span>
-<span id="cb97-11"><a href="segmentizing.html#cb97-11"></a>    (main_exclude &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;Segments (exclude) |  target: &#39;</span>,settings<span class="op">$</span>survey<span class="op">$</span>segment_target_km,<span class="st">&#39; km&#39;</span>))</span>
-<span id="cb97-12"><a href="segmentizing.html#cb97-12"></a>  }</span>
-<span id="cb97-13"><a href="segmentizing.html#cb97-13"></a>  <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb97-14"><a href="segmentizing.html#cb97-14"></a>  <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="fl">4.2</span>,<span class="fl">4.2</span>,<span class="fl">2.5</span>,.<span class="dv">5</span>))</span>
-<span id="cb97-15"><a href="segmentizing.html#cb97-15"></a>  <span class="kw">hist</span>(segs<span class="op">$</span>dist[segs<span class="op">$</span>use],</span>
-<span id="cb97-16"><a href="segmentizing.html#cb97-16"></a>       <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,segmax,<span class="dt">by=</span>segmax<span class="op">/</span><span class="dv">40</span>),</span>
-<span id="cb97-17"><a href="segmentizing.html#cb97-17"></a>       <span class="dt">xlab=</span><span class="st">&#39;Segment lengths (km)&#39;</span>,</span>
-<span id="cb97-18"><a href="segmentizing.html#cb97-18"></a>       <span class="dt">main=</span>main_use,</span>
-<span id="cb97-19"><a href="segmentizing.html#cb97-19"></a>       <span class="dt">cex.main =</span> <span class="fl">.8</span>, <span class="dt">cex.axis =</span> <span class="fl">.8</span>, <span class="dt">cex.lab =</span> <span class="fl">.8</span>)</span>
-<span id="cb97-20"><a href="segmentizing.html#cb97-20"></a></span>
-<span id="cb97-21"><a href="segmentizing.html#cb97-21"></a>  <span class="kw">hist</span>(segs<span class="op">$</span>dist[<span class="op">!</span>segs<span class="op">$</span>use],</span>
-<span id="cb97-22"><a href="segmentizing.html#cb97-22"></a>       <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,segmax,<span class="dt">by=</span>segmax<span class="op">/</span><span class="dv">40</span>),</span>
-<span id="cb97-23"><a href="segmentizing.html#cb97-23"></a>       <span class="dt">xlab=</span><span class="st">&#39;Segment lengths (km)&#39;</span>,</span>
-<span id="cb97-24"><a href="segmentizing.html#cb97-24"></a>       <span class="dt">main=</span>main_exclude,</span>
-<span id="cb97-25"><a href="segmentizing.html#cb97-25"></a>       <span class="dt">cex.main =</span> <span class="fl">.8</span>, <span class="dt">cex.axis =</span> <span class="fl">.8</span>, <span class="dt">cex.lab =</span> <span class="fl">.8</span>)</span>
-<span id="cb97-26"><a href="segmentizing.html#cb97-26"></a>  <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb97-27"><a href="segmentizing.html#cb97-27"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="segmentizing.html#cb109-1"></a>segment_histogram &lt;-<span class="st"> </span><span class="cf">function</span>(cruz, <span class="dt">cohort=</span><span class="dv">1</span>, <span class="dt">by_day=</span><span class="ot">FALSE</span>){</span>
+<span id="cb109-2"><a href="segmentizing.html#cb109-2"></a>  (settings &lt;-<span class="st"> </span>cruz<span class="op">$</span>settings)</span>
+<span id="cb109-3"><a href="segmentizing.html#cb109-3"></a>  (segs &lt;-<span class="st"> </span>cruz<span class="op">$</span>cohorts[[cohort]]<span class="op">$</span>segments)</span>
+<span id="cb109-4"><a href="segmentizing.html#cb109-4"></a>  (segmax &lt;-<span class="st"> </span><span class="kw">max</span>(segs<span class="op">$</span>dist,<span class="dt">na.rm=</span><span class="ot">TRUE</span>)<span class="op">*</span><span class="fl">1.1</span>)</span>
+<span id="cb109-5"><a href="segmentizing.html#cb109-5"></a>  </span>
+<span id="cb109-6"><a href="segmentizing.html#cb109-6"></a>  <span class="cf">if</span>(by_day){</span>
+<span id="cb109-7"><a href="segmentizing.html#cb109-7"></a>    main_use &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;Segments (use) |  by day&#39;</span>)</span>
+<span id="cb109-8"><a href="segmentizing.html#cb109-8"></a>    main_exclude &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;Segments (exclude) |  by day&#39;</span>)</span>
+<span id="cb109-9"><a href="segmentizing.html#cb109-9"></a>  }<span class="cf">else</span>{</span>
+<span id="cb109-10"><a href="segmentizing.html#cb109-10"></a>    (main_use &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;Segments (use) |  target: &#39;</span>,settings<span class="op">$</span>survey<span class="op">$</span>segment_target_km,<span class="st">&#39; km&#39;</span>))</span>
+<span id="cb109-11"><a href="segmentizing.html#cb109-11"></a>    (main_exclude &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&#39;Segments (exclude) |  target: &#39;</span>,settings<span class="op">$</span>survey<span class="op">$</span>segment_target_km,<span class="st">&#39; km&#39;</span>))</span>
+<span id="cb109-12"><a href="segmentizing.html#cb109-12"></a>  }</span>
+<span id="cb109-13"><a href="segmentizing.html#cb109-13"></a>  <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb109-14"><a href="segmentizing.html#cb109-14"></a>  <span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="fl">4.2</span>,<span class="fl">4.2</span>,<span class="fl">2.5</span>,.<span class="dv">5</span>))</span>
+<span id="cb109-15"><a href="segmentizing.html#cb109-15"></a>  <span class="kw">hist</span>(segs<span class="op">$</span>dist[segs<span class="op">$</span>use],</span>
+<span id="cb109-16"><a href="segmentizing.html#cb109-16"></a>       <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,segmax,<span class="dt">by=</span>segmax<span class="op">/</span><span class="dv">40</span>),</span>
+<span id="cb109-17"><a href="segmentizing.html#cb109-17"></a>       <span class="dt">xlab=</span><span class="st">&#39;Segment lengths (km)&#39;</span>,</span>
+<span id="cb109-18"><a href="segmentizing.html#cb109-18"></a>       <span class="dt">main=</span>main_use,</span>
+<span id="cb109-19"><a href="segmentizing.html#cb109-19"></a>       <span class="dt">cex.main =</span> <span class="fl">.8</span>, <span class="dt">cex.axis =</span> <span class="fl">.8</span>, <span class="dt">cex.lab =</span> <span class="fl">.8</span>)</span>
+<span id="cb109-20"><a href="segmentizing.html#cb109-20"></a></span>
+<span id="cb109-21"><a href="segmentizing.html#cb109-21"></a>  <span class="kw">hist</span>(segs<span class="op">$</span>dist[<span class="op">!</span>segs<span class="op">$</span>use],</span>
+<span id="cb109-22"><a href="segmentizing.html#cb109-22"></a>       <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,segmax,<span class="dt">by=</span>segmax<span class="op">/</span><span class="dv">40</span>),</span>
+<span id="cb109-23"><a href="segmentizing.html#cb109-23"></a>       <span class="dt">xlab=</span><span class="st">&#39;Segment lengths (km)&#39;</span>,</span>
+<span id="cb109-24"><a href="segmentizing.html#cb109-24"></a>       <span class="dt">main=</span>main_exclude,</span>
+<span id="cb109-25"><a href="segmentizing.html#cb109-25"></a>       <span class="dt">cex.main =</span> <span class="fl">.8</span>, <span class="dt">cex.axis =</span> <span class="fl">.8</span>, <span class="dt">cex.lab =</span> <span class="fl">.8</span>)</span>
+<span id="cb109-26"><a href="segmentizing.html#cb109-26"></a>  <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb109-27"><a href="segmentizing.html#cb109-27"></a>}</span></code></pre></div>
 </div>
 </div>
 <div id="defaults-2" class="section level2 unnumbered">
 <h2>Defaults</h2>
 <p>Here is the <code>segmentize()</code> function parameterized with the “factory default” settings from <code>load_settings()</code>.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="segmentizing.html#cb98-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
-<span id="cb98-2"><a href="segmentizing.html#cb98-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
-<span id="cb98-3"><a href="segmentizing.html#cb98-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">30</span>,</span>
-<span id="cb98-4"><a href="segmentizing.html#cb98-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
-<span id="cb98-5"><a href="segmentizing.html#cb98-5"></a>                        <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
-<span id="cb98-6"><a href="segmentizing.html#cb98-6"></a>                        <span class="dt">distance_types =</span> <span class="kw">c</span>(<span class="st">&#39;S&#39;</span>,<span class="st">&#39;F&#39;</span>,<span class="st">&#39;N&#39;</span>),</span>
-<span id="cb98-7"><a href="segmentizing.html#cb98-7"></a>                        <span class="dt">distance_modes =</span> <span class="kw">c</span>(<span class="st">&#39;P&#39;</span>,<span class="st">&#39;C&#39;</span>),</span>
-<span id="cb98-8"><a href="segmentizing.html#cb98-8"></a>                        <span class="dt">distance_on_off =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>),</span>
-<span id="cb98-9"><a href="segmentizing.html#cb98-9"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
-<span id="cb98-10"><a href="segmentizing.html#cb98-10"></a></span>
-<span id="cb98-11"><a href="segmentizing.html#cb98-11"></a><span class="co"># Number of segments</span></span>
-<span id="cb98-12"><a href="segmentizing.html#cb98-12"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
-<span id="cb98-13"><a href="segmentizing.html#cb98-13"></a>[<span class="dv">1</span>] <span class="dv">273</span></span>
-<span id="cb98-14"><a href="segmentizing.html#cb98-14"></a></span>
-<span id="cb98-15"><a href="segmentizing.html#cb98-15"></a><span class="co"># Plot</span></span>
-<span id="cb98-16"><a href="segmentizing.html#cb98-16"></a><span class="kw">segment_histogram</span>(cruz_demo)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-122-1.png" width="672" /></p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="segmentizing.html#cb110-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
+<span id="cb110-2"><a href="segmentizing.html#cb110-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb110-3"><a href="segmentizing.html#cb110-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">30</span>,</span>
+<span id="cb110-4"><a href="segmentizing.html#cb110-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
+<span id="cb110-5"><a href="segmentizing.html#cb110-5"></a>                        <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
+<span id="cb110-6"><a href="segmentizing.html#cb110-6"></a>                        <span class="dt">distance_types =</span> <span class="kw">c</span>(<span class="st">&#39;S&#39;</span>,<span class="st">&#39;F&#39;</span>,<span class="st">&#39;N&#39;</span>),</span>
+<span id="cb110-7"><a href="segmentizing.html#cb110-7"></a>                        <span class="dt">distance_modes =</span> <span class="kw">c</span>(<span class="st">&#39;P&#39;</span>,<span class="st">&#39;C&#39;</span>),</span>
+<span id="cb110-8"><a href="segmentizing.html#cb110-8"></a>                        <span class="dt">distance_on_off =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>),</span>
+<span id="cb110-9"><a href="segmentizing.html#cb110-9"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
+<span id="cb110-10"><a href="segmentizing.html#cb110-10"></a></span>
+<span id="cb110-11"><a href="segmentizing.html#cb110-11"></a><span class="co"># Number of segments</span></span>
+<span id="cb110-12"><a href="segmentizing.html#cb110-12"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb110-13"><a href="segmentizing.html#cb110-13"></a>[<span class="dv">1</span>] <span class="dv">273</span></span>
+<span id="cb110-14"><a href="segmentizing.html#cb110-14"></a></span>
+<span id="cb110-15"><a href="segmentizing.html#cb110-15"></a><span class="co"># Plot</span></span>
+<span id="cb110-16"><a href="segmentizing.html#cb110-16"></a><span class="kw">segment_histogram</span>(cruz_demo)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-141-1.png" width="672" /></p>
 </div>
 <div id="day-vs-equal-length" class="section level2 unnumbered">
 <h2>Day vs Equal Length</h2>
 <div id="by-day" class="section level3 unnumbered">
 <h3>By day</h3>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="segmentizing.html#cb99-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
-<span id="cb99-2"><a href="segmentizing.html#cb99-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;day&#39;</span>,</span>
-<span id="cb99-3"><a href="segmentizing.html#cb99-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">30</span>,</span>
-<span id="cb99-4"><a href="segmentizing.html#cb99-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
-<span id="cb99-5"><a href="segmentizing.html#cb99-5"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
-<span id="cb99-6"><a href="segmentizing.html#cb99-6"></a></span>
-<span id="cb99-7"><a href="segmentizing.html#cb99-7"></a><span class="co"># Number of segments</span></span>
-<span id="cb99-8"><a href="segmentizing.html#cb99-8"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
-<span id="cb99-9"><a href="segmentizing.html#cb99-9"></a>[<span class="dv">1</span>] <span class="dv">113</span></span>
-<span id="cb99-10"><a href="segmentizing.html#cb99-10"></a></span>
-<span id="cb99-11"><a href="segmentizing.html#cb99-11"></a><span class="co"># Plot</span></span>
-<span id="cb99-12"><a href="segmentizing.html#cb99-12"></a><span class="kw">segment_histogram</span>(cruz_demo, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-123-1.png" width="672" /></p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="segmentizing.html#cb111-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
+<span id="cb111-2"><a href="segmentizing.html#cb111-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;day&#39;</span>,</span>
+<span id="cb111-3"><a href="segmentizing.html#cb111-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">30</span>,</span>
+<span id="cb111-4"><a href="segmentizing.html#cb111-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
+<span id="cb111-5"><a href="segmentizing.html#cb111-5"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
+<span id="cb111-6"><a href="segmentizing.html#cb111-6"></a></span>
+<span id="cb111-7"><a href="segmentizing.html#cb111-7"></a><span class="co"># Number of segments</span></span>
+<span id="cb111-8"><a href="segmentizing.html#cb111-8"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb111-9"><a href="segmentizing.html#cb111-9"></a>[<span class="dv">1</span>] <span class="dv">113</span></span>
+<span id="cb111-10"><a href="segmentizing.html#cb111-10"></a></span>
+<span id="cb111-11"><a href="segmentizing.html#cb111-11"></a><span class="co"># Plot</span></span>
+<span id="cb111-12"><a href="segmentizing.html#cb111-12"></a><span class="kw">segment_histogram</span>(cruz_demo, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-142-1.png" width="672" /></p>
 </div>
 <div id="by-target-length-of-150-km" class="section level3 unnumbered">
 <h3>By target length of 150 km</h3>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="segmentizing.html#cb100-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
-<span id="cb100-2"><a href="segmentizing.html#cb100-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
-<span id="cb100-3"><a href="segmentizing.html#cb100-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">150</span>,</span>
-<span id="cb100-4"><a href="segmentizing.html#cb100-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
-<span id="cb100-5"><a href="segmentizing.html#cb100-5"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
-<span id="cb100-6"><a href="segmentizing.html#cb100-6"></a></span>
-<span id="cb100-7"><a href="segmentizing.html#cb100-7"></a><span class="co"># Number of segments</span></span>
-<span id="cb100-8"><a href="segmentizing.html#cb100-8"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
-<span id="cb100-9"><a href="segmentizing.html#cb100-9"></a>[<span class="dv">1</span>] <span class="dv">66</span></span>
-<span id="cb100-10"><a href="segmentizing.html#cb100-10"></a></span>
-<span id="cb100-11"><a href="segmentizing.html#cb100-11"></a><span class="co"># Plot</span></span>
-<span id="cb100-12"><a href="segmentizing.html#cb100-12"></a><span class="kw">segment_histogram</span>(cruz_demo, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-124-1.png" width="672" /></p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="segmentizing.html#cb112-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
+<span id="cb112-2"><a href="segmentizing.html#cb112-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb112-3"><a href="segmentizing.html#cb112-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">150</span>,</span>
+<span id="cb112-4"><a href="segmentizing.html#cb112-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
+<span id="cb112-5"><a href="segmentizing.html#cb112-5"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
+<span id="cb112-6"><a href="segmentizing.html#cb112-6"></a></span>
+<span id="cb112-7"><a href="segmentizing.html#cb112-7"></a><span class="co"># Number of segments</span></span>
+<span id="cb112-8"><a href="segmentizing.html#cb112-8"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb112-9"><a href="segmentizing.html#cb112-9"></a>[<span class="dv">1</span>] <span class="dv">66</span></span>
+<span id="cb112-10"><a href="segmentizing.html#cb112-10"></a></span>
+<span id="cb112-11"><a href="segmentizing.html#cb112-11"></a><span class="co"># Plot</span></span>
+<span id="cb112-12"><a href="segmentizing.html#cb112-12"></a><span class="kw">segment_histogram</span>(cruz_demo, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-143-1.png" width="672" /></p>
 </div>
 </div>
 <div id="contiguous-vs.-non-contiguous-effort" class="section level2 unnumbered">
 <h2>Contiguous vs. non-contiguous effort</h2>
 <p>The example above allows for non-contiguous effort; a segment is allowed to contain effort separated by gaps as large as 24 hours (<code>settings$max_interval</code>). To coerce segments to represent only contiguous effort, make that setting very small:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="segmentizing.html#cb101-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
-<span id="cb101-2"><a href="segmentizing.html#cb101-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
-<span id="cb101-3"><a href="segmentizing.html#cb101-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">30</span>,</span>
-<span id="cb101-4"><a href="segmentizing.html#cb101-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="fl">.1</span>,</span>
-<span id="cb101-5"><a href="segmentizing.html#cb101-5"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
-<span id="cb101-6"><a href="segmentizing.html#cb101-6"></a></span>
-<span id="cb101-7"><a href="segmentizing.html#cb101-7"></a><span class="co"># Number of segments</span></span>
-<span id="cb101-8"><a href="segmentizing.html#cb101-8"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
-<span id="cb101-9"><a href="segmentizing.html#cb101-9"></a>[<span class="dv">1</span>] <span class="dv">567</span></span>
-<span id="cb101-10"><a href="segmentizing.html#cb101-10"></a></span>
-<span id="cb101-11"><a href="segmentizing.html#cb101-11"></a><span class="co"># Plot</span></span>
-<span id="cb101-12"><a href="segmentizing.html#cb101-12"></a><span class="kw">segment_histogram</span>(cruz_demo, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-125-1.png" width="672" /></p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="segmentizing.html#cb113-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
+<span id="cb113-2"><a href="segmentizing.html#cb113-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb113-3"><a href="segmentizing.html#cb113-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">30</span>,</span>
+<span id="cb113-4"><a href="segmentizing.html#cb113-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="fl">.1</span>,</span>
+<span id="cb113-5"><a href="segmentizing.html#cb113-5"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
+<span id="cb113-6"><a href="segmentizing.html#cb113-6"></a></span>
+<span id="cb113-7"><a href="segmentizing.html#cb113-7"></a><span class="co"># Number of segments</span></span>
+<span id="cb113-8"><a href="segmentizing.html#cb113-8"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb113-9"><a href="segmentizing.html#cb113-9"></a>[<span class="dv">1</span>] <span class="dv">567</span></span>
+<span id="cb113-10"><a href="segmentizing.html#cb113-10"></a></span>
+<span id="cb113-11"><a href="segmentizing.html#cb113-11"></a><span class="co"># Plot</span></span>
+<span id="cb113-12"><a href="segmentizing.html#cb113-12"></a><span class="kw">segment_histogram</span>(cruz_demo, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-144-1.png" width="672" /></p>
 <p>You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.</p>
 </div>
 <div id="segment-remainder-handling" class="section level2 unnumbered">
@@ -365,33 +371,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The default setting for <code>segment_remainder_handling</code>, <code>c('append','segment')</code>, means that remainders less than half the target length will be randomly appended to another segment, while remainders more than half will be treated as their own segment (and will be placed randomly along the trackline).</p>
 <p>If you don’t want that level of complexity, you can simply assign a single setting: <code>'append'</code> will append the remainder in all cases, regardless of remainder length relative to the target length. The same idea goes for <code>'segment'</code>.</p>
 <p>The other possible setting is <code>'disperse'</code>, which disperses the remainder evenly across all segments. To demonstrate, let’s use a target length of 100 km.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="segmentizing.html#cb102-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
-<span id="cb102-2"><a href="segmentizing.html#cb102-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
-<span id="cb102-3"><a href="segmentizing.html#cb102-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">100</span>,</span>
-<span id="cb102-4"><a href="segmentizing.html#cb102-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
-<span id="cb102-5"><a href="segmentizing.html#cb102-5"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
-<span id="cb102-6"><a href="segmentizing.html#cb102-6"></a></span>
-<span id="cb102-7"><a href="segmentizing.html#cb102-7"></a><span class="co"># Number of segments</span></span>
-<span id="cb102-8"><a href="segmentizing.html#cb102-8"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
-<span id="cb102-9"><a href="segmentizing.html#cb102-9"></a>[<span class="dv">1</span>] <span class="dv">90</span></span>
-<span id="cb102-10"><a href="segmentizing.html#cb102-10"></a></span>
-<span id="cb102-11"><a href="segmentizing.html#cb102-11"></a><span class="co"># Plot</span></span>
-<span id="cb102-12"><a href="segmentizing.html#cb102-12"></a><span class="kw">segment_histogram</span>(cruz_demo, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-126-1.png" width="672" /></p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="segmentizing.html#cb114-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
+<span id="cb114-2"><a href="segmentizing.html#cb114-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb114-3"><a href="segmentizing.html#cb114-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">100</span>,</span>
+<span id="cb114-4"><a href="segmentizing.html#cb114-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
+<span id="cb114-5"><a href="segmentizing.html#cb114-5"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
+<span id="cb114-6"><a href="segmentizing.html#cb114-6"></a></span>
+<span id="cb114-7"><a href="segmentizing.html#cb114-7"></a><span class="co"># Number of segments</span></span>
+<span id="cb114-8"><a href="segmentizing.html#cb114-8"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb114-9"><a href="segmentizing.html#cb114-9"></a>[<span class="dv">1</span>] <span class="dv">90</span></span>
+<span id="cb114-10"><a href="segmentizing.html#cb114-10"></a></span>
+<span id="cb114-11"><a href="segmentizing.html#cb114-11"></a><span class="co"># Plot</span></span>
+<span id="cb114-12"><a href="segmentizing.html#cb114-12"></a><span class="kw">segment_histogram</span>(cruz_demo, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-145-1.png" width="672" /></p>
 <p>Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="segmentizing.html#cb103-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
-<span id="cb103-2"><a href="segmentizing.html#cb103-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
-<span id="cb103-3"><a href="segmentizing.html#cb103-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">90</span>,</span>
-<span id="cb103-4"><a href="segmentizing.html#cb103-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
-<span id="cb103-5"><a href="segmentizing.html#cb103-5"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
-<span id="cb103-6"><a href="segmentizing.html#cb103-6"></a></span>
-<span id="cb103-7"><a href="segmentizing.html#cb103-7"></a><span class="co"># Number of segments</span></span>
-<span id="cb103-8"><a href="segmentizing.html#cb103-8"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
-<span id="cb103-9"><a href="segmentizing.html#cb103-9"></a>[<span class="dv">1</span>] <span class="dv">98</span></span>
-<span id="cb103-10"><a href="segmentizing.html#cb103-10"></a></span>
-<span id="cb103-11"><a href="segmentizing.html#cb103-11"></a><span class="co"># Plot</span></span>
-<span id="cb103-12"><a href="segmentizing.html#cb103-12"></a><span class="kw">segment_histogram</span>(cruz_demo, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-127-1.png" width="672" /></p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="segmentizing.html#cb115-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
+<span id="cb115-2"><a href="segmentizing.html#cb115-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb115-3"><a href="segmentizing.html#cb115-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">90</span>,</span>
+<span id="cb115-4"><a href="segmentizing.html#cb115-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
+<span id="cb115-5"><a href="segmentizing.html#cb115-5"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
+<span id="cb115-6"><a href="segmentizing.html#cb115-6"></a></span>
+<span id="cb115-7"><a href="segmentizing.html#cb115-7"></a><span class="co"># Number of segments</span></span>
+<span id="cb115-8"><a href="segmentizing.html#cb115-8"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb115-9"><a href="segmentizing.html#cb115-9"></a>[<span class="dv">1</span>] <span class="dv">98</span></span>
+<span id="cb115-10"><a href="segmentizing.html#cb115-10"></a></span>
+<span id="cb115-11"><a href="segmentizing.html#cb115-11"></a><span class="co"># Plot</span></span>
+<span id="cb115-12"><a href="segmentizing.html#cb115-12"></a><span class="kw">segment_histogram</span>(cruz_demo, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-146-1.png" width="672" /></p>
 <p>But in general, the <code>disperse</code> option may be more appropriate for shorter segment lengths.</p>
 </div>
 <div id="typical-settings" class="section level2 unnumbered">
@@ -403,19 +409,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="habitat-modeling" class="section level3 unnumbered">
 <h3>Habitat modeling</h3>
 <p>To replicate the methods used in typical habitat modeling studies, use smaller segment lengths of contiguous effort.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="segmentizing.html#cb104-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
-<span id="cb104-2"><a href="segmentizing.html#cb104-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
-<span id="cb104-3"><a href="segmentizing.html#cb104-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">5</span>,</span>
-<span id="cb104-4"><a href="segmentizing.html#cb104-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="fl">.1</span>,</span>
-<span id="cb104-5"><a href="segmentizing.html#cb104-5"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
-<span id="cb104-6"><a href="segmentizing.html#cb104-6"></a></span>
-<span id="cb104-7"><a href="segmentizing.html#cb104-7"></a><span class="co"># Number of segments</span></span>
-<span id="cb104-8"><a href="segmentizing.html#cb104-8"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
-<span id="cb104-9"><a href="segmentizing.html#cb104-9"></a>[<span class="dv">1</span>] <span class="dv">1728</span></span>
-<span id="cb104-10"><a href="segmentizing.html#cb104-10"></a></span>
-<span id="cb104-11"><a href="segmentizing.html#cb104-11"></a><span class="co"># Plot</span></span>
-<span id="cb104-12"><a href="segmentizing.html#cb104-12"></a><span class="kw">segment_histogram</span>(cruz_demo, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-128-1.png" width="672" /></p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="segmentizing.html#cb116-1"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">segmentize</span>(cruz,</span>
+<span id="cb116-2"><a href="segmentizing.html#cb116-2"></a>                        <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb116-3"><a href="segmentizing.html#cb116-3"></a>                        <span class="dt">segment_target_km =</span> <span class="dv">5</span>,</span>
+<span id="cb116-4"><a href="segmentizing.html#cb116-4"></a>                        <span class="dt">segment_max_interval =</span> <span class="fl">.1</span>,</span>
+<span id="cb116-5"><a href="segmentizing.html#cb116-5"></a>                        <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
+<span id="cb116-6"><a href="segmentizing.html#cb116-6"></a></span>
+<span id="cb116-7"><a href="segmentizing.html#cb116-7"></a><span class="co"># Number of segments</span></span>
+<span id="cb116-8"><a href="segmentizing.html#cb116-8"></a>cruz_demo<span class="op">$</span>cohorts<span class="op">$</span>default<span class="op">$</span>segments <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
+<span id="cb116-9"><a href="segmentizing.html#cb116-9"></a>[<span class="dv">1</span>] <span class="dv">1728</span></span>
+<span id="cb116-10"><a href="segmentizing.html#cb116-10"></a></span>
+<span id="cb116-11"><a href="segmentizing.html#cb116-11"></a><span class="co"># Plot</span></span>
+<span id="cb116-12"><a href="segmentizing.html#cb116-12"></a><span class="kw">segment_histogram</span>(cruz_demo, <span class="dt">by_day =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-147-1.png" width="672" /></p>
 
 </div>
 </div>

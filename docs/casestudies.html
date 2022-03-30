@@ -179,8 +179,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="lta.html#lta-output"><code>lta()</code> output</a></li>
 <li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#behind-the-scenes-1"><i class="fa fa-check"></i>Behind the scenes</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="multistock.html"><a href="multistock.html"><i class="fa fa-check"></i><b>8</b> Multi-stock LTA</a></li>
-<li class="chapter" data-level="9" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>9</b> g(0)</a></li>
+<li class="chapter" data-level="8" data-path="multistock.html"><a href="multistock.html"><i class="fa fa-check"></i><b>8</b> Multi-stock LTA</a><ul>
+<li><a href="multistock.html#setup-your-googlesheet">Setup your <em>GoogleSheet</em></a></li>
+<li class="chapter" data-level="" data-path="multistock.html"><a href="multistock.html#run-it"><i class="fa fa-check"></i>Run it</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>9</b> Estimating g(0)</a><ul>
+<li><a href="g0.html#relative-g0">Relative <code>g(0)</code></a></li>
+<li><a href="g0.html#weighted-average-g0">Weighted average <code>g(0)</code></a></li>
+</ul></li>
 <li class="part"><span><b>II Case studies</b></span></li>
 <li class="chapter" data-level="10" data-path="casestudies.html"><a href="casestudies.html"><i class="fa fa-check"></i><b>10</b> Central North Pacific</a></li>
 <li class="chapter" data-level="11" data-path="california-current-system.html"><a href="california-current-system.html"><i class="fa fa-check"></i><b>11</b> California Current System</a></li>
@@ -235,74 +241,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number"> 10</span> Central North Pacific</h1>
 <p>To demonstrate what we are building, below is template for quickly running all of the steps detailed in subsequent chapters.</p>
 <p>This template uses the same data and settings used throughout the vignette:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="casestudies.html#cb89-1"></a><span class="kw">library</span>(swfscDAS)</span>
-<span id="cb89-2"><a href="casestudies.html#cb89-2"></a><span class="kw">library</span>(LTabundR)</span>
-<span id="cb89-3"><a href="casestudies.html#cb89-3"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb89-4"><a href="casestudies.html#cb89-4"></a></span>
-<span id="cb89-5"><a href="casestudies.html#cb89-5"></a><span class="co"># Settings =====================================================================</span></span>
-<span id="cb89-6"><a href="casestudies.html#cb89-6"></a></span>
-<span id="cb89-7"><a href="casestudies.html#cb89-7"></a><span class="co"># Load strata dataframes</span></span>
-<span id="cb89-8"><a href="casestudies.html#cb89-8"></a><span class="kw">data</span>(strata_cnp)</span>
-<span id="cb89-9"><a href="casestudies.html#cb89-9"></a><span class="kw">data</span>(study_cnp)</span>
-<span id="cb89-10"><a href="casestudies.html#cb89-10"></a></span>
-<span id="cb89-11"><a href="casestudies.html#cb89-11"></a><span class="co"># Load group size coefficients</span></span>
-<span id="cb89-12"><a href="casestudies.html#cb89-12"></a><span class="kw">data</span>(group_size_coefficients)</span>
-<span id="cb89-13"><a href="casestudies.html#cb89-13"></a></span>
-<span id="cb89-14"><a href="casestudies.html#cb89-14"></a><span class="co"># Load ships</span></span>
-<span id="cb89-15"><a href="casestudies.html#cb89-15"></a><span class="kw">data</span>(ships)</span>
-<span id="cb89-16"><a href="casestudies.html#cb89-16"></a></span>
-<span id="cb89-17"><a href="casestudies.html#cb89-17"></a><span class="co"># Load species codes</span></span>
-<span id="cb89-18"><a href="casestudies.html#cb89-18"></a><span class="kw">data</span>(species_codes)</span>
-<span id="cb89-19"><a href="casestudies.html#cb89-19"></a></span>
-<span id="cb89-20"><a href="casestudies.html#cb89-20"></a><span class="co"># Survey settings</span></span>
-<span id="cb89-21"><a href="casestudies.html#cb89-21"></a>survey &lt;-<span class="st"> </span></span>
-<span id="cb89-22"><a href="casestudies.html#cb89-22"></a><span class="st">  </span><span class="kw">load_survey_settings</span>(<span class="dt">out_handling =</span> <span class="st">&#39;stratum&#39;</span>,</span>
-<span id="cb89-23"><a href="casestudies.html#cb89-23"></a>                       <span class="dt">max_row_interval =</span> <span class="dv">700</span>,</span>
-<span id="cb89-24"><a href="casestudies.html#cb89-24"></a>                       <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
-<span id="cb89-25"><a href="casestudies.html#cb89-25"></a>                       <span class="dt">segment_target_km =</span> <span class="dv">30</span>,</span>
-<span id="cb89-26"><a href="casestudies.html#cb89-26"></a>                       <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
-<span id="cb89-27"><a href="casestudies.html#cb89-27"></a>                       <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
-<span id="cb89-28"><a href="casestudies.html#cb89-28"></a>                       <span class="dt">ship_list =</span> ships,</span>
-<span id="cb89-29"><a href="casestudies.html#cb89-29"></a>                       <span class="dt">species_codes =</span> species_codes,</span>
-<span id="cb89-30"><a href="casestudies.html#cb89-30"></a>                       <span class="dt">group_size_coefficients =</span> group_size_coefficients,</span>
-<span id="cb89-31"><a href="casestudies.html#cb89-31"></a>                       <span class="dt">smear_angles =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb89-32"><a href="casestudies.html#cb89-32"></a>                       <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb89-33"><a href="casestudies.html#cb89-33"></a></span>
-<span id="cb89-34"><a href="casestudies.html#cb89-34"></a><span class="co"># Cohort 1 (default)</span></span>
-<span id="cb89-35"><a href="casestudies.html#cb89-35"></a>cohort1 &lt;-<span class="st"> </span><span class="kw">load_cohort_settings</span>()</span>
-<span id="cb89-36"><a href="casestudies.html#cb89-36"></a></span>
-<span id="cb89-37"><a href="casestudies.html#cb89-37"></a><span class="co"># Cohort 2</span></span>
-<span id="cb89-38"><a href="casestudies.html#cb89-38"></a>cohort2 &lt;-<span class="st"> </span></span>
-<span id="cb89-39"><a href="casestudies.html#cb89-39"></a><span class="st">  </span><span class="kw">load_cohort_settings</span>(<span class="dt">id=</span><span class="st">&#39;fkw_insular&#39;</span>,</span>
-<span id="cb89-40"><a href="casestudies.html#cb89-40"></a>                       <span class="dt">species=</span><span class="dv">33</span>,</span>
-<span id="cb89-41"><a href="casestudies.html#cb89-41"></a>                       <span class="dt">use_low_if_na =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb89-42"><a href="casestudies.html#cb89-42"></a>                       <span class="dt">truncation_km =</span> <span class="dv">5</span>,</span>
-<span id="cb89-43"><a href="casestudies.html#cb89-43"></a>                       <span class="dt">strata_overlap_handling =</span> <span class="st">&#39;each&#39;</span>)</span>
-<span id="cb89-44"><a href="casestudies.html#cb89-44"></a></span>
-<span id="cb89-45"><a href="casestudies.html#cb89-45"></a><span class="co"># Finalize settings</span></span>
-<span id="cb89-46"><a href="casestudies.html#cb89-46"></a>settings &lt;-<span class="st"> </span><span class="kw">load_settings</span>(<span class="dt">strata =</span> strata_cnp,</span>
-<span id="cb89-47"><a href="casestudies.html#cb89-47"></a>                          <span class="dt">study_area =</span> study_cnp,</span>
-<span id="cb89-48"><a href="casestudies.html#cb89-48"></a>                          <span class="dt">survey =</span> survey,</span>
-<span id="cb89-49"><a href="casestudies.html#cb89-49"></a>                          <span class="dt">cohorts=</span><span class="kw">list</span>(cohort1,</span>
-<span id="cb89-50"><a href="casestudies.html#cb89-50"></a>                                       cohort2))</span>
-<span id="cb89-51"><a href="casestudies.html#cb89-51"></a></span>
-<span id="cb89-52"><a href="casestudies.html#cb89-52"></a></span>
-<span id="cb89-53"><a href="casestudies.html#cb89-53"></a><span class="co"># Processing ===================================================================</span></span>
-<span id="cb89-54"><a href="casestudies.html#cb89-54"></a></span>
-<span id="cb89-55"><a href="casestudies.html#cb89-55"></a>das_file &lt;-<span class="st"> &#39;data/surveys/HICEASwinter2020.das&#39;</span></span>
-<span id="cb89-56"><a href="casestudies.html#cb89-56"></a>cruz &lt;-<span class="st"> </span><span class="kw">process_surveys</span>(das_file, settings, <span class="dt">verbose=</span><span class="ot">TRUE</span>)</span>
-<span id="cb89-57"><a href="casestudies.html#cb89-57"></a></span>
-<span id="cb89-58"><a href="casestudies.html#cb89-58"></a><span class="co"># Data evaluation ==============================================================</span></span>
-<span id="cb89-59"><a href="casestudies.html#cb89-59"></a></span>
-<span id="cb89-60"><a href="casestudies.html#cb89-60"></a><span class="co"># Map</span></span>
-<span id="cb89-61"><a href="casestudies.html#cb89-61"></a>m &lt;-<span class="st"> </span><span class="kw">map_base</span>(<span class="st">&#39;cnp&#39;</span>) </span>
-<span id="cb89-62"><a href="casestudies.html#cb89-62"></a>m &lt;-<span class="st"> </span><span class="kw">map_strata</span>(m, cruz<span class="op">$</span>settings)</span>
-<span id="cb89-63"><a href="casestudies.html#cb89-63"></a>m &lt;-<span class="st"> </span><span class="kw">map_effort</span>(m, cruz)</span>
-<span id="cb89-64"><a href="casestudies.html#cb89-64"></a>m &lt;-<span class="st"> </span><span class="kw">map_sightings</span>(m, cruz, <span class="dt">size_base=</span>.<span class="dv">4</span>)</span>
-<span id="cb89-65"><a href="casestudies.html#cb89-65"></a>m </span>
-<span id="cb89-66"><a href="casestudies.html#cb89-66"></a></span>
-<span id="cb89-67"><a href="casestudies.html#cb89-67"></a><span class="co"># Review interactively</span></span>
-<span id="cb89-68"><a href="casestudies.html#cb89-68"></a><span class="kw">cruz_explorer</span>(cruz)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="casestudies.html#cb101-1"></a><span class="kw">library</span>(swfscDAS)</span>
+<span id="cb101-2"><a href="casestudies.html#cb101-2"></a><span class="kw">library</span>(LTabundR)</span>
+<span id="cb101-3"><a href="casestudies.html#cb101-3"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb101-4"><a href="casestudies.html#cb101-4"></a></span>
+<span id="cb101-5"><a href="casestudies.html#cb101-5"></a><span class="co"># Settings =====================================================================</span></span>
+<span id="cb101-6"><a href="casestudies.html#cb101-6"></a></span>
+<span id="cb101-7"><a href="casestudies.html#cb101-7"></a><span class="co"># Load strata dataframes</span></span>
+<span id="cb101-8"><a href="casestudies.html#cb101-8"></a><span class="kw">data</span>(strata_cnp)</span>
+<span id="cb101-9"><a href="casestudies.html#cb101-9"></a><span class="kw">data</span>(study_cnp)</span>
+<span id="cb101-10"><a href="casestudies.html#cb101-10"></a></span>
+<span id="cb101-11"><a href="casestudies.html#cb101-11"></a><span class="co"># Load group size coefficients</span></span>
+<span id="cb101-12"><a href="casestudies.html#cb101-12"></a><span class="kw">data</span>(group_size_coefficients)</span>
+<span id="cb101-13"><a href="casestudies.html#cb101-13"></a></span>
+<span id="cb101-14"><a href="casestudies.html#cb101-14"></a><span class="co"># Load ships</span></span>
+<span id="cb101-15"><a href="casestudies.html#cb101-15"></a><span class="kw">data</span>(ships)</span>
+<span id="cb101-16"><a href="casestudies.html#cb101-16"></a></span>
+<span id="cb101-17"><a href="casestudies.html#cb101-17"></a><span class="co"># Load species codes</span></span>
+<span id="cb101-18"><a href="casestudies.html#cb101-18"></a><span class="kw">data</span>(species_codes)</span>
+<span id="cb101-19"><a href="casestudies.html#cb101-19"></a></span>
+<span id="cb101-20"><a href="casestudies.html#cb101-20"></a><span class="co"># Survey settings</span></span>
+<span id="cb101-21"><a href="casestudies.html#cb101-21"></a>survey &lt;-<span class="st"> </span></span>
+<span id="cb101-22"><a href="casestudies.html#cb101-22"></a><span class="st">  </span><span class="kw">load_survey_settings</span>(<span class="dt">out_handling =</span> <span class="st">&#39;stratum&#39;</span>,</span>
+<span id="cb101-23"><a href="casestudies.html#cb101-23"></a>                       <span class="dt">max_row_interval =</span> <span class="dv">700</span>,</span>
+<span id="cb101-24"><a href="casestudies.html#cb101-24"></a>                       <span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb101-25"><a href="casestudies.html#cb101-25"></a>                       <span class="dt">segment_target_km =</span> <span class="dv">30</span>,</span>
+<span id="cb101-26"><a href="casestudies.html#cb101-26"></a>                       <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
+<span id="cb101-27"><a href="casestudies.html#cb101-27"></a>                       <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
+<span id="cb101-28"><a href="casestudies.html#cb101-28"></a>                       <span class="dt">ship_list =</span> ships,</span>
+<span id="cb101-29"><a href="casestudies.html#cb101-29"></a>                       <span class="dt">species_codes =</span> species_codes,</span>
+<span id="cb101-30"><a href="casestudies.html#cb101-30"></a>                       <span class="dt">group_size_coefficients =</span> group_size_coefficients,</span>
+<span id="cb101-31"><a href="casestudies.html#cb101-31"></a>                       <span class="dt">smear_angles =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb101-32"><a href="casestudies.html#cb101-32"></a>                       <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb101-33"><a href="casestudies.html#cb101-33"></a></span>
+<span id="cb101-34"><a href="casestudies.html#cb101-34"></a><span class="co"># Cohort 1 (default)</span></span>
+<span id="cb101-35"><a href="casestudies.html#cb101-35"></a>cohort1 &lt;-<span class="st"> </span><span class="kw">load_cohort_settings</span>()</span>
+<span id="cb101-36"><a href="casestudies.html#cb101-36"></a></span>
+<span id="cb101-37"><a href="casestudies.html#cb101-37"></a><span class="co"># Cohort 2</span></span>
+<span id="cb101-38"><a href="casestudies.html#cb101-38"></a>cohort2 &lt;-<span class="st"> </span></span>
+<span id="cb101-39"><a href="casestudies.html#cb101-39"></a><span class="st">  </span><span class="kw">load_cohort_settings</span>(<span class="dt">id=</span><span class="st">&#39;fkw_insular&#39;</span>,</span>
+<span id="cb101-40"><a href="casestudies.html#cb101-40"></a>                       <span class="dt">species=</span><span class="dv">33</span>,</span>
+<span id="cb101-41"><a href="casestudies.html#cb101-41"></a>                       <span class="dt">use_low_if_na =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb101-42"><a href="casestudies.html#cb101-42"></a>                       <span class="dt">truncation_km =</span> <span class="dv">5</span>,</span>
+<span id="cb101-43"><a href="casestudies.html#cb101-43"></a>                       <span class="dt">strata_overlap_handling =</span> <span class="st">&#39;each&#39;</span>)</span>
+<span id="cb101-44"><a href="casestudies.html#cb101-44"></a></span>
+<span id="cb101-45"><a href="casestudies.html#cb101-45"></a><span class="co"># Finalize settings</span></span>
+<span id="cb101-46"><a href="casestudies.html#cb101-46"></a>settings &lt;-<span class="st"> </span><span class="kw">load_settings</span>(<span class="dt">strata =</span> strata_cnp,</span>
+<span id="cb101-47"><a href="casestudies.html#cb101-47"></a>                          <span class="dt">study_area =</span> study_cnp,</span>
+<span id="cb101-48"><a href="casestudies.html#cb101-48"></a>                          <span class="dt">survey =</span> survey,</span>
+<span id="cb101-49"><a href="casestudies.html#cb101-49"></a>                          <span class="dt">cohorts=</span><span class="kw">list</span>(cohort1,</span>
+<span id="cb101-50"><a href="casestudies.html#cb101-50"></a>                                       cohort2))</span>
+<span id="cb101-51"><a href="casestudies.html#cb101-51"></a></span>
+<span id="cb101-52"><a href="casestudies.html#cb101-52"></a></span>
+<span id="cb101-53"><a href="casestudies.html#cb101-53"></a><span class="co"># Processing ===================================================================</span></span>
+<span id="cb101-54"><a href="casestudies.html#cb101-54"></a></span>
+<span id="cb101-55"><a href="casestudies.html#cb101-55"></a>das_file &lt;-<span class="st"> &#39;data/surveys/HICEASwinter2020.das&#39;</span></span>
+<span id="cb101-56"><a href="casestudies.html#cb101-56"></a>cruz &lt;-<span class="st"> </span><span class="kw">process_surveys</span>(das_file, settings, <span class="dt">verbose=</span><span class="ot">TRUE</span>)</span>
+<span id="cb101-57"><a href="casestudies.html#cb101-57"></a></span>
+<span id="cb101-58"><a href="casestudies.html#cb101-58"></a><span class="co"># Data evaluation ==============================================================</span></span>
+<span id="cb101-59"><a href="casestudies.html#cb101-59"></a></span>
+<span id="cb101-60"><a href="casestudies.html#cb101-60"></a><span class="co"># Map</span></span>
+<span id="cb101-61"><a href="casestudies.html#cb101-61"></a>m &lt;-<span class="st"> </span><span class="kw">map_base</span>(<span class="st">&#39;cnp&#39;</span>) </span>
+<span id="cb101-62"><a href="casestudies.html#cb101-62"></a>m &lt;-<span class="st"> </span><span class="kw">map_strata</span>(m, cruz<span class="op">$</span>settings)</span>
+<span id="cb101-63"><a href="casestudies.html#cb101-63"></a>m &lt;-<span class="st"> </span><span class="kw">map_effort</span>(m, cruz)</span>
+<span id="cb101-64"><a href="casestudies.html#cb101-64"></a>m &lt;-<span class="st"> </span><span class="kw">map_sightings</span>(m, cruz, <span class="dt">size_base=</span>.<span class="dv">4</span>)</span>
+<span id="cb101-65"><a href="casestudies.html#cb101-65"></a>m </span>
+<span id="cb101-66"><a href="casestudies.html#cb101-66"></a></span>
+<span id="cb101-67"><a href="casestudies.html#cb101-67"></a><span class="co"># Review interactively</span></span>
+<span id="cb101-68"><a href="casestudies.html#cb101-68"></a><span class="kw">cruz_explorer</span>(cruz)</span></code></pre></div>
 </div>
             </section>
 
