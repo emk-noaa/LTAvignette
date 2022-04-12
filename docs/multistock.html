@@ -281,14 +281,14 @@ be attempted, any row in which <code>"run"</code> is <code>0</code> or empty wil
 </div>
 <div id="run-it" class="section level2 unnumbered hasAnchor">
 <h2>Run it<a href="multistock.html#run-it" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="multistock.html#cb88-1"></a><span class="co"># Bring in processed survey data</span></span>
-<span id="cb88-2"><a href="multistock.html#cb88-2"></a><span class="kw">data</span>(<span class="st">&quot;cnp_1986_2020_150km&quot;</span>)</span>
-<span id="cb88-3"><a href="multistock.html#cb88-3"></a></span>
-<span id="cb88-4"><a href="multistock.html#cb88-4"></a><span class="co"># Save GoogleSheet URL</span></span>
-<span id="cb88-5"><a href="multistock.html#cb88-5"></a>url &lt;-<span class="st"> &#39;https://docs.google.com/spreadsheets/d/15uLleqIqoRKFRrnNttMcJx-Q_i7BfuepuUfOOjEP7Dw/edit?usp=sharing&#39;</span></span>
-<span id="cb88-6"><a href="multistock.html#cb88-6"></a><span class="co"># Run it</span></span>
-<span id="cb88-7"><a href="multistock.html#cb88-7"></a>mr &lt;-<span class="st"> </span><span class="kw">lta_multistock</span>(<span class="dt">cruz =</span> cnp_<span class="dv">1986</span>_<span class="dv">2020</span>_150km,</span>
-<span id="cb88-8"><a href="multistock.html#cb88-8"></a>                     <span class="dt">source_path =</span> url)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="multistock.html#cb90-1"></a><span class="co"># Bring in processed survey data</span></span>
+<span id="cb90-2"><a href="multistock.html#cb90-2"></a><span class="kw">data</span>(<span class="st">&quot;cnp_1986_2020_150km&quot;</span>)</span>
+<span id="cb90-3"><a href="multistock.html#cb90-3"></a></span>
+<span id="cb90-4"><a href="multistock.html#cb90-4"></a><span class="co"># Save GoogleSheet URL</span></span>
+<span id="cb90-5"><a href="multistock.html#cb90-5"></a>url &lt;-<span class="st"> &#39;https://docs.google.com/spreadsheets/d/15uLleqIqoRKFRrnNttMcJx-Q_i7BfuepuUfOOjEP7Dw/edit?usp=sharing&#39;</span></span>
+<span id="cb90-6"><a href="multistock.html#cb90-6"></a><span class="co"># Run it</span></span>
+<span id="cb90-7"><a href="multistock.html#cb90-7"></a>mr &lt;-<span class="st"> </span><span class="kw">lta_multistock</span>(<span class="dt">cruz =</span> cnp_<span class="dv">1986</span>_<span class="dv">2020</span>_150km,</span>
+<span id="cb90-8"><a href="multistock.html#cb90-8"></a>                     <span class="dt">source_path =</span> url)</span></code></pre></div>
 <p>The <code>lta_multistock()</code> function returns a list with a slot containing <code>lta()</code> output for each “species pool”. See documentation for <code>?lta()</code> for details on the contents of each slot.</p>
 <p>Note that as <code>lta_multistock()</code> works, it will produce tables that allow you to check estimates as they are produced. After the analysis for each species pool is completed, <code>lta_report()</code> will be run on the results to update these summary tables. See details for <code>?lta_report</code> for details.</p>
 

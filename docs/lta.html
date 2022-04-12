@@ -520,8 +520,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="detection-function-plots" class="section level3 unnumbered hasAnchor">
 <h3>Detection function plots<a href="lta.html#detection-function-plots" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To plot the best-fit detection model for a species pool, use the <code>plot_df()</code> function.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="lta.html#cb88-1"></a><span class="kw">plot_df</span>(lta_result)</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-113-1.png" width="672" /></p>
 <p>This function provides various stylization options, including the option to show multiple best-fitting models atop a single histogram of detections:</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="lta.html#cb89-1"></a><span class="kw">plot_df</span>(lta_result,</span>
+<span id="cb89-2"><a href="lta.html#cb89-2"></a>        <span class="dt">model_colors=</span>RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="dv">4</span>, <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>),</span>
+<span id="cb89-3"><a href="lta.html#cb89-3"></a>        <span class="dt">model_pch =</span> <span class="dv">16</span>,</span>
+<span id="cb89-4"><a href="lta.html#cb89-4"></a>        <span class="dt">pt_show=</span><span class="dv">2</span>,</span>
+<span id="cb89-5"><a href="lta.html#cb89-5"></a>        <span class="dt">pt_alpha=</span>.<span class="dv">3</span>,</span>
+<span id="cb89-6"><a href="lta.html#cb89-6"></a>        <span class="dt">bootstrap_show =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb89-7"><a href="lta.html#cb89-7"></a>        <span class="dt">legend_show=</span><span class="ot">TRUE</span>, </span>
+<span id="cb89-8"><a href="lta.html#cb89-8"></a>        <span class="dt">legend_x=</span><span class="fl">2.8</span>)</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-114-1.png" width="672" /></p>
 </div>
 </div>

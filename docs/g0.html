@@ -251,94 +251,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="relative-g0" class="section level2 unnumbered hasAnchor">
 <h2>Relative <code>g(0)</code><a href="g0.html#relative-g0" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Barlow (2015) estimates <code>Rg(0)</code> – relative trackline detection probability – for various Pacific cetaceans based on all available NOAA-NMFS cruise data, 1986-2010, from the Central North Pacific, Eastern Tropical Pacific, and California Current. For his analysis, he used 10-km segments of survey data. We will mirror his analysis using the same regions, same segment length, and all surveys from 1986 through 2020. This is provided as built-in processed datasets within <code>LTabundR</code> …</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="g0.html#cb89-1"></a><span class="kw">data</span>(<span class="st">&quot;cnp_1986_2020_10km&quot;</span>)</span>
-<span id="cb89-2"><a href="g0.html#cb89-2"></a><span class="kw">data</span>(<span class="st">&quot;ccs_1986_2020_10km&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="g0.html#cb91-1"></a><span class="kw">data</span>(<span class="st">&quot;cnp_1986_2020_10km&quot;</span>)</span>
+<span id="cb91-2"><a href="g0.html#cb91-2"></a><span class="kw">data</span>(<span class="st">&quot;ccs_1986_2020_10km&quot;</span>)</span></code></pre></div>
 <p>… which we can combine using the function <code>cruz_combine()</code>:</p>
 <p>First, we will combine these datasets together; to do so, we need to make sure that segment IDs are not accidentally replicated in the two datasets:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="g0.html#cb90-1"></a>cruzes &lt;-<span class="st"> </span><span class="kw">list</span>(cnp_<span class="dv">1986</span>_<span class="dv">2020</span>_10km,</span>
-<span id="cb90-2"><a href="g0.html#cb90-2"></a>               ccs_<span class="dv">1986</span>_<span class="dv">2020</span>_10km)</span>
-<span id="cb90-3"><a href="g0.html#cb90-3"></a></span>
-<span id="cb90-4"><a href="g0.html#cb90-4"></a>cruz &lt;-<span class="st"> </span><span class="kw">cruz_combine</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="g0.html#cb92-1"></a>cruzes &lt;-<span class="st"> </span><span class="kw">list</span>(cnp_<span class="dv">1986</span>_<span class="dv">2020</span>_10km,</span>
+<span id="cb92-2"><a href="g0.html#cb92-2"></a>               ccs_<span class="dv">1986</span>_<span class="dv">2020</span>_10km)</span>
+<span id="cb92-3"><a href="g0.html#cb92-3"></a></span>
+<span id="cb92-4"><a href="g0.html#cb92-4"></a>cruz &lt;-<span class="st"> </span><span class="kw">cruz_combine</span>()</span></code></pre></div>
 <p>We then estimate <code>Rg(0)</code> for each Beaufort sea state using the function <code>g0_bft_model()</code>. We do this one species at a time. For example, the code for striped dolphin (<em>Stenella coeruleoalba</em>) is as follows:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="g0.html#cb91-1"></a>g0_result &lt;-<span class="st"> </span></span>
-<span id="cb91-2"><a href="g0.html#cb91-2"></a><span class="st">  </span><span class="kw">g0_bft_model</span>(</span>
-<span id="cb91-3"><a href="g0.html#cb91-3"></a>  <span class="dt">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
-<span id="cb91-4"><a href="g0.html#cb91-4"></a>  <span class="dt">truncation_distance =</span> <span class="fl">5.5</span>,</span>
-<span id="cb91-5"><a href="g0.html#cb91-5"></a>  cruz,</span>
-<span id="cb91-6"><a href="g0.html#cb91-6"></a>  <span class="dt">pool_bft =</span> <span class="ot">NULL</span>, </span>
-<span id="cb91-7"><a href="g0.html#cb91-7"></a>  <span class="dt">jacknife_fraction =</span> <span class="fl">.1</span>)</span>
-<span id="cb91-8"><a href="g0.html#cb91-8"></a><span class="er">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="g0.html#cb93-1"></a>g0_result &lt;-<span class="st"> </span></span>
+<span id="cb93-2"><a href="g0.html#cb93-2"></a><span class="st">  </span><span class="kw">g0_bft_model</span>(</span>
+<span id="cb93-3"><a href="g0.html#cb93-3"></a>  <span class="dt">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
+<span id="cb93-4"><a href="g0.html#cb93-4"></a>  <span class="dt">truncation_distance =</span> <span class="fl">5.5</span>,</span>
+<span id="cb93-5"><a href="g0.html#cb93-5"></a>  cruz,</span>
+<span id="cb93-6"><a href="g0.html#cb93-6"></a>  <span class="dt">pool_bft =</span> <span class="ot">NULL</span>, </span>
+<span id="cb93-7"><a href="g0.html#cb93-7"></a>  <span class="dt">jacknife_fraction =</span> <span class="fl">.1</span>)</span>
+<span id="cb93-8"><a href="g0.html#cb93-8"></a><span class="er">)</span></span></code></pre></div>
 <p>The input <code>pool_bft</code> provides a way to specify that low Beaufort sea states, which are typically rare in open-ocean surveys, should be pooled. This step may be needed in order to achieve a monotonic decline in the <code>g(0) ~ Bft</code> relationship, but the default is <code>NULL</code>, i.e., no pooling. If <code>pool_bft</code> is the character string <code>"01"</code>, Beaufort states 1 will be pooled into state 0. If <code>pool_bft</code> is the character string <code>"012"</code>, Beaufort states 1 and 2 will be pooled into state 0. We recommend beginning with <code>NULL</code> then modifying this if needed, based on the output.</p>
 <p>The <code>jacknife_fraction</code> input indicates that standard error and CV will be estimated using an iterative jackknife procedure in which 10% of the data is removed in each iteration. Find more details on this process using the function documentation, <code>?g0_bft_model()</code>.</p>
 <p>This function returns various details:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="g0.html#cb92-1"></a>g0_result</span>
-<span id="cb92-2"><a href="g0.html#cb92-2"></a>  spp bft       Rg0      ESW  n     Rg0_SE     Rg0_CV     ESW_SE</span>
-<span id="cb92-3"><a href="g0.html#cb92-3"></a><span class="dv">1</span> <span class="dv">013</span>   <span class="dv">0</span> <span class="fl">1.0000000</span> <span class="fl">3.980604</span> <span class="dv">10</span> <span class="fl">0.00000000</span> <span class="fl">0.00000000</span> <span class="fl">0.13445008</span></span>
-<span id="cb92-4"><a href="g0.html#cb92-4"></a><span class="dv">2</span> <span class="dv">013</span>   <span class="dv">1</span> <span class="fl">0.7010900</span> <span class="fl">3.720670</span> <span class="dv">10</span> <span class="fl">0.01529890</span> <span class="fl">0.02182160</span> <span class="fl">0.10292339</span></span>
-<span id="cb92-5"><a href="g0.html#cb92-5"></a><span class="dv">3</span> <span class="dv">013</span>   <span class="dv">2</span> <span class="fl">0.4915271</span> <span class="fl">3.436860</span> <span class="dv">10</span> <span class="fl">0.02150545</span> <span class="fl">0.04375231</span> <span class="fl">0.06444672</span></span>
-<span id="cb92-6"><a href="g0.html#cb92-6"></a><span class="dv">4</span> <span class="dv">013</span>   <span class="dv">3</span> <span class="fl">0.3446048</span> <span class="fl">3.137943</span> <span class="dv">10</span> <span class="fl">0.02267348</span> <span class="fl">0.06579562</span> <span class="fl">0.02858447</span></span>
-<span id="cb92-7"><a href="g0.html#cb92-7"></a><span class="dv">5</span> <span class="dv">013</span>   <span class="dv">4</span> <span class="fl">0.2415989</span> <span class="fl">2.838135</span> <span class="dv">10</span> <span class="fl">0.02124985</span> <span class="fl">0.08795508</span> <span class="fl">0.04431206</span></span>
-<span id="cb92-8"><a href="g0.html#cb92-8"></a><span class="dv">6</span> <span class="dv">013</span>   <span class="dv">5</span> <span class="fl">0.1693826</span> <span class="fl">2.549622</span> <span class="dv">10</span> <span class="fl">0.01867176</span> <span class="fl">0.11023424</span> <span class="fl">0.08329333</span></span>
-<span id="cb92-9"><a href="g0.html#cb92-9"></a><span class="dv">7</span> <span class="dv">013</span>   <span class="dv">6</span> <span class="fl">0.1187524</span> <span class="fl">2.282998</span> <span class="dv">10</span> <span class="fl">0.01575093</span> <span class="fl">0.13263672</span> <span class="fl">0.11719846</span></span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="g0.html#cb94-1"></a>g0_result</span>
+<span id="cb94-2"><a href="g0.html#cb94-2"></a>  spp bft       Rg0      ESW  n     Rg0_SE     Rg0_CV     ESW_SE</span>
+<span id="cb94-3"><a href="g0.html#cb94-3"></a><span class="dv">1</span> <span class="dv">013</span>   <span class="dv">0</span> <span class="fl">1.0000000</span> <span class="fl">3.980604</span> <span class="dv">10</span> <span class="fl">0.00000000</span> <span class="fl">0.00000000</span> <span class="fl">0.13445008</span></span>
+<span id="cb94-4"><a href="g0.html#cb94-4"></a><span class="dv">2</span> <span class="dv">013</span>   <span class="dv">1</span> <span class="fl">0.7010900</span> <span class="fl">3.720670</span> <span class="dv">10</span> <span class="fl">0.01529890</span> <span class="fl">0.02182160</span> <span class="fl">0.10292339</span></span>
+<span id="cb94-5"><a href="g0.html#cb94-5"></a><span class="dv">3</span> <span class="dv">013</span>   <span class="dv">2</span> <span class="fl">0.4915271</span> <span class="fl">3.436860</span> <span class="dv">10</span> <span class="fl">0.02150545</span> <span class="fl">0.04375231</span> <span class="fl">0.06444672</span></span>
+<span id="cb94-6"><a href="g0.html#cb94-6"></a><span class="dv">4</span> <span class="dv">013</span>   <span class="dv">3</span> <span class="fl">0.3446048</span> <span class="fl">3.137943</span> <span class="dv">10</span> <span class="fl">0.02267348</span> <span class="fl">0.06579562</span> <span class="fl">0.02858447</span></span>
+<span id="cb94-7"><a href="g0.html#cb94-7"></a><span class="dv">5</span> <span class="dv">013</span>   <span class="dv">4</span> <span class="fl">0.2415989</span> <span class="fl">2.838135</span> <span class="dv">10</span> <span class="fl">0.02124985</span> <span class="fl">0.08795508</span> <span class="fl">0.04431206</span></span>
+<span id="cb94-8"><a href="g0.html#cb94-8"></a><span class="dv">6</span> <span class="dv">013</span>   <span class="dv">5</span> <span class="fl">0.1693826</span> <span class="fl">2.549622</span> <span class="dv">10</span> <span class="fl">0.01867176</span> <span class="fl">0.11023424</span> <span class="fl">0.08329333</span></span>
+<span id="cb94-9"><a href="g0.html#cb94-9"></a><span class="dv">7</span> <span class="dv">013</span>   <span class="dv">6</span> <span class="fl">0.1187524</span> <span class="fl">2.282998</span> <span class="dv">10</span> <span class="fl">0.01575093</span> <span class="fl">0.13263672</span> <span class="fl">0.11719846</span></span></code></pre></div>
 <p>The most important of these is <code>Rg0</code>, the estimate of the relative trackline detection probability in each Beaufort sea state (relative to Bft = 0), and <code>Rg0_CV</code>, the CV of those estimates.</p>
 <p>To produce these estimates efficiently for many species, you can wrap the code above in a <code>for</code> loop that references a <code>data.frame</code> specifying the species codes, truncation distances, and pooling parameters for each species. The example below uses a <a href="https://docs.google.com/spreadsheets/d/1mzyGb2qMUkpXb2ChglVMx9ZXRaGpjq0C2-Xzlj6uYvg/edit?usp=sharing">GoogleSheet</a> to prepare that <code>data.frame</code>.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="g0.html#cb93-1"></a><span class="co"># Load species settings </span></span>
-<span id="cb93-2"><a href="g0.html#cb93-2"></a>url &lt;-<span class="st"> &#39;https://docs.google.com/spreadsheets/d/1mzyGb2qMUkpXb2ChglVMx9ZXRaGpjq0C2-Xzlj6uYvg/edit?usp=sharing&#39;</span></span>
-<span id="cb93-3"><a href="g0.html#cb93-3"></a>(df &lt;-<span class="st"> </span><span class="kw">gsheet2tbl</span>(url) <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame)</span>
-<span id="cb93-4"><a href="g0.html#cb93-4"></a></span>
-<span id="cb93-5"><a href="g0.html#cb93-5"></a><span class="co"># Loop through each species</span></span>
-<span id="cb93-6"><a href="g0.html#cb93-6"></a>result &lt;-<span class="st"> </span><span class="kw">data.frame</span>()</span>
-<span id="cb93-7"><a href="g0.html#cb93-7"></a>i=<span class="dv">24</span></span>
-<span id="cb93-8"><a href="g0.html#cb93-8"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df)){</span>
-<span id="cb93-9"><a href="g0.html#cb93-9"></a></span>
-<span id="cb93-10"><a href="g0.html#cb93-10"></a>  (spp_title &lt;-<span class="st"> </span>df<span class="op">$</span>title[i])</span>
-<span id="cb93-11"><a href="g0.html#cb93-11"></a>  (sppi &lt;-<span class="st"> </span>df<span class="op">$</span>species[i])</span>
-<span id="cb93-12"><a href="g0.html#cb93-12"></a>  (sppi &lt;-<span class="st"> </span><span class="kw">str_split</span>(sppi,<span class="st">&#39;,&#39;</span>)[[<span class="dv">1</span>]])</span>
-<span id="cb93-13"><a href="g0.html#cb93-13"></a>  (sppi &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&#39; &#39;</span>,<span class="st">&#39;&#39;</span>,sppi))</span>
-<span id="cb93-14"><a href="g0.html#cb93-14"></a>  (sppi &lt;-<span class="st"> </span><span class="kw">str_pad</span>(sppi, <span class="dt">width=</span><span class="dv">3</span>, <span class="dt">side=</span><span class="st">&#39;left&#39;</span>, <span class="dt">pad=</span><span class="st">&#39;0&#39;</span>))</span>
-<span id="cb93-15"><a href="g0.html#cb93-15"></a></span>
-<span id="cb93-16"><a href="g0.html#cb93-16"></a>  (tdi &lt;-<span class="st"> </span>df<span class="op">$</span>truncation[i] <span class="op">%&gt;%</span><span class="st"> </span>as.numeric)</span>
-<span id="cb93-17"><a href="g0.html#cb93-17"></a></span>
-<span id="cb93-18"><a href="g0.html#cb93-18"></a>  (pooli &lt;-<span class="st"> </span>df<span class="op">$</span>pooling[i])</span>
-<span id="cb93-19"><a href="g0.html#cb93-19"></a>  <span class="cf">if</span>(pooli <span class="op">==</span><span class="st"> &#39;1&#39;</span>){pooli &lt;-<span class="st"> &#39;01&#39;</span>}</span>
-<span id="cb93-20"><a href="g0.html#cb93-20"></a>  <span class="cf">if</span>(pooli <span class="op">==</span><span class="st"> &#39;12&#39;</span>){pooli &lt;-<span class="st"> &#39;012&#39;</span>}</span>
-<span id="cb93-21"><a href="g0.html#cb93-21"></a>  <span class="cf">if</span>(pooli <span class="op">==</span><span class="st"> &#39;none&#39;</span>){pooli &lt;-<span class="st"> </span><span class="ot">NULL</span>}</span>
-<span id="cb93-22"><a href="g0.html#cb93-22"></a>  pooli</span>
-<span id="cb93-23"><a href="g0.html#cb93-23"></a></span>
-<span id="cb93-24"><a href="g0.html#cb93-24"></a>  <span class="co"># Carry out Rg0 estimation</span></span>
-<span id="cb93-25"><a href="g0.html#cb93-25"></a>  rg0_sp  &lt;-<span class="st"> </span><span class="kw">g0_bft_model</span>(<span class="dt">spp =</span> sppi,</span>
-<span id="cb93-26"><a href="g0.html#cb93-26"></a>                          <span class="dt">truncation_distance =</span> tdi,</span>
-<span id="cb93-27"><a href="g0.html#cb93-27"></a>                          <span class="dt">cruz =</span> cruz,</span>
-<span id="cb93-28"><a href="g0.html#cb93-28"></a>                          <span class="dt">pool_bft =</span> pooli,</span>
-<span id="cb93-29"><a href="g0.html#cb93-29"></a>                          <span class="co">#jacknife_fraction = NULL)</span></span>
-<span id="cb93-30"><a href="g0.html#cb93-30"></a>                          <span class="dt">jacknife_fraction =</span> <span class="fl">.1</span>)</span>
-<span id="cb93-31"><a href="g0.html#cb93-31"></a></span>
-<span id="cb93-32"><a href="g0.html#cb93-32"></a>  <span class="co"># Summarize sample sizes</span></span>
-<span id="cb93-33"><a href="g0.html#cb93-33"></a>  (summi &lt;-<span class="st"> </span>rg0_sp<span class="op">$</span>summary)</span>
-<span id="cb93-34"><a href="g0.html#cb93-34"></a></span>
-<span id="cb93-35"><a href="g0.html#cb93-35"></a>  <span class="co"># Review</span></span>
-<span id="cb93-36"><a href="g0.html#cb93-36"></a>  resulti &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">title =</span> spp_title, <span class="dt">spp =</span> <span class="kw">paste</span>(sppi, <span class="dt">collapse=</span><span class="st">&#39;-&#39;</span>), summi)</span>
-<span id="cb93-37"><a href="g0.html#cb93-37"></a>  resulti</span>
-<span id="cb93-38"><a href="g0.html#cb93-38"></a></span>
-<span id="cb93-39"><a href="g0.html#cb93-39"></a>  <span class="co"># Update results</span></span>
-<span id="cb93-40"><a href="g0.html#cb93-40"></a>  result &lt;-<span class="st"> </span><span class="kw">rbind</span>(result, resulti)</span>
-<span id="cb93-41"><a href="g0.html#cb93-41"></a>  <span class="kw">saveRDS</span>(result, <span class="dt">file=</span><span class="st">&#39;g0_results.RData&#39;</span>)</span>
-<span id="cb93-42"><a href="g0.html#cb93-42"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="g0.html#cb95-1"></a><span class="co"># Load species settings </span></span>
+<span id="cb95-2"><a href="g0.html#cb95-2"></a>url &lt;-<span class="st"> &#39;https://docs.google.com/spreadsheets/d/1mzyGb2qMUkpXb2ChglVMx9ZXRaGpjq0C2-Xzlj6uYvg/edit?usp=sharing&#39;</span></span>
+<span id="cb95-3"><a href="g0.html#cb95-3"></a>(df &lt;-<span class="st"> </span><span class="kw">gsheet2tbl</span>(url) <span class="op">%&gt;%</span><span class="st"> </span>as.data.frame)</span>
+<span id="cb95-4"><a href="g0.html#cb95-4"></a></span>
+<span id="cb95-5"><a href="g0.html#cb95-5"></a><span class="co"># Loop through each species</span></span>
+<span id="cb95-6"><a href="g0.html#cb95-6"></a>result &lt;-<span class="st"> </span><span class="kw">data.frame</span>()</span>
+<span id="cb95-7"><a href="g0.html#cb95-7"></a>i=<span class="dv">24</span></span>
+<span id="cb95-8"><a href="g0.html#cb95-8"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(df)){</span>
+<span id="cb95-9"><a href="g0.html#cb95-9"></a></span>
+<span id="cb95-10"><a href="g0.html#cb95-10"></a>  (spp_title &lt;-<span class="st"> </span>df<span class="op">$</span>title[i])</span>
+<span id="cb95-11"><a href="g0.html#cb95-11"></a>  (sppi &lt;-<span class="st"> </span>df<span class="op">$</span>species[i])</span>
+<span id="cb95-12"><a href="g0.html#cb95-12"></a>  (sppi &lt;-<span class="st"> </span><span class="kw">str_split</span>(sppi,<span class="st">&#39;,&#39;</span>)[[<span class="dv">1</span>]])</span>
+<span id="cb95-13"><a href="g0.html#cb95-13"></a>  (sppi &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&#39; &#39;</span>,<span class="st">&#39;&#39;</span>,sppi))</span>
+<span id="cb95-14"><a href="g0.html#cb95-14"></a>  (sppi &lt;-<span class="st"> </span><span class="kw">str_pad</span>(sppi, <span class="dt">width=</span><span class="dv">3</span>, <span class="dt">side=</span><span class="st">&#39;left&#39;</span>, <span class="dt">pad=</span><span class="st">&#39;0&#39;</span>))</span>
+<span id="cb95-15"><a href="g0.html#cb95-15"></a></span>
+<span id="cb95-16"><a href="g0.html#cb95-16"></a>  (tdi &lt;-<span class="st"> </span>df<span class="op">$</span>truncation[i] <span class="op">%&gt;%</span><span class="st"> </span>as.numeric)</span>
+<span id="cb95-17"><a href="g0.html#cb95-17"></a></span>
+<span id="cb95-18"><a href="g0.html#cb95-18"></a>  (pooli &lt;-<span class="st"> </span>df<span class="op">$</span>pooling[i])</span>
+<span id="cb95-19"><a href="g0.html#cb95-19"></a>  <span class="cf">if</span>(pooli <span class="op">==</span><span class="st"> &#39;1&#39;</span>){pooli &lt;-<span class="st"> &#39;01&#39;</span>}</span>
+<span id="cb95-20"><a href="g0.html#cb95-20"></a>  <span class="cf">if</span>(pooli <span class="op">==</span><span class="st"> &#39;12&#39;</span>){pooli &lt;-<span class="st"> &#39;012&#39;</span>}</span>
+<span id="cb95-21"><a href="g0.html#cb95-21"></a>  <span class="cf">if</span>(pooli <span class="op">==</span><span class="st"> &#39;none&#39;</span>){pooli &lt;-<span class="st"> </span><span class="ot">NULL</span>}</span>
+<span id="cb95-22"><a href="g0.html#cb95-22"></a>  pooli</span>
+<span id="cb95-23"><a href="g0.html#cb95-23"></a></span>
+<span id="cb95-24"><a href="g0.html#cb95-24"></a>  <span class="co"># Carry out Rg0 estimation</span></span>
+<span id="cb95-25"><a href="g0.html#cb95-25"></a>  rg0_sp  &lt;-<span class="st"> </span><span class="kw">g0_bft_model</span>(<span class="dt">spp =</span> sppi,</span>
+<span id="cb95-26"><a href="g0.html#cb95-26"></a>                          <span class="dt">truncation_distance =</span> tdi,</span>
+<span id="cb95-27"><a href="g0.html#cb95-27"></a>                          <span class="dt">cruz =</span> cruz,</span>
+<span id="cb95-28"><a href="g0.html#cb95-28"></a>                          <span class="dt">pool_bft =</span> pooli,</span>
+<span id="cb95-29"><a href="g0.html#cb95-29"></a>                          <span class="co">#jacknife_fraction = NULL)</span></span>
+<span id="cb95-30"><a href="g0.html#cb95-30"></a>                          <span class="dt">jacknife_fraction =</span> <span class="fl">.1</span>)</span>
+<span id="cb95-31"><a href="g0.html#cb95-31"></a></span>
+<span id="cb95-32"><a href="g0.html#cb95-32"></a>  <span class="co"># Summarize sample sizes</span></span>
+<span id="cb95-33"><a href="g0.html#cb95-33"></a>  (summi &lt;-<span class="st"> </span>rg0_sp<span class="op">$</span>summary)</span>
+<span id="cb95-34"><a href="g0.html#cb95-34"></a></span>
+<span id="cb95-35"><a href="g0.html#cb95-35"></a>  <span class="co"># Review</span></span>
+<span id="cb95-36"><a href="g0.html#cb95-36"></a>  resulti &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">title =</span> spp_title, <span class="dt">spp =</span> <span class="kw">paste</span>(sppi, <span class="dt">collapse=</span><span class="st">&#39;-&#39;</span>), summi)</span>
+<span id="cb95-37"><a href="g0.html#cb95-37"></a>  resulti</span>
+<span id="cb95-38"><a href="g0.html#cb95-38"></a></span>
+<span id="cb95-39"><a href="g0.html#cb95-39"></a>  <span class="co"># Update results</span></span>
+<span id="cb95-40"><a href="g0.html#cb95-40"></a>  result &lt;-<span class="st"> </span><span class="kw">rbind</span>(result, resulti)</span>
+<span id="cb95-41"><a href="g0.html#cb95-41"></a>  <span class="kw">saveRDS</span>(result, <span class="dt">file=</span><span class="st">&#39;g0_results.RData&#39;</span>)</span>
+<span id="cb95-42"><a href="g0.html#cb95-42"></a>}</span></code></pre></div>
 <p>This code (which takes about 8 hours to run on my machine) produces results that we can plot easily.
 First we load the result of this analysis, which is provided as a built-in dataset in <code>LTabundR</code>:</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="g0.html#cb94-1"></a><span class="kw">data</span>(<span class="st">&#39;g0_result&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="g0.html#cb96-1"></a><span class="kw">data</span>(<span class="st">&#39;g0_result&#39;</span>)</span></code></pre></div>
 <p>Then we group similar species together, to make plots more intelligible:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="g0.html#cb95-1"></a>titles &lt;-<span class="st"> </span>g0_result<span class="op">$</span>title <span class="op">%&gt;%</span><span class="st"> </span>unique</span>
-<span id="cb95-2"><a href="g0.html#cb95-2"></a>g0_result<span class="op">$</span>Group &lt;-<span class="st"> </span><span class="dv">3</span></span>
-<span id="cb95-3"><a href="g0.html#cb95-3"></a>g0_result<span class="op">$</span>Group[g0_result<span class="op">$</span>title <span class="op">%in%</span><span class="st"> </span>titles[<span class="kw">c</span>(<span class="dv">14</span><span class="op">:</span><span class="dv">19</span>)]] &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb95-4"><a href="g0.html#cb95-4"></a>g0_result<span class="op">$</span>Group[g0_result<span class="op">$</span>title <span class="op">%in%</span><span class="st"> </span>titles[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>)]] &lt;-<span class="st"> </span><span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="g0.html#cb97-1"></a>titles &lt;-<span class="st"> </span>g0_result<span class="op">$</span>title <span class="op">%&gt;%</span><span class="st"> </span>unique</span>
+<span id="cb97-2"><a href="g0.html#cb97-2"></a>g0_result<span class="op">$</span>Group &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb97-3"><a href="g0.html#cb97-3"></a>g0_result<span class="op">$</span>Group[g0_result<span class="op">$</span>title <span class="op">%in%</span><span class="st"> </span>titles[<span class="kw">c</span>(<span class="dv">14</span><span class="op">:</span><span class="dv">19</span>)]] &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb97-4"><a href="g0.html#cb97-4"></a>g0_result<span class="op">$</span>Group[g0_result<span class="op">$</span>title <span class="op">%in%</span><span class="st"> </span>titles[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>)]] &lt;-<span class="st"> </span><span class="dv">1</span></span></code></pre></div>
 <p>Relative g(0) for dolphins …</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="g0.html#cb96-1"></a><span class="kw">ggplot</span>(g0_result <span class="op">%&gt;%</span></span>
-<span id="cb96-2"><a href="g0.html#cb96-2"></a><span class="st">         </span><span class="kw">filter</span>(Group <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
-<span id="cb96-3"><a href="g0.html#cb96-3"></a><span class="st">         </span><span class="kw">mutate</span>(<span class="dt">Species =</span> title), <span class="kw">aes</span>(<span class="dt">x=</span>bft, <span class="dt">y=</span>Rg0, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
-<span id="cb96-4"><a href="g0.html#cb96-4"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size=</span>.<span class="dv">5</span>) <span class="op">+</span></span>
-<span id="cb96-5"><a href="g0.html#cb96-5"></a><span class="st">  </span><span class="kw">theme_light</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="dv">0</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span></span>
-<span id="cb96-6"><a href="g0.html#cb96-6"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&#39;Beaufort Sea State&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&#39;Relative g(0)&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="g0.html#cb98-1"></a><span class="kw">ggplot</span>(g0_result <span class="op">%&gt;%</span></span>
+<span id="cb98-2"><a href="g0.html#cb98-2"></a><span class="st">         </span><span class="kw">filter</span>(Group <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
+<span id="cb98-3"><a href="g0.html#cb98-3"></a><span class="st">         </span><span class="kw">mutate</span>(<span class="dt">Species =</span> title), <span class="kw">aes</span>(<span class="dt">x=</span>bft, <span class="dt">y=</span>Rg0, <span class="dt">color=</span>Species)) <span class="op">+</span></span>
+<span id="cb98-4"><a href="g0.html#cb98-4"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size=</span>.<span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb98-5"><a href="g0.html#cb98-5"></a><span class="st">  </span><span class="kw">theme_light</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="dv">0</span><span class="op">:</span><span class="dv">6</span>) <span class="op">+</span></span>
+<span id="cb98-6"><a href="g0.html#cb98-6"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&#39;Beaufort Sea State&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&#39;Relative g(0)&#39;</span>)</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-125-1.png" width="672" /></p>
 <p>… for cryptic species …</p>
 <p><img src="figures/unnamed-chunk-126-1.png" width="672" /></p>
@@ -349,30 +349,30 @@ First we load the result of this analysis, which is provided as a built-in datas
 <h2>Weighted average <code>g(0)</code><a href="g0.html#weighted-average-g0" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Since <code>g(0)</code> depends upon survey conditions, and since each survey occurs in different conditions, a unique <code>g(0)</code> value must be estimated for each species in each survey (or combination of surveys).</p>
 <p>Let’s say we want to estimate the <code>g(0)</code> for striped dolphins during the WHICEAS 2020 surveys:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="g0.html#cb97-1"></a><span class="kw">data</span>(whiceas2020_proc)</span>
-<span id="cb97-2"><a href="g0.html#cb97-2"></a>cruz &lt;-<span class="st"> </span>whiceas2020_proc</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="g0.html#cb99-1"></a><span class="kw">data</span>(whiceas2020_proc)</span>
+<span id="cb99-2"><a href="g0.html#cb99-2"></a>cruz &lt;-<span class="st"> </span>whiceas2020_proc</span></code></pre></div>
 <p>To view the distribution of effort in this survey across sea states, we can use the function <code>summarize_bft()</code>:</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="g0.html#cb98-1"></a><span class="kw">summarize_bft</span>(cruz)<span class="op">$</span>overall</span>
-<span id="cb98-2"><a href="g0.html#cb98-2"></a><span class="co"># A tibble: 6 × 3</span></span>
-<span id="cb98-3"><a href="g0.html#cb98-3"></a>   bftr     km   prop</span>
-<span id="cb98-4"><a href="g0.html#cb98-4"></a>  <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
-<span id="cb98-5"><a href="g0.html#cb98-5"></a><span class="dv">1</span>     <span class="dv">1</span>   <span class="fl">60.1</span> <span class="fl">0.0112</span></span>
-<span id="cb98-6"><a href="g0.html#cb98-6"></a><span class="dv">2</span>     <span class="dv">2</span>  <span class="fl">212.</span>  <span class="fl">0.0397</span></span>
-<span id="cb98-7"><a href="g0.html#cb98-7"></a><span class="dv">3</span>     <span class="dv">3</span>  <span class="fl">507.</span>  <span class="fl">0.0949</span></span>
-<span id="cb98-8"><a href="g0.html#cb98-8"></a><span class="dv">4</span>     <span class="dv">4</span> <span class="fl">1475.</span>  <span class="fl">0.276</span> </span>
-<span id="cb98-9"><a href="g0.html#cb98-9"></a><span class="dv">5</span>     <span class="dv">5</span> <span class="fl">2079.</span>  <span class="fl">0.389</span> </span>
-<span id="cb98-10"><a href="g0.html#cb98-10"></a><span class="dv">6</span>     <span class="dv">6</span> <span class="fl">1012.</span>  <span class="fl">0.189</span> </span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="g0.html#cb100-1"></a><span class="kw">summarize_bft</span>(cruz)<span class="op">$</span>overall</span>
+<span id="cb100-2"><a href="g0.html#cb100-2"></a><span class="co"># A tibble: 6 × 3</span></span>
+<span id="cb100-3"><a href="g0.html#cb100-3"></a>   bftr     km   prop</span>
+<span id="cb100-4"><a href="g0.html#cb100-4"></a>  <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb100-5"><a href="g0.html#cb100-5"></a><span class="dv">1</span>     <span class="dv">1</span>   <span class="fl">60.1</span> <span class="fl">0.0112</span></span>
+<span id="cb100-6"><a href="g0.html#cb100-6"></a><span class="dv">2</span>     <span class="dv">2</span>  <span class="fl">212.</span>  <span class="fl">0.0397</span></span>
+<span id="cb100-7"><a href="g0.html#cb100-7"></a><span class="dv">3</span>     <span class="dv">3</span>  <span class="fl">507.</span>  <span class="fl">0.0949</span></span>
+<span id="cb100-8"><a href="g0.html#cb100-8"></a><span class="dv">4</span>     <span class="dv">4</span> <span class="fl">1475.</span>  <span class="fl">0.276</span> </span>
+<span id="cb100-9"><a href="g0.html#cb100-9"></a><span class="dv">5</span>     <span class="dv">5</span> <span class="fl">2079.</span>  <span class="fl">0.389</span> </span>
+<span id="cb100-10"><a href="g0.html#cb100-10"></a><span class="dv">6</span>     <span class="dv">6</span> <span class="fl">1012.</span>  <span class="fl">0.189</span> </span></code></pre></div>
 <p>Then we grab the <code>Rg(0)</code> results for a species of interest, such as the striped dolphin:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="g0.html#cb99-1"></a>striped_dolphin &lt;-<span class="st"> </span>g0_result <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(spp <span class="op">==</span><span class="st"> &#39;013&#39;</span>)</span>
-<span id="cb99-2"><a href="g0.html#cb99-2"></a></span>
-<span id="cb99-3"><a href="g0.html#cb99-3"></a>(Rg0 &lt;-<span class="st"> </span>striped_dolphin<span class="op">$</span>Rg0)</span>
-<span id="cb99-4"><a href="g0.html#cb99-4"></a>        <span class="dv">1</span>         <span class="dv">2</span>         <span class="dv">3</span>         <span class="dv">4</span>         <span class="dv">5</span>         <span class="dv">6</span>         <span class="dv">7</span> </span>
-<span id="cb99-5"><a href="g0.html#cb99-5"></a><span class="fl">1.0000000</span> <span class="fl">0.7010900</span> <span class="fl">0.4915271</span> <span class="fl">0.3446048</span> <span class="fl">0.2415989</span> <span class="fl">0.1693826</span> <span class="fl">0.1187524</span> </span>
-<span id="cb99-6"><a href="g0.html#cb99-6"></a></span>
-<span id="cb99-7"><a href="g0.html#cb99-7"></a>(Rg0_cv &lt;-<span class="st"> </span>striped_dolphin<span class="op">$</span>Rg0_CV)</span>
-<span id="cb99-8"><a href="g0.html#cb99-8"></a>[<span class="dv">1</span>] <span class="fl">0.00000000</span> <span class="fl">0.02182160</span> <span class="fl">0.04375231</span> <span class="fl">0.06579562</span> <span class="fl">0.08795508</span> <span class="fl">0.11023424</span> <span class="fl">0.13263672</span></span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="g0.html#cb101-1"></a>striped_dolphin &lt;-<span class="st"> </span>g0_result <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(spp <span class="op">==</span><span class="st"> &#39;013&#39;</span>)</span>
+<span id="cb101-2"><a href="g0.html#cb101-2"></a></span>
+<span id="cb101-3"><a href="g0.html#cb101-3"></a>(Rg0 &lt;-<span class="st"> </span>striped_dolphin<span class="op">$</span>Rg0)</span>
+<span id="cb101-4"><a href="g0.html#cb101-4"></a>        <span class="dv">1</span>         <span class="dv">2</span>         <span class="dv">3</span>         <span class="dv">4</span>         <span class="dv">5</span>         <span class="dv">6</span>         <span class="dv">7</span> </span>
+<span id="cb101-5"><a href="g0.html#cb101-5"></a><span class="fl">1.0000000</span> <span class="fl">0.7010900</span> <span class="fl">0.4915271</span> <span class="fl">0.3446048</span> <span class="fl">0.2415989</span> <span class="fl">0.1693826</span> <span class="fl">0.1187524</span> </span>
+<span id="cb101-6"><a href="g0.html#cb101-6"></a></span>
+<span id="cb101-7"><a href="g0.html#cb101-7"></a>(Rg0_cv &lt;-<span class="st"> </span>striped_dolphin<span class="op">$</span>Rg0_CV)</span>
+<span id="cb101-8"><a href="g0.html#cb101-8"></a>[<span class="dv">1</span>] <span class="fl">0.00000000</span> <span class="fl">0.02182160</span> <span class="fl">0.04375231</span> <span class="fl">0.06579562</span> <span class="fl">0.08795508</span> <span class="fl">0.11023424</span> <span class="fl">0.13263672</span></span></code></pre></div>
 <p>We then use the function <code>g0_weighted_var()</code> to compute the weighted <code>Rg(0)</code> for our survey as well as its CV. Computing the former is done automatically within the function, but estimating the latter (the CV) requires some manual steps. For that reason, this function will launch a <code>Shiny</code> app that guides the user the process (not run here):</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="g0.html#cb100-1"></a><span class="kw">g0_weighted_var</span>(Rg0, Rg0_cv, cruz)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="g0.html#cb102-1"></a><span class="kw">g0_weighted_var</span>(Rg0, Rg0_cv, cruz)</span></code></pre></div>
 <p>See <code>?g0_weighted_var()</code> for further details.</p>
 <p>Since this function requires a manual step, this has to be run separately for each species of interest in your survey.</p>
 

@@ -2380,9 +2380,28 @@ To summarize \texttt{lta()} results using the standard table format provided in 
 
 To plot the best-fit detection model for a species pool, use the \texttt{plot\_df()} function.
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot_df}\NormalTok{(lta_result)}
+\end{Highlighting}
+\end{Shaded}
+
 \includegraphics{figures/unnamed-chunk-113-1.pdf}
 
 This function provides various stylization options, including the option to show multiple best-fitting models atop a single histogram of detections:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot_df}\NormalTok{(lta_result,}
+        \DataTypeTok{model_colors=}\NormalTok{RColorBrewer}\OperatorTok{::}\KeywordTok{brewer.pal}\NormalTok{(}\DataTypeTok{n =} \DecValTok{4}\NormalTok{, }\DataTypeTok{name =} \StringTok{"Dark2"}\NormalTok{),}
+        \DataTypeTok{model_pch =} \DecValTok{16}\NormalTok{,}
+        \DataTypeTok{pt_show=}\DecValTok{2}\NormalTok{,}
+        \DataTypeTok{pt_alpha=}\NormalTok{.}\DecValTok{3}\NormalTok{,}
+        \DataTypeTok{bootstrap_show =} \OtherTok{FALSE}\NormalTok{,}
+        \DataTypeTok{legend_show=}\OtherTok{TRUE}\NormalTok{, }
+        \DataTypeTok{legend_x=}\FloatTok{2.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \includegraphics{figures/unnamed-chunk-114-1.pdf}
 
