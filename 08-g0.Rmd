@@ -25,34 +25,22 @@ The first of these steps is typically the biggest lift analytically, and very fe
 
 ## Relative `g(0)` {-} 
 
-Barlow (2015) estimates `Rg(0)` -- relative trackline detection probability -- for various Pacific cetaceans based on all available NOAA-NMFS cruise data, 1986-2010, from the Central North Pacific, Eastern Tropical Pacific, and California Current. For his analysis, he used 10-km segments of survey data. We will mirror his analysis using the same regions, same segment length, and all surveys from 1986 through 2020. This is provided as built-in processed datasets within `LTabundR`:
+Barlow (2015) estimates `Rg(0)` -- relative trackline detection probability -- for various Pacific cetaceans based on all available NOAA-NMFS cruise data, 1986-2010, from the Central North Pacific, Eastern Tropical Pacific, and California Current. For his analysis, he used 10-km segments of survey data. We will mirror his analysis using the same regions, same segment length, and all surveys from 1986 through 2020. This is provided as built-in processed datasets within `LTabundR` ...
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
 data("cnp_1986_2020_10km")
 data("ccs_1986_2020_10km")
 ```
 
+... which we can combine using the function `cruz_combine()`:
+
 First, we will combine these datasets together; to do so, we need to make sure that segment IDs are not accidentally replicated in the two datasets: 
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
-cnp <- cnp_1986_2020_10km
-cnp$cohorts$all$segments$seg_id <- paste0('cnp_', cnp$cohorts$all$segments$seg_id)
-cnp$cohorts$all$sightings$seg_id <- paste0('cnp_', cnp$cohorts$all$sightings$seg_id)
-cnp$cohorts$all$das$seg_id <- paste0('cnp_', cnp$cohorts$all$das$seg_id)
+cruzes <- list(cnp_1986_2020_10km,
+               ccs_1986_2020_10km)
 
-ccs <- ccs_1986_2020_10km
-ccs$cohorts$all$segments$seg_id <- paste0('ccs_', ccs$cohorts$all$segments$seg_id)
-ccs$cohorts$all$sightings$seg_id <- paste0('ccs_', ccs$cohorts$all$sightings$seg_id)
-ccs$cohorts$all$das$seg_id <- paste0('ccs_', ccs$cohorts$all$das$seg_id)
-
-# Combine
-cruz <- cnp
-cruz$cohorts$all$segments <- rbind(cruz$cohorts$all$segments,
-                                   ccs$cohorts$all$segments)
-cruz$cohorts$all$sightings <- rbind(cruz$cohorts$all$sightings,
-                                    ccs$cohorts$all$sightings)
-cruz$cohorts$all$das <- rbind(cruz$cohorts$all$das,
-                              ccs$cohorts$all$das)
+cruz <- cruz_combine()
 ```
 
 

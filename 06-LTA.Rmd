@@ -348,6 +348,26 @@ tables$table4 %>%
        ))
 ```
 
+### Detection function plots {-}
+
+To plot the best-fit detection model for a species pool, use the `plot_df()` function. 
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, fig.height=4.5, fig.width=7}
+plot_df(lta_result)
+```
+
+This function provides various stylization options, including the option to show multiple best-fitting models atop a single histogram of detections: 
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, fig.height=4.5, fig.width=7}
+plot_df(lta_result,
+        model_colors=RColorBrewer::brewer.pal(n = 4, name = "Dark2"),
+        model_pch = 16,
+        pt_show=2,
+        pt_alpha=.3,
+        bootstrap_show = FALSE,
+        legend_show=TRUE, 
+        legend_x=3)
+```
 
 ## Behind the scenes {-}  
 
