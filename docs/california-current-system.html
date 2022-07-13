@@ -150,11 +150,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">WinCruz analysis</a></li>
 
 <li class="divider"></li>
-<li><a href="index.html#overview">Overview<span></span></a><ul>
-<li><a href="index.html#install">Install<span></span></a></li>
-</ul></li>
+<li><a href="index.html#overview">Overview<span></span></a></li>
 <li class="part"><span><b>I Data processing<span></span></b></span></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Install <code>LTabundR</code><span></span></a><ul>
+<li class="chapter" data-level="1" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>1</b> Install <code>LTabundR</code><span></span></a><ul>
 <li><a href="install.html#option-1-install-from-github">Option 1: Install from GitHub<span></span></a></li>
 <li><a href="install.html#option-2-install-locally">Option 2: Install locally<span></span></a></li>
 </ul></li>
@@ -264,58 +262,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="california-current-system" class="section level1 hasAnchor">
 <h1><span class="header-section-number"> 15</span> California Current System<a href="california-current-system.html#california-current-system" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Under construction!</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="california-current-system.html#cb154-1"></a><span class="kw">library</span>(swfscDAS)</span>
-<span id="cb154-2"><a href="california-current-system.html#cb154-2"></a><span class="kw">library</span>(LTabundR)</span>
-<span id="cb154-3"><a href="california-current-system.html#cb154-3"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb154-4"><a href="california-current-system.html#cb154-4"></a></span>
-<span id="cb154-5"><a href="california-current-system.html#cb154-5"></a><span class="co"># Settings =====================================================================</span></span>
-<span id="cb154-6"><a href="california-current-system.html#cb154-6"></a></span>
-<span id="cb154-7"><a href="california-current-system.html#cb154-7"></a><span class="co"># Load strata &amp; study area</span></span>
-<span id="cb154-8"><a href="california-current-system.html#cb154-8"></a><span class="kw">data</span>(strata_ccs)</span>
-<span id="cb154-9"><a href="california-current-system.html#cb154-9"></a></span>
-<span id="cb154-10"><a href="california-current-system.html#cb154-10"></a><span class="co"># Survey-wide</span></span>
-<span id="cb154-11"><a href="california-current-system.html#cb154-11"></a>survey &lt;-<span class="st"> </span></span>
-<span id="cb154-12"><a href="california-current-system.html#cb154-12"></a><span class="st">  </span><span class="kw">load_survey_settings</span>(<span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
-<span id="cb154-13"><a href="california-current-system.html#cb154-13"></a>                       <span class="dt">segment_target_km =</span> <span class="dv">100</span>,</span>
-<span id="cb154-14"><a href="california-current-system.html#cb154-14"></a>                       <span class="dt">segment_max_km_gap =</span> <span class="dv">5</span>,</span>
-<span id="cb154-15"><a href="california-current-system.html#cb154-15"></a>                       <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
-<span id="cb154-16"><a href="california-current-system.html#cb154-16"></a>                       <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
-<span id="cb154-17"><a href="california-current-system.html#cb154-17"></a>                       <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb154-18"><a href="california-current-system.html#cb154-18"></a></span>
-<span id="cb154-19"><a href="california-current-system.html#cb154-19"></a><span class="co"># Cohort 1 (default)</span></span>
-<span id="cb154-20"><a href="california-current-system.html#cb154-20"></a>cohort1 &lt;-<span class="st"> </span><span class="kw">load_cohort_settings</span>()</span>
-<span id="cb154-21"><a href="california-current-system.html#cb154-21"></a></span>
-<span id="cb154-22"><a href="california-current-system.html#cb154-22"></a><span class="co"># Cohort 2</span></span>
-<span id="cb154-23"><a href="california-current-system.html#cb154-23"></a>cohort2 &lt;-<span class="st"> </span></span>
-<span id="cb154-24"><a href="california-current-system.html#cb154-24"></a><span class="st">  </span><span class="kw">load_cohort_settings</span>(<span class="dt">id=</span><span class="st">&#39;beakers&#39;</span>,</span>
-<span id="cb154-25"><a href="california-current-system.html#cb154-25"></a>                       <span class="dt">species=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">49</span>,<span class="dv">52</span><span class="op">:</span><span class="dv">59</span>, <span class="dv">61</span><span class="op">:</span><span class="dv">65</span>, <span class="dv">81</span><span class="op">:</span><span class="dv">83</span>, <span class="dv">106</span>, <span class="dv">109</span>),</span>
-<span id="cb154-26"><a href="california-current-system.html#cb154-26"></a>                       <span class="dt">use_low_if_na =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb154-27"><a href="california-current-system.html#cb154-27"></a>                       <span class="dt">distance_types =</span> <span class="kw">c</span>(<span class="st">&#39;S&#39;</span>,<span class="st">&#39;F&#39;</span>,<span class="st">&#39;N&#39;</span>))</span>
-<span id="cb154-28"><a href="california-current-system.html#cb154-28"></a></span>
-<span id="cb154-29"><a href="california-current-system.html#cb154-29"></a><span class="co"># Finalize settings</span></span>
-<span id="cb154-30"><a href="california-current-system.html#cb154-30"></a>settings &lt;-<span class="st"> </span><span class="kw">load_settings</span>(<span class="dt">strata =</span> strata_ccs,</span>
-<span id="cb154-31"><a href="california-current-system.html#cb154-31"></a>                          <span class="dt">study_area =</span> <span class="ot">NULL</span>,</span>
-<span id="cb154-32"><a href="california-current-system.html#cb154-32"></a>                          <span class="dt">survey =</span> survey,</span>
-<span id="cb154-33"><a href="california-current-system.html#cb154-33"></a>                          <span class="dt">cohorts=</span><span class="kw">list</span>(cohort1,</span>
-<span id="cb154-34"><a href="california-current-system.html#cb154-34"></a>                                       cohort2))</span>
-<span id="cb154-35"><a href="california-current-system.html#cb154-35"></a></span>
-<span id="cb154-36"><a href="california-current-system.html#cb154-36"></a></span>
-<span id="cb154-37"><a href="california-current-system.html#cb154-37"></a><span class="co"># Processing ===================================================================</span></span>
-<span id="cb154-38"><a href="california-current-system.html#cb154-38"></a></span>
-<span id="cb154-39"><a href="california-current-system.html#cb154-39"></a>das_file &lt;-<span class="st"> &#39;data/surveys/CAORWA_91-09.das&#39;</span></span>
-<span id="cb154-40"><a href="california-current-system.html#cb154-40"></a>cruz &lt;-<span class="st"> </span><span class="kw">process_surveys</span>(das_file, settings, <span class="dt">verbose=</span><span class="ot">TRUE</span>)</span>
-<span id="cb154-41"><a href="california-current-system.html#cb154-41"></a></span>
-<span id="cb154-42"><a href="california-current-system.html#cb154-42"></a><span class="co"># Data evaluation ==============================================================</span></span>
-<span id="cb154-43"><a href="california-current-system.html#cb154-43"></a></span>
-<span id="cb154-44"><a href="california-current-system.html#cb154-44"></a><span class="co"># Map</span></span>
-<span id="cb154-45"><a href="california-current-system.html#cb154-45"></a>m &lt;-<span class="st"> </span><span class="kw">map_base</span>(<span class="st">&#39;ccs&#39;</span>) </span>
-<span id="cb154-46"><a href="california-current-system.html#cb154-46"></a>m &lt;-<span class="st"> </span><span class="kw">map_strata</span>(m, cruz<span class="op">$</span>settings)</span>
-<span id="cb154-47"><a href="california-current-system.html#cb154-47"></a>m &lt;-<span class="st"> </span><span class="kw">map_effort</span>(m, cruz)</span>
-<span id="cb154-48"><a href="california-current-system.html#cb154-48"></a>m &lt;-<span class="st"> </span><span class="kw">map_sightings</span>(m, cruz, <span class="dt">size_base=</span>.<span class="dv">4</span>)</span>
-<span id="cb154-49"><a href="california-current-system.html#cb154-49"></a>m </span>
-<span id="cb154-50"><a href="california-current-system.html#cb154-50"></a></span>
-<span id="cb154-51"><a href="california-current-system.html#cb154-51"></a><span class="co"># Review interactively</span></span>
-<span id="cb154-52"><a href="california-current-system.html#cb154-52"></a><span class="kw">cruz_explorer</span>(cruz)</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="california-current-system.html#cb166-1"></a><span class="kw">library</span>(swfscDAS)</span>
+<span id="cb166-2"><a href="california-current-system.html#cb166-2"></a><span class="kw">library</span>(LTabundR)</span>
+<span id="cb166-3"><a href="california-current-system.html#cb166-3"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb166-4"><a href="california-current-system.html#cb166-4"></a></span>
+<span id="cb166-5"><a href="california-current-system.html#cb166-5"></a><span class="co"># Settings =====================================================================</span></span>
+<span id="cb166-6"><a href="california-current-system.html#cb166-6"></a></span>
+<span id="cb166-7"><a href="california-current-system.html#cb166-7"></a><span class="co"># Load strata &amp; study area</span></span>
+<span id="cb166-8"><a href="california-current-system.html#cb166-8"></a><span class="kw">data</span>(strata_ccs)</span>
+<span id="cb166-9"><a href="california-current-system.html#cb166-9"></a></span>
+<span id="cb166-10"><a href="california-current-system.html#cb166-10"></a><span class="co"># Survey-wide</span></span>
+<span id="cb166-11"><a href="california-current-system.html#cb166-11"></a>survey &lt;-<span class="st"> </span></span>
+<span id="cb166-12"><a href="california-current-system.html#cb166-12"></a><span class="st">  </span><span class="kw">load_survey_settings</span>(<span class="dt">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb166-13"><a href="california-current-system.html#cb166-13"></a>                       <span class="dt">segment_target_km =</span> <span class="dv">100</span>,</span>
+<span id="cb166-14"><a href="california-current-system.html#cb166-14"></a>                       <span class="dt">segment_max_km_gap =</span> <span class="dv">5</span>,</span>
+<span id="cb166-15"><a href="california-current-system.html#cb166-15"></a>                       <span class="dt">segment_max_interval =</span> <span class="dv">48</span>,</span>
+<span id="cb166-16"><a href="california-current-system.html#cb166-16"></a>                       <span class="dt">segment_remainder_handling =</span> <span class="kw">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
+<span id="cb166-17"><a href="california-current-system.html#cb166-17"></a>                       <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb166-18"><a href="california-current-system.html#cb166-18"></a></span>
+<span id="cb166-19"><a href="california-current-system.html#cb166-19"></a><span class="co"># Cohort 1 (default)</span></span>
+<span id="cb166-20"><a href="california-current-system.html#cb166-20"></a>cohort1 &lt;-<span class="st"> </span><span class="kw">load_cohort_settings</span>()</span>
+<span id="cb166-21"><a href="california-current-system.html#cb166-21"></a></span>
+<span id="cb166-22"><a href="california-current-system.html#cb166-22"></a><span class="co"># Cohort 2</span></span>
+<span id="cb166-23"><a href="california-current-system.html#cb166-23"></a>cohort2 &lt;-<span class="st"> </span></span>
+<span id="cb166-24"><a href="california-current-system.html#cb166-24"></a><span class="st">  </span><span class="kw">load_cohort_settings</span>(<span class="dt">id=</span><span class="st">&#39;beakers&#39;</span>,</span>
+<span id="cb166-25"><a href="california-current-system.html#cb166-25"></a>                       <span class="dt">species=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">49</span>,<span class="dv">52</span><span class="op">:</span><span class="dv">59</span>, <span class="dv">61</span><span class="op">:</span><span class="dv">65</span>, <span class="dv">81</span><span class="op">:</span><span class="dv">83</span>, <span class="dv">106</span>, <span class="dv">109</span>),</span>
+<span id="cb166-26"><a href="california-current-system.html#cb166-26"></a>                       <span class="dt">use_low_if_na =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb166-27"><a href="california-current-system.html#cb166-27"></a>                       <span class="dt">distance_types =</span> <span class="kw">c</span>(<span class="st">&#39;S&#39;</span>,<span class="st">&#39;F&#39;</span>,<span class="st">&#39;N&#39;</span>))</span>
+<span id="cb166-28"><a href="california-current-system.html#cb166-28"></a></span>
+<span id="cb166-29"><a href="california-current-system.html#cb166-29"></a><span class="co"># Finalize settings</span></span>
+<span id="cb166-30"><a href="california-current-system.html#cb166-30"></a>settings &lt;-<span class="st"> </span><span class="kw">load_settings</span>(<span class="dt">strata =</span> strata_ccs,</span>
+<span id="cb166-31"><a href="california-current-system.html#cb166-31"></a>                          <span class="dt">study_area =</span> <span class="ot">NULL</span>,</span>
+<span id="cb166-32"><a href="california-current-system.html#cb166-32"></a>                          <span class="dt">survey =</span> survey,</span>
+<span id="cb166-33"><a href="california-current-system.html#cb166-33"></a>                          <span class="dt">cohorts=</span><span class="kw">list</span>(cohort1,</span>
+<span id="cb166-34"><a href="california-current-system.html#cb166-34"></a>                                       cohort2))</span>
+<span id="cb166-35"><a href="california-current-system.html#cb166-35"></a></span>
+<span id="cb166-36"><a href="california-current-system.html#cb166-36"></a></span>
+<span id="cb166-37"><a href="california-current-system.html#cb166-37"></a><span class="co"># Processing ===================================================================</span></span>
+<span id="cb166-38"><a href="california-current-system.html#cb166-38"></a></span>
+<span id="cb166-39"><a href="california-current-system.html#cb166-39"></a>das_file &lt;-<span class="st"> &#39;data/surveys/CAORWA_91-09.das&#39;</span></span>
+<span id="cb166-40"><a href="california-current-system.html#cb166-40"></a>cruz &lt;-<span class="st"> </span><span class="kw">process_surveys</span>(das_file, settings, <span class="dt">verbose=</span><span class="ot">TRUE</span>)</span>
+<span id="cb166-41"><a href="california-current-system.html#cb166-41"></a></span>
+<span id="cb166-42"><a href="california-current-system.html#cb166-42"></a><span class="co"># Data evaluation ==============================================================</span></span>
+<span id="cb166-43"><a href="california-current-system.html#cb166-43"></a></span>
+<span id="cb166-44"><a href="california-current-system.html#cb166-44"></a><span class="co"># Map</span></span>
+<span id="cb166-45"><a href="california-current-system.html#cb166-45"></a>m &lt;-<span class="st"> </span><span class="kw">map_base</span>(<span class="st">&#39;ccs&#39;</span>) </span>
+<span id="cb166-46"><a href="california-current-system.html#cb166-46"></a>m &lt;-<span class="st"> </span><span class="kw">map_strata</span>(m, cruz<span class="op">$</span>settings)</span>
+<span id="cb166-47"><a href="california-current-system.html#cb166-47"></a>m &lt;-<span class="st"> </span><span class="kw">map_effort</span>(m, cruz)</span>
+<span id="cb166-48"><a href="california-current-system.html#cb166-48"></a>m &lt;-<span class="st"> </span><span class="kw">map_sightings</span>(m, cruz, <span class="dt">size_base=</span>.<span class="dv">4</span>)</span>
+<span id="cb166-49"><a href="california-current-system.html#cb166-49"></a>m </span>
+<span id="cb166-50"><a href="california-current-system.html#cb166-50"></a></span>
+<span id="cb166-51"><a href="california-current-system.html#cb166-51"></a><span class="co"># Review interactively</span></span>
+<span id="cb166-52"><a href="california-current-system.html#cb166-52"></a><span class="kw">cruz_explorer</span>(cruz)</span></code></pre></div>
 
 </div>
             </section>

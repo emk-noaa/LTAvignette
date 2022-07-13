@@ -345,7 +345,7 @@ By the end of this process, you have a single data object, `cruz`, with all the 
 
 The `LTabundR` function `cruz_structure()` provides a synopsis of the data structure:  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=TRUE, include=TRUE}
 cruz_structure(cruz)
 ```
 

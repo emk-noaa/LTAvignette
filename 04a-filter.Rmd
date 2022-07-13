@@ -11,10 +11,11 @@ load('whiceas_settings.RData')
 load('whiceas_cruz.RData')
 ```
 
-You may soon encounter the need to filter a processed `cruz` object to only certain years, regions, or cruise numbers. You may also need to combine one processed `cruz` object with another. 
+You may soon encounter the need to filter a processed `cruz` object to only certain years, regions, or cruise numbers. You may also need to combine one processed `cruz` object with another.  
+
 Here we will continue with the `cruz` object we created on the previous page. As a reminder, here is the data structure of that object: 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE, include=TRUE}
 cruz_structure(cruz)
 ```
 
@@ -75,7 +76,7 @@ cruz_demo <- cruz_combine(cruzes)
 
 Re-constituted data structure: 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE, include=TRUE}
 cruz_structure(cruz_demo)
 ```
 

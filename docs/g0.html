@@ -150,11 +150,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">WinCruz analysis</a></li>
 
 <li class="divider"></li>
-<li><a href="index.html#overview">Overview<span></span></a><ul>
-<li><a href="index.html#install">Install<span></span></a></li>
-</ul></li>
+<li><a href="index.html#overview">Overview<span></span></a></li>
 <li class="part"><span><b>I Data processing<span></span></b></span></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Install <code>LTabundR</code><span></span></a><ul>
+<li class="chapter" data-level="1" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>1</b> Install <code>LTabundR</code><span></span></a><ul>
 <li><a href="install.html#option-1-install-from-github">Option 1: Install from GitHub<span></span></a></li>
 <li><a href="install.html#option-2-install-locally">Option 2: Install locally<span></span></a></li>
 </ul></li>
@@ -264,7 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="g0" class="section level1 hasAnchor">
 <h1><span class="header-section-number"> 7</span> Estimating g(0)<a href="g0.html#g0" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p><strong>Detection function models assume <em>g(0)</em> is 1.0.</strong><br />
-In distance sampling, a “detection function” is fit to the your sighting distances to reflect the fact that animals farther out are more difficult to detect. That detection function is a model of how the probability of detection declines with increasing distance from your survey trackline. The equations for detection function models are all constructed to assume that the probability of detecting an animal on your trackline (distance = 0 km) is 1.0 – you never miss an animal on your trackline. This trackline detection probability is referred to as <em>g(0)</em>. So, in other words, a chief assumption of detection function models is that <em>g(0)</em> is 1.0.</p>
+In distance sampling, a “detection function” is fit to the your sighting distances to reflect the fact that animals farther out are more difficult to detect. That detection function is a model of how the probability of detection declines with increasing distance from your survey trackline. The equations for detection function models are all constructed to assume that the probability of detecting an animal on your trackline (distance = 0 km) is 1.0 – you never miss an animal on your trackline. This trackline detection probability is referred to as <em>g(0)</em>.</p>
 <p><strong>In reality, though, it almost never is – and it greatly impacts results.</strong><br />
 When searching for marine mammals at sea, even some of those occurring directly on your survey trackline will be missed. Real <em>g(0)</em> is actually less than 1.0. This technicality makes a big difference: if <em>g(0)</em> is actually 0.5, the assumption that <em>g(0)</em> is 1.0 will underestimate animal abundance by 50%. Some animals, such as pygmy and dwarf sperm whales (Genus <em>Kogia</em>), are very cryptic and easily missed, and thus likely have a true <em>g(0)</em> below 0.1. This means that estimates assuming their <em>g(0)</em> is still 1.0 will underestimate true abundance by 90%! Moreover, <em>all</em> species – whether you are a pygmy sperm whale or a blue whale – become easier to miss when sighting conditions deteriorate (e.g., Beaufort sea states 4 - 6).</p>
 <p><strong>Therefore, <em>g(0)</em> must be estimated then used to scale the detection function.</strong><br />

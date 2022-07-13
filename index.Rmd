@@ -70,7 +70,7 @@ This user's guide is structured around these four workflow stages. Those pages a
 
 Throughout this user's guide, we will primarily be using example data from recent 2017 & 2020 wintertime surveys in the region of the main Hawaiian Islands. That study area has been referred to "WHICEAS".   
 
-## Install {-} 
+### Installation {-} 
 
 Once the package is public, install details will go here. 
 

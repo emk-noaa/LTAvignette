@@ -150,11 +150,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">WinCruz analysis</a></li>
 
 <li class="divider"></li>
-<li><a href="index.html#overview">Overview<span></span></a><ul>
-<li><a href="index.html#install">Install<span></span></a></li>
-</ul></li>
+<li><a href="index.html#overview">Overview<span></span></a></li>
 <li class="part"><span><b>I Data processing<span></span></b></span></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Install <code>LTabundR</code><span></span></a><ul>
+<li class="chapter" data-level="1" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>1</b> Install <code>LTabundR</code><span></span></a><ul>
 <li><a href="install.html#option-1-install-from-github">Option 1: Install from GitHub<span></span></a></li>
 <li><a href="install.html#option-2-install-locally">Option 2: Install locally<span></span></a></li>
 </ul></li>
@@ -263,9 +261,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="filter" class="section level1 hasAnchor">
 <h1><span class="header-section-number"> 5</span> Filter &amp; combine surveys<a href="filter.html#filter" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>You may soon encounter the need to filter a processed <code>cruz</code> object to only certain years, regions, or cruise numbers. You may also need to combine one processed <code>cruz</code> object with another.
-Here we will continue with the <code>cruz</code> object we created on the previous page. As a reminder, here is the data structure of that object:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="filter.html#cb68-1"></a><span class="kw">cruz_structure</span>(cruz)</span></code></pre></div>
+<p>You may soon encounter the need to filter a processed <code>cruz</code> object to only certain years, regions, or cruise numbers. You may also need to combine one processed <code>cruz</code> object with another.</p>
+<p>Here we will continue with the <code>cruz</code> object we created on the previous page. As a reminder, here is the data structure of that object:</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="filter.html#cb68-1"></a><span class="kw">cruz_structure</span>(cruz)</span>
+<span id="cb68-2"><a href="filter.html#cb68-2"></a><span class="st">&quot;cruz&quot;</span> list structure <span class="op">==</span><span class="er">======================</span></span>
+<span id="cb68-3"><a href="filter.html#cb68-3"></a></span>
+<span id="cb68-4"><a href="filter.html#cb68-4"></a><span class="er">$</span>settings</span>
+<span id="cb68-5"><a href="filter.html#cb68-5"></a>         <span class="op">$</span>strata <span class="op">---</span><span class="st"> </span>with <span class="dv">11</span> polygon coordinate sets</span>
+<span id="cb68-6"><a href="filter.html#cb68-6"></a>         <span class="op">$</span>survey <span class="op">---</span><span class="st"> </span>with <span class="dv">10</span> input arguments</span>
+<span id="cb68-7"><a href="filter.html#cb68-7"></a>         <span class="op">$</span>cohorts <span class="op">---</span><span class="st"> </span>with <span class="dv">3</span> cohorts specified, each with <span class="dv">19</span> input arguments</span>
+<span id="cb68-8"><a href="filter.html#cb68-8"></a></span>
+<span id="cb68-9"><a href="filter.html#cb68-9"></a><span class="op">$</span>strata</span>
+<span id="cb68-10"><a href="filter.html#cb68-10"></a>       ... containing a summary dataframe of <span class="dv">11</span> geostrata and their spatial areas</span>
+<span id="cb68-11"><a href="filter.html#cb68-11"></a>       ... geostratum names<span class="op">:</span></span>
+<span id="cb68-12"><a href="filter.html#cb68-12"></a><span class="st">           </span>HI_EEZ, OtherCNP, MHI, WHICEAS, Spotted_OU, Spotted_FI, Spotted_BI, Bottlenose_KaNi, Bottlenose_OUFI, Bottlenose_BI, NWHI</span>
+<span id="cb68-13"><a href="filter.html#cb68-13"></a></span>
+<span id="cb68-14"><a href="filter.html#cb68-14"></a><span class="op">$</span>cohorts</span>
+<span id="cb68-15"><a href="filter.html#cb68-15"></a></span>
+<span id="cb68-16"><a href="filter.html#cb68-16"></a>        <span class="op">$</span>all</span>
+<span id="cb68-17"><a href="filter.html#cb68-17"></a>            geostrata<span class="op">:</span><span class="st"> </span>WHICEAS, HI_EEZ, OtherCNP</span>
+<span id="cb68-18"><a href="filter.html#cb68-18"></a>            <span class="op">$</span>segments  <span class="op">---</span><span class="st"> </span>with <span class="dv">1888</span> <span class="kw">segments</span> (<span class="dt">median =</span> <span class="fl">149.3</span> km)</span>
+<span id="cb68-19"><a href="filter.html#cb68-19"></a>            <span class="op">$</span>das       <span class="op">---</span><span class="st"> </span>with <span class="dv">329609</span> data rows</span>
+<span id="cb68-20"><a href="filter.html#cb68-20"></a>            <span class="op">$</span>sightings <span class="op">---</span><span class="st"> </span>with <span class="dv">3932</span> detections</span>
+<span id="cb68-21"><a href="filter.html#cb68-21"></a>            <span class="op">$</span>subgroups <span class="op">---</span><span class="st"> </span>with <span class="dv">255</span> subgroups, <span class="dv">49</span> sightings, and <span class="dv">389</span> events</span>
+<span id="cb68-22"><a href="filter.html#cb68-22"></a></span>
+<span id="cb68-23"><a href="filter.html#cb68-23"></a>        <span class="op">$</span>bottlenose</span>
+<span id="cb68-24"><a href="filter.html#cb68-24"></a>            geostrata<span class="op">:</span><span class="st"> </span>WHICEAS, HI_EEZ, OtherCNP, Bottlenose_BI, Bottlenose_OUFI, Bottlenose_KaNi</span>
+<span id="cb68-25"><a href="filter.html#cb68-25"></a>            <span class="op">$</span>segments  <span class="op">---</span><span class="st"> </span>with <span class="dv">2049</span> <span class="kw">segments</span> (<span class="dt">median =</span> <span class="fl">148.8</span> km)</span>
+<span id="cb68-26"><a href="filter.html#cb68-26"></a>            <span class="op">$</span>das       <span class="op">---</span><span class="st"> </span>with <span class="dv">329609</span> data rows</span>
+<span id="cb68-27"><a href="filter.html#cb68-27"></a>            <span class="op">$</span>sightings <span class="op">---</span><span class="st"> </span>with <span class="dv">522</span> detections</span>
+<span id="cb68-28"><a href="filter.html#cb68-28"></a></span>
+<span id="cb68-29"><a href="filter.html#cb68-29"></a>        <span class="op">$</span>spotted</span>
+<span id="cb68-30"><a href="filter.html#cb68-30"></a>            geostrata<span class="op">:</span><span class="st"> </span>WHICEAS, HI_EEZ, OtherCNP, Spotted_OU, Spotted_FI, Spotted_BI</span>
+<span id="cb68-31"><a href="filter.html#cb68-31"></a>            <span class="op">$</span>segments  <span class="op">---</span><span class="st"> </span>with <span class="dv">2053</span> <span class="kw">segments</span> (<span class="dt">median =</span> <span class="fl">148.5</span> km)</span>
+<span id="cb68-32"><a href="filter.html#cb68-32"></a>            <span class="op">$</span>das       <span class="op">---</span><span class="st"> </span>with <span class="dv">329609</span> data rows</span>
+<span id="cb68-33"><a href="filter.html#cb68-33"></a>            <span class="op">$</span>sightings <span class="op">---</span><span class="st"> </span>with <span class="dv">527</span> detections</span></code></pre></div>
 <div id="filter-1" class="section level2 unnumbered hasAnchor">
 <h2>Filter<a href="filter.html#filter-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>LTabundR</code> lets you filter a <code>cruz</code> object using the function <code>filter_cruz()</code>.</p>
@@ -299,7 +329,39 @@ Here we will continue with the <code>cruz</code> object we created on the previo
 <span id="cb73-4"><a href="filter.html#cb73-4"></a><span class="co"># Now combine</span></span>
 <span id="cb73-5"><a href="filter.html#cb73-5"></a>cruz_demo &lt;-<span class="st"> </span><span class="kw">cruz_combine</span>(cruzes)</span></code></pre></div>
 <p>Re-constituted data structure:</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="filter.html#cb74-1"></a><span class="kw">cruz_structure</span>(cruz_demo)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="filter.html#cb74-1"></a><span class="kw">cruz_structure</span>(cruz_demo)</span>
+<span id="cb74-2"><a href="filter.html#cb74-2"></a><span class="st">&quot;cruz&quot;</span> list structure <span class="op">==</span><span class="er">======================</span></span>
+<span id="cb74-3"><a href="filter.html#cb74-3"></a></span>
+<span id="cb74-4"><a href="filter.html#cb74-4"></a><span class="er">$</span>settings</span>
+<span id="cb74-5"><a href="filter.html#cb74-5"></a>         <span class="op">$</span>strata <span class="op">---</span><span class="st"> </span>with <span class="dv">11</span> polygon coordinate sets</span>
+<span id="cb74-6"><a href="filter.html#cb74-6"></a>         <span class="op">$</span>survey <span class="op">---</span><span class="st"> </span>with <span class="dv">10</span> input arguments</span>
+<span id="cb74-7"><a href="filter.html#cb74-7"></a>         <span class="op">$</span>cohorts <span class="op">---</span><span class="st"> </span>with <span class="dv">3</span> cohorts specified, each with <span class="dv">19</span> input arguments</span>
+<span id="cb74-8"><a href="filter.html#cb74-8"></a></span>
+<span id="cb74-9"><a href="filter.html#cb74-9"></a><span class="op">$</span>strata</span>
+<span id="cb74-10"><a href="filter.html#cb74-10"></a>       ... containing a summary dataframe of <span class="dv">11</span> geostrata and their spatial areas</span>
+<span id="cb74-11"><a href="filter.html#cb74-11"></a>       ... geostratum names<span class="op">:</span></span>
+<span id="cb74-12"><a href="filter.html#cb74-12"></a><span class="st">           </span>HI_EEZ, OtherCNP, MHI, WHICEAS, Spotted_OU, Spotted_FI, Spotted_BI, Bottlenose_KaNi, Bottlenose_OUFI, Bottlenose_BI, NWHI</span>
+<span id="cb74-13"><a href="filter.html#cb74-13"></a></span>
+<span id="cb74-14"><a href="filter.html#cb74-14"></a><span class="op">$</span>cohorts</span>
+<span id="cb74-15"><a href="filter.html#cb74-15"></a></span>
+<span id="cb74-16"><a href="filter.html#cb74-16"></a>        <span class="op">$</span>all</span>
+<span id="cb74-17"><a href="filter.html#cb74-17"></a>            geostrata<span class="op">:</span><span class="st"> </span>WHICEAS, HI_EEZ, OtherCNP</span>
+<span id="cb74-18"><a href="filter.html#cb74-18"></a>            <span class="op">$</span>segments  <span class="op">---</span><span class="st"> </span>with <span class="dv">1013</span> <span class="kw">segments</span> (<span class="dt">median =</span> <span class="fl">149.1</span> km)</span>
+<span id="cb74-19"><a href="filter.html#cb74-19"></a>            <span class="op">$</span>das       <span class="op">---</span><span class="st"> </span>with <span class="dv">203387</span> data rows</span>
+<span id="cb74-20"><a href="filter.html#cb74-20"></a>            <span class="op">$</span>sightings <span class="op">---</span><span class="st"> </span>with <span class="dv">1793</span> detections</span>
+<span id="cb74-21"><a href="filter.html#cb74-21"></a>            <span class="op">$</span>subgroups <span class="op">---</span><span class="st"> </span>with <span class="dv">146</span> subgroups, <span class="dv">21</span> sightings, and <span class="dv">212</span> events</span>
+<span id="cb74-22"><a href="filter.html#cb74-22"></a></span>
+<span id="cb74-23"><a href="filter.html#cb74-23"></a>        <span class="op">$</span>bottlenose</span>
+<span id="cb74-24"><a href="filter.html#cb74-24"></a>            geostrata<span class="op">:</span><span class="st"> </span>WHICEAS, HI_EEZ, OtherCNP, Bottlenose_BI, Bottlenose_OUFI, Bottlenose_KaNi</span>
+<span id="cb74-25"><a href="filter.html#cb74-25"></a>            <span class="op">$</span>segments  <span class="op">---</span><span class="st"> </span>with <span class="dv">1174</span> <span class="kw">segments</span> (<span class="dt">median =</span> <span class="fl">128.3</span> km)</span>
+<span id="cb74-26"><a href="filter.html#cb74-26"></a>            <span class="op">$</span>das       <span class="op">---</span><span class="st"> </span>with <span class="dv">203387</span> data rows</span>
+<span id="cb74-27"><a href="filter.html#cb74-27"></a>            <span class="op">$</span>sightings <span class="op">---</span><span class="st"> </span>with <span class="dv">277</span> detections</span>
+<span id="cb74-28"><a href="filter.html#cb74-28"></a></span>
+<span id="cb74-29"><a href="filter.html#cb74-29"></a>        <span class="op">$</span>spotted</span>
+<span id="cb74-30"><a href="filter.html#cb74-30"></a>            geostrata<span class="op">:</span><span class="st"> </span>WHICEAS, HI_EEZ, OtherCNP, Spotted_OU, Spotted_FI, Spotted_BI</span>
+<span id="cb74-31"><a href="filter.html#cb74-31"></a>            <span class="op">$</span>segments  <span class="op">---</span><span class="st"> </span>with <span class="dv">1178</span> <span class="kw">segments</span> (<span class="dt">median =</span> <span class="fl">113.3</span> km)</span>
+<span id="cb74-32"><a href="filter.html#cb74-32"></a>            <span class="op">$</span>das       <span class="op">---</span><span class="st"> </span>with <span class="dv">203387</span> data rows</span>
+<span id="cb74-33"><a href="filter.html#cb74-33"></a>            <span class="op">$</span>sightings <span class="op">---</span><span class="st"> </span>with <span class="dv">115</span> detections</span></code></pre></div>
 
 </div>
 </div>
