@@ -1,0 +1,16 @@
+# False killer whales
+
+*Under construction!*  
+
+False killer whales are analyzed quite differently than most other species due to (1) their Endangered status, (2) their complex associations with islands, (3) the existence of two distinct populations whose geographic range partially overlap, and (4) their tendency to travel in loosely associated "subgroups". 
+
+We will use different density/abundance estimation routines for false killer whales, but at this point all we need to do is specify the geostrata that will help us to 
+
+```{r, echo=FALSE, eval=FALSE, collapse=TRUE}
+fkw <- load_cohort_settings(
+  id = "pseudorca",
+  species = '033',
+  strata = c('WHICEAS', 'HI_EEZ', 'OtherCNP','NHWI'),
+  truncation_km = 7.5)
+```
+

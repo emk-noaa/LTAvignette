@@ -1,0 +1,77 @@
+# (PART) Case studies {-}
+
+# Central North Pacific {#casestudies}
+
+Under construction! 
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width = 6.5, fig.height = 4.5}
+library(swfscDAS)
+library(LTabundR)
+library(dplyr)
+
+# Settings =====================================================================
+
+# Load strata dataframes
+data(strata_cnp)
+data(study_cnp)
+
+# Load group size coefficients
+data(group_size_coefficients)
+
+# Load ships
+data(ships)
+
+# Load species codes
+data(species_codes)
+
+# Survey settings
+survey <- 
+  load_survey_settings(out_handling = 'stratum',
+                       max_row_interval = 700,
+                       segment_method = 'equallength',
+                       segment_target_km = 30,
+                       segment_max_interval = 48,
+                       segment_remainder_handling = c('append','segment'),
+                       ship_list = ships,
+                       species_codes = species_codes,
+                       group_size_coefficients = group_size_coefficients,
+                       smear_angles = FALSE,
+                       verbose = TRUE)
+
+# Cohort 1 (default)
+cohort1 <- load_cohort_settings()
+
+# Cohort 2
+cohort2 <- 
+  load_cohort_settings(id='fkw_insular',
+                       species=33,
+                       use_low_if_na = TRUE,
+                       truncation_km = 5,
+                       strata_overlap_handling = 'each')
+
+# Finalize settings
+settings <- load_settings(strata = strata_cnp,
+                          study_area = study_cnp,
+                          survey = survey,
+                          cohorts=list(cohort1,
+                                       cohort2))
+
+
+# Processing ===================================================================
+
+das_file <- 'data/surveys/HICEASwinter2020.das'
+cruz <- process_surveys(das_file, settings, verbose=TRUE)
+
+# Data evaluation ==============================================================
+
+# Map
+m <- map_base('cnp') 
+m <- map_strata(m, cruz$settings)
+m <- map_effort(m, cruz)
+m <- map_sightings(m, cruz, size_base=.4)
+m 
+
+# Review interactively
+cruz_explorer(cruz)
+```
+

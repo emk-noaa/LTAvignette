@@ -17,10 +17,11 @@ This packages comes with several built-in datasets of geographic strata that are
 strata_explore('cnp')
 ```
 
+
 To acquire the filepath to one of these strata, pass the index (or indices) printed in the map titles above to the function `strata_select()`:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, warning=FALSE, message=FALSE, fig.width=6, fig.height=4}
-strata <- strata_select(selections = c(1,3),
+strata <- strata_select(selections = c(2,3),
                               region = 'cnp')
 ```
 
@@ -28,9 +29,9 @@ This function returns a named list that can be passed directly to the `strata` a
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, warning=FALSE, message=FALSE, fig.width=6, fig.height=4}
 strata %>% names
-```
 
-The second slot, `$paths`, contains the filepaths you would need to pass to the `load_settings()` function.  
+strata
+```
 
 
 ## California Current {-}  
@@ -39,12 +40,14 @@ The second slot, `$paths`, contains the filepaths you would need to pass to the 
 strata_explore('ccs')
 ```
 
+
 ## ETP {-}
 
-You can do the same for the Eastern Tropical Pacific (ETP); there are about 70 polygons built-in to `LTabundR` for this region. We won't show them here! 
+You can do the same for the Eastern Tropical Pacific (ETP); there are about 70 polygons built-in to `LTabundR` for this region. We will just show a few of them here, using the `start_at` argument. 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, warning=FALSE, message=FALSE, fig.width=6, fig.height=4}
-strata_explore('etp')
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, warning=FALSE, message=FALSE, fig.width=6, fig.height=4}
+strata_explore('etp',
+               start_at = 64)
 ```
 
 

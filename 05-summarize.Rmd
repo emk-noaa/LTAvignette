@@ -6,8 +6,12 @@ library(magrittr)
 library(LTabundR)
 library(swfscDAS)
 library(tmap)
-data(whiceas2020_proc)
-cruz <- whiceas2020_proc
+```
+
+Here we will summarize the 2017 & 2020 survey data we prepared on the previous page. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+load('whiceas_cruz_1720.RData')
 ```
 
 ## Summarize effort {-}
@@ -15,11 +19,11 @@ cruz <- whiceas2020_proc
 The `summarize_effort()` functions builds tables with total kilometers and days surveyed.  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
-effort <- summarize_effort(cruz,
+effort <- summarize_effort(cruz_1720,
                            cohort=1)
 ```
 
-This function summarizes effort in three default tables:  
+This function summarizes effort in several default tables:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 effort %>%  names()
@@ -64,7 +68,7 @@ effort$total_by_stratum %>%
 ## Summarize by Beaufort {-} 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
-bft <- summarize_bft(cruz, cohort=1)
+bft <- summarize_bft(cruz_1720, cohort=1)
 ```
 
 This function summarizes effort by Beaufort in four default tables:  
@@ -86,7 +90,7 @@ bft$overall %>%
 
 ### Breakdown by year {-}
 
-The slot `$by_year` provides the above for each year separately (note that our example data have only one year):
+The slot `$by_year` provides the above for each year separately:
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
 bft$by_year %>% 
@@ -123,7 +127,7 @@ bft$details %>%
 The `summarize_sightings()` function builds tables summarizing the sightings within each cohort-analysis. (Eventually, we may want to include an option to merge all sightings from all cohort-analyses into a single table.)  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
-sightings <- summarize_sightings(cruz,
+sightings <- summarize_sightings(cruz_1720,
                                  cohort=1)
 ```
 
@@ -187,7 +191,7 @@ sightings$stratum_analysis_totals %>%
 To deep-dive into details for a ceratin species (or group of species), use the function `summarize_species()`.  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
-species <- summarize_species(spp='046', cruz)
+species <- summarize_species(spp='046', cruz_1720)
 ```
 
 This functions a list with a variety of summaries:  
@@ -277,8 +281,8 @@ species$sightings %>%
 ## `cruz_explorer()` {-} 
 
 Note that all of these summary tables can be viewed interactively using the function `cruz_explorer()`, 
-which allows you to efficiently subset the data according to various filters. This was already mentioned in the mapping module, but as a reminder that function can be called like so: 
+which allows you to efficiently subset the data according to various filters.  
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
-cruz_explorer(cruz)
+cruz_explorer(cruz_1720)
 ```

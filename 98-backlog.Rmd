@@ -1,5 +1,9 @@
 # Appendix: Backlog {#backlog}
 
+- Make sure you are using AICc, not AIC
+
+- Accommodate species belonging to multiple cohorts in GoogleSheet framework  
+
 - Remove `random.seed` from settings functions.  
 
 - Investigate discrepancies between output from `format_distance()` and `summarize_effort()`.  

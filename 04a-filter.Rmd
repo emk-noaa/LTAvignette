@@ -1,0 +1,81 @@
+# Filter & combine surveys {#filter}
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
+library(dplyr)
+library(magrittr)
+library(LTabundR)
+library(swfscDAS)
+library(tmap)
+
+load('whiceas_settings.RData')
+load('whiceas_cruz.RData')
+```
+
+You may soon encounter the need to filter a processed `cruz` object to only certain years, regions, or cruise numbers. You may also need to combine one processed `cruz` object with another. 
+Here we will continue with the `cruz` object we created on the previous page. As a reminder, here is the data structure of that object: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+cruz_structure(cruz)
+```
+
+## Filter {-}  
+
+`LTabundR` lets you filter a `cruz` object using the function `filter_cruz()`.  
+
+For example, in our WHICEAS case study, we processed surveys from 1986 - 2020, which we needed to do to model our detection functions, but our interest for mapping is specifically valid effort in 2017 and 2020 only, and only within the `"WHICEAS"` geostratum. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+cruz_1720 <- 
+  filter_cruz(cruz,
+              analysis_only = TRUE,
+              years = c(2017, 2020),
+              regions = 'WHICEAS')
+```
+
+We will use this filtered `cruz` object for mapping & sightings summaries downstream.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+save(cruz_1720,file='whiceas_cruz_1720.RData')
+```
+
+Note that `filter_cruz()` has many other filter options. See `?filter_cruz()` for details.  
+
+## Combine {-}  
+
+Say you have two processed `cruz` objects: one containing survey effort from the WHICEAS geostratum area only, and one containing survey effort from the pelagic Hawaiian EEZ geostratum (`"HI_EEZ"`) that does *not* include WHICEAS effort. 
+
+Let's make those fake datasets right now, using `filter_cruz()`: 
+
+**WHICEAS-only data:** 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+cruz_whiceas <- filter_cruz(cruz, 
+                            regions = 'WHICEAS', 
+                            verbose = FALSE)
+```
+
+**Pelagic Hawaiian EEZ - only data:**
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+cruz_hi_eez <- filter_cruz(cruz, 
+                           regions = 'HI_EEZ', 
+                           not_regions = 'WHICEAS', 
+                           verbose = FALSE)
+```
+
+Say you want to combine these datasets together in order to reconstruct the equivalent of our original `cruz` object. You can do this with the `LTabundR` function, `cruz_combine()`. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+# Make a list of cruz objects
+cruzes <- list(cruz_whiceas, cruz_hi_eez)
+
+# Now combine
+cruz_demo <- cruz_combine(cruzes)
+```
+
+Re-constituted data structure: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+cruz_structure(cruz_demo)
+```
+

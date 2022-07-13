@@ -1,0 +1,106 @@
+# Appendix: Version history {#versions}
+
+This status report outlines the code we are developing to process `WinCruz` data and prepare it for density estimation analysis using `distance` and related packages in `R`.  
+
+### Recent changes {-}
+
+#### Week of July 11 {-} 
+
+- Major changes throughout.  
+
+#### Week of Jan. 30 {-} 
+
+- Added land area removal feature to polygon processing functions (see `process_polygon()`).  
+
+- Fixed `prep_data_for_ds()` function so that the minority species in multi-species schools is correctly renamed as "Other" for detection function fitting (after Bradford et al. 2021; this feature can optionally be turned off in the above function, as well as in `lta()`).  
+
+
+#### Week of Jan. 23 {-} 
+
+- Began bootstrap tests of LTA code developed to date.  
+
+- Polished `cruz_explorer()` functionality with respect to truncation distance selection.  
+
+- Completed g(0) estimation functions (not yet added to this vignette). 
+
+
+#### Week of Jan. 16 {-} 
+
+- Development of density/abundance estimation routines, including bootstrapping (not yet added to this vignette).  
+
+- Began development of g(0) estimation functions, after Barlow et al. (2015).
+
+
+#### Week of Jan. 9 {-} 
+
+- Planning for data analysis and parameter estimation stages of the project.  
+
+- Development of detection function fitting routines (not yet added to this vignette.)  
+
+
+#### Week of Jan. 2 {-}  
+
+- Refinement of cruise summarization functions (see Chapter 6).   
+
+- Addition of interactive map (see `LTabundR::cruz_map()` documentation).  
+
+- Addition of interactive data explorer `Shiny` app (see `LTabundR::cruz_explorer()` documentation, with examples in `LTabundR-dev/test_code/CNP/data_processing.R`).  
+
+
+#### Week of Dec. 26 {-}  
+
+- Completion of comparison and reconciliation between `ABUND` and `LTabundR`, involving various minor debugs.  See details [here](https://docs.google.com/presentation/d/1Vv0Yb2_gk0cEC1OlXlm6ffL9ug99bYvkpLkczg6pb2Q/edit?usp=sharing).   
+
+- Completion of package and function documentation (to date).
+
+
+#### Week of Dec. 21 {-}  
+
+- Refined code for [subgroup-level school size estimation](#subgroups).  This feature is now stable.  
+
+- Next item.    
+
+
+#### Week of Dec. 13 {-}  
+
+- Development of features for handling subgroup-level analysis of false killer whale sightings.  (more soon). 
+
+- A wide variety of minor improvements as part of a major push to compare `LTabundR` results to those from `ABUND7` and `ABUND9`.  This included an effort to articulate the differences between `LTabundR` and `ABUND` routines (detailed in a [new appendix](#abund9_compare)), and to quantify the correspondence (or lack thereof) between the two programs.  This involved the development of a function, `abund9_compare()`, which is not featured in this vignette but can be used to compare `LTabundR` outputs with those from `ABUND9`.  We are also documenting comparisons on [this document](https://docs.google.com/document/d/1_EZqzOnwSZZCitqTJFIbznGy2Njwbj1YOqMQcbcHI7k/edit?usp=sharing).  
+
+- Made `beaufort_range` as a cohort-specific setting, instead of a survey-wide setting.  
+
+
+#### Prior to week of Dec. 8 {-}
+
+- Added a new survey-wide setting, `out_handling`, that determines how data occurring outside of geographic strata will be handled. Currently the two options are `"remove"` (the default), which removes data occurring outside of the strata (speeds things up, reduces memory needs), and `"stratum"`, which assigns all exterior events to an `"out"` stratum.  
+
+- Modified `segmentize()` function so that a list of segments is not returned to the user; that feature was created enormous objects (> 1 GB for the 1986 - 2020 CNP DAS data) and is not useful enough to retain as a standing slot. A list like that can be easily produced using a `dplyr` pipe (`group_by(seg_id) %>% group_split()`) when the need arises (e.g., in `map_effort()` -- this function has also been updated to accommodate this new change).  
+
+- Fixed minutiae regarding group size estimation: sightings with missing data are given a school size estimate of 1, as done in `ABUND`; geometric mean functions have been fixed.
+
+- Added progress indicator to `process_sightings()`.  
+
+- New `format_distance()` function creates tables that match `EFFORT.csv` and `SIGHTINGS.csv`.  (See [here](#df).)  
+
+- New `process_surveys()` function provides a wrapper for all data processing functions in a single command. This will be the main function that researchers use to process their data. All other functions are called *within* this function, and will rarely be called directly by researchers except in special analyses. This is explained at the top of the page on [Data Processing](#processing). This function includes an option for saving the result locally as a `RData` file, which allows the user to run this function once and save the result for later sessions. 
+
+- New helper function, `read_polygon()`, reads a `DAT` file of polygon coordinates and converts it to a dataframe compatible with `LTabundR` functions.  Can handle files with multiple polygons.  
+
+- Skeletonized new summary functions (see the [Summarize page](#summarize)).      
+
+- Ship name is now added to all dataframes.  
+
+- New `process_sightings()` function, with code for calibrating group sizes according to user-provided coefficient tables (mirroring `ABUND9` with slight mods, e.g., school size threshold for observers not in the `Coeff.DAT` file.). (Details: the function `process_sightings()` relies upon a utility function, `group_size()`, which in turn relies upon `group_size_calibrate()`.)
+
+- Added cohort-specific setting, `school_size_calibrate`, that allows researchers to specify whether a cohort should or should not have school sizes calibrated. Example use case: `school_size_calibrate = TRUE` for a cohort of dolphin species, but make it `FALSE` for a cohort of large baleen whales.  
+
+- Basic function for mapping sightings (QA/QC): `map_sightings()`.  
+
+- Added detail/polish to vignette pages on [Settings](#settings), [Processing Data](#processing), and the [Appendix on Segmentizing](#segmentizing). I believe these are ready for close review.    
+
+- Added detailed comments to code for all functions to date.  
+
+
+
+
+

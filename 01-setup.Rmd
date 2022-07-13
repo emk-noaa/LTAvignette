@@ -1,4 +1,4 @@
-# (PART) Tutorial {-}
+# (PART) Data processing {-}
 
 # Install `LTabundR`  {#install}
 

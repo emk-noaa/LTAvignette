@@ -16,11 +16,9 @@ settings <- load_settings()
 ```
 
 
-If you do not want to use all the defaults, you can give `load_settings()` some custom inputs. The function accepts four arguments:   
+If you do not want to use all the defaults, you can provide `load_settings()` with custom inputs. The function accepts three arguments:   
 
 - `strata`: dataframe(s) of coordinates  
-
-- `study_area`: a single dataframe of coordinates    
 
 - `survey`: settings that will apply universally to the analysis   
 
@@ -40,7 +38,7 @@ Stratum polygons can be provided as a named list of `data.frame` objects.  Each 
 
 If `strata` is `NULL`, abundance will not be estimated; only density within the searched area (i.e., the total segment length x effective strip width).  
 
-While users are welcome to upload polygons of their own, the package comes with "stock" polygons for strata that are commonly used in the main NMFS study regions: the Central North Pacific  (CNP, including Hawaii) ...
+While users are welcome to upload polygons of their own, the package comes with built-in polygons for strata that are commonly used in the main NMFS study regions: the Central North Pacific  (CNP, including Hawaii) ...
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 data(strata_cnp) 
@@ -62,22 +60,6 @@ names(strata_etp)
 ```
 
 The package includes functions for visualizing and selecting from these strata. See the [Strata Gallery](#stratagallery) appendix.  
-
-
-## Study area polygon {-}  
-
-The `study_area` argument accepts a single `data.frame`, formatted the same as those for the `strata` argument, or a numeric value indicating the area of your study area in square km.  If `study_area` is `NULL`, abundance will not be estimated; only density. 
- 	
-
-Study area polygons can be provided in the same format as strata: a two-column `csv` (column names `Lon` and `Lat` with decimal-degree coordinates).  
-
-A stock study area polygon is available for the CNP:  
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
-data(study_cnp) 
-study_cnp
-```
-
 
 ## Survey-wide settings {-}
 
@@ -117,8 +99,6 @@ The remaining slots in `survey_settings` pertain to various datasets and setting
 
 - **`smear_angles:`** If `TRUE` (the default is `FALSE`), bearing angles to a group of animals will be "smeared" by adding a uniformly distributed random number between -5 and +5 degrees. This has not been used in any recent analyses because observers have not been rounding angles as much as they used to. It was suggested by Buckland as a method for dealing with rounding which is especially influential when rounding to zero places many sightings at zero perpendicular distance. 
 
-- **`verbose:`** If `TRUE` (the default), status updates will be printed to the `R` console.  
-
 
 ## Cohort-specific settings {-}
 
@@ -139,7 +119,7 @@ Default values for the `default` cohort:
 settings$cohorts$default
 ```
 
-Defaults for the `cohorts` argument list is built up efficiently  using the function `load_cohort_settings()` (see example code at bottom). 
+Defaults for the `cohorts` argument list are built up efficiently  using the function `load_cohort_settings()` (see example code at bottom). 
 
 
 ### Details {-}  
@@ -148,7 +128,10 @@ The `cohort_settings` input accepts a list of any length. Each slot in that list
 
 - **`id:`** An informal identifier for this cohort, to help you keep track of which cohort is which.  For example, settings for a cohort of large whales species could be named `"big whales"`; settings for small delphinids and phocoenids could be named `"small_odontocetes"`; settings for beaked whales could be named `"beakers"`.  
 
-- **`species:`** A character vector of species codes to include in this cohort. If `NULL` (the default), all species will be included.  
+- **`species:`** A character vector of species codes to include in this cohort. If `NULL` (the default), all species will be included. Note that any species to be used in modeling a detection function for this cohort must be included here.  **For example,** in Hawaii the bottlenose dolphin is analyzed as part of a multi-species pool along with the rough-toothed dolphin, Risso's dolphin, and pygmy killer whale. However, the bottlenose dolphin has insular populations that need to be analyzed distinctly from their pelagic counterpart, which requires some special geostratum handling that behooves the preparation of a dedicated cohort for bottlenose dolphin. Even so, in the `cohort_settings` object for the bottlenose dolphin cohort, the species codes for the rough-toothed, Risso's, and pygmy-killer-whale dolphins need to be provided in this `species` argument. Conversely, in the `cohort_settings` object that holds most other species, including the rough-toothed, Risso's, and pygmy-killer-whale dolphins, the bottlenose dolphin's code still needs to be included in this `species` argument.
+
+- **strata:** A character vector of geostratum names. These must match the names
+listed in the `strata` slot of your survey settings (see documentation for `load_survey_settings()`). If `NULL` (the default), *all* geostrata in your survey settings will be used. This argument is an opportunity to subset the geostrata used for a cohort.  **For example,** as discussed above, certain dolphin species in Hawaiian waters have unique geostrata that apply only to their insular/pelagic populations, and should only have a role in breaking effort segments in the bootstrap variance analysis for these specific species. Those dolphins should be given their own cohort, and those insular/pelagic geostrata should be included in this `strata` argument. Conversely, all other species should be placed in a separate cohort and only the generic geostrata should be included in this `strata` argument. See the WHICEAS example below for a demonstration.
 
 - **`probable_species:`** If `TRUE` (default is `FALSE`), the “probable” species identifications will be used in place of the “unidentified” categories. 
 
@@ -168,7 +151,7 @@ The `cohort_settings` input accepts a list of any length. Each slot in that list
 
 - **`geometric_mean_group:`** This logical variable specifies whether to use a weighted geometric mean when calculating  mean group size.  Barlow, Gerrodette, and Perryman (1998) found that this gave slightly better performance than a straight mean group size. Default is `TRUE`, but it will only be done if `group_size_coefficients` is not `NULL`.  
 
-- **`truncation_km:`**  Specifies the maximum perpendicular distance for groups that are to be included for abundance estimation. Also determines the bins used for grouped perpendicular distances.
+- **`truncation_km:`**  Specifies the maximum perpendicular distance for groups that could potentially be included for abundance estimation. Also determines the bins used for grouped perpendicular distances. This is not the stage at which you set the truncation distance for detection function modeling; it is simply a preliminary cutoff for very distant sightings that whose distance is unlikely to be measured accurately from shipboard reticle readings. For that reason, the default is set to be quite far (5.5 km). 
 
 - **`beaufort_range:`** Vector of Beaufort sea states (integers) that are acceptable in estimating the detection function and density. Beaufort data with a decimal place will be rounded to the nearest integer to evaluate for inclusion.  
 
@@ -198,28 +181,19 @@ settings <- load_settings()
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE}
 # Load strata dataframes
 data(strata_cnp)
-data(study_cnp)
 
-settings <- load_settings(strata = strata_cnp,
-                          study_area = study_cnp)
+settings <- load_settings(strata = strata_cnp)
 ```
 
 ### Customize survey, but not cohorts  {-}
 
-When a cohort is not specified, the default values will be used.  
+This code will process survey data such that effort segments are 5 km in length, with any effort falling outside of the provided geostrata relegated to a virtual geostratum named `"out"`. Since a cohort is not specified, the default values will be used.  
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE}
-# Load strata dataframes
+# Load built-in datasets
 data(strata_cnp)
-data(study_cnp)
-
-# Load group size coefficients
 data(group_size_coefficients)
-
-# Load ships
 data(ships)
-
-# Load species codes
 data(species_codes)
 
 # Survey settings
@@ -227,71 +201,132 @@ survey <-
   load_survey_settings(out_handling = 'stratum',
                        max_row_interval = 700,
                        segment_method = 'equallength',
-                       segment_target_km = 30,
-                       segment_max_interval = 48,
+                       segment_target_km = 5,
+                       segment_max_interval = .3,
                        segment_remainder_handling = c('append','segment'),
                        ship_list = ships,
                        species_codes = species_codes,
                        group_size_coefficients = group_size_coefficients,
-                       smear_angles = FALSE,
-                       verbose = TRUE)
+                       smear_angles = FALSE)
 
 # Load settings
 settings <- load_settings(strata = strata_cnp,
-                          study_area = study_cnp,
                           survey)
 ```
 
 
-### Fully custom: strata, study area, survey & cohorts  {-}
+### Fully custom: WHICEAS case study  {-}
 
-These are the settings we will use in the remainder of the tutorial:    
+These are the settings we will use in the remainder of the tutorial. 
+
+#### Survey-wide settings {-} 
+
+To emulate the analysis done in Bradford et al. (2021), we want to process effort with 150-km segments, relegating any remainder to its own segments. We also want to make sure to remove any survey data that falls outside of the geostrata, to ensure that detection functions are regionally specific. We will use the built-in tables for species codes, ship codes, and group size calibration coefficients. 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
-# Load strata
-data(strata_cnp)
-data(study_cnp)
-
-# Load group size coefficients
+data(species_codes)
+data(ships)
 data(group_size_coefficients)
 
-# Load ships
-data(ships)
-
-# Load species codes
-data(species_codes)
-
-# Survey settings
-survey <- 
-  load_survey_settings(out_handling = 'stratum',
-                       max_row_interval = 700,
-                       segment_method = 'equallength',
-                       segment_target_km = 30,
-                       segment_max_interval = 48,
-                       segment_remainder_handling = c('append','segment'),
-                       ship_list = ships,
-                       species_codes = species_codes,
-                       group_size_coefficients = group_size_coefficients,
-                       smear_angles = FALSE,
-                       verbose = TRUE)
-
-# Cohort 1 (default)
-cohort1 <- load_cohort_settings()
-
-# Cohort 2
-cohort2 <- 
-  load_cohort_settings(id='fkw_insular',
-                       species=33,
-                       use_low_if_na = TRUE,
-                       truncation_km = 5,
-                       strata_overlap_handling = 'each')
-
-# Load settings
-settings <- load_settings(strata = strata_cnp,
-                          study_area = study_cnp,
-                          survey = survey,
-                          cohorts=list(cohort1,
-                                       cohort2))
+survey <- load_survey_settings(
+  out_handling = 'remove',
+  max_row_interval = Inf,
+  segment_method = "equallength",
+  segment_target_km = 150,
+  segment_max_interval = 24,
+  segment_remainder_handling = c("segment"),
+  ship_list = ships,
+  species_codes = species_codes,
+  group_size_coefficients = group_size_coefficients,
+  smear_angles = FALSE
+)
 ```
 
+#### Geostrata {-} 
 
+We will use the built-in dataset of Central North Pacific geostrata: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+data(strata_cnp)
+strata_cnp %>% names
+```
+
+#### Species cohorts {-} 
+
+**Cohort 1: All species**  
+This first cohort will serve as a 'catch-all' for species who do not need special handling. It does not hurt to include *all* species in this catch-all cohort -- except perhaps by increasing the file-size of your processed data by a few kilobytes -- *even if* you will be creating a separate, dedicated cohort for one of these species downstream. Having a catch-all cohort like this serves two purposes: (1) it avoids unforeseen complications if you will be modeling detection functions with multi-species pools, as mentioned above; and (2) it will simplify the code you will use to produce summary statistics of effort and sightings totals, since you will not need to pool together statistics from multiple cohorts.  
+
+To build this catch-all cohort, we will not specify any species so that *all* species in the data are included, and we will specify that only the generic geostrata should be used, so that species specific insular stock boundaries are ignored.  
+
+Here we show all possible inputs. Most of these match the built-in defaults. Those that do not (there are just 3) are noted with a commented asterisk. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+all_species <- load_cohort_settings(
+  id = "all", # *
+  species = NULL, 
+  strata = c('WHICEAS', 'HI_EEZ', 'OtherCNP'), # *
+  probable_species = FALSE,
+  sighting_method = 0,
+  cue_range = 0:7,
+  school_size_range = c(0, 10000),
+  school_size_calibrate = TRUE,
+  calibration_floor = 0,
+  use_low_if_na = TRUE,
+  io_sightings = 0,
+  geometric_mean_group = TRUE,
+  truncation_km = 7.5, # *
+  beaufort_range = 0:6,
+  abeam_sightings = TRUE,
+  strata_overlap_handling = c("smallest"),
+  distance_types = c('S','F','N'),
+  distance_modes = c('P','C'),
+  distance_on_off = TRUE
+)
+
+```
+
+**Cohort 2: Bottlenose dolphin**  
+As mentioned above, bottlenose dolphins are going to be analyzed as part of a multi-species pool that includes the rough-toothed dolphin, Risso's dolphin, and pygmy killer whale. Because those species' codes will be needed to model the detection function used in bottlenose dolphin density/abundance estimation, those species codes will be included in this cohort's settings.    
+
+Also mentioned above: Hawaii has a pelagic population of bottlenose dolphins as well as several distinct insular stocks. In this case study, we are interested in estimating only the abundance of the pelagic population, which means we will need to include geostrata of the insular stock boundaries in order to make sure the effort and sightings within those insular areas are ignored. That means we will specify the generic geostrata (`"WHICEAS"`, `"HI_EEZ"`, and `"Other_CNP"`), as well as the geostrata for the insular stocks. 
+
+We can spell out as many any inputs that we wish, but here will only show the inputs that are non-default and/or different from Cohort 1 above.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+bottlenose <- load_cohort_settings(
+  id = "bottlenose",
+  species = c('015', '018', '021', '032'),
+  strata = c('WHICEAS', 'HI_EEZ', 'OtherCNP',
+             'Bottlenose_BI', 'Bottlenose_OUFI', 'Bottlenose_KaNi'),
+  truncation_km = 7.5)
+```
+
+**Cohort 3: Pantropical spotted dolphin**   
+Similar to the bottlenose dolphin above, spotted dolphins in Hawaiian waters belong to pelagic stocks as well as insular stocks.  We will be estimating density/abundance for the only pelagic stocks here, but we need to include the geostrata for the insular stocks in order to ignore their effort and sightings.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+spotted <- load_cohort_settings(
+  id = "spotted",
+  species = '002',
+  strata = c('WHICEAS', 'HI_EEZ', 'OtherCNP',
+             'Spotted_OU','Spotted_FI','Spotted_BI'),
+  truncation_km = 7.5)
+```
+
+#### Compile settings {-} 
+
+Finally, we create our `settings` object: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+settings <- load_settings(strata = strata_cnp,
+                          survey = survey,
+                          cohorts = list(all_species,
+                                         bottlenose,
+                                         spotted))
+```
+
+Save this `settings` object locally, to use in downstream scripts:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+save(settings, file='whiceas_settings.RData')
+```

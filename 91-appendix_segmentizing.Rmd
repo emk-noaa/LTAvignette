@@ -28,8 +28,14 @@ The  demonstration of `segmentize()` on in [Processing chapter](#processing) rel
 First we load the demo data and carry out initial processing:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=3.5}
-data(settings)
+# Load built-in settings example
+data(example_settings)
+settings <- example_settings
+
+# Set path to DAS file
 das_file <- 'data/surveys/HICEASwinter2020.das'
+
+# First steps of formatting
 das <- load_das(das_file, 
                 perform_checks = FALSE,
                 print_glimpse = FALSE)

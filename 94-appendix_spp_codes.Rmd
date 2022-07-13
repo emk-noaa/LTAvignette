@@ -1,0 +1,70 @@
+# NOAA/NMFS species codes {#spp_codes}
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
+library(dplyr)
+library(magrittr)
+library(LTabundR)
+library(knitr)
+```
+
+## Table {-} 
+
+`LTabundR` provides the standard table of NOAA/NMFS species codes as a built-in dataset:
+
+```{r}
+data(species_codes)
+```
+
+```{r, echo = FALSE}
+species_codes %>% 
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+          "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+       ))
+```
+
+This version of the species codes table was provided by Amanda Bradford (Pacific Islands Fisheries Science Center) in 2021.  
+
+For an easier way to find a species of interest, look into the `species_translator()` function on the [Miscellaneous functions](#misc_functions) page.  
+
+
+## `species_translator()` {-} 
+
+To streamline the management of species codes, scientific names, common names, etc., in the functions throughout this package, we have developed a "translator" function that returns the various identifiers for a species according to a variety of search terms. 
+
+You can search by species code:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+# source('R/species_translator.R`)
+species_translator(id = '035') %>% t()
+```
+
+By the short code name:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+species_translator(id = 'LONG_PILOT') %>% t()
+```
+
+By the scientific name:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+species_translator(id = 'Globicephala melas') %>% t()
+```
+
+Or by one of the species' common names:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+species_translator(id = 'Long-finned pilot whale') %>% t()
+```
+
+The function will return any species for which there is a partial match:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+species_translator(id = 'megap') %>% t()
+```
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+species_translator(id = 'killer')
+```
+
+
+Note that if `species_codes` is `NULL`, as in the examples above, the list of codes used in `ABUND9` will be used as a default.  

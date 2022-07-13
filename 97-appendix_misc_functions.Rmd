@@ -6,45 +6,4 @@ library(magrittr)
 library(LTabundR)
 ```
 
-### `species_translator()` {-} 
-
-To streamline the management of species codes, scientific names, common names, etc., in the functions throughout this package, we have developed a "translator" function that returns the various identifiers for a species according to a variety of search terms. 
-
-You can search by species code:  
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-# source('R/species_translator.R`)
-species_translator(id = '035') %>% t()
-```
-
-By the short code name:  
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-species_translator(id = 'LONG_PILOT') %>% t()
-```
-
-By the scientific name:  
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-species_translator(id = 'Globicephala melas') %>% t()
-```
-
-Or by one of the species' common names:  
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-species_translator(id = 'Long-finned pilot whale') %>% t()
-```
-
-The function will return any species for which there is a partial match:  
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-species_translator(id = 'megap') %>% t()
-```
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-species_translator(id = 'killer')
-```
-
-
-Note that if `species_codes` is `NULL`, as in the examples above, the list of codes used in `ABUND9` will be used as a default.  
-
+Placeholder!

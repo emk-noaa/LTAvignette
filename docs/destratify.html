@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 9 Stratified analysis | User’s guide for LTabundR</title>
+  <meta name="description" content="vignette" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 9 Stratified analysis | User’s guide for LTabundR" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="vignette" />
+  <meta name="github-repo" content="emk-noaa/emk-noaa.github.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 9 Stratified analysis | User’s guide for LTabundR" />
+  
+  <meta name="twitter:description" content="vignette" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="lta.html"/>
+<link rel="next" href="trend-analysis.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.23/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">WinCruz analysis</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#overview">Overview<span></span></a><ul>
+<li><a href="index.html#install">Install<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>I Data processing<span></span></b></span></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Install <code>LTabundR</code><span></span></a><ul>
+<li><a href="install.html#option-1-install-from-github">Option 1: Install from GitHub<span></span></a></li>
+<li><a href="install.html#option-2-install-locally">Option 2: Install locally<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="settings.html"><a href="settings.html"><i class="fa fa-check"></i><b>2</b> Settings<span></span></a><ul>
+<li><a href="settings.html#survey-strata">Survey strata<span></span></a></li>
+<li><a href="settings.html#survey-wide-settings">Survey-wide settings<span></span></a></li>
+<li><a href="settings.html#cohort-specific-settings">Cohort-specific settings<span></span></a></li>
+<li><a href="settings.html#example-code">Example code<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>3</b> Data processing<span></span></a><ul>
+<li><a href="processing.html#behind-the-scenes">Behind the scenes<span></span></a></li>
+<li><a href="processing.html#review">Review<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>II Data exploration<span></span></b></span></li>
+<li class="chapter" data-level="4" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>4</b> Maps<span></span></a><ul>
+<li><a href="maps.html#publishable-maps">Publishable maps<span></span></a></li>
+<li><a href="maps.html#interactive-maps">Interactive maps<span></span></a></li>
+<li><a href="maps.html#interactive-dashboard">Interactive dashboard<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>5</b> Filter &amp; combine surveys<span></span></a><ul>
+<li><a href="filter.html#filter-1">Filter<span></span></a></li>
+<li><a href="filter.html#combine">Combine<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey<span></span></a><ul>
+<li><a href="summarize.html#summarize-effort">Summarize effort<span></span></a></li>
+<li><a href="summarize.html#summarize-by-beaufort">Summarize by Beaufort<span></span></a></li>
+<li><a href="summarize.html#summarize-sightings">Summarize sightings<span></span></a></li>
+<li><a href="summarize.html#summarize-certain-species">Summarize certain species<span></span></a></li>
+<li><a href="summarize.html#cruz_explorer"><code>cruz_explorer()</code><span></span></a></li>
+</ul></li>
+<li class="part"><span><b>III Data analysis<span></span></b></span></li>
+<li class="chapter" data-level="7" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>7</b> Estimating g(0)<span></span></a><ul>
+<li><a href="g0.html#relative-g0">Relative <code>g(0)</code><span></span></a></li>
+<li><a href="g0.html#weighted-average-g0">Weighted average <code>g(0)</code><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="lta.html"><a href="lta.html"><i class="fa fa-check"></i><b>8</b> Line-transect analysis<span></span></a><ul>
+<li><a href="lta.html#key-inputs">Key inputs<span></span></a></li>
+<li><a href="lta.html#variance-estimation">Variance estimation<span></span></a></li>
+<li><a href="lta.html#other-inputs">Other inputs<span></span></a></li>
+<li><a href="lta.html#output">Output<span></span></a></li>
+<li><a href="lta.html#unusual-estimate-scenarios">Unusual estimate scenarios<span></span></a></li>
+<li><a href="lta.html#behind-the-scenes-1">Behind the scenes<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="destratify.html"><a href="destratify.html"><i class="fa fa-check"></i><b>9</b> Stratified analysis<span></span></a></li>
+<li class="chapter" data-level="10" data-path="trend-analysis.html"><a href="trend-analysis.html"><i class="fa fa-check"></i><b>10</b> Trend analysis<span></span></a></li>
+<li class="chapter" data-level="11" data-path="subgroup-based-analysis.html"><a href="subgroup-based-analysis.html"><i class="fa fa-check"></i><b>11</b> Subgroup-based analysis<span></span></a></li>
+<li class="part"><span><b>IV Reports<span></span></b></span></li>
+<li class="chapter" data-level="12" data-path="presenting-results.html"><a href="presenting-results.html"><i class="fa fa-check"></i><b>12</b> Presenting results<span></span></a><ul>
+<li><a href="presenting-results.html#tables">Tables<span></span></a></li>
+<li><a href="presenting-results.html#plots">Plots<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="practicalities.html"><a href="practicalities.html"><i class="fa fa-check"></i><b>13</b> Practicalities<span></span></a></li>
+<li class="part"><span><b>V Case studies<span></span></b></span></li>
+<li class="chapter" data-level="14" data-path="casestudies.html"><a href="casestudies.html"><i class="fa fa-check"></i><b>14</b> Central North Pacific<span></span></a></li>
+<li class="chapter" data-level="15" data-path="california-current-system.html"><a href="california-current-system.html"><i class="fa fa-check"></i><b>15</b> California Current System<span></span></a></li>
+<li class="chapter" data-level="16" data-path="false-killer-whales.html"><a href="false-killer-whales.html"><i class="fa fa-check"></i><b>16</b> False killer whales<span></span></a></li>
+<li class="part"><span><b>VI Appendix<span></span></b></span></li>
+<li class="chapter" data-level="17" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>17</b> Strata gallery<span></span></a><ul>
+<li><a href="stratagallery.html#central-north-pacific">Central North Pacific<span></span></a></li>
+<li><a href="stratagallery.html#california-current">California Current<span></span></a></li>
+<li><a href="stratagallery.html#etp">ETP<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>18</b> Segmentizing<span></span></a><ul>
+<li><a href="segmentizing.html#approach">Approach<span></span></a></li>
+<li><a href="segmentizing.html#defaults-2">Defaults<span></span></a></li>
+<li><a href="segmentizing.html#day-vs-equal-length">Day vs Equal Length<span></span></a></li>
+<li><a href="segmentizing.html#contiguous-vs.-non-contiguous-effort">Contiguous vs. non-contiguous effort<span></span></a></li>
+<li><a href="segmentizing.html#segment-remainder-handling">Segment remainder handling<span></span></a></li>
+<li><a href="segmentizing.html#typical-settings">Typical settings<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="abund9_compare.html"><a href="abund9_compare.html"><i class="fa fa-check"></i><b>19</b> <code>LTabundR</code> vs. <code>ABUND9</code><span></span></a><ul>
+<li><a href="abund9_compare.html#differences-in-total-effort">Differences in total effort<span></span></a></li>
+<li><a href="abund9_compare.html#differences-in-on-effort-distance">Differences in on-effort distance<span></span></a></li>
+<li><a href="abund9_compare.html#differences-it-total-sightings">Differences it total sightings<span></span></a></li>
+<li><a href="abund9_compare.html#differences-in-on-effort-sightings">Differences in on-effort sightings<span></span></a></li>
+<li><a href="abund9_compare.html#differences-in-school-size-estimation">Differences in school size estimation<span></span></a></li>
+<li><a href="abund9_compare.html#processing-time">Processing time<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>20</b> NOAA/NMFS species codes<span></span></a><ul>
+<li><a href="spp_codes.html#table">Table<span></span></a></li>
+<li><a href="spp_codes.html#species_translator"><code>species_translator()</code><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="misc_functions.html"><a href="misc_functions.html"><i class="fa fa-check"></i><b>21</b> Miscellaneous functions<span></span></a></li>
+<li class="chapter" data-level="22" data-path="backlog.html"><a href="backlog.html"><i class="fa fa-check"></i><b>22</b> Appendix: Backlog<span></span></a></li>
+<li><a href="references.html#references">References<span></span></a></li>
+<li class="chapter" data-level="23" data-path="versions.html"><a href="versions.html"><i class="fa fa-check"></i><b>23</b> Appendix: Version history<span></span></a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/emk-noaa/emk-noaa.github.io" target="blank">Eric & Amanda</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">User’s guide for <code>LTabundR</code></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="destratify" class="section level1 hasAnchor">
+<h1><span class="header-section-number"> 9</span> Stratified analysis<a href="destratify.html#destratify" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Field surveys are sometimes stratified such that trackline design and/or density can differ substantially across regions. Also, analysts may sometimes wish to estimate density/abundance for individual regions separately, regardless of design stratification.</p>
+<p>On the previous page, we demonstrated how to accommodate a stratified analysis by providing an <code>estimates</code> sub-list for each geostratum.</p>
+<p>For example, in 2002 the Hawaiian EEZ was surveyed with different effort intensity in the Main Hawaiian Islands region compared to pelagic waters.</p>
+<p>Here is the code that generates density/abundance estimates of striped dolphins in 2002 (stratified) and 2010 (unstratified), with only 10 bootstrap iterations:</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="destratify.html#cb139-1"></a><span class="co"># Survey data</span></span>
+<span id="cb139-2"><a href="destratify.html#cb139-2"></a><span class="kw">data</span>(<span class="st">&quot;cnp_150km_1986_2020&quot;</span>)</span>
+<span id="cb139-3"><a href="destratify.html#cb139-3"></a>cruz &lt;-<span class="st"> </span>cnp_150km_<span class="dv">1986</span>_<span class="dv">2020</span></span>
+<span id="cb139-4"><a href="destratify.html#cb139-4"></a></span>
+<span id="cb139-5"><a href="destratify.html#cb139-5"></a><span class="co"># Rg0 table</span></span>
+<span id="cb139-6"><a href="destratify.html#cb139-6"></a><span class="kw">data</span>(<span class="st">&quot;g0_results&quot;</span>)</span>
+<span id="cb139-7"><a href="destratify.html#cb139-7"></a>Rg0 &lt;-<span class="st"> </span>g0_results</span>
+<span id="cb139-8"><a href="destratify.html#cb139-8"></a></span>
+<span id="cb139-9"><a href="destratify.html#cb139-9"></a><span class="co"># Detection function filters</span></span>
+<span id="cb139-10"><a href="destratify.html#cb139-10"></a>fit_filters &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">spp =</span> <span class="kw">c</span>(<span class="st">&#39;013&#39;</span>, <span class="st">&#39;026&#39;</span>, <span class="st">&#39;031&#39;</span>), </span>
+<span id="cb139-11"><a href="destratify.html#cb139-11"></a>                   <span class="dt">pool =</span> <span class="st">&#39;Multi-species pool 1&#39;</span>,</span>
+<span id="cb139-12"><a href="destratify.html#cb139-12"></a>                   <span class="dt">cohort =</span> <span class="st">&#39;all&#39;</span>,</span>
+<span id="cb139-13"><a href="destratify.html#cb139-13"></a>                   <span class="dt">truncation_distance =</span> <span class="dv">5</span>,</span>
+<span id="cb139-14"><a href="destratify.html#cb139-14"></a>                   <span class="dt">other_species =</span> <span class="st">&#39;remove&#39;</span>)</span>
+<span id="cb139-15"><a href="destratify.html#cb139-15"></a></span>
+<span id="cb139-16"><a href="destratify.html#cb139-16"></a><span class="co"># Detection function settings</span></span>
+<span id="cb139-17"><a href="destratify.html#cb139-17"></a>df_settings &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">covariates =</span> <span class="kw">c</span>(<span class="st">&#39;bft&#39;</span>,<span class="st">&#39;lnsstot&#39;</span>,<span class="st">&#39;cruise&#39;</span>,<span class="st">&#39;year&#39;</span>,<span class="st">&#39;ship&#39;</span>,<span class="st">&#39;species&#39;</span>),</span>
+<span id="cb139-18"><a href="destratify.html#cb139-18"></a>                   <span class="dt">covariates_factor =</span> <span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>),</span>
+<span id="cb139-19"><a href="destratify.html#cb139-19"></a>                   <span class="dt">covariates_levels =</span> <span class="dv">2</span>,</span>
+<span id="cb139-20"><a href="destratify.html#cb139-20"></a>                   <span class="dt">covariates_n_per_level =</span> <span class="dv">10</span>,</span>
+<span id="cb139-21"><a href="destratify.html#cb139-21"></a>                   <span class="dt">detection_function_base =</span> <span class="st">&#39;hn&#39;</span>,</span>
+<span id="cb139-22"><a href="destratify.html#cb139-22"></a>                   <span class="dt">base_model =</span> <span class="st">&#39;~1&#39;</span>,</span>
+<span id="cb139-23"><a href="destratify.html#cb139-23"></a>                   <span class="dt">delta_aic =</span> <span class="dv">2</span>)</span>
+<span id="cb139-24"><a href="destratify.html#cb139-24"></a></span>
+<span id="cb139-25"><a href="destratify.html#cb139-25"></a><span class="co"># Estimates</span></span>
+<span id="cb139-26"><a href="destratify.html#cb139-26"></a>estimates &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb139-27"><a href="destratify.html#cb139-27"></a>    <span class="kw">list</span>(<span class="dt">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
+<span id="cb139-28"><a href="destratify.html#cb139-28"></a>         <span class="dt">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
+<span id="cb139-29"><a href="destratify.html#cb139-29"></a>         <span class="dt">years =</span> <span class="dv">2002</span>,</span>
+<span id="cb139-30"><a href="destratify.html#cb139-30"></a>         <span class="dt">regions =</span> <span class="st">&#39;MHI&#39;</span>),</span>
+<span id="cb139-31"><a href="destratify.html#cb139-31"></a>    <span class="kw">list</span>(<span class="dt">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
+<span id="cb139-32"><a href="destratify.html#cb139-32"></a>         <span class="dt">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
+<span id="cb139-33"><a href="destratify.html#cb139-33"></a>         <span class="dt">years =</span> <span class="dv">2002</span>,</span>
+<span id="cb139-34"><a href="destratify.html#cb139-34"></a>         <span class="dt">regions =</span> <span class="st">&#39;HI_EEZ&#39;</span>,</span>
+<span id="cb139-35"><a href="destratify.html#cb139-35"></a>         <span class="dt">regions_remove =</span> <span class="st">&#39;MHI&#39;</span>),</span>
+<span id="cb139-36"><a href="destratify.html#cb139-36"></a>    <span class="kw">list</span>(<span class="dt">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
+<span id="cb139-37"><a href="destratify.html#cb139-37"></a>         <span class="dt">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
+<span id="cb139-38"><a href="destratify.html#cb139-38"></a>         <span class="dt">years =</span> <span class="dv">2010</span>,</span>
+<span id="cb139-39"><a href="destratify.html#cb139-39"></a>         <span class="dt">regions =</span> <span class="st">&#39;HI_EEZ&#39;</span>))</span>
+<span id="cb139-40"><a href="destratify.html#cb139-40"></a></span>
+<span id="cb139-41"><a href="destratify.html#cb139-41"></a><span class="co"># Run it</span></span>
+<span id="cb139-42"><a href="destratify.html#cb139-42"></a>results &lt;-<span class="st"> </span><span class="kw">lta</span>(cruz, Rg0, </span>
+<span id="cb139-43"><a href="destratify.html#cb139-43"></a>               fit_filters, df_settings, estimates, </span>
+<span id="cb139-44"><a href="destratify.html#cb139-44"></a>               <span class="dt">bootstraps =</span> <span class="dv">10</span>)</span>
+<span id="cb139-45"><a href="destratify.html#cb139-45"></a></span>
+<span id="cb139-46"><a href="destratify.html#cb139-46"></a><span class="co"># Save it locally</span></span>
+<span id="cb139-47"><a href="destratify.html#cb139-47"></a><span class="kw">saveRDS</span>(results, <span class="dt">file=</span><span class="st">&#39;lta/multispecies_pool_1.RData&#39;</span>)</span></code></pre></div>
+<p>Let’s read these results back in using the <code>LTabundR</code> function <code>lta_enlist()</code>, which stores LTA results in a flexible list structure.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="destratify.html#cb140-1"></a>ltas &lt;-<span class="st"> </span><span class="kw">lta_enlist</span>(<span class="st">&#39;lta/&#39;</span>)</span></code></pre></div>
+<p>As these results stand, 2002 estimates are stratified into 2 separate regions:</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="destratify.html#cb141-1"></a>(ltas <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lta_report</span>(<span class="dt">verbose =</span> <span class="ot">FALSE</span>))<span class="op">$</span>table4</span>
+<span id="cb141-2"><a href="destratify.html#cb141-2"></a>                         <span class="dv">2002</span> (HI_EEZ) <span class="op">-</span><span class="st"> </span>(MHI)                       <span class="dv">2002</span></span>
+<span id="cb141-3"><a href="destratify.html#cb141-3"></a><span class="dv">1</span> Species or category Density        Abundance   CV        <span class="dv">95</span>% CI Density</span>
+<span id="cb141-4"><a href="destratify.html#cb141-4"></a><span class="dv">2</span>     Striped dolphin    <span class="fl">14.2</span>           <span class="dv">32</span>,<span class="dv">135</span> <span class="fl">0.47</span> <span class="dv">16</span>,<span class="dv">707-64</span>,<span class="dv">184</span>   <span class="fl">12.06</span></span>
+<span id="cb141-5"><a href="destratify.html#cb141-5"></a>      (MHI)                 <span class="dv">2010</span>  (HI_EEZ)                    </span>
+<span id="cb141-6"><a href="destratify.html#cb141-6"></a><span class="dv">1</span> Abundance   CV  <span class="dv">95</span><span class="op">% CI Density Abundance   CV         95%</span><span class="st"> </span>CI</span>
+<span id="cb141-7"><a href="destratify.html#cb141-7"></a><span class="dv">2</span>     <span class="dv">2</span>,<span class="dv">557</span> <span class="fl">0.89</span> <span class="dv">0-7</span>,<span class="dv">491</span>   <span class="fl">23.86</span>    <span class="dv">59</span>,<span class="dv">051</span> <span class="fl">0.42</span> <span class="dv">45</span>,<span class="dv">459-131</span>,<span class="dv">350</span></span></code></pre></div>
+<p>Now let’s process these LTA results through an <code>LTabundR</code> function, <code>lta_destratify()</code>, which will combine the separate regional estimates from 2002 into a single estimate for the year.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="destratify.html#cb142-1"></a>ltas_2a &lt;-</span>
+<span id="cb142-2"><a href="destratify.html#cb142-2"></a><span class="st">  </span><span class="kw">lta_destratify</span>(ltas,</span>
+<span id="cb142-3"><a href="destratify.html#cb142-3"></a>               <span class="dt">years =</span> <span class="dv">2002</span>,</span>
+<span id="cb142-4"><a href="destratify.html#cb142-4"></a>               <span class="dt">combine_method =</span> <span class="st">&#39;arithmetic&#39;</span>,</span>
+<span id="cb142-5"><a href="destratify.html#cb142-5"></a>               <span class="dt">new_region =</span> <span class="st">&#39;(HI_EEZ)&#39;</span>)</span></code></pre></div>
+<p>The <code>new_region</code> argument specifies how to refer to the combined region. In this case we want the 2002 study area to be named the same as the unstratified 2010 study area, hence <code>"(HI_EEZ)"</code>. The <code>combine_method</code> argument is explained below.</p>
+<p>Now let’s re-check the summary table:</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="destratify.html#cb143-1"></a>(ltas_2a <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lta_report</span>(<span class="dt">verbose=</span><span class="ot">FALSE</span>))<span class="op">$</span>table4</span>
+<span id="cb143-2"><a href="destratify.html#cb143-2"></a>                         <span class="dv">2002</span>  (HI_EEZ)                       <span class="dv">2010</span>  (HI_EEZ)</span>
+<span id="cb143-3"><a href="destratify.html#cb143-3"></a><span class="dv">1</span> Species or category Density Abundance   CV        <span class="dv">95</span>% CI Density Abundance</span>
+<span id="cb143-4"><a href="destratify.html#cb143-4"></a><span class="dv">2</span>     Striped dolphin   <span class="fl">14.02</span>    <span class="dv">34</span>,<span class="dv">691</span> <span class="fl">0.82</span> <span class="dv">8</span>,<span class="dv">462-142</span>,<span class="dv">221</span>   <span class="fl">23.86</span>    <span class="dv">59</span>,<span class="dv">051</span></span>
+<span id="cb143-5"><a href="destratify.html#cb143-5"></a>                     </span>
+<span id="cb143-6"><a href="destratify.html#cb143-6"></a><span class="dv">1</span>   CV         <span class="dv">95</span>% CI</span>
+<span id="cb143-7"><a href="destratify.html#cb143-7"></a><span class="dv">2</span> <span class="fl">0.42</span> <span class="dv">45</span>,<span class="dv">459-131</span>,<span class="dv">350</span></span></code></pre></div>
+<p>There is now only one set of columns for 2002, and the values therein are combinations of the stratified regions.</p>
+<p>The “de-stratification” routine within <code>lta_destratify()</code> sums abundance estimates across regions to get combined abundance. To estimate density in the combined regions, the function uses weighted averaging in which the area of a geostratum serves as its weight. To estimate CV and confidence interval of the combined result, the function uses one of two <code>combine_methods</code> (this is an argument in the function). The default method is <code>"arithmetic"</code>, which uses classic formulae to estimate the combined variance and the corresponding confidence interval. This is done in a way that allows multiple geostrata to be combined, not just two.</p>
+<p>The second option, <code>"bootstrap"</code>, uses an iterative method that draws bootstrap samples, with replacement, from the bootstrap estimate of density within each stratified region.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="destratify.html#cb144-1"></a>ltas_2b &lt;-</span>
+<span id="cb144-2"><a href="destratify.html#cb144-2"></a><span class="st">  </span><span class="kw">lta_destratify</span>(ltas,</span>
+<span id="cb144-3"><a href="destratify.html#cb144-3"></a>               <span class="dt">years =</span> <span class="dv">2002</span>,</span>
+<span id="cb144-4"><a href="destratify.html#cb144-4"></a>               <span class="dt">combine_method =</span> <span class="st">&#39;bootstrap&#39;</span>,</span>
+<span id="cb144-5"><a href="destratify.html#cb144-5"></a>               <span class="dt">new_region =</span> <span class="st">&#39;(HI_EEZ)&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="destratify.html#cb145-1"></a>(ltas_2b <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">lta_report</span>(<span class="dt">verbose=</span><span class="ot">FALSE</span>))<span class="op">$</span>table4</span>
+<span id="cb145-2"><a href="destratify.html#cb145-2"></a>                         <span class="dv">2002</span>  (HI_EEZ)                      <span class="dv">2010</span>  (HI_EEZ)</span>
+<span id="cb145-3"><a href="destratify.html#cb145-3"></a><span class="dv">1</span> Species or category Density Abundance  CV        <span class="dv">95</span>% CI Density Abundance</span>
+<span id="cb145-4"><a href="destratify.html#cb145-4"></a><span class="dv">2</span>     Striped dolphin   <span class="fl">14.02</span>    <span class="dv">34</span>,<span class="dv">691</span> <span class="fl">0.4</span> <span class="dv">18</span>,<span class="dv">868-80</span>,<span class="dv">649</span>   <span class="fl">23.86</span>    <span class="dv">59</span>,<span class="dv">051</span></span>
+<span id="cb145-5"><a href="destratify.html#cb145-5"></a>                     </span>
+<span id="cb145-6"><a href="destratify.html#cb145-6"></a><span class="dv">1</span>   CV         <span class="dv">95</span>% CI</span>
+<span id="cb145-7"><a href="destratify.html#cb145-7"></a><span class="dv">2</span> <span class="fl">0.42</span> <span class="dv">45</span>,<span class="dv">459-131</span>,<span class="dv">350</span></span></code></pre></div>
+<p>Note that use of <code>lta_destratify()</code> only makes sense if the stratified regions have zero overlap.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="lta.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="trend-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/emk-noaa/emk-noaa.github.io09-stratify.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["vignette.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+# Stratified analysis {#destratify}
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(magrittr)
+library(LTabundR)
+
+rerun_from_scratch <- FALSE
+# If you want to confirm the package works, change to TRUE.
+# If you already know it does, change to FALSE so that knitting is quick
+# (it will use saved R objects instead of producing them anew)
+```
+
+Field surveys are sometimes stratified such that trackline design and/or density can differ substantially across regions. Also, analysts may sometimes wish to estimate density/abundance for individual regions separately, regardless of design stratification.
+
+On the previous page, we demonstrated how to accommodate a stratified analysis by providing an `estimates` sub-list for each geostratum. 
+
+For example, in 2002 the Hawaiian EEZ was surveyed with different effort intensity in the Main Hawaiian Islands region compared to pelagic waters. 
+
+Here is the code that generates density/abundance estimates of striped dolphins in 2002 (stratified) and 2010 (unstratified), with only 10 bootstrap iterations: 
+
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE}
+# Survey data
+data("cnp_150km_1986_2020")
+cruz <- cnp_150km_1986_2020
+
+# Rg0 table
+data("g0_results")
+Rg0 <- g0_results
+
+# Detection function filters
+fit_filters <- list(spp = c('013', '026', '031'), 
+                   pool = 'Multi-species pool 1',
+                   cohort = 'all',
+                   truncation_distance = 5,
+                   other_species = 'remove')
+
+# Detection function settings
+df_settings <- list(covariates = c('bft','lnsstot','cruise','year','ship','species'),
+                   covariates_factor = c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE),
+                   covariates_levels = 2,
+                   covariates_n_per_level = 10,
+                   detection_function_base = 'hn',
+                   base_model = '~1',
+                   delta_aic = 2)
+
+# Estimates
+estimates <- list(
+    list(spp = '013',
+         title = 'Striped dolphin',
+         years = 2002,
+         regions = 'MHI'),
+    list(spp = '013',
+         title = 'Striped dolphin',
+         years = 2002,
+         regions = 'HI_EEZ',
+         regions_remove = 'MHI'),
+    list(spp = '013',
+         title = 'Striped dolphin',
+         years = 2010,
+         regions = 'HI_EEZ'))
+
+# Run it
+results <- lta(cruz, Rg0, 
+               fit_filters, df_settings, estimates, 
+               bootstraps = 10)
+
+# Save it locally
+saveRDS(results, file='lta/multispecies_pool_1.RData')
+```
+
+Let's read these results back in using the `LTabundR` function `lta_enlist()`, which stores LTA results in a flexible list structure.  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+ltas <- lta_enlist('lta/')
+```
+
+As these results stand, 2002 estimates are stratified into 2 separate regions:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+(ltas %>% lta_report(verbose = FALSE))$table4
+```
+
+Now let's process these LTA results through an `LTabundR` function, `lta_destratify()`, which will combine the separate regional estimates from 2002 into a single estimate for the year. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+ltas_2a <-
+  lta_destratify(ltas,
+               years = 2002,
+               combine_method = 'arithmetic',
+               new_region = '(HI_EEZ)')
+```
+
+The `new_region` argument specifies how to refer to the combined region. In this case we want the 2002 study area to be named the same as the unstratified 2010 study area, hence `"(HI_EEZ)"`.  The `combine_method` argument is explained below.  
+
+Now let's re-check the summary table:
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+(ltas_2a %>% lta_report(verbose=FALSE))$table4
+```
+
+There is now only one set of columns for 2002, and the values therein are combinations of the stratified regions.  
+
+The "de-stratification" routine within `lta_destratify()` sums abundance estimates across regions to get combined abundance. To estimate density in the combined regions, the function uses weighted averaging in which the area of a geostratum serves as its weight. To estimate CV and confidence interval of the combined result, the function uses one of two `combine_methods` (this is an argument in the function). The default method is `"arithmetic"`, which uses classic formulae to estimate the combined variance and the corresponding confidence interval. This is done in a way that allows multiple geostrata to be combined, not just two. 
+
+The second option, `"bootstrap"`, uses an iterative method that draws bootstrap samples, with replacement, from the bootstrap estimate of density within each stratified region. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+ltas_2b <-
+  lta_destratify(ltas,
+               years = 2002,
+               combine_method = 'bootstrap',
+               new_region = '(HI_EEZ)')
+```
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+(ltas_2b %>% lta_report(verbose=FALSE))$table4
+```
+
+Note that use of `lta_destratify()` only makes sense if the stratified regions have zero overlap. 

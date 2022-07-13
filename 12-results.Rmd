@@ -1,0 +1,92 @@
+# (PART) Reports {-}
+
+# Presenting results
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(magrittr)
+library(LTabundR)
+```
+
+To demonstrate how LTA results can be summarized, tabularized, and plotted, we will use a built-in `LTabundR` dataset, which has denisty/abundance estimates for the Hawaiian EEZ in 2010 and 2017 for striped dolphins, Fraser's dolphins, and melon-headed whales, ran with only 20 iterations:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+data(lta_result)
+```
+
+## Tables {-} 
+
+### Summary tables {-}
+
+To summarize `lta()` results using the standard table format provided in recent NOAA stock assessment reports, use the function `lta_report()`.
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+tables <- lta_report(lta_result, verbose = TRUE)
+```
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+tables %>% names
+```
+
+#### Table 2 in reports: Sample sizes {-}
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+tables$table2 %>%
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+    "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+  ))
+```
+
+#### Table 3: Parameter estimates {-}
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+tables$table3 %>%
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+    "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+  ))
+```
+
+#### Table 4: Density/abundance {-}
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+tables$table4 %>%
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+    "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+  ))
+```
+
+## Plots {-}  
+
+### Abundance plots {-}  
+
+To plot the abundance estimate with error bars representing the 95% confidence interval, use the function `lta_plot()`: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, fig.height=4.5, fig.width=7}
+lta_plot(species = lta_result$estimate$title %>% unique,
+         lta_result, 
+         nrows=1)
+```
+
+
+### Detection function plots {-}
+
+To plot the best-fit detection model for a species pool, use the `df_plot()` function.
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, fig.height=5, fig.width=7}
+df_plot(lta_result)
+```
+
+This function provides various stylization options, including the option to show multiple best-fitting models atop a single histogram of detections:
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, fig.height=5, fig.width=7}
+df_plot(lta_result,
+        model_colors=RColorBrewer::brewer.pal(n = 4, name = "Dark2"),
+        model_pch = 16,
+        pt_show=2,
+        pt_alpha=.3,
+        bootstrap_show = FALSE,
+        legend_show=TRUE,
+        legend_x=2.8)
+```
+
+

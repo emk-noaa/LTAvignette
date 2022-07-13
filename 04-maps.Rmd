@@ -1,3 +1,5 @@
+# (PART) Data exploration {-}
+
 # Maps {#maps}
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
@@ -6,8 +8,15 @@ library(magrittr)
 library(LTabundR)
 library(swfscDAS)
 library(tmap)
-data(whiceas2020_proc)
-cruz <- whiceas2020_proc
+
+load('whiceas_settings.RData')
+load('whiceas_cruz_1720.RData')
+
+rerun_from_scratch <- FALSE
+# If you want to confirm the package works, change to TRUE.
+# If you already know it does, change to FALSE so that knitting is quick
+# (it will use saved R objects instead of producing them anew)
+
 ```
 
 To build a flexible system for mapping cruise data, we have the following functions:  
@@ -43,16 +52,18 @@ Add your research strata to your map:
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m <- map_base(region='cnp')
-m <- map_strata(m, 
-                cruz$settings, 
-                region='cnp')
-m
+```
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+map_strata(m,
+           cruz_1720$settings, 
+           region='cnp')
 ```
 
 ### Add survey tracks {-}  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
-m1 <- map_effort(m, cruz)
+m1 <- map_effort(m, cruz_1720)
 m1
 ```
 
@@ -62,12 +73,11 @@ The defaults of `map_effort()` assume, for simplicity, that you want to see the 
 
 ##### Inputs  {-}  
 
-To demonstrate some of the customization options, consider this map that shows segments to be *excluded* from the `"distance"` (detection function) analysis for our second cohort (`fkw_insular`).
+This map changes survey track thickness and color. 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
-map_effort(m, cruz,
-           cohort = 2,
-           use_type = c(FALSE),
+map_effort(m, 
+           cruz_1720,
            effort_color='firebrick',
            effort_stroke=2.5,
            effort_linetype=1,)
@@ -83,9 +93,9 @@ This is possible because the function `map_effort()` looks for the variables `co
 For example, color-code by Beaufort scale:
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
-# Save copy of cruz object data to modify
-cruz2 <- cruz
-segments <- cruz2$cohorts$default$segments
+# Save copy of segments to modify
+cruzi <- cruz_1720
+segments <- cruzi$cohorts$all$segments
 
 # Add column `col`: color code by BFT sea state
 bft_colors <- c('steelblue4','steelblue2','cadetblue1','grey')
@@ -95,10 +105,10 @@ segments$col[ segments$avgBft <= 4 ] <- bft_colors[2] # bft 3 - 4
 segments$col[ segments$avgBft <= 2 ] <- bft_colors[1] # bft 0 -2
 
 # Update sub_segments slot in `cruz` object
-cruz2$cohorts$default$segments <- segments
+cruzi$cohorts$all$segments <- segments
 
 # Update map 
-m_custom2 <- map_effort(m, cruz2)
+m_custom2 <- map_effort(m, cruzi)
 
 # Add legend using native functions from mapping package `tmap`
 m_custom2 <- 
@@ -122,7 +132,7 @@ m_custom2
 Use the function `map_sightings()` to add sightings to your map:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
-map_sightings(m, cruz)
+map_sightings(m, cruz_1720)
 ```
 
 #### Customizing sightings {-}  
@@ -131,7 +141,7 @@ To demonstrate some of the customization options, consider this map that shows s
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 map_sightings(m,
-              cruz,
+              cruz_1720,
               include_species = '033',
               color_base = 'purple',
               shape_base = 18,
@@ -142,7 +152,7 @@ Next is a map of humpback whales and sperm whales, color-coded by species and sh
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 map_sightings(m, 
-              cruz,
+              cruz_1720,
               include_species = c('076','046'),
               color_code = TRUE,
               shape_code = TRUE)
@@ -154,9 +164,9 @@ Here is an overview of the steps needed to map strata, survey tracks, and sighti
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m <- map_base('cnp') 
-m <- map_strata(m, cruz$settings)
-m <- map_effort(m, cruz)
-m <- map_sightings(m, cruz, size_base=.4)
+m <- map_strata(m, cruz_1720$settings)
+m <- map_effort(m, cruz_1720)
+m <- map_sightings(m, cruz_1720, size_base=.4)
 m 
 ```
 
@@ -165,7 +175,7 @@ m
 `LTabundR` also has an interactive map function, which maps survey data using the `leaflet` package.  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
- map_cruz(cruz,
+ map_cruz(cruz_1720,
           cohort=1,
           eez_show=FALSE,
           strata_show=FALSE,
