@@ -1,5 +1,103 @@
 # Trend analysis
 
-Under construction!
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(magrittr)
+library(LTabundR)
+
+rerun_from_scratch <- FALSE
+# If you want to confirm the package works, change to TRUE.
+# If you already know it does, change to FALSE so that knitting is quick
+# (it will use saved R objects instead of producing them anew)
+```
+
+When a species' density appears to change dramatically from one survey year to the next, it could be due to several factors: the species' abundance may have changed; its range may have shifted; or the timing of its migratory movements may have shifted. This apparent change could also be due solely to random chance: you can sample the exact same population in two different surveys, and you are liable to produce different abundance estimates due simply to random variation in how often you encounter your target species. In other words, *random variation in the encounter rate* may lead you to estimate a change in abundance, when in fact there is no change. 
+
+For this reason, whenever you suspect that abundance has changed between years -- i.e., whenever the confidence intervals for two years do not overlap -- it is good practice to carry out follow-up tests. One such test was developed in ([Bradford et al. 2020](https://www.fisheries.noaa.gov/inport/item/59592) and Bradford et al. (2021).  That test has been provided in `LTabundR` with the function `er_simulator()`, which refers to a simulation-based test of random variation in the **e**ncounter **r**ate (ER).  
+
+This function uses randomization simulations to test for the probability that year-to-year changes observed in a species' encounter rate are due to random sampling variation (and not actual change in the encounter rate). More specifcially, this function uses bootstrap sampling of survey segments to see if random variation in sampling could possibly produce an apparent but immaterial change in encounter rate across years.
+
+You will find full analytical details in the Appendix to Bradford et al. (2020) for analytical details, but briefly: in each bootstrap iteration, survey segments are resampled in a way that preserves the proportion of effort occurring within each geostratum in the data. The resampled data are used to calculate the overall ER across all survey years, since the null hypothesis is that the ER does not change across years. This overall ER is used to predict the number of sightings in each year, based on the distance covered by the resampled segments in each year. This process is repeated (typically hundreds to thousands of times) to produce a distribution of predicted sighting counts in each year. This distribution reflects the range of ERs that could be possible due simply to random variation and *not* to underlying changes in abundance. These distributions are compared to the actual number of sightings observed in their respective year. The fraction of simulated sightings counts that are more extreme than the observed count reflects the probability that the observed count is due to random sample variation alone.
+
+For example, Bradford et al. (2021) found non-overlapping confidence intervals in their estimates of Bryde's whale abundance in 2002, 2010, and 2017.  To test for the significance of these trends, they carried out the "ER simulator" routine described above. In `LTabundR`, we would carry out the same analysis as follows:  
+
+Take your processed data:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+data(cnp_150km_1986_2020)
+cruz <- cnp_150km_1986_2020
+```
+
+Filter it to systematic effort in the years of interest: 
+
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
+cruzi <- 
+  filter_cruz(cruz,
+              analysis_only = TRUE,
+              years = c(2002, 2010, 2017),
+              regions = 'HI_EEZ',
+              eff_types = 'S',
+              bft_range = 0:6)
+```
+
+Conduct the ER simulation, passing the species code for the Bryde's whale (`"072"`). For the purposes of this example, we will only use 100 iterations.  
+
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
+er_results <- 
+  er_simulator(spp = '072', cruz = cruzi, iterations = 100)
+```
+
+```{r, echo=FALSE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
+save(er_results, file='er_results.RData')
+```
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+load('er_results.RData')
+```
+
+This routine provides a list with two slots: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+er_results %>% names
+```
+
+The `summary` slot returns the p-value for each year, i.e., the chances that the observed number of sightings was due purely to random variation in the encounter rate. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+er_results$summary
+```
+
+In this example, the encounter rates observed in 2002 and 2010 are very likely due to some process *other* than random variation in the encounter rate, such as range shifts, seasonal movement timing shifts, and/or changes in abundance. However, the observed encounter rate in 2017 could easily be explained by random variation in the ER.    
+
+The `details` slot returns the simulation predictions for each year, which can be used to replicate the histograms that are printed when the function is run.
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.height=9, fig.width=7}
+spp <- '072'
+years <- er_results$summary$years
+obsi <- er_results$summary$observed
+bsits <- er_results$details
+
+par(mfrow=c(length(years),1))
+xmax <- 1.05*max(c(bsits, obsi))
+i=1
+pvals <- c()
+  for(i in 1:length(years)){
+    # Plot
+    main_title <- paste0(paste('Species ',spp,collapse='-'),' :: ',years[i])
+    hist(bsits[i,],
+       xlim=c(150, xmax),
+       breaks= seq(150, xmax, length=30),
+       col = 'grey60',
+       border = 'grey85',
+       main = years[i], #main_title,
+       xlab = 'Simulated sightings')
+    abline(v=obsi[i], col='red', lwd=2)
+  }
+par(mfrow=c(1,1))
+```
+
+A dataframe with a row for each year. Columns provide the number of observations of the species of interest during systematic effort, and the p-value of the test. The p-value represents the fraction of simulated encounter rates that exceed the observed encounter rate.
+
+
 
 

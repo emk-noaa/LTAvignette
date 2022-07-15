@@ -27,45 +27,85 @@ To build a flexible system for mapping cruise data, we have the following functi
 
 Begin with a basic map, including EEZ borders:  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m <- map_base(region='cnp')
 m
 ```
 
+```{r, echo=FALSE, eval=rerun_from_scratch}
+png('img/map_cnp.png', width=7, height=5, res=150, units='in')
+m
+dev.off()
+```
+
+![](img/map_cnp.png){width=95%}
+
 We also have a base map for the California Current ... 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
 m <- map_base(region='ccs')
 m
 ```
 
+```{r, echo=FALSE, eval=rerun_from_scratch}
+png('img/map_ccs.png', width=7, height=5, res=150, units='in')
+m
+dev.off()
+```
+
+![](img/map_ccs.png){width=95%}
+
 And the ETP:  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m <- map_base(region='etp')
 m
 ```
+
+```{r, echo=FALSE, eval=rerun_from_scratch}
+png('img/map_etp.png', width=7, height=5, res=150, units='in')
+m
+dev.off()
+```
+
+![](img/map_etp.png){width=95%}
 
 ### Add strata {-}  
 
 Add your research strata to your map: 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m <- map_base(region='cnp')
 ```
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
-map_strata(m,
-           cruz_1720$settings, 
-           region='cnp')
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+m1 <- map_strata(m,
+                cruz_1720$settings, 
+                region='cnp')
 ```
+
+```{r, echo=FALSE, eval=rerun_from_scratch}
+png('img/map_cnp_strata.png', width=7, height=5, res=150, units='in')
+m1
+dev.off()
+```
+
+![](img/map_cnp_strata.png){width=95%}
 
 ### Add survey tracks {-}  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m1 <- map_effort(m, cruz_1720)
 m1
 ```
+
+```{r, echo=FALSE, eval=rerun_from_scratch}
+png('img/map_tracks.png', width=7, height=5, res=150, units='in')
+m1
+dev.off()
+```
+
+![](img/map_tracks.png){width=95%}
 
 The defaults of `map_effort()` assume, for simplicity, that you want to see the segments to be included in density estimation for the first cohort specified in your settings.  You can adjust this and other defaults using the function arguments. 
 
@@ -75,14 +115,21 @@ The defaults of `map_effort()` assume, for simplicity, that you want to see the 
 
 This map changes survey track thickness and color. 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
-map_effort(m, 
-           cruz_1720,
-           effort_color='firebrick',
-           effort_stroke=2.5,
-           effort_linetype=1,)
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+m1 <- map_effort(m, 
+                cruz_1720,
+                effort_color='firebrick',
+                effort_stroke=2.5,
+                effort_linetype=1,)
 ```
 
+```{r, echo=FALSE, eval=rerun_from_scratch}
+png('img/map_tracks2.png', width=7, height=5, res=150, units='in')
+m1
+dev.off()
+```
+
+![](img/map_tracks2.png){width=95%}
 
 ##### Color-code conditions {-}  
 
@@ -92,7 +139,7 @@ This is possible because the function `map_effort()` looks for the variables `co
 
 For example, color-code by Beaufort scale:
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 # Save copy of segments to modify
 cruzi <- cruz_1720
 segments <- cruzi$cohorts$all$segments
@@ -127,42 +174,74 @@ m_custom2 <-
 m_custom2
 ```
 
+```{r, echo=FALSE, eval=rerun_from_scratch}
+png('img/map_tracks3.png', width=7, height=5, res=150, units='in')
+m_custom2
+dev.off()
+```
+
+![](img/map_tracks3.png){width=95%}
+
 ### Add sightings {-}  
 
 Use the function `map_sightings()` to add sightings to your map:  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
-map_sightings(m, cruz_1720)
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+m1 <- map_sightings(m, cruz_1720)
 ```
+
+```{r, echo=FALSE, eval=rerun_from_scratch}
+png('img/map_sits.png', width=7, height=5, res=150, units='in')
+m1
+dev.off()
+```
+
+![](img/map_sits.png){width=95%}
 
 #### Customizing sightings {-}  
 
 To demonstrate some of the customization options, consider this map that shows sightings of false killer whales with custom dot color, shape, and size: 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
-map_sightings(m,
-              cruz_1720,
-              include_species = '033',
-              color_base = 'purple',
-              shape_base = 18,
-              size_base = 1)
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+m1 <- map_sightings(m,
+                    cruz_1720,
+                    include_species = '033',
+                    color_base = 'purple',
+                    shape_base = 18,
+                    size_base = 1)
 ```
+
+```{r, echo=FALSE, eval=rerun_from_scratch}
+png('img/map_sits2.png', width=7, height=5, res=150, units='in')
+m1
+dev.off()
+```
+
+![](img/map_sits2.png){width=95%}
 
 Next is a map of humpback whales and sperm whales, color-coded by species and shape-coded by whether or not the sighting will be included in the analysis: 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
-map_sightings(m, 
-              cruz_1720,
-              include_species = c('076','046'),
-              color_code = TRUE,
-              shape_code = TRUE)
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+m1 <- map_sightings(m, 
+                   cruz_1720,
+                   include_species = c('076','046'),
+                   color_code = TRUE,
+                   shape_code = TRUE)
 ```
+
+```{r, echo=FALSE, eval=rerun_from_scratch}
+png('img/map_sits3.png', width=7, height=5, res=150, units='in')
+m1
+dev.off()
+```
+
+![](img/map_sits3.png){width=95%}
 
 ### Overview {-} 
 
 Here is an overview of the steps needed to map strata, survey tracks, and sightings all together:
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m <- map_base('cnp') 
 m <- map_strata(m, cruz_1720$settings)
 m <- map_effort(m, cruz_1720)
@@ -170,11 +249,20 @@ m <- map_sightings(m, cruz_1720, size_base=.4)
 m 
 ```
 
+```{r, echo=FALSE, eval=rerun_from_scratch}
+png('img/map_overview.png', width=7, height=5, res=150, units='in')
+m
+dev.off()
+```
+
+![](img/map_overview.png){width=95%}
+
+
 ## Interactive maps {-}
 
 `LTabundR` also has an interactive map function, which maps survey data using the `leaflet` package.  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
  map_cruz(cruz_1720,
           cohort=1,
           eez_show=FALSE,
