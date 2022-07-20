@@ -14,6 +14,12 @@ To demonstrate how LTA results can be summarized, tabularized, and plotted, we w
 data(lta_result)
 ```
 
+We created these LTA results using the following built-in dataset:
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+data(cnp_150km_1986_2020)
+```
+
 ## Tables {-} 
 
 ### Summary tables {-}
@@ -21,16 +27,46 @@ data(lta_result)
 To summarize `lta()` results using the standard table format provided in recent NOAA stock assessment reports, use the function `lta_report()`.
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
-tables <- lta_report(lta_result, verbose = TRUE)
+tables <- lta_report(lta_result, 
+                     cruz = cnp_150km_1986_2020,
+                     verbose = TRUE)
 ```
+
+Providing the `cruz` object is not required, but if it is not provided, one of the five summary tables (`$table1a` below) will not be returned.  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 tables %>% names
 ```
 
-#### Table 2 in reports: Sample sizes {-}
+#### Table 1 in reports: Sample sizes {-} 
+
+##### Table 1a {-}  
+
+If `cruz` was provided, `$table1a` 1a will include total sighting counts for all species in the years from `lta_result`, broken down by region. The `Ntot` column holds all sightings, regardless of effort status or Beaufort sea state. `Nsys` holds counts of systematic-only sightings (i.e., EffType = "S" and Bft <= 6), which may still include sightings that are beyond the species-specific truncation distance and were therefore excluded from density/abundance estimation.   
+
+These counts are provided separately from the `$table1b` slot below, since those counts are based on the `lta_result` object, and will not include sightings for species that did not have a specific LTA estimate specified when it was made. We also include this separately so as to give the user full flexibility in how they summarize sighting counts by region/population/stock.  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+tables$table1a %>%
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+    "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+  ))
+```
+
+##### Table 1b {-}  
+
+This table holds sighting counts used in estimates of density/abundance. The rows match the rows for Tables 3 and 4. In this table, columns are still prepared for total sightings (`Ntot`) and systematic sightings (`Nsys`), but they are left blank, since it is not clear how sightings from multiple regions in `$table1a` would be concatenated for this table. The user can fill in those gaps accordingly.
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+tables$table1b %>%
+  DT::datatable(options=list(initComplete = htmlwidgets::JS(
+    "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+  ))
+```
+
+#### Table 2 in reports: Detection functions {-}
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
 tables$table2 %>%
   DT::datatable(options=list(initComplete = htmlwidgets::JS(
     "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")

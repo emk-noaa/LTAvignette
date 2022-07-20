@@ -195,6 +195,8 @@ estimates <- list(
 
 Each of these sub-lists specifies the details for a single estimate of density/abundance, making it possible to produce multiple estimates from the same detection function model. Generally, there needs to be a sub-list for each species-region-year combination of interest.
 
+You can imagine that building up these sub-lists can get tedious. It can also introduce the possibility of error or inconsistencies across estimates of multiple species. To address that issue, `LTabundR` includes the function `lta_estimates()`, which makes your code for preparing an `estimates` object much more efficient. That function is demonstrated in the Case Studies chapters. 
+
 ```{r, echo=FALSE, eval=rerun_from_scratch, collapse=TRUE, include=TRUE}
 ## Run it {-} 
 #To run `lta()` with the above inputs, use this code: 

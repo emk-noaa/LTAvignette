@@ -2660,6 +2660,8 @@ Here is the full \texttt{estimates} list for all the species-year-geostratum com
 
 Each of these sub-lists specifies the details for a single estimate of density/abundance, making it possible to produce multiple estimates from the same detection function model. Generally, there needs to be a sub-list for each species-region-year combination of interest.
 
+You can imagine that building up these sub-lists can get tedious. It can also introduce the possibility of error or inconsistencies across estimates of multiple species. To address that issue, \texttt{LTabundR} includes the function \texttt{lta\_estimates()}, which makes your code for preparing an \texttt{estimates} object much more efficient. That function is demonstrated in the Case Studies chapters.
+
 Quickly review results:
 
 \begin{Shaded}
@@ -3435,6 +3437,7 @@ Now let's process these LTA results through an \texttt{LTabundR} function, \text
                \DataTypeTok{years =} \DecValTok{2002}\NormalTok{,}
                \DataTypeTok{combine_method =} \StringTok{'arithmetic'}\NormalTok{,}
                \DataTypeTok{new_region =} \StringTok{'(HI_EEZ)'}\NormalTok{)}
+\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ lta_list[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{:}\StringTok{ }\NormalTok{subscript out of bounds}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3445,12 +3448,7 @@ Now let's re-check the summary table:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{(ltas_2a }\OperatorTok{%>%}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(}\DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{))}\OperatorTok{$}\NormalTok{table4}
-                         \DecValTok{2002}\NormalTok{  (HI_EEZ)                       }\DecValTok{2010}\NormalTok{  (HI_EEZ)}
-\DecValTok{1}\NormalTok{ Species or category Density Abundance   CV        }\DecValTok{95}\NormalTok{% CI Density Abundance}
-\DecValTok{2}\NormalTok{     Striped dolphin   }\FloatTok{14.02}    \DecValTok{34}\NormalTok{,}\DecValTok{691} \FloatTok{0.82} \DecValTok{8}\NormalTok{,}\DecValTok{462-142}\NormalTok{,}\DecValTok{221}   \FloatTok{23.86}    \DecValTok{59}\NormalTok{,}\DecValTok{051}
-                     
-\DecValTok{1}\NormalTok{   CV         }\DecValTok{95}\NormalTok{% CI}
-\DecValTok{2} \FloatTok{0.42} \DecValTok{45}\NormalTok{,}\DecValTok{459-131}\NormalTok{,}\DecValTok{350}
+\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ lta_result }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'ltas_2a'}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3467,18 +3465,14 @@ The second option, \texttt{"bootstrap"}, uses an iterative method that draws boo
                \DataTypeTok{years =} \DecValTok{2002}\NormalTok{,}
                \DataTypeTok{combine_method =} \StringTok{'bootstrap'}\NormalTok{,}
                \DataTypeTok{new_region =} \StringTok{'(HI_EEZ)'}\NormalTok{)}
+\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ lta_list[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{:}\StringTok{ }\NormalTok{subscript out of bounds}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{(ltas_2b }\OperatorTok{%>%}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(}\DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{))}\OperatorTok{$}\NormalTok{table4}
-                         \DecValTok{2002}\NormalTok{  (HI_EEZ)                      }\DecValTok{2010}\NormalTok{  (HI_EEZ)}
-\DecValTok{1}\NormalTok{ Species or category Density Abundance  CV        }\DecValTok{95}\NormalTok{% CI Density Abundance}
-\DecValTok{2}\NormalTok{     Striped dolphin   }\FloatTok{14.02}    \DecValTok{34}\NormalTok{,}\DecValTok{691} \FloatTok{0.4} \DecValTok{18}\NormalTok{,}\DecValTok{628-80}\NormalTok{,}\DecValTok{649}   \FloatTok{23.86}    \DecValTok{59}\NormalTok{,}\DecValTok{051}
-                     
-\DecValTok{1}\NormalTok{   CV         }\DecValTok{95}\NormalTok{% CI}
-\DecValTok{2} \FloatTok{0.42} \DecValTok{45}\NormalTok{,}\DecValTok{459-131}\NormalTok{,}\DecValTok{350}
+\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ lta_result }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'ltas_2b'}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4174,6 +4168,14 @@ To demonstrate how LTA results can be summarized, tabularized, and plotted, we w
 \end{Highlighting}
 \end{Shaded}
 
+We created these LTA results using the following built-in dataset:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(cnp_150km_}\DecValTok{1986}\NormalTok{_}\DecValTok{2020}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{tables}{%
 \section*{Tables}\label{tables}}
 \addcontentsline{toc}{section}{Tables}
@@ -4186,29 +4188,60 @@ To summarize \texttt{lta()} results using the standard table format provided in 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{tables <-}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(lta_result, }\DataTypeTok{verbose =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{tables <-}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(lta_result, }
+                     \DataTypeTok{cruz =}\NormalTok{ cnp_150km_}\DecValTok{1986}\NormalTok{_}\DecValTok{2020}\NormalTok{,}
+                     \DataTypeTok{verbose =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+Providing the \texttt{cruz} object is not required, but if it is not provided, one of the five summary tables (\texttt{\$table1a} below) will not be returned.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{tables }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"table2"} \StringTok{"table3"} \StringTok{"table4"}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"table1a"} \StringTok{"table1b"} \StringTok{"table2"}  \StringTok{"table3"}  \StringTok{"table4"} 
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{table-2-in-reports-sample-sizes}{%
-\subsubsection*{Table 2 in reports: Sample sizes}\label{table-2-in-reports-sample-sizes}}
-\addcontentsline{toc}{subsubsection}{Table 2 in reports: Sample sizes}
+\hypertarget{table-1-in-reports-sample-sizes}{%
+\subsubsection*{Table 1 in reports: Sample sizes}\label{table-1-in-reports-sample-sizes}}
+\addcontentsline{toc}{subsubsection}{Table 1 in reports: Sample sizes}
+
+\hypertarget{table-1a}{%
+\paragraph{Table 1a}\label{table-1a}}
+\addcontentsline{toc}{paragraph}{Table 1a}
+
+If \texttt{cruz} was provided, \texttt{\$table1a} 1a will include total sighting counts for all species in the years from \texttt{lta\_result}, broken down by region. The \texttt{Ntot} column holds all sightings, regardless of effort status or Beaufort sea state. \texttt{Nsys} holds counts of systematic-only sightings (i.e., EffType = ``S'' and Bft \textless= 6), which may still include sightings that are beyond the species-specific truncation distance and were therefore excluded from density/abundance estimation.
+
+These counts are provided separately from the \texttt{\$table1b} slot below, since those counts are based on the \texttt{lta\_result} object, and will not include sightings for species that did not have a specific LTA estimate specified when it was made. We also include this separately so as to give the user full flexibility in how they summarize sighting counts by region/population/stock.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{tables}\OperatorTok{$}\NormalTok{table2 }\OperatorTok{%>%}
+\NormalTok{tables}\OperatorTok{$}\NormalTok{table1a }\OperatorTok{%>%}
 \StringTok{  }\NormalTok{DT}\OperatorTok{::}\KeywordTok{datatable}\NormalTok{(}\DataTypeTok{options=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{initComplete =}\NormalTok{ htmlwidgets}\OperatorTok{::}\KeywordTok{JS}\NormalTok{(}
     \StringTok{"function(settings, json) \{$(this.api().table().container()).css(\{'font-size': '9pt'\});\}"}\NormalTok{)}
 \NormalTok{  ))}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{table-1b}{%
+\paragraph{Table 1b}\label{table-1b}}
+\addcontentsline{toc}{paragraph}{Table 1b}
+
+This table holds sighting counts used in estimates of density/abundance. The rows match the rows for Tables 3 and 4. In this table, columns are still prepared for total sightings (\texttt{Ntot}) and systematic sightings (\texttt{Nsys}), but they are left blank, since it is not clear how sightings from multiple regions in \texttt{\$table1a} would be concatenated for this table. The user can fill in those gaps accordingly.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tables}\OperatorTok{$}\NormalTok{table1b }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{DT}\OperatorTok{::}\KeywordTok{datatable}\NormalTok{(}\DataTypeTok{options=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{initComplete =}\NormalTok{ htmlwidgets}\OperatorTok{::}\KeywordTok{JS}\NormalTok{(}
+    \StringTok{"function(settings, json) \{$(this.api().table().container()).css(\{'font-size': '9pt'\});\}"}\NormalTok{)}
+\NormalTok{  ))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{table-2-in-reports-detection-functions}{%
+\subsubsection*{Table 2 in reports: Detection functions}\label{table-2-in-reports-detection-functions}}
+\addcontentsline{toc}{subsubsection}{Table 2 in reports: Detection functions}
 
 \hypertarget{table-3-parameter-estimates}{%
 \subsubsection*{Table 3: Parameter estimates}\label{table-3-parameter-estimates}}
@@ -4236,7 +4269,7 @@ To plot the abundance estimate with error bars representing the 95\% confidence 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-255-1.pdf}
+\includegraphics{figures/unnamed-chunk-258-1.pdf}
 
 \hypertarget{detection-function-plots}{%
 \subsection*{Detection function plots}\label{detection-function-plots}}
@@ -4250,7 +4283,7 @@ To plot the best-fit detection model for a species pool, use the \texttt{df\_plo
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-256-1.pdf}
+\includegraphics{figures/unnamed-chunk-259-1.pdf}
 
 This function provides various stylization options, including the option to show multiple best-fitting models atop a single histogram of detections:
 
@@ -4267,7 +4300,7 @@ This function provides various stylization options, including the option to show
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-257-1.pdf}
+\includegraphics{figures/unnamed-chunk-260-1.pdf}
 
 \hypertarget{practicalities}{%
 \chapter{Practicalities}\label{practicalities}}
@@ -4299,83 +4332,2158 @@ In the \texttt{R} package framework we are developing, the contents of a project
 \hypertarget{part-case-studies}{%
 \part{Case studies}\label{part-case-studies}}
 
-\hypertarget{casestudies}{%
-\chapter{Central North Pacific}\label{casestudies}}
+\hypertarget{whiceas}{%
+\chapter{WHICEAS}\label{whiceas}}
 
-Under construction!
+Here is the full code-base for the WHICEAS 2017 \& 2020 analysis.
+
+\hypertarget{data-processing}{%
+\section*{Data processing}\label{data-processing}}
+\addcontentsline{toc}{section}{Data processing}
+
+\hypertarget{settings-1}{%
+\subsection*{Settings}\label{settings-1}}
+\addcontentsline{toc}{subsection}{Settings}
+
+\hypertarget{survey-wide-settings-2}{%
+\subsubsection*{Survey-wide settings}\label{survey-wide-settings-2}}
+\addcontentsline{toc}{subsubsection}{Survey-wide settings}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(swfscDAS)}
-\KeywordTok{library}\NormalTok{(LTabundR)}
-\KeywordTok{library}\NormalTok{(dplyr)}
-
-\CommentTok{# Settings =====================================================================}
-
-\CommentTok{# Load strata dataframes}
-\KeywordTok{data}\NormalTok{(strata_cnp)}
-\KeywordTok{data}\NormalTok{(study_cnp)}
-
-\CommentTok{# Load group size coefficients}
+\KeywordTok{data}\NormalTok{(species_codes)}
+\KeywordTok{data}\NormalTok{(ships)}
 \KeywordTok{data}\NormalTok{(group_size_coefficients)}
 
-\CommentTok{# Load ships}
-\KeywordTok{data}\NormalTok{(ships)}
+\NormalTok{survey <-}\StringTok{ }\KeywordTok{load_survey_settings}\NormalTok{(}
+  \DataTypeTok{out_handling =} \StringTok{'remove'}\NormalTok{,}
+  \DataTypeTok{max_row_interval =} \OtherTok{Inf}\NormalTok{,}
+  \DataTypeTok{segment_method =} \StringTok{"equallength"}\NormalTok{,}
+  \DataTypeTok{segment_target_km =} \DecValTok{150}\NormalTok{,}
+  \DataTypeTok{segment_max_interval =} \DecValTok{24}\NormalTok{,}
+  \DataTypeTok{segment_remainder_handling =} \KeywordTok{c}\NormalTok{(}\StringTok{"segment"}\NormalTok{),}
+  \DataTypeTok{ship_list =}\NormalTok{ ships,}
+  \DataTypeTok{species_codes =}\NormalTok{ species_codes,}
+  \DataTypeTok{group_size_coefficients =}\NormalTok{ group_size_coefficients,}
+  \DataTypeTok{smear_angles =} \OtherTok{FALSE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-\CommentTok{# Load species codes}
-\KeywordTok{data}\NormalTok{(species_codes)}
+\hypertarget{geostrata-1}{%
+\subsubsection*{Geostrata}\label{geostrata-1}}
+\addcontentsline{toc}{subsubsection}{Geostrata}
 
-\CommentTok{# Survey settings}
-\NormalTok{survey <-}\StringTok{ }
-\StringTok{  }\KeywordTok{load_survey_settings}\NormalTok{(}\DataTypeTok{out_handling =} \StringTok{'stratum'}\NormalTok{,}
-                       \DataTypeTok{max_row_interval =} \DecValTok{700}\NormalTok{,}
-                       \DataTypeTok{segment_method =} \StringTok{'equallength'}\NormalTok{,}
-                       \DataTypeTok{segment_target_km =} \DecValTok{30}\NormalTok{,}
-                       \DataTypeTok{segment_max_interval =} \DecValTok{48}\NormalTok{,}
-                       \DataTypeTok{segment_remainder_handling =} \KeywordTok{c}\NormalTok{(}\StringTok{'append'}\NormalTok{,}\StringTok{'segment'}\NormalTok{),}
-                       \DataTypeTok{ship_list =}\NormalTok{ ships,}
-                       \DataTypeTok{species_codes =}\NormalTok{ species_codes,}
-                       \DataTypeTok{group_size_coefficients =}\NormalTok{ group_size_coefficients,}
-                       \DataTypeTok{smear_angles =} \OtherTok{FALSE}\NormalTok{,}
-                       \DataTypeTok{verbose =} \OtherTok{TRUE}\NormalTok{)}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(strata_cnp)}
+\end{Highlighting}
+\end{Shaded}
 
-\CommentTok{# Cohort 1 (default)}
-\NormalTok{cohort1 <-}\StringTok{ }\KeywordTok{load_cohort_settings}\NormalTok{()}
+\hypertarget{cohort-specific-settings-1}{%
+\subsubsection*{Cohort-specific settings}\label{cohort-specific-settings-1}}
+\addcontentsline{toc}{subsubsection}{Cohort-specific settings}
 
-\CommentTok{# Cohort 2}
-\NormalTok{cohort2 <-}\StringTok{ }
-\StringTok{  }\KeywordTok{load_cohort_settings}\NormalTok{(}\DataTypeTok{id=}\StringTok{'fkw_insular'}\NormalTok{,}
-                       \DataTypeTok{species=}\DecValTok{33}\NormalTok{,}
-                       \DataTypeTok{use_low_if_na =} \OtherTok{TRUE}\NormalTok{,}
-                       \DataTypeTok{truncation_km =} \DecValTok{5}\NormalTok{,}
-                       \DataTypeTok{strata_overlap_handling =} \StringTok{'each'}\NormalTok{)}
+\hypertarget{cohort-1-all-species}{%
+\paragraph{Cohort 1: all species}\label{cohort-1-all-species}}
+\addcontentsline{toc}{paragraph}{Cohort 1: all species}
 
-\CommentTok{# Finalize settings}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{all_species <-}\StringTok{ }\KeywordTok{load_cohort_settings}\NormalTok{(}
+  \DataTypeTok{id =} \StringTok{"all"}\NormalTok{, }\CommentTok{# *}
+  \DataTypeTok{species =} \OtherTok{NULL}\NormalTok{, }
+  \DataTypeTok{strata =} \KeywordTok{c}\NormalTok{(}\StringTok{'WHICEAS'}\NormalTok{, }\StringTok{'HI_EEZ'}\NormalTok{, }\StringTok{'OtherCNP'}\NormalTok{), }\CommentTok{# *}
+  \DataTypeTok{probable_species =} \OtherTok{FALSE}\NormalTok{,}
+  \DataTypeTok{sighting_method =} \DecValTok{0}\NormalTok{,}
+  \DataTypeTok{cue_range =} \DecValTok{0}\OperatorTok{:}\DecValTok{7}\NormalTok{,}
+  \DataTypeTok{school_size_range =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10000}\NormalTok{),}
+  \DataTypeTok{school_size_calibrate =} \OtherTok{TRUE}\NormalTok{,}
+  \DataTypeTok{calibration_floor =} \DecValTok{0}\NormalTok{,}
+  \DataTypeTok{use_low_if_na =} \OtherTok{TRUE}\NormalTok{,}
+  \DataTypeTok{io_sightings =} \DecValTok{0}\NormalTok{,}
+  \DataTypeTok{geometric_mean_group =} \OtherTok{TRUE}\NormalTok{,}
+  \DataTypeTok{truncation_km =} \FloatTok{7.5}\NormalTok{, }\CommentTok{# *}
+  \DataTypeTok{beaufort_range =} \DecValTok{0}\OperatorTok{:}\DecValTok{6}\NormalTok{,}
+  \DataTypeTok{abeam_sightings =} \OtherTok{TRUE}\NormalTok{,}
+  \DataTypeTok{strata_overlap_handling =} \KeywordTok{c}\NormalTok{(}\StringTok{"smallest"}\NormalTok{),}
+  \DataTypeTok{distance_types =} \KeywordTok{c}\NormalTok{(}\StringTok{'S'}\NormalTok{,}\StringTok{'F'}\NormalTok{,}\StringTok{'N'}\NormalTok{),}
+  \DataTypeTok{distance_modes =} \KeywordTok{c}\NormalTok{(}\StringTok{'P'}\NormalTok{,}\StringTok{'C'}\NormalTok{),}
+  \DataTypeTok{distance_on_off =} \OtherTok{TRUE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cohort-2-bottlenose-dolphins}{%
+\paragraph{Cohort 2: bottlenose dolphins}\label{cohort-2-bottlenose-dolphins}}
+\addcontentsline{toc}{paragraph}{Cohort 2: bottlenose dolphins}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bottlenose <-}\StringTok{ }\KeywordTok{load_cohort_settings}\NormalTok{(}
+  \DataTypeTok{id =} \StringTok{"bottlenose"}\NormalTok{,}
+  \DataTypeTok{species =} \KeywordTok{c}\NormalTok{(}\StringTok{'015'}\NormalTok{, }\StringTok{'018'}\NormalTok{, }\StringTok{'021'}\NormalTok{, }\StringTok{'032'}\NormalTok{),}
+  \DataTypeTok{strata =} \KeywordTok{c}\NormalTok{(}\StringTok{'WHICEAS'}\NormalTok{, }\StringTok{'HI_EEZ'}\NormalTok{, }\StringTok{'OtherCNP'}\NormalTok{,}
+             \StringTok{'Bottlenose_BI'}\NormalTok{, }\StringTok{'Bottlenose_OUFI'}\NormalTok{, }\StringTok{'Bottlenose_KaNi'}\NormalTok{),}
+  \DataTypeTok{truncation_km =} \FloatTok{7.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cohort-3-pantropical-spotted-dolphins}{%
+\paragraph{Cohort 3: pantropical spotted dolphins}\label{cohort-3-pantropical-spotted-dolphins}}
+\addcontentsline{toc}{paragraph}{Cohort 3: pantropical spotted dolphins}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spotted <-}\StringTok{ }\KeywordTok{load_cohort_settings}\NormalTok{(}
+  \DataTypeTok{id =} \StringTok{"spotted"}\NormalTok{,}
+  \DataTypeTok{species =} \StringTok{'002'}\NormalTok{,}
+  \DataTypeTok{strata =} \KeywordTok{c}\NormalTok{(}\StringTok{'WHICEAS'}\NormalTok{, }\StringTok{'HI_EEZ'}\NormalTok{, }\StringTok{'OtherCNP'}\NormalTok{,}
+             \StringTok{'Spotted_OU'}\NormalTok{,}\StringTok{'Spotted_FI'}\NormalTok{,}\StringTok{'Spotted_BI'}\NormalTok{),}
+  \DataTypeTok{truncation_km =} \FloatTok{7.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{process}{%
+\subsection*{Process}\label{process}}
+\addcontentsline{toc}{subsection}{Process}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{settings <-}\StringTok{ }\KeywordTok{load_settings}\NormalTok{(}\DataTypeTok{strata =}\NormalTok{ strata_cnp,}
-                          \DataTypeTok{study_area =}\NormalTok{ study_cnp,}
                           \DataTypeTok{survey =}\NormalTok{ survey,}
-                          \DataTypeTok{cohorts=}\KeywordTok{list}\NormalTok{(cohort1,}
-\NormalTok{                                       cohort2))}
+                          \DataTypeTok{cohorts =} \KeywordTok{list}\NormalTok{(all_species,}
+\NormalTok{                                         bottlenose,}
+\NormalTok{                                         spotted))}
 
+\NormalTok{cruz <-}\StringTok{ }
+\StringTok{  }\KeywordTok{process_surveys}\NormalTok{(}\DataTypeTok{das_file =} \StringTok{'data/surveys/CenPac1986-2020_Final_alb.das'}\NormalTok{,}
+                  \DataTypeTok{settings =}\NormalTok{ settings) }
 
-\CommentTok{# Processing ===================================================================}
+\KeywordTok{save}\NormalTok{(cruz, }\DataTypeTok{file=}\StringTok{'whiceas/whiceas_cruz.RData'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-\NormalTok{das_file <-}\StringTok{ 'data/surveys/HICEASwinter2020.das'}
-\NormalTok{cruz <-}\StringTok{ }\KeywordTok{process_surveys}\NormalTok{(das_file, settings, }\DataTypeTok{verbose=}\OtherTok{TRUE}\NormalTok{)}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{load}\NormalTok{(}\StringTok{'whiceas/whiceas_cruz.RData'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-\CommentTok{# Data evaluation ==============================================================}
+\hypertarget{data-exploration}{%
+\section*{Data exploration}\label{data-exploration}}
+\addcontentsline{toc}{section}{Data exploration}
 
-\CommentTok{# Map}
-\NormalTok{m <-}\StringTok{ }\KeywordTok{map_base}\NormalTok{(}\StringTok{'cnp'}\NormalTok{) }
-\NormalTok{m <-}\StringTok{ }\KeywordTok{map_strata}\NormalTok{(m, cruz}\OperatorTok{$}\NormalTok{settings)}
-\NormalTok{m <-}\StringTok{ }\KeywordTok{map_effort}\NormalTok{(m, cruz)}
-\NormalTok{m <-}\StringTok{ }\KeywordTok{map_sightings}\NormalTok{(m, cruz, }\DataTypeTok{size_base=}\NormalTok{.}\DecValTok{4}\NormalTok{)}
-\NormalTok{m }
+\hypertarget{processed-data-structure}{%
+\subsection*{Processed data structure}\label{processed-data-structure}}
+\addcontentsline{toc}{subsection}{Processed data structure}
 
-\CommentTok{# Review interactively}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cruz_structure}\NormalTok{(cruz)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{map-of-sightings}{%
+\subsection*{Map of sightings}\label{map-of-sightings}}
+\addcontentsline{toc}{subsection}{Map of sightings}
+
+For the entire \texttt{cruz} object:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{map_cruz}\NormalTok{(cruz, }\DataTypeTok{sightings_color =} \StringTok{'firebrick'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+For just the surveys of interest:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Filter}
+\NormalTok{cruz1720 <-}\StringTok{ }\KeywordTok{filter_cruz}\NormalTok{(cruz, }
+                        \DataTypeTok{years =} \KeywordTok{c}\NormalTok{(}\DecValTok{2017}\NormalTok{, }\DecValTok{2020}\NormalTok{), }
+                        \DataTypeTok{regions =} \StringTok{'WHICEAS'}\NormalTok{,}
+                        \DataTypeTok{eff_types =} \StringTok{'S'}\NormalTok{,}
+                        \DataTypeTok{bft_range =} \DecValTok{0}\OperatorTok{:}\DecValTok{6}\NormalTok{)}
+
+\CommentTok{# Map, including survey tracks}
+\KeywordTok{map_cruz}\NormalTok{(cruz1720,}
+         \DataTypeTok{sightings_color =} \StringTok{'firebrick'}\NormalTok{, }
+         \DataTypeTok{effort_show =} \OtherTok{TRUE}\NormalTok{, }
+         \DataTypeTok{effort_resolution =} \DecValTok{3}\NormalTok{,}
+         \DataTypeTok{effort_weight =} \DecValTok{4}\NormalTok{,}
+         \DataTypeTok{effort_opacity =} \FloatTok{.4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{interactive-dashboard-1}{%
+\subsection*{Interactive dashboard}\label{interactive-dashboard-1}}
+\addcontentsline{toc}{subsection}{Interactive dashboard}
+
+Use this to determine truncation distances. Note them in your \texttt{lta()} code below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{cruz_explorer}\NormalTok{(cruz)}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{rg0-1}{%
+\section*{Rg0}\label{rg0-1}}
+\addcontentsline{toc}{section}{Rg0}
+
+We can use the built-in dataset, \texttt{data(g0\_results)}, which has Beaufort-specific \emph{Relative g(0)} estimates for most species based on 1986-2020 surveys.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(}\StringTok{"g0_results"}\NormalTok{)}
+\NormalTok{Rg0 <-}\StringTok{ }\NormalTok{g0_results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Plot the results: }
+\KeywordTok{g0_plot}\NormalTok{(Rg0, }\DataTypeTok{panes =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-274-1.pdf}
+
+\hypertarget{density-abundance}{%
+\section*{Density \& abundance}\label{density-abundance}}
+\addcontentsline{toc}{section}{Density \& abundance}
+
+First we can define common values that will be constant across all estimates we produce:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bootstraps <-}\StringTok{ }\DecValTok{100}
+\NormalTok{years <-}\StringTok{ }\DecValTok{1986}\OperatorTok{:}\DecValTok{2020}
+\NormalTok{fit_regions <-}\StringTok{ }\OtherTok{NULL}
+\NormalTok{fit_not_regions <-}\StringTok{ }\OtherTok{NULL}
+\NormalTok{toplot =}\StringTok{ }\OtherTok{TRUE}
+\NormalTok{verbose =}\StringTok{ }\OtherTok{TRUE}
+\NormalTok{results_path <-}\StringTok{ 'whiceas/lta/'}
+
+\NormalTok{df_settings <-}
+\StringTok{  }\KeywordTok{list}\NormalTok{(}\DataTypeTok{covariates =} \KeywordTok{c}\NormalTok{(}\StringTok{'bft'}\NormalTok{,}\StringTok{'lnsstot'}\NormalTok{,}\StringTok{'cruise'}\NormalTok{,}\StringTok{'year'}\NormalTok{,}\StringTok{'ship'}\NormalTok{,}\StringTok{'species'}\NormalTok{),}
+       \DataTypeTok{covariates_factor =} \KeywordTok{c}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{),}
+       \DataTypeTok{covariates_levels =} \DecValTok{2}\NormalTok{,}
+       \DataTypeTok{covariates_n_per_level =} \DecValTok{10}\NormalTok{,}
+       \DataTypeTok{simplify_cue =} \OtherTok{TRUE}\NormalTok{,}
+       \DataTypeTok{simplify_bino =} \OtherTok{TRUE}\NormalTok{,}
+       \DataTypeTok{detection_function_base =} \StringTok{'hn'}\NormalTok{,}
+       \DataTypeTok{base_model =} \StringTok{'~1'}\NormalTok{,}
+       \DataTypeTok{delta_aic =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+For most species, we want to estimate density/abundance for the same set of year-region scenarios. To reduce code redundancy, as well as the risk of typing errors (and our work!), we can use the \texttt{LTabundR} function \texttt{lta\_estimates()} to economize how we prepare our \texttt{estimates} input.
+
+For most species, these are the year-region scenarios for which we want estimates:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scenarios <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2017}\NormalTok{,}
+                       \DataTypeTok{regions =} \StringTok{'WHICEAS'}\NormalTok{),}
+                  \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2020}\NormalTok{, }
+                       \DataTypeTok{regions =} \StringTok{'WHICEAS'}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{lta\_estimates()} function will generate a custom function that makes it easy to create a set of \texttt{estimates} sub-lists for each species of interest:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estimator <-}\StringTok{ }\KeywordTok{lta_estimates}\NormalTok{(scenarios)}
+\end{Highlighting}
+\end{Shaded}
+
+That result, \texttt{estimator}, is actually a function. Here's an example of how this function will work, using the first species pool as an example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estimates <-}
+\StringTok{  }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'013'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Striped dolphin"}\NormalTok{),}
+    \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'026'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Fraser's dolphin"}\NormalTok{, }\DataTypeTok{alt_g0_spp =} \StringTok{'013'}\NormalTok{),}
+    \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'031'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Melon-headed whale"}\NormalTok{, }\DataTypeTok{alt_g0_spp =} \StringTok{'013'}\NormalTok{))}
+
+\NormalTok{estimates  }
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2017}
+
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"WHICEAS"}
+
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
+
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Striped dolphin"}
+
+
+\NormalTok{[[}\DecValTok{2}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2020}
+
+\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"WHICEAS"}
+
+\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
+
+\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Striped dolphin"}
+
+
+\NormalTok{[[}\DecValTok{3}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2017}
+
+\NormalTok{[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"WHICEAS"}
+
+\NormalTok{[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"026"}
+
+\NormalTok{[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Fraser's dolphin"}
+
+\NormalTok{[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{alt_g0_spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
+
+
+\NormalTok{[[}\DecValTok{4}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2020}
+
+\NormalTok{[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"WHICEAS"}
+
+\NormalTok{[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"026"}
+
+\NormalTok{[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Fraser's dolphin"}
+
+\NormalTok{[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{alt_g0_spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
+
+
+\NormalTok{[[}\DecValTok{5}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2017}
+
+\NormalTok{[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"WHICEAS"}
+
+\NormalTok{[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"031"}
+
+\NormalTok{[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Melon-headed whale"}
+
+\NormalTok{[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{alt_g0_spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
+
+
+\NormalTok{[[}\DecValTok{6}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2020}
+
+\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"WHICEAS"}
+
+\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"031"}
+
+\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Melon-headed whale"}
+
+\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{alt_g0_spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
+\end{Highlighting}
+\end{Shaded}
+
+The output of \texttt{estimator()} is a list of sub-lists specifying a set of density/abundance estimates you want to produce based on the detection function for a single species pool.
+
+Here is the full code for producing those estimates for all species from Bradford et al.~(2021):
+
+\hypertarget{multi-species-pool-1}{%
+\subsection*{Multi-species pool 1}\label{multi-species-pool-1}}
+\addcontentsline{toc}{subsection}{Multi-species pool 1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Striped dolphin (013), Fraser's dolphin (026), Melon-headed whale (031)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'013'}\NormalTok{, }\StringTok{'026'}\NormalTok{, }\StringTok{'031'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Multi-species pool 1'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \DecValTok{5}\NormalTok{,}
+         \DataTypeTok{other_species =} \StringTok{'remove'}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}
+\StringTok{    }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'013'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Striped dolphin"}\NormalTok{),}
+      \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'026'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Fraser's dolphin"}\NormalTok{, }\DataTypeTok{alt_g0_spp =} \StringTok{'013'}\NormalTok{),}
+      \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'031'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Melon-headed whale"}\NormalTok{, }\DataTypeTok{alt_g0_spp =} \StringTok{'013'}\NormalTok{))}
+
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{multi-species-pool-2}{%
+\subsection*{Multi-species pool 2}\label{multi-species-pool-2}}
+\addcontentsline{toc}{subsection}{Multi-species pool 2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Rough-toothed dolphin (15), Common bottlenose dolphin (18), Risso's (21),}
+\CommentTok{# Pygmy killer whale (32)}
+
+\CommentTok{# Notes}
+\CommentTok{# Bottlenose abundance is estimated in a separate cohort, but included here for DF fitting}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'015'}\NormalTok{, }\StringTok{'018'}\NormalTok{, }\StringTok{'021'}\NormalTok{, }\StringTok{'032'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Multi-species pool 2'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \DecValTok{5}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}
+\StringTok{      }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'015'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Rough-toothed dolphin"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'021'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Risso's dolphin"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'032'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Pygmy killer whale"}\NormalTok{))}
+
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{multi-species-pool-3}{%
+\subsection*{Multi-species pool 3}\label{multi-species-pool-3}}
+\addcontentsline{toc}{subsection}{Multi-species pool 3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Short-finned pilot whale (036), Longman's beaked whale (065)}
+
+\CommentTok{# No Rg(0) available for Longman's -- will use SF pilot whale instead to estimate its weighted g0}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'036'}\NormalTok{, }\StringTok{'065'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Multi-species pool 3'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \DecValTok{5}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}
+\StringTok{    }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'036'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Short-finned pilot whale"}\NormalTok{),}
+      \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'065'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Longman's beaked whale"}\NormalTok{, }
+                \DataTypeTok{alt_g0_spp =} \StringTok{'036'}\NormalTok{))}
+
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{multi-species-pool-4}{%
+\subsection*{Multi-species pool 4}\label{multi-species-pool-4}}
+\addcontentsline{toc}{subsection}{Multi-species pool 4}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Killer whale (37), sperm whale (46)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'037'}\NormalTok{, }\StringTok{'046'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Multi-species pool 4'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \FloatTok{5.5}\NormalTok{,}
+         \DataTypeTok{other_species =} \StringTok{'remove'}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}
+\StringTok{      }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'037'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Killer whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'046'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Sperm whale"}\NormalTok{))}
+
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{multi-species-pool-5}{%
+\subsection*{Multi-species pool 5}\label{multi-species-pool-5}}
+\addcontentsline{toc}{subsection}{Multi-species pool 5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Pygmy sperm whale (47), dwarf sperm whale (48), UNID Kogia (80),}
+\CommentTok{# Blainville's beaked whale (59), Cuvier's beaked whale (61),}
+\CommentTok{# UNID Mesoplodon (51), UNID beaked whale (49), Minke whale (71)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'047'}\NormalTok{, }\StringTok{'048'}\NormalTok{, }\StringTok{'080'}\NormalTok{, }\StringTok{'059'}\NormalTok{, }\StringTok{'061'}\NormalTok{, }\StringTok{'051'}\NormalTok{, }\StringTok{'049'}\NormalTok{, }\StringTok{'071'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Multi-species pool 5'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \FloatTok{4.5}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}
+\StringTok{      }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'047'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Pygmy sperm whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'048'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Dwarf sperm whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'080'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Unidentified Kogia"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'059'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Blainville's beaked whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'061'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Curvier's beaked whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'051'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Unidentified Mesoplodon"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'049'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Unidentified beaked whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'071'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Minke whale"}\NormalTok{))}
+
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{multi-species-pool-6}{%
+\subsection*{Multi-species pool 6}\label{multi-species-pool-6}}
+\addcontentsline{toc}{subsection}{Multi-species pool 6}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Bryde's whale (72), Sei whale (73), Fin whale (74), Blue whale (75),}
+\CommentTok{# Sei/Bryde's (99), Fin/Sei/Bryde's (72, 73, 74, 99)}
+
+\CommentTok{# Bryde's, Sei's, and Sei/Bryde's all use same Rg0 (title = "Sei/Bryde's")}
+\CommentTok{# Sei/Bryde's/Fin use an average of Fin and Sei/Bryde's.}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'072'}\NormalTok{, }\StringTok{'073'}\NormalTok{, }\StringTok{'074'}\NormalTok{,}\StringTok{'075'}\NormalTok{,}\StringTok{'099'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Multi-species pool 6'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \FloatTok{5.0}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{   estimates <-}
+\StringTok{      }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'072'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Bryde's whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'073'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Sei whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'074'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Fin whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'075'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Blue whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'099'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Sei/Bryde's whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'072'}\NormalTok{, }\StringTok{'073'}\NormalTok{, }\StringTok{'099'}\NormalTok{, }\StringTok{'074'}\NormalTok{), }
+                  \DataTypeTok{title =} \StringTok{"Sei/Bryde's/Fin whale"}\NormalTok{,}
+                  \DataTypeTok{combine_g0 =} \OtherTok{TRUE}\NormalTok{))}
+  
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{humpback-whale}{%
+\subsection*{Humpback whale}\label{humpback-whale}}
+\addcontentsline{toc}{subsection}{Humpback whale}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'076'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Humpback whale'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \FloatTok{5.5}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{   estimates <-}\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'076'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Humpback whale"}\NormalTok{))}
+   
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{unidentified-rorquals}{%
+\subsection*{Unidentified rorquals}\label{unidentified-rorquals}}
+\addcontentsline{toc}{subsection}{Unidentified rorquals}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# UNID rorquals (70)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'070'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Unidentified rorqual'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \FloatTok{5.5}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}
+\StringTok{      }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'070'}\NormalTok{, }
+                  \DataTypeTok{title =} \StringTok{"Unidentified rorqual"}\NormalTok{,}
+                  \DataTypeTok{alt_g0_spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'071'}\NormalTok{,}\StringTok{'099'}\NormalTok{,}\StringTok{'074'}\NormalTok{,}\StringTok{'075'}\NormalTok{),}
+                  \DataTypeTok{combine_g0 =} \OtherTok{TRUE}\NormalTok{))}
+  
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{unidentified-dolphins}{%
+\subsection*{Unidentified dolphins}\label{unidentified-dolphins}}
+\addcontentsline{toc}{subsection}{Unidentified dolphins}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# UNID dolphin (177, 277, 377, 77)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+\NormalTok{  spp <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'177'}\NormalTok{,}\StringTok{'277'}\NormalTok{,}\StringTok{'377'}\NormalTok{,}\StringTok{'077'}\NormalTok{)}
+\NormalTok{  pool_title <-}\StringTok{ 'Unidentified dolphin'}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'177'}\NormalTok{,}\StringTok{'277'}\NormalTok{,}\StringTok{'377'}\NormalTok{,}\StringTok{'077'}\NormalTok{),}
+         \DataTypeTok{pool =}\NormalTok{ pool_title,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \FloatTok{5.5}\NormalTok{,}
+         \DataTypeTok{other_species =} \StringTok{'coerce'}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =}\NormalTok{ spp, }\DataTypeTok{title =}\NormalTok{ pool_title)}
+  
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{unidentified-cetaceans}{%
+\subsection*{Unidentified cetaceans}\label{unidentified-cetaceans}}
+\addcontentsline{toc}{subsection}{Unidentified cetaceans}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# UNID cetacean (78, 79, 98, 96)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+\NormalTok{  spp <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'078'}\NormalTok{,}\StringTok{'079'}\NormalTok{,}\StringTok{'098'}\NormalTok{,}\StringTok{'096'}\NormalTok{)}
+\NormalTok{  pool_title <-}\StringTok{ 'Unidentified cetacean'}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =}\NormalTok{ spp,}
+         \DataTypeTok{pool =}\NormalTok{ pool_title,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \FloatTok{5.5}\NormalTok{,}
+         \DataTypeTok{other_species =} \StringTok{'coerce'}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =}\NormalTok{ spp, }
+                         \DataTypeTok{title =}\NormalTok{ pool_title, }
+                         \DataTypeTok{g0=}\FloatTok{1.0}\NormalTok{, }
+                         \DataTypeTok{g0_cv =} \FloatTok{0.0}\NormalTok{)}
+
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{bottlenose-dolphin}{%
+\subsection*{Bottlenose dolphin}\label{bottlenose-dolphin}}
+\addcontentsline{toc}{subsection}{Bottlenose dolphin}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Bottlenose dolphin (018)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'015'}\NormalTok{, }\StringTok{'018'}\NormalTok{, }\StringTok{'021'}\NormalTok{, }\StringTok{'032'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Bottlenose dolphin'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'bottlenose'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \DecValTok{5}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  scenarios <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2017}\NormalTok{,}
+       \DataTypeTok{regions =} \StringTok{'WHICEAS'}\NormalTok{,}
+       \DataTypeTok{regions_remove =} \KeywordTok{c}\NormalTok{(}\StringTok{'Bottlenose_KaNi'}\NormalTok{, }\StringTok{'Bottlenose_OUFI'}\NormalTok{, }\StringTok{'Bottlenose_BI'}\NormalTok{),}
+       \DataTypeTok{region_title =} \StringTok{'(WHICEAS)'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2020}\NormalTok{,}
+       \DataTypeTok{regions =} \StringTok{'WHICEAS'}\NormalTok{,}
+       \DataTypeTok{regions_remove =} \KeywordTok{c}\NormalTok{(}\StringTok{'Bottlenose_KaNi'}\NormalTok{, }\StringTok{'Bottlenose_OUFI'}\NormalTok{, }\StringTok{'Bottlenose_BI'}\NormalTok{),}
+       \DataTypeTok{region_title =} \StringTok{'(WHICEAS)'}\NormalTok{))}
+  
+\NormalTok{  estimator <-}\StringTok{ }\KeywordTok{lta_estimates}\NormalTok{(scenarios)}
+\NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'018'}\NormalTok{, }\DataTypeTok{title =} \StringTok{'Bottlenose dolphin'}\NormalTok{)}
+  
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{pantropical-spotted-dolphin}{%
+\subsection*{Pantropical spotted dolphin}\label{pantropical-spotted-dolphin}}
+\addcontentsline{toc}{subsection}{Pantropical spotted dolphin}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Pantropical spotted dolphin (002)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'002'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Pantropical spotted dolphin'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'spotted'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \DecValTok{5}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  scenarios <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2017}\NormalTok{,}
+       \DataTypeTok{regions =} \StringTok{'WHICEAS'}\NormalTok{,}
+       \DataTypeTok{regions_remove =} \KeywordTok{c}\NormalTok{(}\StringTok{'Spotted_OU'}\NormalTok{, }\StringTok{'Spotted_FI'}\NormalTok{, }\StringTok{'Spotted_BI'}\NormalTok{),}
+       \DataTypeTok{region_title =} \StringTok{'(WHICEAS)'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2020}\NormalTok{,}
+       \DataTypeTok{regions =} \StringTok{'WHICEAS'}\NormalTok{,}
+       \DataTypeTok{regions_remove =} \KeywordTok{c}\NormalTok{(}\StringTok{'Spotted_OU'}\NormalTok{, }\StringTok{'Spotted_FI'}\NormalTok{, }\StringTok{'Spotted_BI'}\NormalTok{),}
+       \DataTypeTok{region_title =} \StringTok{'(WHICEAS)'}\NormalTok{))}
+  
+\NormalTok{  estimator <-}\StringTok{ }\KeywordTok{lta_estimates}\NormalTok{(scenarios)}
+\NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'002'}\NormalTok{, }\DataTypeTok{title =} \StringTok{'Pantropical spotted dolphin'}\NormalTok{)}
+  
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{results}{%
+\section*{Results}\label{results}}
+\addcontentsline{toc}{section}{Results}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Load results}
+\NormalTok{ltas <-}\StringTok{ }\KeywordTok{lta_enlist}\NormalTok{(}\StringTok{'whiceas/lta/'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{tables-1}{%
+\subsection*{Tables}\label{tables-1}}
+\addcontentsline{toc}{subsection}{Tables}
+
+Generate report:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti <-}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(ltas, cruz)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Table 1a.} \emph{Total and systematic sample sizes.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{table1a }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table 1b.} \emph{Sample sizes of sightings used in density esitmation.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{table1b }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table 2.} \emph{Detection functions for cetacean species and taxonomic categories.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{table2 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table 3.} \emph{Estimates of line-transect parameters for cetacean species and taxonomic categories.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{table3 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table 4.} \emph{Estimates of density (individuals per 1,000 km2) and abundance for cetacean species and taxonomic categories sighted while on systematic survey effort.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{table4 }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{plots-1}{%
+\subsection*{Plots}\label{plots-1}}
+\addcontentsline{toc}{subsection}{Plots}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lta_plot}\NormalTok{(}\DataTypeTok{species =} \OtherTok{NULL}\NormalTok{, }
+         \DataTypeTok{lta_result =}\NormalTok{ ltas, }
+         \DataTypeTok{years =} \KeywordTok{c}\NormalTok{(}\DecValTok{2017}\NormalTok{, }\DecValTok{2020}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-303-1.pdf}
+
+\hypertarget{part-case-studies-1}{%
+\part{Case studies}\label{part-case-studies-1}}
+
+\hypertarget{case_cnp}{%
+\chapter{Central North Pacific}\label{case_cnp}}
+
+2002, 2010, and 2017
+
+\hypertarget{data-processing-1}{%
+\section*{Data processing}\label{data-processing-1}}
+\addcontentsline{toc}{section}{Data processing}
+
+\hypertarget{settings-2}{%
+\subsection*{Settings}\label{settings-2}}
+\addcontentsline{toc}{subsection}{Settings}
+
+\hypertarget{survey-wide-settings-3}{%
+\subsubsection*{Survey-wide settings}\label{survey-wide-settings-3}}
+\addcontentsline{toc}{subsubsection}{Survey-wide settings}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(species_codes)}
+\KeywordTok{data}\NormalTok{(ships)}
+\KeywordTok{data}\NormalTok{(group_size_coefficients)}
+
+\NormalTok{survey <-}\StringTok{ }\KeywordTok{load_survey_settings}\NormalTok{(}
+  \DataTypeTok{out_handling =} \StringTok{'remove'}\NormalTok{,}
+  \DataTypeTok{max_row_interval =} \OtherTok{Inf}\NormalTok{,}
+  \DataTypeTok{segment_method =} \StringTok{"equallength"}\NormalTok{,}
+  \DataTypeTok{segment_target_km =} \DecValTok{150}\NormalTok{,}
+  \DataTypeTok{segment_max_interval =} \DecValTok{24}\NormalTok{,}
+  \DataTypeTok{segment_remainder_handling =} \KeywordTok{c}\NormalTok{(}\StringTok{"segment"}\NormalTok{),}
+  \DataTypeTok{ship_list =}\NormalTok{ ships,}
+  \DataTypeTok{species_codes =}\NormalTok{ species_codes,}
+  \DataTypeTok{group_size_coefficients =}\NormalTok{ group_size_coefficients,}
+  \DataTypeTok{smear_angles =} \OtherTok{FALSE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{geostrata-2}{%
+\subsubsection*{Geostrata}\label{geostrata-2}}
+\addcontentsline{toc}{subsubsection}{Geostrata}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(strata_cnp)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cohort-specific-settings-2}{%
+\subsubsection*{Cohort-specific settings}\label{cohort-specific-settings-2}}
+\addcontentsline{toc}{subsubsection}{Cohort-specific settings}
+
+\hypertarget{cohort-1-all-species-1}{%
+\paragraph{Cohort 1: all species}\label{cohort-1-all-species-1}}
+\addcontentsline{toc}{paragraph}{Cohort 1: all species}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{all_species <-}\StringTok{ }\KeywordTok{load_cohort_settings}\NormalTok{(}
+  \DataTypeTok{id =} \StringTok{"all"}\NormalTok{, }\CommentTok{# *}
+  \DataTypeTok{species =} \OtherTok{NULL}\NormalTok{, }
+  \DataTypeTok{strata =} \KeywordTok{c}\NormalTok{(}\StringTok{'MHI'}\NormalTok{, }\StringTok{'HI_EEZ'}\NormalTok{, }\StringTok{'OtherCNP'}\NormalTok{), }\CommentTok{# *}
+  \DataTypeTok{probable_species =} \OtherTok{FALSE}\NormalTok{,}
+  \DataTypeTok{sighting_method =} \DecValTok{0}\NormalTok{,}
+  \DataTypeTok{cue_range =} \DecValTok{0}\OperatorTok{:}\DecValTok{7}\NormalTok{,}
+  \DataTypeTok{school_size_range =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10000}\NormalTok{),}
+  \DataTypeTok{school_size_calibrate =} \OtherTok{TRUE}\NormalTok{,}
+  \DataTypeTok{calibration_floor =} \DecValTok{0}\NormalTok{,}
+  \DataTypeTok{use_low_if_na =} \OtherTok{TRUE}\NormalTok{,}
+  \DataTypeTok{io_sightings =} \DecValTok{0}\NormalTok{,}
+  \DataTypeTok{geometric_mean_group =} \OtherTok{TRUE}\NormalTok{,}
+  \DataTypeTok{truncation_km =} \FloatTok{7.5}\NormalTok{, }\CommentTok{# *}
+  \DataTypeTok{beaufort_range =} \DecValTok{0}\OperatorTok{:}\DecValTok{6}\NormalTok{,}
+  \DataTypeTok{abeam_sightings =} \OtherTok{TRUE}\NormalTok{,}
+  \DataTypeTok{strata_overlap_handling =} \KeywordTok{c}\NormalTok{(}\StringTok{"smallest"}\NormalTok{),}
+  \DataTypeTok{distance_types =} \KeywordTok{c}\NormalTok{(}\StringTok{'S'}\NormalTok{,}\StringTok{'F'}\NormalTok{,}\StringTok{'N'}\NormalTok{),}
+  \DataTypeTok{distance_modes =} \KeywordTok{c}\NormalTok{(}\StringTok{'P'}\NormalTok{,}\StringTok{'C'}\NormalTok{),}
+  \DataTypeTok{distance_on_off =} \OtherTok{TRUE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cohort-2-bottlenose-dolphins-1}{%
+\paragraph{Cohort 2: bottlenose dolphins}\label{cohort-2-bottlenose-dolphins-1}}
+\addcontentsline{toc}{paragraph}{Cohort 2: bottlenose dolphins}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bottlenose <-}\StringTok{ }\KeywordTok{load_cohort_settings}\NormalTok{(}
+  \DataTypeTok{id =} \StringTok{"bottlenose"}\NormalTok{,}
+  \DataTypeTok{species =} \KeywordTok{c}\NormalTok{(}\StringTok{'015'}\NormalTok{, }\StringTok{'018'}\NormalTok{, }\StringTok{'021'}\NormalTok{, }\StringTok{'032'}\NormalTok{),}
+  \DataTypeTok{strata =} \KeywordTok{c}\NormalTok{(}\StringTok{'MHI'}\NormalTok{, }\StringTok{'HI_EEZ'}\NormalTok{, }\StringTok{'OtherCNP'}\NormalTok{,}
+             \StringTok{'Bottlenose_BI'}\NormalTok{, }\StringTok{'Bottlenose_OUFI'}\NormalTok{, }\StringTok{'Bottlenose_KaNi'}\NormalTok{),}
+  \DataTypeTok{truncation_km =} \FloatTok{7.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cohort-3-pantropical-spotted-dolphins-1}{%
+\paragraph{Cohort 3: pantropical spotted dolphins}\label{cohort-3-pantropical-spotted-dolphins-1}}
+\addcontentsline{toc}{paragraph}{Cohort 3: pantropical spotted dolphins}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spotted <-}\StringTok{ }\KeywordTok{load_cohort_settings}\NormalTok{(}
+  \DataTypeTok{id =} \StringTok{"spotted"}\NormalTok{,}
+  \DataTypeTok{species =} \StringTok{'002'}\NormalTok{,}
+  \DataTypeTok{strata =} \KeywordTok{c}\NormalTok{(}\StringTok{'MHI'}\NormalTok{, }\StringTok{'HI_EEZ'}\NormalTok{, }\StringTok{'OtherCNP'}\NormalTok{,}
+             \StringTok{'Spotted_OU'}\NormalTok{,}\StringTok{'Spotted_FI'}\NormalTok{,}\StringTok{'Spotted_BI'}\NormalTok{),}
+  \DataTypeTok{truncation_km =} \FloatTok{7.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{process-1}{%
+\subsection*{Process}\label{process-1}}
+\addcontentsline{toc}{subsection}{Process}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{settings <-}\StringTok{ }\KeywordTok{load_settings}\NormalTok{(}\DataTypeTok{strata =}\NormalTok{ strata_cnp,}
+                          \DataTypeTok{survey =}\NormalTok{ survey,}
+                          \DataTypeTok{cohorts =} \KeywordTok{list}\NormalTok{(all_species,}
+\NormalTok{                                         bottlenose,}
+\NormalTok{                                         spotted))}
+
+\NormalTok{cruz <-}\StringTok{ }
+\StringTok{  }\KeywordTok{process_surveys}\NormalTok{(}\DataTypeTok{das_file =} \StringTok{'data/surveys/CenPac1986-2020_Final_alb.das'}\NormalTok{,}
+                  \DataTypeTok{settings =}\NormalTok{ settings,}
+                  \DataTypeTok{save_local =} \OtherTok{TRUE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{load}\NormalTok{(}\StringTok{'data/surveys/CenPac1986-2020_Final_alb.RData'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{data-exploration-1}{%
+\section*{Data exploration}\label{data-exploration-1}}
+\addcontentsline{toc}{section}{Data exploration}
+
+\hypertarget{processed-data-structure-1}{%
+\subsection*{Processed data structure}\label{processed-data-structure-1}}
+\addcontentsline{toc}{subsection}{Processed data structure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cruz_structure}\NormalTok{(cruz)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{map-of-sightings-1}{%
+\subsection*{Map of sightings}\label{map-of-sightings-1}}
+\addcontentsline{toc}{subsection}{Map of sightings}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{map_cruz}\NormalTok{(cruz, }\DataTypeTok{sightings_color =} \StringTok{'firebrick'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{interactive-dashboard-2}{%
+\subsection*{Interactive dashboard}\label{interactive-dashboard-2}}
+\addcontentsline{toc}{subsection}{Interactive dashboard}
+
+Use this to determine truncation distances. Note them in your \texttt{lta()} code below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cruz_explorer}\NormalTok{(cruz)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{rg0-2}{%
+\section*{Rg0}\label{rg0-2}}
+\addcontentsline{toc}{section}{Rg0}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Bring in 10km-segment data from all NOAA/NMFS surveys, 1986 - 2020}
+\KeywordTok{data}\NormalTok{(}\StringTok{"noaa_10km_1986_2020"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Filter to analysis only}
+\NormalTok{cruzi <-}\StringTok{ }\KeywordTok{filter_cruz}\NormalTok{(noaa_10km_}\DecValTok{1986}\NormalTok{_}\DecValTok{2020}\NormalTok{,}
+                     \DataTypeTok{analysis_only =} \OtherTok{TRUE}\NormalTok{,}
+                     \DataTypeTok{eff_types =} \StringTok{'S'}\NormalTok{,}
+                     \DataTypeTok{bft_range =} \DecValTok{0}\OperatorTok{:}\DecValTok{6}\NormalTok{,}
+                     \DataTypeTok{on_off =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Prepare settings list for each species}
+\NormalTok{species <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'005'}\NormalTok{, }\StringTok{'016'}\NormalTok{, }\StringTok{'017'}\NormalTok{),}
+       \DataTypeTok{title =} \StringTok{'Delphinus spp'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'002'}\NormalTok{,}\StringTok{'006'}\NormalTok{,}\StringTok{'089'}\NormalTok{,}\StringTok{'090'}\NormalTok{),}
+       \DataTypeTok{title =} \StringTok{'Stenella attenuata spp'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'003'}\NormalTok{,}\StringTok{'010'}\NormalTok{,}\StringTok{'011'}\NormalTok{,}\StringTok{'088'}\NormalTok{,}\StringTok{'100'}\NormalTok{,}\StringTok{'101'}\NormalTok{,}\StringTok{'102'}\NormalTok{,}\StringTok{'103'}\NormalTok{,}\StringTok{'107'}\NormalTok{),}
+       \DataTypeTok{title =} \StringTok{'Stenella longirostris spp'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'013'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{'Striped dolphin'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'015'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{'Rough-toothed dolphin'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'018'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{'Bottlenose dolphin'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{,}
+       \DataTypeTok{pool_bft =} \StringTok{'12'}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'021'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{"Risso's dolphin"}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{,}
+       \DataTypeTok{pool_bft =} \StringTok{'12'}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'026'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{"Fraser's dolphin"}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'031'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{'Melon-headed whale'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'032'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{'Pygmy killer whale'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'036'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{'Short-finned pilot whale'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{,}
+       \DataTypeTok{pool_bft =} \StringTok{'12'}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'037'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{'Killer whale'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{,}
+       \DataTypeTok{pool_bft =} \StringTok{'12'}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'046'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{'Sperm whale'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'047'}\NormalTok{, }\StringTok{'048'}\NormalTok{, }\StringTok{'080'}\NormalTok{),}
+       \DataTypeTok{title =} \StringTok{'Kogia spp'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{4.0}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'061'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{"Cuvier's beaked whale"}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{4.0}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'049'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{'Unid. beaked whale'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'001'}\NormalTok{,}\StringTok{'051'}\NormalTok{,}\StringTok{'052'}\NormalTok{,}\StringTok{'053'}\NormalTok{,}\StringTok{'054'}\NormalTok{,}\StringTok{'055'}\NormalTok{,}
+               \StringTok{'056'}\NormalTok{,}\StringTok{'057'}\NormalTok{,}\StringTok{'058'}\NormalTok{,}\StringTok{'059'}\NormalTok{,}\StringTok{'060'}\NormalTok{,}\StringTok{'081'}\NormalTok{,}
+               \StringTok{'082'}\NormalTok{,}\StringTok{'083'}\NormalTok{,}\StringTok{'106'}\NormalTok{,}\StringTok{'109'}\NormalTok{),}
+       \DataTypeTok{title =} \StringTok{'Mesoplodon spp'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{4.0}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'044'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{"Dall's porpoise"}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{,}
+       \DataTypeTok{regions =} \StringTok{'CCS'}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'071'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{'Minke whale'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{4.0}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'072'}\NormalTok{,}\StringTok{'073'}\NormalTok{,}\StringTok{'099'}\NormalTok{),}
+       \DataTypeTok{title =} \StringTok{"Sei/Bryde's"}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'074'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{'Fin whale'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{,}
+       \DataTypeTok{regions =} \StringTok{'CCS'}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'075'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{'Blue whale'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{,}
+       \DataTypeTok{regions =} \StringTok{'CCS'}\NormalTok{),}
+   \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'076'}\NormalTok{,}
+       \DataTypeTok{title =} \StringTok{'Humpback whale'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{,}
+       \DataTypeTok{regions =} \StringTok{'CCS'}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'177'}\NormalTok{,}\StringTok{'277'}\NormalTok{,}\StringTok{'377'}\NormalTok{,}\StringTok{'077'}\NormalTok{),}
+       \DataTypeTok{title =} \StringTok{'Unid. dolphin'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{),}
+  \KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'078'}\NormalTok{,}\StringTok{'079'}\NormalTok{,}\StringTok{'098'}\NormalTok{,}\StringTok{'096'}\NormalTok{),}
+       \DataTypeTok{title =} \StringTok{'Unid. cetacean'}\NormalTok{,}
+       \DataTypeTok{truncation =} \FloatTok{5.5}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Estimate Rgo for your set of species:  }
+\NormalTok{Rg0 <-}
+\StringTok{  }\KeywordTok{g0_table}\NormalTok{(cruzi,}
+\NormalTok{           species,}
+           \DataTypeTok{eff_types =} \StringTok{'S'}\NormalTok{,}
+           \DataTypeTok{jackknife_fraction =} \FloatTok{0.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{save}\NormalTok{(Rg0, }\DataTypeTok{file=}\StringTok{'cnp/Rg0.RData'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{load}\NormalTok{(}\StringTok{'cnp/Rg0.RData'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Plot the results: }
+\KeywordTok{g0_plot}\NormalTok{(Rg0, }\DataTypeTok{panes =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-321-1.pdf}
+
+\hypertarget{density-abundance-1}{%
+\section*{Density \& abundance}\label{density-abundance-1}}
+\addcontentsline{toc}{section}{Density \& abundance}
+
+First we can define common values that will be constant across all estimates we produce:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bootstraps <-}\StringTok{ }\DecValTok{10}
+\NormalTok{years <-}\StringTok{ }\DecValTok{1986}\OperatorTok{:}\DecValTok{2020}
+\NormalTok{fit_regions <-}\StringTok{ }\OtherTok{NULL}
+\NormalTok{fit_not_regions <-}\StringTok{ }\OtherTok{NULL}
+\NormalTok{toplot =}\StringTok{ }\OtherTok{TRUE}
+\NormalTok{verbose =}\StringTok{ }\OtherTok{TRUE}
+\NormalTok{results_path <-}\StringTok{ 'cnp/lta/'}
+
+\NormalTok{df_settings <-}
+\StringTok{  }\KeywordTok{list}\NormalTok{(}\DataTypeTok{covariates =} \KeywordTok{c}\NormalTok{(}\StringTok{'bft'}\NormalTok{,}\StringTok{'lnsstot'}\NormalTok{,}\StringTok{'cruise'}\NormalTok{,}\StringTok{'year'}\NormalTok{,}\StringTok{'ship'}\NormalTok{,}\StringTok{'species'}\NormalTok{),}
+       \DataTypeTok{covariates_factor =} \KeywordTok{c}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{),}
+       \DataTypeTok{covariates_levels =} \DecValTok{2}\NormalTok{,}
+       \DataTypeTok{covariates_n_per_level =} \DecValTok{10}\NormalTok{,}
+       \DataTypeTok{simplify_cue =} \OtherTok{TRUE}\NormalTok{,}
+       \DataTypeTok{simplify_bino =} \OtherTok{TRUE}\NormalTok{,}
+       \DataTypeTok{detection_function_base =} \StringTok{'hn'}\NormalTok{,}
+       \DataTypeTok{base_model =} \StringTok{'~1'}\NormalTok{,}
+       \DataTypeTok{delta_aic =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+For most species, we want to estimate density/abundance for the same set of year-region scenarios. To reduce code redundancy (and our work!), we can use the \texttt{LTabundR} function \texttt{lta\_estimate()} to economize how we prepare our \texttt{estimates} input.
+
+These are the year-region scenarios for which we want estimates:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scenarios <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2002}\NormalTok{,}
+       \DataTypeTok{regions =} \StringTok{'MHI'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2002}\NormalTok{, }
+         \DataTypeTok{regions =} \StringTok{'HI_EEZ'}\NormalTok{,}
+         \DataTypeTok{regions_remove =} \StringTok{'MHI'}\NormalTok{,}
+         \DataTypeTok{region_title =} \StringTok{'Pelagic HI_EEZ'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2010}\NormalTok{,}
+         \DataTypeTok{regions =} \StringTok{'HI_EEZ'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2017}\NormalTok{,}
+         \DataTypeTok{regions =} \StringTok{'HI_EEZ'}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+The \texttt{lta\_estimates()} function will generate a custom function that makes it easy to create a set of \texttt{estimates} sub-lists for each species of interest:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estimator <-}\StringTok{ }\KeywordTok{lta_estimates}\NormalTok{(scenarios)}
+\end{Highlighting}
+\end{Shaded}
+
+That result, \texttt{estimator}, is actually a function. Here's an example of how this function will work, using the first species pool as an example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estimates <-}
+\StringTok{  }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'013'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Striped dolphin"}\NormalTok{),}
+    \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'026'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Fraser's dolphin"}\NormalTok{),}
+    \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'031'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Melon-headed whale"}\NormalTok{))}
+
+\NormalTok{estimates  }
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2002}
+
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"MHI"}
+
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
+
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Striped dolphin"}
+
+
+\NormalTok{[[}\DecValTok{2}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2002}
+
+\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
+
+\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions_remove}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"MHI"}
+
+\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{region_title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Pelagic HI_EEZ"}
+
+\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
+
+\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Striped dolphin"}
+
+
+\NormalTok{[[}\DecValTok{3}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2010}
+
+\NormalTok{[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
+
+\NormalTok{[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
+
+\NormalTok{[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Striped dolphin"}
+
+
+\NormalTok{[[}\DecValTok{4}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2017}
+
+\NormalTok{[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
+
+\NormalTok{[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
+
+\NormalTok{[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Striped dolphin"}
+
+
+\NormalTok{[[}\DecValTok{5}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2002}
+
+\NormalTok{[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"MHI"}
+
+\NormalTok{[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"026"}
+
+\NormalTok{[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Fraser's dolphin"}
+
+
+\NormalTok{[[}\DecValTok{6}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2002}
+
+\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
+
+\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions_remove}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"MHI"}
+
+\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{region_title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Pelagic HI_EEZ"}
+
+\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"026"}
+
+\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Fraser's dolphin"}
+
+
+\NormalTok{[[}\DecValTok{7}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{7}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2010}
+
+\NormalTok{[[}\DecValTok{7}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
+
+\NormalTok{[[}\DecValTok{7}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"026"}
+
+\NormalTok{[[}\DecValTok{7}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Fraser's dolphin"}
+
+
+\NormalTok{[[}\DecValTok{8}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{8}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2017}
+
+\NormalTok{[[}\DecValTok{8}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
+
+\NormalTok{[[}\DecValTok{8}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"026"}
+
+\NormalTok{[[}\DecValTok{8}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Fraser's dolphin"}
+
+
+\NormalTok{[[}\DecValTok{9}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{9}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2002}
+
+\NormalTok{[[}\DecValTok{9}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"MHI"}
+
+\NormalTok{[[}\DecValTok{9}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"031"}
+
+\NormalTok{[[}\DecValTok{9}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Melon-headed whale"}
+
+
+\NormalTok{[[}\DecValTok{10}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2002}
+
+\NormalTok{[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
+
+\NormalTok{[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions_remove}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"MHI"}
+
+\NormalTok{[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{region_title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Pelagic HI_EEZ"}
+
+\NormalTok{[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"031"}
+
+\NormalTok{[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Melon-headed whale"}
+
+
+\NormalTok{[[}\DecValTok{11}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{11}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2010}
+
+\NormalTok{[[}\DecValTok{11}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
+
+\NormalTok{[[}\DecValTok{11}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"031"}
+
+\NormalTok{[[}\DecValTok{11}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Melon-headed whale"}
+
+
+\NormalTok{[[}\DecValTok{12}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{12}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2017}
+
+\NormalTok{[[}\DecValTok{12}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
+
+\NormalTok{[[}\DecValTok{12}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"031"}
+
+\NormalTok{[[}\DecValTok{12}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Melon-headed whale"}
+\end{Highlighting}
+\end{Shaded}
+
+The output of \texttt{estimator()} is a list of sub-lists specifying a set of density/abundance estimates you want to produce based on the detection function for a single species pool.
+
+Here is the full code for producing those estimates for all species from Bradford et al.~(2021):
+
+\hypertarget{multi-species-pool-1-1}{%
+\subsection*{Multi-species pool 1}\label{multi-species-pool-1-1}}
+\addcontentsline{toc}{subsection}{Multi-species pool 1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Striped dolphin (013), Fraser's dolphin (026), Melon-headed whale (031)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'013'}\NormalTok{, }\StringTok{'026'}\NormalTok{, }\StringTok{'031'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Multi-species pool 1'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \DecValTok{5}\NormalTok{,}
+         \DataTypeTok{other_species =} \StringTok{'remove'}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}
+\StringTok{    }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'013'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Striped dolphin"}\NormalTok{),}
+      \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'026'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Fraser's dolphin"}\NormalTok{),}
+      \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'031'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Melon-headed whale"}\NormalTok{))}
+
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{multi-species-pool-2-1}{%
+\subsection*{Multi-species pool 2}\label{multi-species-pool-2-1}}
+\addcontentsline{toc}{subsection}{Multi-species pool 2}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Rough-toothed dolphin (15), Common bottlenose dolphin (18), Risso's (21),}
+\CommentTok{# Pygmy killer whale (32)}
+
+\CommentTok{# Notes}
+\CommentTok{# Bottlenose abundance is estimated in a separate cohort, but included here for DF fitting}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'015'}\NormalTok{, }\StringTok{'018'}\NormalTok{, }\StringTok{'021'}\NormalTok{, }\StringTok{'032'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Multi-species pool 2'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \DecValTok{5}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}
+\StringTok{      }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'015'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Rough-toothed dolphin"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'021'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Risso's dolphin"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'032'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Pygmy killer whale"}\NormalTok{))}
+
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{multi-species-pool-3-1}{%
+\subsection*{Multi-species pool 3}\label{multi-species-pool-3-1}}
+\addcontentsline{toc}{subsection}{Multi-species pool 3}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Short-finned pilot whale (036), Longman's beaked whale (065)}
+
+\CommentTok{# No Rg(0) available for Longman's -- will use SF pilot whale instead to estimate its weighted g0}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'036'}\NormalTok{, }\StringTok{'065'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Multi-species pool 3'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \DecValTok{5}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}
+\StringTok{    }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'036'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Short-finned pilot whale"}\NormalTok{),}
+      \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'065'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Longman's beaked whale"}\NormalTok{, }
+                \DataTypeTok{alt_g0_spp =} \StringTok{'036'}\NormalTok{))}
+
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{multi-species-pool-4-1}{%
+\subsection*{Multi-species pool 4}\label{multi-species-pool-4-1}}
+\addcontentsline{toc}{subsection}{Multi-species pool 4}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Killer whale (37), sperm whale (46)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'037'}\NormalTok{, }\StringTok{'046'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Multi-species pool 4'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \FloatTok{5.5}\NormalTok{,}
+         \DataTypeTok{other_species =} \StringTok{'remove'}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}
+\StringTok{      }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'037'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Killer whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'046'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Sperm whale"}\NormalTok{))}
+
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{multi-species-pool-5-1}{%
+\subsection*{Multi-species pool 5}\label{multi-species-pool-5-1}}
+\addcontentsline{toc}{subsection}{Multi-species pool 5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Pygmy sperm whale (47), dwarf sperm whale (48), UNID Kogia (80),}
+\CommentTok{# Blainville's beaked whale (59), Cuvier's beaked whale (61),}
+\CommentTok{# UNID Mesoplodon (51), UNID beaked whale (49), Minke whale (71)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'047'}\NormalTok{, }\StringTok{'048'}\NormalTok{, }\StringTok{'080'}\NormalTok{, }\StringTok{'059'}\NormalTok{, }\StringTok{'061'}\NormalTok{, }\StringTok{'051'}\NormalTok{, }\StringTok{'049'}\NormalTok{, }\StringTok{'071'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Multi-species pool 5'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \FloatTok{4.5}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}
+\StringTok{      }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'047'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Pygmy sperm whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'048'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Dwarf sperm whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'080'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Unidentified Kogia"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'059'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Blainville's beaked whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'061'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Curvier's beaked whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'051'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Unidentified Mesoplodon"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'049'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Unidentified beaked whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'071'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Minke whale"}\NormalTok{))}
+
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{multi-species-pool-6-1}{%
+\subsection*{Multi-species pool 6}\label{multi-species-pool-6-1}}
+\addcontentsline{toc}{subsection}{Multi-species pool 6}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Bryde's whale (72), Sei whale (73), Fin whale (74), Blue whale (75),}
+\CommentTok{# Sei/Bryde's (99), Fin/Sei/Bryde's (72, 73, 74, 99)}
+
+\CommentTok{# Bryde's, Sei's, and Sei/Bryde's all use same Rg0 (title = "Sei/Bryde's")}
+\CommentTok{# Sei/Bryde's/Fin use an average of Fin and Sei/Bryde's.}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'072'}\NormalTok{, }\StringTok{'073'}\NormalTok{, }\StringTok{'074'}\NormalTok{,}\StringTok{'075'}\NormalTok{,}\StringTok{'099'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Multi-species pool 6'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \FloatTok{5.0}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{   estimates <-}
+\StringTok{      }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'072'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Bryde's whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'073'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Sei whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'074'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Fin whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'075'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Blue whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'099'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Sei/Bryde's whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'072'}\NormalTok{, }\StringTok{'073'}\NormalTok{, }\StringTok{'099'}\NormalTok{, }\StringTok{'074'}\NormalTok{), }
+                  \DataTypeTok{title =} \StringTok{"Sei/Bryde's/Fin whale"}\NormalTok{,}
+                  \DataTypeTok{combine_g0 =} \OtherTok{TRUE}\NormalTok{))}
+  
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{unidentified-rorquals-1}{%
+\subsection*{Unidentified rorquals}\label{unidentified-rorquals-1}}
+\addcontentsline{toc}{subsection}{Unidentified rorquals}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# UNID rorquals (70)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{FALSE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'070'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Unidentified rorqual'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \FloatTok{5.5}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}
+\StringTok{      }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'070'}\NormalTok{, }
+                  \DataTypeTok{title =} \StringTok{"Unidentified rorqual"}\NormalTok{,}
+                  \DataTypeTok{alt_g0_spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'071'}\NormalTok{,}\StringTok{'099'}\NormalTok{,}\StringTok{'074'}\NormalTok{,}\StringTok{'075'}\NormalTok{),}
+                  \DataTypeTok{combine_g0 =} \OtherTok{TRUE}\NormalTok{))}
+  
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{unidentified-dolphins-1}{%
+\subsection*{Unidentified dolphins}\label{unidentified-dolphins-1}}
+\addcontentsline{toc}{subsection}{Unidentified dolphins}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# UNID dolphin (177, 277, 377, 77)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+\NormalTok{  spp <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'177'}\NormalTok{,}\StringTok{'277'}\NormalTok{,}\StringTok{'377'}\NormalTok{,}\StringTok{'077'}\NormalTok{)}
+\NormalTok{  pool_title <-}\StringTok{ 'Unidentified dolphin'}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'177'}\NormalTok{,}\StringTok{'277'}\NormalTok{,}\StringTok{'377'}\NormalTok{,}\StringTok{'077'}\NormalTok{),}
+         \DataTypeTok{pool =}\NormalTok{ pool_title,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \FloatTok{5.5}\NormalTok{,}
+         \DataTypeTok{other_species =} \StringTok{'coerce'}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =}\NormalTok{ spp, }\DataTypeTok{title =}\NormalTok{ pool_title)}
+  
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{unidentified-cetaceans-1}{%
+\subsection*{Unidentified cetaceans}\label{unidentified-cetaceans-1}}
+\addcontentsline{toc}{subsection}{Unidentified cetaceans}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# UNID cetacean (78, 79, 98, 96)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+\NormalTok{  spp <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'078'}\NormalTok{,}\StringTok{'079'}\NormalTok{,}\StringTok{'098'}\NormalTok{,}\StringTok{'096'}\NormalTok{)}
+\NormalTok{  pool_title <-}\StringTok{ 'Unidentified cetacean'}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =}\NormalTok{ spp,}
+         \DataTypeTok{pool =}\NormalTok{ pool_title,}
+         \DataTypeTok{cohort =} \StringTok{'all'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \FloatTok{5.5}\NormalTok{,}
+         \DataTypeTok{other_species =} \StringTok{'coerce'}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =}\NormalTok{ spp, }
+                         \DataTypeTok{title =}\NormalTok{ pool_title, }
+                         \DataTypeTok{g0=}\FloatTok{1.0}\NormalTok{, }
+                         \DataTypeTok{g0_cv =} \FloatTok{0.0}\NormalTok{)}
+
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{bottlenose-dolphin-1}{%
+\subsection*{Bottlenose dolphin}\label{bottlenose-dolphin-1}}
+\addcontentsline{toc}{subsection}{Bottlenose dolphin}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Bottlenose dolphin (018)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'015'}\NormalTok{, }\StringTok{'018'}\NormalTok{, }\StringTok{'021'}\NormalTok{, }\StringTok{'032'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Bottlenose dolphin'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'bottlenose'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \DecValTok{5}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  scenarios <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2002}\NormalTok{,}
+       \DataTypeTok{regions =} \StringTok{'MHI'}\NormalTok{,}
+       \DataTypeTok{regions_remove =} \KeywordTok{c}\NormalTok{(}\StringTok{'Bottlenose_KaNi'}\NormalTok{, }\StringTok{'Bottlenose_OUFI'}\NormalTok{, }\StringTok{'Bottlenose_BI'}\NormalTok{),}
+       \DataTypeTok{region_title =} \StringTok{'(MHI)'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2002}\NormalTok{, }
+         \DataTypeTok{regions =} \StringTok{'HI_EEZ'}\NormalTok{,}
+         \DataTypeTok{regions_remove =} \StringTok{'MHI'}\NormalTok{,}
+         \DataTypeTok{region_title =} \StringTok{'Pelagic HI_EEZ'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2010}\NormalTok{,}
+         \DataTypeTok{regions =} \StringTok{'HI_EEZ'}\NormalTok{,}
+         \DataTypeTok{regions_remove =} \KeywordTok{c}\NormalTok{(}\StringTok{'Bottlenose_KaNi'}\NormalTok{, }\StringTok{'Bottlenose_OUFI'}\NormalTok{, }\StringTok{'Bottlenose_BI'}\NormalTok{),}
+       \DataTypeTok{region_title =} \StringTok{'(HI_EEZ)'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2017}\NormalTok{,}
+         \DataTypeTok{regions =} \StringTok{'HI_EEZ'}\NormalTok{,}
+         \DataTypeTok{regions_remove =} \KeywordTok{c}\NormalTok{(}\StringTok{'Bottlenose_KaNi'}\NormalTok{, }\StringTok{'Bottlenose_OUFI'}\NormalTok{, }\StringTok{'Bottlenose_BI'}\NormalTok{),}
+       \DataTypeTok{region_title =} \StringTok{'(HI_EEZ)'}\NormalTok{))}
+  
+\NormalTok{  estimator <-}\StringTok{ }\KeywordTok{lta_estimates}\NormalTok{(scenarios)}
+\NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'018'}\NormalTok{, }\DataTypeTok{title =} \StringTok{'Bottlenose dolphin'}\NormalTok{)}
+  
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{pantropical-spotted-dolphin-1}{%
+\subsection*{Pantropical spotted dolphin}\label{pantropical-spotted-dolphin-1}}
+\addcontentsline{toc}{subsection}{Pantropical spotted dolphin}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Pantropical spotted dolphin (002)}
+
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
+
+  \CommentTok{# Detection function specifications}
+\NormalTok{  fit_filters <-}
+\StringTok{    }\KeywordTok{list}\NormalTok{(}\DataTypeTok{spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'002'}\NormalTok{),}
+         \DataTypeTok{pool =} \StringTok{'Pantropical spotted dolphin'}\NormalTok{,}
+         \DataTypeTok{cohort =} \StringTok{'spotted'}\NormalTok{,}
+         \DataTypeTok{truncation_distance =} \DecValTok{5}\NormalTok{,}
+         \DataTypeTok{years =}\NormalTok{ years,}
+         \DataTypeTok{regions =}\NormalTok{ fit_regions,}
+         \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
+
+  \CommentTok{# Density / abundance estimation plan}
+\NormalTok{  scenarios <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2002}\NormalTok{,}
+       \DataTypeTok{regions =} \StringTok{'MHI'}\NormalTok{,}
+       \DataTypeTok{regions_remove =} \KeywordTok{c}\NormalTok{(}\StringTok{'Spotted_OU'}\NormalTok{, }\StringTok{'Spotted_FI'}\NormalTok{, }\StringTok{'Spotted_BI'}\NormalTok{),}
+       \DataTypeTok{region_title =} \StringTok{'(MHI)'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2002}\NormalTok{, }
+         \DataTypeTok{regions =} \StringTok{'HI_EEZ'}\NormalTok{,}
+         \DataTypeTok{regions_remove =} \StringTok{'MHI'}\NormalTok{,}
+         \DataTypeTok{region_title =} \StringTok{'Pelagic HI_EEZ'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2010}\NormalTok{,}
+         \DataTypeTok{regions =} \StringTok{'HI_EEZ'}\NormalTok{,}
+         \DataTypeTok{regions_remove =} \KeywordTok{c}\NormalTok{(}\StringTok{'Spotted_OU'}\NormalTok{, }\StringTok{'Spotted_FI'}\NormalTok{, }\StringTok{'Spotted_BI'}\NormalTok{),}
+       \DataTypeTok{region_title =} \StringTok{'(HI_EEZ)'}\NormalTok{),}
+    \KeywordTok{list}\NormalTok{(}\DataTypeTok{years =} \DecValTok{2017}\NormalTok{,}
+         \DataTypeTok{regions =} \StringTok{'HI_EEZ'}\NormalTok{,}
+         \DataTypeTok{regions_remove =} \KeywordTok{c}\NormalTok{(}\StringTok{'Spotted_OU'}\NormalTok{, }\StringTok{'Spotted_FI'}\NormalTok{, }\StringTok{'Spotted_BI'}\NormalTok{),}
+       \DataTypeTok{region_title =} \StringTok{'(HI_EEZ)'}\NormalTok{))}
+  
+\NormalTok{  estimator <-}\StringTok{ }\KeywordTok{lta_estimates}\NormalTok{(scenarios)}
+\NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'002'}\NormalTok{, }\DataTypeTok{title =} \StringTok{'Pantropical spotted dolphin'}\NormalTok{)}
+  
+  \CommentTok{# Run analysis}
+\NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
+                 \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
+                 \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
+                 \DataTypeTok{toplot=}\NormalTok{toplot, }\DataTypeTok{verbose=}\NormalTok{verbose)}
+
+  \CommentTok{# Save result}
+\NormalTok{  (results_file <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(results_path, fit_filters}\OperatorTok{$}\NormalTok{pool, }\StringTok{'.RData'}\NormalTok{))}
+  \KeywordTok{saveRDS}\NormalTok{(results, }\DataTypeTok{file=}\NormalTok{results_file)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{stratified-results}{%
+\section*{Stratified results}\label{stratified-results}}
+\addcontentsline{toc}{section}{Stratified results}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Load results}
+\NormalTok{ltas <-}\StringTok{ }\KeywordTok{lta_enlist}\NormalTok{(}\StringTok{'cnp/lta/'}\NormalTok{)}
+
+\CommentTok{# Generate report}
+\NormalTok{reporti <-}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(ltas, cruz)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Table 1a.} \emph{Total and systematic sample sizes.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{table1a }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table 1b.} \emph{Sample sizes of sightings used in density esitmation.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{table1b }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table 2.} \emph{Detection functions for cetacean species and taxonomic categories.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{table2 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table 3.} \emph{Estimates of line-transect parameters for cetacean species and taxonomic categories -- stratified in 2002.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{table3 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table 4.} \emph{Estimates of density (individuals per 1,000 km2) and abundance for cetacean species and taxonomic categories sighted while on systematic survey effort -- stratified in 2002.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{table4 }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{de-stratified-results}{%
+\section*{De-stratified results}\label{de-stratified-results}}
+\addcontentsline{toc}{section}{De-stratified results}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Destratify}
+\NormalTok{ltas2 <-}\StringTok{ }\KeywordTok{lta_destratify}\NormalTok{(ltas, }\DecValTok{2002}\NormalTok{,}
+                        \DataTypeTok{combine_method =} \StringTok{'arithmetic'}\NormalTok{,}
+                        \DataTypeTok{new_region =} \StringTok{'(HI_EEZ)'}\NormalTok{,}
+                        \DataTypeTok{verbose =} \OtherTok{FALSE}\NormalTok{)}
+
+\CommentTok{# Generate report}
+\NormalTok{reporti <-}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(ltas2, cruz)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Table 3.} \emph{Estimates of line-transect parameters for cetacean species and taxonomic categories.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{table3 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table 4.} \emph{Estimates of density (individuals per 1,000 km2) and abundance for cetacean species and taxonomic categories sighted while on systematic survey effort.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{table4 }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{plots-2}{%
+\section*{Plots}\label{plots-2}}
+\addcontentsline{toc}{section}{Plots}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lta_plot}\NormalTok{(}\DataTypeTok{species =} \OtherTok{NULL}\NormalTok{, }
+         \DataTypeTok{lta_result =}\NormalTok{ ltas2, }
+         \DataTypeTok{years =} \KeywordTok{c}\NormalTok{(}\DecValTok{2002}\NormalTok{, }\DecValTok{2010}\NormalTok{, }\DecValTok{2017}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-353-1.pdf}
 
 \hypertarget{california-current-system}{%
 \chapter{California Current System}\label{california-current-system}}
@@ -4634,7 +6742,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-269-1.pdf}
+\includegraphics{figures/unnamed-chunk-364-1.pdf}
 
 \hypertarget{day-vs-equal-length}{%
 \section*{Day vs Equal Length}\label{day-vs-equal-length}}
@@ -4661,7 +6769,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-270-1.pdf}
+\includegraphics{figures/unnamed-chunk-365-1.pdf}
 
 \hypertarget{by-target-length-of-150-km}{%
 \subsection*{By target length of 150 km}\label{by-target-length-of-150-km}}
@@ -4684,7 +6792,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-271-1.pdf}
+\includegraphics{figures/unnamed-chunk-366-1.pdf}
 
 \hypertarget{contiguous-vs.-non-contiguous-effort}{%
 \section*{Contiguous vs.~non-contiguous effort}\label{contiguous-vs.-non-contiguous-effort}}
@@ -4702,14 +6810,14 @@ The example above allows for non-contiguous effort; a segment is allowed to cont
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{596}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{597}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-272-1.pdf}
+\includegraphics{figures/unnamed-chunk-367-1.pdf}
 
 You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.
 
@@ -4740,7 +6848,7 @@ The other possible setting is \texttt{\textquotesingle{}disperse\textquotesingle
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-273-1.pdf}
+\includegraphics{figures/unnamed-chunk-368-1.pdf}
 
 Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:
 
@@ -4761,7 +6869,7 @@ Note that most segments are longer than the target length, due to the impact of 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-274-1.pdf}
+\includegraphics{figures/unnamed-chunk-369-1.pdf}
 
 But in general, the \texttt{disperse} option may be more appropriate for shorter segment lengths.
 
@@ -4798,7 +6906,7 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-275-1.pdf}
+\includegraphics{figures/unnamed-chunk-370-1.pdf}
 
 \hypertarget{abund9_compare}{%
 \chapter{\texorpdfstring{\texttt{LTabundR} vs.~\texttt{ABUND9}}{LTabundR vs.~ABUND9}}\label{abund9_compare}}
