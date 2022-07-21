@@ -2,18 +2,19 @@
 
 # WHICEAS {#whiceas}
 
-```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
-library(dplyr)
-library(magrittr)
-library(LTabundR)
+Here we demonstrate code that reproduces the Bradford et al. (2022) WHICEAS report (*In press*) within the new `LTabundR` framework. This study estimates cetacean abundance for Hawaiian WHICEAS study area for 2017 and 2020. Here we use survey data from 1986 to 2020 to estimate *Relative g(0)* and detection functions. Currently, coefficients of variation (CV) of density and abundance are estimated using only 100 bootstrap iterations (the publication uses 1,000) to reduce processing time.  
 
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(LTabundR)
+```
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
 rerun_from_scratch <- FALSE
 # If you want to confirm the package works, change to TRUE.
 # If you already know it does, change to FALSE so that knitting is quick
 # (it will use saved R objects instead of producing them anew)
 ```
-
-Here is the full code-base for the WHICEAS 2017 & 2020 analysis.  
 
 ## Data processing {-}  
 

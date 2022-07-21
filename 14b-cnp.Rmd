@@ -1,14 +1,13 @@
-# (PART) Case studies {-}
-
 # Central North Pacific {#case_cnp}
 
-2002, 2010, and 2017 
+Here we demonstrate code that reproduces the [Bradford et al. (2021)](https://repository.library.noaa.gov/view/noaa/29004) study within the new `LTabundR` framework. This study estimates cetacean abundance for the Hawaiian EEZ in 2002, 2010, and 2017. Here we use survey data from 1986 to 2020 to estimate *Relative g(0)* and detection functions. Note that the 2002 surveys were stratified; below we demonstrate code for handling stratified studies. Currently, coefficients of variation (CV) of density and abundance are estimated using only 100 bootstrap iterations (the publication uses 1,000) to reduce processing time. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(LTabundR)
+```
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
-library(dplyr)
-library(magrittr)
-library(LTabundR)
-
 rerun_from_scratch <- FALSE
 # If you want to confirm the package works, change to TRUE.
 # If you already know it does, change to FALSE so that knitting is quick
@@ -271,7 +270,7 @@ g0_plot(Rg0, panes = 3)
 First we can define common values that will be constant across all estimates we produce: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-bootstraps <- 10
+bootstraps <- 100
 years <- 1986:2020
 fit_regions <- NULL
 fit_not_regions <- NULL
@@ -290,8 +289,6 @@ df_settings <-
        base_model = '~1',
        delta_aic = 2)
 ```
-
-For most species, we want to estimate density/abundance for the same set of year-region scenarios. To reduce code redundancy (and our work!), we can use the `LTabundR` function `lta_estimate()` to economize how we prepare our `estimates` input.  
 
 These are the year-region scenarios for which we want estimates:  
 
@@ -315,21 +312,6 @@ The `lta_estimates()` function will generate a custom function that makes it eas
 estimator <- lta_estimates(scenarios)
 ```
 
-That result, `estimator`, is actually a function. Here's an example of how this function will work, using the first species pool as an example: 
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-estimates <-
-  c(estimator(spp = '013', title = "Striped dolphin"),
-    estimator(spp = '026', title = "Fraser's dolphin"),
-    estimator(spp = '031', title = "Melon-headed whale"))
-
-estimates  
-```
-
-The output of `estimator()` is a list of sub-lists specifying a set of density/abundance estimates you want to produce based on the detection function for a single species pool.  
-
-Here is the full code for producing those estimates for all species from Bradford et al. (2021):  
-
 ### Multi-species pool 1 {-} 
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
@@ -351,8 +333,9 @@ if(TRUE){ # toggle
   # Density / abundance estimation plan
   estimates <-
     c(estimator(spp = '013', title = "Striped dolphin"),
-      estimator(spp = '026', title = "Fraser's dolphin"),
-      estimator(spp = '031', title = "Melon-headed whale"))
+      estimator(spp = '026', title = "Fraser's dolphin", alt_g0_spp = '013'),
+      estimator(spp = '031', title = "Melon-headed whale", alt_g0_spp = '013'))
+ estimates  
 
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,
@@ -567,7 +550,7 @@ if(TRUE){ # toggle
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
 # UNID rorquals (70)
 
-if(FALSE){ # toggle
+if(TRUE){ # toggle
 
   # Detection function specifications
   fit_filters <-
@@ -888,7 +871,7 @@ DT::datatable(extensions = "FixedColumns",
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 # Destratify
 ltas2 <- lta_destratify(ltas, 2002,
-                        combine_method = 'arithmetic',
+                        combine_method = 'bootstrap',
                         new_region = '(HI_EEZ)',
                         verbose = FALSE)
 

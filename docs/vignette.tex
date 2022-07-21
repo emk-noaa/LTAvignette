@@ -4335,7 +4335,14 @@ In the \texttt{R} package framework we are developing, the contents of a project
 \hypertarget{whiceas}{%
 \chapter{WHICEAS}\label{whiceas}}
 
-Here is the full code-base for the WHICEAS 2017 \& 2020 analysis.
+Here we demonstrate code that reproduces the Bradford et al.~(2022) WHICEAS report (\emph{In press}) within the new \texttt{LTabundR} framework. This study estimates cetacean abundance for Hawaiian WHICEAS study area for 2017 and 2020. Here we use survey data from 1986 to 2020 to estimate \emph{Relative g(0)} and detection functions. Currently, coefficients of variation (CV) of density and abundance are estimated using only 100 bootstrap iterations (the publication uses 1,000) to reduce processing time.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr)}
+\KeywordTok{library}\NormalTok{(LTabundR)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{data-processing}{%
 \section*{Data processing}\label{data-processing}}
@@ -4549,7 +4556,7 @@ We can use the built-in dataset, \texttt{data(g0\_results)}, which has Beaufort-
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-274-1.pdf}
+\includegraphics{figures/unnamed-chunk-275-1.pdf}
 
 \hypertarget{density-abundance}{%
 \section*{Density \& abundance}\label{density-abundance}}
@@ -5302,15 +5309,19 @@ Generate report:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-303-1.pdf}
-
-\hypertarget{part-case-studies-1}{%
-\part{Case studies}\label{part-case-studies-1}}
+\includegraphics{figures/unnamed-chunk-304-1.pdf}
 
 \hypertarget{case_cnp}{%
 \chapter{Central North Pacific}\label{case_cnp}}
 
-2002, 2010, and 2017
+Here we demonstrate code that reproduces the \href{https://repository.library.noaa.gov/view/noaa/29004}{Bradford et al.~(2021)} study within the new \texttt{LTabundR} framework. This study estimates cetacean abundance for the Hawaiian EEZ in 2002, 2010, and 2017. Here we use survey data from 1986 to 2020 to estimate \emph{Relative g(0)} and detection functions. Note that the 2002 surveys were stratified; below we demonstrate code for handling stratified studies. Currently, coefficients of variation (CV) of density and abundance are estimated using only 100 bootstrap iterations (the publication uses 1,000) to reduce processing time.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr)}
+\KeywordTok{library}\NormalTok{(LTabundR)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{data-processing-1}{%
 \section*{Data processing}\label{data-processing-1}}
@@ -5625,7 +5636,7 @@ Use this to determine truncation distances. Note them in your \texttt{lta()} cod
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-321-1.pdf}
+\includegraphics{figures/unnamed-chunk-323-1.pdf}
 
 \hypertarget{density-abundance-1}{%
 \section*{Density \& abundance}\label{density-abundance-1}}
@@ -5635,7 +5646,7 @@ First we can define common values that will be constant across all estimates we 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{bootstraps <-}\StringTok{ }\DecValTok{10}
+\NormalTok{bootstraps <-}\StringTok{ }\DecValTok{100}
 \NormalTok{years <-}\StringTok{ }\DecValTok{1986}\OperatorTok{:}\DecValTok{2020}
 \NormalTok{fit_regions <-}\StringTok{ }\OtherTok{NULL}
 \NormalTok{fit_not_regions <-}\StringTok{ }\OtherTok{NULL}
@@ -5655,8 +5666,6 @@ First we can define common values that will be constant across all estimates we 
        \DataTypeTok{delta_aic =} \DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-For most species, we want to estimate density/abundance for the same set of year-region scenarios. To reduce code redundancy (and our work!), we can use the \texttt{LTabundR} function \texttt{lta\_estimate()} to economize how we prepare our \texttt{estimates} input.
 
 These are the year-region scenarios for which we want estimates:
 
@@ -5684,207 +5693,6 @@ The \texttt{lta\_estimates()} function will generate a custom function that make
 \end{Highlighting}
 \end{Shaded}
 
-That result, \texttt{estimator}, is actually a function. Here's an example of how this function will work, using the first species pool as an example:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{estimates <-}
-\StringTok{  }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'013'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Striped dolphin"}\NormalTok{),}
-    \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'026'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Fraser's dolphin"}\NormalTok{),}
-    \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'031'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Melon-headed whale"}\NormalTok{))}
-
-\NormalTok{estimates  }
-\NormalTok{[[}\DecValTok{1}\NormalTok{]]}
-\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2002}
-
-\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"MHI"}
-
-\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
-
-\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Striped dolphin"}
-
-
-\NormalTok{[[}\DecValTok{2}\NormalTok{]]}
-\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2002}
-
-\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
-
-\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions_remove}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"MHI"}
-
-\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{region_title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Pelagic HI_EEZ"}
-
-\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
-
-\NormalTok{[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Striped dolphin"}
-
-
-\NormalTok{[[}\DecValTok{3}\NormalTok{]]}
-\NormalTok{[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2010}
-
-\NormalTok{[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
-
-\NormalTok{[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
-
-\NormalTok{[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Striped dolphin"}
-
-
-\NormalTok{[[}\DecValTok{4}\NormalTok{]]}
-\NormalTok{[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2017}
-
-\NormalTok{[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
-
-\NormalTok{[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"013"}
-
-\NormalTok{[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Striped dolphin"}
-
-
-\NormalTok{[[}\DecValTok{5}\NormalTok{]]}
-\NormalTok{[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2002}
-
-\NormalTok{[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"MHI"}
-
-\NormalTok{[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"026"}
-
-\NormalTok{[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Fraser's dolphin"}
-
-
-\NormalTok{[[}\DecValTok{6}\NormalTok{]]}
-\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2002}
-
-\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
-
-\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions_remove}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"MHI"}
-
-\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{region_title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Pelagic HI_EEZ"}
-
-\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"026"}
-
-\NormalTok{[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Fraser's dolphin"}
-
-
-\NormalTok{[[}\DecValTok{7}\NormalTok{]]}
-\NormalTok{[[}\DecValTok{7}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2010}
-
-\NormalTok{[[}\DecValTok{7}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
-
-\NormalTok{[[}\DecValTok{7}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"026"}
-
-\NormalTok{[[}\DecValTok{7}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Fraser's dolphin"}
-
-
-\NormalTok{[[}\DecValTok{8}\NormalTok{]]}
-\NormalTok{[[}\DecValTok{8}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2017}
-
-\NormalTok{[[}\DecValTok{8}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
-
-\NormalTok{[[}\DecValTok{8}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"026"}
-
-\NormalTok{[[}\DecValTok{8}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Fraser's dolphin"}
-
-
-\NormalTok{[[}\DecValTok{9}\NormalTok{]]}
-\NormalTok{[[}\DecValTok{9}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2002}
-
-\NormalTok{[[}\DecValTok{9}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"MHI"}
-
-\NormalTok{[[}\DecValTok{9}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"031"}
-
-\NormalTok{[[}\DecValTok{9}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Melon-headed whale"}
-
-
-\NormalTok{[[}\DecValTok{10}\NormalTok{]]}
-\NormalTok{[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2002}
-
-\NormalTok{[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
-
-\NormalTok{[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions_remove}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"MHI"}
-
-\NormalTok{[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{region_title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Pelagic HI_EEZ"}
-
-\NormalTok{[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"031"}
-
-\NormalTok{[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Melon-headed whale"}
-
-
-\NormalTok{[[}\DecValTok{11}\NormalTok{]]}
-\NormalTok{[[}\DecValTok{11}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2010}
-
-\NormalTok{[[}\DecValTok{11}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
-
-\NormalTok{[[}\DecValTok{11}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"031"}
-
-\NormalTok{[[}\DecValTok{11}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Melon-headed whale"}
-
-
-\NormalTok{[[}\DecValTok{12}\NormalTok{]]}
-\NormalTok{[[}\DecValTok{12}\NormalTok{]]}\OperatorTok{$}\NormalTok{years}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2017}
-
-\NormalTok{[[}\DecValTok{12}\NormalTok{]]}\OperatorTok{$}\NormalTok{regions}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"HI_EEZ"}
-
-\NormalTok{[[}\DecValTok{12}\NormalTok{]]}\OperatorTok{$}\NormalTok{spp}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"031"}
-
-\NormalTok{[[}\DecValTok{12}\NormalTok{]]}\OperatorTok{$}\NormalTok{title}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"Melon-headed whale"}
-\end{Highlighting}
-\end{Shaded}
-
-The output of \texttt{estimator()} is a list of sub-lists specifying a set of density/abundance estimates you want to produce based on the detection function for a single species pool.
-
-Here is the full code for producing those estimates for all species from Bradford et al.~(2021):
-
 \hypertarget{multi-species-pool-1-1}{%
 \subsection*{Multi-species pool 1}\label{multi-species-pool-1-1}}
 \addcontentsline{toc}{subsection}{Multi-species pool 1}
@@ -5909,8 +5717,9 @@ Here is the full code for producing those estimates for all species from Bradfor
   \CommentTok{# Density / abundance estimation plan}
 \NormalTok{  estimates <-}
 \StringTok{    }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'013'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Striped dolphin"}\NormalTok{),}
-      \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'026'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Fraser's dolphin"}\NormalTok{),}
-      \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'031'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Melon-headed whale"}\NormalTok{))}
+      \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'026'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Fraser's dolphin"}\NormalTok{, }\DataTypeTok{alt_g0_spp =} \StringTok{'013'}\NormalTok{),}
+      \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'031'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Melon-headed whale"}\NormalTok{, }\DataTypeTok{alt_g0_spp =} \StringTok{'013'}\NormalTok{))}
+\NormalTok{ estimates  }
 
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
@@ -6149,7 +5958,7 @@ Here is the full code for producing those estimates for all species from Bradfor
 \begin{Highlighting}[]
 \CommentTok{# UNID rorquals (70)}
 
-\ControlFlowTok{if}\NormalTok{(}\OtherTok{FALSE}\NormalTok{)\{ }\CommentTok{# toggle}
+\ControlFlowTok{if}\NormalTok{(}\OtherTok{TRUE}\NormalTok{)\{ }\CommentTok{# toggle}
 
   \CommentTok{# Detection function specifications}
 \NormalTok{  fit_filters <-}
@@ -6444,7 +6253,7 @@ Here is the full code for producing those estimates for all species from Bradfor
 \begin{Highlighting}[]
 \CommentTok{# Destratify}
 \NormalTok{ltas2 <-}\StringTok{ }\KeywordTok{lta_destratify}\NormalTok{(ltas, }\DecValTok{2002}\NormalTok{,}
-                        \DataTypeTok{combine_method =} \StringTok{'arithmetic'}\NormalTok{,}
+                        \DataTypeTok{combine_method =} \StringTok{'bootstrap'}\NormalTok{,}
                         \DataTypeTok{new_region =} \StringTok{'(HI_EEZ)'}\NormalTok{,}
                         \DataTypeTok{verbose =} \OtherTok{FALSE}\NormalTok{)}
 
@@ -6483,7 +6292,7 @@ Here is the full code for producing those estimates for all species from Bradfor
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-353-1.pdf}
+\includegraphics{figures/unnamed-chunk-354-1.pdf}
 
 \hypertarget{california-current-system}{%
 \chapter{California Current System}\label{california-current-system}}
@@ -6742,7 +6551,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-364-1.pdf}
+\includegraphics{figures/unnamed-chunk-365-1.pdf}
 
 \hypertarget{day-vs-equal-length}{%
 \section*{Day vs Equal Length}\label{day-vs-equal-length}}
@@ -6769,7 +6578,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-365-1.pdf}
+\includegraphics{figures/unnamed-chunk-366-1.pdf}
 
 \hypertarget{by-target-length-of-150-km}{%
 \subsection*{By target length of 150 km}\label{by-target-length-of-150-km}}
@@ -6792,7 +6601,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-366-1.pdf}
+\includegraphics{figures/unnamed-chunk-367-1.pdf}
 
 \hypertarget{contiguous-vs.-non-contiguous-effort}{%
 \section*{Contiguous vs.~non-contiguous effort}\label{contiguous-vs.-non-contiguous-effort}}
@@ -6810,14 +6619,14 @@ The example above allows for non-contiguous effort; a segment is allowed to cont
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{597}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{596}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-367-1.pdf}
+\includegraphics{figures/unnamed-chunk-368-1.pdf}
 
 You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.
 
@@ -6848,7 +6657,7 @@ The other possible setting is \texttt{\textquotesingle{}disperse\textquotesingle
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-368-1.pdf}
+\includegraphics{figures/unnamed-chunk-369-1.pdf}
 
 Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:
 
@@ -6869,7 +6678,7 @@ Note that most segments are longer than the target length, due to the impact of 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-369-1.pdf}
+\includegraphics{figures/unnamed-chunk-370-1.pdf}
 
 But in general, the \texttt{disperse} option may be more appropriate for shorter segment lengths.
 
@@ -6906,7 +6715,7 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-370-1.pdf}
+\includegraphics{figures/unnamed-chunk-371-1.pdf}
 
 \hypertarget{abund9_compare}{%
 \chapter{\texorpdfstring{\texttt{LTabundR} vs.~\texttt{ABUND9}}{LTabundR vs.~ABUND9}}\label{abund9_compare}}
