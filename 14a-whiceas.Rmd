@@ -803,6 +803,35 @@ DT::datatable(extensions = "FixedColumns",
   ))
 ```
 
+--- 
+
+**Table A1.** *Study areas*. 
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+reporti$tableA1
+```
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+reporti$tableA1 %>% 
+DT::datatable(extensions = "FixedColumns",
+              options=list(scrollX=TRUE,
+                           scrollY='450px',
+                           paging = FALSE,
+                           fixedColumns = list(leftColumns = 1),
+                           initComplete = htmlwidgets::JS(
+    "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+  ))
+```
+
+--- 
+
+**Table A2.** *Effort totals and by Beaufort sea-state, in each survey year*. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+reporti$tableA2
+```
+
+
 ### Plots {-}  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=7, fig.height=21}

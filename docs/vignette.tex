@@ -3419,12 +3419,7 @@ As these results stand, 2002 estimates are stratified into 2 separate regions:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{(ltas }\OperatorTok{%>%}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(}\DataTypeTok{verbose =} \OtherTok{FALSE}\NormalTok{))}\OperatorTok{$}\NormalTok{table4}
-                         \DecValTok{2002}\NormalTok{ (HI_EEZ) }\OperatorTok{-}\StringTok{ }\NormalTok{(MHI)                       }\DecValTok{2002}
-\DecValTok{1}\NormalTok{ Species or category Density        Abundance   CV        }\DecValTok{95}\NormalTok{% CI Density}
-\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{14.2}           \DecValTok{32}\NormalTok{,}\DecValTok{135} \FloatTok{0.47} \DecValTok{16}\NormalTok{,}\DecValTok{707-64}\NormalTok{,}\DecValTok{184}   \FloatTok{12.06}
-\NormalTok{      (MHI)                 }\DecValTok{2010}\NormalTok{  (HI_EEZ)                    }
-\DecValTok{1}\NormalTok{ Abundance   CV  }\DecValTok{95}\OperatorTok{% CI Density Abundance   CV         95%}\StringTok{ }\NormalTok{CI}
-\DecValTok{2}     \DecValTok{2}\NormalTok{,}\DecValTok{557} \FloatTok{0.89} \DecValTok{0-7}\NormalTok{,}\DecValTok{491}   \FloatTok{23.86}    \DecValTok{59}\NormalTok{,}\DecValTok{051} \FloatTok{0.42} \DecValTok{45}\NormalTok{,}\DecValTok{459-131}\NormalTok{,}\DecValTok{350}
+\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"filter"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'filter'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4199,7 +4194,7 @@ Providing the \texttt{cruz} object is not required, but if it is not provided, o
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{tables }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"table1a"} \StringTok{"table1b"} \StringTok{"table2"}  \StringTok{"table3"}  \StringTok{"table4"} 
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"table1a"} \StringTok{"table1b"} \StringTok{"table2"}  \StringTok{"table3"}  \StringTok{"table4"}  \StringTok{"tableA1"} \StringTok{"tableA2"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4251,6 +4246,31 @@ This table holds sighting counts used in estimates of density/abundance. The row
 \subsubsection*{Table 4: Density/abundance}\label{table-4-densityabundance}}
 \addcontentsline{toc}{subsubsection}{Table 4: Density/abundance}
 
+\hypertarget{appendix-table-1-study-areas}{%
+\subsubsection*{Appendix Table 1: Study areas}\label{appendix-table-1-study-areas}}
+\addcontentsline{toc}{subsubsection}{Appendix Table 1: Study areas}
+
+\hypertarget{appendix-table-2-effort-totals-parsed-by-beaufort-sea-state}{%
+\subsubsection*{Appendix Table 2: Effort totals (parsed by Beaufort sea state)}\label{appendix-table-2-effort-totals-parsed-by-beaufort-sea-state}}
+\addcontentsline{toc}{subsubsection}{Appendix Table 2: Effort totals (parsed by Beaufort sea state)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tables}\OperatorTok{$}\NormalTok{tableA2}
+\OperatorTok{$}\StringTok{`}\DataTypeTok{2010}\StringTok{`}
+\CommentTok{# A tibble: 1 x 10}
+\NormalTok{  Species Stratum Effort      B0     B1     B2    B3    B4    B5     B6}
+  \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
+\DecValTok{1}\NormalTok{ all     HI_EEZ   }\DecValTok{19882} \FloatTok{0.00101} \FloatTok{0.0208} \FloatTok{0.0539} \FloatTok{0.130} \FloatTok{0.469} \FloatTok{0.283} \FloatTok{0.0413}
+
+\OperatorTok{$}\StringTok{`}\DataTypeTok{2017}\StringTok{`}
+\CommentTok{# A tibble: 1 x 10}
+\NormalTok{  Species Stratum Effort       B0      B1     B2    B3    B4    B5    B6}
+  \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
+\DecValTok{1}\NormalTok{ all     HI_EEZ   }\DecValTok{18843} \FloatTok{0.000700} \FloatTok{0.00883} \FloatTok{0.0384} \FloatTok{0.119} \FloatTok{0.313} \FloatTok{0.341} \FloatTok{0.179}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{plots}{%
 \section*{Plots}\label{plots}}
 \addcontentsline{toc}{section}{Plots}
@@ -4263,13 +4283,12 @@ To plot the abundance estimate with error bars representing the 95\% confidence 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{lta_plot}\NormalTok{(}\DataTypeTok{species =}\NormalTok{ lta_result}\OperatorTok{$}\NormalTok{estimate}\OperatorTok{$}\NormalTok{title }\OperatorTok{%>%}\StringTok{ }\NormalTok{unique,}
-\NormalTok{         lta_result, }
+\KeywordTok{lta_plot}\NormalTok{(lta_result, }
          \DataTypeTok{nrows=}\DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-258-1.pdf}
+\includegraphics{figures/unnamed-chunk-260-1.pdf}
 
 \hypertarget{detection-function-plots}{%
 \subsection*{Detection function plots}\label{detection-function-plots}}
@@ -4283,7 +4302,7 @@ To plot the best-fit detection model for a species pool, use the \texttt{df\_plo
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-259-1.pdf}
+\includegraphics{figures/unnamed-chunk-261-1.pdf}
 
 This function provides various stylization options, including the option to show multiple best-fitting models atop a single histogram of detections:
 
@@ -4300,34 +4319,7 @@ This function provides various stylization options, including the option to show
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-260-1.pdf}
-
-\hypertarget{practicalities}{%
-\chapter{Practicalities}\label{practicalities}}
-
-\emph{Under construction!}
-
-\hypertarget{reproducibility-project-management}{%
-\subsection*{Reproducibility \& project management}\label{reproducibility-project-management}}
-\addcontentsline{toc}{subsection}{Reproducibility \& project management}
-
-One of the features of the \texttt{ABUND} framework we need to retain is that each analysis is self-contained and reproducible. The folder for an analysis must have all the files and data needed for someone else to be able to replicate it.
-
-In the \texttt{R} package framework we are developing, the contents of a project folder will be straightforward (once the code base is bundled into a package).
-
-\emph{Contents of a project folder:}
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{DAS} file(s) with survey data\\
-\item
-  Stratum and study area polygon(s), as \texttt{csv}(s) (optional)\\
-\item
-  Group size calibration files (optional)\\
-\item
-  An \texttt{analysis.R} file (or perhaps a \texttt{.Rmd}), containing an adaptation of the code provided in the template above. This script will contain project-specific settings (e.g., the \texttt{load\_settings()} call), which allow for the script to be reproducible.
-\end{itemize}
+\includegraphics{figures/unnamed-chunk-262-1.pdf}
 
 \hypertarget{part-case-studies}{%
 \part{Case studies}\label{part-case-studies}}
@@ -4556,7 +4548,7 @@ We can use the built-in dataset, \texttt{data(g0\_results)}, which has Beaufort-
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-275-1.pdf}
+\includegraphics{figures/unnamed-chunk-277-1.pdf}
 
 \hypertarget{density-abundance}{%
 \section*{Density \& abundance}\label{density-abundance}}
@@ -5297,6 +5289,41 @@ Generate report:
 \end{Highlighting}
 \end{Shaded}
 
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table A1.} \emph{Study areas}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{tableA1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table A2.} \emph{Effort totals and by Beaufort sea-state, in each survey year}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{tableA2}
+\OperatorTok{$}\StringTok{`}\DataTypeTok{2017}\StringTok{`}
+\CommentTok{# A tibble: 3 x 9}
+\NormalTok{  Species    Stratum Effort     B1     B2    B3    B4    B5    B6}
+  \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
+\DecValTok{1}\NormalTok{ spotted    WHICEAS   }\DecValTok{4968} \FloatTok{0.0191} \FloatTok{0.0703} \FloatTok{0.137} \FloatTok{0.311} \FloatTok{0.311} \FloatTok{0.151}
+\DecValTok{2}\NormalTok{ bottlenose WHICEAS   }\DecValTok{5834} \FloatTok{0.0188} \FloatTok{0.0821} \FloatTok{0.138} \FloatTok{0.319} \FloatTok{0.301} \FloatTok{0.141}
+\DecValTok{3}\NormalTok{ all        WHICEAS   }\DecValTok{6502} \FloatTok{0.0200} \FloatTok{0.0897} \FloatTok{0.139} \FloatTok{0.329} \FloatTok{0.288} \FloatTok{0.135}
+
+\OperatorTok{$}\StringTok{`}\DataTypeTok{2020}\StringTok{`}
+\CommentTok{# A tibble: 3 x 9}
+\NormalTok{  Species    Stratum Effort     B1     B2     B3    B4    B5    B6}
+  \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
+\DecValTok{1}\NormalTok{ spotted    WHICEAS   }\DecValTok{4389} \FloatTok{0.0137} \FloatTok{0.0401} \FloatTok{0.0717} \FloatTok{0.263} \FloatTok{0.380} \FloatTok{0.231}
+\DecValTok{2}\NormalTok{ bottlenose WHICEAS   }\DecValTok{4938} \FloatTok{0.0176} \FloatTok{0.0461} \FloatTok{0.0770} \FloatTok{0.271} \FloatTok{0.386} \FloatTok{0.203}
+\DecValTok{3}\NormalTok{ all        WHICEAS   }\DecValTok{5337} \FloatTok{0.0165} \FloatTok{0.0490} \FloatTok{0.0813} \FloatTok{0.278} \FloatTok{0.376} \FloatTok{0.200}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{plots-1}{%
 \subsection*{Plots}\label{plots-1}}
 \addcontentsline{toc}{subsection}{Plots}
@@ -5309,7 +5336,7 @@ Generate report:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-304-1.pdf}
+\includegraphics{figures/unnamed-chunk-309-1.pdf}
 
 \hypertarget{case_cnp}{%
 \chapter{Central North Pacific}\label{case_cnp}}
@@ -5636,7 +5663,7 @@ Use this to determine truncation distances. Note them in your \texttt{lta()} cod
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-323-1.pdf}
+\includegraphics{figures/unnamed-chunk-328-1.pdf}
 
 \hypertarget{density-abundance-1}{%
 \section*{Density \& abundance}\label{density-abundance-1}}
@@ -6245,6 +6272,54 @@ The \texttt{lta\_estimates()} function will generate a custom function that make
 \end{Highlighting}
 \end{Shaded}
 
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table A1.} \emph{Study areas}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{tableA1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table A2.} \emph{Effort totals and by Beaufort sea-state, in each survey year}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{tableA2}
+\OperatorTok{$}\StringTok{`}\DataTypeTok{2002}\StringTok{`}
+\CommentTok{# A tibble: 6 x 10}
+\NormalTok{  Species    Stratum Effort      B0      B1     B2     B3    B4    B5     B6}
+  \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
+\DecValTok{1}\NormalTok{ spotted    MHI       }\DecValTok{2744} \DecValTok{0}       \DecValTok{0}       \FloatTok{0.137}  \FloatTok{0.0852} \FloatTok{0.400} \FloatTok{0.301} \FloatTok{0.0776}
+\DecValTok{2}\NormalTok{ bottlenose MHI       }\DecValTok{3640} \DecValTok{0}       \FloatTok{0.00387} \FloatTok{0.118}  \FloatTok{0.0754} \FloatTok{0.402} \FloatTok{0.337} \FloatTok{0.0646}
+\DecValTok{3}\NormalTok{ all        MHI       }\DecValTok{4153} \DecValTok{0}       \FloatTok{0.00339} \FloatTok{0.122}  \FloatTok{0.0771} \FloatTok{0.384} \FloatTok{0.353} \FloatTok{0.0602}
+\DecValTok{4}\NormalTok{ bottlenose HI_EEZ   }\DecValTok{15393} \FloatTok{0.00828} \FloatTok{0.0196}  \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
+\DecValTok{5}\NormalTok{ all        HI_EEZ   }\DecValTok{15394} \FloatTok{0.00828} \FloatTok{0.0196}  \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
+\DecValTok{6}\NormalTok{ spotted    HI_EEZ   }\DecValTok{15396} \FloatTok{0.00828} \FloatTok{0.0196}  \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
+
+\OperatorTok{$}\StringTok{`}\DataTypeTok{2010}\StringTok{`}
+\CommentTok{# A tibble: 4 x 10}
+\NormalTok{  Species    Stratum Effort      B0     B1     B2    B3    B4    B5     B6}
+  \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
+\DecValTok{1}\NormalTok{ spotted    MHI       }\DecValTok{2161} \DecValTok{0}       \DecValTok{0}      \FloatTok{0.0756} \FloatTok{0.159} \FloatTok{0.370} \FloatTok{0.373} \FloatTok{0.0228}
+\DecValTok{2}\NormalTok{ bottlenose MHI       }\DecValTok{2415} \DecValTok{0}       \DecValTok{0}      \FloatTok{0.0762} \FloatTok{0.139} \FloatTok{0.391} \FloatTok{0.373} \FloatTok{0.0208}
+\DecValTok{3}\NormalTok{ all        MHI       }\DecValTok{2795} \DecValTok{0}       \DecValTok{0}      \FloatTok{0.0720} \FloatTok{0.137} \FloatTok{0.379} \FloatTok{0.369} \FloatTok{0.0433}
+\DecValTok{4}\NormalTok{ all        HI_EEZ   }\DecValTok{19882} \FloatTok{0.00101} \FloatTok{0.0208} \FloatTok{0.0539} \FloatTok{0.130} \FloatTok{0.469} \FloatTok{0.283} \FloatTok{0.0413}
+
+\OperatorTok{$}\StringTok{`}\DataTypeTok{2017}\StringTok{`}
+\CommentTok{# A tibble: 4 x 10}
+\NormalTok{  Species    Stratum Effort       B0      B1     B2    B3    B4    B5    B6}
+  \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
+\DecValTok{1}\NormalTok{ spotted    MHI       }\DecValTok{2519} \DecValTok{0}        \FloatTok{0.0237}  \FloatTok{0.0748} \FloatTok{0.186} \FloatTok{0.315} \FloatTok{0.220} \FloatTok{0.180}
+\DecValTok{2}\NormalTok{ bottlenose MHI       }\DecValTok{3386} \DecValTok{0}        \FloatTok{0.0221}  \FloatTok{0.0941} \FloatTok{0.176} \FloatTok{0.327} \FloatTok{0.226} \FloatTok{0.155}
+\DecValTok{3}\NormalTok{ all        MHI       }\DecValTok{4052} \DecValTok{0}        \FloatTok{0.0234}  \FloatTok{0.104}  \FloatTok{0.170} \FloatTok{0.342} \FloatTok{0.217} \FloatTok{0.143}
+\DecValTok{4}\NormalTok{ all        HI_EEZ   }\DecValTok{18843} \FloatTok{0.000700} \FloatTok{0.00883} \FloatTok{0.0384} \FloatTok{0.119} \FloatTok{0.313} \FloatTok{0.341} \FloatTok{0.179}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{de-stratified-results}{%
 \section*{De-stratified results}\label{de-stratified-results}}
 \addcontentsline{toc}{section}{De-stratified results}
@@ -6280,6 +6355,45 @@ The \texttt{lta\_estimates()} function will generate a custom function that make
 \end{Highlighting}
 \end{Shaded}
 
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table A1.} \emph{Study areas}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{tableA1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Table A2.} \emph{Effort totals and by Beaufort sea-state, in each survey year}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reporti}\OperatorTok{$}\NormalTok{tableA2}
+\OperatorTok{$}\StringTok{`}\DataTypeTok{2002}\StringTok{`}
+\CommentTok{# A tibble: 3 x 10}
+\NormalTok{  Species    Stratum Effort      B0     B1     B2     B3    B4    B5     B6}
+  \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
+\DecValTok{1}\NormalTok{ bottlenose HI_EEZ   }\DecValTok{15393} \FloatTok{0.00828} \FloatTok{0.0196} \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
+\DecValTok{2}\NormalTok{ all        HI_EEZ   }\DecValTok{15394} \FloatTok{0.00828} \FloatTok{0.0196} \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
+\DecValTok{3}\NormalTok{ spotted    HI_EEZ   }\DecValTok{15396} \FloatTok{0.00828} \FloatTok{0.0196} \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
+
+\OperatorTok{$}\StringTok{`}\DataTypeTok{2010}\StringTok{`}
+\CommentTok{# A tibble: 1 x 10}
+\NormalTok{  Species Stratum Effort      B0     B1     B2    B3    B4    B5     B6}
+  \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
+\DecValTok{1}\NormalTok{ all     HI_EEZ   }\DecValTok{19882} \FloatTok{0.00101} \FloatTok{0.0208} \FloatTok{0.0539} \FloatTok{0.130} \FloatTok{0.469} \FloatTok{0.283} \FloatTok{0.0413}
+
+\OperatorTok{$}\StringTok{`}\DataTypeTok{2017}\StringTok{`}
+\CommentTok{# A tibble: 1 x 10}
+\NormalTok{  Species Stratum Effort       B0      B1     B2    B3    B4    B5    B6}
+  \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
+\DecValTok{1}\NormalTok{ all     HI_EEZ   }\DecValTok{18843} \FloatTok{0.000700} \FloatTok{0.00883} \FloatTok{0.0384} \FloatTok{0.119} \FloatTok{0.313} \FloatTok{0.341} \FloatTok{0.179}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{plots-2}{%
 \section*{Plots}\label{plots-2}}
 \addcontentsline{toc}{section}{Plots}
@@ -6292,7 +6406,7 @@ The \texttt{lta\_estimates()} function will generate a custom function that make
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-354-1.pdf}
+\includegraphics{figures/unnamed-chunk-365-1.pdf}
 
 \hypertarget{california-current-system}{%
 \chapter{California Current System}\label{california-current-system}}
@@ -6551,7 +6665,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-365-1.pdf}
+\includegraphics{figures/unnamed-chunk-376-1.pdf}
 
 \hypertarget{day-vs-equal-length}{%
 \section*{Day vs Equal Length}\label{day-vs-equal-length}}
@@ -6578,7 +6692,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-366-1.pdf}
+\includegraphics{figures/unnamed-chunk-377-1.pdf}
 
 \hypertarget{by-target-length-of-150-km}{%
 \subsection*{By target length of 150 km}\label{by-target-length-of-150-km}}
@@ -6601,7 +6715,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-367-1.pdf}
+\includegraphics{figures/unnamed-chunk-378-1.pdf}
 
 \hypertarget{contiguous-vs.-non-contiguous-effort}{%
 \section*{Contiguous vs.~non-contiguous effort}\label{contiguous-vs.-non-contiguous-effort}}
@@ -6626,7 +6740,7 @@ The example above allows for non-contiguous effort; a segment is allowed to cont
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-368-1.pdf}
+\includegraphics{figures/unnamed-chunk-379-1.pdf}
 
 You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.
 
@@ -6657,7 +6771,7 @@ The other possible setting is \texttt{\textquotesingle{}disperse\textquotesingle
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-369-1.pdf}
+\includegraphics{figures/unnamed-chunk-380-1.pdf}
 
 Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:
 
@@ -6678,7 +6792,7 @@ Note that most segments are longer than the target length, due to the impact of 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-370-1.pdf}
+\includegraphics{figures/unnamed-chunk-381-1.pdf}
 
 But in general, the \texttt{disperse} option may be more appropriate for shorter segment lengths.
 
@@ -6715,7 +6829,7 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-371-1.pdf}
+\includegraphics{figures/unnamed-chunk-382-1.pdf}
 
 \hypertarget{abund9_compare}{%
 \chapter{\texorpdfstring{\texttt{LTabundR} vs.~\texttt{ABUND9}}{LTabundR vs.~ABUND9}}\label{abund9_compare}}

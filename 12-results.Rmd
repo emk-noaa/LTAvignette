@@ -91,6 +91,27 @@ tables$table4 %>%
   ))
 ```
 
+#### Appendix Table 1: Study areas {-}
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+tables$tableA1 %>% 
+DT::datatable(extensions = "FixedColumns",
+              options=list(scrollX=TRUE,
+                           scrollY='450px',
+                           paging = FALSE,
+                           fixedColumns = list(leftColumns = 1),
+                           initComplete = htmlwidgets::JS(
+    "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
+  ))
+```
+
+#### Appendix Table 2: Effort totals (parsed by Beaufort sea state) {-}
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+tables$tableA2
+```
+
+
 ## Plots {-}  
 
 ### Abundance plots {-}  
@@ -98,8 +119,7 @@ tables$table4 %>%
 To plot the abundance estimate with error bars representing the 95% confidence interval, use the function `lta_plot()`: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, fig.height=4.5, fig.width=7}
-lta_plot(species = lta_result$estimate$title %>% unique,
-         lta_result, 
+lta_plot(lta_result, 
          nrows=1)
 ```
 
