@@ -4,27 +4,27 @@ We have tried to develop `LTabundR` with the flexibility either to replicate `AB
 
 ## Differences in total effort {-} 
 
-- After loading the data, `LTabundR` removes rows with invalid Cruise numbers, invalid times, and invalid coordinates. As far as we can tell, `ABUND` does not remove such missing data. This is a relatively minor point; in processing the 1986-2020 data (623,640 rows), 287 rows are missing Cruise info; 1,430 are missing valid times; and 556 are missing valid coordinates, for a total of 2,273 rows removed out of more than 625,000 (0.3% of rows).  
+- After loading the data, `LTabundR` removes rows with invalid Cruise numbers, invalid times, and invalid coordinates. As far as we can tell, `ABUND` does not remove such missing data. This is a relatively minor point; in processing the 1986-2020 data (623,640 rows), 287 rows are missing Cruise info; 1,430 are missing valid times; and 556 are missing valid coordinates, for a total of 2,273 rows removed out of more than 625,000 (0.3% of rows). Many of these rows with missing data have the same coordinates as complete rows nearby (since *WinCruz* can sometimes produce multiple lines at the same time when setting up metadata for the research day). 
 
 
-- The custom `ABUND` functions that calculate whether DAS coordinates occur within geostrata are difficult to validate, and it is possible that they differ from the functions used in R for the same purpose.  
+- In `ABUND`, custom functions are used to calculate whether DAS coordinates occur within geostrata are difficult to validate, and it is possible that they differ from the functions used in R for the same purpose. `LTabundR` uses functions within the well-established `sf` package to do these same calculations.  
 
 
-- Both `ABUND` and `LTabundR` calculate the distance surveyed based on the sum of distances between adjacent rows in the `DAS` file. They do this differently, which could yield minor differences in segment track lengths.  
+- Both `ABUND` and `LTabundR` calculate the distance surveyed based on the sum of distances between adjacent rows in the `DAS` file. They do this differently (see below), based on the way they loop through the data, which may yield minor differences in segment track lengths.  
 
 
 - `ABUND` loops through the data one row at a time, calculating distance traveled at the same time as allocating effort to segments and processing sightings. It calculates the distance between each new row and the beginning of a segment of effort. That beginning location (object `BEGTIME` in the `Fortran` code) is reset with various triggers (including a new date), and the distance traveled is calculated using a subroutine (`DISTRAV`). For surveys occurring after 1991, the distance between a new coordinate and the `BEGTIME` coordinate is calculated using a subroutine named `GRCIRC` (great-circle distance). Prior to 1991, the ship speed and the time since `BEGTIME` is used to estimate distance traveled. After 1991, the function calculates distance based on coordinates. For all years, the distance calculation only happens if the time gap in time is at least 1.2 minutes (line 405 in `ABUND9.FOR`), otherwise the distance is returned as 0 km. This function also seems to allow for large gaps between subsequent rows within a single day of effort. The subroutine prints a warning message when the gap is greater than 30 km, but does not modify its estimate of distance traveled. This allows for the possibility that, in rare cases, estimates of distance surveyed will be spuriously large.  
 
 
-- `LTabundR` processes data using a modular approach rather than a single large loop. Prior to the segmentizing stage, it calculates the distance between rows of data. Its approach is to calculate the distance between each row and its subsequent row (it does so using the `swfscDAS` function `distance_greatcircle()`, which is a nearly-exact recode of `GRCIRC` for `R`. There are two important differences that LTabundR applies: (1) In anticipation of `WinCruz` surveys that operate on much smaller scales with more frequent position updates, we calculate distances for time gaps as small as 30 seconds, not 1.2 minutes. This may generate minor differences in the total length of tracks; (2) If the distance between rows is greater than 30 km, then it is assumed that effort has stopped and the distance is changed to 0 km. This approach should avoid the misinterpretation of large gaps in effort as large periods of effort.  
+- `LTabundR` processes data using a modular approach rather than a single large loop. Prior to the segmentizing stage, it calculates the distance between rows of data. Its approach is to calculate the distance between each row and its subsequent row (it does so using the `swfscDAS` function `distance_greatcircle()`, which is a nearly-exact recode of the `ABUND` subroutine `GRCIRC` for `R`. There are two important differences that `LTabundR` applies: (1) In anticipation of `WinCruz` surveys that operate on much smaller scales with more frequent position updates, we calculate distances for time gaps as small as 30 seconds, not 1.2 minutes. This may generate minor differences in the total length of tracks; (2) If the distance between rows is greater than 30 km, then it is assumed that effort has stopped and the distance is changed to 0 km (that distance can be modified by the user; see the `LTabundR` function `load_survey_settings()`. This approach should avoid the misinterpretation of large gaps in effort as large periods of effort.  
 
 
 ## Differences in on-effort distance {-} 
 
-- `LTabundR` works with `DAS` data that are loaded and formatted using `swfscDAS:das_read()` and `das_process()`. It is possible that these functions categorize events as On- or Off-Effort slightly differently than ABUND, or apply other differences that would be difficult for us to know or track.   
+- `LTabundR` works with `DAS` data that are loaded and formatted using `swfscDAS:das_read()` and `das_process()`. It is possible that these functions categorize events as On- or Off-Effort slightly differently than `ABUND`, or apply other differences that would be difficult for us to know or track.   
 
 
-- While `ABUND` uses a minimum length threshold to create segments, such that full-length segments are never less than that threshold and small remainder segments always occur at the end of a continuous period of effort, `LTabundR` uses an approach more similar to the effort-chopping functions in `swfscDAS`: it looks at continuous blocs of effort, determines how many full-length segments can be defined in each bloc, then randomly places the remainder within that bloc according to a set of user-defined settings. This process produces full-length segments whose distribution of exact lengths is centered about the target length, rather than always being greater than the target length.  
+- While `ABUND` uses a minimum length threshold to create segments, such that full-length segments are never less than that threshold and small remainder segments always occur at the end of a continuous period of effort, `LTabundR` uses an approach more similar to the effort-chopping functions in `swfscDAS`: it looks at continuous blocs of effort, determines how many full-length segments can be defined in each bloc, then randomly places the remainder within that bloc according to a set of user-defined settings (see `load_survey_settings()`. This process produces full-length segments whose distribution of exact lengths is centered about the target length, rather than always being greater than the target length.  
 
 
 - To control the particularities of segmentizing, `LTabundR` uses settings such as `segment_max_interval`, which controls how discontinuous effort is allowed to be pooled into the same segment. These rules may produce slight differences in segment lengths.  
@@ -32,36 +32,22 @@ We have tried to develop `LTabundR` with the flexibility either to replicate `AB
 
 - Note that, since `ABUND` is a loop-based routine while `LTabundR` is modular, segments identified by the two program will never be exactly identical, and a 1:1 comparison of segments produced by the two programs is not possible.   
 
-## Differences it total sightings {-}
 
-- In `ABUND9`, only sightings that occur while `OnEffort == TRUE` are returned; in contrast, `LTabundR` does not remove any sightings (it just flags them differently, using the `included` variable). But we can easily filter `LTabundR` sightings to emulate ABUND9 output.   
+## Differences in total sightings {-}
+
+- In `ABUND9`, only sightings that occur while `OnEffort == TRUE` are returned; in contrast, `LTabundR` does not remove any sightings (it just flags them differently, using the `included` column variable). But we can easily filter `LTabundR` sightings to emulate `ABUND9` output.   
 
 
 ## Differences in on-effort sightings {-}
 
-- `LTabundR` includes an additional criterion for inclusion in analysis: the sighting must occur at or forward of the beam (this can be deactivated with a survey setting).  
+- `LTabundR` includes an additional criterion for inclusion in analysis: the sighting must occur at or forward of the beam (this can be deactivated in `load_survey_settings()`.  
 
 - Since geostratum handling is different in the two programs, it is possible that sightings occurring near stratum margins may be included/excluded differently.  
 
 
 ## Differences in school size estimation {-}  
 
-- If an observer is not included in the Group Size Calibration Coefficients `.DAT` file, `ABUND` applies a default coefficient (`0.8625`) to scale group size estimates; however, it applies this calibration to group sizes of all sizes, including solo animals or small groups of 2-3. In `LTabundR`, we restrict calibrations for unknown observers to group size estimates of `4` or above. This means that school size estimates for small schools will be slightly larger, on average (by about 13%), in `ABUND`.   
+- If an observer is not included in the Group Size Calibration Coefficients `.DAT` file, `ABUND` applies a default coefficient (`0.8625`) to scale group size estimates; however, it applies this calibration to group sizes of all sizes, including solo animals or small groups of 2-3. In `LTabundR`, users can choose to restrict calibrations for unknown observers to group size estimates of any size (see `load_cohort_settings()`) 
 
-- Note that `ABUND9` calibrates school sizes differently than `ABUND7`. The `ABUND9` release notes mention a bug in previous versions that incorrectly calibrated school size. `LTabundR` corresponds perfectly with `ABUND9` school size calibrations, but not with `ABUND8` or earlier.    
-
-
-
-## Processing time {-} 
-
-`LTabundR` is about 6x slower than `ABUND` (e.g., for CNP 1986 - 2020 surveys, ABUND processes in 50 seconds). `LTabundR` processes in 5:00 minutes). This lag is due to the facts that…
-
-- `R` is generally slower than `Fortran`  
-
-- `LTabundR` runs `swfscDAS` functions first, then processes those outputs  
-
-- `LTabundR` is designed to provide detailed outputs, to be more versatile in both LTA and habitat modeling  
-
-- `LTabundR` is designed to be more easily troubleshooted, which increases processing time.  
-
+- Note that `ABUND9` calibrates school sizes slightly differently than `ABUND7`. The `ABUND9` release notes mention a bug in previous versions that incorrectly calibrated school size. `LTabundR` corresponds perfectly with `ABUND9` school size calibrations, but not with `ABUND8` or earlier.    
 

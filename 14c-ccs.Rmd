@@ -2,7 +2,7 @@
 
 Under construction!
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
 library(swfscDAS)
 library(LTabundR)
 library(dplyr)
