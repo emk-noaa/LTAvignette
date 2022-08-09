@@ -1,4 +1,6 @@
-# Presenting results
+# (PART) Results {-}
+
+# Tables
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
 library(dplyr)
@@ -18,9 +20,7 @@ We created these LTA results using the following built-in dataset:
 data(cnp_150km_1986_2020)
 ```
 
-## Tables {-} 
-
-### Summary tables {-}
+## Summary tables {-}
 
 To summarize `lta()` results using the standard table format provided in recent NOAA stock assessment reports, use the function `lta_report()`.
 
@@ -36,9 +36,9 @@ Providing the `cruz` object is not required, but if it is not provided, one of t
 tables %>% names
 ```
 
-#### Table 1 in reports: Sample sizes {-} 
+### Table 1 in reports: Sample sizes {-} 
 
-##### Table 1a {-}  
+#### Table 1a {-}  
 
 If `cruz` was provided, `$table1a` 1a will include total sighting counts for all species in the years from `lta_result`, broken down by region. The `Ntot` column holds all sightings, regardless of effort status or Beaufort sea state. `Nsys` holds counts of systematic-only sightings (i.e., EffType = "S" and Bft <= 6), which may still include sightings that are beyond the species-specific truncation distance and were therefore excluded from density/abundance estimation.   
 
@@ -51,7 +51,7 @@ tables$table1a %>%
   ))
 ```
 
-##### Table 1b {-}  
+#### Table 1b {-}  
 
 This table holds sighting counts used in estimates of density/abundance. The rows match the rows for Tables 3 and 4. In this table, columns are still prepared for total sightings (`Ntot`) and systematic sightings (`Nsys`), but they are left blank, since it is not clear how sightings from multiple regions in `$table1a` would be concatenated for this table. The user can fill in those gaps accordingly.
 
@@ -62,7 +62,7 @@ tables$table1b %>%
   ))
 ```
 
-#### Table 2 in reports: Detection functions {-}
+### Table 2 in reports: Detection functions {-}
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
 tables$table2 %>%
@@ -71,7 +71,7 @@ tables$table2 %>%
   ))
 ```
 
-#### Table 3: Parameter estimates {-}
+### Table 3: Parameter estimates {-}
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
 tables$table3 %>%
@@ -80,7 +80,7 @@ tables$table3 %>%
   ))
 ```
 
-#### Table 4: Density/abundance {-}
+### Table 4: Density/abundance {-}
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
 tables$table4 %>%
@@ -89,7 +89,9 @@ tables$table4 %>%
   ))
 ```
 
-#### Appendix Table 1: Study areas {-}
+## Appendix tables {-}  
+
+### Table A1: Study areas {-}
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 tables$tableA1 %>% 
@@ -103,16 +105,16 @@ DT::datatable(extensions = "FixedColumns",
   ))
 ```
 
-#### Appendix Table 2: Effort totals (parsed by Beaufort sea state) {-}
+### Table A2: Effort totals (parsed by Beaufort sea state) {-}
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 tables$tableA2
 ```
 
 
-## Plots {-}  
+# Plots
 
-### Abundance plots {-}  
+## Abundance plots {-}  
 
 To plot the abundance estimate with error bars representing the 95% confidence interval, use the function `lta_plot()`: 
 
@@ -122,7 +124,7 @@ lta_plot(lta_result,
 ```
 
 
-### Detection function plots {-}
+## Detection function plots {-}
 
 To plot the best-fit detection model for a species pool, use the `df_plot()` function.
 

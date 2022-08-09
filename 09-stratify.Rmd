@@ -1,5 +1,3 @@
-# (PART) Results & other analyses {-}
-
 # Stratified analysis {#destratify}
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}

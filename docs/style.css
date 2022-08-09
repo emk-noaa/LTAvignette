@@ -44,7 +44,6 @@ p {font-size: 14px}
   padding-left: 11px !important;
 }
 li.appendix span, li.part span { /* for TOC part names */
-  margin-top: 1em;
   color: #1c3046 !important;
   opacity: 1 !important;
   text-transform: uppercase;
