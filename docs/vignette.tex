@@ -187,6 +187,12 @@ Throughout this user's guide, we will primarily be using example data from recen
 
 Once the package is public, install details will go here.
 
+\hypertarget{credits}{%
+\subsection*{Credits}\label{credits}}
+\addcontentsline{toc}{subsection}{Credits}
+
+This \texttt{R} package is a consolidation of code developed over many years by many NOAA-NMFS scientists, primarily the four J's: Jay Barlow, Jim Gerrodette, Jeff Laake, and Jeff Moore. This package was developed by Eric Keen and Amanda Bradford.
+
 \hypertarget{part-data-processing}{%
 \part{Data processing}\label{part-data-processing}}
 
@@ -1999,6 +2005,7 @@ To deep-dive into details for a ceratin species (or group of species), use the f
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{species <-}\StringTok{ }\KeywordTok{summarize_species}\NormalTok{(}\DataTypeTok{spp=}\StringTok{'046'}\NormalTok{, cruz_}\DecValTok{1720}\NormalTok{)}
+\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{summarize_species}\NormalTok{(}\DataTypeTok{spp =} \StringTok{"046"}\NormalTok{, cruz_}\DecValTok{1720}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'cohorti'}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2007,10 +2014,7 @@ This functions a list with a variety of summaries:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{species }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}
-\NormalTok{ [}\DecValTok{1}\NormalTok{] }\StringTok{"species"}             \StringTok{"n_total"}             \StringTok{"n_analysis"}         
-\NormalTok{ [}\DecValTok{4}\NormalTok{] }\StringTok{"school_size"}         \StringTok{"yearly_total"}        \StringTok{"yearly_analysis"}    
-\NormalTok{ [}\DecValTok{7}\NormalTok{] }\StringTok{"regional_total"}      \StringTok{"regional_analysis"}   \StringTok{"detection_distances"}
-\NormalTok{[}\DecValTok{10}\NormalTok{] }\StringTok{"sightings"}          
+\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ species }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'species'}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2019,9 +2023,9 @@ The slots \texttt{\$n\_total} and \texttt{\$n\_analysis} provide the total numbe
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{species}\OperatorTok{$}\NormalTok{n_total}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{14}
+\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{eval}\NormalTok{(expr, envir, enclos)}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'species'}\NormalTok{ not found}
 \NormalTok{species}\OperatorTok{$}\NormalTok{n_analysis}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{14}
+\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{eval}\NormalTok{(expr, envir, enclos)}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'species'}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2031,21 +2035,41 @@ The slots \texttt{\$n\_total} and \texttt{\$n\_analysis} provide the total numbe
 
 This table only includes the sightings eligible for analysis:
 
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'species' not found
+\end{verbatim}
+
 \hypertarget{annual-summaries-all-sightings}{%
 \subsubsection*{Annual summaries (all sightings)}\label{annual-summaries-all-sightings}}
 \addcontentsline{toc}{subsubsection}{Annual summaries (all sightings)}
+
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'species' not found
+\end{verbatim}
 
 \hypertarget{annual-summaries-analysis-only}{%
 \subsubsection*{Annual summaries (analysis only)}\label{annual-summaries-analysis-only}}
 \addcontentsline{toc}{subsubsection}{Annual summaries (analysis only)}
 
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'species' not found
+\end{verbatim}
+
 \hypertarget{regional-summaries-all-sightings}{%
 \subsubsection*{Regional summaries (all sightings)}\label{regional-summaries-all-sightings}}
 \addcontentsline{toc}{subsubsection}{Regional summaries (all sightings)}
 
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'species' not found
+\end{verbatim}
+
 \hypertarget{regional-summaries-analysis-only}{%
 \subsubsection*{Regional summaries (analysis only)}\label{regional-summaries-analysis-only}}
 \addcontentsline{toc}{subsubsection}{Regional summaries (analysis only)}
+
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'species' not found
+\end{verbatim}
 
 \hypertarget{detection-distances}{%
 \subsubsection*{Detection distances}\label{detection-distances}}
@@ -2054,11 +2078,19 @@ This table only includes the sightings eligible for analysis:
 This table can be used to determine the best truncation distance to use, based on the
 percent truncation you wish and the number of sightings available at each option.
 
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'species' not found
+\end{verbatim}
+
 \hypertarget{all-sightings-data}{%
 \subsubsection*{All sightings data}\label{all-sightings-data}}
 \addcontentsline{toc}{subsubsection}{All sightings data}
 
 Finally, this last slot holds a dataframe of all sightings data for the specified species:
+
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'species' not found
+\end{verbatim}
 
 \hypertarget{cruz_explorer}{%
 \section*{\texorpdfstring{\texttt{cruz\_explorer()}}{cruz\_explorer()}}\label{cruz_explorer}}
@@ -3419,7 +3451,12 @@ As these results stand, 2002 estimates are stratified into 2 separate regions:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{(ltas }\OperatorTok{%>%}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(}\DataTypeTok{verbose =} \OtherTok{FALSE}\NormalTok{))}\OperatorTok{$}\NormalTok{table4}
-\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"filter"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'filter'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
+                         \DecValTok{2002}\NormalTok{ (HI_EEZ) }\OperatorTok{-}\StringTok{ }\NormalTok{(MHI)                       }\DecValTok{2002}
+\DecValTok{1}\NormalTok{ Species or category Density        Abundance   CV        }\DecValTok{95}\NormalTok{% CI Density}
+\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{14.2}           \DecValTok{32}\NormalTok{,}\DecValTok{135} \FloatTok{0.47} \DecValTok{16}\NormalTok{,}\DecValTok{707-64}\NormalTok{,}\DecValTok{184}   \FloatTok{12.06}
+\NormalTok{      (MHI)                 }\DecValTok{2010}\NormalTok{  (HI_EEZ)                    }
+\DecValTok{1}\NormalTok{ Abundance   CV  }\DecValTok{95}\OperatorTok{% CI Density Abundance   CV         95%}\StringTok{ }\NormalTok{CI}
+\DecValTok{2}     \DecValTok{2}\NormalTok{,}\DecValTok{557} \FloatTok{0.89} \DecValTok{0-7}\NormalTok{,}\DecValTok{491}   \FloatTok{23.86}    \DecValTok{59}\NormalTok{,}\DecValTok{051} \FloatTok{0.42} \DecValTok{45}\NormalTok{,}\DecValTok{459-131}\NormalTok{,}\DecValTok{350}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3432,7 +3469,6 @@ Now let's process these LTA results through an \texttt{LTabundR} function, \text
                \DataTypeTok{years =} \DecValTok{2002}\NormalTok{,}
                \DataTypeTok{combine_method =} \StringTok{'arithmetic'}\NormalTok{,}
                \DataTypeTok{new_region =} \StringTok{'(HI_EEZ)'}\NormalTok{)}
-\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ lta_list[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{:}\StringTok{ }\NormalTok{subscript out of bounds}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3443,7 +3479,12 @@ Now let's re-check the summary table:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{(ltas_2a }\OperatorTok{%>%}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(}\DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{))}\OperatorTok{$}\NormalTok{table4}
-\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ lta_result }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'ltas_2a'}\NormalTok{ not found}
+                         \DecValTok{2002}\NormalTok{  (HI_EEZ)                       }\DecValTok{2010}\NormalTok{  (HI_EEZ)}
+\DecValTok{1}\NormalTok{ Species or category Density Abundance   CV        }\DecValTok{95}\NormalTok{% CI Density Abundance}
+\DecValTok{2}\NormalTok{     Striped dolphin   }\FloatTok{14.02}    \DecValTok{34}\NormalTok{,}\DecValTok{691} \FloatTok{0.82} \DecValTok{8}\NormalTok{,}\DecValTok{462-142}\NormalTok{,}\DecValTok{221}   \FloatTok{23.86}    \DecValTok{59}\NormalTok{,}\DecValTok{051}
+                     
+\DecValTok{1}\NormalTok{   CV         }\DecValTok{95}\NormalTok{% CI}
+\DecValTok{2} \FloatTok{0.42} \DecValTok{45}\NormalTok{,}\DecValTok{459-131}\NormalTok{,}\DecValTok{350}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3460,14 +3501,18 @@ The second option, \texttt{"bootstrap"}, uses an iterative method that draws boo
                \DataTypeTok{years =} \DecValTok{2002}\NormalTok{,}
                \DataTypeTok{combine_method =} \StringTok{'bootstrap'}\NormalTok{,}
                \DataTypeTok{new_region =} \StringTok{'(HI_EEZ)'}\NormalTok{)}
-\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ lta_list[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{:}\StringTok{ }\NormalTok{subscript out of bounds}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{(ltas_2b }\OperatorTok{%>%}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(}\DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{))}\OperatorTok{$}\NormalTok{table4}
-\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ lta_result }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'ltas_2b'}\NormalTok{ not found}
+                         \DecValTok{2002}\NormalTok{  (HI_EEZ)                       }\DecValTok{2010}\NormalTok{  (HI_EEZ)}
+\DecValTok{1}\NormalTok{ Species or category Density Abundance   CV        }\DecValTok{95}\NormalTok{% CI Density Abundance}
+\DecValTok{2}\NormalTok{     Striped dolphin   }\FloatTok{14.02}    \DecValTok{34}\NormalTok{,}\DecValTok{691} \FloatTok{0.41} \DecValTok{18}\NormalTok{,}\DecValTok{933-80}\NormalTok{,}\DecValTok{649}   \FloatTok{23.86}    \DecValTok{59}\NormalTok{,}\DecValTok{051}
+                     
+\DecValTok{1}\NormalTok{   CV         }\DecValTok{95}\NormalTok{% CI}
+\DecValTok{2} \FloatTok{0.42} \DecValTok{45}\NormalTok{,}\DecValTok{459-131}\NormalTok{,}\DecValTok{350}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4149,11 +4194,11 @@ This function performs the following operations:
 
 Note that this approach could theoretically be used for other species that occur in subgroups.
 
-\hypertarget{part-reports}{%
-\part{Reports}\label{part-reports}}
+\hypertarget{part-results}{%
+\part{Results}\label{part-results}}
 
-\hypertarget{presenting-results}{%
-\chapter{Presenting results}\label{presenting-results}}
+\hypertarget{tables}{%
+\chapter{Tables}\label{tables}}
 
 To demonstrate how LTA results can be summarized, tabularized, and plotted, we will use a built-in \texttt{LTabundR} dataset, which has denisty/abundance estimates for the Hawaiian EEZ in 2010 and 2017 for striped dolphins, Fraser's dolphins, and melon-headed whales, ran with only 20 iterations:
 
@@ -4171,13 +4216,9 @@ We created these LTA results using the following built-in dataset:
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{tables}{%
-\section*{Tables}\label{tables}}
-\addcontentsline{toc}{section}{Tables}
-
 \hypertarget{summary-tables}{%
-\subsection*{Summary tables}\label{summary-tables}}
-\addcontentsline{toc}{subsection}{Summary tables}
+\section*{Summary tables}\label{summary-tables}}
+\addcontentsline{toc}{section}{Summary tables}
 
 To summarize \texttt{lta()} results using the standard table format provided in recent NOAA stock assessment reports, use the function \texttt{lta\_report()}.
 
@@ -4199,12 +4240,12 @@ Providing the \texttt{cruz} object is not required, but if it is not provided, o
 \end{Shaded}
 
 \hypertarget{table-1-in-reports-sample-sizes}{%
-\subsubsection*{Table 1 in reports: Sample sizes}\label{table-1-in-reports-sample-sizes}}
-\addcontentsline{toc}{subsubsection}{Table 1 in reports: Sample sizes}
+\subsection*{Table 1 in reports: Sample sizes}\label{table-1-in-reports-sample-sizes}}
+\addcontentsline{toc}{subsection}{Table 1 in reports: Sample sizes}
 
 \hypertarget{table-1a}{%
-\paragraph{Table 1a}\label{table-1a}}
-\addcontentsline{toc}{paragraph}{Table 1a}
+\subsubsection*{Table 1a}\label{table-1a}}
+\addcontentsline{toc}{subsubsection}{Table 1a}
 
 If \texttt{cruz} was provided, \texttt{\$table1a} 1a will include total sighting counts for all species in the years from \texttt{lta\_result}, broken down by region. The \texttt{Ntot} column holds all sightings, regardless of effort status or Beaufort sea state. \texttt{Nsys} holds counts of systematic-only sightings (i.e., EffType = ``S'' and Bft \textless= 6), which may still include sightings that are beyond the species-specific truncation distance and were therefore excluded from density/abundance estimation.
 
@@ -4220,8 +4261,8 @@ These counts are provided separately from the \texttt{\$table1b} slot below, sin
 \end{Shaded}
 
 \hypertarget{table-1b}{%
-\paragraph{Table 1b}\label{table-1b}}
-\addcontentsline{toc}{paragraph}{Table 1b}
+\subsubsection*{Table 1b}\label{table-1b}}
+\addcontentsline{toc}{subsubsection}{Table 1b}
 
 This table holds sighting counts used in estimates of density/abundance. The rows match the rows for Tables 3 and 4. In this table, columns are still prepared for total sightings (\texttt{Ntot}) and systematic sightings (\texttt{Nsys}), but they are left blank, since it is not clear how sightings from multiple regions in \texttt{\$table1a} would be concatenated for this table. The user can fill in those gaps accordingly.
 
@@ -4235,24 +4276,28 @@ This table holds sighting counts used in estimates of density/abundance. The row
 \end{Shaded}
 
 \hypertarget{table-2-in-reports-detection-functions}{%
-\subsubsection*{Table 2 in reports: Detection functions}\label{table-2-in-reports-detection-functions}}
-\addcontentsline{toc}{subsubsection}{Table 2 in reports: Detection functions}
+\subsection*{Table 2 in reports: Detection functions}\label{table-2-in-reports-detection-functions}}
+\addcontentsline{toc}{subsection}{Table 2 in reports: Detection functions}
 
 \hypertarget{table-3-parameter-estimates}{%
-\subsubsection*{Table 3: Parameter estimates}\label{table-3-parameter-estimates}}
-\addcontentsline{toc}{subsubsection}{Table 3: Parameter estimates}
+\subsection*{Table 3: Parameter estimates}\label{table-3-parameter-estimates}}
+\addcontentsline{toc}{subsection}{Table 3: Parameter estimates}
 
 \hypertarget{table-4-densityabundance}{%
-\subsubsection*{Table 4: Density/abundance}\label{table-4-densityabundance}}
-\addcontentsline{toc}{subsubsection}{Table 4: Density/abundance}
+\subsection*{Table 4: Density/abundance}\label{table-4-densityabundance}}
+\addcontentsline{toc}{subsection}{Table 4: Density/abundance}
 
-\hypertarget{appendix-table-1-study-areas}{%
-\subsubsection*{Appendix Table 1: Study areas}\label{appendix-table-1-study-areas}}
-\addcontentsline{toc}{subsubsection}{Appendix Table 1: Study areas}
+\hypertarget{appendix-tables}{%
+\section*{Appendix tables}\label{appendix-tables}}
+\addcontentsline{toc}{section}{Appendix tables}
 
-\hypertarget{appendix-table-2-effort-totals-parsed-by-beaufort-sea-state}{%
-\subsubsection*{Appendix Table 2: Effort totals (parsed by Beaufort sea state)}\label{appendix-table-2-effort-totals-parsed-by-beaufort-sea-state}}
-\addcontentsline{toc}{subsubsection}{Appendix Table 2: Effort totals (parsed by Beaufort sea state)}
+\hypertarget{table-a1-study-areas}{%
+\subsection*{Table A1: Study areas}\label{table-a1-study-areas}}
+\addcontentsline{toc}{subsection}{Table A1: Study areas}
+
+\hypertarget{table-a2-effort-totals-parsed-by-beaufort-sea-state}{%
+\subsection*{Table A2: Effort totals (parsed by Beaufort sea state)}\label{table-a2-effort-totals-parsed-by-beaufort-sea-state}}
+\addcontentsline{toc}{subsection}{Table A2: Effort totals (parsed by Beaufort sea state)}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4272,12 +4317,11 @@ This table holds sighting counts used in estimates of density/abundance. The row
 \end{Shaded}
 
 \hypertarget{plots}{%
-\section*{Plots}\label{plots}}
-\addcontentsline{toc}{section}{Plots}
+\chapter{Plots}\label{plots}}
 
 \hypertarget{abundance-plots}{%
-\subsection*{Abundance plots}\label{abundance-plots}}
-\addcontentsline{toc}{subsection}{Abundance plots}
+\section*{Abundance plots}\label{abundance-plots}}
+\addcontentsline{toc}{section}{Abundance plots}
 
 To plot the abundance estimate with error bars representing the 95\% confidence interval, use the function \texttt{lta\_plot()}:
 
@@ -4291,8 +4335,8 @@ To plot the abundance estimate with error bars representing the 95\% confidence 
 \includegraphics{figures/unnamed-chunk-260-1.pdf}
 
 \hypertarget{detection-function-plots}{%
-\subsection*{Detection function plots}\label{detection-function-plots}}
-\addcontentsline{toc}{subsection}{Detection function plots}
+\section*{Detection function plots}\label{detection-function-plots}}
+\addcontentsline{toc}{section}{Detection function plots}
 
 To plot the best-fit detection model for a species pool, use the \texttt{df\_plot()} function.
 
@@ -6413,63 +6457,6 @@ The \texttt{lta\_estimates()} function will generate a custom function that make
 
 Under construction!
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(swfscDAS)}
-\KeywordTok{library}\NormalTok{(LTabundR)}
-\KeywordTok{library}\NormalTok{(dplyr)}
-
-\CommentTok{# Settings =====================================================================}
-
-\CommentTok{# Load strata & study area}
-\KeywordTok{data}\NormalTok{(strata_ccs)}
-
-\CommentTok{# Survey-wide}
-\NormalTok{survey <-}\StringTok{ }
-\StringTok{  }\KeywordTok{load_survey_settings}\NormalTok{(}\DataTypeTok{segment_method =} \StringTok{'equallength'}\NormalTok{,}
-                       \DataTypeTok{segment_target_km =} \DecValTok{100}\NormalTok{,}
-                       \DataTypeTok{segment_max_km_gap =} \DecValTok{5}\NormalTok{,}
-                       \DataTypeTok{segment_max_interval =} \DecValTok{48}\NormalTok{,}
-                       \DataTypeTok{segment_remainder_handling =} \KeywordTok{c}\NormalTok{(}\StringTok{'append'}\NormalTok{,}\StringTok{'segment'}\NormalTok{),}
-                       \DataTypeTok{verbose =} \OtherTok{TRUE}\NormalTok{)}
-
-\CommentTok{# Cohort 1 (default)}
-\NormalTok{cohort1 <-}\StringTok{ }\KeywordTok{load_cohort_settings}\NormalTok{()}
-
-\CommentTok{# Cohort 2}
-\NormalTok{cohort2 <-}\StringTok{ }
-\StringTok{  }\KeywordTok{load_cohort_settings}\NormalTok{(}\DataTypeTok{id=}\StringTok{'beakers'}\NormalTok{,}
-                       \DataTypeTok{species=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{49}\NormalTok{,}\DecValTok{52}\OperatorTok{:}\DecValTok{59}\NormalTok{, }\DecValTok{61}\OperatorTok{:}\DecValTok{65}\NormalTok{, }\DecValTok{81}\OperatorTok{:}\DecValTok{83}\NormalTok{, }\DecValTok{106}\NormalTok{, }\DecValTok{109}\NormalTok{),}
-                       \DataTypeTok{use_low_if_na =} \OtherTok{TRUE}\NormalTok{,}
-                       \DataTypeTok{distance_types =} \KeywordTok{c}\NormalTok{(}\StringTok{'S'}\NormalTok{,}\StringTok{'F'}\NormalTok{,}\StringTok{'N'}\NormalTok{))}
-
-\CommentTok{# Finalize settings}
-\NormalTok{settings <-}\StringTok{ }\KeywordTok{load_settings}\NormalTok{(}\DataTypeTok{strata =}\NormalTok{ strata_ccs,}
-                          \DataTypeTok{study_area =} \OtherTok{NULL}\NormalTok{,}
-                          \DataTypeTok{survey =}\NormalTok{ survey,}
-                          \DataTypeTok{cohorts=}\KeywordTok{list}\NormalTok{(cohort1,}
-\NormalTok{                                       cohort2))}
-
-
-\CommentTok{# Processing ===================================================================}
-
-\NormalTok{das_file <-}\StringTok{ 'data/surveys/CAORWA_91-09.das'}
-\NormalTok{cruz <-}\StringTok{ }\KeywordTok{process_surveys}\NormalTok{(das_file, settings, }\DataTypeTok{verbose=}\OtherTok{TRUE}\NormalTok{)}
-
-\CommentTok{# Data evaluation ==============================================================}
-
-\CommentTok{# Map}
-\NormalTok{m <-}\StringTok{ }\KeywordTok{map_base}\NormalTok{(}\StringTok{'ccs'}\NormalTok{) }
-\NormalTok{m <-}\StringTok{ }\KeywordTok{map_strata}\NormalTok{(m, cruz}\OperatorTok{$}\NormalTok{settings)}
-\NormalTok{m <-}\StringTok{ }\KeywordTok{map_effort}\NormalTok{(m, cruz)}
-\NormalTok{m <-}\StringTok{ }\KeywordTok{map_sightings}\NormalTok{(m, cruz, }\DataTypeTok{size_base=}\NormalTok{.}\DecValTok{4}\NormalTok{)}
-\NormalTok{m }
-
-\CommentTok{# Review interactively}
-\KeywordTok{cruz_explorer}\NormalTok{(cruz)}
-\end{Highlighting}
-\end{Shaded}
-
 \hypertarget{part-appendix}{%
 \part{Appendix}\label{part-appendix}}
 
@@ -6601,6 +6588,7 @@ First we load the demo data and carry out initial processing:
 \NormalTok{                       settings,}
                        \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
 \NormalTok{cruz <-}\StringTok{ }\KeywordTok{format_das}\NormalTok{(cruz)}
+\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{format_das}\NormalTok{(cruz)}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'bads'}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6655,10 +6643,11 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
                         \DataTypeTok{distance_modes =} \KeywordTok{c}\NormalTok{(}\StringTok{'P'}\NormalTok{,}\StringTok{'C'}\NormalTok{),}
                         \DataTypeTok{distance_on_off =} \KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{),}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{273}
+\OtherTok{NULL}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo)}
@@ -6682,10 +6671,11 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
                         \DataTypeTok{segment_target_km =} \DecValTok{30}\NormalTok{,}
                         \DataTypeTok{segment_max_interval =} \DecValTok{48}\NormalTok{,}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{113}
+\OtherTok{NULL}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
@@ -6705,10 +6695,11 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
                         \DataTypeTok{segment_target_km =} \DecValTok{150}\NormalTok{,}
                         \DataTypeTok{segment_max_interval =} \DecValTok{48}\NormalTok{,}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{68}
+\OtherTok{NULL}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
@@ -6730,10 +6721,11 @@ The example above allows for non-contiguous effort; a segment is allowed to cont
                         \DataTypeTok{segment_target_km =} \DecValTok{30}\NormalTok{,}
                         \DataTypeTok{segment_max_interval =} \FloatTok{.1}\NormalTok{,}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{596}
+\OtherTok{NULL}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
@@ -6761,10 +6753,11 @@ The other possible setting is \texttt{\textquotesingle{}disperse\textquotesingle
                         \DataTypeTok{segment_target_km =} \DecValTok{100}\NormalTok{,}
                         \DataTypeTok{segment_max_interval =} \DecValTok{48}\NormalTok{,}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{94}
+\OtherTok{NULL}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
@@ -6782,10 +6775,11 @@ Note that most segments are longer than the target length, due to the impact of 
                         \DataTypeTok{segment_target_km =} \DecValTok{90}\NormalTok{,}
                         \DataTypeTok{segment_max_interval =} \DecValTok{48}\NormalTok{,}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{102}
+\OtherTok{NULL}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
@@ -6819,10 +6813,11 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
                         \DataTypeTok{segment_target_km =} \DecValTok{5}\NormalTok{,}
                         \DataTypeTok{segment_max_interval =} \FloatTok{.1}\NormalTok{,}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
+\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1820}
+\OtherTok{NULL}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
@@ -6842,15 +6837,15 @@ We have tried to develop \texttt{LTabundR} with the flexibility either to replic
 
 \begin{itemize}
 \item
-  After loading the data, \texttt{LTabundR} removes rows with invalid Cruise numbers, invalid times, and invalid coordinates. As far as we can tell, \texttt{ABUND} does not remove such missing data. This is a relatively minor point; in processing the 1986-2020 data (623,640 rows), 287 rows are missing Cruise info; 1,430 are missing valid times; and 556 are missing valid coordinates, for a total of 2,273 rows removed out of more than 625,000 (0.3\% of rows).
+  After loading the data, \texttt{LTabundR} removes rows with invalid Cruise numbers, invalid times, and invalid coordinates. As far as we can tell, \texttt{ABUND} does not remove such missing data. This is a relatively minor point; in processing the 1986-2020 data (623,640 rows), 287 rows are missing Cruise info; 1,430 are missing valid times; and 556 are missing valid coordinates, for a total of 2,273 rows removed out of more than 625,000 (0.3\% of rows). Many of these rows with missing data have the same coordinates as complete rows nearby (since \emph{WinCruz} can sometimes produce multiple lines at the same time when setting up metadata for the research day).
 \item
-  The custom \texttt{ABUND} functions that calculate whether DAS coordinates occur within geostrata are difficult to validate, and it is possible that they differ from the functions used in R for the same purpose.
+  In \texttt{ABUND}, custom functions are used to calculate whether DAS coordinates occur within geostrata are difficult to validate, and it is possible that they differ from the functions used in R for the same purpose. \texttt{LTabundR} uses functions within the well-established \texttt{sf} package to do these same calculations.
 \item
-  Both \texttt{ABUND} and \texttt{LTabundR} calculate the distance surveyed based on the sum of distances between adjacent rows in the \texttt{DAS} file. They do this differently, which could yield minor differences in segment track lengths.
+  Both \texttt{ABUND} and \texttt{LTabundR} calculate the distance surveyed based on the sum of distances between adjacent rows in the \texttt{DAS} file. They do this differently (see below), based on the way they loop through the data, which may yield minor differences in segment track lengths.
 \item
   \texttt{ABUND} loops through the data one row at a time, calculating distance traveled at the same time as allocating effort to segments and processing sightings. It calculates the distance between each new row and the beginning of a segment of effort. That beginning location (object \texttt{BEGTIME} in the \texttt{Fortran} code) is reset with various triggers (including a new date), and the distance traveled is calculated using a subroutine (\texttt{DISTRAV}). For surveys occurring after 1991, the distance between a new coordinate and the \texttt{BEGTIME} coordinate is calculated using a subroutine named \texttt{GRCIRC} (great-circle distance). Prior to 1991, the ship speed and the time since \texttt{BEGTIME} is used to estimate distance traveled. After 1991, the function calculates distance based on coordinates. For all years, the distance calculation only happens if the time gap in time is at least 1.2 minutes (line 405 in \texttt{ABUND9.FOR}), otherwise the distance is returned as 0 km. This function also seems to allow for large gaps between subsequent rows within a single day of effort. The subroutine prints a warning message when the gap is greater than 30 km, but does not modify its estimate of distance traveled. This allows for the possibility that, in rare cases, estimates of distance surveyed will be spuriously large.
 \item
-  \texttt{LTabundR} processes data using a modular approach rather than a single large loop. Prior to the segmentizing stage, it calculates the distance between rows of data. Its approach is to calculate the distance between each row and its subsequent row (it does so using the \texttt{swfscDAS} function \texttt{distance\_greatcircle()}, which is a nearly-exact recode of \texttt{GRCIRC} for \texttt{R}. There are two important differences that LTabundR applies: (1) In anticipation of \texttt{WinCruz} surveys that operate on much smaller scales with more frequent position updates, we calculate distances for time gaps as small as 30 seconds, not 1.2 minutes. This may generate minor differences in the total length of tracks; (2) If the distance between rows is greater than 30 km, then it is assumed that effort has stopped and the distance is changed to 0 km. This approach should avoid the misinterpretation of large gaps in effort as large periods of effort.
+  \texttt{LTabundR} processes data using a modular approach rather than a single large loop. Prior to the segmentizing stage, it calculates the distance between rows of data. Its approach is to calculate the distance between each row and its subsequent row (it does so using the \texttt{swfscDAS} function \texttt{distance\_greatcircle()}, which is a nearly-exact recode of the \texttt{ABUND} subroutine \texttt{GRCIRC} for \texttt{R}. There are two important differences that \texttt{LTabundR} applies: (1) In anticipation of \texttt{WinCruz} surveys that operate on much smaller scales with more frequent position updates, we calculate distances for time gaps as small as 30 seconds, not 1.2 minutes. This may generate minor differences in the total length of tracks; (2) If the distance between rows is greater than 30 km, then it is assumed that effort has stopped and the distance is changed to 0 km (that distance can be modified by the user; see the \texttt{LTabundR} function \texttt{load\_survey\_settings()}. This approach should avoid the misinterpretation of large gaps in effort as large periods of effort.
 \end{itemize}
 
 \hypertarget{differences-in-on-effort-distance}{%
@@ -6859,23 +6854,23 @@ We have tried to develop \texttt{LTabundR} with the flexibility either to replic
 
 \begin{itemize}
 \item
-  \texttt{LTabundR} works with \texttt{DAS} data that are loaded and formatted using \texttt{swfscDAS:das\_read()} and \texttt{das\_process()}. It is possible that these functions categorize events as On- or Off-Effort slightly differently than ABUND, or apply other differences that would be difficult for us to know or track.
+  \texttt{LTabundR} works with \texttt{DAS} data that are loaded and formatted using \texttt{swfscDAS:das\_read()} and \texttt{das\_process()}. It is possible that these functions categorize events as On- or Off-Effort slightly differently than \texttt{ABUND}, or apply other differences that would be difficult for us to know or track.
 \item
-  While \texttt{ABUND} uses a minimum length threshold to create segments, such that full-length segments are never less than that threshold and small remainder segments always occur at the end of a continuous period of effort, \texttt{LTabundR} uses an approach more similar to the effort-chopping functions in \texttt{swfscDAS}: it looks at continuous blocs of effort, determines how many full-length segments can be defined in each bloc, then randomly places the remainder within that bloc according to a set of user-defined settings. This process produces full-length segments whose distribution of exact lengths is centered about the target length, rather than always being greater than the target length.
+  While \texttt{ABUND} uses a minimum length threshold to create segments, such that full-length segments are never less than that threshold and small remainder segments always occur at the end of a continuous period of effort, \texttt{LTabundR} uses an approach more similar to the effort-chopping functions in \texttt{swfscDAS}: it looks at continuous blocs of effort, determines how many full-length segments can be defined in each bloc, then randomly places the remainder within that bloc according to a set of user-defined settings (see \texttt{load\_survey\_settings()}. This process produces full-length segments whose distribution of exact lengths is centered about the target length, rather than always being greater than the target length.
 \item
   To control the particularities of segmentizing, \texttt{LTabundR} uses settings such as \texttt{segment\_max\_interval}, which controls how discontinuous effort is allowed to be pooled into the same segment. These rules may produce slight differences in segment lengths.
 \item
   Note that, since \texttt{ABUND} is a loop-based routine while \texttt{LTabundR} is modular, segments identified by the two program will never be exactly identical, and a 1:1 comparison of segments produced by the two programs is not possible.
 \end{itemize}
 
-\hypertarget{differences-it-total-sightings}{%
-\section*{Differences it total sightings}\label{differences-it-total-sightings}}
-\addcontentsline{toc}{section}{Differences it total sightings}
+\hypertarget{differences-in-total-sightings}{%
+\section*{Differences in total sightings}\label{differences-in-total-sightings}}
+\addcontentsline{toc}{section}{Differences in total sightings}
 
 \begin{itemize}
 \tightlist
 \item
-  In \texttt{ABUND9}, only sightings that occur while \texttt{OnEffort\ ==\ TRUE} are returned; in contrast, \texttt{LTabundR} does not remove any sightings (it just flags them differently, using the \texttt{included} variable). But we can easily filter \texttt{LTabundR} sightings to emulate ABUND9 output.
+  In \texttt{ABUND9}, only sightings that occur while \texttt{OnEffort\ ==\ TRUE} are returned; in contrast, \texttt{LTabundR} does not remove any sightings (it just flags them differently, using the \texttt{included} column variable). But we can easily filter \texttt{LTabundR} sightings to emulate \texttt{ABUND9} output.
 \end{itemize}
 
 \hypertarget{differences-in-on-effort-sightings}{%
@@ -6884,7 +6879,7 @@ We have tried to develop \texttt{LTabundR} with the flexibility either to replic
 
 \begin{itemize}
 \item
-  \texttt{LTabundR} includes an additional criterion for inclusion in analysis: the sighting must occur at or forward of the beam (this can be deactivated with a survey setting).
+  \texttt{LTabundR} includes an additional criterion for inclusion in analysis: the sighting must occur at or forward of the beam (this can be deactivated in \texttt{load\_survey\_settings()}.
 \item
   Since geostratum handling is different in the two programs, it is possible that sightings occurring near stratum margins may be included/excluded differently.
 \end{itemize}
@@ -6895,26 +6890,9 @@ We have tried to develop \texttt{LTabundR} with the flexibility either to replic
 
 \begin{itemize}
 \item
-  If an observer is not included in the Group Size Calibration Coefficients \texttt{.DAT} file, \texttt{ABUND} applies a default coefficient (\texttt{0.8625}) to scale group size estimates; however, it applies this calibration to group sizes of all sizes, including solo animals or small groups of 2-3. In \texttt{LTabundR}, we restrict calibrations for unknown observers to group size estimates of \texttt{4} or above. This means that school size estimates for small schools will be slightly larger, on average (by about 13\%), in \texttt{ABUND}.
+  If an observer is not included in the Group Size Calibration Coefficients \texttt{.DAT} file, \texttt{ABUND} applies a default coefficient (\texttt{0.8625}) to scale group size estimates; however, it applies this calibration to group sizes of all sizes, including solo animals or small groups of 2-3. In \texttt{LTabundR}, users can choose to restrict calibrations for unknown observers to group size estimates of any size (see \texttt{load\_cohort\_settings()})
 \item
-  Note that \texttt{ABUND9} calibrates school sizes differently than \texttt{ABUND7}. The \texttt{ABUND9} release notes mention a bug in previous versions that incorrectly calibrated school size. \texttt{LTabundR} corresponds perfectly with \texttt{ABUND9} school size calibrations, but not with \texttt{ABUND8} or earlier.
-\end{itemize}
-
-\hypertarget{processing-time}{%
-\section*{Processing time}\label{processing-time}}
-\addcontentsline{toc}{section}{Processing time}
-
-\texttt{LTabundR} is about 6x slower than \texttt{ABUND} (e.g., for CNP 1986 - 2020 surveys, ABUND processes in 50 seconds). \texttt{LTabundR} processes in 5:00 minutes). This lag is due to the facts that\ldots{}
-
-\begin{itemize}
-\item
-  \texttt{R} is generally slower than \texttt{Fortran}
-\item
-  \texttt{LTabundR} runs \texttt{swfscDAS} functions first, then processes those outputs
-\item
-  \texttt{LTabundR} is designed to provide detailed outputs, to be more versatile in both LTA and habitat modeling
-\item
-  \texttt{LTabundR} is designed to be more easily troubleshooted, which increases processing time.
+  Note that \texttt{ABUND9} calibrates school sizes slightly differently than \texttt{ABUND7}. The \texttt{ABUND9} release notes mention a bug in previous versions that incorrectly calibrated school size. \texttt{LTabundR} corresponds perfectly with \texttt{ABUND9} school size calibrations, but not with \texttt{ABUND8} or earlier.
 \end{itemize}
 
 \hypertarget{spp_codes}{%
@@ -7053,11 +7031,6 @@ The function will return any species for which there is a partial match:
 
 Note that if \texttt{species\_codes} is \texttt{NULL}, as in the examples above, the list of codes used in \texttt{ABUND9} will be used as a default.
 
-\hypertarget{misc_functions}{%
-\chapter{Miscellaneous functions}\label{misc_functions}}
-
-Placeholder!
-
 \hypertarget{backlog}{%
 \chapter{Appendix: Backlog}\label{backlog}}
 
@@ -7116,154 +7089,6 @@ Placeholder!
   In the ABUND SSCAL routine, when an observer's coefficients are drawn from the DAT file, the first line of best-high-low weights is used regardless of whether the general model or the year-specific model is used. Is that how it should be? For a few observers (only a few), the second row of weights differs from the first row.
 \item
   The ABUND SSCAL routine assumes Bft == 0 if it is NA. Are we OK with assuming that, or should we bypass calibration in the event of a missing Bft value? There is just 1 sighting with Bft == NA (Cruise 1607, 1997-04-27 07:16:01, SightNo 68, SpCode 037 killer whale).
-\end{itemize}
-
-\hypertarget{versions}{%
-\chapter{Appendix: Version history}\label{versions}}
-
-This status report outlines the code we are developing to process \texttt{WinCruz} data and prepare it for density estimation analysis using \texttt{distance} and related packages in \texttt{R}.
-
-\hypertarget{recent-changes}{%
-\subsection*{Recent changes}\label{recent-changes}}
-\addcontentsline{toc}{subsection}{Recent changes}
-
-\hypertarget{week-of-july-11}{%
-\subsubsection*{Week of July 11}\label{week-of-july-11}}
-\addcontentsline{toc}{subsubsection}{Week of July 11}
-
-\begin{itemize}
-\tightlist
-\item
-  Major changes throughout.
-\end{itemize}
-
-\hypertarget{week-of-jan.-30}{%
-\subsubsection*{Week of Jan.~30}\label{week-of-jan.-30}}
-\addcontentsline{toc}{subsubsection}{Week of Jan.~30}
-
-\begin{itemize}
-\item
-  Added land area removal feature to polygon processing functions (see \texttt{process\_polygon()}).
-\item
-  Fixed \texttt{prep\_data\_for\_ds()} function so that the minority species in multi-species schools is correctly renamed as ``Other'' for detection function fitting (after Bradford et al.~2021; this feature can optionally be turned off in the above function, as well as in \texttt{lta()}).
-\end{itemize}
-
-\hypertarget{week-of-jan.-23}{%
-\subsubsection*{Week of Jan.~23}\label{week-of-jan.-23}}
-\addcontentsline{toc}{subsubsection}{Week of Jan.~23}
-
-\begin{itemize}
-\item
-  Began bootstrap tests of LTA code developed to date.
-\item
-  Polished \texttt{cruz\_explorer()} functionality with respect to truncation distance selection.
-\item
-  Completed g(0) estimation functions (not yet added to this vignette).
-\end{itemize}
-
-\hypertarget{week-of-jan.-16}{%
-\subsubsection*{Week of Jan.~16}\label{week-of-jan.-16}}
-\addcontentsline{toc}{subsubsection}{Week of Jan.~16}
-
-\begin{itemize}
-\item
-  Development of density/abundance estimation routines, including bootstrapping (not yet added to this vignette).
-\item
-  Began development of g(0) estimation functions, after Barlow et al.~(2015).
-\end{itemize}
-
-\hypertarget{week-of-jan.-9}{%
-\subsubsection*{Week of Jan.~9}\label{week-of-jan.-9}}
-\addcontentsline{toc}{subsubsection}{Week of Jan.~9}
-
-\begin{itemize}
-\item
-  Planning for data analysis and parameter estimation stages of the project.
-\item
-  Development of detection function fitting routines (not yet added to this vignette.)
-\end{itemize}
-
-\hypertarget{week-of-jan.-2}{%
-\subsubsection*{Week of Jan.~2}\label{week-of-jan.-2}}
-\addcontentsline{toc}{subsubsection}{Week of Jan.~2}
-
-\begin{itemize}
-\item
-  Refinement of cruise summarization functions (see Chapter 6).
-\item
-  Addition of interactive map (see \texttt{LTabundR::cruz\_map()} documentation).
-\item
-  Addition of interactive data explorer \texttt{Shiny} app (see \texttt{LTabundR::cruz\_explorer()} documentation, with examples in \texttt{LTabundR-dev/test\_code/CNP/data\_processing.R}).
-\end{itemize}
-
-\hypertarget{week-of-dec.-26}{%
-\subsubsection*{Week of Dec.~26}\label{week-of-dec.-26}}
-\addcontentsline{toc}{subsubsection}{Week of Dec.~26}
-
-\begin{itemize}
-\item
-  Completion of comparison and reconciliation between \texttt{ABUND} and \texttt{LTabundR}, involving various minor debugs. See details \href{https://docs.google.com/presentation/d/1Vv0Yb2_gk0cEC1OlXlm6ffL9ug99bYvkpLkczg6pb2Q/edit?usp=sharing}{here}.
-\item
-  Completion of package and function documentation (to date).
-\end{itemize}
-
-\hypertarget{week-of-dec.-21}{%
-\subsubsection*{Week of Dec.~21}\label{week-of-dec.-21}}
-\addcontentsline{toc}{subsubsection}{Week of Dec.~21}
-
-\begin{itemize}
-\item
-  Refined code for \protect\hyperlink{subgroups}{subgroup-level school size estimation}. This feature is now stable.
-\item
-  Next item.
-\end{itemize}
-
-\hypertarget{week-of-dec.-13}{%
-\subsubsection*{Week of Dec.~13}\label{week-of-dec.-13}}
-\addcontentsline{toc}{subsubsection}{Week of Dec.~13}
-
-\begin{itemize}
-\item
-  Development of features for handling subgroup-level analysis of false killer whale sightings. (more soon).
-\item
-  A wide variety of minor improvements as part of a major push to compare \texttt{LTabundR} results to those from \texttt{ABUND7} and \texttt{ABUND9}. This included an effort to articulate the differences between \texttt{LTabundR} and \texttt{ABUND} routines (detailed in a \protect\hyperlink{abund9_compare}{new appendix}), and to quantify the correspondence (or lack thereof) between the two programs. This involved the development of a function, \texttt{abund9\_compare()}, which is not featured in this vignette but can be used to compare \texttt{LTabundR} outputs with those from \texttt{ABUND9}. We are also documenting comparisons on \href{https://docs.google.com/document/d/1_EZqzOnwSZZCitqTJFIbznGy2Njwbj1YOqMQcbcHI7k/edit?usp=sharing}{this document}.
-\item
-  Made \texttt{beaufort\_range} as a cohort-specific setting, instead of a survey-wide setting.
-\end{itemize}
-
-\hypertarget{prior-to-week-of-dec.-8}{%
-\subsubsection*{Prior to week of Dec.~8}\label{prior-to-week-of-dec.-8}}
-\addcontentsline{toc}{subsubsection}{Prior to week of Dec.~8}
-
-\begin{itemize}
-\item
-  Added a new survey-wide setting, \texttt{out\_handling}, that determines how data occurring outside of geographic strata will be handled. Currently the two options are \texttt{"remove"} (the default), which removes data occurring outside of the strata (speeds things up, reduces memory needs), and \texttt{"stratum"}, which assigns all exterior events to an \texttt{"out"} stratum.
-\item
-  Modified \texttt{segmentize()} function so that a list of segments is not returned to the user; that feature was created enormous objects (\textgreater{} 1 GB for the 1986 - 2020 CNP DAS data) and is not useful enough to retain as a standing slot. A list like that can be easily produced using a \texttt{dplyr} pipe (\texttt{group\_by(seg\_id)\ \%\textgreater{}\%\ group\_split()}) when the need arises (e.g., in \texttt{map\_effort()} -- this function has also been updated to accommodate this new change).
-\item
-  Fixed minutiae regarding group size estimation: sightings with missing data are given a school size estimate of 1, as done in \texttt{ABUND}; geometric mean functions have been fixed.
-\item
-  Added progress indicator to \texttt{process\_sightings()}.
-\item
-  New \texttt{format\_distance()} function creates tables that match \texttt{EFFORT.csv} and \texttt{SIGHTINGS.csv}. (See \protect\hyperlink{df}{here}.)
-\item
-  New \texttt{process\_surveys()} function provides a wrapper for all data processing functions in a single command. This will be the main function that researchers use to process their data. All other functions are called \emph{within} this function, and will rarely be called directly by researchers except in special analyses. This is explained at the top of the page on \protect\hyperlink{processing}{Data Processing}. This function includes an option for saving the result locally as a \texttt{RData} file, which allows the user to run this function once and save the result for later sessions.
-\item
-  New helper function, \texttt{read\_polygon()}, reads a \texttt{DAT} file of polygon coordinates and converts it to a dataframe compatible with \texttt{LTabundR} functions. Can handle files with multiple polygons.
-\item
-  Skeletonized new summary functions (see the \protect\hyperlink{summarize}{Summarize page}).
-\item
-  Ship name is now added to all dataframes.
-\item
-  New \texttt{process\_sightings()} function, with code for calibrating group sizes according to user-provided coefficient tables (mirroring \texttt{ABUND9} with slight mods, e.g., school size threshold for observers not in the \texttt{Coeff.DAT} file.). (Details: the function \texttt{process\_sightings()} relies upon a utility function, \texttt{group\_size()}, which in turn relies upon \texttt{group\_size\_calibrate()}.)
-\item
-  Added cohort-specific setting, \texttt{school\_size\_calibrate}, that allows researchers to specify whether a cohort should or should not have school sizes calibrated. Example use case: \texttt{school\_size\_calibrate\ =\ TRUE} for a cohort of dolphin species, but make it \texttt{FALSE} for a cohort of large baleen whales.
-\item
-  Basic function for mapping sightings (QA/QC): \texttt{map\_sightings()}.
-\item
-  Added detail/polish to vignette pages on \protect\hyperlink{settings}{Settings}, \protect\hyperlink{processing}{Processing Data}, and the \protect\hyperlink{segmentizing}{Appendix on Segmentizing}. I believe these are ready for close review.
-\item
-  Added detailed comments to code for all functions to date.
 \end{itemize}
 
   \bibliography{book.bib,packages.bib}

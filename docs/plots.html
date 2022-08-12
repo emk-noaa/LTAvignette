@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title> 21 Appendix: Backlog | User’s guide for LTabundR</title>
+  <title> 13 Plots | User’s guide for LTabundR</title>
   <meta name="description" content="vignette" />
   <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
-  <meta property="og:title" content=" 21 Appendix: Backlog | User’s guide for LTabundR" />
+  <meta property="og:title" content=" 13 Plots | User’s guide for LTabundR" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="vignette" />
   <meta name="github-repo" content="emk-noaa/emk-noaa.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content=" 21 Appendix: Backlog | User’s guide for LTabundR" />
+  <meta name="twitter:title" content=" 13 Plots | User’s guide for LTabundR" />
   
   <meta name="twitter:description" content="vignette" />
   
@@ -28,8 +28,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="spp_codes.html"/>
-
+<link rel="prev" href="tables.html"/>
+<link rel="next" href="whiceas.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -278,46 +278,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="backlog" class="section level1 hasAnchor">
-<h1><span class="header-section-number"> 21</span> Appendix: Backlog<a href="backlog.html#backlog" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<ul>
-<li><p>Make sure you are using AICc, not AIC</p></li>
-<li><p>Accommodate species belonging to multiple cohorts in GoogleSheet framework</p></li>
-<li><p>Remove <code>random.seed</code> from settings functions.</p></li>
-<li><p>Investigate discrepancies between output from <code>format_distance()</code> and <code>summarize_effort()</code>.</p></li>
-<li><p>Follow-through on converting <code>format_distance()</code> to match the formatting from <code>ABUND9</code>? (It is currently matching the format from <code>ABUND7</code>).</p></li>
-<li><p>Fix polygon area estimation! (Currently does not subtract land area! Ack!)</p></li>
-<li><p>Should LTabundR accept Bft values of NA? Or include an option for interpolating replacement values based on the preceding and proceding values? Or just leave it to analysts to correct the DAS data?</p></li>
-<li><p>Consider making the minimum group size for group size calibration (for unknown observers) a cohort-specific setting that users can define. Update all package and vignette documentation accordingly.</p></li>
-<li><p>Consider making the km gap handling arguments for <code>format_das()</code> (and its subroutine <code>process_km()</code>) into survey settings that users can define. Update all package and vignette documentation accordingly.</p></li>
-<li><p>Add options to <code>das_load()</code> that allows you to determine timezone from date and lat/long, then adjust DateTime accordingly. This would avoid errors in the manual specification of GMT offset within the DAS data.</p></li>
-<li><p>Jay uses the phrase ‘stratify by IO’: add segmentizing feature in which segment is reset if IO status changes.</p></li>
-<li><p>Main Islands map bbox</p></li>
-<li><p>Map bbox for SoCal, Central Cal, and northern CCS</p></li>
-<li><p>Figure out which ETP strata to have as defaults for both survey strata and study area polygons (there are like 100 in the folder Jeff sent us). May be a question for Tim G.</p></li>
-<li><p>Test this code on lots of cruise data files to establish basic functionality for Hawaii, California Current, and ETP.</p></li>
-<li><p>Troubleshoot why longitudes are not displayed on Hawaii base map</p></li>
-<li><p>Accommodate subgroup settings for FKW analyses</p></li>
-<li><p>Method for stratifying by Beaufort.</p></li>
-<li><p><code>study_area_explore()</code> and <code>study_area_select()</code>.</p></li>
-<li><p>LTabundR is finding more effort in Cruise 1642 than is ABUND. See the slides detailing the ABUND v LTabundR comparison.</p></li>
-<li><p><code>swfscDAS</code> can accidentally exclude sightings when the GMTOffset field is incorrect; this can be addressed by (i) correcting the DAS file so that GMToffset is correct, (ii) modifying the swfscDAS code, or (iii) building a function for LTabundR that tests and corrects the GMToffset field based upon lat/long and the date. This currently affects only two sightings in Cruise 1004.</p></li>
-<li><p>When observer positions are not entered correctly, sightings will be excluded from analysis. For example, when a sighting is manually entered without correctly establishing observer positions in a previous DAS line, the swfscDAS functions will put NA’s in the ObsL and ObsR data fields. This currently affects only one sighting in Cruise 1607. This can be addressed by (i) leaving as is, (ii) assuming invalid ObsL and ObsR are allowed to be included, or (iii) developing a LTabundR feature in which NA values are replaced based on preceding/subsequent values.</p></li>
-<li><p>When the Bft value is missing, LTabundR does not include the sighting in analysis. This can be addressed by (i) leaving as is (if the DAS data are incorrect, LTabundR will not fix it); (ii) assuming all Bft == NA are valid; or by (iii) developing a LTabundR feature in which NA values are replaced based on preceding/subsequent values. This currently affects two sightings (one in cruise 1607, one in cruise 1621).</p></li>
-<li><p>When sightings occur exactly upon the boundary of a geostratum, LTabundR considers it ‘out’ and excludes it from analysis. ABUND, in contrast, considers it in. This affects one sighting in cruise 1080. We have put an item in the backlog to consider changing this feature.</p></li>
-<li><p>ABUND has some TotSS estimates that are less than 1 (n= about 50). Most of these sightings have ‘raw’ SS estimates of 1 and at least 1 observer(s) who <em>is</em> in the SS calibration DAT file, which means their calibration must have produced an estimate less than 1. It makes sense to me that LTabundR should implement a minimum SS of 1 for each observer’s estimate, which should be applied <em>after</em> calibration.</p></li>
-<li><p>In the ABUND SSCAL routine, when an observer’s coefficients are drawn from the DAT file, the first line of best-high-low weights is used regardless of whether the general model or the year-specific model is used. Is that how it should be? For a few observers (only a few), the second row of weights differs from the first row.</p></li>
-<li><p>The ABUND SSCAL routine assumes Bft == 0 if it is NA. Are we OK with assuming that, or should we bypass calibration in the event of a missing Bft value? There is just 1 sighting with Bft == NA (Cruise 1607, 1997-04-27 07:16:01, SightNo 68, SpCode 037 killer whale).</p></li>
-</ul>
+<div id="plots" class="section level1 hasAnchor">
+<h1><span class="header-section-number"> 13</span> Plots<a href="plots.html#plots" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="abundance-plots" class="section level2 unnumbered hasAnchor">
+<h2>Abundance plots<a href="plots.html#abundance-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To plot the abundance estimate with error bars representing the 95% confidence interval, use the function <code>lta_plot()</code>:</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="plots.html#cb208-1"></a><span class="kw">lta_plot</span>(lta_result, </span>
+<span id="cb208-2"><a href="plots.html#cb208-2"></a>         <span class="dt">nrows=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-260-1.png" width="672" /></p>
+</div>
+<div id="detection-function-plots" class="section level2 unnumbered hasAnchor">
+<h2>Detection function plots<a href="plots.html#detection-function-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To plot the best-fit detection model for a species pool, use the <code>df_plot()</code> function.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="plots.html#cb209-1"></a><span class="kw">df_plot</span>(lta_result)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-261-1.png" width="672" /></p>
+<p>This function provides various stylization options, including the option to show multiple best-fitting models atop a single histogram of detections:</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="plots.html#cb210-1"></a><span class="kw">df_plot</span>(lta_result,</span>
+<span id="cb210-2"><a href="plots.html#cb210-2"></a>        <span class="dt">model_colors=</span>RColorBrewer<span class="op">::</span><span class="kw">brewer.pal</span>(<span class="dt">n =</span> <span class="dv">4</span>, <span class="dt">name =</span> <span class="st">&quot;Dark2&quot;</span>),</span>
+<span id="cb210-3"><a href="plots.html#cb210-3"></a>        <span class="dt">model_pch =</span> <span class="dv">16</span>,</span>
+<span id="cb210-4"><a href="plots.html#cb210-4"></a>        <span class="dt">pt_show=</span><span class="dv">2</span>,</span>
+<span id="cb210-5"><a href="plots.html#cb210-5"></a>        <span class="dt">pt_alpha=</span>.<span class="dv">3</span>,</span>
+<span id="cb210-6"><a href="plots.html#cb210-6"></a>        <span class="dt">bootstrap_show =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb210-7"><a href="plots.html#cb210-7"></a>        <span class="dt">legend_show=</span><span class="ot">TRUE</span>,</span>
+<span id="cb210-8"><a href="plots.html#cb210-8"></a>        <span class="dt">legend_x=</span><span class="fl">2.8</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-262-1.png" width="672" /></p>
 
 </div>
+</div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="spp_codes.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="tables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="whiceas.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -348,7 +345,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/emk-noaa/emk-noaa.github.io98-backlog.Rmd",
+"link": "https://github.com/emk-noaa/emk-noaa.github.io12-results.Rmd",
 "text": "Edit"
 },
 "history": {
