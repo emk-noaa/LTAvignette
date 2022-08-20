@@ -585,11 +585,15 @@ All models within `delta_aic` of the model with the lowest AIC qualify as best-f
 
 If multiple best-fitting models occur, we will find the average ESW for each sighting across all models, using a weighted mean approach in which we weight according to model AIC. To turn off this model averaging step, set `delta_aic` to `0` to avoid passing multiple models to the abundance estimation stage.  
 
+Note that if `LnSsTot` is included as a covariate, the function will (1) check to see if the `sightings` dataframe has a column named `ss_valid` (all `cruz` objects do), then, if so, (2) filter `sightings` only to rows where `ss_valid` is `TRUE`, meaning the school size estimate for that sighting is a valid estimate.  
+
 This stage of the `lta()` command is executed within a backend function, `LTabundR::fit_df()`, which has its own documentation for your reference.
 
 ### Estimating density & abundance {-}  
 
-Estimates are produced for various combinations of species, regions, and years, according to the arguments specified in your `estimates` list(s). Before these estimates are produced, we filter the data used to fit the detection function to strictly systematic (design-based) effort (i.e., `EffType = "S"`), in which standard protocols are in use (i.e., `OnEffort = TRUE`) and the Beaufort sea state is less than 7 (though these controls can be modified using the `lta()` inputs `abund_eff_types` and `abund_bft_range` (see above).
+Estimates are produced for various combinations of species, regions, and years, according to the arguments specified in your `estimates` list(s). Before these estimates are produced, we filter the data used to fit the detection function to strictly systematic (design-based) effort (i.e., `EffType = "S"`), in which standard protocols are in use (i.e., `OnEffort = TRUE`) and the Beaufort sea state is less than 7 (though these controls can be modified using the `lta()` inputs `abund_eff_types` and `abund_bft_range` (see above).  
+
+Note that if `sightings` has a column named `ss_valid` (all standard `cruz` objects do) and any of the rows in that column are `FALSE`, those rows will have their `best` school size estimate (which will be `NA` or `1`, since they are invalid) replaced by the mean best estimate for their respective species.  
 
 This stage of the `lta()` command is executed within a back-end function, `LTabundR::abundance()`, which has its own documentation for your reference.
 

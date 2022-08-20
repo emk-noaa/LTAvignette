@@ -207,6 +207,11 @@ cruz$cohorts$spotted %>% names
 
 Note that the `sightings` table has a column named `included` (`TRUE` = yes, use it in the analysis). Any sightings that do not meet the inclusion criteria as specified in your settings will be `included = FALSE`, but they won't be removed from the data.   
 
+The `sightings` table also has a new column, `ss_valid`, 
+indicating whether or not the school size estimate for this sighting 
+is valid and appropriate for use in abundance estimation and detection function fitting
+when school size is used as a covariate. 
+
 Since the sightings in each cohort are processed slightly differently according to the cohort's specific settings -- most importantly the species that will be included -- you should expect different numbers of included/excluded sightings in each cohort dataset:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}

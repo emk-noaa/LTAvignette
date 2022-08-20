@@ -43,32 +43,37 @@ Note that `filter_cruz()` has many other filter options. See `?filter_cruz()` fo
 
 ## Combine {-}  
 
-Say you have two processed `cruz` objects: one containing survey effort from the WHICEAS geostratum area only, and one containing survey effort from the pelagic Hawaiian EEZ geostratum (`"HI_EEZ"`) that does *not* include WHICEAS effort. 
+Say you have two processed `cruz` objects: one containing survey effort from the Hawaiian EEZ (`HI_EEZ`) geostratum area only, and one containing survey effort from everywhere else that does *not* include `HI_EEZ` effort. 
 
 Let's make those fake datasets right now, using `filter_cruz()`: 
 
-**WHICEAS-only data:** 
+**Hawaiian EEZ-only data:** 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
-cruz_whiceas <- filter_cruz(cruz, 
-                            regions = 'WHICEAS', 
+cruz_hi <- filter_cruz(cruz, 
+                            regions = 'HI_EEZ', 
                             verbose = FALSE)
 ```
 
 **Pelagic Hawaiian EEZ - only data:**
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
-cruz_hi_eez <- filter_cruz(cruz, 
-                           regions = 'HI_EEZ', 
-                           not_regions = 'WHICEAS', 
+cruz_other <- filter_cruz(cruz, 
+                           not_regions = 'HI_EEZ', 
                            verbose = FALSE)
 ```
 
 Say you want to combine these datasets together in order to reconstruct the equivalent of our original `cruz` object. You can do this with the `LTabundR` function, `cruz_combine()`. 
+```{r, echo=FALSE, eval=FALSE}
+cruz %>% cruz_structure
+cruz_hi %>% cruz_structure
+cruz_other %>% cruz_structure
+
+```
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 # Make a list of cruz objects
-cruzes <- list(cruz_whiceas, cruz_hi_eez)
+cruzes <- list(cruz_hi, cruz_other)
 
 # Now combine
 cruz_demo <- cruz_combine(cruzes)
