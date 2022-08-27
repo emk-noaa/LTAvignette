@@ -97,7 +97,6 @@ tables$table4 %>%
 tables$tableA1 %>% 
 DT::datatable(extensions = "FixedColumns",
               options=list(scrollX=TRUE,
-                           scrollY='450px',
                            paging = FALSE,
                            fixedColumns = list(leftColumns = 1),
                            initComplete = htmlwidgets::JS(

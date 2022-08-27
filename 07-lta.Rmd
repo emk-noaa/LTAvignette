@@ -32,8 +32,7 @@ This is the `cruz` object you have generated with `process_surveys()`. Before ru
 Here we will work with a version of the 1986-2020 Central North Pacific survey data we processed a few pages back. This version is included as a built-in dataset within `LTabundR`: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
-data("cnp_150km_1986_2020")
-cruz <- cnp_150km_1986_2020
+load('whiceas_cruz.RData')
 ```
 
 As it is provided, this dataset does not need any filtering.  

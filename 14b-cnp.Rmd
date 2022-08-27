@@ -879,7 +879,6 @@ reporti$tableA1
 reporti$tableA1 %>% 
 DT::datatable(extensions = "FixedColumns",
               options=list(scrollX=TRUE,
-                           scrollY='450px',
                            paging = FALSE,
                            fixedColumns = list(leftColumns = 1),
                            initComplete = htmlwidgets::JS(
@@ -959,7 +958,6 @@ reporti$tableA1
 reporti$tableA1 %>% 
 DT::datatable(extensions = "FixedColumns",
               options=list(scrollX=TRUE,
-                           scrollY='450px',
                            paging = FALSE,
                            fixedColumns = list(leftColumns = 1),
                            initComplete = htmlwidgets::JS(

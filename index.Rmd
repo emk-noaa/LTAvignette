@@ -77,5 +77,5 @@ Once the package is public, install details will go here.
 
 ### Credits {-}  
 
-This `R` package is a consolidation of code developed over many years by many NOAA-NMFS scientists, primarily the four J's: Jay Barlow, Jim Gerrodette, Jeff Laake, and Jeff Moore. This package was developed by Eric Keen and Amanda Bradford. 
+This `R` package is a consolidation of code developed over many years by many NOAA-NMFS scientists, primarily Jay Barlow, Tim Gerrodette, Jeff Laake, Karin Forney, and Jeff Moore. This package was developed by Eric Keen and Amanda Bradford. 
  

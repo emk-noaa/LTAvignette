@@ -10,7 +10,7 @@ library(LTabundR)
 ```
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
-rerun_from_scratch <- FALSE
+rerun_from_scratch <- TRUE
 # If you want to confirm the package works, change to TRUE.
 # If you already know it does, change to FALSE so that knitting is quick
 # (it will use saved R objects instead of producing them anew)
@@ -815,7 +815,6 @@ reporti$tableA1
 reporti$tableA1 %>% 
 DT::datatable(extensions = "FixedColumns",
               options=list(scrollX=TRUE,
-                           scrollY='450px',
                            paging = FALSE,
                            fixedColumns = list(leftColumns = 1),
                            initComplete = htmlwidgets::JS(

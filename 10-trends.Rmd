@@ -79,14 +79,15 @@ bsits <- er_results$details
 
 par(mfrow=c(length(years),1))
 xmax <- 1.05*max(c(bsits, obsi))
+xmin <- 0.95*min(c(bsits, obsi))
 i=1
 pvals <- c()
-  for(i in 1:length(years)){
+for(i in 1:length(years)){
     # Plot
     main_title <- paste0(paste('Species ',spp,collapse='-'),' :: ',years[i])
     hist(bsits[i,],
-       xlim=c(150, xmax),
-       breaks= seq(150, xmax, length=30),
+       xlim=c(xmin, xmax),
+       breaks= seq(xmin, xmax, length=30),
        col = 'grey60',
        border = 'grey85',
        main = years[i], #main_title,
