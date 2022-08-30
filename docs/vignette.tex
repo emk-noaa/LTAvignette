@@ -191,7 +191,7 @@ Once the package is public, install details will go here.
 \subsection*{Credits}\label{credits}}
 \addcontentsline{toc}{subsection}{Credits}
 
-This \texttt{R} package is a consolidation of code developed over many years by many NOAA-NMFS scientists, primarily the four J's: Jay Barlow, Jim Gerrodette, Jeff Laake, and Jeff Moore. This package was developed by Eric Keen and Amanda Bradford.
+This \texttt{R} package is a consolidation of code developed over many years by many NOAA-NMFS scientists, primarily Jay Barlow, Tim Gerrodette, Jeff Laake, Karin Forney, and Jeff Moore. This package was developed by Eric Keen and Amanda Bradford.
 
 \hypertarget{part-data-processing}{%
 \part{Data processing}\label{part-data-processing}}
@@ -901,7 +901,7 @@ Each cohort slot has a copy of the \texttt{DAS} data with a new \texttt{stratum}
 \NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{all}\OperatorTok{$}\NormalTok{stratum }\OperatorTok{%>%}\StringTok{ }\KeywordTok{table}\NormalTok{(}\DataTypeTok{useNA=}\StringTok{'ifany'}\NormalTok{)}
 \NormalTok{.}
 \NormalTok{  HI_EEZ OtherCNP  WHICEAS }
-  \DecValTok{117715}   \DecValTok{126225}    \DecValTok{85669} 
+  \DecValTok{117715}   \DecValTok{126248}    \DecValTok{85669} 
 \end{Highlighting}
 \end{Shaded}
 
@@ -912,7 +912,7 @@ Since the \texttt{bottlenose} cohort uses a different subset of geostrata, its d
 \NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{bottlenose}\OperatorTok{$}\NormalTok{stratum }\OperatorTok{%>%}\StringTok{ }\KeywordTok{table}\NormalTok{(}\DataTypeTok{useNA=}\StringTok{'ifany'}\NormalTok{)}
 \NormalTok{.}
 \NormalTok{  Bottlenose_BI Bottlenose_KaNi Bottlenose_OUFI          HI_EEZ        OtherCNP }
-           \DecValTok{3415}            \DecValTok{1495}            \DecValTok{6862}          \DecValTok{117715}          \DecValTok{126225} 
+           \DecValTok{3415}            \DecValTok{1495}            \DecValTok{6862}          \DecValTok{117715}          \DecValTok{126248} 
 \NormalTok{        WHICEAS }
           \DecValTok{73897} 
 \end{Highlighting}
@@ -976,39 +976,39 @@ The \texttt{segments} slot contains summary data for each effort segment, includ
 \ErrorTok{$}\StringTok{ }\NormalTok{ship         }\OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{ "Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"~}
 \StringTok{$ stratum      <chr> "}\NormalTok{WHICEAS}\StringTok{", "}\NormalTok{WHICEAS}\StringTok{", "}\NormalTok{WHICEAS}\StringTok{", "}\NormalTok{WHICEAS}\StringTok{", "}\NormalTok{WHICEAS}\StringTok{", "}\NormalTok{W}\OperatorTok{~}
 \ErrorTok{$}\StringTok{ }\NormalTok{seg_id       }\OperatorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{ }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{11}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DecValTok{13}\NormalTok{, }\DecValTok{14}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{16}\NormalTok{, }\DecValTok{17}\OperatorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{yday         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\DecValTok{37}\NormalTok{, }\DecValTok{37}\NormalTok{, }\DecValTok{41}\NormalTok{, }\DecValTok{44}\NormalTok{, }\DecValTok{49}\NormalTok{, }\DecValTok{51}\NormalTok{, }\DecValTok{37}\NormalTok{, }\DecValTok{37}\NormalTok{, }\DecValTok{41}\NormalTok{, }\DecValTok{43}\NormalTok{, }\DecValTok{46}\NormalTok{, }\DecValTok{47}\NormalTok{, }\DecValTok{48}\NormalTok{, }\DecValTok{37}\NormalTok{, }\DecValTok{3}\OperatorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{dist         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{3.606733}\NormalTok{, }\FloatTok{150.092607}\NormalTok{, }\FloatTok{149.477608}\NormalTok{, }\FloatTok{150.656675}\NormalTok{, }\FloatTok{16.254889}\NormalTok{, }\OperatorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{lat1         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{21.99817}\NormalTok{, }\FloatTok{21.82833}\NormalTok{, }\FloatTok{21.14817}\NormalTok{, }\FloatTok{19.19833}\NormalTok{, }\FloatTok{20.40850}\NormalTok{, }\FloatTok{21.4130}\OperatorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{lon1         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{-159.1487}\NormalTok{, }\FloatTok{-158.6080}\NormalTok{, }\FloatTok{-158.0943}\NormalTok{, }\FloatTok{-156.0760}\NormalTok{, }\FloatTok{-156.1288}\NormalTok{, }\DecValTok{-1}\OperatorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{DateTime1    }\OperatorTok{<}\NormalTok{dttm}\OperatorTok{>}\StringTok{ }\DecValTok{2009-02-06} \DecValTok{07}\OperatorTok{:}\DecValTok{33}\OperatorTok{:}\DecValTok{52}\NormalTok{, }\DecValTok{2009-02-06} \DecValTok{11}\OperatorTok{:}\DecValTok{35}\OperatorTok{:}\DecValTok{03}\NormalTok{, }\DecValTok{2009-02-10} \DecValTok{10}\OperatorTok{:}\ErrorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{timestamp1   }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\DecValTok{1233905632}\NormalTok{, }\DecValTok{1233920103}\NormalTok{, }\DecValTok{1234262132}\NormalTok{, }\DecValTok{1234548006}\NormalTok{, }\DecValTok{123498100}\OperatorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{lat2         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{21.82850}\NormalTok{, }\FloatTok{21.14967}\NormalTok{, }\FloatTok{19.19783}\NormalTok{, }\FloatTok{20.40850}\NormalTok{, }\FloatTok{21.41083}\NormalTok{, }\FloatTok{21.6810}\OperatorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{lon2         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{-158.6105}\NormalTok{, }\FloatTok{-158.0918}\NormalTok{, }\FloatTok{-156.0758}\NormalTok{, }\FloatTok{-156.1288}\NormalTok{, }\FloatTok{-157.2680}\NormalTok{, }\DecValTok{-1}\OperatorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{DateTime2    }\OperatorTok{<}\NormalTok{dttm}\OperatorTok{>}\StringTok{ }\DecValTok{2009-02-06} \DecValTok{11}\OperatorTok{:}\DecValTok{33}\OperatorTok{:}\DecValTok{21}\NormalTok{, }\DecValTok{2009-02-10} \DecValTok{10}\OperatorTok{:}\DecValTok{33}\OperatorTok{:}\DecValTok{32}\NormalTok{, }\DecValTok{2009-02-13} \DecValTok{17}\OperatorTok{:}\ErrorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{timestamp2   }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\DecValTok{1233920001}\NormalTok{, }\DecValTok{1234262012}\NormalTok{, }\DecValTok{1234547957}\NormalTok{, }\DecValTok{1234981000}\NormalTok{, }\DecValTok{123514077}\OperatorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{mlat         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{21.88533}\NormalTok{, }\FloatTok{19.57767}\NormalTok{, }\FloatTok{21.33983}\NormalTok{, }\FloatTok{19.80333}\NormalTok{, }\FloatTok{21.40417}\NormalTok{, }\FloatTok{21.9613}\OperatorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{mlon         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{-158.7983}\NormalTok{, }\FloatTok{-156.0140}\NormalTok{, }\FloatTok{-160.2627}\NormalTok{, }\FloatTok{-155.0388}\NormalTok{, }\FloatTok{-157.2693}\NormalTok{, }\DecValTok{-1}\OperatorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{mDateTime    }\OperatorTok{<}\NormalTok{dttm}\OperatorTok{>}\StringTok{ }\DecValTok{2009-02-06} \DecValTok{10}\OperatorTok{:}\DecValTok{14}\OperatorTok{:}\DecValTok{24}\NormalTok{, }\DecValTok{2009-02-08} \DecValTok{08}\OperatorTok{:}\DecValTok{39}\OperatorTok{:}\DecValTok{43}\NormalTok{, }\DecValTok{2009-02-11} \DecValTok{11}\OperatorTok{:}\ErrorTok{~}
-\ErrorTok{$}\StringTok{ }\NormalTok{mtimestamp   }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\DecValTok{1233905632}\NormalTok{, }\DecValTok{1233920103}\NormalTok{, }\DecValTok{1234262132}\NormalTok{, }\DecValTok{1234548006}\NormalTok{, }\DecValTok{123498100}\OperatorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{yday         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\DecValTok{37}\NormalTok{, }\DecValTok{41}\NormalTok{, }\DecValTok{44}\NormalTok{, }\DecValTok{44}\NormalTok{, }\DecValTok{49}\NormalTok{, }\DecValTok{55}\NormalTok{, }\DecValTok{37}\NormalTok{, }\DecValTok{37}\NormalTok{, }\DecValTok{41}\NormalTok{, }\DecValTok{43}\NormalTok{, }\DecValTok{46}\NormalTok{, }\DecValTok{47}\NormalTok{, }\DecValTok{48}\NormalTok{, }\DecValTok{37}\NormalTok{, }\DecValTok{3}\OperatorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{dist         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{149.851072}\NormalTok{, }\FloatTok{149.959115}\NormalTok{, }\FloatTok{3.366761}\NormalTok{, }\FloatTok{150.656675}\NormalTok{, }\FloatTok{149.562750}\NormalTok{,}\OperatorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{lat1         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{21.99817}\NormalTok{, }\FloatTok{21.14833}\NormalTok{, }\FloatTok{19.17733}\NormalTok{, }\FloatTok{19.19833}\NormalTok{, }\FloatTok{20.40850}\NormalTok{, }\FloatTok{21.7600}\OperatorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{lon1         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{-159.1487}\NormalTok{, }\FloatTok{-158.0103}\NormalTok{, }\FloatTok{-156.0610}\NormalTok{, }\FloatTok{-156.0760}\NormalTok{, }\FloatTok{-156.1288}\NormalTok{, }\DecValTok{-1}\OperatorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{DateTime1    }\OperatorTok{<}\NormalTok{dttm}\OperatorTok{>}\StringTok{ }\DecValTok{2009-02-06} \DecValTok{07}\OperatorTok{:}\DecValTok{33}\OperatorTok{:}\DecValTok{52}\NormalTok{, }\DecValTok{2009-02-10} \DecValTok{09}\OperatorTok{:}\DecValTok{41}\OperatorTok{:}\DecValTok{09}\NormalTok{, }\DecValTok{2009-02-13} \DecValTok{17}\OperatorTok{:}\ErrorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{timestamp1   }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\DecValTok{1233905632}\NormalTok{, }\DecValTok{1234258869}\NormalTok{, }\DecValTok{1234545197}\NormalTok{, }\DecValTok{1234548006}\NormalTok{, }\DecValTok{123498100}\OperatorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{lat2         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{21.14850}\NormalTok{, }\FloatTok{19.18117}\NormalTok{, }\FloatTok{19.19783}\NormalTok{, }\FloatTok{20.40850}\NormalTok{, }\FloatTok{21.76150}\NormalTok{, }\FloatTok{21.6810}\OperatorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{lon2         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{-158.0097}\NormalTok{, }\FloatTok{-156.0583}\NormalTok{, }\FloatTok{-156.0758}\NormalTok{, }\FloatTok{-156.1288}\NormalTok{, }\FloatTok{-157.2517}\NormalTok{, }\DecValTok{-1}\OperatorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{DateTime2    }\OperatorTok{<}\NormalTok{dttm}\OperatorTok{>}\StringTok{ }\DecValTok{2009-02-10} \DecValTok{09}\OperatorTok{:}\DecValTok{40}\OperatorTok{:}\DecValTok{54}\NormalTok{, }\DecValTok{2009-02-13} \DecValTok{17}\OperatorTok{:}\DecValTok{11}\OperatorTok{:}\DecValTok{22}\NormalTok{, }\DecValTok{2009-02-13} \DecValTok{17}\OperatorTok{:}\ErrorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{timestamp2   }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\DecValTok{1234258854}\NormalTok{, }\DecValTok{1234545082}\NormalTok{, }\DecValTok{1234547957}\NormalTok{, }\DecValTok{1234981000}\NormalTok{, }\DecValTok{123549202}\OperatorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{mlat         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{19.57617}\NormalTok{, }\FloatTok{21.37917}\NormalTok{, }\FloatTok{19.18500}\NormalTok{, }\FloatTok{19.80333}\NormalTok{, }\FloatTok{22.46000}\NormalTok{, }\FloatTok{21.7095}\OperatorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{mlon         }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{-156.0153}\NormalTok{, }\FloatTok{-160.3327}\NormalTok{, }\FloatTok{-156.0727}\NormalTok{, }\FloatTok{-155.0388}\NormalTok{, }\FloatTok{-160.4300}\NormalTok{, }\DecValTok{-1}\OperatorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{mDateTime    }\OperatorTok{<}\NormalTok{dttm}\OperatorTok{>}\StringTok{ }\DecValTok{2009-02-08} \DecValTok{07}\OperatorTok{:}\DecValTok{57}\OperatorTok{:}\DecValTok{43}\NormalTok{, }\DecValTok{2009-02-11} \DecValTok{10}\OperatorTok{:}\DecValTok{36}\OperatorTok{:}\DecValTok{04}\NormalTok{, }\DecValTok{2009-02-13} \DecValTok{17}\OperatorTok{:}\ErrorTok{~}
+\ErrorTok{$}\StringTok{ }\NormalTok{mtimestamp   }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\DecValTok{1233905632}\NormalTok{, }\DecValTok{1234258869}\NormalTok{, }\DecValTok{1234545197}\NormalTok{, }\DecValTok{1234548006}\NormalTok{, }\DecValTok{123498100}\OperatorTok{~}
 \ErrorTok{$}\StringTok{ }\NormalTok{use          }\OperatorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{ }\OtherTok{FALSE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{FALSE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, TRU}\OperatorTok{~}
 \ErrorTok{$}\StringTok{ }\NormalTok{Mode         }\OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{ "C"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"C"}\NormalTok{, }\StringTok{"C~}
-\StringTok{$ EffType      <chr> NA, "}\NormalTok{S}\StringTok{", "}\NormalTok{S}\StringTok{", "}\NormalTok{S}\StringTok{", "}\NormalTok{S}\StringTok{", "}\NormalTok{S}\StringTok{", "}\NormalTok{N}\StringTok{", "}\NormalTok{N}\StringTok{", "}\NormalTok{N}\StringTok{", "}\NormalTok{N}\StringTok{", "}\NormalTok{N}\StringTok{", "}\NormalTok{N}\StringTok{"~}
+\StringTok{$ EffType      <chr> NA, "}\NormalTok{N}\StringTok{", "}\NormalTok{S}\StringTok{", "}\NormalTok{S}\StringTok{", "}\NormalTok{S}\StringTok{", "}\NormalTok{S}\StringTok{", "}\NormalTok{N}\StringTok{", "}\NormalTok{N}\StringTok{", "}\NormalTok{N}\StringTok{", "}\NormalTok{N}\StringTok{", "}\NormalTok{N}\StringTok{", "}\NormalTok{N}\StringTok{"~}
 \StringTok{$ OnEffort     <lgl> TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE~}
 \StringTok{$ ESWsides     <dbl> NA, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,~}
 \StringTok{$ year         <dbl> 2009, 2009, 2009, 2009, 2009, 2009, 2009, 2009, 2009, 200~}
 \StringTok{$ month        <dbl> 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, ~}
-\StringTok{$ day          <int> 6, 6, 10, 13, 18, 20, 6, 6, 10, 12, 15, 16, 17, 6, 7, 7, ~}
-\StringTok{$ min_line     <int> 424489, 424600, 425764, 426976, 428376, 428554, 424728, 4~}
-\StringTok{$ max_line     <int> 424599, 425763, 426975, 428375, 428553, 429845, 424824, 4~}
-\StringTok{$ n_rows       <int> 23, 586, 611, 611, 82, 476, 74, 31, 51, 211, 62, 22, 95, ~}
-\StringTok{$ avgBft       <dbl> 4.000000, 3.886344, 2.693855, 4.236977, 5.650836, 5.42778~}
-\StringTok{$ avgSwellHght <dbl> 4.000000, 3.614870, 2.990173, 4.295680, 6.000000, 5.91794~}
-\StringTok{$ avgHorizSun  <dbl> 1.544731, 5.621365, 5.251324, 7.670550, 7.650836, 4.41183~}
-\StringTok{$ avgVertSun   <dbl> 2.000000, 1.531826, 1.581961, 1.660281, 1.000000, 1.56607~}
-\StringTok{$ avgGlare     <dbl> 0.45526876, 0.00000000, 0.24616396, 0.11466734, 0.0000000~}
-\StringTok{$ avgVis       <dbl> 7.000000, 6.695591, 5.839215, 5.630527, 6.500000, 5.76905~}
-\StringTok{$ avgCourse    <dbl> 133.6261, 185.2734, 149.4506, 204.8376, 284.8100, 147.147~}
-\StringTok{$ avgSpdKt     <dbl> 8.701834, 8.264356, 9.226427, 9.395206, 9.681004, 9.17516~}
+\StringTok{$ day          <int> 6, 10, 13, 13, 18, 24, 6, 6, 10, 12, 15, 16, 17, 6, 7, 7,~}
+\StringTok{$ min_line     <int> 424489, 425732, 426950, 426976, 428376, 429786, 424728, 4~}
+\StringTok{$ max_line     <int> 425731, 426949, 426975, 428375, 429785, 429845, 424824, 4~}
+\StringTok{$ n_rows       <int> 588, 606, 26, 611, 520, 38, 74, 31, 51, 211, 62, 22, 95, ~}
+\StringTok{$ avgBft       <dbl> 3.937522, 2.669176, 3.000000, 4.236977, 5.318873, 6.61395~}
+\StringTok{$ avgSwellHght <dbl> 3.665611, 2.942091, 4.000000, 4.295680, 5.762063, 7.38604~}
+\StringTok{$ avgHorizSun  <dbl> 5.476773, 5.353724, 4.000000, 7.670550, 4.988936, NaN, 4.~}
+\StringTok{$ avgVertSun   <dbl> 1.510175, 1.636948, 1.000000, 1.660281, 1.465219, NaN, 1.~}
+\StringTok{$ avgGlare     <dbl> 0.01104594, 0.24518732, 0.00000000, 0.11466734, 0.0000000~}
+\StringTok{$ avgVis       <dbl> 6.707940, 5.875014, 5.000000, 5.630527, 5.800907, 6.19302~}
+\StringTok{$ avgCourse    <dbl> 182.5003, 153.2785, 88.0000, 204.8376, 166.4348, 108.6140~}
+\StringTok{$ avgSpdKt     <dbl> 8.296386, 9.165131, 9.900000, 9.395206, 9.292142, 8.62279~}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1082,6 +1082,11 @@ The function produces a formatted dataset and adds it to a new \texttt{sightings
 
 Note that the \texttt{sightings} table has a column named \texttt{included} (\texttt{TRUE} = yes, use it in the analysis). Any sightings that do not meet the inclusion criteria as specified in your settings will be \texttt{included\ =\ FALSE}, but they won't be removed from the data.
 
+The \texttt{sightings} table also has a new column, \texttt{ss\_valid},
+indicating whether or not the school size estimate for this sighting
+is valid and appropriate for use in abundance estimation and detection function fitting
+when school size is used as a covariate.
+
 Since the sightings in each cohort are processed slightly differently according to the cohort's specific settings -- most importantly the species that will be included -- you should expect different numbers of included/excluded sightings in each cohort dataset:
 
 \begin{Shaded}
@@ -1089,12 +1094,12 @@ Since the sightings in each cohort are processed slightly differently according 
 \NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{all}\OperatorTok{$}\NormalTok{sightings}\OperatorTok{$}\NormalTok{included }\OperatorTok{%>%}\StringTok{ }\NormalTok{table}
 \NormalTok{.}
 \OtherTok{FALSE}  \OtherTok{TRUE} 
-  \DecValTok{810}  \DecValTok{3122} 
+  \DecValTok{810}  \DecValTok{3124} 
 
 \NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{bottlenose}\OperatorTok{$}\NormalTok{sightings}\OperatorTok{$}\NormalTok{included }\OperatorTok{%>%}\StringTok{ }\NormalTok{table}
 \NormalTok{.}
 \OtherTok{FALSE}  \OtherTok{TRUE} 
-  \DecValTok{114}   \DecValTok{408} 
+  \DecValTok{114}   \DecValTok{409} 
 \end{Highlighting}
 \end{Shaded}
 
@@ -1129,8 +1134,8 @@ The \texttt{sightings} table has many other variables:
 \NormalTok{[}\DecValTok{69}\NormalTok{] }\StringTok{"best"}             \StringTok{"low"}              \StringTok{"high"}             \StringTok{"prob"}            
 \NormalTok{[}\DecValTok{73}\NormalTok{] }\StringTok{"mixed"}            \StringTok{"ss_tot"}           \StringTok{"lnsstot"}          \StringTok{"ss_percent"}      
 \NormalTok{[}\DecValTok{77}\NormalTok{] }\StringTok{"n_sp"}             \StringTok{"n_obs"}            \StringTok{"n_best"}           \StringTok{"n_low"}           
-\NormalTok{[}\DecValTok{81}\NormalTok{] }\StringTok{"n_high"}           \StringTok{"calibr"}           \StringTok{"mixed_max"}        \StringTok{"spp_max"}         
-\NormalTok{[}\DecValTok{85}\NormalTok{] }\StringTok{"included"}        
+\NormalTok{[}\DecValTok{81}\NormalTok{] }\StringTok{"n_high"}           \StringTok{"calibr"}           \StringTok{"ss_valid"}         \StringTok{"mixed_max"}       
+\NormalTok{[}\DecValTok{85}\NormalTok{] }\StringTok{"spp_max"}          \StringTok{"included"}        
 \end{Highlighting}
 \end{Shaded}
 
@@ -1152,8 +1157,8 @@ Here is a glimpse of the data:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{all}\OperatorTok{$}\NormalTok{sightings }\OperatorTok{%>%}\StringTok{ }\NormalTok{glimpse}
-\NormalTok{Rows}\OperatorTok{:}\StringTok{ }\DecValTok{3}\NormalTok{,}\DecValTok{932}
-\NormalTok{Columns}\OperatorTok{:}\StringTok{ }\DecValTok{85}
+\NormalTok{Rows}\OperatorTok{:}\StringTok{ }\DecValTok{3}\NormalTok{,}\DecValTok{934}
+\NormalTok{Columns}\OperatorTok{:}\StringTok{ }\DecValTok{86}
 \OperatorTok{$}\StringTok{ }\NormalTok{Event            }\OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{ "S"}\NormalTok{, }\StringTok{"S"}\NormalTok{, }\StringTok{"S"}\NormalTok{, }\StringTok{"S"}\NormalTok{, }\StringTok{"S"}\NormalTok{, }\StringTok{"S"}\NormalTok{, }\StringTok{"S"}\NormalTok{, }\StringTok{"S"}\NormalTok{, }\StringTok{"S"}\NormalTok{, }\StringTok{"S"}\NormalTok{, }\StringTok{"S"}\OperatorTok{~}
 \ErrorTok{$}\StringTok{ }\NormalTok{DateTime         }\OperatorTok{<}\NormalTok{dttm}\OperatorTok{>}\StringTok{ }\DecValTok{1986-11-26} \DecValTok{09}\OperatorTok{:}\DecValTok{00}\OperatorTok{:}\DecValTok{00}\NormalTok{, }\DecValTok{1986-11-26} \DecValTok{14}\OperatorTok{:}\DecValTok{40}\OperatorTok{:}\DecValTok{00}\NormalTok{, }\DecValTok{1986-11-26}\OperatorTok{~}
 \ErrorTok{$}\StringTok{ }\NormalTok{Lat              }\OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\FloatTok{4.983333}\NormalTok{, }\FloatTok{5.616667}\NormalTok{, }\FloatTok{5.866667}\NormalTok{, }\FloatTok{7.050000}\NormalTok{, }\FloatTok{7.466667}\NormalTok{, }\FloatTok{9.4}\OperatorTok{~}
@@ -1236,6 +1241,7 @@ Here is a glimpse of the data:
 \StringTok{$ n_low            <int> 1, 3, 1, 3, 3, 3, 3, 5, 5, 5, 1, 1, 3, 4, 2, 2, 2, 5,~}
 \StringTok{$ n_high           <int> 1, 2, 0, 3, 3, 1, 1, 4, 5, 5, 0, 1, 3, 3, 1, 2, 2, 4,~}
 \StringTok{$ calibr           <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,~}
+\StringTok{$ ss_valid         <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE,~}
 \StringTok{$ mixed_max        <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALS~}
 \StringTok{$ spp_max          <chr> "}\DecValTok{049}\StringTok{", "}\DecValTok{015}\StringTok{", "}\DecValTok{077}\StringTok{", "}\DecValTok{002}\StringTok{", "}\DecValTok{002}\StringTok{", "}\DecValTok{033}\StringTok{", "}\DecValTok{033}\StringTok{", "}\DecValTok{037}\OperatorTok{~}
 \ErrorTok{$}\StringTok{ }\NormalTok{included         }\OperatorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{ }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{, }\OtherTok{TRUE}\NormalTok{,}\OperatorTok{~}
@@ -1369,20 +1375,20 @@ The \texttt{LTabundR} function \texttt{cruz\_structure()} provides a synopsis of
         \OperatorTok{$}\NormalTok{all}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP}
             \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{1888} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{149.3}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329609}\NormalTok{ data rows}
-            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{3932}\NormalTok{ detections}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{3934}\NormalTok{ detections}
             \OperatorTok{$}\NormalTok{subgroups }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{255}\NormalTok{ subgroups, }\DecValTok{49}\NormalTok{ sightings, and }\DecValTok{389}\NormalTok{ events}
 
         \OperatorTok{$}\NormalTok{bottlenose}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP, Bottlenose_BI, Bottlenose_OUFI, Bottlenose_KaNi}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2049} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.8}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329609}\NormalTok{ data rows}
-            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{522}\NormalTok{ detections}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2050} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{523}\NormalTok{ detections}
 
         \OperatorTok{$}\NormalTok{spotted}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP, Spotted_OU, Spotted_FI, Spotted_BI}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2053} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.5}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329609}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2051} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
             \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{527}\NormalTok{ detections}
 \end{Highlighting}
 \end{Shaded}
@@ -1716,20 +1722,20 @@ Here we will continue with the \texttt{cruz} object we created on the previous p
         \OperatorTok{$}\NormalTok{all}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP}
             \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{1888} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{149.3}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329609}\NormalTok{ data rows}
-            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{3932}\NormalTok{ detections}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{3934}\NormalTok{ detections}
             \OperatorTok{$}\NormalTok{subgroups }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{255}\NormalTok{ subgroups, }\DecValTok{49}\NormalTok{ sightings, and }\DecValTok{389}\NormalTok{ events}
 
         \OperatorTok{$}\NormalTok{bottlenose}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP, Bottlenose_BI, Bottlenose_OUFI, Bottlenose_KaNi}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2049} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.8}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329609}\NormalTok{ data rows}
-            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{522}\NormalTok{ detections}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2050} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{523}\NormalTok{ detections}
 
         \OperatorTok{$}\NormalTok{spotted}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP, Spotted_OU, Spotted_FI, Spotted_BI}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2053} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.5}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329609}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2051} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
             \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{527}\NormalTok{ detections}
 \end{Highlighting}
 \end{Shaded}
@@ -1766,16 +1772,16 @@ Note that \texttt{filter\_cruz()} has many other filter options. See \texttt{?fi
 \section*{Combine}\label{combine}}
 \addcontentsline{toc}{section}{Combine}
 
-Say you have two processed \texttt{cruz} objects: one containing survey effort from the WHICEAS geostratum area only, and one containing survey effort from the pelagic Hawaiian EEZ geostratum (\texttt{"HI\_EEZ"}) that does \emph{not} include WHICEAS effort.
+Say you have two processed \texttt{cruz} objects: one containing survey effort from the Hawaiian EEZ (\texttt{HI\_EEZ}) geostratum area only, and one containing survey effort from everywhere else that does \emph{not} include \texttt{HI\_EEZ} effort.
 
 Let's make those fake datasets right now, using \texttt{filter\_cruz()}:
 
-\textbf{WHICEAS-only data:}
+\textbf{Hawaiian EEZ-only data:}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{cruz_whiceas <-}\StringTok{ }\KeywordTok{filter_cruz}\NormalTok{(cruz, }
-                            \DataTypeTok{regions =} \StringTok{'WHICEAS'}\NormalTok{, }
+\NormalTok{cruz_hi <-}\StringTok{ }\KeywordTok{filter_cruz}\NormalTok{(cruz, }
+                            \DataTypeTok{regions =} \StringTok{'HI_EEZ'}\NormalTok{, }
                             \DataTypeTok{verbose =} \OtherTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -1784,9 +1790,8 @@ Let's make those fake datasets right now, using \texttt{filter\_cruz()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{cruz_hi_eez <-}\StringTok{ }\KeywordTok{filter_cruz}\NormalTok{(cruz, }
-                           \DataTypeTok{regions =} \StringTok{'HI_EEZ'}\NormalTok{, }
-                           \DataTypeTok{not_regions =} \StringTok{'WHICEAS'}\NormalTok{, }
+\NormalTok{cruz_other <-}\StringTok{ }\KeywordTok{filter_cruz}\NormalTok{(cruz, }
+                           \DataTypeTok{not_regions =} \StringTok{'HI_EEZ'}\NormalTok{, }
                            \DataTypeTok{verbose =} \OtherTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -1796,7 +1801,7 @@ Say you want to combine these datasets together in order to reconstruct the equi
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Make a list of cruz objects}
-\NormalTok{cruzes <-}\StringTok{ }\KeywordTok{list}\NormalTok{(cruz_whiceas, cruz_hi_eez)}
+\NormalTok{cruzes <-}\StringTok{ }\KeywordTok{list}\NormalTok{(cruz_hi, cruz_other)}
 
 \CommentTok{# Now combine}
 \NormalTok{cruz_demo <-}\StringTok{ }\KeywordTok{cruz_combine}\NormalTok{(cruzes)}
@@ -1824,22 +1829,22 @@ Re-constituted data structure:
 
         \OperatorTok{$}\NormalTok{all}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{1013} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{149.1}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{203387}\NormalTok{ data rows}
-            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{1793}\NormalTok{ detections}
-            \OperatorTok{$}\NormalTok{subgroups }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{146}\NormalTok{ subgroups, }\DecValTok{21}\NormalTok{ sightings, and }\DecValTok{212}\NormalTok{ events}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{1888} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{149.3}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{3934}\NormalTok{ detections}
+            \OperatorTok{$}\NormalTok{subgroups }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{237}\NormalTok{ subgroups, }\DecValTok{38}\NormalTok{ sightings, and }\DecValTok{345}\NormalTok{ events}
 
         \OperatorTok{$}\NormalTok{bottlenose}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP, Bottlenose_BI, Bottlenose_OUFI, Bottlenose_KaNi}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{1174} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{128.3}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{203387}\NormalTok{ data rows}
-            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{277}\NormalTok{ detections}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2050} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{523}\NormalTok{ detections}
 
         \OperatorTok{$}\NormalTok{spotted}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP, Spotted_OU, Spotted_FI, Spotted_BI}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{1178} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{113.3}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{203387}\NormalTok{ data rows}
-            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{115}\NormalTok{ detections}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2051} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{527}\NormalTok{ detections}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2005,7 +2010,6 @@ To deep-dive into details for a ceratin species (or group of species), use the f
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{species <-}\StringTok{ }\KeywordTok{summarize_species}\NormalTok{(}\DataTypeTok{spp=}\StringTok{'046'}\NormalTok{, cruz_}\DecValTok{1720}\NormalTok{)}
-\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{summarize_species}\NormalTok{(}\DataTypeTok{spp =} \StringTok{"046"}\NormalTok{, cruz_}\DecValTok{1720}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'cohorti'}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2014,7 +2018,10 @@ This functions a list with a variety of summaries:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{species }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}
-\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ species }\OperatorTok{%>%}\StringTok{ }\NormalTok{names}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'species'}\NormalTok{ not found}
+\NormalTok{ [}\DecValTok{1}\NormalTok{] }\StringTok{"species"}             \StringTok{"n_total"}             \StringTok{"n_analysis"}         
+\NormalTok{ [}\DecValTok{4}\NormalTok{] }\StringTok{"school_size"}         \StringTok{"yearly_total"}        \StringTok{"yearly_analysis"}    
+\NormalTok{ [}\DecValTok{7}\NormalTok{] }\StringTok{"regional_total"}      \StringTok{"regional_analysis"}   \StringTok{"detection_distances"}
+\NormalTok{[}\DecValTok{10}\NormalTok{] }\StringTok{"sightings"}          
 \end{Highlighting}
 \end{Shaded}
 
@@ -2023,9 +2030,9 @@ The slots \texttt{\$n\_total} and \texttt{\$n\_analysis} provide the total numbe
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{species}\OperatorTok{$}\NormalTok{n_total}
-\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{eval}\NormalTok{(expr, envir, enclos)}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'species'}\NormalTok{ not found}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{14}
 \NormalTok{species}\OperatorTok{$}\NormalTok{n_analysis}
-\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{eval}\NormalTok{(expr, envir, enclos)}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'species'}\NormalTok{ not found}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{14}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2035,41 +2042,21 @@ The slots \texttt{\$n\_total} and \texttt{\$n\_analysis} provide the total numbe
 
 This table only includes the sightings eligible for analysis:
 
-\begin{verbatim}
-Error in crosstalk::is.SharedData(data): object 'species' not found
-\end{verbatim}
-
 \hypertarget{annual-summaries-all-sightings}{%
 \subsubsection*{Annual summaries (all sightings)}\label{annual-summaries-all-sightings}}
 \addcontentsline{toc}{subsubsection}{Annual summaries (all sightings)}
-
-\begin{verbatim}
-Error in crosstalk::is.SharedData(data): object 'species' not found
-\end{verbatim}
 
 \hypertarget{annual-summaries-analysis-only}{%
 \subsubsection*{Annual summaries (analysis only)}\label{annual-summaries-analysis-only}}
 \addcontentsline{toc}{subsubsection}{Annual summaries (analysis only)}
 
-\begin{verbatim}
-Error in crosstalk::is.SharedData(data): object 'species' not found
-\end{verbatim}
-
 \hypertarget{regional-summaries-all-sightings}{%
 \subsubsection*{Regional summaries (all sightings)}\label{regional-summaries-all-sightings}}
 \addcontentsline{toc}{subsubsection}{Regional summaries (all sightings)}
 
-\begin{verbatim}
-Error in crosstalk::is.SharedData(data): object 'species' not found
-\end{verbatim}
-
 \hypertarget{regional-summaries-analysis-only}{%
 \subsubsection*{Regional summaries (analysis only)}\label{regional-summaries-analysis-only}}
 \addcontentsline{toc}{subsubsection}{Regional summaries (analysis only)}
-
-\begin{verbatim}
-Error in crosstalk::is.SharedData(data): object 'species' not found
-\end{verbatim}
 
 \hypertarget{detection-distances}{%
 \subsubsection*{Detection distances}\label{detection-distances}}
@@ -2078,19 +2065,11 @@ Error in crosstalk::is.SharedData(data): object 'species' not found
 This table can be used to determine the best truncation distance to use, based on the
 percent truncation you wish and the number of sightings available at each option.
 
-\begin{verbatim}
-Error in crosstalk::is.SharedData(data): object 'species' not found
-\end{verbatim}
-
 \hypertarget{all-sightings-data}{%
 \subsubsection*{All sightings data}\label{all-sightings-data}}
 \addcontentsline{toc}{subsubsection}{All sightings data}
 
 Finally, this last slot holds a dataframe of all sightings data for the specified species:
-
-\begin{verbatim}
-Error in crosstalk::is.SharedData(data): object 'species' not found
-\end{verbatim}
 
 \hypertarget{cruz_explorer}{%
 \section*{\texorpdfstring{\texttt{cruz\_explorer()}}{cruz\_explorer()}}\label{cruz_explorer}}
@@ -2258,14 +2237,14 @@ The chief result of this function is a \texttt{\$summary} table:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{rg0}\OperatorTok{$}\NormalTok{summary}
-\NormalTok{  bft       Rg0      ESW  n     Rg0_SE     Rg0_CV     ESW_SE}
-\DecValTok{1}   \DecValTok{0} \FloatTok{1.0000000} \FloatTok{3.852646} \DecValTok{10} \FloatTok{0.00000000} \FloatTok{0.00000000} \FloatTok{0.21940156}
-\DecValTok{2}   \DecValTok{1} \FloatTok{0.8721458} \FloatTok{3.628054} \DecValTok{10} \FloatTok{0.07090241} \FloatTok{0.08129651} \FloatTok{0.17790469}
-\DecValTok{3}   \DecValTok{2} \FloatTok{0.6955418} \FloatTok{3.388363} \DecValTok{10} \FloatTok{0.09678853} \FloatTok{0.13915558} \FloatTok{0.12854327}
-\DecValTok{4}   \DecValTok{3} \FloatTok{0.4490084} \FloatTok{3.138752} \DecValTok{10} \FloatTok{0.06556831} \FloatTok{0.14602914} \FloatTok{0.08001243}
-\DecValTok{5}   \DecValTok{4} \FloatTok{0.2760549} \FloatTok{2.887344} \DecValTok{10} \FloatTok{0.03741221} \FloatTok{0.13552456} \FloatTok{0.05958114}
-\DecValTok{6}   \DecValTok{5} \FloatTok{0.2185606} \FloatTok{2.643238} \DecValTok{10} \FloatTok{0.03275263} \FloatTok{0.14985606} \FloatTok{0.08844467}
-\DecValTok{7}   \DecValTok{6} \FloatTok{0.2085412} \FloatTok{2.414272} \DecValTok{10} \FloatTok{0.04340699} \FloatTok{0.20814588} \FloatTok{0.13017458}
+\NormalTok{  bft       Rg0      ESW  n     Rg0_SE    Rg0_CV     ESW_SE}
+\DecValTok{1}   \DecValTok{0} \FloatTok{1.0000000} \FloatTok{3.968033} \DecValTok{10} \FloatTok{0.00000000} \FloatTok{0.0000000} \FloatTok{0.16288323}
+\DecValTok{2}   \DecValTok{1} \FloatTok{0.9574903} \FloatTok{3.724726} \DecValTok{10} \FloatTok{0.10437256} \FloatTok{0.1090064} \FloatTok{0.13458164}
+\DecValTok{3}   \DecValTok{2} \FloatTok{0.8507491} \FloatTok{3.460165} \DecValTok{10} \FloatTok{0.16075534} \FloatTok{0.1889574} \FloatTok{0.10190113}
+\DecValTok{4}   \DecValTok{3} \FloatTok{0.6374127} \FloatTok{3.180650} \DecValTok{10} \FloatTok{0.13055026} \FloatTok{0.2048128} \FloatTok{0.06967222}
+\DecValTok{5}   \DecValTok{4} \FloatTok{0.4649322} \FloatTok{2.898497} \DecValTok{10} \FloatTok{0.08508186} \FloatTok{0.1829984} \FloatTok{0.05699997}
+\DecValTok{6}   \DecValTok{5} \FloatTok{0.4238391} \FloatTok{2.624881} \DecValTok{10} \FloatTok{0.07858997} \FloatTok{0.1854241} \FloatTok{0.07451945}
+\DecValTok{7}   \DecValTok{6} \FloatTok{0.4534225} \FloatTok{2.370146} \DecValTok{10} \FloatTok{0.10177148} \FloatTok{0.2244517} \FloatTok{0.10268952}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2280,7 +2259,7 @@ The model predicts that \emph{Rg(0)} declines rapidly with deteriorating sea sta
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-142-1.pdf}
+\includegraphics{figures/unnamed-chunk-143-1.pdf}
 
 In addition to the summary above, this function returns various details, including the details of the Generalized Additive Model (GAM) (for both the estimate and the jackknifed datasets), and the raw sightings and segments used in the model.
 
@@ -2344,7 +2323,7 @@ Now plot the result using a dedicated \texttt{LTabundR} function:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-148-1.pdf}
+\includegraphics{figures/unnamed-chunk-149-1.pdf}
 
 \hypertarget{weighted-average-g0}{%
 \section*{\texorpdfstring{Weighted average \texttt{g(0)}}{Weighted average g(0)}}\label{weighted-average-g0}}
@@ -2359,14 +2338,14 @@ Let's say we want to estimate the average \texttt{g(0)} for striped dolphins dur
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{rg0}\OperatorTok{$}\NormalTok{summary }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(bft, Rg0, Rg0_CV)}
-\NormalTok{  bft       Rg0     Rg0_CV}
-\DecValTok{1}   \DecValTok{0} \FloatTok{1.0000000} \FloatTok{0.00000000}
-\DecValTok{2}   \DecValTok{1} \FloatTok{0.8721458} \FloatTok{0.08129651}
-\DecValTok{3}   \DecValTok{2} \FloatTok{0.6955418} \FloatTok{0.13915558}
-\DecValTok{4}   \DecValTok{3} \FloatTok{0.4490084} \FloatTok{0.14602914}
-\DecValTok{5}   \DecValTok{4} \FloatTok{0.2760549} \FloatTok{0.13552456}
-\DecValTok{6}   \DecValTok{5} \FloatTok{0.2185606} \FloatTok{0.14985606}
-\DecValTok{7}   \DecValTok{6} \FloatTok{0.2085412} \FloatTok{0.20814588}
+\NormalTok{  bft       Rg0    Rg0_CV}
+\DecValTok{1}   \DecValTok{0} \FloatTok{1.0000000} \FloatTok{0.0000000}
+\DecValTok{2}   \DecValTok{1} \FloatTok{0.9574903} \FloatTok{0.1090064}
+\DecValTok{3}   \DecValTok{2} \FloatTok{0.8507491} \FloatTok{0.1889574}
+\DecValTok{4}   \DecValTok{3} \FloatTok{0.6374127} \FloatTok{0.2048128}
+\DecValTok{5}   \DecValTok{4} \FloatTok{0.4649322} \FloatTok{0.1829984}
+\DecValTok{6}   \DecValTok{5} \FloatTok{0.4238391} \FloatTok{0.1854241}
+\DecValTok{7}   \DecValTok{6} \FloatTok{0.4534225} \FloatTok{0.2244517}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2413,7 +2392,7 @@ The result:
 \begin{Highlighting}[]
 \NormalTok{weighted_g0_}\DecValTok{2017}\OperatorTok{$}\NormalTok{g0[}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{]}
 \NormalTok{  wt.mean wt.cv}
-\DecValTok{1}   \FloatTok{0.326} \FloatTok{0.143}
+\DecValTok{1}   \FloatTok{0.526} \FloatTok{0.188}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2455,7 +2434,7 @@ The result:
 \begin{Highlighting}[]
 \NormalTok{weighted_g0_}\DecValTok{2020}\OperatorTok{$}\NormalTok{g0[}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{]}
 \NormalTok{  wt.mean wt.cv}
-\DecValTok{1}   \FloatTok{0.286} \FloatTok{0.149}
+\DecValTok{1}   \FloatTok{0.494}  \FloatTok{0.19}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2492,8 +2471,7 @@ Here we will work with a version of the 1986-2020 Central North Pacific survey d
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{data}\NormalTok{(}\StringTok{"cnp_150km_1986_2020"}\NormalTok{)}
-\NormalTok{cruz <-}\StringTok{ }\NormalTok{cnp_150km_}\DecValTok{1986}\NormalTok{_}\DecValTok{2020}
+\KeywordTok{load}\NormalTok{(}\StringTok{'whiceas_cruz.RData'}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2700,23 +2678,26 @@ Quickly review results:
 \begin{Highlighting}[]
 \NormalTok{results}\OperatorTok{$}\NormalTok{estimate}
 \NormalTok{               title species    Region     Area year segments       km}
-\DecValTok{1}\NormalTok{    Striped dolphin     }\DecValTok{013}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2017}       \DecValTok{38} \FloatTok{3040.009}
-\DecValTok{2}\NormalTok{    Striped dolphin     }\DecValTok{013}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2020}       \DecValTok{40} \FloatTok{4585.386}
-\DecValTok{3}\NormalTok{    Frasers dolphin     }\DecValTok{026}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2020}       \DecValTok{40} \FloatTok{4585.386}
-\DecValTok{4}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{headed whale     }\DecValTok{031}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2017}       \DecValTok{38} \FloatTok{3040.009}
-\DecValTok{5}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{headed whale     }\DecValTok{031}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2020}       \DecValTok{40} \FloatTok{4585.386}
+\DecValTok{1}\NormalTok{    Striped dolphin     }\DecValTok{013}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2017}       \DecValTok{29} \FloatTok{3040.009}
+\DecValTok{2}\NormalTok{    Striped dolphin     }\DecValTok{013}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2020}       \DecValTok{34} \FloatTok{4585.386}
+\DecValTok{3}\NormalTok{    Frasers dolphin     }\DecValTok{026}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2017}       \DecValTok{29} \FloatTok{3040.009}
+\DecValTok{4}\NormalTok{    Frasers dolphin     }\DecValTok{026}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2020}       \DecValTok{34} \FloatTok{4585.386}
+\DecValTok{5}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{headed whale     }\DecValTok{031}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2017}       \DecValTok{29} \FloatTok{3040.009}
+\DecValTok{6}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{headed whale     }\DecValTok{031}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2020}       \DecValTok{34} \FloatTok{4585.386}
 \NormalTok{  Area_covered ESW_mean n g0_est  ER_clusters   D_clusters N_clusters size_mean}
-\DecValTok{1}      \FloatTok{9610.88} \FloatTok{3.161465} \DecValTok{3}  \FloatTok{0.315} \FloatTok{0.0009868393} \FloatTok{0.0005020214}  \FloatTok{202.28888}  \FloatTok{31.95079}
-\DecValTok{2}     \FloatTok{16236.27} \FloatTok{3.540874} \DecValTok{3}  \FloatTok{0.280} \FloatTok{0.0006542525} \FloatTok{0.0003299532}  \FloatTok{132.95423}  \FloatTok{53.95865}
-\DecValTok{3}     \FloatTok{17084.73} \FloatTok{3.725909} \DecValTok{2}  \FloatTok{0.446} \FloatTok{0.0004361683} \FloatTok{0.0001312386}   \FloatTok{52.88243} \FloatTok{132.51143}
-\DecValTok{4}     \FloatTok{10669.12} \FloatTok{3.509569} \DecValTok{2}  \FloatTok{0.511} \FloatTok{0.0006578929} \FloatTok{0.0001835580}   \FloatTok{73.96447} \FloatTok{185.98103}
-\DecValTok{5}     \FloatTok{16949.65} \FloatTok{3.696451} \DecValTok{3}  \FloatTok{0.483} \FloatTok{0.0006542525} \FloatTok{0.0001832491}   \FloatTok{73.84001} \FloatTok{226.13289}
-\NormalTok{      size_sd         ER          D         N}
-\DecValTok{1}   \FloatTok{0.5780968} \FloatTok{0.03153029} \FloatTok{0.01606793}  \FloatTok{6474.550}
-\DecValTok{2}   \FloatTok{2.7402089} \FloatTok{0.03530258} \FloatTok{0.01780121}  \FloatTok{7172.977}
-\DecValTok{3} \FloatTok{182.1747087} \FloatTok{0.05779729} \FloatTok{0.01733567}  \FloatTok{6985.385}
-\DecValTok{4}  \FloatTok{96.4369707} \FloatTok{0.12235559} \FloatTok{0.03379710} \FloatTok{13618.500}
-\DecValTok{5} \FloatTok{175.5620746} \FloatTok{0.14794801} \FloatTok{0.04158955} \FloatTok{16758.457}
+\DecValTok{1}    \FloatTok{11003.442} \FloatTok{3.619543} \DecValTok{3}  \FloatTok{0.510} \FloatTok{0.0009868393} \FloatTok{0.0002691926}  \FloatTok{108.47080}  \FloatTok{31.95079}
+\DecValTok{2}    \FloatTok{16960.781} \FloatTok{3.698878} \DecValTok{3}  \FloatTok{0.483} \FloatTok{0.0006542525} \FloatTok{0.0001844374}   \FloatTok{74.31882}  \FloatTok{53.95865}
+\DecValTok{3}           \OtherTok{NA}       \OtherTok{NA} \DecValTok{0}  \FloatTok{0.443} \FloatTok{0.0000000000} \FloatTok{0.0000000000}    \FloatTok{0.00000}        \OtherTok{NA}
+\DecValTok{4}    \FloatTok{16897.976} \FloatTok{3.685181} \DecValTok{2}  \FloatTok{0.413} \FloatTok{0.0004361683} \FloatTok{0.0001437420}   \FloatTok{57.92064} \FloatTok{132.51143}
+\DecValTok{5}     \FloatTok{9538.118} \FloatTok{3.137530} \DecValTok{2}  \FloatTok{0.580} \FloatTok{0.0006578929} \FloatTok{0.0001819372}   \FloatTok{73.31137} \FloatTok{185.98103}
+\DecValTok{6}    \FloatTok{15957.100} \FloatTok{3.479991} \DecValTok{3}  \FloatTok{0.556} \FloatTok{0.0006542525} \FloatTok{0.0001706628}   \FloatTok{68.76837} \FloatTok{226.13289}
+\NormalTok{      size_sd         ER           D         N}
+\DecValTok{1}   \FloatTok{0.5780968} \FloatTok{0.03153029} \FloatTok{0.008611828}  \FloatTok{3470.125}
+\DecValTok{2}   \FloatTok{2.7402089} \FloatTok{0.03530258} \FloatTok{0.009945862}  \FloatTok{4007.673}
+\DecValTok{3}          \OtherTok{NA} \FloatTok{0.00000000} \FloatTok{0.000000000}     \FloatTok{0.000}
+\DecValTok{4} \FloatTok{182.1747087} \FloatTok{0.05779729} \FloatTok{0.018008943}  \FloatTok{7256.681}
+\DecValTok{5}  \FloatTok{96.4369707} \FloatTok{0.12235559} \FloatTok{0.032840131} \FloatTok{13232.889}
+\DecValTok{6} \FloatTok{175.5620746} \FloatTok{0.14794801} \FloatTok{0.040204435} \FloatTok{16200.326}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2796,115 +2777,19 @@ While \texttt{lta()} is running, it will print things to the Console (if \texttt
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-177-1.pdf} \includegraphics{figures/unnamed-chunk-177-2.pdf}
+\includegraphics{figures/unnamed-chunk-178-1.pdf}
 
 \begin{verbatim}
-Error in create.model.frame(xmat, as.formula(ddfobj$scale$formula), meta.data,  : 
-  NA covariate values in the data, check your data.
+    Cruise            DateTime SightNoDaily line_num species Bft  lnsstot
+41    1164 1988-08-08 08:05:00   19880808_9    41585     026  NA 6.856462
+72    1268 1989-08-23 17:45:00  19890823_12    60352     013  NA 2.995732
+82    1268 1989-11-25 06:10:00  19891125_22    66719     013  NA 4.716132
+387   2001 2020-01-26 07:51:40 20200126_129   609065     013  NA 3.676782
+    Cruise            DateTime SightNoDaily line_num species best ss_valid
+334   1604 2016-07-07 07:15:57 20160707_105   512744   Other    1    FALSE
 \end{verbatim}
 
-\includegraphics{figures/unnamed-chunk-177-3.pdf} \includegraphics{figures/unnamed-chunk-177-4.pdf} \includegraphics{figures/unnamed-chunk-177-5.pdf}
-
-\begin{verbatim}
-Error in create.model.frame(xmat, as.formula(ddfobj$scale$formula), meta.data,  : 
-  NA covariate values in the data, check your data.
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-6.pdf} \includegraphics{figures/unnamed-chunk-177-7.pdf}
-
-\begin{verbatim}
-Error in create.model.frame(xmat, as.formula(ddfobj$scale$formula), meta.data,  : 
-  NA covariate values in the data, check your data.
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-8.pdf}
-
-\begin{verbatim}
-Error in View(estimate_results, title = "Abundance") : 
-  invalid 'x' argument
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-9.pdf}
-
-\begin{verbatim}
-Error in create.model.frame(xmat, as.formula(ddfobj$scale$formula), meta.data,  : 
-  NA covariate values in the data, check your data.
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-10.pdf} \includegraphics{figures/unnamed-chunk-177-11.pdf} \includegraphics{figures/unnamed-chunk-177-12.pdf}
-
-\begin{verbatim}
-Error in create.model.frame(xmat, as.formula(ddfobj$scale$formula), meta.data,  : 
-  NA covariate values in the data, check your data.
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-13.pdf} \includegraphics{figures/unnamed-chunk-177-14.pdf}
-
-\begin{verbatim}
-Error in create.model.frame(xmat, as.formula(ddfobj$scale$formula), meta.data,  : 
-  NA covariate values in the data, check your data.
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-15.pdf}
-
-\begin{verbatim}
-Error in View(estimate_results, title = "Abundance") : 
-  invalid 'x' argument
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-16.pdf}
-
-\begin{verbatim}
-Error in create.model.frame(xmat, as.formula(ddfobj$scale$formula), meta.data,  : 
-  NA covariate values in the data, check your data.
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-17.pdf} \includegraphics{figures/unnamed-chunk-177-18.pdf} \includegraphics{figures/unnamed-chunk-177-19.pdf}
-
-\begin{verbatim}
-Error in create.model.frame(xmat, as.formula(ddfobj$scale$formula), meta.data,  : 
-  NA covariate values in the data, check your data.
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-20.pdf} \includegraphics{figures/unnamed-chunk-177-21.pdf}
-
-\begin{verbatim}
-Error in create.model.frame(xmat, as.formula(ddfobj$scale$formula), meta.data,  : 
-  NA covariate values in the data, check your data.
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-22.pdf}
-
-\begin{verbatim}
-Error in View(estimate_results, title = "Abundance") : 
-  invalid 'x' argument
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-23.pdf}
-
-\begin{verbatim}
-Error in create.model.frame(xmat, as.formula(ddfobj$scale$formula), meta.data,  : 
-  NA covariate values in the data, check your data.
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-24.pdf} \includegraphics{figures/unnamed-chunk-177-25.pdf} \includegraphics{figures/unnamed-chunk-177-26.pdf}
-
-\begin{verbatim}
-Error in create.model.frame(xmat, as.formula(ddfobj$scale$formula), meta.data,  : 
-  NA covariate values in the data, check your data.
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-27.pdf} \includegraphics{figures/unnamed-chunk-177-28.pdf}
-
-\begin{verbatim}
-Error in create.model.frame(xmat, as.formula(ddfobj$scale$formula), meta.data,  : 
-  NA covariate values in the data, check your data.
-Error in View(estimate_results, title = "Abundance") : 
-  invalid 'x' argument
-Error in lta(cruz, Rg0, fit_filters, df_settings, new_estimates): Three failed attempts to complete the analysis for this iteration!
-\end{verbatim}
-
-\includegraphics{figures/unnamed-chunk-177-29.pdf}
+\includegraphics{figures/unnamed-chunk-178-2.pdf} \includegraphics{figures/unnamed-chunk-178-3.pdf} \includegraphics{figures/unnamed-chunk-178-4.pdf} \includegraphics{figures/unnamed-chunk-178-5.pdf} \includegraphics{figures/unnamed-chunk-178-6.pdf} \includegraphics{figures/unnamed-chunk-178-7.pdf} \includegraphics{figures/unnamed-chunk-178-8.pdf} \includegraphics{figures/unnamed-chunk-178-9.pdf} \includegraphics{figures/unnamed-chunk-178-10.pdf} \includegraphics{figures/unnamed-chunk-178-11.pdf} \includegraphics{figures/unnamed-chunk-178-12.pdf}
 
 Additionally, windows will appear showing details for the detection function models and details of the density/abundance estimate.
 
@@ -2937,23 +2822,26 @@ This list of results has five slots:
 \begin{Highlighting}[]
 \NormalTok{results}\OperatorTok{$}\NormalTok{estimate}
 \NormalTok{               title species    Region     Area year segments       km}
-\DecValTok{1}\NormalTok{    Striped dolphin     }\DecValTok{013}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2017}       \DecValTok{38} \FloatTok{3040.009}
-\DecValTok{2}\NormalTok{    Striped dolphin     }\DecValTok{013}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2020}       \DecValTok{40} \FloatTok{4585.386}
-\DecValTok{3}\NormalTok{    Frasers dolphin     }\DecValTok{026}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2020}       \DecValTok{40} \FloatTok{4585.386}
-\DecValTok{4}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{headed whale     }\DecValTok{031}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2017}       \DecValTok{38} \FloatTok{3040.009}
-\DecValTok{5}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{headed whale     }\DecValTok{031}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2020}       \DecValTok{40} \FloatTok{4585.386}
+\DecValTok{1}\NormalTok{    Striped dolphin     }\DecValTok{013}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2017}       \DecValTok{29} \FloatTok{3040.009}
+\DecValTok{2}\NormalTok{    Striped dolphin     }\DecValTok{013}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2020}       \DecValTok{34} \FloatTok{4585.386}
+\DecValTok{3}\NormalTok{    Frasers dolphin     }\DecValTok{026}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2017}       \DecValTok{29} \FloatTok{3040.009}
+\DecValTok{4}\NormalTok{    Frasers dolphin     }\DecValTok{026}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2020}       \DecValTok{34} \FloatTok{4585.386}
+\DecValTok{5}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{headed whale     }\DecValTok{031}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2017}       \DecValTok{29} \FloatTok{3040.009}
+\DecValTok{6}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{headed whale     }\DecValTok{031}\NormalTok{ (WHICEAS) }\FloatTok{402948.7} \DecValTok{2020}       \DecValTok{34} \FloatTok{4585.386}
 \NormalTok{  Area_covered ESW_mean n g0_est  ER_clusters   D_clusters N_clusters size_mean}
-\DecValTok{1}      \FloatTok{9610.88} \FloatTok{3.161465} \DecValTok{3}  \FloatTok{0.316} \FloatTok{0.0009868393} \FloatTok{0.0005004327}  \FloatTok{201.64872}  \FloatTok{31.95079}
-\DecValTok{2}     \FloatTok{16236.27} \FloatTok{3.540874} \DecValTok{3}  \FloatTok{0.280} \FloatTok{0.0006542525} \FloatTok{0.0003299532}  \FloatTok{132.95423}  \FloatTok{53.95865}
-\DecValTok{3}     \FloatTok{17084.73} \FloatTok{3.725909} \DecValTok{2}  \FloatTok{0.448} \FloatTok{0.0004361683} \FloatTok{0.0001306527}   \FloatTok{52.64635} \FloatTok{132.51143}
-\DecValTok{4}     \FloatTok{10669.12} \FloatTok{3.509569} \DecValTok{2}  \FloatTok{0.509} \FloatTok{0.0006578929} \FloatTok{0.0001842793}   \FloatTok{74.25510} \FloatTok{185.98103}
-\DecValTok{5}     \FloatTok{16949.65} \FloatTok{3.696451} \DecValTok{3}  \FloatTok{0.483} \FloatTok{0.0006542525} \FloatTok{0.0001832491}   \FloatTok{73.84001} \FloatTok{226.13289}
-\NormalTok{      size_sd         ER          D         N}
-\DecValTok{1}   \FloatTok{0.5780968} \FloatTok{0.03153029} \FloatTok{0.01601708}  \FloatTok{6454.061}
-\DecValTok{2}   \FloatTok{2.7402089} \FloatTok{0.03530258} \FloatTok{0.01780121}  \FloatTok{7172.977}
-\DecValTok{3} \FloatTok{182.1747087} \FloatTok{0.05779729} \FloatTok{0.01725827}  \FloatTok{6954.200}
-\DecValTok{4}  \FloatTok{96.4369707} \FloatTok{0.12235559} \FloatTok{0.03392990} \FloatTok{13672.011}
-\DecValTok{5} \FloatTok{175.5620746} \FloatTok{0.14794801} \FloatTok{0.04158955} \FloatTok{16758.457}
+\DecValTok{1}    \FloatTok{11003.442} \FloatTok{3.619543} \DecValTok{3}  \FloatTok{0.512} \FloatTok{0.0009868393} \FloatTok{0.0002681410}  \FloatTok{108.04709}  \FloatTok{31.95079}
+\DecValTok{2}    \FloatTok{16960.781} \FloatTok{3.698878} \DecValTok{3}  \FloatTok{0.485} \FloatTok{0.0006542525} \FloatTok{0.0001836769}   \FloatTok{74.01235}  \FloatTok{53.95865}
+\DecValTok{3}           \OtherTok{NA}       \OtherTok{NA} \DecValTok{0}  \FloatTok{0.446} \FloatTok{0.0000000000} \FloatTok{0.0000000000}    \FloatTok{0.00000}        \OtherTok{NA}
+\DecValTok{4}    \FloatTok{16897.976} \FloatTok{3.685181} \DecValTok{2}  \FloatTok{0.410} \FloatTok{0.0004361683} \FloatTok{0.0001447937}   \FloatTok{58.34445} \FloatTok{132.51143}
+\DecValTok{5}     \FloatTok{9538.118} \FloatTok{3.137530} \DecValTok{2}  \FloatTok{0.583} \FloatTok{0.0006578929} \FloatTok{0.0001810010}   \FloatTok{72.93413} \FloatTok{185.98103}
+\DecValTok{6}    \FloatTok{15957.100} \FloatTok{3.479991} \DecValTok{3}  \FloatTok{0.557} \FloatTok{0.0006542525} \FloatTok{0.0001703564}   \FloatTok{68.64490} \FloatTok{226.13289}
+\NormalTok{      size_sd         ER           D         N}
+\DecValTok{1}   \FloatTok{0.5780968} \FloatTok{0.03153029} \FloatTok{0.008578188}  \FloatTok{3456.570}
+\DecValTok{2}   \FloatTok{2.7402089} \FloatTok{0.03530258} \FloatTok{0.009904849}  \FloatTok{3991.146}
+\DecValTok{3}          \OtherTok{NA} \FloatTok{0.00000000} \FloatTok{0.000000000}     \FloatTok{0.000}
+\DecValTok{4} \FloatTok{182.1747087} \FloatTok{0.05779729} \FloatTok{0.018140716}  \FloatTok{7309.778}
+\DecValTok{5}  \FloatTok{96.4369707} \FloatTok{0.12235559} \FloatTok{0.032671143} \FloatTok{13164.796}
+\DecValTok{6} \FloatTok{175.5620746} \FloatTok{0.14794801} \FloatTok{0.040132254} \FloatTok{16171.241}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2972,12 +2860,12 @@ This list of results has five slots:
 \NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"curve"}       
 
 \NormalTok{results}\OperatorTok{$}\NormalTok{df}\OperatorTok{$}\NormalTok{best_models}
-\NormalTok{  Model Key_function                       Formula     Pmean      AIC}
-\DecValTok{1}     \DecValTok{5}\NormalTok{           hn           }\OperatorTok{~}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{ship }\OperatorTok{+}\StringTok{ }\NormalTok{lnsstot }\FloatTok{0.5481587} \FloatTok{1058.131}
-\DecValTok{2}     \DecValTok{7}\NormalTok{           hn }\OperatorTok{~}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{ship }\OperatorTok{+}\StringTok{ }\NormalTok{lnsstot }\OperatorTok{+}\StringTok{ }\NormalTok{species }\FloatTok{0.5422751} \FloatTok{1058.232}
+\NormalTok{  Model Key_function                             Formula     Pmean      AIC}
+\DecValTok{1}    \DecValTok{11}\NormalTok{           hn }\OperatorTok{~}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{ship }\OperatorTok{+}\StringTok{ }\NormalTok{bft }\OperatorTok{+}\StringTok{ }\NormalTok{lnsstot }\OperatorTok{+}\StringTok{ }\NormalTok{species }\FloatTok{0.5357372} \FloatTok{1041.309}
+\DecValTok{2}     \DecValTok{9}\NormalTok{           hn           }\OperatorTok{~}\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{ship }\OperatorTok{+}\StringTok{ }\NormalTok{bft }\OperatorTok{+}\StringTok{ }\NormalTok{lnsstot }\FloatTok{0.5431524} \FloatTok{1042.481}
   \OperatorTok{$}\NormalTok{\textbackslash{}\textbackslash{}Delta}\OperatorTok{$}\NormalTok{AIC           Covariates tested                 pool}
 \DecValTok{1}        \FloatTok{0.000}\NormalTok{ bft, lnsstot, ship, species Multi}\OperatorTok{-}\NormalTok{species pool }\DecValTok{1}
-\DecValTok{2}        \FloatTok{0.101}\NormalTok{ bft, lnsstot, ship, species Multi}\OperatorTok{-}\NormalTok{species pool }\DecValTok{1}
+\DecValTok{2}        \FloatTok{1.172}\NormalTok{ bft, lnsstot, ship, species Multi}\OperatorTok{-}\NormalTok{species pool }\DecValTok{1}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2999,15 +2887,16 @@ This list of results has five slots:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{results}\OperatorTok{$}\NormalTok{bootstrap}\OperatorTok{$}\NormalTok{summary }\OperatorTok{%>%}\StringTok{ }\NormalTok{head}
-\CommentTok{# A tibble: 5 x 18}
+\CommentTok{# A tibble: 6 x 18}
 \CommentTok{# Groups:   title, Region [3]}
 \NormalTok{  title      Region year  species iterations ESW_mean g0_mean g0_cv    km     ER}
   \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{        }\ErrorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
-\DecValTok{1}\NormalTok{ Frasers d}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2020}  \DecValTok{026}             \DecValTok{10}     \FloatTok{3.59}   \FloatTok{0.451} \FloatTok{0.864} \FloatTok{4512.} \FloatTok{0.105} 
-\DecValTok{2}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{hea}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2017}  \DecValTok{031}             \DecValTok{10}     \FloatTok{3.36}   \FloatTok{0.393} \FloatTok{0.816} \FloatTok{3133.} \FloatTok{0.153} 
-\DecValTok{3}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{hea}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2020}  \DecValTok{031}             \DecValTok{10}     \FloatTok{3.54}   \FloatTok{0.544} \FloatTok{0.678} \FloatTok{4512.} \FloatTok{0.179} 
-\DecValTok{4}\NormalTok{ Striped d}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2017}  \DecValTok{013}             \DecValTok{10}     \FloatTok{3.34}   \FloatTok{0.313} \FloatTok{0.150} \FloatTok{3133.} \FloatTok{0.0488}
-\DecValTok{5}\NormalTok{ Striped d}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2020}  \DecValTok{013}             \DecValTok{10}     \FloatTok{3.58}   \FloatTok{0.277} \FloatTok{0.128} \FloatTok{4512.} \FloatTok{0.0493}
+\DecValTok{1}\NormalTok{ Frasers d}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2017}  \DecValTok{026}             \DecValTok{10}   \OtherTok{NaN}      \FloatTok{0.454} \FloatTok{0.777} \FloatTok{3030.} \DecValTok{0}     
+\DecValTok{2}\NormalTok{ Frasers d}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2020}  \DecValTok{026}             \DecValTok{10}     \FloatTok{3.44}   \FloatTok{0.482} \FloatTok{0.763} \FloatTok{4427.} \FloatTok{0.0615}
+\DecValTok{3}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{hea}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2017}  \DecValTok{031}             \DecValTok{10}     \FloatTok{3.02}   \FloatTok{0.628} \FloatTok{0.409} \FloatTok{3030.} \FloatTok{0.144} 
+\DecValTok{4}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{hea}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2020}  \DecValTok{031}             \DecValTok{10}     \FloatTok{3.26}   \FloatTok{0.633} \FloatTok{0.417} \FloatTok{4427.} \FloatTok{0.205} 
+\DecValTok{5}\NormalTok{ Striped d}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2017}  \DecValTok{013}             \DecValTok{10}     \FloatTok{3.49}   \FloatTok{0.479} \FloatTok{0.144} \FloatTok{3030.} \FloatTok{0.0406}
+\DecValTok{6}\NormalTok{ Striped d}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2020}  \DecValTok{013}             \DecValTok{10}     \FloatTok{3.37}   \FloatTok{0.499} \FloatTok{0.184} \FloatTok{4427.} \FloatTok{0.0502}
 \CommentTok{# ... with 8 more variables: D <dbl>, size <dbl>, Nmean <dbl>, Nmedian <dbl>,}
 \CommentTok{#   Nsd <dbl>, CV <dbl>, L95 <dbl>, U95 <dbl>}
 \end{Highlighting}
@@ -3242,7 +3131,7 @@ Say you want to estimate abundance in the `WHCEAS' study area, but you want to m
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-190-1.pdf}
+\includegraphics{figures/unnamed-chunk-191-1.pdf}
 
 Say you want to estimate abundance in the pelagic Hawaiian EEZ, ignoring effort and sightings within the Main Hawaiian Islands stratum and accurately removing small islands in northwest Hawaii:
 
@@ -3255,7 +3144,7 @@ Say you want to estimate abundance in the pelagic Hawaiian EEZ, ignoring effort 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-191-1.pdf}
+\includegraphics{figures/unnamed-chunk-192-1.pdf}
 
 Say you want to estimate abundance of pelagic bottlenose dolphins within the WHICEAS study area, ignoring the insular stocks:
 
@@ -3268,7 +3157,7 @@ Say you want to estimate abundance of pelagic bottlenose dolphins within the WHI
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-192-1.pdf}
+\includegraphics{figures/unnamed-chunk-193-1.pdf}
 
 Say you want to estimate abundance for \emph{only} the insular bottlenose stocks:
 
@@ -3280,7 +3169,7 @@ Say you want to estimate abundance for \emph{only} the insular bottlenose stocks
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-193-1.pdf}
+\includegraphics{figures/unnamed-chunk-194-1.pdf}
 
 Say you want to estimate abundance for false killer whales within the Northwest Hawaiian Islands and Main Hawaiian Islands study areas combined, but those geostrata partially overlap:
 
@@ -3292,7 +3181,7 @@ Say you want to estimate abundance for false killer whales within the Northwest 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-194-1.pdf}
+\includegraphics{figures/unnamed-chunk-195-1.pdf}
 
 Say you want to estimate abundance for the Hawaiian EEZ \emph{outside} of those partially overlapping geostrata:
 
@@ -3305,7 +3194,7 @@ Say you want to estimate abundance for the Hawaiian EEZ \emph{outside} of those 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-195-1.pdf}
+\includegraphics{figures/unnamed-chunk-196-1.pdf}
 
 \hypertarget{g0-estimation}{%
 \subsection*{\texorpdfstring{\emph{g(0)} estimation}{g(0) estimation}}\label{g0-estimation}}
@@ -3351,6 +3240,8 @@ All models within \texttt{delta\_aic} of the model with the lowest AIC qualify a
 
 If multiple best-fitting models occur, we will find the average ESW for each sighting across all models, using a weighted mean approach in which we weight according to model AIC. To turn off this model averaging step, set \texttt{delta\_aic} to \texttt{0} to avoid passing multiple models to the abundance estimation stage.
 
+Note that if \texttt{LnSsTot} is included as a covariate, the function will (1) check to see if the \texttt{sightings} dataframe has a column named \texttt{ss\_valid} (all \texttt{cruz} objects do), then, if so, (2) filter \texttt{sightings} only to rows where \texttt{ss\_valid} is \texttt{TRUE}, meaning the school size estimate for that sighting is a valid estimate.
+
 This stage of the \texttt{lta()} command is executed within a backend function, \texttt{LTabundR::fit\_df()}, which has its own documentation for your reference.
 
 \hypertarget{estimating-density-abundance}{%
@@ -3358,6 +3249,8 @@ This stage of the \texttt{lta()} command is executed within a backend function, 
 \addcontentsline{toc}{subsection}{Estimating density \& abundance}
 
 Estimates are produced for various combinations of species, regions, and years, according to the arguments specified in your \texttt{estimates} list(s). Before these estimates are produced, we filter the data used to fit the detection function to strictly systematic (design-based) effort (i.e., \texttt{EffType\ =\ "S"}), in which standard protocols are in use (i.e., \texttt{OnEffort\ =\ TRUE}) and the Beaufort sea state is less than 7 (though these controls can be modified using the \texttt{lta()} inputs \texttt{abund\_eff\_types} and \texttt{abund\_bft\_range} (see above).
+
+Note that if \texttt{sightings} has a column named \texttt{ss\_valid} (all standard \texttt{cruz} objects do) and any of the rows in that column are \texttt{FALSE}, those rows will have their \texttt{best} school size estimate (which will be \texttt{NA} or \texttt{1}, since they are invalid) replaced by the mean best estimate for their respective species.
 
 This stage of the \texttt{lta()} command is executed within a back-end function, \texttt{LTabundR::abundance()}, which has its own documentation for your reference.
 
@@ -3453,10 +3346,10 @@ As these results stand, 2002 estimates are stratified into 2 separate regions:
 \NormalTok{(ltas }\OperatorTok{%>%}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(}\DataTypeTok{verbose =} \OtherTok{FALSE}\NormalTok{))}\OperatorTok{$}\NormalTok{table4}
                          \DecValTok{2002}\NormalTok{ (HI_EEZ) }\OperatorTok{-}\StringTok{ }\NormalTok{(MHI)                       }\DecValTok{2002}
 \DecValTok{1}\NormalTok{ Species or category Density        Abundance   CV        }\DecValTok{95}\NormalTok{% CI Density}
-\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{14.2}           \DecValTok{32}\NormalTok{,}\DecValTok{135} \FloatTok{0.47} \DecValTok{16}\NormalTok{,}\DecValTok{707-64}\NormalTok{,}\DecValTok{184}   \FloatTok{12.06}
-\NormalTok{      (MHI)                 }\DecValTok{2010}\NormalTok{  (HI_EEZ)                    }
-\DecValTok{1}\NormalTok{ Abundance   CV  }\DecValTok{95}\OperatorTok{% CI Density Abundance   CV         95%}\StringTok{ }\NormalTok{CI}
-\DecValTok{2}     \DecValTok{2}\NormalTok{,}\DecValTok{557} \FloatTok{0.89} \DecValTok{0-7}\NormalTok{,}\DecValTok{491}   \FloatTok{23.86}    \DecValTok{59}\NormalTok{,}\DecValTok{051} \FloatTok{0.42} \DecValTok{45}\NormalTok{,}\DecValTok{459-131}\NormalTok{,}\DecValTok{350}
+\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{9.22}           \DecValTok{20}\NormalTok{,}\DecValTok{855} \FloatTok{0.26} \DecValTok{21}\NormalTok{,}\DecValTok{638-44}\NormalTok{,}\DecValTok{648}    \FloatTok{8.44}
+\NormalTok{      (MHI)                 }\DecValTok{2010}\NormalTok{  (HI_EEZ)                   }
+\DecValTok{1}\NormalTok{ Abundance   CV  }\DecValTok{95}\OperatorTok{% CI Density Abundance   CV        95%}\StringTok{ }\NormalTok{CI}
+\DecValTok{2}     \DecValTok{1}\NormalTok{,}\DecValTok{790} \FloatTok{0.81} \DecValTok{0-3}\NormalTok{,}\DecValTok{854}   \FloatTok{14.36}    \DecValTok{35}\NormalTok{,}\DecValTok{527} \FloatTok{0.27} \DecValTok{35}\NormalTok{,}\DecValTok{038-77}\NormalTok{,}\DecValTok{911}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3479,12 +3372,12 @@ Now let's re-check the summary table:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{(ltas_2a }\OperatorTok{%>%}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(}\DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{))}\OperatorTok{$}\NormalTok{table4}
-                         \DecValTok{2002}\NormalTok{  (HI_EEZ)                       }\DecValTok{2010}\NormalTok{  (HI_EEZ)}
-\DecValTok{1}\NormalTok{ Species or category Density Abundance   CV        }\DecValTok{95}\NormalTok{% CI Density Abundance}
-\DecValTok{2}\NormalTok{     Striped dolphin   }\FloatTok{14.02}    \DecValTok{34}\NormalTok{,}\DecValTok{691} \FloatTok{0.82} \DecValTok{8}\NormalTok{,}\DecValTok{462-142}\NormalTok{,}\DecValTok{221}   \FloatTok{23.86}    \DecValTok{59}\NormalTok{,}\DecValTok{051}
-                     
-\DecValTok{1}\NormalTok{   CV         }\DecValTok{95}\NormalTok{% CI}
-\DecValTok{2} \FloatTok{0.42} \DecValTok{45}\NormalTok{,}\DecValTok{459-131}\NormalTok{,}\DecValTok{350}
+                         \DecValTok{2002}\NormalTok{  (HI_EEZ)                      }\DecValTok{2010}\NormalTok{  (HI_EEZ)}
+\DecValTok{1}\NormalTok{ Species or category Density Abundance   CV       }\DecValTok{95}\NormalTok{% CI Density Abundance}
+\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{9.15}    \DecValTok{22}\NormalTok{,}\DecValTok{646} \FloatTok{0.74} \DecValTok{6}\NormalTok{,}\DecValTok{176-83}\NormalTok{,}\DecValTok{039}   \FloatTok{14.36}    \DecValTok{35}\NormalTok{,}\DecValTok{527}
+                    
+\DecValTok{1}\NormalTok{   CV        }\DecValTok{95}\NormalTok{% CI}
+\DecValTok{2} \FloatTok{0.27} \DecValTok{35}\NormalTok{,}\DecValTok{038-77}\NormalTok{,}\DecValTok{911}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3509,10 +3402,10 @@ The second option, \texttt{"bootstrap"}, uses an iterative method that draws boo
 \NormalTok{(ltas_2b }\OperatorTok{%>%}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(}\DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{))}\OperatorTok{$}\NormalTok{table4}
                          \DecValTok{2002}\NormalTok{  (HI_EEZ)                       }\DecValTok{2010}\NormalTok{  (HI_EEZ)}
 \DecValTok{1}\NormalTok{ Species or category Density Abundance   CV        }\DecValTok{95}\NormalTok{% CI Density Abundance}
-\DecValTok{2}\NormalTok{     Striped dolphin   }\FloatTok{14.02}    \DecValTok{34}\NormalTok{,}\DecValTok{691} \FloatTok{0.41} \DecValTok{18}\NormalTok{,}\DecValTok{933-80}\NormalTok{,}\DecValTok{649}   \FloatTok{23.86}    \DecValTok{59}\NormalTok{,}\DecValTok{051}
-                     
-\DecValTok{1}\NormalTok{   CV         }\DecValTok{95}\NormalTok{% CI}
-\DecValTok{2} \FloatTok{0.42} \DecValTok{45}\NormalTok{,}\DecValTok{459-131}\NormalTok{,}\DecValTok{350}
+\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{9.15}    \DecValTok{22}\NormalTok{,}\DecValTok{646} \FloatTok{0.23} \DecValTok{22}\NormalTok{,}\DecValTok{484-48}\NormalTok{,}\DecValTok{617}   \FloatTok{14.36}    \DecValTok{35}\NormalTok{,}\DecValTok{527}
+                    
+\DecValTok{1}\NormalTok{   CV        }\DecValTok{95}\NormalTok{% CI}
+\DecValTok{2} \FloatTok{0.27} \DecValTok{35}\NormalTok{,}\DecValTok{038-77}\NormalTok{,}\DecValTok{911}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3577,10 +3470,10 @@ The \texttt{summary} slot returns the p-value for each year, i.e., the chances t
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{er_results}\OperatorTok{$}\NormalTok{summary}
-\NormalTok{  years observed   p}
-\DecValTok{1}  \DecValTok{2002}      \DecValTok{171} \FloatTok{1.0}
-\DecValTok{2}  \DecValTok{2010}      \DecValTok{310} \FloatTok{0.0}
-\DecValTok{3}  \DecValTok{2017}      \DecValTok{241} \FloatTok{0.8}
+\NormalTok{  years observed    p}
+\DecValTok{1}  \DecValTok{2002}      \DecValTok{158} \FloatTok{0.96}
+\DecValTok{2}  \DecValTok{2010}      \DecValTok{210} \FloatTok{0.00}
+\DecValTok{3}  \DecValTok{2017}      \DecValTok{146} \FloatTok{0.97}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3588,7 +3481,7 @@ In this example, the encounter rates observed in 2002 and 2010 are very likely d
 
 The \texttt{details} slot returns the simulation predictions for each year, which can be used to replicate the histograms that are printed when the function is run.
 
-\includegraphics{figures/unnamed-chunk-212-1.pdf}
+\includegraphics{figures/unnamed-chunk-213-1.pdf}
 
 A dataframe with a row for each year. Columns provide the number of observations of the species of interest during systematic effort, and the p-value of the test. The p-value represents the fraction of simulated encounter rates that exceed the observed encounter rate.
 
@@ -3742,7 +3635,7 @@ Plot these options:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-220-1.pdf}
+\includegraphics{figures/unnamed-chunk-221-1.pdf}
 
 Get sample size remaining for each candidate distance:
 
@@ -3948,12 +3841,12 @@ In this example, since we do not have population information on hand, we will no
 \DecValTok{5}   \DecValTok{1705} \DecValTok{2017-09-29} \DecValTok{2017-09-29} \DecValTok{13}\OperatorTok{:}\DecValTok{26}\OperatorTok{:}\DecValTok{43} \FloatTok{23.56083} \FloatTok{-175.8662}     \OtherTok{TRUE}   \DecValTok{1}\NormalTok{       S}
 \DecValTok{6}   \DecValTok{1705} \DecValTok{2017-09-29} \DecValTok{2017-09-29} \DecValTok{13}\OperatorTok{:}\DecValTok{32}\OperatorTok{:}\DecValTok{33} \FloatTok{23.56517} \FloatTok{-175.8832}     \OtherTok{TRUE}   \DecValTok{1}\NormalTok{       S}
 \NormalTok{  SightNo Species SubGrp Angle   RadDist seg_id  PerpDist GSBest GSH  GSL}
-\DecValTok{1}     \DecValTok{064}     \DecValTok{033}\NormalTok{      A    }\DecValTok{14} \FloatTok{5.0374102}   \DecValTok{1602} \FloatTok{1.2186598}   \FloatTok{3.00}   \DecValTok{4} \FloatTok{2.00}
-\DecValTok{2}     \DecValTok{064}     \DecValTok{033}\NormalTok{      B    }\DecValTok{24} \FloatTok{3.1483814}   \DecValTok{1602} \FloatTok{1.2805621}   \FloatTok{3.67}   \DecValTok{6} \FloatTok{2.33}
-\DecValTok{3}     \DecValTok{073}     \DecValTok{033}\NormalTok{      A    }\DecValTok{49} \FloatTok{3.3706200}   \DecValTok{1610} \FloatTok{2.5438392}   \FloatTok{2.00}   \DecValTok{3} \FloatTok{1.00}
-\DecValTok{4}     \DecValTok{073}     \DecValTok{033}\NormalTok{      B    }\DecValTok{68} \FloatTok{0.6852359}   \DecValTok{1610} \FloatTok{0.6353397}   \FloatTok{1.00}   \DecValTok{2} \FloatTok{1.00}
-\DecValTok{5}     \DecValTok{073}     \DecValTok{033}\NormalTok{      C    }\DecValTok{40} \FloatTok{0.3703978}   \DecValTok{1610} \FloatTok{0.2380871}   \FloatTok{1.00}   \DecValTok{1} \FloatTok{1.00}
-\DecValTok{6}     \DecValTok{073}     \DecValTok{033}\NormalTok{      E    }\DecValTok{89} \FloatTok{2.9817023}   \DecValTok{1610} \FloatTok{2.9812482}   \FloatTok{1.00}   \DecValTok{2} \FloatTok{1.00}
+\DecValTok{1}     \DecValTok{064}     \DecValTok{033}\NormalTok{      A    }\DecValTok{14} \FloatTok{5.0374102}   \DecValTok{1601} \FloatTok{1.2186598}   \FloatTok{3.00}   \DecValTok{4} \FloatTok{2.00}
+\DecValTok{2}     \DecValTok{064}     \DecValTok{033}\NormalTok{      B    }\DecValTok{24} \FloatTok{3.1483814}   \DecValTok{1601} \FloatTok{1.2805621}   \FloatTok{3.67}   \DecValTok{6} \FloatTok{2.33}
+\DecValTok{3}     \DecValTok{073}     \DecValTok{033}\NormalTok{      A    }\DecValTok{49} \FloatTok{3.3706200}   \DecValTok{1609} \FloatTok{2.5438392}   \FloatTok{2.00}   \DecValTok{3} \FloatTok{1.00}
+\DecValTok{4}     \DecValTok{073}     \DecValTok{033}\NormalTok{      B    }\DecValTok{68} \FloatTok{0.6852359}   \DecValTok{1609} \FloatTok{0.6353397}   \FloatTok{1.00}   \DecValTok{2} \FloatTok{1.00}
+\DecValTok{5}     \DecValTok{073}     \DecValTok{033}\NormalTok{      C    }\DecValTok{40} \FloatTok{0.3703978}   \DecValTok{1609} \FloatTok{0.2380871}   \FloatTok{1.00}   \DecValTok{1} \FloatTok{1.00}
+\DecValTok{6}     \DecValTok{073}     \DecValTok{033}\NormalTok{      E    }\DecValTok{89} \FloatTok{2.9817023}   \DecValTok{1609} \FloatTok{2.9812482}   \FloatTok{1.00}   \DecValTok{2} \FloatTok{1.00}
 \NormalTok{  GSBest_geom GSH_geom GSL_geom  use stratum_HI_EEZ stratum_OtherCNP}
 \DecValTok{1}        \FloatTok{3.00}        \DecValTok{4}     \FloatTok{2.00} \OtherTok{TRUE}           \OtherTok{TRUE}             \OtherTok{TRUE}
 \DecValTok{2}        \FloatTok{3.67}        \DecValTok{6}     \FloatTok{2.33} \OtherTok{TRUE}           \OtherTok{TRUE}             \OtherTok{TRUE}
@@ -4006,7 +3899,7 @@ The second is to calculate it ourselves using the \texttt{LTabundR} function \te
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-236-1.pdf}
+\includegraphics{figures/unnamed-chunk-237-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4068,32 +3961,32 @@ Most of these slots hold best-estimates of parameters or sample size details:
 \NormalTok{results_subgroup[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{15}\NormalTok{, }\DecValTok{19}\OperatorTok{:}\DecValTok{20}\NormalTok{)]}
 \OperatorTok{$}\NormalTok{D}
           \DecValTok{1} 
-\FloatTok{0.003101353} 
+\FloatTok{0.001663263} 
 
 \OperatorTok{$}\NormalTok{D_CV}
-        \DecValTok{1} 
-\FloatTok{0.8798567} 
+       \DecValTok{1} 
+\FloatTok{1.344861} 
 
 \OperatorTok{$}\NormalTok{D_L95}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{0.00155031}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{0.0005004478}
 
 \OperatorTok{$}\NormalTok{D_U95}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{0.0159308}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{0.01547307}
 
 \OperatorTok{$}\NormalTok{N}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{7675}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{4116}
 
 \OperatorTok{$}\NormalTok{N_CV}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{0.8798095}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{1.344829}
 
 \OperatorTok{$}\NormalTok{N_L95}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{3836}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{1238.357}
 
 \OperatorTok{$}\NormalTok{N_U95}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{39422.27}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{38290}
 
 \OperatorTok{$}\NormalTok{ER}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{0.001852608}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{0.001860071}
 
 \OperatorTok{$}\NormalTok{ss}
 \NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{2.466557}
@@ -4102,16 +3995,16 @@ Most of these slots hold best-estimates of parameters or sample size details:
 \NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{32}
 
 \OperatorTok{$}\NormalTok{L}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{17272.95}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{17203.64}
 
 \OperatorTok{$}\NormalTok{n_segments}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{137}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{136}
 
 \OperatorTok{$}\NormalTok{g0}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{0.305}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{0.571}
 
 \OperatorTok{$}\NormalTok{g0_cv}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{0.447}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\FloatTok{0.365}
 
 \OperatorTok{$}\NormalTok{iterations}
 \NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{10}
@@ -4150,11 +4043,11 @@ The \texttt{bootstraps} slot has the bootstrapped values for various parameters,
 
 Some examples:
 
-\includegraphics{figures/unnamed-chunk-245-1.pdf}
-
 \includegraphics{figures/unnamed-chunk-246-1.pdf}
 
 \includegraphics{figures/unnamed-chunk-247-1.pdf}
+
+\includegraphics{figures/unnamed-chunk-248-1.pdf}
 
 \hypertarget{behind-the-scenes-2}{%
 \section*{Behind the scenes}\label{behind-the-scenes-2}}
@@ -4332,7 +4225,7 @@ To plot the abundance estimate with error bars representing the 95\% confidence 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-260-1.pdf}
+\includegraphics{figures/unnamed-chunk-261-1.pdf}
 
 \hypertarget{detection-function-plots}{%
 \section*{Detection function plots}\label{detection-function-plots}}
@@ -4346,7 +4239,7 @@ To plot the best-fit detection model for a species pool, use the \texttt{df\_plo
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-261-1.pdf}
+\includegraphics{figures/unnamed-chunk-262-1.pdf}
 
 This function provides various stylization options, including the option to show multiple best-fitting models atop a single histogram of detections:
 
@@ -4363,7 +4256,7 @@ This function provides various stylization options, including the option to show
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-262-1.pdf}
+\includegraphics{figures/unnamed-chunk-263-1.pdf}
 
 \hypertarget{part-case-studies}{%
 \part{Case studies}\label{part-case-studies}}
@@ -4592,7 +4485,7 @@ We can use the built-in dataset, \texttt{data(g0\_results)}, which has Beaufort-
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-277-1.pdf}
+\includegraphics{figures/unnamed-chunk-278-1.pdf}
 
 \hypertarget{density-abundance}{%
 \section*{Density \& abundance}\label{density-abundance}}
@@ -4602,7 +4495,7 @@ First we can define common values that will be constant across all estimates we 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{bootstraps <-}\StringTok{ }\DecValTok{100}
+\NormalTok{bootstraps <-}\StringTok{ }\DecValTok{20}
 \NormalTok{years <-}\StringTok{ }\DecValTok{1986}\OperatorTok{:}\DecValTok{2020}
 \NormalTok{fit_regions <-}\StringTok{ }\OtherTok{NULL}
 \NormalTok{fit_not_regions <-}\StringTok{ }\OtherTok{NULL}
@@ -5380,7 +5273,7 @@ Generate report:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-309-1.pdf}
+\includegraphics{figures/unnamed-chunk-310-1.pdf}
 
 \hypertarget{case_cnp}{%
 \chapter{Central North Pacific}\label{case_cnp}}
@@ -5707,7 +5600,7 @@ Use this to determine truncation distances. Note them in your \texttt{lta()} cod
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-328-1.pdf}
+\includegraphics{figures/unnamed-chunk-329-1.pdf}
 
 \hypertarget{density-abundance-1}{%
 \section*{Density \& abundance}\label{density-abundance-1}}
@@ -5717,7 +5610,7 @@ First we can define common values that will be constant across all estimates we 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{bootstraps <-}\StringTok{ }\DecValTok{100}
+\NormalTok{bootstraps <-}\StringTok{ }\DecValTok{20}
 \NormalTok{years <-}\StringTok{ }\DecValTok{1986}\OperatorTok{:}\DecValTok{2020}
 \NormalTok{fit_regions <-}\StringTok{ }\OtherTok{NULL}
 \NormalTok{fit_not_regions <-}\StringTok{ }\OtherTok{NULL}
@@ -6334,15 +6227,14 @@ The \texttt{lta\_estimates()} function will generate a custom function that make
 \begin{Highlighting}[]
 \NormalTok{reporti}\OperatorTok{$}\NormalTok{tableA2}
 \OperatorTok{$}\StringTok{`}\DataTypeTok{2002}\StringTok{`}
-\CommentTok{# A tibble: 6 x 10}
+\CommentTok{# A tibble: 5 x 10}
 \NormalTok{  Species    Stratum Effort      B0      B1     B2     B3    B4    B5     B6}
   \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
 \DecValTok{1}\NormalTok{ spotted    MHI       }\DecValTok{2744} \DecValTok{0}       \DecValTok{0}       \FloatTok{0.137}  \FloatTok{0.0852} \FloatTok{0.400} \FloatTok{0.301} \FloatTok{0.0776}
 \DecValTok{2}\NormalTok{ bottlenose MHI       }\DecValTok{3640} \DecValTok{0}       \FloatTok{0.00387} \FloatTok{0.118}  \FloatTok{0.0754} \FloatTok{0.402} \FloatTok{0.337} \FloatTok{0.0646}
 \DecValTok{3}\NormalTok{ all        MHI       }\DecValTok{4153} \DecValTok{0}       \FloatTok{0.00339} \FloatTok{0.122}  \FloatTok{0.0771} \FloatTok{0.384} \FloatTok{0.353} \FloatTok{0.0602}
-\DecValTok{4}\NormalTok{ bottlenose HI_EEZ   }\DecValTok{15393} \FloatTok{0.00828} \FloatTok{0.0196}  \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
-\DecValTok{5}\NormalTok{ all        HI_EEZ   }\DecValTok{15394} \FloatTok{0.00828} \FloatTok{0.0196}  \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
-\DecValTok{6}\NormalTok{ spotted    HI_EEZ   }\DecValTok{15396} \FloatTok{0.00828} \FloatTok{0.0196}  \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
+\DecValTok{4}\NormalTok{ all        HI_EEZ   }\DecValTok{15393} \FloatTok{0.00828} \FloatTok{0.0196}  \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
+\DecValTok{5}\NormalTok{ bottlenose HI_EEZ   }\DecValTok{15395} \FloatTok{0.00828} \FloatTok{0.0196}  \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
 
 \OperatorTok{$}\StringTok{`}\DataTypeTok{2010}\StringTok{`}
 \CommentTok{# A tibble: 4 x 10}
@@ -6417,12 +6309,11 @@ The \texttt{lta\_estimates()} function will generate a custom function that make
 \begin{Highlighting}[]
 \NormalTok{reporti}\OperatorTok{$}\NormalTok{tableA2}
 \OperatorTok{$}\StringTok{`}\DataTypeTok{2002}\StringTok{`}
-\CommentTok{# A tibble: 3 x 10}
+\CommentTok{# A tibble: 2 x 10}
 \NormalTok{  Species    Stratum Effort      B0     B1     B2     B3    B4    B5     B6}
   \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
-\DecValTok{1}\NormalTok{ bottlenose HI_EEZ   }\DecValTok{15393} \FloatTok{0.00828} \FloatTok{0.0196} \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
-\DecValTok{2}\NormalTok{ all        HI_EEZ   }\DecValTok{15394} \FloatTok{0.00828} \FloatTok{0.0196} \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
-\DecValTok{3}\NormalTok{ spotted    HI_EEZ   }\DecValTok{15396} \FloatTok{0.00828} \FloatTok{0.0196} \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
+\DecValTok{1}\NormalTok{ all        HI_EEZ   }\DecValTok{15393} \FloatTok{0.00828} \FloatTok{0.0196} \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
+\DecValTok{2}\NormalTok{ bottlenose HI_EEZ   }\DecValTok{15395} \FloatTok{0.00828} \FloatTok{0.0196} \FloatTok{0.0487} \FloatTok{0.0930} \FloatTok{0.487} \FloatTok{0.314} \FloatTok{0.0289}
 
 \OperatorTok{$}\StringTok{`}\DataTypeTok{2010}\StringTok{`}
 \CommentTok{# A tibble: 1 x 10}
@@ -6450,7 +6341,7 @@ The \texttt{lta\_estimates()} function will generate a custom function that make
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-365-1.pdf}
+\includegraphics{figures/unnamed-chunk-366-1.pdf}
 
 \hypertarget{california-current-system}{%
 \chapter{California Current System}\label{california-current-system}}
@@ -6588,7 +6479,6 @@ First we load the demo data and carry out initial processing:
 \NormalTok{                       settings,}
                        \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
 \NormalTok{cruz <-}\StringTok{ }\KeywordTok{format_das}\NormalTok{(cruz)}
-\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{format_das}\NormalTok{(cruz)}\OperatorTok{:}\StringTok{ }\NormalTok{object }\StringTok{'bads'}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -6643,18 +6533,17 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
                         \DataTypeTok{distance_modes =} \KeywordTok{c}\NormalTok{(}\StringTok{'P'}\NormalTok{,}\StringTok{'C'}\NormalTok{),}
                         \DataTypeTok{distance_on_off =} \KeywordTok{c}\NormalTok{(}\OtherTok{TRUE}\NormalTok{),}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
-\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\OtherTok{NULL}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{273}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-376-1.pdf}
+\includegraphics{figures/unnamed-chunk-377-1.pdf}
 
 \hypertarget{day-vs-equal-length}{%
 \section*{Day vs Equal Length}\label{day-vs-equal-length}}
@@ -6671,18 +6560,17 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
                         \DataTypeTok{segment_target_km =} \DecValTok{30}\NormalTok{,}
                         \DataTypeTok{segment_max_interval =} \DecValTok{48}\NormalTok{,}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
-\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\OtherTok{NULL}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{113}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-377-1.pdf}
+\includegraphics{figures/unnamed-chunk-378-1.pdf}
 
 \hypertarget{by-target-length-of-150-km}{%
 \subsection*{By target length of 150 km}\label{by-target-length-of-150-km}}
@@ -6695,18 +6583,17 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
                         \DataTypeTok{segment_target_km =} \DecValTok{150}\NormalTok{,}
                         \DataTypeTok{segment_max_interval =} \DecValTok{48}\NormalTok{,}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
-\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\OtherTok{NULL}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{68}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-378-1.pdf}
+\includegraphics{figures/unnamed-chunk-379-1.pdf}
 
 \hypertarget{contiguous-vs.-non-contiguous-effort}{%
 \section*{Contiguous vs.~non-contiguous effort}\label{contiguous-vs.-non-contiguous-effort}}
@@ -6721,18 +6608,17 @@ The example above allows for non-contiguous effort; a segment is allowed to cont
                         \DataTypeTok{segment_target_km =} \DecValTok{30}\NormalTok{,}
                         \DataTypeTok{segment_max_interval =} \FloatTok{.1}\NormalTok{,}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
-\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\OtherTok{NULL}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{596}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-379-1.pdf}
+\includegraphics{figures/unnamed-chunk-380-1.pdf}
 
 You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.
 
@@ -6753,18 +6639,17 @@ The other possible setting is \texttt{\textquotesingle{}disperse\textquotesingle
                         \DataTypeTok{segment_target_km =} \DecValTok{100}\NormalTok{,}
                         \DataTypeTok{segment_max_interval =} \DecValTok{48}\NormalTok{,}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
-\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\OtherTok{NULL}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{94}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-380-1.pdf}
+\includegraphics{figures/unnamed-chunk-381-1.pdf}
 
 Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:
 
@@ -6775,18 +6660,17 @@ Note that most segments are longer than the target length, due to the impact of 
                         \DataTypeTok{segment_target_km =} \DecValTok{90}\NormalTok{,}
                         \DataTypeTok{segment_max_interval =} \DecValTok{48}\NormalTok{,}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
-\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\OtherTok{NULL}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{102}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-381-1.pdf}
+\includegraphics{figures/unnamed-chunk-382-1.pdf}
 
 But in general, the \texttt{disperse} option may be more appropriate for shorter segment lengths.
 
@@ -6813,18 +6697,17 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
                         \DataTypeTok{segment_target_km =} \DecValTok{5}\NormalTok{,}
                         \DataTypeTok{segment_max_interval =} \FloatTok{.1}\NormalTok{,}
                         \DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{)}
-\NormalTok{Error }\ControlFlowTok{in} \KeywordTok{UseMethod}\NormalTok{(}\StringTok{"mutate"}\NormalTok{)}\OperatorTok{:}\StringTok{ }\NormalTok{no applicable method }\ControlFlowTok{for} \StringTok{'mutate'}\NormalTok{ applied to an object of class }\StringTok{"NULL"}
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\OtherTok{NULL}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1826}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-382-1.pdf}
+\includegraphics{figures/unnamed-chunk-383-1.pdf}
 
 \hypertarget{abund9_compare}{%
 \chapter{\texorpdfstring{\texttt{LTabundR} vs.~\texttt{ABUND9}}{LTabundR vs.~ABUND9}}\label{abund9_compare}}
@@ -7030,66 +6913,6 @@ The function will return any species for which there is a partial match:
 \end{Shaded}
 
 Note that if \texttt{species\_codes} is \texttt{NULL}, as in the examples above, the list of codes used in \texttt{ABUND9} will be used as a default.
-
-\hypertarget{backlog}{%
-\chapter{Appendix: Backlog}\label{backlog}}
-
-\begin{itemize}
-\item
-  Make sure you are using AICc, not AIC
-\item
-  Accommodate species belonging to multiple cohorts in GoogleSheet framework
-\item
-  Remove \texttt{random.seed} from settings functions.
-\item
-  Investigate discrepancies between output from \texttt{format\_distance()} and \texttt{summarize\_effort()}.
-\item
-  Follow-through on converting \texttt{format\_distance()} to match the formatting from \texttt{ABUND9}? (It is currently matching the format from \texttt{ABUND7}).
-\item
-  Fix polygon area estimation! (Currently does not subtract land area! Ack!)
-\item
-  Should LTabundR accept Bft values of NA? Or include an option for interpolating replacement values based on the preceding and proceding values? Or just leave it to analysts to correct the DAS data?
-\item
-  Consider making the minimum group size for group size calibration (for unknown observers) a cohort-specific setting that users can define. Update all package and vignette documentation accordingly.
-\item
-  Consider making the km gap handling arguments for \texttt{format\_das()} (and its subroutine \texttt{process\_km()}) into survey settings that users can define. Update all package and vignette documentation accordingly.
-\item
-  Add options to \texttt{das\_load()} that allows you to determine timezone from date and lat/long, then adjust DateTime accordingly. This would avoid errors in the manual specification of GMT offset within the DAS data.
-\item
-  Jay uses the phrase `stratify by IO': add segmentizing feature in which segment is reset if IO status changes.
-\item
-  Main Islands map bbox
-\item
-  Map bbox for SoCal, Central Cal, and northern CCS
-\item
-  Figure out which ETP strata to have as defaults for both survey strata and study area polygons (there are like 100 in the folder Jeff sent us). May be a question for Tim G.
-\item
-  Test this code on lots of cruise data files to establish basic functionality for Hawaii, California Current, and ETP.
-\item
-  Troubleshoot why longitudes are not displayed on Hawaii base map
-\item
-  Accommodate subgroup settings for FKW analyses
-\item
-  Method for stratifying by Beaufort.
-\item
-  \texttt{study\_area\_explore()} and \texttt{study\_area\_select()}.
-\item
-  LTabundR is finding more effort in Cruise 1642 than is ABUND. See the slides detailing the ABUND v LTabundR comparison.
-\item
-  \texttt{swfscDAS} can accidentally exclude sightings when the GMTOffset field is incorrect; this can be addressed by (i) correcting the DAS file so that GMToffset is correct, (ii) modifying the swfscDAS code, or (iii) building a function for LTabundR that tests and corrects the GMToffset field based upon lat/long and the date. This currently affects only two sightings in Cruise 1004.
-\item
-  When observer positions are not entered correctly, sightings will be excluded from analysis. For example, when a sighting is manually entered without correctly establishing observer positions in a previous DAS line, the swfscDAS functions will put NA's in the ObsL and ObsR data fields. This currently affects only one sighting in Cruise 1607. This can be addressed by (i) leaving as is, (ii) assuming invalid ObsL and ObsR are allowed to be included, or (iii) developing a LTabundR feature in which NA values are replaced based on preceding/subsequent values.
-\item
-  When the Bft value is missing, LTabundR does not include the sighting in analysis. This can be addressed by (i) leaving as is (if the DAS data are incorrect, LTabundR will not fix it); (ii) assuming all Bft == NA are valid; or by (iii) developing a LTabundR feature in which NA values are replaced based on preceding/subsequent values. This currently affects two sightings (one in cruise 1607, one in cruise 1621).
-\item
-  When sightings occur exactly upon the boundary of a geostratum, LTabundR considers it `out' and excludes it from analysis. ABUND, in contrast, considers it in. This affects one sighting in cruise 1080. We have put an item in the backlog to consider changing this feature.
-\item
-  ABUND has some TotSS estimates that are less than 1 (n= about 50). Most of these sightings have `raw' SS estimates of 1 and at least 1 observer(s) who \emph{is} in the SS calibration DAT file, which means their calibration must have produced an estimate less than 1. It makes sense to me that LTabundR should implement a minimum SS of 1 for each observer's estimate, which should be applied \emph{after} calibration.
-\item
-  In the ABUND SSCAL routine, when an observer's coefficients are drawn from the DAT file, the first line of best-high-low weights is used regardless of whether the general model or the year-specific model is used. Is that how it should be? For a few observers (only a few), the second row of weights differs from the first row.
-\item
-  The ABUND SSCAL routine assumes Bft == 0 if it is NA. Are we OK with assuming that, or should we bypass calibration in the event of a missing Bft value? There is just 1 sighting with Bft == NA (Cruise 1607, 1997-04-27 07:16:01, SightNo 68, SpCode 037 killer whale).
-\end{itemize}
 
   \bibliography{book.bib,packages.bib}
 

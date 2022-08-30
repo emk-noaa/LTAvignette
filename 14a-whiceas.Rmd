@@ -10,7 +10,7 @@ library(LTabundR)
 ```
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
-rerun_from_scratch <- TRUE
+rerun_from_scratch <- FALSE
 # If you want to confirm the package works, change to TRUE.
 # If you already know it does, change to FALSE so that knitting is quick
 # (it will use saved R objects instead of producing them anew)
@@ -99,7 +99,7 @@ spotted <- load_cohort_settings(
 
 ### Process {-}  
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 settings <- load_settings(strata = strata_cnp,
                           survey = survey,
                           cohorts = list(all_species,
@@ -179,7 +179,7 @@ g0_plot(Rg0, panes = 3)
 First we can define common values that will be constant across all estimates we produce: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-bootstraps <- 100
+bootstraps <- 20
 years <- 1986:2020
 fit_regions <- NULL
 fit_not_regions <- NULL
@@ -233,7 +233,7 @@ Here is the full code for producing those estimates for all species from Bradfor
 
 ### Multi-species pool 1 {-} 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 # Striped dolphin (013), Fraser's dolphin (026), Melon-headed whale (031)
 
 if(TRUE){ # toggle
@@ -268,7 +268,7 @@ if(TRUE){ # toggle
 
 ### Multi-species pool 2 {-} 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 # Rough-toothed dolphin (15), Common bottlenose dolphin (18), Risso's (21),
 # Pygmy killer whale (32)
 
@@ -307,7 +307,7 @@ if(TRUE){ # toggle
 
 ### Multi-species pool 3 {-} 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 # Short-finned pilot whale (036), Longman's beaked whale (065)
 
 # No Rg(0) available for Longman's -- will use SF pilot whale instead to estimate its weighted g0
@@ -344,7 +344,7 @@ if(TRUE){ # toggle
 
 ### Multi-species pool 4 {-} 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 # Killer whale (37), sperm whale (46)
 
 if(TRUE){ # toggle
@@ -379,7 +379,7 @@ if(TRUE){ # toggle
 
 ### Multi-species pool 5 {-} 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 # Pygmy sperm whale (47), dwarf sperm whale (48), UNID Kogia (80),
 # Blainville's beaked whale (59), Cuvier's beaked whale (61),
 # UNID Mesoplodon (51), UNID beaked whale (49), Minke whale (71)
@@ -421,7 +421,7 @@ if(TRUE){ # toggle
 
 ### Multi-species pool 6 {-} 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 # Bryde's whale (72), Sei whale (73), Fin whale (74), Blue whale (75),
 # Sei/Bryde's (99), Fin/Sei/Bryde's (72, 73, 74, 99)
 
@@ -465,7 +465,7 @@ if(TRUE){ # toggle
 
 ### Humpback whale {-} 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 if(TRUE){ # toggle
 
   # Detection function specifications
@@ -495,7 +495,7 @@ if(TRUE){ # toggle
 
 ### Unidentified rorquals {-} 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 # UNID rorquals (70)
 
 if(TRUE){ # toggle
@@ -531,7 +531,7 @@ if(TRUE){ # toggle
 
 ### Unidentified dolphins {-} 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 # UNID dolphin (177, 277, 377, 77)
 
 if(TRUE){ # toggle
@@ -567,7 +567,7 @@ if(TRUE){ # toggle
 
 ### Unidentified cetaceans {-} 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 # UNID cetacean (78, 79, 98, 96)
 
 if(TRUE){ # toggle
@@ -606,7 +606,7 @@ if(TRUE){ # toggle
 
 ### Bottlenose dolphin {-} 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 # Bottlenose dolphin (018)
 
 if(TRUE){ # toggle
@@ -649,7 +649,7 @@ if(TRUE){ # toggle
 
 ### Pantropical spotted dolphin {-} 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 # Pantropical spotted dolphin (002)
 
 if(TRUE){ # toggle
