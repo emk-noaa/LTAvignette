@@ -486,7 +486,10 @@ if(TRUE){ # toggle
         estimator(spp = '059', title = "Blainville's beaked whale"),
         estimator(spp = '061', title = "Curvier's beaked whale"),
         estimator(spp = '051', title = "Unidentified Mesoplodon"),
-        estimator(spp = '049', title = "Unidentified beaked whale"),
+        estimator(spp = '049', 
+                  title = "Unidentified beaked whale",
+                  alt_g0_spp = c('061','051'),
+                  combine_g0 = TRUE),
         estimator(spp = '071', title = "Minke whale"))
 
   # Run analysis
@@ -603,7 +606,11 @@ if(TRUE){ # toggle
          not_regions = fit_not_regions)
 
   # Density / abundance estimation plan
-  estimates <- estimator(spp = spp, title = pool_title)
+  estimates <- estimator(spp = spp, 
+                         title = pool_title,
+                         alt_g0_spp = c('002','013','018',
+                                        '015', '036', '021'),
+                         combine_g0 = TRUE)
   
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,

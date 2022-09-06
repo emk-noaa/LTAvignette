@@ -47,7 +47,7 @@ The `process_surveys()` function is a wrapper for several discrete stages of dat
 
 ### Edit cruise data {-}
 
-If the `edits` input argument is supplied to `process_surveys()`, a temporary copy of the `DAS` file(s) are made and edited before processing. This step is discussed on the previous page.  
+If the `edits` input argument is supplied to `process_surveys()`, temporary copies of the `DAS` file(s) ar made and edited before processing. This step is discussed on the previous page.  
 
 ### Bring in cruise data {-} 
 
@@ -402,7 +402,7 @@ save(cruz,file='whiceas_cruz.RData')
 load('whiceas_cruz.RData')
 ```
 
-To validate these `LTabundR` functions, we can compare its output to that of `ABUND9`, written by Jay Barlow (NOAA-NMFS). First, we bring in the `ABUND9` output files:  
+To validate these `LTabundR` functions, we can compare its output to that of `ABUND9`, written by Jay Barlow (NOAA-NMFS). First, we bring in the `ABUND9` output files for the same `DAS` data: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 SIGHTS <- read.csv('data/SIGHTS.csv')
@@ -440,11 +440,14 @@ abund_summ <-
 Then do the same for `LTabundR` output: 
 
 ```{r, echo=TRUE, eval=TRUE, message=FALSE, collapse=TRUE}
-ltabundr <- cruz$cohorts$all$sightings
-
+ltabundr <- 
+  cruz$cohorts$all$sightings %>% 
+  # Filter out species that ABUND ignored based on its INP file
+  filter(!species %in% c('CU', 'PU'))
+  
 ltabundr_summ <-
   ltabundr %>%
-  filter(OnEffort == TRUE) %>%  
+  filter(OnEffort == TRUE) %>% 
   group_by(cruise = Cruise, species) %>%
   summarize(ntot_ltabundr = n(),
             nsys_ltabundr = length(which(included == TRUE & 
@@ -473,10 +476,13 @@ mr$nsys_abund %>% sum(na.rm=TRUE)
 mr$nsys_ltabundr %>% sum(na.rm=TRUE)
 ```
 
-Let's find the rows with discrepancies in systematic effort: 
+Let's find the rows with discrepancies in sighting counts: 
 
 ```{r, echo=TRUE, eval=TRUE, message=FALSE, collapse=TRUE}
 bads <- which(mr$nsys_abund != mr$nsys_ltabundr | 
+              mr$ntot_abund != mr$ntot_ltabundr | 
+              is.na(mr$ntot_abund) | 
+              is.na(mr$ntot_ltabundr) | 
               is.na(mr$nsys_abund) | 
               is.na(mr$nsys_ltabundr))
 bads %>% length
@@ -488,7 +494,7 @@ Let's look at those rows in the joined dataframe:
 mr[bads, ]
 ```
 
-To investigate each of these discrepancies, we will write a helper function that returns sightings details from both outputs for a given cruise-species: 
+To investigate these 4 discrepancies, we will write a helper function that returns sightings details from both outputs for a given cruise-species: 
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 sight_compare <- function(abund, ltabundr, cruise, spp){
@@ -509,7 +515,7 @@ sight_compare <- function(abund, ltabundr, cruise, spp){
   ltabundr %>%
     filter(Cruise == cruise, species == spp) %>%
     select(6, 2, 13, 73, 69, 5, 9, 41, 86) %>%
-    rename(sys_sit = included, use_effort = use) %>%
+    rename(use_sit = included, use_effort = use) %>%
     arrange(desc(use_effort)) %>%
     tibble %>% print
 }
@@ -517,9 +523,64 @@ sight_compare <- function(abund, ltabundr, cruise, spp){
 
 #### Discrepancies {-} 
 
+##### Cruise 1203, Species 015 {-} 
+
+In this case, `LTabundR` has a non-systematic sighting that `ABUND` has ignored. 
+
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+sight_compare(abund, ltabundr, 1203, '015')
+```
+
+Looking at the sighting details from `LTabundR` ...
+
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+(ltabundr %>% filter(Cruise == 1203, species == '015'))[1,]
+```
+
+According to `ABUND`, this sighting is not mixed-species, but `LTabundR` says it is. Looking at the raw `DAS`...
+
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+das_file <- 'data/surveys/CenPac1986-2020_Final_alb.das'
+das <- das_readtext(das_file)
+i <- which(substr(das$das, 6, 18) == '131944 051312')
+das$das[i]
+```
+
+We see that this was a sighting of false killer whales during which species `015` was picked up during photo-ID. This discrepancy, then, may not be a mistake in the `LTabundR` processing.  
+
+##### Cruise 1203, Species 049 {-} 
+
+In this case, `LTabundR` has a non-systematic sighting that `ABUND` has ignored. 
+
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+sight_compare(abund, ltabundr, 1203, '049')
+```
+
+Looking at the sighting details from `LTabundR` ...
+
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+(ltabundr %>% filter(Cruise == 1203, species == '049'))[2,]
+```
+
+This is a sighting of a single Ziphiid whale. It appears to be squarely within the geostratum: 
+
+```{r, echo=TRUE, eval=FALSE, message=TRUE, collapse=TRUE}
+cruzi <- filter_cruz(cruz, spp='047', years = 1988)
+map_cruz(cruzi)
+```
+
+Loooking at the raw `DAS` data ...
+
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+i <- which(substr(das$das, 6, 18) == '105409 050712')
+das$das[(i[1] - 10):(i[1] + 3)]
+```
+
+It is not clear why `ABUND` did not include this sighting as non-systematic.  
+
 ##### Cruise 1165, Species 047 {-} 
 
-In this case, `LTabundR` has a systematic sighting of a pygmy sperm whale, whereas `ABUND` does not have anything. 
+In this case, `LTabundR` has a *systematic* sighting of a pygmy sperm whale, whereas `ABUND` does not have anything. 
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 sight_compare(abund, ltabundr, 1165, '047')
@@ -533,19 +594,12 @@ cruzi <- filter_cruz(cruz, spp='047', years = 1988)
 map_cruz(cruzi)
 ```
 
-We see that this sighting occurred *just inside* of the `OtherCNP` geostratum. It is likely that the point-in-polygon subroutines inside `ABUND9` decided that this sighting was out of the study area, and therefore excluded it. The subroutines used by `LTabundR`, which are based in the `R` package `sf`, should not be wrong in this case. 
+Using that map we see that this sighting occurred *just inside* of the `OtherCNP` geostratum. It is likely that the point-in-polygon subroutines inside `ABUND9` decided that this sighting was out of the study area, and therefore excluded it. The subroutines used by `LTabundR`, which are based in the `R` package `sf`, should not be wrong in this case. 
 
-##### Cruise 1607, Species CU {-} 
-
-This species code, `CU` (Northern fur seal), was not used in the list of species for the `ABUND9` input file. We could have specified that this species not be included in our `load_cohort_settings()` object above, but it is not an issue that this species has been included in the `LTabundR` output.   
-
-##### Cruise 1607, Species PU {-} 
-
-Similar to above, this species code, `PU` (Unidentified pinniped), was not used in the list of species for the `ABUND9` input file. 
 
 ##### Cruise 1631, Species 003 {-} 
 
-This non-systematic sighting of species 003 was found by `LTabundR` but not by `ABUND`. 
+In this case, there was a non-systematic sighting of species 003 that was found by `LTabundR` but not by `ABUND`. 
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 sight_compare(abund, ltabundr, 1631, '003')

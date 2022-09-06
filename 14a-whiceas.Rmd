@@ -2,7 +2,7 @@
 
 # WHICEAS {#whiceas}
 
-Here we demonstrate code that reproduces the Bradford et al. (2022) WHICEAS report (*In press*) within the new `LTabundR` framework. This study estimates cetacean abundance for Hawaiian WHICEAS study area for 2017 and 2020. Here we use survey data from 1986 to 2020 to estimate *Relative g(0)* and detection functions. Currently, coefficients of variation (CV) of density and abundance are estimated using only 100 bootstrap iterations (the publication uses 1,000) to reduce processing time.  
+Here we demonstrate code that reproduces the Bradford et al. (2022) WHICEAS report within the new `LTabundR` framework. This study estimates cetacean abundance for Hawaiian WHICEAS study area for 2017 and 2020. Here we use survey data from 1986 to 2020 to estimate *Relative g(0)* and detection functions. Currently, coefficients of variation (CV) of density and abundance are estimated using only 100 bootstrap iterations (the publication uses 1,000) to reduce processing time.  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
 library(dplyr)
@@ -28,6 +28,7 @@ g0_scenario <- 1
 data(species_codes)
 data(ships)
 data(group_size_coefficients)
+data(cnp_1986_2020_edits)
 
 survey <- load_survey_settings(
   out_handling = 'remove',
@@ -110,7 +111,8 @@ settings <- load_settings(strata = strata_cnp,
 
 cruz <- 
   process_surveys(das_file = 'data/surveys/CenPac1986-2020_Final_alb.das',
-                  settings = settings) 
+                  settings = settings,
+                  edits = cnp_1986_2020_edits) 
 
 save(cruz, file='whiceas/whiceas_cruz.RData')
 ```
@@ -478,9 +480,14 @@ if(TRUE){ # toggle
         estimator(spp = '059', title = "Blainville's beaked whale"),
         estimator(spp = '061', title = "Cuvier's beaked whale"),
         estimator(spp = '051', title = "Unidentified Mesoplodon"),
-        estimator(spp = '049', title = "Unidentified beaked whale"),
+        estimator(spp = '049', 
+                  title = "Unidentified beaked whale",
+                  alt_g0_spp = c('061','051'),
+                  combine_g0 = TRUE),
         estimator(spp = '071', title = "Minke whale"))
 
+  # Note Barlow2015 provides absolute estimates for Cuviers and UNID Mesop
+  
   if(g0_scenario==1){
     # Pygmy sperm (no sightings in ALB, using other kogia values)
     estimates[[1]]$g0 <- 0.005; estimates[[1]]$g0_cv <- 0.15
@@ -503,8 +510,6 @@ if(TRUE){ # toggle
     # UNID beaked
     estimates[[13]]$g0 <- 0.13; estimates[[13]]$g0_cv <- 0.20
     estimates[[14]]$g0 <- 0.11; estimates[[14]]$g0_cv <- 0.21
-
-
   }
   
   # Run analysis
@@ -683,7 +688,10 @@ if(TRUE){ # toggle
          not_regions = fit_not_regions)
 
   # Density / abundance estimation plan
-  estimates <- estimator(spp = spp, title = pool_title)
+  estimates <- estimator(spp = spp, 
+                         title = pool_title,
+                         alt_g0_spp = c('002','013','018','015', '036', '021'),
+                         combine_g0 = TRUE)
   
   if(g0_scenario==1){
     estimates[[1]]$g0 <- 0.33; estimates[[1]]$g0_cv <- 0.08
@@ -845,7 +853,7 @@ if(TRUE){ # toggle
 
 ## Results {-}
 
-To review results, we will use *g(0)* scenario 3 (new auto-generated estimated of *Relative g(0)* from `LTabundR`). 
+To review results, we will use *g(0)* scenario 3 (new auto-generated estimates of *Relative g(0)* from `LTabundR`). 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 # Load results
@@ -997,7 +1005,7 @@ lta_plot(species = NULL,
 
 ## Validation {-} 
 
-To validate our results and the routines within `LTabundR`, we will compare the `LTabundR` WHICEAS results to those from A.L. Bradford et al. (2022). To do so, we first bring in the ALB et al. (2022) results, which we've staged in a GoogleSheet provided in the code chunk below: 
+To validate our results and the routines within `LTabundR`, we will compare the `LTabundR` WHICEAS results to those from A.L. Bradford et al. (2022). To do so, we first bring in their results, which we've staged in a GoogleSheet provided in the code chunk below: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 library(gsheet)
@@ -1005,7 +1013,7 @@ url <- 'https://docs.google.com/spreadsheets/d/1S94I9I0R589Z8PFP41lYOF8hM6yetap7
 alb <- gsheet2tbl(url)
 ```
 
-Format these data to facilitate joining and analyzing alongside our new WHICEAS results within a `tidyverse` framework: 
+Next we format these data to facilitate joining and analyzing alongside our new WHICEAS results within a `tidyverse` framework: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 library(dplyr)
@@ -1121,7 +1129,6 @@ library(ggplot2)
 library(plotly)
 
 # Density
-
 ggplot(mr,
        aes(x=alb_D, y=D, color=title, shape=factor(year))) +
     geom_point() +
@@ -1143,7 +1150,6 @@ ggplot(mr,
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
 # Abundance
-
 ggplot(mr,
        aes(x=alb_N, y=N, 
            color=title, shape=factor(year))) +
@@ -1168,7 +1174,6 @@ ggplot(mr,
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
 # g(0) estimate
-
 ggplot(mr,
        aes(x=alb_g0, y=g0, 
            color=title, shape=factor(year))) +
@@ -1185,7 +1190,6 @@ ggplot(mr,
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
 # g(0) CV estimate
-
 ggplot(mr,
        aes(x=alb_g0_cv, y=g0_cv, 
            color=title, shape=factor(year))) +

@@ -780,6 +780,730 @@ Save this \texttt{settings} object locally, to use in downstream scripts:
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{das}{%
+\chapter{DAS editing}\label{das}}
+
+The \texttt{LTabundR} package includes several functions that facilitate the exploration of \texttt{DAS} files of \texttt{WinCruz} survey data, as well as a function that allows you to apply ``edits'' to the survey data in a reproducible way (i.e., using code, without modifying the actual data file).
+
+\hypertarget{reviewing-a-das-file}{%
+\section*{\texorpdfstring{Reviewing a \texttt{DAS} file}{Reviewing a DAS file}}\label{reviewing-a-das-file}}
+\addcontentsline{toc}{section}{Reviewing a \texttt{DAS} file}
+
+\hypertarget{das_readtext}{%
+\subsection*{\texorpdfstring{\texttt{das\_readtext()}}{das\_readtext()}}\label{das_readtext}}
+\addcontentsline{toc}{subsection}{\texttt{das\_readtext()}}
+
+The \texttt{swfscDAS} package has functions for reading in a \texttt{DAS} file and parsing it into columns of fixed-width text. To complement those functions, \texttt{LTabundR} includes the function \texttt{das\_readtext()}, which reads in a \texttt{DAS} file without applying any column parsing, so that the data can be read in its true raw format.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{das_file <-}\StringTok{ 'data/surveys/CenPac1986-2020_Final_alb.das'}
+
+\NormalTok{das <-}\StringTok{ }\KeywordTok{das_readtext}\NormalTok{(das_file)}
+\NormalTok{das}\OperatorTok{$}\NormalTok{das }\OperatorTok{%>%}\StringTok{ }\KeywordTok{head}\NormalTok{(}\DecValTok{20}\NormalTok{)}
+\NormalTok{ [}\DecValTok{1}\NormalTok{] }\StringTok{"  1B 1805   073086 N31:57.   W116:57.    989"}                                   
+\NormalTok{ [}\DecValTok{2}\NormalTok{] }\StringTok{"  1S 1805   073086 N31:57.   W116:57.     01  004    6    4  300 1.77  1.5"}     
+\NormalTok{ [}\DecValTok{3}\NormalTok{] }\StringTok{"  2A 1805   073086 N31:57.   W116:57.     01 15.0         N  099"}               
+\NormalTok{ [}\DecValTok{4}\NormalTok{] }\StringTok{"   1                                     004 0001 0001 0001  100  000  000  000"}
+\NormalTok{ [}\DecValTok{5}\NormalTok{] }\StringTok{"  1S 0610   073186 N30:05.   W116:04.     01  004    3    4  340 5.00  0.1"}     
+\NormalTok{ [}\DecValTok{6}\NormalTok{] }\StringTok{"  2A 0610   073186 N30:05.   W116:04.     01 18.3         N  005"}               
+\NormalTok{ [}\DecValTok{7}\NormalTok{] }\StringTok{"   1                                     004 0150 0175 0125  100  000  000  000"}
+\NormalTok{ [}\DecValTok{8}\NormalTok{] }\StringTok{"  3B.1311   073186 N29:46.   W115:52.    989              N"}                    
+\NormalTok{ [}\DecValTok{9}\NormalTok{] }\StringTok{"  4R.1311   073186 N29:46.   W115:52.      N"}                                   
+\NormalTok{[}\DecValTok{10}\NormalTok{] }\StringTok{"  5P.1311   073186 N29:46.   W115:52.    022  031  056"}                         
+\NormalTok{[}\DecValTok{11}\NormalTok{] }\StringTok{"  6V.1311   073186 N29:46.   W115:52.      4           16.1"}                    
+\NormalTok{[}\DecValTok{12}\NormalTok{] }\StringTok{"  7N.1311   073186 N29:46.   W115:52.    167 10.5"}                              
+\NormalTok{[}\DecValTok{13}\NormalTok{] }\StringTok{"  8W.1311   073186 N29:46.   W115:52.      2"}                                   
+\NormalTok{[}\DecValTok{14}\NormalTok{] }\StringTok{"  9V.1329   073186 N29:43.   W115:51.      5           16.1"}                    
+\NormalTok{[}\DecValTok{15}\NormalTok{] }\StringTok{" 10P.1404   073186 N29:37.   W115:50.    004  056  062"}                         
+\NormalTok{[}\DecValTok{16}\NormalTok{] }\StringTok{" 11V.1404   073186 N29:37.   W115:50.      5           18.3"}                    
+\NormalTok{[}\DecValTok{17}\NormalTok{] }\StringTok{" 12S.1406   073186 N29:37.   W115:50.     02  004    3    4  355  1.4  1.8"}     
+\NormalTok{[}\DecValTok{18}\NormalTok{] }\StringTok{" 13A.1406   073186 N29:37.   W115:50.     02 18.3         Y  005"}               
+\NormalTok{[}\DecValTok{19}\NormalTok{] }\StringTok{"   1                                     022 0030 0100 0020  100  000  000  000"}
+\NormalTok{[}\DecValTok{20}\NormalTok{] }\StringTok{"   2                                     004 0250 0300 0200  100  000  000  000"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{das_inspector}{%
+\subsection*{\texorpdfstring{\texttt{das\_inspector()}}{das\_inspector()}}\label{das_inspector}}
+\addcontentsline{toc}{subsection}{\texttt{das\_inspector()}}
+
+We also provide a function, \texttt{das\_inspector()}, that allows you to explore a \texttt{DAS} file within an interactive \texttt{Shiny} app. This app can also be used to find, prepare, and preview coded edits to the \texttt{DAS} data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{das_inspector}\NormalTok{(das_file)}
+\end{Highlighting}
+\end{Shaded}
+
+In this app, you specify the rows and `columns' (i.e., character indices) that will be affected by your edit, the edit you want to apply, and the type of edit it will be (see next subsection). You then ``save'' that edit with the click of a button, and when you close the app your log of staged edits will be returned as a \texttt{list}. You can then pass this list of edits to \texttt{das\_editor()} (next subsection on this page), or as an argument within \texttt{process\_surveys()} (next page).
+
+\hypertarget{staging-edits}{%
+\section*{Staging edits}\label{staging-edits}}
+\addcontentsline{toc}{section}{Staging edits}
+
+The \texttt{das\_editor()} function allows you to apply edits to a \texttt{DAS} file without modifiyng the original data. You supply edits to this function as a set of instructions saved within a \texttt{list} object. You can prepare these instructions manually, or use the \texttt{das\_inspector()} function above to get help. The \texttt{das\_editor()} function then loops through each edit, applies them to a local version of the data, and returns that modified data to the user. This allows survey data to be modified reproducibly before being processed with \texttt{LTabundR::process\_surveys()}, without touching the original DAS data files or requiring analysts to duplicate files and make one-off modifications manually.
+
+We expect it would be rare for a user to call \texttt{das\_editor()} directly; instead, they would supply their edits as an argument in \texttt{process\_surveys()}, and that function will call \texttt{das\_editor()} internally to amend the survey data before it is processed (this is discussed on the next page).
+
+Note that there is no limit to the number of edits that can be provided in a single \texttt{list}, and they can be provided in any order. The \texttt{das\_editor()} function will sort the edits by \texttt{DAS} file and by edit type, then apply edits in increasing order of ``disruption'', i.e., text replacements first, then moving rows of data (no net change in number of rows), then copying-pasting, inserting, and deleting.
+
+The \texttt{das\_editor()} function can currently handle 6 types of edits, which we shall demostrate below.
+
+\hypertarget{types-of-editing}{%
+\subsection*{Types of editing}\label{types-of-editing}}
+\addcontentsline{toc}{subsection}{Types of editing}
+
+To demonstrate the types of editing actions that can be achieved through \texttt{das\_editor()}, we will use the \texttt{DAS} file from the 2020 WHICEAS survey.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{das_file <-}\StringTok{ "data/surveys/HICEASwinter2020.das"}
+\NormalTok{das <-}\StringTok{ }\KeywordTok{das_readtext}\NormalTok{(das_file)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{verbatim-text-replacement}{%
+\subsubsection*{Verbatim text replacement}\label{verbatim-text-replacement}}
+\addcontentsline{toc}{subsubsection}{Verbatim text replacement}
+
+The \texttt{edit} will be interpreted verbatim as text that will replace the specified data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edits <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{das_file =}\NormalTok{ das_file, }
+                   \DataTypeTok{type =} \StringTok{'text'}\NormalTok{,}
+                   \DataTypeTok{rows =} \DecValTok{10}\OperatorTok{:}\DecValTok{15}\NormalTok{, }
+                   \DataTypeTok{chars =} \DecValTok{20}\OperatorTok{:}\DecValTok{39}\NormalTok{, }
+                   \DataTypeTok{edit =} \StringTok{'lat, lon'}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Here is what this edit log object look like:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edits}
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das_file}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"data/surveys/HICEASwinter2020.das"}
+
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{type}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"text"}
+
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{rows}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{10} \DecValTok{11} \DecValTok{12} \DecValTok{13} \DecValTok{14} \DecValTok{15}
+
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{chars}
+\NormalTok{ [}\DecValTok{1}\NormalTok{] }\DecValTok{20} \DecValTok{21} \DecValTok{22} \DecValTok{23} \DecValTok{24} \DecValTok{25} \DecValTok{26} \DecValTok{27} \DecValTok{28} \DecValTok{29} \DecValTok{30} \DecValTok{31} \DecValTok{32} \DecValTok{33} \DecValTok{34} \DecValTok{35} \DecValTok{36} \DecValTok{37} \DecValTok{38} \DecValTok{39}
+
+\NormalTok{[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{edit}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"lat, lon"}
+\end{Highlighting}
+\end{Shaded}
+
+And here is the effect it will have:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Before}
+\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{9}\OperatorTok{:}\DecValTok{16}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"009* 072752 011920 N21:50.58 W159:46.26"}                         
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"010* 072952 011920 N21:50.91 W159:46.33"}                         
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N"}     
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"012R.073111 011920 N21:51.12 W159:46.36    F"}                    
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"013P.073111 011920 N21:51.12 W159:46.36  126  307  238     "}     
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0"}
+\NormalTok{[}\DecValTok{7}\NormalTok{] }\StringTok{"015N.073111 011920 N21:51.12 W159:46.36  350 09.9"}               
+\NormalTok{[}\DecValTok{8}\NormalTok{] }\StringTok{"016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0"}
+
+\CommentTok{# After}
+\NormalTok{dase <-}\StringTok{ }\KeywordTok{das_editor}\NormalTok{(edits)}
+\NormalTok{Applying edits to DAS file}\OperatorTok{:}\StringTok{ }\NormalTok{data}\OperatorTok{/}\NormalTok{surveys}\OperatorTok{/}\NormalTok{HICEASwinter2020.das}
+\OperatorTok{---}\StringTok{ }\NormalTok{verbatim}\OperatorTok{/}\ControlFlowTok{function}\NormalTok{ text replacements ...}
+\OperatorTok{---}\StringTok{ }\OperatorTok{---}\StringTok{ }\NormalTok{working on edit }\DecValTok{1}\NormalTok{ ...}
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{9}\OperatorTok{:}\DecValTok{16}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"009* 072752 011920 N21:50.58 W159:46.26"}                         
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"010* 072952 011920 lat, lon"}                                     
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"011B.073111 011920 lat, lon 2001    C  -10    N"}                 
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"012R.073111 011920 lat, lon    F"}                                
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"013P.073111 011920 lat, lon  126  307  238     "}                 
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"014V.073111 011920 lat, lon    4   06  120      15.0"}            
+\NormalTok{[}\DecValTok{7}\NormalTok{] }\StringTok{"015N.073111 011920 lat, lon  350 09.9"}                           
+\NormalTok{[}\DecValTok{8}\NormalTok{] }\StringTok{"016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{function-based-text-replacement}{%
+\subsubsection*{Function-based text replacement}\label{function-based-text-replacement}}
+\addcontentsline{toc}{subsubsection}{Function-based text replacement}
+
+The \texttt{edit} will be evaluated as a function that is applied to the specified characters in each of \texttt{rows}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edits <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{das_file =}\NormalTok{ das_file, }
+                   \DataTypeTok{type =} \StringTok{'function'}\NormalTok{,}
+                   \DataTypeTok{rows =} \DecValTok{10}\OperatorTok{:}\DecValTok{15}\NormalTok{, }
+                   \DataTypeTok{chars =} \DecValTok{20}\OperatorTok{:}\DecValTok{39}\NormalTok{, }
+                   \DataTypeTok{edit =} \StringTok{'tolower'}\NormalTok{))}
+
+\CommentTok{# Before}
+\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{9}\OperatorTok{:}\DecValTok{16}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"009* 072752 011920 N21:50.58 W159:46.26"}                         
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"010* 072952 011920 N21:50.91 W159:46.33"}                         
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N"}     
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"012R.073111 011920 N21:51.12 W159:46.36    F"}                    
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"013P.073111 011920 N21:51.12 W159:46.36  126  307  238     "}     
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0"}
+\NormalTok{[}\DecValTok{7}\NormalTok{] }\StringTok{"015N.073111 011920 N21:51.12 W159:46.36  350 09.9"}               
+\NormalTok{[}\DecValTok{8}\NormalTok{] }\StringTok{"016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0"}
+
+\CommentTok{# After}
+\NormalTok{dase <-}\StringTok{ }\KeywordTok{das_editor}\NormalTok{(edits)}
+\NormalTok{Applying edits to DAS file}\OperatorTok{:}\StringTok{ }\NormalTok{data}\OperatorTok{/}\NormalTok{surveys}\OperatorTok{/}\NormalTok{HICEASwinter2020.das}
+\OperatorTok{---}\StringTok{ }\NormalTok{verbatim}\OperatorTok{/}\ControlFlowTok{function}\NormalTok{ text replacements ...}
+\OperatorTok{---}\StringTok{ }\OperatorTok{---}\StringTok{ }\NormalTok{working on edit }\DecValTok{1}\NormalTok{ ...}
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{9}\OperatorTok{:}\DecValTok{16}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"009* 072752 011920 N21:50.58 W159:46.26"}                         
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"010* 072952 011920 n21:50.91 w159:46.33"}                         
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"011B.073111 011920 n21:51.12 w159:46.36 2001    C  -10    N"}     
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"012R.073111 011920 n21:51.12 w159:46.36    F"}                    
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"013P.073111 011920 n21:51.12 w159:46.36  126  307  238     "}     
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"014V.073111 011920 n21:51.12 w159:46.36    4   06  120      15.0"}
+\NormalTok{[}\DecValTok{7}\NormalTok{] }\StringTok{"015N.073111 011920 n21:51.12 w159:46.36  350 09.9"}               
+\NormalTok{[}\DecValTok{8}\NormalTok{] }\StringTok{"016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0"}
+\end{Highlighting}
+\end{Shaded}
+
+A special application of this form of editing is adjusting timestamps using the \texttt{LTabundR} function \texttt{das\_time()}. In this next example, we subtract an hour from the first 5 rows of timestamps:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edits <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{das_file =}\NormalTok{ das_file, }
+                   \DataTypeTok{type =} \StringTok{'function'}\NormalTok{,}
+                   \DataTypeTok{rows =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }
+                   \DataTypeTok{chars =} \DecValTok{6}\OperatorTok{:}\DecValTok{40}\NormalTok{, }
+                   \DataTypeTok{edit =} \StringTok{'function(x)\{das_time(x, tz_adjust = -1)$dt\}'}\NormalTok{))}
+
+\CommentTok{# Before}
+\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"001* 071152 011920 N21:47.99 W159:45.91"}
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"002* 071352 011920 N21:48.31 W159:45.94"}
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"003* 071552 011920 N21:48.63 W159:45.97"}
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"004* 071752 011920 N21:48.95 W159:46.01"}
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"005* 071952 011920 N21:49.28 W159:46.04"}
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"006* 072152 011920 N21:49.60 W159:46.08"}
+
+\CommentTok{# After}
+\NormalTok{dase <-}\StringTok{ }\KeywordTok{das_editor}\NormalTok{(edits)}
+\NormalTok{Applying edits to DAS file}\OperatorTok{:}\StringTok{ }\NormalTok{data}\OperatorTok{/}\NormalTok{surveys}\OperatorTok{/}\NormalTok{HICEASwinter2020.das}
+\OperatorTok{---}\StringTok{ }\NormalTok{verbatim}\OperatorTok{/}\ControlFlowTok{function}\NormalTok{ text replacements ...}
+\OperatorTok{---}\StringTok{ }\OperatorTok{---}\StringTok{ }\NormalTok{working on edit }\DecValTok{1}\NormalTok{ ...}
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"001* 061152 011920 N21:47.99 W159:45.91"}
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"002* 061352 011920 N21:48.31 W159:45.94"}
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"003* 061552 011920 N21:48.63 W159:45.97"}
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"004* 061752 011920 N21:48.95 W159:46.01"}
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"005* 061952 011920 N21:49.28 W159:46.04"}
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"006* 072152 011920 N21:49.60 W159:46.08"}
+\end{Highlighting}
+\end{Shaded}
+
+In the event that a survey was conducted using UTC timestamps instead of local time, you can adjust each timestamp according to its actual timezone as determined from its corresponding lat/long coordinates. Let's say the first 5 timestamps were collected in UTC by accident. The following code could correct that mistake:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edits <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{das_file =}\NormalTok{ das_file, }
+                   \DataTypeTok{type =} \StringTok{'function'}\NormalTok{,}
+                   \DataTypeTok{rows =} \DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{, }
+                   \DataTypeTok{chars =} \DecValTok{6}\OperatorTok{:}\DecValTok{40}\NormalTok{, }
+                   \DataTypeTok{edit =} \StringTok{'function(x)\{das_time(x, tz_adjust = "from utc")$dt\}'}\NormalTok{))}
+
+\CommentTok{# Before}
+\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"001* 071152 011920 N21:47.99 W159:45.91"}
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"002* 071352 011920 N21:48.31 W159:45.94"}
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"003* 071552 011920 N21:48.63 W159:45.97"}
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"004* 071752 011920 N21:48.95 W159:46.01"}
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"005* 071952 011920 N21:49.28 W159:46.04"}
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"006* 072152 011920 N21:49.60 W159:46.08"}
+
+\CommentTok{# After}
+\NormalTok{dase <-}\StringTok{ }\KeywordTok{das_editor}\NormalTok{(edits)}
+\NormalTok{Applying edits to DAS file}\OperatorTok{:}\StringTok{ }\NormalTok{data}\OperatorTok{/}\NormalTok{surveys}\OperatorTok{/}\NormalTok{HICEASwinter2020.das}
+\OperatorTok{---}\StringTok{ }\NormalTok{verbatim}\OperatorTok{/}\ControlFlowTok{function}\NormalTok{ text replacements ...}
+\OperatorTok{---}\StringTok{ }\OperatorTok{---}\StringTok{ }\NormalTok{working on edit }\DecValTok{1}\NormalTok{ ...}
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{1}\OperatorTok{:}\DecValTok{6}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"001* 201152 011820 N21:47.99 W159:45.91"}
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"002* 201352 011820 N21:48.31 W159:45.94"}
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"003* 201552 011820 N21:48.63 W159:45.97"}
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"004* 201752 011820 N21:48.95 W159:46.01"}
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"005* 201952 011820 N21:49.28 W159:46.04"}
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"006* 072152 011920 N21:49.60 W159:46.08"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{moving-data}{%
+\subsubsection*{Moving data}\label{moving-data}}
+\addcontentsline{toc}{subsubsection}{Moving data}
+
+The \texttt{rows} will be deleted from their current location and pasted immediately below the row number specified by \texttt{edit}. The moved rows will be given the same date, time, latitude, and longitude, as the \texttt{edit} row.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edits <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{das_file =}\NormalTok{ das_file, }
+                    \DataTypeTok{type =} \StringTok{'move'}\NormalTok{,}
+                    \DataTypeTok{rows =} \DecValTok{10}\NormalTok{, }
+                    \DataTypeTok{chars =} \OtherTok{NULL}\NormalTok{, }
+                    \DataTypeTok{edit =} \DecValTok{15}\NormalTok{))}
+
+\CommentTok{# Before}
+\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{9}\OperatorTok{:}\DecValTok{16}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"009* 072752 011920 N21:50.58 W159:46.26"}                         
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"010* 072952 011920 N21:50.91 W159:46.33"}                         
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N"}     
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"012R.073111 011920 N21:51.12 W159:46.36    F"}                    
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"013P.073111 011920 N21:51.12 W159:46.36  126  307  238     "}     
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0"}
+\NormalTok{[}\DecValTok{7}\NormalTok{] }\StringTok{"015N.073111 011920 N21:51.12 W159:46.36  350 09.9"}               
+\NormalTok{[}\DecValTok{8}\NormalTok{] }\StringTok{"016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0"}
+
+\CommentTok{# After}
+\NormalTok{dase <-}\StringTok{ }\KeywordTok{das_editor}\NormalTok{(edits)}
+\NormalTok{Applying edits to DAS file}\OperatorTok{:}\StringTok{ }\NormalTok{data}\OperatorTok{/}\NormalTok{surveys}\OperatorTok{/}\NormalTok{HICEASwinter2020.das}
+\OperatorTok{---}\StringTok{ }\NormalTok{move, copy}\OperatorTok{/}\NormalTok{paste, insertion, and deletion events ...}
+\OperatorTok{---}\StringTok{ }\OperatorTok{---}\StringTok{ }\NormalTok{working on edit }\DecValTok{1}\NormalTok{ ...}
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{9}\OperatorTok{:}\DecValTok{16}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"009* 072752 011920 N21:50.58 W159:46.26"}                         
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N"}     
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"012R.073111 011920 N21:51.12 W159:46.36    F"}                    
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"013P.073111 011920 N21:51.12 W159:46.36  126  307  238     "}     
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0"}
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"015N.073111 011920 N21:51.12 W159:46.36  350 09.9"}               
+\NormalTok{[}\DecValTok{7}\NormalTok{] }\StringTok{"010* 073111 011920 N21:51.12 W159:46.36"}                         
+\NormalTok{[}\DecValTok{8}\NormalTok{] }\StringTok{"016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{copying-pasting-data}{%
+\subsubsection*{Copying \& pasting data}\label{copying-pasting-data}}
+\addcontentsline{toc}{subsubsection}{Copying \& pasting data}
+
+The \texttt{rows} will be copied from their current location and pasted immediately below the row number specified by \texttt{edit}. The pasted \texttt{rows} will be given the same date, time, latitude, and longitude, as the \texttt{edit} row.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edits <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{das_file =}\NormalTok{ das_file, }
+                   \DataTypeTok{type =} \StringTok{'copy'}\NormalTok{,}
+                   \DataTypeTok{rows =} \DecValTok{10}\NormalTok{, }
+                   \DataTypeTok{edit =} \DecValTok{15}\NormalTok{))}
+
+\CommentTok{# Before}
+\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{9}\OperatorTok{:}\DecValTok{17}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"009* 072752 011920 N21:50.58 W159:46.26"}                         
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"010* 072952 011920 N21:50.91 W159:46.33"}                         
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N"}     
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"012R.073111 011920 N21:51.12 W159:46.36    F"}                    
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"013P.073111 011920 N21:51.12 W159:46.36  126  307  238     "}     
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0"}
+\NormalTok{[}\DecValTok{7}\NormalTok{] }\StringTok{"015N.073111 011920 N21:51.12 W159:46.36  350 09.9"}               
+\NormalTok{[}\DecValTok{8}\NormalTok{] }\StringTok{"016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0"}
+\NormalTok{[}\DecValTok{9}\NormalTok{] }\StringTok{"017*.073152 011920 N21:51.24 W159:46.39"}                         
+
+\CommentTok{# After}
+\NormalTok{dase <-}\StringTok{ }\KeywordTok{das_editor}\NormalTok{(edits)}
+\NormalTok{Applying edits to DAS file}\OperatorTok{:}\StringTok{ }\NormalTok{data}\OperatorTok{/}\NormalTok{surveys}\OperatorTok{/}\NormalTok{HICEASwinter2020.das}
+\OperatorTok{---}\StringTok{ }\NormalTok{move, copy}\OperatorTok{/}\NormalTok{paste, insertion, and deletion events ...}
+\OperatorTok{---}\StringTok{ }\OperatorTok{---}\StringTok{ }\NormalTok{working on edit }\DecValTok{1}\NormalTok{ ...}
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{9}\OperatorTok{:}\DecValTok{17}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"009* 072752 011920 N21:50.58 W159:46.26"}                         
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"010* 072952 011920 N21:50.91 W159:46.33"}                         
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N"}     
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"012R.073111 011920 N21:51.12 W159:46.36    F"}                    
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"013P.073111 011920 N21:51.12 W159:46.36  126  307  238     "}     
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0"}
+\NormalTok{[}\DecValTok{7}\NormalTok{] }\StringTok{"015N.073111 011920 N21:51.12 W159:46.36  350 09.9"}               
+\NormalTok{[}\DecValTok{8}\NormalTok{] }\StringTok{"010* 073111 011920 N21:51.12 W159:46.36"}                         
+\NormalTok{[}\DecValTok{9}\NormalTok{] }\StringTok{"016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{inserting-data}{%
+\subsubsection*{Inserting data}\label{inserting-data}}
+\addcontentsline{toc}{subsubsection}{Inserting data}
+
+The text provided in edit will be inserted verbatim immediately below the first of the rows provided.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edits <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{das_file =}\NormalTok{ das_file, }
+                   \DataTypeTok{type =} \StringTok{'insert'}\NormalTok{,}
+                   \DataTypeTok{rows =} \DecValTok{10}\NormalTok{, }
+                   \DataTypeTok{edit =} \StringTok{"SEQ* HHMMSS MMDDYY NDG:MI.NT WDEG:MI.NT"}\NormalTok{))}
+\CommentTok{# Before}
+\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{9}\OperatorTok{:}\DecValTok{16}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"009* 072752 011920 N21:50.58 W159:46.26"}                         
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"010* 072952 011920 N21:50.91 W159:46.33"}                         
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N"}     
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"012R.073111 011920 N21:51.12 W159:46.36    F"}                    
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"013P.073111 011920 N21:51.12 W159:46.36  126  307  238     "}     
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0"}
+\NormalTok{[}\DecValTok{7}\NormalTok{] }\StringTok{"015N.073111 011920 N21:51.12 W159:46.36  350 09.9"}               
+\NormalTok{[}\DecValTok{8}\NormalTok{] }\StringTok{"016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0"}
+
+\CommentTok{# After}
+\NormalTok{dase <-}\StringTok{ }\KeywordTok{das_editor}\NormalTok{(edits)}
+\NormalTok{Applying edits to DAS file}\OperatorTok{:}\StringTok{ }\NormalTok{data}\OperatorTok{/}\NormalTok{surveys}\OperatorTok{/}\NormalTok{HICEASwinter2020.das}
+\OperatorTok{---}\StringTok{ }\NormalTok{move, copy}\OperatorTok{/}\NormalTok{paste, insertion, and deletion events ...}
+\OperatorTok{---}\StringTok{ }\OperatorTok{---}\StringTok{ }\NormalTok{working on edit }\DecValTok{1}\NormalTok{ ...}
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{9}\OperatorTok{:}\DecValTok{16}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"009* 072752 011920 N21:50.58 W159:46.26"}                         
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"010* 072952 011920 N21:50.91 W159:46.33"}                         
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"SEQ* HHMMSS MMDDYY NDG:MI.NT WDEG:MI.NT"}                         
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N"}     
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"012R.073111 011920 N21:51.12 W159:46.36    F"}                    
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"013P.073111 011920 N21:51.12 W159:46.36  126  307  238     "}     
+\NormalTok{[}\DecValTok{7}\NormalTok{] }\StringTok{"014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0"}
+\NormalTok{[}\DecValTok{8}\NormalTok{] }\StringTok{"015N.073111 011920 N21:51.12 W159:46.36  350 09.9"}               
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{deleting-data}{%
+\subsubsection*{Deleting data}\label{deleting-data}}
+\addcontentsline{toc}{subsubsection}{Deleting data}
+
+The specified \texttt{rows} will be deleted.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edits <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{das_file =}\NormalTok{ das_file, }
+                   \DataTypeTok{type =} \StringTok{'delete'}\NormalTok{,}
+                   \DataTypeTok{rows =} \DecValTok{10}\NormalTok{))}
+
+\CommentTok{# Before}
+\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{9}\OperatorTok{:}\DecValTok{16}\NormalTok{]}
+
+\CommentTok{# After}
+\NormalTok{dase <-}\StringTok{ }\KeywordTok{das_editor}\NormalTok{(edits)}
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{9}\OperatorTok{:}\DecValTok{16}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{actual-edits}{%
+\subsection*{Actual edits}\label{actual-edits}}
+\addcontentsline{toc}{subsection}{Actual edits}
+
+The above examples were silly demonstrations of the types of edits that can be handled by \texttt{das\_editor()}. Here we show the preparation of four edits that we will actually use when we process surveys on the next page.
+
+These edits will be applied to the following \texttt{DAS} file of survey data from 1986-2020:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{das_file <-}\StringTok{ 'data/surveys/CenPac1986-2020_Final_alb.das'}
+\NormalTok{das <-}\StringTok{ }\KeywordTok{das_readtext}\NormalTok{(das_file)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cruise-1607-sighting-55}{%
+\subsubsection*{Cruise 1607 sighting 55}\label{cruise-1607-sighting-55}}
+\addcontentsline{toc}{subsubsection}{Cruise 1607 sighting 55}
+
+This sighting, at sequence ID \texttt{032} below, currently triggers errors in \texttt{swfscDAS} due to a manually entered \texttt{R} event a few lines above that does not have the \texttt{P} (observer positions) event that typically follows it. Without tht \texttt{P} entry, the observer positions of the sighting are unknown.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{das[}\DecValTok{128111}\OperatorTok{:}\DecValTok{128125}\NormalTok{,] }
+\NormalTok{ [}\DecValTok{1}\NormalTok{] }\StringTok{"022P 120643 041597 N37:00.08 W151:55.47  143  091  005"}                                   
+\NormalTok{ [}\DecValTok{2}\NormalTok{] }\StringTok{"023C 120643 041597 N37:00.08 W151:55.47 both right and left on 7x and naked eye"}          
+\NormalTok{ [}\DecValTok{3}\NormalTok{] }\StringTok{"024N 120643 041597 N37:00.08 W151:55.47  075 08.0"}                                        
+\NormalTok{ [}\DecValTok{4}\NormalTok{] }\StringTok{"025W 120643 041597 N37:00.08 W151:55.47    1            310  6.0"}                         
+\NormalTok{ [}\DecValTok{5}\NormalTok{] }\StringTok{"026C 120916 041597 N37:00.33 W151:55.18 both right and left on 7x and naked eye"}          
+\NormalTok{ [}\DecValTok{6}\NormalTok{] }\StringTok{"027* 121120 041597 N37:00.45 W151:54.85"}                                                  
+\NormalTok{ [}\DecValTok{7}\NormalTok{] }\StringTok{"028C 121933 041597 N37:00.75 W151:53.50 both right and left back on 25x"}                  
+\NormalTok{ [}\DecValTok{8}\NormalTok{] }\StringTok{"   R.121933 041597 N37:00.75 W151:53.50    S"}                                             
+\NormalTok{ [}\DecValTok{9}\NormalTok{] }\StringTok{"029*.122120 041597 N37:00.81 W151:53.22"}                                                  
+\NormalTok{[}\DecValTok{10}\NormalTok{] }\StringTok{"030V.122120 041597 N37:00.81 W151:53.22    4   07  320      21.0"}                         
+\NormalTok{[}\DecValTok{11}\NormalTok{] }\StringTok{"031C.122946 041597 N37:01.12 W151:51.77 wind speed appears lower than bridge speed, 10-15"}
+\NormalTok{[}\DecValTok{12}\NormalTok{] }\StringTok{"032S.123023 041597 N37:01.14 W151:51.70  055  005    3    4  058  4.0  0.8"}               
+\NormalTok{[}\DecValTok{13}\NormalTok{] }\StringTok{"033A.123023 041597 N37:01.14 W151:51.70  055         N    N  022"}                         
+\NormalTok{[}\DecValTok{14}\NormalTok{] }\StringTok{"   1                                     005 0002 0002 0002  100"}                         
+\NormalTok{[}\DecValTok{15}\NormalTok{] }\StringTok{"034C.123120 041597 N37:01.17 W151:51.51  remained on effort after sighting"}               
+\end{Highlighting}
+\end{Shaded}
+
+(Note that we used \texttt{das\_inspector()} to get the row numbers for this region of the data.)
+
+To fix this, we can stage an edit that copies the ``P'' line that occurs minutes earlier and pastes that line just below the rogue ``R'' line.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edit_}\DecValTok{1607}\NormalTok{_}\DecValTok{55}\NormalTok{ <-}\StringTok{ }
+\StringTok{  }\KeywordTok{list}\NormalTok{(}\DataTypeTok{das_file =}\NormalTok{ das_file,}
+       \DataTypeTok{type =} \StringTok{'copy'}\NormalTok{,}
+       \DataTypeTok{rows =} \DecValTok{128111}\NormalTok{,}
+       \DataTypeTok{chars =} \OtherTok{NULL}\NormalTok{,}
+       \DataTypeTok{edit =} \DecValTok{128118}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Here is what this change will look like:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dase <-}\StringTok{ }\KeywordTok{das_editor}\NormalTok{(}\KeywordTok{list}\NormalTok{(edit_}\DecValTok{1607}\NormalTok{_}\DecValTok{55}\NormalTok{))}
+\NormalTok{Applying edits to DAS file}\OperatorTok{:}\StringTok{ }\NormalTok{data}\OperatorTok{/}\NormalTok{surveys}\OperatorTok{/}\NormalTok{CenPac1986}\DecValTok{-2020}\NormalTok{_Final_alb.das}
+\OperatorTok{---}\StringTok{ }\NormalTok{move, copy}\OperatorTok{/}\NormalTok{paste, insertion, and deletion events ...}
+\OperatorTok{---}\StringTok{ }\OperatorTok{---}\StringTok{ }\NormalTok{working on edit }\DecValTok{1}\NormalTok{ ...}
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{128111}\OperatorTok{:}\DecValTok{128123}\NormalTok{]}
+\NormalTok{ [}\DecValTok{1}\NormalTok{] }\StringTok{"022P 120643 041597 N37:00.08 W151:55.47  143  091  005"}                                   
+\NormalTok{ [}\DecValTok{2}\NormalTok{] }\StringTok{"023C 120643 041597 N37:00.08 W151:55.47 both right and left on 7x and naked eye"}          
+\NormalTok{ [}\DecValTok{3}\NormalTok{] }\StringTok{"024N 120643 041597 N37:00.08 W151:55.47  075 08.0"}                                        
+\NormalTok{ [}\DecValTok{4}\NormalTok{] }\StringTok{"025W 120643 041597 N37:00.08 W151:55.47    1            310  6.0"}                         
+\NormalTok{ [}\DecValTok{5}\NormalTok{] }\StringTok{"026C 120916 041597 N37:00.33 W151:55.18 both right and left on 7x and naked eye"}          
+\NormalTok{ [}\DecValTok{6}\NormalTok{] }\StringTok{"027* 121120 041597 N37:00.45 W151:54.85"}                                                  
+\NormalTok{ [}\DecValTok{7}\NormalTok{] }\StringTok{"028C 121933 041597 N37:00.75 W151:53.50 both right and left back on 25x"}                  
+\NormalTok{ [}\DecValTok{8}\NormalTok{] }\StringTok{"   R.121933 041597 N37:00.75 W151:53.50    S"}                                             
+\NormalTok{ [}\DecValTok{9}\NormalTok{] }\StringTok{"022P 121933 041597 N37:00.75 W151:53.50  143  091  005"}                                   
+\NormalTok{[}\DecValTok{10}\NormalTok{] }\StringTok{"029*.122120 041597 N37:00.81 W151:53.22"}                                                  
+\NormalTok{[}\DecValTok{11}\NormalTok{] }\StringTok{"030V.122120 041597 N37:00.81 W151:53.22    4   07  320      21.0"}                         
+\NormalTok{[}\DecValTok{12}\NormalTok{] }\StringTok{"031C.122946 041597 N37:01.12 W151:51.77 wind speed appears lower than bridge speed, 10-15"}
+\NormalTok{[}\DecValTok{13}\NormalTok{] }\StringTok{"032S.123023 041597 N37:01.14 W151:51.70  055  005    3    4  058  4.0  0.8"}               
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cruise-1607-sighting-68}{%
+\subsubsection*{Cruise 1607 sighting 68}\label{cruise-1607-sighting-68}}
+\addcontentsline{toc}{subsubsection}{Cruise 1607 sighting 68}
+
+This sighting faces a similar issue: a rogue \texttt{R} event without the follow-up \texttt{P} event. This case is also missing the follow-up \texttt{V} event (viewing conditions).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{das[}\DecValTok{129980}\OperatorTok{:}\DecValTok{129993}\NormalTok{,] }
+\NormalTok{ [}\DecValTok{1}\NormalTok{] }\StringTok{"012* 065738 042797 N31:03.98 W136:03.60"}                                                              
+\NormalTok{ [}\DecValTok{2}\NormalTok{] }\StringTok{"013C 065944 042797 N31:04.25 W136:03.55 Both observers on 7X since going ON EFFORT this morning.  JP."}
+\NormalTok{ [}\DecValTok{3}\NormalTok{] }\StringTok{"014P 070118 042797 N31:04.43 W136:03.51  091  005  148"}                                               
+\NormalTok{ [}\DecValTok{4}\NormalTok{] }\StringTok{"015V 070118 042797 N31:04.43 W136:03.51    5   06  320      20.0"}                                     
+\NormalTok{ [}\DecValTok{5}\NormalTok{] }\StringTok{"016N 070118 042797 N31:04.43 W136:03.51  010 08.0"}                                                    
+\NormalTok{ [}\DecValTok{6}\NormalTok{] }\StringTok{"017W 070118 042797 N31:04.43 W136:03.51    1   02   03  035  6.0"}                                     
+\NormalTok{ [}\DecValTok{7}\NormalTok{] }\StringTok{"018C 070257 042797 N31:04.65 W136:03.47 This rotation is now on the 25X"}                              
+\NormalTok{ [}\DecValTok{8}\NormalTok{] }\StringTok{"   R.070257 042797 N31:04.65 W136:03.47    S"}                                                         
+\NormalTok{ [}\DecValTok{9}\NormalTok{] }\StringTok{"019*.070738 042797 N31:05.25 W136:03.36"}                                                              
+\NormalTok{[}\DecValTok{10}\NormalTok{] }\StringTok{"020S.071601 042797 N31:06.34 W136:03.16  068  148    3    4  028  1.8  1.5"}                           
+\NormalTok{[}\DecValTok{11}\NormalTok{] }\StringTok{"021A.071601 042797 N31:06.34 W136:03.16  068         N    N  037"}                                     
+\NormalTok{[}\DecValTok{12}\NormalTok{] }\StringTok{"   1                                     091 0009 0011 0008  100"}                                     
+\NormalTok{[}\DecValTok{13}\NormalTok{] }\StringTok{"   2                                     005 0014 0015 0012  100"}                                     
+\NormalTok{[}\DecValTok{14}\NormalTok{] }\StringTok{"   3                                     148 0018 0023 0015  100"}                                     
+\end{Highlighting}
+\end{Shaded}
+
+To fix this we will stage a similar edit, this time copying and pasting two rows (\texttt{P} and \texttt{V} events) below the rogue \texttt{R} event:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edit_}\DecValTok{1607}\NormalTok{_}\DecValTok{68}\NormalTok{ <-}\StringTok{ }
+\StringTok{  }\KeywordTok{list}\NormalTok{(}\DataTypeTok{das_file =}\NormalTok{ das_file, }
+       \DataTypeTok{type =} \StringTok{'copy'}\NormalTok{,}
+       \DataTypeTok{rows =} \KeywordTok{c}\NormalTok{(}\DecValTok{129982}\NormalTok{, }\DecValTok{129983}\NormalTok{ , }\DecValTok{129985}\NormalTok{),}
+       \DataTypeTok{chars =} \OtherTok{NULL}\NormalTok{,}
+       \DataTypeTok{edit =} \DecValTok{129987}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Preview of change:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dase <-}\StringTok{ }\KeywordTok{das_editor}\NormalTok{(}\KeywordTok{list}\NormalTok{(edit_}\DecValTok{1607}\NormalTok{_}\DecValTok{68}\NormalTok{))}
+\NormalTok{Applying edits to DAS file}\OperatorTok{:}\StringTok{ }\NormalTok{data}\OperatorTok{/}\NormalTok{surveys}\OperatorTok{/}\NormalTok{CenPac1986}\DecValTok{-2020}\NormalTok{_Final_alb.das}
+\OperatorTok{---}\StringTok{ }\NormalTok{move, copy}\OperatorTok{/}\NormalTok{paste, insertion, and deletion events ...}
+\OperatorTok{---}\StringTok{ }\OperatorTok{---}\StringTok{ }\NormalTok{working on edit }\DecValTok{1}\NormalTok{ ...}
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{129982}\OperatorTok{:}\DecValTok{129995}\NormalTok{]}
+\NormalTok{ [}\DecValTok{1}\NormalTok{] }\StringTok{"014P 070118 042797 N31:04.43 W136:03.51  091  005  148"}                    
+\NormalTok{ [}\DecValTok{2}\NormalTok{] }\StringTok{"015V 070118 042797 N31:04.43 W136:03.51    5   06  320      20.0"}          
+\NormalTok{ [}\DecValTok{3}\NormalTok{] }\StringTok{"016N 070118 042797 N31:04.43 W136:03.51  010 08.0"}                         
+\NormalTok{ [}\DecValTok{4}\NormalTok{] }\StringTok{"017W 070118 042797 N31:04.43 W136:03.51    1   02   03  035  6.0"}          
+\NormalTok{ [}\DecValTok{5}\NormalTok{] }\StringTok{"018C 070257 042797 N31:04.65 W136:03.47 This rotation is now on the 25X"}   
+\NormalTok{ [}\DecValTok{6}\NormalTok{] }\StringTok{"   R.070257 042797 N31:04.65 W136:03.47    S"}                              
+\NormalTok{ [}\DecValTok{7}\NormalTok{] }\StringTok{"014P 070257 042797 N31:04.65 W136:03.47  091  005  148"}                    
+\NormalTok{ [}\DecValTok{8}\NormalTok{] }\StringTok{"015V 070257 042797 N31:04.65 W136:03.47    5   06  320      20.0"}          
+\NormalTok{ [}\DecValTok{9}\NormalTok{] }\StringTok{"017W 070257 042797 N31:04.65 W136:03.47    1   02   03  035  6.0"}          
+\NormalTok{[}\DecValTok{10}\NormalTok{] }\StringTok{"019*.070738 042797 N31:05.25 W136:03.36"}                                   
+\NormalTok{[}\DecValTok{11}\NormalTok{] }\StringTok{"020S.071601 042797 N31:06.34 W136:03.16  068  148    3    4  028  1.8  1.5"}
+\NormalTok{[}\DecValTok{12}\NormalTok{] }\StringTok{"021A.071601 042797 N31:06.34 W136:03.16  068         N    N  037"}          
+\NormalTok{[}\DecValTok{13}\NormalTok{] }\StringTok{"   1                                     091 0009 0011 0008  100"}          
+\NormalTok{[}\DecValTok{14}\NormalTok{] }\StringTok{"   2                                     005 0014 0015 0012  100"}          
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cruise-1621-sighting-245}{%
+\subsubsection*{Cruise 1621 sighting 245}\label{cruise-1621-sighting-245}}
+\addcontentsline{toc}{subsubsection}{Cruise 1621 sighting 245}
+
+This is another case of a rogue \texttt{R} event, again missing both the requisite \texttt{P} and the \texttt{V} post-\texttt{R} events.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{das[}\DecValTok{271930}\OperatorTok{:}\DecValTok{271939}\NormalTok{,] }
+\NormalTok{ [}\DecValTok{1}\NormalTok{] }\StringTok{"036E 085345 103002 N20:22.56 W160:02.21    U"}                                        
+\NormalTok{ [}\DecValTok{2}\NormalTok{] }\StringTok{"037R.085346 103002 N20:22.56 W160:02.21    S"}                                        
+\NormalTok{ [}\DecValTok{3}\NormalTok{] }\StringTok{"038P.085346 103002 N20:22.56 W160:02.21  126  224  200"}                              
+\NormalTok{ [}\DecValTok{4}\NormalTok{] }\StringTok{"039V.085346 103002 N20:22.56 W160:02.21    5   07  000      21.0"}                    
+\NormalTok{ [}\DecValTok{5}\NormalTok{] }\StringTok{"040N.085346 103002 N20:22.56 W160:02.21  285 09.7"}                                   
+\NormalTok{ [}\DecValTok{6}\NormalTok{] }\StringTok{"041W.085346 103002 N20:22.56 W160:02.21    1   06   02  045  6.0"}                    
+\NormalTok{ [}\DecValTok{7}\NormalTok{] }\StringTok{"042E 085352 103002 N20:22.56 W160:02.22    U"}                                        
+\NormalTok{ [}\DecValTok{8}\NormalTok{] }\StringTok{"043R.085354 103002 N20:22.57 W160:02.23    S"}                                        
+\NormalTok{ [}\DecValTok{9}\NormalTok{] }\StringTok{"048S.085359 103002 N20:22.57 W160:02.24  245  200    3    4  057 11.0 0.35  270  2.0"}
+\NormalTok{[}\DecValTok{10}\NormalTok{] }\StringTok{"049A.085359 103002 N20:22.57 W160:02.24  245         N    N  015"}                    
+\end{Highlighting}
+\end{Shaded}
+
+Staged edit:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edit_}\DecValTok{1621}\NormalTok{_}\DecValTok{245}\NormalTok{ <-}\StringTok{ }
+\StringTok{  }\KeywordTok{list}\NormalTok{(}\DataTypeTok{das_file =}\NormalTok{ das_file, }
+       \DataTypeTok{type =} \StringTok{'copy'}\NormalTok{,}
+       \DataTypeTok{rows =} \DecValTok{271932}\OperatorTok{:}\DecValTok{271933}\NormalTok{,}
+       \DataTypeTok{chars =} \OtherTok{NULL}\NormalTok{,}
+       \DataTypeTok{edit =} \DecValTok{271937}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Preview of change:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dase <-}\StringTok{ }\KeywordTok{das_editor}\NormalTok{(}\KeywordTok{list}\NormalTok{(edit_}\DecValTok{1621}\NormalTok{_}\DecValTok{245}\NormalTok{))}
+\NormalTok{Applying edits to DAS file}\OperatorTok{:}\StringTok{ }\NormalTok{data}\OperatorTok{/}\NormalTok{surveys}\OperatorTok{/}\NormalTok{CenPac1986}\DecValTok{-2020}\NormalTok{_Final_alb.das}
+\OperatorTok{---}\StringTok{ }\NormalTok{move, copy}\OperatorTok{/}\NormalTok{paste, insertion, and deletion events ...}
+\OperatorTok{---}\StringTok{ }\OperatorTok{---}\StringTok{ }\NormalTok{working on edit }\DecValTok{1}\NormalTok{ ...}
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{271930}\OperatorTok{:}\DecValTok{271941}\NormalTok{]}
+\NormalTok{ [}\DecValTok{1}\NormalTok{] }\StringTok{"036E 085345 103002 N20:22.56 W160:02.21    U"}                                        
+\NormalTok{ [}\DecValTok{2}\NormalTok{] }\StringTok{"037R.085346 103002 N20:22.56 W160:02.21    S"}                                        
+\NormalTok{ [}\DecValTok{3}\NormalTok{] }\StringTok{"038P.085346 103002 N20:22.56 W160:02.21  126  224  200"}                              
+\NormalTok{ [}\DecValTok{4}\NormalTok{] }\StringTok{"039V.085346 103002 N20:22.56 W160:02.21    5   07  000      21.0"}                    
+\NormalTok{ [}\DecValTok{5}\NormalTok{] }\StringTok{"040N.085346 103002 N20:22.56 W160:02.21  285 09.7"}                                   
+\NormalTok{ [}\DecValTok{6}\NormalTok{] }\StringTok{"041W.085346 103002 N20:22.56 W160:02.21    1   06   02  045  6.0"}                    
+\NormalTok{ [}\DecValTok{7}\NormalTok{] }\StringTok{"042E 085352 103002 N20:22.56 W160:02.22    U"}                                        
+\NormalTok{ [}\DecValTok{8}\NormalTok{] }\StringTok{"043R.085354 103002 N20:22.57 W160:02.23    S"}                                        
+\NormalTok{ [}\DecValTok{9}\NormalTok{] }\StringTok{"038P.085354 103002 N20:22.57 W160:02.23  126  224  200"}                              
+\NormalTok{[}\DecValTok{10}\NormalTok{] }\StringTok{"039V.085354 103002 N20:22.57 W160:02.23    5   07  000      21.0"}                    
+\NormalTok{[}\DecValTok{11}\NormalTok{] }\StringTok{"048S.085359 103002 N20:22.57 W160:02.24  245  200    3    4  057 11.0 0.35  270  2.0"}
+\NormalTok{[}\DecValTok{12}\NormalTok{] }\StringTok{"049A.085359 103002 N20:22.57 W160:02.24  245         N    N  015"}                    
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{timestamp-issues-with-cruise-1004}{%
+\subsubsection*{Timestamp issues with Cruise 1004}\label{timestamp-issues-with-cruise-1004}}
+\addcontentsline{toc}{subsubsection}{Timestamp issues with Cruise 1004}
+
+This edit will correct for the fact that all of Cruise 1004 was conducted using UTC timestamps instead of local timestamps.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edit_}\DecValTok{1004}\NormalTok{_utc <-}\StringTok{ }
+\StringTok{  }\KeywordTok{list}\NormalTok{(}\DataTypeTok{das_file =}\NormalTok{ das_file, }
+       \DataTypeTok{type =} \StringTok{'function'}\NormalTok{,}
+       \DataTypeTok{rows =} \DecValTok{433327}\OperatorTok{:}\DecValTok{437666}\NormalTok{, }
+       \DataTypeTok{chars =} \DecValTok{6}\OperatorTok{:}\DecValTok{39}\NormalTok{, }
+       \DataTypeTok{edit =} \StringTok{'function(x)\{das_time(x, tz_adjust = "from utc")$dt\}'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Before}
+\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{433326}\OperatorTok{:}\DecValTok{433330}\NormalTok{] }\CommentTok{# bginning of cruise}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"229* 181728 020510 N13:14.49 E145:00.34"}
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"001* 201109 041910 N13:35.01 E145:59.35"}
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"002* 201309 041910 N13:35.03 E145:59.42"}
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"003* 201509 041910 N13:35.08 E145:59.54"}
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"004* 201709 041910 N13:35.13 E145:59.70"}
+\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{437664}\OperatorTok{:}\DecValTok{437667}\NormalTok{] }\CommentTok{# end of cruise}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"431* 044625 050410 N21:15.78 W158:53.32"}
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"432* 044825 050410 N21:16.05 W158:53.31"}
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"001* 144327 080410 N32:39.39 W117:13.60"}
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"002* 144827 080410 N32:38.58 W117:13.49"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dase <-}\StringTok{ }\KeywordTok{das_editor}\NormalTok{(}\KeywordTok{list}\NormalTok{(edit_}\DecValTok{1004}\NormalTok{_utc))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{433326}\OperatorTok{:}\DecValTok{433330}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"229* 181728 020510 N13:14.49 E145:00.34"}
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"001* 061109 042010 N13:35.01 E145:59.35"}
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"002* 061309 042010 N13:35.03 E145:59.42"}
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"003* 061509 042010 N13:35.08 E145:59.54"}
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"004* 061709 042010 N13:35.13 E145:59.70"}
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{437664}\OperatorTok{:}\DecValTok{437667}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"431* 184625 050310 N21:15.78 W158:53.32"}
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"432* 184825 050310 N21:16.05 W158:53.31"}
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"001* 074327 080410 N32:39.39 W117:13.60"}
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"002* 144827 080410 N32:38.58 W117:13.49"}
+\end{Highlighting}
+\end{Shaded}
+
+Note that this type of edit can be dangerous, however, since ships can cross time zone boundaries mid-day, potentially repeating timestamps and giving the appearance that the \texttt{DAS} data is out of chronological order, which may bring about consequences for data processing that are difficult to predict.
+
+This type of edit is also time-consuming; since the time zone needs to be calculated in each \texttt{DAS} row individually, this edit could take \textgreater20 minutes to process. An expedited (and safer) approximation of this edit would be to simply adjust the timezone by the GMT offset for Guam (UTC + 10 hours).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edit_}\DecValTok{1004}\NormalTok{_gmt10 <-}\StringTok{ }
+\StringTok{  }\KeywordTok{list}\NormalTok{(}\DataTypeTok{das_file =}\NormalTok{ das_file, }
+       \DataTypeTok{type =} \StringTok{'function'}\NormalTok{,}
+       \DataTypeTok{rows =} \DecValTok{433327}\OperatorTok{:}\DecValTok{437665}\NormalTok{, }
+       \DataTypeTok{chars =} \DecValTok{6}\OperatorTok{:}\DecValTok{39}\NormalTok{, }
+       \DataTypeTok{edit =} \StringTok{'function(x)\{das_time(x, tz_adjust = 10)$dt\}'}\NormalTok{)}
+
+\NormalTok{dase <-}\StringTok{ }\KeywordTok{das_editor}\NormalTok{(}\KeywordTok{list}\NormalTok{(edit_}\DecValTok{1004}\NormalTok{_gmt10))}
+\NormalTok{Applying edits to DAS file}\OperatorTok{:}\StringTok{ }\NormalTok{data}\OperatorTok{/}\NormalTok{surveys}\OperatorTok{/}\NormalTok{CenPac1986}\DecValTok{-2020}\NormalTok{_Final_alb.das}
+\OperatorTok{---}\StringTok{ }\NormalTok{verbatim}\OperatorTok{/}\ControlFlowTok{function}\NormalTok{ text replacements ...}
+\OperatorTok{---}\StringTok{ }\OperatorTok{---}\StringTok{ }\NormalTok{working on edit }\DecValTok{1}\NormalTok{ ...}
+
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{433326}\OperatorTok{:}\DecValTok{433330}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"229* 181728 020510 N13:14.49 E145:00.34"}
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"001* 061109 042010 N13:35.01 E145:59.35"}
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"002* 061309 042010 N13:35.03 E145:59.42"}
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"003* 061509 042010 N13:35.08 E145:59.54"}
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"004* 061709 042010 N13:35.13 E145:59.70"}
+\NormalTok{dase}\OperatorTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{437664}\OperatorTok{:}\DecValTok{437667}\NormalTok{]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"431* 144625 050410 N21:15.78 W158:53.32"}
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"432* 144825 050410 N21:16.05 W158:53.31"}
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"001* 144327 080410 N32:39.39 W117:13.60"}
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"002* 144827 080410 N32:38.58 W117:13.49"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{combining-and-saving-edits}{%
+\subsubsection*{Combining and saving edits}\label{combining-and-saving-edits}}
+\addcontentsline{toc}{subsubsection}{Combining and saving edits}
+
+Finally, we will collect these edits into a single \texttt{list} and save them for use during survey processing (next page).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Combine}
+\NormalTok{edits <-}\StringTok{ }\KeywordTok{list}\NormalTok{(edit_}\DecValTok{1607}\NormalTok{_}\DecValTok{55}\NormalTok{,}
+\NormalTok{              edit_}\DecValTok{1607}\NormalTok{_}\DecValTok{68}\NormalTok{,}
+\NormalTok{              edit_}\DecValTok{1621}\NormalTok{_}\DecValTok{245}\NormalTok{,}
+              \CommentTok{#edit_1004_utc,}
+\NormalTok{              edit_}\DecValTok{1004}\NormalTok{_gmt10)}
+
+\CommentTok{# Save}
+\KeywordTok{saveRDS}\NormalTok{(edits,}\DataTypeTok{file=}\StringTok{'cnp_1986_2020_edits.RData'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{processing}{%
 \chapter{Data processing}\label{processing}}
 
@@ -791,21 +1515,40 @@ In our WHICEAS case study example, we are interested in estimating density/abund
 \end{Highlighting}
 \end{Shaded}
 
-You can process your survey data using a single function, \textbf{\texttt{process\_surveys()}}, which takes two arguments: the filepath(s) to your \texttt{DAS} survey data, and your \texttt{settings} object. For example:
+You can process your survey data using a single function, \textbf{\texttt{process\_surveys()}}, which takes two primary arguments: the filepath(s) to your \texttt{DAS} survey data, and your \texttt{settings} object. For example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{cruz <-}\StringTok{ }\KeywordTok{process_surveys}\NormalTok{(das_file, settings)}
+\NormalTok{cruz <-}\StringTok{ }\KeywordTok{process_surveys}\NormalTok{(das_file, }
+\NormalTok{                        settings)}
 \end{Highlighting}
 \end{Shaded}
 
 That single command will convert your raw \texttt{DAS} data to a ``\texttt{cruz}'' object, a list of polished datasets that are prepared to be passed to subsequent analyses.
+
+In our case we will use a third argument to apply edits to the \texttt{DAS} data before processing (see previous page for details on those edits):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{edits <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{'cnp_1986_2020_edits.RData'}\NormalTok{)}
+
+\NormalTok{cruz <-}\StringTok{ }\KeywordTok{process_surveys}\NormalTok{(das_file, }
+\NormalTok{                        settings,}
+\NormalTok{                        edits)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{behind-the-scenes}{%
 \section*{Behind the scenes}\label{behind-the-scenes}}
 \addcontentsline{toc}{section}{Behind the scenes}
 
 The \texttt{process\_surveys()} function is a wrapper for several discrete stages of data formatting/processing. Behind the scenes, each of those stages is carried out using a specific \texttt{LTabundR} function. The remainder of this page is a detailed step-by-step explanation of the data processing that occurs when you call \texttt{process\_surveys()}.
+
+\hypertarget{edit-cruise-data}{%
+\subsection*{Edit cruise data}\label{edit-cruise-data}}
+\addcontentsline{toc}{subsection}{Edit cruise data}
+
+If the \texttt{edits} input argument is supplied to \texttt{process\_surveys()}, temporary copies of the \texttt{DAS} file(s) ar made and edited before processing. This step is discussed on the previous page.
 
 \hypertarget{bring-in-cruise-data}{%
 \subsection*{Bring in cruise data}\label{bring-in-cruise-data}}
@@ -1027,7 +1770,7 @@ The \texttt{segments} slot contains summary data for each effort segment, includ
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-43-1.pdf}
+\includegraphics{figures/unnamed-chunk-76-1.pdf}
 
 And the \texttt{das} slot holds the original \texttt{data.frame} of \texttt{DAS} data, modified slightly: the column \texttt{OnEffort} has been modified according to Beaufort range conditions, and the column \texttt{seg\_id} indicates which segment the event occurs within
 
@@ -1374,21 +2117,21 @@ The \texttt{LTabundR} function \texttt{cruz\_structure()} provides a synopsis of
 
         \OperatorTok{$}\NormalTok{all}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{1888} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{149.3}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{1893} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{149.4}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329638}\NormalTok{ data rows}
             \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{3934}\NormalTok{ detections}
             \OperatorTok{$}\NormalTok{subgroups }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{255}\NormalTok{ subgroups, }\DecValTok{49}\NormalTok{ sightings, and }\DecValTok{389}\NormalTok{ events}
 
         \OperatorTok{$}\NormalTok{bottlenose}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP, Bottlenose_BI, Bottlenose_OUFI, Bottlenose_KaNi}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2050} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2049} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.7}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329638}\NormalTok{ data rows}
             \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{523}\NormalTok{ detections}
 
         \OperatorTok{$}\NormalTok{spotted}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP, Spotted_OU, Spotted_FI, Spotted_BI}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2051} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2056} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.4}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329638}\NormalTok{ data rows}
             \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{527}\NormalTok{ detections}
 \end{Highlighting}
 \end{Shaded}
@@ -1422,6 +2165,561 @@ Finally, let's save this \texttt{cruz} object locally, to use in downstream scri
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{save}\NormalTok{(cruz,}\DataTypeTok{file=}\StringTok{'whiceas_cruz.RData'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{validation}{%
+\section*{Validation}\label{validation}}
+\addcontentsline{toc}{section}{Validation}
+
+To validate these \texttt{LTabundR} functions, we can compare its output to that of \texttt{ABUND9}, written by Jay Barlow (NOAA-NMFS). First, we bring in the \texttt{ABUND9} output files for the same \texttt{DAS} data:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SIGHTS <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'data/SIGHTS.csv'}\NormalTok{)}
+\NormalTok{EFFORT <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'data/EFFORT.csv'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{sightings}{%
+\subsection*{Sightings}\label{sightings}}
+\addcontentsline{toc}{subsection}{Sightings}
+
+Pivot and format the \texttt{ABUND} \texttt{SIGHTS} data\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{abund <-}
+\StringTok{  }\NormalTok{SIGHTS }\OperatorTok{%>%}
+\StringTok{  }\NormalTok{tidyr}\OperatorTok{::}\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \DecValTok{31}\OperatorTok{:}\DecValTok{101}\NormalTok{,}
+                      \DataTypeTok{names_to =} \StringTok{'species'}\NormalTok{,}
+                      \DataTypeTok{values_to =} \StringTok{'best'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(best }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Region =} \KeywordTok{gsub}\NormalTok{(}\StringTok{' '}\NormalTok{,}\StringTok{''}\NormalTok{,Region)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{DateTime =} \KeywordTok{paste0}\NormalTok{(Yr,}\StringTok{'-'}\NormalTok{,Mo,}\StringTok{'-'}\NormalTok{,Da,}\StringTok{' '}\NormalTok{,Hr,}\StringTok{':'}\NormalTok{,Min))}
+\end{Highlighting}
+\end{Shaded}
+
+\ldots then summarize counts of species within each cruise:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{abund_summ <-}
+\StringTok{  }\NormalTok{abund }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(}\DataTypeTok{cruise =}\NormalTok{ CruzNo, species) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{ntot_abund =} \KeywordTok{n}\NormalTok{(),}
+            \DataTypeTok{nsys_abund =} \KeywordTok{length}\NormalTok{(}\KeywordTok{which}\NormalTok{(}\OperatorTok{!}\StringTok{ }\NormalTok{Region }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'NONE'}\NormalTok{, }
+                                                      \StringTok{'Off-Transect'}\NormalTok{) }\OperatorTok{&}\StringTok{ }
+\StringTok{                                        }\NormalTok{EffortSeg }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{))) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{species =} \KeywordTok{gsub}\NormalTok{(}\StringTok{'SP'}\NormalTok{,}\StringTok{''}\NormalTok{,species))}
+\end{Highlighting}
+\end{Shaded}
+
+Then do the same for \texttt{LTabundR} output:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ltabundr <-}\StringTok{ }
+\StringTok{  }\NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{all}\OperatorTok{$}\NormalTok{sightings }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\CommentTok{# Filter out species that ABUND ignored based on its INP file}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\NormalTok{species }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'CU'}\NormalTok{, }\StringTok{'PU'}\NormalTok{))}
+  
+\NormalTok{ltabundr_summ <-}
+\StringTok{  }\NormalTok{ltabundr }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(OnEffort }\OperatorTok{==}\StringTok{ }\OtherTok{TRUE}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(}\DataTypeTok{cruise =}\NormalTok{ Cruise, species) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{ntot_ltabundr =} \KeywordTok{n}\NormalTok{(),}
+            \DataTypeTok{nsys_ltabundr =} \KeywordTok{length}\NormalTok{(}\KeywordTok{which}\NormalTok{(included }\OperatorTok{==}\StringTok{ }\OtherTok{TRUE} \OperatorTok{&}\StringTok{ }
+\StringTok{                                           }\NormalTok{EffType }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'S'}\NormalTok{,}\StringTok{'F'}\NormalTok{))))}
+\end{Highlighting}
+\end{Shaded}
+
+Now join these two datasets by cruise and species code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mr <-}\StringTok{ }\KeywordTok{full_join}\NormalTok{(abund_summ, ltabundr_summ, }\DataTypeTok{by=}\KeywordTok{c}\NormalTok{(}\StringTok{'cruise'}\NormalTok{, }\StringTok{'species'}\NormalTok{))}
+
+\NormalTok{mr }\OperatorTok{%>%}\StringTok{ }\NormalTok{head}
+\CommentTok{# A tibble: 6 x 6}
+\CommentTok{# Groups:   cruise [1]}
+\NormalTok{  cruise species ntot_abund nsys_abund ntot_ltabundr nsys_ltabundr}
+   \OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{        }\ErrorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{         }\ErrorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{         }\ErrorTok{<}\NormalTok{int}\OperatorTok{>}
+\DecValTok{1}    \DecValTok{901} \DecValTok{002}              \DecValTok{3}          \DecValTok{2}             \DecValTok{3}             \DecValTok{2}
+\DecValTok{2}    \DecValTok{901} \DecValTok{013}              \DecValTok{4}          \DecValTok{4}             \DecValTok{4}             \DecValTok{4}
+\DecValTok{3}    \DecValTok{901} \DecValTok{015}              \DecValTok{2}          \DecValTok{1}             \DecValTok{2}             \DecValTok{1}
+\DecValTok{4}    \DecValTok{901} \DecValTok{018}              \DecValTok{2}          \DecValTok{1}             \DecValTok{2}             \DecValTok{1}
+\DecValTok{5}    \DecValTok{901} \DecValTok{031}              \DecValTok{1}          \DecValTok{1}             \DecValTok{1}             \DecValTok{1}
+\DecValTok{6}    \DecValTok{901} \DecValTok{032}              \DecValTok{2}          \DecValTok{0}             \DecValTok{2}             \DecValTok{0}
+\end{Highlighting}
+\end{Shaded}
+
+Compare the total On-Effort sightings in both outputs:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mr}\OperatorTok{$}\NormalTok{ntot_abund }\OperatorTok{%>%}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{3223}
+\NormalTok{mr}\OperatorTok{$}\NormalTok{ntot_ltabundr }\OperatorTok{%>%}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{3227}
+\end{Highlighting}
+\end{Shaded}
+
+Compare total sightings valid for use in density estimation (\texttt{EffType} \texttt{"S"} or \texttt{"F"} only, as well as other criteria such as Bft 0 - 6):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mr}\OperatorTok{$}\NormalTok{nsys_abund }\OperatorTok{%>%}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2478}
+\NormalTok{mr}\OperatorTok{$}\NormalTok{nsys_ltabundr }\OperatorTok{%>%}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2479}
+\end{Highlighting}
+\end{Shaded}
+
+Let's find the rows with discrepancies in sighting counts:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bads <-}\StringTok{ }\KeywordTok{which}\NormalTok{(mr}\OperatorTok{$}\NormalTok{nsys_abund }\OperatorTok{!=}\StringTok{ }\NormalTok{mr}\OperatorTok{$}\NormalTok{nsys_ltabundr }\OperatorTok{|}\StringTok{ }
+\StringTok{              }\NormalTok{mr}\OperatorTok{$}\NormalTok{ntot_abund }\OperatorTok{!=}\StringTok{ }\NormalTok{mr}\OperatorTok{$}\NormalTok{ntot_ltabundr }\OperatorTok{|}\StringTok{ }
+\StringTok{              }\KeywordTok{is.na}\NormalTok{(mr}\OperatorTok{$}\NormalTok{ntot_abund) }\OperatorTok{|}\StringTok{ }
+\StringTok{              }\KeywordTok{is.na}\NormalTok{(mr}\OperatorTok{$}\NormalTok{ntot_ltabundr) }\OperatorTok{|}\StringTok{ }
+\StringTok{              }\KeywordTok{is.na}\NormalTok{(mr}\OperatorTok{$}\NormalTok{nsys_abund) }\OperatorTok{|}\StringTok{ }
+\StringTok{              }\KeywordTok{is.na}\NormalTok{(mr}\OperatorTok{$}\NormalTok{nsys_ltabundr))}
+\NormalTok{bads }\OperatorTok{%>%}\StringTok{ }\NormalTok{length}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{4}
+\end{Highlighting}
+\end{Shaded}
+
+Let's look at those rows in the joined dataframe:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mr[bads, ]}
+\CommentTok{# A tibble: 4 x 6}
+\CommentTok{# Groups:   cruise [3]}
+\NormalTok{  cruise species ntot_abund nsys_abund ntot_ltabundr nsys_ltabundr}
+   \OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{        }\ErrorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{         }\ErrorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{         }\ErrorTok{<}\NormalTok{int}\OperatorTok{>}
+\DecValTok{1}   \DecValTok{1203} \DecValTok{015}              \DecValTok{1}          \DecValTok{0}             \DecValTok{2}             \DecValTok{0}
+\DecValTok{2}   \DecValTok{1203} \DecValTok{049}              \DecValTok{1}          \DecValTok{1}             \DecValTok{2}             \DecValTok{1}
+\DecValTok{3}   \DecValTok{1165} \DecValTok{047}             \OtherTok{NA}         \OtherTok{NA}             \DecValTok{1}             \DecValTok{1}
+\DecValTok{4}   \DecValTok{1631} \DecValTok{003}             \OtherTok{NA}         \OtherTok{NA}             \DecValTok{1}             \DecValTok{0}
+\end{Highlighting}
+\end{Shaded}
+
+To investigate these 4 discrepancies, we will write a helper function that returns sightings details from both outputs for a given cruise-species:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sight_compare <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(abund, ltabundr, cruise, spp)\{}
+  \KeywordTok{message}\NormalTok{(}\StringTok{'ABUND:'}\NormalTok{)}
+\NormalTok{  abund }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(CruzNo }\OperatorTok{==}\StringTok{ }\NormalTok{cruise, species }\OperatorTok{==}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{'SP'}\NormalTok{,spp)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{select}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{34}\NormalTok{, }\DecValTok{26}\NormalTok{, }\DecValTok{29}\NormalTok{, }\DecValTok{33}\NormalTok{, }\DecValTok{3}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{use_sit =}\NormalTok{ EffortSeg }\OperatorTok{!=}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{EffortSeg) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(use_sit)) }\OperatorTok{%>%}
+\StringTok{    }\NormalTok{print}
+
+\NormalTok{  abund }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(CruzNo }\OperatorTok{==}\StringTok{ }\DecValTok{1631}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{pull}\NormalTok{(species) }\OperatorTok{%>%}\StringTok{ }\NormalTok{table}
+  
+  
+  \KeywordTok{message}\NormalTok{(}\StringTok{'}\CharTok{\textbackslash{}n}\StringTok{LTabundR:'}\NormalTok{)}
+\NormalTok{  ltabundr }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(Cruise }\OperatorTok{==}\StringTok{ }\NormalTok{cruise, species }\OperatorTok{==}\StringTok{ }\NormalTok{spp) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{select}\NormalTok{(}\DecValTok{6}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{13}\NormalTok{, }\DecValTok{73}\NormalTok{, }\DecValTok{69}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{9}\NormalTok{, }\DecValTok{41}\NormalTok{, }\DecValTok{86}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{use_sit =}\NormalTok{ included, }\DataTypeTok{use_effort =}\NormalTok{ use) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{arrange}\NormalTok{(}\KeywordTok{desc}\NormalTok{(use_effort)) }\OperatorTok{%>%}
+\StringTok{    }\NormalTok{tibble }\OperatorTok{%>%}\StringTok{ }\NormalTok{print}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{discrepancies}{%
+\subsubsection*{Discrepancies}\label{discrepancies}}
+\addcontentsline{toc}{subsubsection}{Discrepancies}
+
+\hypertarget{cruise-1203-species-015}{%
+\paragraph{Cruise 1203, Species 015}\label{cruise-1203-species-015}}
+\addcontentsline{toc}{paragraph}{Cruise 1203, Species 015}
+
+In this case, \texttt{LTabundR} has a non-systematic sighting that \texttt{ABUND} has ignored.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sight_compare}\NormalTok{(abund, ltabundr, }\DecValTok{1203}\NormalTok{, }\StringTok{'015'}\NormalTok{)}
+\NormalTok{ABUND}\OperatorTok{:}
+\CommentTok{# A tibble: 1 x 6}
+\StringTok{  }\NormalTok{CruzNo DateTime        Beauf Mixed  best use_sit}
+   \OperatorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{           }\ErrorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{  }
+\DecValTok{1}   \DecValTok{1203} \DecValTok{2012-5-16} \DecValTok{11}\OperatorTok{:}\DecValTok{58}     \DecValTok{4} \StringTok{" F"}   \FloatTok{74.9} \OtherTok{TRUE}   
+
+\NormalTok{LTabundR}\OperatorTok{:}
+\CommentTok{# A tibble: 2 x 9}
+\StringTok{  }\NormalTok{Cruise DateTime              Bft mixed  best OnEffort EffType use_ef}\OperatorTok{~}\DecValTok{1}\NormalTok{ use_sit}
+   \OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dttm}\OperatorTok{>}\StringTok{              }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{  }
+\DecValTok{1}   \DecValTok{1203} \DecValTok{2012-05-13} \DecValTok{13}\OperatorTok{:}\DecValTok{19}\OperatorTok{:}\DecValTok{44}     \DecValTok{5} \OtherTok{TRUE}    \DecValTok{1}   \OtherTok{TRUE}\NormalTok{     N       }\OtherTok{TRUE}     \OtherTok{TRUE}   
+\DecValTok{2}   \DecValTok{1203} \DecValTok{2012-05-16} \DecValTok{11}\OperatorTok{:}\DecValTok{58}\OperatorTok{:}\DecValTok{30}     \DecValTok{4} \OtherTok{FALSE}  \FloatTok{74.9} \OtherTok{TRUE}\NormalTok{     N       }\OtherTok{TRUE}     \OtherTok{TRUE}   
+\CommentTok{# ... with abbreviated variable name 1: use_effort}
+\end{Highlighting}
+\end{Shaded}
+
+Looking at the sighting details from \texttt{LTabundR} \ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(ltabundr }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(Cruise }\OperatorTok{==}\StringTok{ }\DecValTok{1203}\NormalTok{, species }\OperatorTok{==}\StringTok{ '015'}\NormalTok{))[}\DecValTok{1}\NormalTok{,]}
+\NormalTok{  Event            DateTime      Lat       Lon OnEffort Cruise Mode OffsetGMT}
+\DecValTok{1}\NormalTok{     S }\DecValTok{2012-05-13} \DecValTok{13}\OperatorTok{:}\DecValTok{19}\OperatorTok{:}\DecValTok{44} \FloatTok{11.96733} \FloatTok{-161.1727}     \OtherTok{TRUE}   \DecValTok{1203}\NormalTok{    C       }\DecValTok{-10}
+\NormalTok{  EffType ESWsides Course SpdKt Bft SwellHght WindSpdKt RainFog HorizSun}
+\DecValTok{1}\NormalTok{       N        }\DecValTok{2}     \DecValTok{18}   \FloatTok{9.2}   \DecValTok{5}         \DecValTok{6}        \DecValTok{21}       \DecValTok{5}       \DecValTok{12}
+\NormalTok{  VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot EventNum}
+\DecValTok{1}      \DecValTok{12} \OtherTok{FALSE}   \DecValTok{6}  \DecValTok{073} \DecValTok{235}  \DecValTok{280}   \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{      }\OtherTok{TRUE}      \DecValTok{268}
+\NormalTok{                              file_das line_num stratum_HI_EEZ stratum_OtherCNP}
+\DecValTok{1}\NormalTok{ CenPac1986}\DecValTok{-2020}\NormalTok{_Final_alb_edited.das   }\DecValTok{493027}          \OtherTok{FALSE}             \OtherTok{TRUE}
+\NormalTok{  stratum_WHICEAS year month day yday km_int   km_cum ship  stratum seg_id  use}
+\DecValTok{1}           \OtherTok{FALSE} \DecValTok{2012}     \DecValTok{5}  \DecValTok{13}  \DecValTok{134}      \DecValTok{0} \FloatTok{171168.7}\NormalTok{  OES OtherCNP    }\DecValTok{277} \OtherTok{TRUE}
+\NormalTok{  SightNo Subgroup SightNoDaily Obs ObsStd Bearing Reticle DistNm Cue Method}
+\DecValTok{1}     \DecValTok{069}     \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{ }\DecValTok{20120513}\NormalTok{_}\DecValTok{123} \DecValTok{235}   \OtherTok{TRUE}      \DecValTok{90}      \OtherTok{NA}    \FloatTok{0.1}   \DecValTok{3}      \DecValTok{1}
+\NormalTok{  Photos Birds CalibSchool PhotosAerial Biopsy CourseSchool TurtleSp TurtleGs}
+\DecValTok{1}\NormalTok{      Y     Y           N            N      N           }\OtherTok{NA}     \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{       }\OtherTok{NA}
+\NormalTok{  TurtleJFR TurtleAge TurtleCapt PinnipedSp PinnipedGs BoatType BoatGs}
+\DecValTok{1}      \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{       }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{       }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{         }\OtherTok{NA}     \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{     }\OtherTok{NA}
+\NormalTok{  PerpDistKm species best low high  prob mixed   ss_tot lnsstot ss_percent n_sp}
+\DecValTok{1}     \FloatTok{0.1852}     \DecValTok{015}    \DecValTok{1} \OtherTok{NaN}  \OtherTok{NaN} \OtherTok{FALSE}  \OtherTok{TRUE} \FloatTok{6.956522} \FloatTok{1.93968}        \OtherTok{NaN}    \DecValTok{2}
+\NormalTok{  n_obs n_best n_low n_high calibr ss_valid mixed_max spp_max included}
+\DecValTok{1}     \DecValTok{1}      \DecValTok{1}     \DecValTok{1}      \DecValTok{1}   \OtherTok{TRUE}    \OtherTok{FALSE}     \OtherTok{FALSE}    \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{     }\OtherTok{TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+According to \texttt{ABUND}, this sighting is not mixed-species, but \texttt{LTabundR} says it is. Looking at the raw \texttt{DAS}\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{das_file <-}\StringTok{ 'data/surveys/CenPac1986-2020_Final_alb.das'}
+\NormalTok{das <-}\StringTok{ }\KeywordTok{das_readtext}\NormalTok{(das_file)}
+\NormalTok{i <-}\StringTok{ }\KeywordTok{which}\NormalTok{(}\KeywordTok{substr}\NormalTok{(das}\OperatorTok{$}\NormalTok{das, }\DecValTok{6}\NormalTok{, }\DecValTok{18}\NormalTok{) }\OperatorTok{==}\StringTok{ '131944 051312'}\NormalTok{)}
+\NormalTok{das}\OperatorTok{$}\NormalTok{das[i]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"268S.131944 051312 N11:58.04 W161:10.36  069  235    3    1  090      0.10              N    N    N"}                                             
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"269A.131944 051312 N11:58.04 W161:10.36  069         Y    Y  033  015    "}                                                                       
+\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"269C.131944 051312 N11:58.04 W161:10.36  Overall estimate for full group- never saw all at once.  -EMO"}                                          
+\NormalTok{[}\DecValTok{4}\NormalTok{] }\StringTok{"268G.131944 051312 N11:58.04 W161:10.36  069    A  235    1  090      0.10 "}                                                                     
+\NormalTok{[}\DecValTok{5}\NormalTok{] }\StringTok{"269A.131944 051312 N11:58.04 W161:10.36  069         Y    Y  033  015"}                                                                           
+\NormalTok{[}\DecValTok{6}\NormalTok{] }\StringTok{"269C.131944 051312 N11:58.04 W161:10.36  begin PC protool, first sighting is subgroup 'A', acoustics already tracking        "}                   
+\NormalTok{[}\DecValTok{7}\NormalTok{] }\StringTok{"269C.131944 051312 N11:58.04 W161:10.36  photos taken during sighting indicate Steno (015) present. Not seen or estimated during sighting.  -EMO"}
+\end{Highlighting}
+\end{Shaded}
+
+We see that this was a sighting of false killer whales during which species \texttt{015} was picked up during photo-ID. This discrepancy, then, may not be a mistake in the \texttt{LTabundR} processing.
+
+\hypertarget{cruise-1203-species-049}{%
+\paragraph{Cruise 1203, Species 049}\label{cruise-1203-species-049}}
+\addcontentsline{toc}{paragraph}{Cruise 1203, Species 049}
+
+In this case, \texttt{LTabundR} has a non-systematic sighting that \texttt{ABUND} has ignored.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sight_compare}\NormalTok{(abund, ltabundr, }\DecValTok{1203}\NormalTok{, }\StringTok{'049'}\NormalTok{)}
+\NormalTok{ABUND}\OperatorTok{:}
+\CommentTok{# A tibble: 1 x 6}
+\StringTok{  }\NormalTok{CruzNo DateTime       Beauf Mixed  best use_sit}
+   \OperatorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{          }\ErrorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{  }
+\DecValTok{1}   \DecValTok{1203} \DecValTok{2012-5-3} \DecValTok{14}\OperatorTok{:}\DecValTok{21}     \DecValTok{6} \StringTok{" F"}   \FloatTok{1.16} \OtherTok{TRUE}   
+
+\NormalTok{LTabundR}\OperatorTok{:}
+\CommentTok{# A tibble: 2 x 9}
+\StringTok{  }\NormalTok{Cruise DateTime              Bft mixed  best OnEffort EffType use_ef}\OperatorTok{~}\DecValTok{1}\NormalTok{ use_sit}
+   \OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dttm}\OperatorTok{>}\StringTok{              }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{  }
+\DecValTok{1}   \DecValTok{1203} \DecValTok{2012-05-03} \DecValTok{14}\OperatorTok{:}\DecValTok{21}\OperatorTok{:}\DecValTok{40}     \DecValTok{6} \OtherTok{FALSE}  \FloatTok{1.16} \OtherTok{TRUE}\NormalTok{     S       }\OtherTok{TRUE}     \OtherTok{TRUE}   
+\DecValTok{2}   \DecValTok{1203} \DecValTok{2012-05-07} \DecValTok{10}\OperatorTok{:}\DecValTok{54}\OperatorTok{:}\DecValTok{09}     \DecValTok{7} \OtherTok{FALSE}  \DecValTok{1}    \OtherTok{TRUE}\NormalTok{     N       }\OtherTok{FALSE}    \OtherTok{FALSE}  
+\CommentTok{# ... with abbreviated variable name 1: use_effort}
+\end{Highlighting}
+\end{Shaded}
+
+Looking at the sighting details from \texttt{LTabundR} \ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(ltabundr }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(Cruise }\OperatorTok{==}\StringTok{ }\DecValTok{1203}\NormalTok{, species }\OperatorTok{==}\StringTok{ '049'}\NormalTok{))[}\DecValTok{2}\NormalTok{,]}
+\NormalTok{  Event            DateTime      Lat       Lon OnEffort Cruise Mode OffsetGMT}
+\DecValTok{2}\NormalTok{     S }\DecValTok{2012-05-07} \DecValTok{10}\OperatorTok{:}\DecValTok{54}\OperatorTok{:}\DecValTok{09} \FloatTok{5.960333} \FloatTok{-162.1255}     \OtherTok{TRUE}   \DecValTok{1203}\NormalTok{    C       }\DecValTok{-10}
+\NormalTok{  EffType ESWsides Course SpdKt Bft SwellHght WindSpdKt RainFog HorizSun}
+\DecValTok{2}\NormalTok{       N        }\DecValTok{2}    \DecValTok{269}   \FloatTok{8.8}   \DecValTok{7}         \DecValTok{9}        \DecValTok{30}       \DecValTok{5}        \DecValTok{5}
+\NormalTok{  VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot EventNum}
+\DecValTok{2}       \DecValTok{1} \OtherTok{FALSE} \FloatTok{4.5}  \DecValTok{238} \DecValTok{328}  \DecValTok{073}   \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{      }\OtherTok{TRUE}      \DecValTok{145}
+\NormalTok{                              file_das line_num stratum_HI_EEZ stratum_OtherCNP}
+\DecValTok{2}\NormalTok{ CenPac1986}\DecValTok{-2020}\NormalTok{_Final_alb_edited.das   }\DecValTok{489960}          \OtherTok{FALSE}             \OtherTok{TRUE}
+\NormalTok{  stratum_WHICEAS year month day yday km_int   km_cum ship  stratum seg_id}
+\DecValTok{2}           \OtherTok{FALSE} \DecValTok{2012}     \DecValTok{5}   \DecValTok{7}  \DecValTok{128}      \DecValTok{0} \FloatTok{170067.7}\NormalTok{  OES OtherCNP    }\DecValTok{270}
+\NormalTok{    use SightNo Subgroup SightNoDaily Obs ObsStd Bearing Reticle DistNm Cue}
+\DecValTok{2} \OtherTok{FALSE}     \DecValTok{052}     \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{ }\DecValTok{20120507}\NormalTok{_}\DecValTok{103} \DecValTok{238}   \OtherTok{TRUE}     \DecValTok{310}      \DecValTok{10}   \FloatTok{0.52}   \DecValTok{3}
+\NormalTok{  Method Photos Birds CalibSchool PhotosAerial Biopsy CourseSchool TurtleSp}
+\DecValTok{2}      \DecValTok{4}\NormalTok{      N     N           N            N      N           }\OtherTok{NA}     \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}
+\StringTok{  }\NormalTok{TurtleGs TurtleJFR TurtleAge TurtleCapt PinnipedSp PinnipedGs BoatType BoatGs}
+\DecValTok{2}       \OtherTok{NA}      \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{       }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{       }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{         }\OtherTok{NA}     \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{     }\OtherTok{NA}
+\NormalTok{  PerpDistKm species best low high  prob mixed ss_tot lnsstot ss_percent n_sp}
+\DecValTok{2}  \FloatTok{0.7377314}     \DecValTok{049}    \DecValTok{1}   \DecValTok{1}    \DecValTok{1} \OtherTok{FALSE} \OtherTok{FALSE}      \DecValTok{1}       \DecValTok{0}          \DecValTok{1}    \DecValTok{1}
+\NormalTok{  n_obs n_best n_low n_high calibr ss_valid mixed_max spp_max included}
+\DecValTok{2}     \DecValTok{1}      \DecValTok{1}     \DecValTok{1}      \DecValTok{1}   \OtherTok{TRUE}     \OtherTok{TRUE}      \OtherTok{TRUE}     \DecValTok{049}    \OtherTok{FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+This is a sighting of a single Ziphiid whale. It appears to be squarely within the geostratum:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cruzi <-}\StringTok{ }\KeywordTok{filter_cruz}\NormalTok{(cruz, }\DataTypeTok{spp=}\StringTok{'047'}\NormalTok{, }\DataTypeTok{years =} \DecValTok{1988}\NormalTok{)}
+\KeywordTok{map_cruz}\NormalTok{(cruzi)}
+\end{Highlighting}
+\end{Shaded}
+
+Loooking at the raw \texttt{DAS} data \ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{i <-}\StringTok{ }\KeywordTok{which}\NormalTok{(}\KeywordTok{substr}\NormalTok{(das}\OperatorTok{$}\NormalTok{das, }\DecValTok{6}\NormalTok{, }\DecValTok{18}\NormalTok{) }\OperatorTok{==}\StringTok{ '105409 050712'}\NormalTok{)}
+\NormalTok{das}\OperatorTok{$}\NormalTok{das[(i[}\DecValTok{1}\NormalTok{] }\OperatorTok{-}\StringTok{ }\DecValTok{10}\NormalTok{)}\OperatorTok{:}\NormalTok{(i[}\DecValTok{1}\NormalTok{] }\OperatorTok{+}\StringTok{ }\DecValTok{3}\NormalTok{)]}
+\NormalTok{ [}\DecValTok{1}\NormalTok{] }\StringTok{"135V.104143 050712 N05:57.61 W162:05.66    7   09  070      30.0"}                                   
+\NormalTok{ [}\DecValTok{2}\NormalTok{] }\StringTok{"136N.104143 050712 N05:57.61 W162:05.66  272 09.3"}                                                  
+\NormalTok{ [}\DecValTok{3}\NormalTok{] }\StringTok{"137W.104143 050712 N05:57.61 W162:05.66    5   05   01  050  4.5"}                                   
+\NormalTok{ [}\DecValTok{4}\NormalTok{] }\StringTok{"138*.104234 050712 N05:57.62 W162:05.79"}                                                            
+\NormalTok{ [}\DecValTok{5}\NormalTok{] }\StringTok{"139*.104434 050712 N05:57.62 W162:06.09"}                                                            
+\NormalTok{ [}\DecValTok{6}\NormalTok{] }\StringTok{"140*.104634 050712 N05:57.63 W162:06.39"}                                                            
+\NormalTok{ [}\DecValTok{7}\NormalTok{] }\StringTok{"141N.104713 050712 N05:57.63 W162:06.49  269 08.8"}                                                  
+\NormalTok{ [}\DecValTok{8}\NormalTok{] }\StringTok{"142*.104834 050712 N05:57.63 W162:06.69"}                                                            
+\NormalTok{ [}\DecValTok{9}\NormalTok{] }\StringTok{"143*.105034 050712 N05:57.63 W162:06.99"}                                                            
+\NormalTok{[}\DecValTok{10}\NormalTok{] }\StringTok{"144*.105234 050712 N05:57.63 W162:07.29"}                                                            
+\NormalTok{[}\DecValTok{11}\NormalTok{] }\StringTok{"145S.105409 050712 N05:57.62 W162:07.53  052  238    3    4  310 10.0 0.52              N    N    N"}
+\NormalTok{[}\DecValTok{12}\NormalTok{] }\StringTok{"146A.105409 050712 N05:57.62 W162:07.53  052         N    N  049               "}                    
+\NormalTok{[}\DecValTok{13}\NormalTok{] }\StringTok{"   1                                     238    1    1    1  100"}                                   
+\NormalTok{[}\DecValTok{14}\NormalTok{] }\StringTok{"147*.105434 050712 N05:57.62 W162:07.59"}                                                            
+\end{Highlighting}
+\end{Shaded}
+
+It is not clear why \texttt{ABUND} did not include this sighting as non-systematic.
+
+\hypertarget{cruise-1165-species-047}{%
+\paragraph{Cruise 1165, Species 047}\label{cruise-1165-species-047}}
+\addcontentsline{toc}{paragraph}{Cruise 1165, Species 047}
+
+In this case, \texttt{LTabundR} has a \emph{systematic} sighting of a pygmy sperm whale, whereas \texttt{ABUND} does not have anything.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sight_compare}\NormalTok{(abund, ltabundr, }\DecValTok{1165}\NormalTok{, }\StringTok{'047'}\NormalTok{)}
+\NormalTok{ABUND}\OperatorTok{:}
+\CommentTok{# A tibble: 0 x 6}
+\CommentTok{# ... with 6 variables: CruzNo <int>, DateTime <chr>, Beauf <int>, Mixed <chr>,}
+\CommentTok{#   best <dbl>, use_sit <lgl>}
+
+\NormalTok{LTabundR}\OperatorTok{:}
+\CommentTok{# A tibble: 1 x 9}
+\StringTok{  }\NormalTok{Cruise DateTime              Bft mixed  best OnEffort EffType use_ef}\OperatorTok{~}\DecValTok{1}\NormalTok{ use_sit}
+   \OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dttm}\OperatorTok{>}\StringTok{              }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{  }
+\DecValTok{1}   \DecValTok{1165} \DecValTok{1988-07-30} \DecValTok{19}\OperatorTok{:}\DecValTok{28}\OperatorTok{:}\DecValTok{00}     \DecValTok{0} \OtherTok{FALSE}  \FloatTok{1.16} \OtherTok{TRUE}\NormalTok{     S       }\OtherTok{TRUE}     \OtherTok{TRUE}   
+\CommentTok{# ... with abbreviated variable name 1: use_effort}
+\NormalTok{(ltabundr }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(Cruise }\OperatorTok{==}\StringTok{ }\DecValTok{1165}\NormalTok{, species }\OperatorTok{==}\StringTok{ '047'}\NormalTok{))[}\DecValTok{1}\NormalTok{,]}
+\NormalTok{  Event            DateTime  Lat       Lon OnEffort Cruise Mode OffsetGMT}
+\DecValTok{1}\NormalTok{     S }\DecValTok{1988-07-30} \DecValTok{19}\OperatorTok{:}\DecValTok{28}\OperatorTok{:}\DecValTok{00} \FloatTok{26.3} \FloatTok{-121.1167}     \OtherTok{TRUE}   \DecValTok{1165}\NormalTok{    C        }\OtherTok{NA}
+\NormalTok{  EffType ESWsides Course SpdKt Bft SwellHght WindSpdKt RainFog HorizSun}
+\DecValTok{1}\NormalTok{       S        }\DecValTok{2}    \DecValTok{163}  \FloatTok{10.5}   \DecValTok{0}        \OtherTok{NA}        \OtherTok{NA}       \DecValTok{1}       \OtherTok{NA}
+\NormalTok{  VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot EventNum}
+\DecValTok{1}      \OtherTok{NA}    \OtherTok{NA}  \OtherTok{NA}  \DecValTok{038} \DecValTok{068}  \DecValTok{051}   \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{      }\OtherTok{TRUE}       \DecValTok{92}
+\NormalTok{                              file_das line_num stratum_HI_EEZ stratum_OtherCNP}
+\DecValTok{1}\NormalTok{ CenPac1986}\DecValTok{-2020}\NormalTok{_Final_alb_edited.das    }\DecValTok{50173}          \OtherTok{FALSE}             \OtherTok{TRUE}
+\NormalTok{  stratum_WHICEAS year month day yday km_int   km_cum ship  stratum seg_id  use}
+\DecValTok{1}           \OtherTok{FALSE} \DecValTok{1988}     \DecValTok{7}  \DecValTok{30}  \DecValTok{212}      \DecValTok{0} \FloatTok{13618.39}\NormalTok{  MAC OtherCNP    }\DecValTok{238} \OtherTok{TRUE}
+\NormalTok{  SightNo Subgroup SightNoDaily Obs ObsStd Bearing Reticle DistNm Cue Method}
+\DecValTok{1}      \DecValTok{07}     \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{   }\DecValTok{19880730}\NormalTok{_}\DecValTok{9} \DecValTok{051}   \OtherTok{TRUE}      \DecValTok{45}    \FloatTok{3.38}    \FloatTok{0.9}   \DecValTok{3}      \DecValTok{4}
+\NormalTok{  Photos Birds CalibSchool PhotosAerial Biopsy CourseSchool TurtleSp TurtleGs}
+\DecValTok{1}   \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{     }\NormalTok{N        }\OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{         }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{           }\OtherTok{NA}     \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{       }\OtherTok{NA}
+\NormalTok{  TurtleJFR TurtleAge TurtleCapt PinnipedSp PinnipedGs BoatType BoatGs}
+\DecValTok{1}      \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{       }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{       }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{         }\OtherTok{NA}     \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{     }\OtherTok{NA}
+\NormalTok{  PerpDistKm species    best low     high  prob mixed  ss_tot   lnsstot}
+\DecValTok{1}   \FloatTok{1.178606}     \DecValTok{047} \FloatTok{1.15942}   \DecValTok{1} \FloatTok{1.259921} \OtherTok{FALSE} \OtherTok{FALSE} \FloatTok{1.15942} \FloatTok{0.1479201}
+\NormalTok{  ss_percent n_sp n_obs n_best n_low n_high calibr ss_valid mixed_max spp_max}
+\DecValTok{1}          \DecValTok{1}    \DecValTok{1}     \DecValTok{3}      \DecValTok{3}     \DecValTok{3}      \DecValTok{3}   \OtherTok{TRUE}     \OtherTok{TRUE}      \OtherTok{TRUE}     \DecValTok{047}
+\NormalTok{  included}
+\DecValTok{1}     \OtherTok{TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+To investigate this sighting, we can filter our \texttt{cruz} object and take a look at a map of this sighting:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cruzi <-}\StringTok{ }\KeywordTok{filter_cruz}\NormalTok{(cruz, }\DataTypeTok{spp=}\StringTok{'047'}\NormalTok{, }\DataTypeTok{years =} \DecValTok{1988}\NormalTok{)}
+\KeywordTok{map_cruz}\NormalTok{(cruzi)}
+\end{Highlighting}
+\end{Shaded}
+
+Using that map we see that this sighting occurred \emph{just inside} of the \texttt{OtherCNP} geostratum. It is likely that the point-in-polygon subroutines inside \texttt{ABUND9} decided that this sighting was out of the study area, and therefore excluded it. The subroutines used by \texttt{LTabundR}, which are based in the \texttt{R} package \texttt{sf}, should not be wrong in this case.
+
+\hypertarget{cruise-1631-species-003}{%
+\paragraph{Cruise 1631, Species 003}\label{cruise-1631-species-003}}
+\addcontentsline{toc}{paragraph}{Cruise 1631, Species 003}
+
+In this case, there was a non-systematic sighting of species 003 that was found by \texttt{LTabundR} but not by \texttt{ABUND}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sight_compare}\NormalTok{(abund, ltabundr, }\DecValTok{1631}\NormalTok{, }\StringTok{'003'}\NormalTok{)}
+\NormalTok{ABUND}\OperatorTok{:}
+\CommentTok{# A tibble: 0 x 6}
+\CommentTok{# ... with 6 variables: CruzNo <int>, DateTime <chr>, Beauf <int>, Mixed <chr>,}
+\CommentTok{#   best <dbl>, use_sit <lgl>}
+
+\NormalTok{LTabundR}\OperatorTok{:}
+\CommentTok{# A tibble: 1 x 9}
+\StringTok{  }\NormalTok{Cruise DateTime              Bft mixed  best OnEffort EffType use_ef}\OperatorTok{~}\DecValTok{1}\NormalTok{ use_sit}
+   \OperatorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dttm}\OperatorTok{>}\StringTok{              }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{lgl}\OperatorTok{>}\StringTok{  }
+\DecValTok{1}   \DecValTok{1631} \DecValTok{2006-09-02} \DecValTok{07}\OperatorTok{:}\DecValTok{35}\OperatorTok{:}\DecValTok{14}     \DecValTok{5} \OtherTok{TRUE}      \DecValTok{1} \OtherTok{TRUE}\NormalTok{     N       }\OtherTok{TRUE}     \OtherTok{TRUE}   
+\CommentTok{# ... with abbreviated variable name 1: use_effort}
+\NormalTok{(ltabundr }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(Cruise }\OperatorTok{==}\StringTok{ }\DecValTok{1631}\NormalTok{, species }\OperatorTok{==}\StringTok{ '003'}\NormalTok{))}
+\NormalTok{  Event            DateTime      Lat       Lon OnEffort Cruise Mode OffsetGMT}
+\DecValTok{1}\NormalTok{     S }\DecValTok{2006-09-02} \DecValTok{07}\OperatorTok{:}\DecValTok{35}\OperatorTok{:}\DecValTok{14} \FloatTok{19.28883} \FloatTok{-156.8227}     \OtherTok{TRUE}   \DecValTok{1631}\NormalTok{    P        }\DecValTok{10}
+\NormalTok{  EffType ESWsides Course SpdKt Bft SwellHght WindSpdKt RainFog HorizSun}
+\DecValTok{1}\NormalTok{       N        }\DecValTok{2}    \DecValTok{155}    \DecValTok{10}   \DecValTok{5}         \DecValTok{4}        \DecValTok{18}       \DecValTok{1}       \DecValTok{10}
+\NormalTok{  VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot EventNum}
+\DecValTok{1}       \DecValTok{2} \OtherTok{FALSE}   \DecValTok{7}  \DecValTok{073} \DecValTok{196}  \DecValTok{197}   \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{      }\OtherTok{TRUE}      \DecValTok{026}
+\NormalTok{                              file_das line_num stratum_HI_EEZ stratum_OtherCNP}
+\DecValTok{1}\NormalTok{ CenPac1986}\DecValTok{-2020}\NormalTok{_Final_alb_edited.das   }\DecValTok{405222}           \OtherTok{TRUE}             \OtherTok{TRUE}
+\NormalTok{  stratum_WHICEAS year month day yday km_int   km_cum ship stratum seg_id  use}
+\DecValTok{1}            \OtherTok{TRUE} \DecValTok{2006}     \DecValTok{9}   \DecValTok{2}  \DecValTok{245}      \DecValTok{0} \FloatTok{124035.2}\NormalTok{  Mc2 WHICEAS   }\DecValTok{1277} \OtherTok{TRUE}
+\NormalTok{  SightNo Subgroup SightNoDaily Obs ObsStd Bearing Reticle DistNm Cue Method}
+\DecValTok{1}     \DecValTok{090}     \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{  }\DecValTok{20060902}\NormalTok{_}\DecValTok{38} \DecValTok{197}   \OtherTok{TRUE}      \DecValTok{59}     \FloatTok{0.3}   \FloatTok{4.12}   \DecValTok{2}      \DecValTok{4}
+\NormalTok{  Photos Birds CalibSchool PhotosAerial Biopsy CourseSchool TurtleSp TurtleGs}
+\DecValTok{1}\NormalTok{      N     N        }\OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{         }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{           }\OtherTok{NA}     \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{       }\OtherTok{NA}
+\NormalTok{  TurtleJFR TurtleAge TurtleCapt PinnipedSp PinnipedGs BoatType BoatGs}
+\DecValTok{1}      \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{       }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{       }\ErrorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{         }\OtherTok{NA}     \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{     }\OtherTok{NA}
+\NormalTok{  PerpDistKm species best low high  prob mixed   ss_tot  lnsstot ss_percent}
+\DecValTok{1}   \FloatTok{6.540392}     \DecValTok{003}    \DecValTok{1} \OtherTok{NaN}   \OtherTok{NA} \OtherTok{FALSE}  \OtherTok{TRUE} \FloatTok{3.478261} \FloatTok{1.246532}        \OtherTok{NaN}
+\NormalTok{  n_sp n_obs n_best n_low n_high calibr ss_valid mixed_max spp_max included}
+\DecValTok{1}    \DecValTok{2}     \DecValTok{1}      \DecValTok{0}     \DecValTok{1}      \DecValTok{0}   \OtherTok{TRUE}    \OtherTok{FALSE}     \OtherTok{FALSE}    \OperatorTok{<}\OtherTok{NA}\OperatorTok{>}\StringTok{     }\OtherTok{TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+The map indicates that this is not a geostratum boundary issue:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cruzi <-}\StringTok{ }\KeywordTok{filter_cruz}\NormalTok{(cruz, }\DataTypeTok{spp=}\StringTok{'003'}\NormalTok{, }\DataTypeTok{years =} \DecValTok{2006}\NormalTok{)}
+\KeywordTok{map_cruz}\NormalTok{(cruzi)}
+\end{Highlighting}
+\end{Shaded}
+
+Looking at the raw \texttt{DAS} data \ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{das}\OperatorTok{$}\NormalTok{das[}\DecValTok{405190}\OperatorTok{:}\DecValTok{405220}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+It appears that this was a multi-species sighting, but percentages were only provided for one species and the overall school size was quite low. Currently we are not sure why \texttt{ABUND} ignored this sighting.
+
+\hypertarget{school-sizes}{%
+\subsection*{School sizes}\label{school-sizes}}
+\addcontentsline{toc}{subsection}{School sizes}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Format ABUND}
+\NormalTok{abund <-}\StringTok{ }
+\StringTok{  }\NormalTok{SIGHTS }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{tidyr}\OperatorTok{::}\KeywordTok{pivot_longer}\NormalTok{(}\DataTypeTok{cols =} \DecValTok{31}\OperatorTok{:}\DecValTok{101}\NormalTok{,}
+                      \DataTypeTok{names_to =} \StringTok{'species'}\NormalTok{,}
+                      \DataTypeTok{values_to =} \StringTok{'best'}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Region =} \KeywordTok{gsub}\NormalTok{(}\StringTok{' '}\NormalTok{,}\StringTok{''}\NormalTok{,Region)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(best }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{,}
+         \OperatorTok{!}\StringTok{ }\NormalTok{Region }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'NONE'}\NormalTok{, }\StringTok{'Off-Transect'}\NormalTok{),}
+\NormalTok{         EffortSeg }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\DataTypeTok{Cruise =}\NormalTok{ CruzNo, TotSS, LnTotSS, species, best) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Software=}\StringTok{'ABUND9'}\NormalTok{)}
+
+\KeywordTok{nrow}\NormalTok{(abund)}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2478}
+
+\CommentTok{# Format LTabundR}
+\NormalTok{ltabundr <-}\StringTok{ }
+\StringTok{  }\NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{all}\OperatorTok{$}\NormalTok{sightings }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(OnEffort }\OperatorTok{==}\StringTok{ }\OtherTok{TRUE}\NormalTok{, }
+\NormalTok{         included }\OperatorTok{==}\StringTok{ }\OtherTok{TRUE}\NormalTok{, }
+\NormalTok{         EffType }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'S'}\NormalTok{, }\StringTok{'F'}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(Cruise, }\DataTypeTok{TotSS =}\NormalTok{ ss_tot, }\DataTypeTok{LnTotSS =}\NormalTok{ lnsstot, species, best) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Software=}\StringTok{'LTabundR'}\NormalTok{)}
+
+\CommentTok{# Combine the datasets}
+\NormalTok{ss <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(abund, ltabundr)}
+
+\CommentTok{# Plot the datasets}
+\KeywordTok{ggplot}\NormalTok{(ss,}
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{best, }
+           \DataTypeTok{y=}\KeywordTok{factor}\NormalTok{(Cruise), }
+           \DataTypeTok{col=}\NormalTok{Software, }
+           \DataTypeTok{pch=}\NormalTok{Software)) }\OperatorTok{+}\StringTok{ }
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{position=}\NormalTok{ggstance}\OperatorTok{::}\KeywordTok{position_dodgev}\NormalTok{(}\DataTypeTok{height=}\FloatTok{0.5}\NormalTok{),}
+                 \DataTypeTok{alpha=}\NormalTok{.}\DecValTok{6}\NormalTok{) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{trans=}\StringTok{'log'}\NormalTok{, }\DataTypeTok{breaks=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{50}\NormalTok{,}\DecValTok{100}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{1000}\NormalTok{,}\DecValTok{2500}\NormalTok{,}\DecValTok{5000}\NormalTok{)) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{xlab}\NormalTok{(}\StringTok{'log Estimated School Size'}\NormalTok{) }\OperatorTok{+}
+\StringTok{      }\KeywordTok{ylab}\NormalTok{(}\StringTok{'Cruise'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme_light}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-124-1.pdf}
+
+\hypertarget{effort}{%
+\subsection*{Effort}\label{effort}}
+\addcontentsline{toc}{subsection}{Effort}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Format ABUND}
+\NormalTok{abund <-}\StringTok{ }
+\StringTok{  }\NormalTok{EFFORT }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Region =} \KeywordTok{gsub}\NormalTok{(}\StringTok{' '}\NormalTok{,}\StringTok{''}\NormalTok{,Region)) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{dt =} \KeywordTok{paste0}\NormalTok{(Yr,}
+\NormalTok{                     stringr}\OperatorTok{::}\KeywordTok{str_pad}\NormalTok{(Mo, }\DataTypeTok{width=}\DecValTok{2}\NormalTok{, }\DataTypeTok{pad=}\StringTok{'0'}\NormalTok{, }\DataTypeTok{side=}\StringTok{'left'}\NormalTok{),}
+\NormalTok{                     stringr}\OperatorTok{::}\KeywordTok{str_pad}\NormalTok{(Da, }\DataTypeTok{width=}\DecValTok{2}\NormalTok{, }\DataTypeTok{pad=}\StringTok{'0'}\NormalTok{, }\DataTypeTok{side=}\StringTok{'left'}\NormalTok{))) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\StringTok{ }\NormalTok{Region }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'NONE'}\NormalTok{, }\StringTok{'Off-Transect'}\NormalTok{),}
+\NormalTok{         EffortSeg }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(}\DataTypeTok{Cruise =}\NormalTok{ CruzNo, }\DataTypeTok{Date =}\NormalTok{ dt, }\DataTypeTok{km =}\NormalTok{ length) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{software =} \StringTok{'ABUND9'}\NormalTok{)}
+  
+\CommentTok{# Format LTabundR}
+\NormalTok{ltabundr <-}\StringTok{ }
+\StringTok{  }\NormalTok{cruz}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{all}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{dt =} \KeywordTok{gsub}\NormalTok{(}\StringTok{'-'}\NormalTok{,}\StringTok{''}\NormalTok{,}\KeywordTok{substr}\NormalTok{(DateTime1, }\DecValTok{1}\NormalTok{,}\DecValTok{10}\NormalTok{))) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{filter}\NormalTok{(OnEffort }\OperatorTok{==}\StringTok{ }\OtherTok{TRUE}\NormalTok{, }
+\NormalTok{         use }\OperatorTok{==}\StringTok{ }\OtherTok{TRUE}\NormalTok{, }
+\NormalTok{         EffType }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'S'}\NormalTok{, }\StringTok{'F'}\NormalTok{)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{select}\NormalTok{(Cruise, }\DataTypeTok{Date =}\NormalTok{ dt, }\DataTypeTok{km =}\NormalTok{ dist) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{software =} \StringTok{'LTabundR'}\NormalTok{)}
+  
+\CommentTok{# Join the datasets}
+\NormalTok{eff <-}\StringTok{ }
+\StringTok{  }\KeywordTok{rbind}\NormalTok{(abund, ltabundr) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{group_by}\NormalTok{(Cruise) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{km =} \KeywordTok{round}\NormalTok{(km)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{km_abund =} \KeywordTok{sum}\NormalTok{(km[software }\OperatorTok{==}\StringTok{ 'ABUND9'}\NormalTok{]),}
+            \DataTypeTok{km_ltabundr =} \KeywordTok{sum}\NormalTok{(km[software }\OperatorTok{==}\StringTok{ 'LTabundR'}\NormalTok{]))}
+
+\CommentTok{# Plot}
+\NormalTok{p <-}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(eff, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ km_abund, }\DataTypeTok{y =}\NormalTok{ km_ltabundr, }\DataTypeTok{col=}\KeywordTok{factor}\NormalTok{(Cruise))) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_abline}\NormalTok{(}\DataTypeTok{slope=}\DecValTok{1}\NormalTok{, }\DataTypeTok{intercept=}\DecValTok{0}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{3}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{6}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{'LTabundR'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{'ABUND9'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{15000}\NormalTok{, }\DataTypeTok{by=}\DecValTok{2500}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{breaks =} \KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{15000}\NormalTok{, }\DataTypeTok{by=}\DecValTok{2500}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title=}\StringTok{'Systematic effort per cruise'}\NormalTok{, }\DataTypeTok{col=}\StringTok{'Cruise'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme_light}\NormalTok{()}
+
+\CommentTok{# Make it interactive}
+\KeywordTok{ggplotly}\NormalTok{(p)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1721,21 +3019,21 @@ Here we will continue with the \texttt{cruz} object we created on the previous p
 
         \OperatorTok{$}\NormalTok{all}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{1888} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{149.3}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{1893} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{149.4}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329638}\NormalTok{ data rows}
             \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{3934}\NormalTok{ detections}
             \OperatorTok{$}\NormalTok{subgroups }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{255}\NormalTok{ subgroups, }\DecValTok{49}\NormalTok{ sightings, and }\DecValTok{389}\NormalTok{ events}
 
         \OperatorTok{$}\NormalTok{bottlenose}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP, Bottlenose_BI, Bottlenose_OUFI, Bottlenose_KaNi}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2050} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2049} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.7}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329638}\NormalTok{ data rows}
             \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{523}\NormalTok{ detections}
 
         \OperatorTok{$}\NormalTok{spotted}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP, Spotted_OU, Spotted_FI, Spotted_BI}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2051} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2056} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.4}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329638}\NormalTok{ data rows}
             \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{527}\NormalTok{ detections}
 \end{Highlighting}
 \end{Shaded}
@@ -1829,21 +3127,21 @@ Re-constituted data structure:
 
         \OperatorTok{$}\NormalTok{all}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{1888} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{149.3}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{1893} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{149.4}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329638}\NormalTok{ data rows}
             \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{3934}\NormalTok{ detections}
             \OperatorTok{$}\NormalTok{subgroups }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{237}\NormalTok{ subgroups, }\DecValTok{38}\NormalTok{ sightings, and }\DecValTok{345}\NormalTok{ events}
 
         \OperatorTok{$}\NormalTok{bottlenose}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP, Bottlenose_BI, Bottlenose_OUFI, Bottlenose_KaNi}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2050} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2049} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.7}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329638}\NormalTok{ data rows}
             \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{523}\NormalTok{ detections}
 
         \OperatorTok{$}\NormalTok{spotted}
 \NormalTok{            geostrata}\OperatorTok{:}\StringTok{ }\NormalTok{WHICEAS, HI_EEZ, OtherCNP, Spotted_OU, Spotted_FI, Spotted_BI}
-            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2051} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
-            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329632}\NormalTok{ data rows}
+            \OperatorTok{$}\NormalTok{segments  }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{2056} \KeywordTok{segments}\NormalTok{ (}\DataTypeTok{median =} \FloatTok{148.4}\NormalTok{ km)}
+            \OperatorTok{$}\NormalTok{das       }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{329638}\NormalTok{ data rows}
             \OperatorTok{$}\NormalTok{sightings }\OperatorTok{---}\StringTok{ }\NormalTok{with }\DecValTok{527}\NormalTok{ detections}
 \end{Highlighting}
 \end{Shaded}
@@ -2259,7 +3557,7 @@ The model predicts that \emph{Rg(0)} declines rapidly with deteriorating sea sta
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-143-1.pdf}
+\includegraphics{figures/unnamed-chunk-201-1.pdf}
 
 In addition to the summary above, this function returns various details, including the details of the Generalized Additive Model (GAM) (for both the estimate and the jackknifed datasets), and the raw sightings and segments used in the model.
 
@@ -2323,7 +3621,7 @@ Now plot the result using a dedicated \texttt{LTabundR} function:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-149-1.pdf}
+\includegraphics{figures/unnamed-chunk-207-1.pdf}
 
 \hypertarget{weighted-average-g0}{%
 \section*{\texorpdfstring{Weighted average \texttt{g(0)}}{Weighted average g(0)}}\label{weighted-average-g0}}
@@ -2777,19 +4075,22 @@ While \texttt{lta()} is running, it will print things to the Console (if \texttt
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-178-1.pdf}
+\includegraphics{figures/unnamed-chunk-236-1.pdf}
 
 \begin{verbatim}
     Cruise            DateTime SightNoDaily line_num species Bft  lnsstot
 41    1164 1988-08-08 08:05:00   19880808_9    41585     026  NA 6.856462
 72    1268 1989-08-23 17:45:00  19890823_12    60352     013  NA 2.995732
 82    1268 1989-11-25 06:10:00  19891125_22    66719     013  NA 4.716132
-387   2001 2020-01-26 07:51:40 20200126_129   609065     013  NA 3.676782
+387   2001 2020-01-26 07:51:40 20200126_129   609071     013  NA 3.676782
     Cruise            DateTime SightNoDaily line_num species best ss_valid
-334   1604 2016-07-07 07:15:57 20160707_105   512744   Other    1    FALSE
+285   1004 2010-04-29 08:06:17  20100429_40   435814   Other    1    FALSE
+286   1004 2010-04-30 09:37:06  20100430_36   436190   Other    1    FALSE
+287   1004 2010-04-30 10:55:41  20100430_38   436259   Other    1    FALSE
+334   1604 2016-07-07 07:15:57 20160707_105   512750   Other    1    FALSE
 \end{verbatim}
 
-\includegraphics{figures/unnamed-chunk-178-2.pdf} \includegraphics{figures/unnamed-chunk-178-3.pdf} \includegraphics{figures/unnamed-chunk-178-4.pdf} \includegraphics{figures/unnamed-chunk-178-5.pdf} \includegraphics{figures/unnamed-chunk-178-6.pdf} \includegraphics{figures/unnamed-chunk-178-7.pdf} \includegraphics{figures/unnamed-chunk-178-8.pdf} \includegraphics{figures/unnamed-chunk-178-9.pdf} \includegraphics{figures/unnamed-chunk-178-10.pdf} \includegraphics{figures/unnamed-chunk-178-11.pdf} \includegraphics{figures/unnamed-chunk-178-12.pdf}
+\includegraphics{figures/unnamed-chunk-236-2.pdf} \includegraphics{figures/unnamed-chunk-236-3.pdf} \includegraphics{figures/unnamed-chunk-236-4.pdf} \includegraphics{figures/unnamed-chunk-236-5.pdf} \includegraphics{figures/unnamed-chunk-236-6.pdf} \includegraphics{figures/unnamed-chunk-236-7.pdf} \includegraphics{figures/unnamed-chunk-236-8.pdf} \includegraphics{figures/unnamed-chunk-236-9.pdf} \includegraphics{figures/unnamed-chunk-236-10.pdf} \includegraphics{figures/unnamed-chunk-236-11.pdf} \includegraphics{figures/unnamed-chunk-236-12.pdf}
 
 Additionally, windows will appear showing details for the detection function models and details of the density/abundance estimate.
 
@@ -2889,16 +4190,17 @@ This list of results has five slots:
 \NormalTok{results}\OperatorTok{$}\NormalTok{bootstrap}\OperatorTok{$}\NormalTok{summary }\OperatorTok{%>%}\StringTok{ }\NormalTok{head}
 \CommentTok{# A tibble: 6 x 18}
 \CommentTok{# Groups:   title, Region [3]}
-\NormalTok{  title      Region year  species iterations ESW_mean g0_mean g0_cv    km     ER}
-  \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{      }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{        }\ErrorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{    }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
-\DecValTok{1}\NormalTok{ Frasers d}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2017}  \DecValTok{026}             \DecValTok{10}   \OtherTok{NaN}      \FloatTok{0.454} \FloatTok{0.777} \FloatTok{3030.} \DecValTok{0}     
-\DecValTok{2}\NormalTok{ Frasers d}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2020}  \DecValTok{026}             \DecValTok{10}     \FloatTok{3.44}   \FloatTok{0.482} \FloatTok{0.763} \FloatTok{4427.} \FloatTok{0.0615}
-\DecValTok{3}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{hea}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2017}  \DecValTok{031}             \DecValTok{10}     \FloatTok{3.02}   \FloatTok{0.628} \FloatTok{0.409} \FloatTok{3030.} \FloatTok{0.144} 
-\DecValTok{4}\NormalTok{ Melon}\OperatorTok{-}\NormalTok{hea}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2020}  \DecValTok{031}             \DecValTok{10}     \FloatTok{3.26}   \FloatTok{0.633} \FloatTok{0.417} \FloatTok{4427.} \FloatTok{0.205} 
-\DecValTok{5}\NormalTok{ Striped d}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2017}  \DecValTok{013}             \DecValTok{10}     \FloatTok{3.49}   \FloatTok{0.479} \FloatTok{0.144} \FloatTok{3030.} \FloatTok{0.0406}
-\DecValTok{6}\NormalTok{ Striped d}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2020}  \DecValTok{013}             \DecValTok{10}     \FloatTok{3.37}   \FloatTok{0.499} \FloatTok{0.184} \FloatTok{4427.} \FloatTok{0.0502}
-\CommentTok{# ... with 8 more variables: D <dbl>, size <dbl>, Nmean <dbl>, Nmedian <dbl>,}
-\CommentTok{#   Nsd <dbl>, CV <dbl>, L95 <dbl>, U95 <dbl>}
+\NormalTok{  title   Region year  species itera}\OperatorTok{~}\DecValTok{1}\NormalTok{ ESW_m}\OperatorTok{~}\DecValTok{2}\NormalTok{ g0_mean g0_cv    km     ER      D}
+  \OperatorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{chr}\OperatorTok{>}\StringTok{     }\ErrorTok{<}\NormalTok{int}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{   }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{ }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}\StringTok{  }\ErrorTok{<}\NormalTok{dbl}\OperatorTok{>}
+\DecValTok{1}\NormalTok{ Fraser}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2017}  \DecValTok{026}          \DecValTok{10}  \OtherTok{NaN}      \FloatTok{0.454} \FloatTok{0.777} \FloatTok{3030.} \DecValTok{0}      \DecValTok{0}     
+\DecValTok{2}\NormalTok{ Fraser}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2020}  \DecValTok{026}          \DecValTok{10}    \FloatTok{3.44}   \FloatTok{0.482} \FloatTok{0.763} \FloatTok{4427.} \FloatTok{0.0615} \FloatTok{0.0834}
+\DecValTok{3}\NormalTok{ Melon}\OperatorTok{-}\ErrorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2017}  \DecValTok{031}          \DecValTok{10}    \FloatTok{3.02}   \FloatTok{0.628} \FloatTok{0.409} \FloatTok{3030.} \FloatTok{0.144}  \FloatTok{0.0707}
+\DecValTok{4}\NormalTok{ Melon}\OperatorTok{-}\ErrorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2020}  \DecValTok{031}          \DecValTok{10}    \FloatTok{3.26}   \FloatTok{0.633} \FloatTok{0.417} \FloatTok{4427.} \FloatTok{0.205}  \FloatTok{0.0524}
+\DecValTok{5}\NormalTok{ Stripe}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2017}  \DecValTok{013}          \DecValTok{10}    \FloatTok{3.49}   \FloatTok{0.479} \FloatTok{0.144} \FloatTok{3030.} \FloatTok{0.0406} \FloatTok{0.0125}
+\DecValTok{6}\NormalTok{ Stripe}\OperatorTok{~}\StringTok{ }\NormalTok{(WHIC}\OperatorTok{~}\StringTok{ }\DecValTok{2020}  \DecValTok{013}          \DecValTok{10}    \FloatTok{3.37}   \FloatTok{0.499} \FloatTok{0.184} \FloatTok{4427.} \FloatTok{0.0502} \FloatTok{0.0130}
+\CommentTok{# ... with 7 more variables: size <dbl>, Nmean <dbl>, Nmedian <dbl>, Nsd <dbl>,}
+\CommentTok{#   CV <dbl>, L95 <dbl>, U95 <dbl>, and abbreviated variable names}
+\CommentTok{#   1: iterations, 2: ESW_mean}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3131,7 +4433,7 @@ Say you want to estimate abundance in the `WHCEAS' study area, but you want to m
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-191-1.pdf}
+\includegraphics{figures/unnamed-chunk-249-1.pdf}
 
 Say you want to estimate abundance in the pelagic Hawaiian EEZ, ignoring effort and sightings within the Main Hawaiian Islands stratum and accurately removing small islands in northwest Hawaii:
 
@@ -3144,7 +4446,7 @@ Say you want to estimate abundance in the pelagic Hawaiian EEZ, ignoring effort 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-192-1.pdf}
+\includegraphics{figures/unnamed-chunk-250-1.pdf}
 
 Say you want to estimate abundance of pelagic bottlenose dolphins within the WHICEAS study area, ignoring the insular stocks:
 
@@ -3157,7 +4459,7 @@ Say you want to estimate abundance of pelagic bottlenose dolphins within the WHI
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-193-1.pdf}
+\includegraphics{figures/unnamed-chunk-251-1.pdf}
 
 Say you want to estimate abundance for \emph{only} the insular bottlenose stocks:
 
@@ -3169,7 +4471,7 @@ Say you want to estimate abundance for \emph{only} the insular bottlenose stocks
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-194-1.pdf}
+\includegraphics{figures/unnamed-chunk-252-1.pdf}
 
 Say you want to estimate abundance for false killer whales within the Northwest Hawaiian Islands and Main Hawaiian Islands study areas combined, but those geostrata partially overlap:
 
@@ -3181,7 +4483,7 @@ Say you want to estimate abundance for false killer whales within the Northwest 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-195-1.pdf}
+\includegraphics{figures/unnamed-chunk-253-1.pdf}
 
 Say you want to estimate abundance for the Hawaiian EEZ \emph{outside} of those partially overlapping geostrata:
 
@@ -3194,7 +4496,7 @@ Say you want to estimate abundance for the Hawaiian EEZ \emph{outside} of those 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-196-1.pdf}
+\includegraphics{figures/unnamed-chunk-254-1.pdf}
 
 \hypertarget{g0-estimation}{%
 \subsection*{\texorpdfstring{\emph{g(0)} estimation}{g(0) estimation}}\label{g0-estimation}}
@@ -3402,7 +4704,7 @@ The second option, \texttt{"bootstrap"}, uses an iterative method that draws boo
 \NormalTok{(ltas_2b }\OperatorTok{%>%}\StringTok{ }\KeywordTok{lta_report}\NormalTok{(}\DataTypeTok{verbose=}\OtherTok{FALSE}\NormalTok{))}\OperatorTok{$}\NormalTok{table4}
                          \DecValTok{2002}\NormalTok{  (HI_EEZ)                       }\DecValTok{2010}\NormalTok{  (HI_EEZ)}
 \DecValTok{1}\NormalTok{ Species or category Density Abundance   CV        }\DecValTok{95}\NormalTok{% CI Density Abundance}
-\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{9.15}    \DecValTok{22}\NormalTok{,}\DecValTok{646} \FloatTok{0.23} \DecValTok{22}\NormalTok{,}\DecValTok{484-48}\NormalTok{,}\DecValTok{617}   \FloatTok{14.36}    \DecValTok{35}\NormalTok{,}\DecValTok{527}
+\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{9.15}    \DecValTok{22}\NormalTok{,}\DecValTok{646} \FloatTok{0.24} \DecValTok{22}\NormalTok{,}\DecValTok{484-48}\NormalTok{,}\DecValTok{617}   \FloatTok{14.36}    \DecValTok{35}\NormalTok{,}\DecValTok{527}
                     
 \DecValTok{1}\NormalTok{   CV        }\DecValTok{95}\NormalTok{% CI}
 \DecValTok{2} \FloatTok{0.27} \DecValTok{35}\NormalTok{,}\DecValTok{038-77}\NormalTok{,}\DecValTok{911}
@@ -3481,7 +4783,7 @@ In this example, the encounter rates observed in 2002 and 2010 are very likely d
 
 The \texttt{details} slot returns the simulation predictions for each year, which can be used to replicate the histograms that are printed when the function is run.
 
-\includegraphics{figures/unnamed-chunk-213-1.pdf}
+\includegraphics{figures/unnamed-chunk-271-1.pdf}
 
 A dataframe with a row for each year. Columns provide the number of observations of the species of interest during systematic effort, and the p-value of the test. The p-value represents the fraction of simulated encounter rates that exceed the observed encounter rate.
 
@@ -3635,7 +4937,7 @@ Plot these options:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-221-1.pdf}
+\includegraphics{figures/unnamed-chunk-279-1.pdf}
 
 Get sample size remaining for each candidate distance:
 
@@ -3899,7 +5201,7 @@ The second is to calculate it ourselves using the \texttt{LTabundR} function \te
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-237-1.pdf}
+\includegraphics{figures/unnamed-chunk-295-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4043,11 +5345,11 @@ The \texttt{bootstraps} slot has the bootstrapped values for various parameters,
 
 Some examples:
 
-\includegraphics{figures/unnamed-chunk-246-1.pdf}
+\includegraphics{figures/unnamed-chunk-304-1.pdf}
 
-\includegraphics{figures/unnamed-chunk-247-1.pdf}
+\includegraphics{figures/unnamed-chunk-305-1.pdf}
 
-\includegraphics{figures/unnamed-chunk-248-1.pdf}
+\includegraphics{figures/unnamed-chunk-306-1.pdf}
 
 \hypertarget{behind-the-scenes-2}{%
 \section*{Behind the scenes}\label{behind-the-scenes-2}}
@@ -4225,7 +5527,7 @@ To plot the abundance estimate with error bars representing the 95\% confidence 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-261-1.pdf}
+\includegraphics{figures/unnamed-chunk-319-1.pdf}
 
 \hypertarget{detection-function-plots}{%
 \section*{Detection function plots}\label{detection-function-plots}}
@@ -4239,7 +5541,7 @@ To plot the best-fit detection model for a species pool, use the \texttt{df\_plo
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-262-1.pdf}
+\includegraphics{figures/unnamed-chunk-320-1.pdf}
 
 This function provides various stylization options, including the option to show multiple best-fitting models atop a single histogram of detections:
 
@@ -4256,7 +5558,7 @@ This function provides various stylization options, including the option to show
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-263-1.pdf}
+\includegraphics{figures/unnamed-chunk-321-1.pdf}
 
 \hypertarget{part-case-studies}{%
 \part{Case studies}\label{part-case-studies}}
@@ -4264,7 +5566,7 @@ This function provides various stylization options, including the option to show
 \hypertarget{whiceas}{%
 \chapter{WHICEAS}\label{whiceas}}
 
-Here we demonstrate code that reproduces the Bradford et al.~(2022) WHICEAS report (\emph{In press}) within the new \texttt{LTabundR} framework. This study estimates cetacean abundance for Hawaiian WHICEAS study area for 2017 and 2020. Here we use survey data from 1986 to 2020 to estimate \emph{Relative g(0)} and detection functions. Currently, coefficients of variation (CV) of density and abundance are estimated using only 100 bootstrap iterations (the publication uses 1,000) to reduce processing time.
+Here we demonstrate code that reproduces the Bradford et al.~(2022) WHICEAS report within the new \texttt{LTabundR} framework. This study estimates cetacean abundance for Hawaiian WHICEAS study area for 2017 and 2020. Here we use survey data from 1986 to 2020 to estimate \emph{Relative g(0)} and detection functions. Currently, coefficients of variation (CV) of density and abundance are estimated using only 100 bootstrap iterations (the publication uses 1,000) to reduce processing time.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4290,6 +5592,7 @@ Here we demonstrate code that reproduces the Bradford et al.~(2022) WHICEAS repo
 \KeywordTok{data}\NormalTok{(species_codes)}
 \KeywordTok{data}\NormalTok{(ships)}
 \KeywordTok{data}\NormalTok{(group_size_coefficients)}
+\KeywordTok{data}\NormalTok{(cnp_}\DecValTok{1986}\NormalTok{_}\DecValTok{2020}\NormalTok{_edits)}
 
 \NormalTok{survey <-}\StringTok{ }\KeywordTok{load_survey_settings}\NormalTok{(}
   \DataTypeTok{out_handling =} \StringTok{'remove'}\NormalTok{,}
@@ -4394,7 +5697,8 @@ Here we demonstrate code that reproduces the Bradford et al.~(2022) WHICEAS repo
 
 \NormalTok{cruz <-}\StringTok{ }
 \StringTok{  }\KeywordTok{process_surveys}\NormalTok{(}\DataTypeTok{das_file =} \StringTok{'data/surveys/CenPac1986-2020_Final_alb.das'}\NormalTok{,}
-                  \DataTypeTok{settings =}\NormalTok{ settings) }
+                  \DataTypeTok{settings =}\NormalTok{ settings,}
+                  \DataTypeTok{edits =}\NormalTok{ cnp_}\DecValTok{1986}\NormalTok{_}\DecValTok{2020}\NormalTok{_edits) }
 
 \KeywordTok{save}\NormalTok{(cruz, }\DataTypeTok{file=}\StringTok{'whiceas/whiceas_cruz.RData'}\NormalTok{)}
 \end{Highlighting}
@@ -4485,7 +5789,38 @@ We can use the built-in dataset, \texttt{data(g0\_results)}, which has Beaufort-
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-278-1.pdf}
+\includegraphics{figures/unnamed-chunk-336-1.pdf}
+
+To explore the effects of \texttt{LTabundR}'s \emph{g(0)} estimation routines on our abundance estimates, we will be running the analyses below with three different \emph{g(0)} scenarios. In scenario 1, we will manually specify the weighted \texttt{g(0)} and its CV for each species in 2020; these results should be nearly exact replicates of those from Bradford et al.~(2021), and we can be sure that any discrepancy between the two sets of results are not attributable the \emph{g(0)} aspect of the analysis. Second, we will allow \texttt{LTabundR} to calculate the weighted \texttt{g(0)} and its CV using the same \emph{Relative g(0)} values that were used in Bradford et al.~(2021) (i.e., the results of Barlow (2015), which used surveys from 1986 to 2010 and is provided in \texttt{LTabundR} as a built-in dataset), such that any difference between scenarios 1 and 2 are likely due to the weighted \emph{g(0)} subroutines. Finally, in scenario 3, we will use the \emph{Relative g(0)} esitmates produced by \texttt{LTabundR} using a more extensive survey dataset (1986-2020).
+
+For each \emph{g(0)} scenario, our \texttt{Rg0} object and \texttt{results\_path} will differ:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Specify scenario number here}
+\NormalTok{g0_scenario <-}\StringTok{ }\DecValTok{3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Set Rg0 source and results path}
+\ControlFlowTok{if}\NormalTok{(g0_scenario }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{)\{ }\CommentTok{# Using manually-specified g0 and its CV}
+\NormalTok{  Rg0 <-}\StringTok{ }\OtherTok{NULL}
+\NormalTok{  results_path <-}\StringTok{ 'whiceas/lta_manual/'}
+\NormalTok{\}}
+\ControlFlowTok{if}\NormalTok{(g0_scenario }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{)\{ }\CommentTok{# Using Rg0 estimates from Barlow 2015}
+  \KeywordTok{data}\NormalTok{(barlow_}\DecValTok{2015}\NormalTok{)}
+\NormalTok{  Rg0 <-}\StringTok{ }\NormalTok{barlow_}\DecValTok{2015}
+\NormalTok{  results_path <-}\StringTok{ 'whiceas/lta_barlow/'}
+\NormalTok{\}}
+\ControlFlowTok{if}\NormalTok{(g0_scenario }\OperatorTok{==}\StringTok{ }\DecValTok{3}\NormalTok{)\{ }\CommentTok{# New LTabundR estimates of Rg0}
+  \KeywordTok{data}\NormalTok{(g0_results)}
+\NormalTok{  Rg0 <-}\StringTok{ }\NormalTok{g0_results}
+\NormalTok{  results_path <-}\StringTok{ 'whiceas/lta/'}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{density-abundance}{%
 \section*{Density \& abundance}\label{density-abundance}}
@@ -4501,7 +5836,6 @@ First we can define common values that will be constant across all estimates we 
 \NormalTok{fit_not_regions <-}\StringTok{ }\OtherTok{NULL}
 \NormalTok{toplot =}\StringTok{ }\OtherTok{TRUE}
 \NormalTok{verbose =}\StringTok{ }\OtherTok{TRUE}
-\NormalTok{results_path <-}\StringTok{ 'whiceas/lta/'}
 
 \NormalTok{df_settings <-}
 \StringTok{  }\KeywordTok{list}\NormalTok{(}\DataTypeTok{covariates =} \KeywordTok{c}\NormalTok{(}\StringTok{'bft'}\NormalTok{,}\StringTok{'lnsstot'}\NormalTok{,}\StringTok{'cruise'}\NormalTok{,}\StringTok{'year'}\NormalTok{,}\StringTok{'ship'}\NormalTok{,}\StringTok{'species'}\NormalTok{),}
@@ -4674,7 +6008,23 @@ Here is the full code for producing those estimates for all species from Bradfor
 \StringTok{    }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'013'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Striped dolphin"}\NormalTok{),}
       \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'026'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Fraser's dolphin"}\NormalTok{, }\DataTypeTok{alt_g0_spp =} \StringTok{'013'}\NormalTok{),}
       \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'031'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Melon-headed whale"}\NormalTok{, }\DataTypeTok{alt_g0_spp =} \StringTok{'013'}\NormalTok{))}
-
+  
+\NormalTok{  estimates}
+  
+  \CommentTok{# Manually specify g0 and its CV -- only for g0_scenario 1}
+  \CommentTok{# Two specifications per species, one for 2017 and one for 2020}
+  \ControlFlowTok{if}\NormalTok{(g0_scenario}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+    \CommentTok{# Striped }
+\NormalTok{    estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.35}\NormalTok{; estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.19}
+\NormalTok{    estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.31}\NormalTok{; estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.22}
+    \CommentTok{# Fraser's}
+\NormalTok{    estimates[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.35}\NormalTok{; estimates[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.10}
+\NormalTok{    estimates[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.31}\NormalTok{; estimates[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.22}
+    \CommentTok{# Melon-headed}
+\NormalTok{    estimates[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.35}\NormalTok{; estimates[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.19}
+\NormalTok{    estimates[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.31}\NormalTok{; estimates[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.22}
+\NormalTok{  \}}
+  
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
                  \DataTypeTok{bootstraps =}\NormalTok{ bootstraps,}
@@ -4717,6 +6067,18 @@ Here is the full code for producing those estimates for all species from Bradfor
         \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'021'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Risso's dolphin"}\NormalTok{),}
         \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'032'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Pygmy killer whale"}\NormalTok{))}
 
+  \ControlFlowTok{if}\NormalTok{(g0_scenario}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+    \CommentTok{# Rough-toothed }
+\NormalTok{    estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.09}\NormalTok{; estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.45}
+\NormalTok{    estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.07}\NormalTok{; estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.51}
+    \CommentTok{# Risso's}
+\NormalTok{    estimates[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.57}\NormalTok{; estimates[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.18}
+\NormalTok{    estimates[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.52}\NormalTok{; estimates[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\DecValTok{021}
+    \CommentTok{# Pygmy killer}
+\NormalTok{    estimates[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.14}\NormalTok{; estimates[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.25}
+\NormalTok{    estimates[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.11}\NormalTok{; estimates[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.28}
+\NormalTok{  \}}
+  
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
                  \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
@@ -4758,6 +6120,15 @@ Here is the full code for producing those estimates for all species from Bradfor
       \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'065'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Longman's beaked whale"}\NormalTok{, }
                 \DataTypeTok{alt_g0_spp =} \StringTok{'036'}\NormalTok{))}
 
+  \ControlFlowTok{if}\NormalTok{(g0_scenario}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+    \CommentTok{# Short-finned }
+\NormalTok{    estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.58}\NormalTok{; estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.15}
+\NormalTok{    estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.52}\NormalTok{; estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.19}
+    \CommentTok{# Longman's}
+\NormalTok{    estimates[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.58}\NormalTok{; estimates[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.15}
+\NormalTok{    estimates[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.52}\NormalTok{; estimates[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.19}
+\NormalTok{  \}}
+  
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
                  \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
@@ -4797,6 +6168,15 @@ Here is the full code for producing those estimates for all species from Bradfor
 \StringTok{      }\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'037'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Killer whale"}\NormalTok{),}
         \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'046'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Sperm whale"}\NormalTok{))}
 
+  \ControlFlowTok{if}\NormalTok{(g0_scenario}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+    \CommentTok{# Killer (no sightings in ALB et al 2021)}
+\NormalTok{    estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\DecValTok{1}\NormalTok{; estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\DecValTok{0}
+\NormalTok{    estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\DecValTok{1}\NormalTok{; estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\DecValTok{0}
+    \CommentTok{# Sperm}
+\NormalTok{    estimates[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.63}\NormalTok{; estimates[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.34}
+\NormalTok{    estimates[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.61}\NormalTok{; estimates[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.37}
+\NormalTok{  \}}
+  
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
                  \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
@@ -4838,11 +6218,40 @@ Here is the full code for producing those estimates for all species from Bradfor
         \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'048'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Dwarf sperm whale"}\NormalTok{),}
         \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'080'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Unidentified Kogia"}\NormalTok{),}
         \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'059'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Blainville's beaked whale"}\NormalTok{),}
-        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'061'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Curvier's beaked whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'061'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Cuvier's beaked whale"}\NormalTok{),}
         \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'051'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Unidentified Mesoplodon"}\NormalTok{),}
-        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'049'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Unidentified beaked whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'049'}\NormalTok{, }
+                  \DataTypeTok{title =} \StringTok{"Unidentified beaked whale"}\NormalTok{,}
+                  \DataTypeTok{alt_g0_spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'061'}\NormalTok{,}\StringTok{'051'}\NormalTok{),}
+                  \DataTypeTok{combine_g0 =} \OtherTok{TRUE}\NormalTok{),}
         \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'071'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Minke whale"}\NormalTok{))}
 
+  \CommentTok{# Note Barlow2015 provides absolute estimates for Cuviers and UNID Mesop}
+  
+  \ControlFlowTok{if}\NormalTok{(g0_scenario}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+    \CommentTok{# Pygmy sperm (no sightings in ALB, using other kogia values)}
+\NormalTok{    estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.005}\NormalTok{; estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.15}
+\NormalTok{    estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.004}\NormalTok{; estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.15}
+    \CommentTok{# Dwarf sperm (no ALB sightings in 2017, using 2020 g0)}
+\NormalTok{    estimates[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.005}\NormalTok{; estimates[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.15}
+\NormalTok{    estimates[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.004}\NormalTok{; estimates[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.15}
+    \CommentTok{# UNID Kogia (no ALB sightings 2020, using 2017 g0)}
+\NormalTok{    estimates[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.005}\NormalTok{; estimates[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.15}
+\NormalTok{    estimates[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.004}\NormalTok{; estimates[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.15}
+    \CommentTok{# Blainville's (no ALB sightings 2017, using 2020 g0)}
+\NormalTok{    estimates[[}\DecValTok{7}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.11}\NormalTok{; estimates[[}\DecValTok{7}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.30}
+\NormalTok{    estimates[[}\DecValTok{8}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.11}\NormalTok{; estimates[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.30}
+    \CommentTok{# Cuvier's (no sightings in ALB -- using unid beaked g0)}
+\NormalTok{    estimates[[}\DecValTok{9}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.13}\NormalTok{; estimates[[}\DecValTok{9}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.20}
+\NormalTok{    estimates[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.11}\NormalTok{; estimates[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.21}
+    \CommentTok{# UNID Mesop (no ALB sightings 2017, using 2020 g0)}
+\NormalTok{    estimates[[}\DecValTok{11}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.11}\NormalTok{; estimates[[}\DecValTok{11}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.30}
+\NormalTok{    estimates[[}\DecValTok{12}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.11}\NormalTok{; estimates[[}\DecValTok{12}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.30}
+    \CommentTok{# UNID beaked}
+\NormalTok{    estimates[[}\DecValTok{13}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.13}\NormalTok{; estimates[[}\DecValTok{13}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.20}
+\NormalTok{    estimates[[}\DecValTok{14}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.11}\NormalTok{; estimates[[}\DecValTok{14}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.21}
+\NormalTok{  \}}
+  
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
                  \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
@@ -4891,6 +6300,27 @@ Here is the full code for producing those estimates for all species from Bradfor
                   \DataTypeTok{title =} \StringTok{"Sei/Bryde's/Fin whale"}\NormalTok{,}
                   \DataTypeTok{combine_g0 =} \OtherTok{TRUE}\NormalTok{))}
   
+   \ControlFlowTok{if}\NormalTok{(g0_scenario}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+    \CommentTok{# Brydes (no ALB sightings -- using sei values)}
+\NormalTok{    estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.38}\NormalTok{; estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.21}
+\NormalTok{    estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.38}\NormalTok{; estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.21}
+    \CommentTok{# Sei (no ALB sightings in 2017, using 2020 g0)}
+\NormalTok{    estimates[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.38}\NormalTok{; estimates[[}\DecValTok{3}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.21}
+\NormalTok{    estimates[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.38}\NormalTok{; estimates[[}\DecValTok{4}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.21}
+    \CommentTok{# Fin (no ALB sightings in 2017, using 2020 g0)}
+\NormalTok{    estimates[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.30}\NormalTok{; estimates[[}\DecValTok{5}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.29}
+\NormalTok{    estimates[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.30}\NormalTok{; estimates[[}\DecValTok{6}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.29}
+    \CommentTok{# Blue (no ALB sightings, using fin values)}
+\NormalTok{    estimates[[}\DecValTok{7}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.30}\NormalTok{; estimates[[}\DecValTok{7}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.29}
+\NormalTok{    estimates[[}\DecValTok{8}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.30}\NormalTok{; estimates[[}\DecValTok{8}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.29}
+    \CommentTok{# Sei / Bryde's (no ALB sightings in 2017, using 2020 g0)}
+\NormalTok{    estimates[[}\DecValTok{9}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.38}\NormalTok{; estimates[[}\DecValTok{9}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.21}
+\NormalTok{    estimates[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.38}\NormalTok{; estimates[[}\DecValTok{10}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.21}
+    \CommentTok{# Sei / Bryde's / Fin (no ALB sightings in 2017, using 2020 g0)}
+\NormalTok{    estimates[[}\DecValTok{11}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.34}\NormalTok{; estimates[[}\DecValTok{11}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.17}
+\NormalTok{    estimates[[}\DecValTok{12}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.34}\NormalTok{; estimates[[}\DecValTok{12}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.17}
+\NormalTok{  \}}
+  
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
                  \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
@@ -4925,6 +6355,12 @@ Here is the full code for producing those estimates for all species from Bradfor
   \CommentTok{# Density / abundance estimation plan}
 \NormalTok{   estimates <-}\KeywordTok{c}\NormalTok{(}\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'076'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Humpback whale"}\NormalTok{))}
    
+   \ControlFlowTok{if}\NormalTok{(g0_scenario}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+    \CommentTok{# No ALB sightings in 2017, using 2020 g0}
+\NormalTok{    estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.68}\NormalTok{; estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.36}
+\NormalTok{    estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.68}\NormalTok{; estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.36}
+\NormalTok{   \}}
+  
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
                  \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
@@ -4965,6 +6401,11 @@ Here is the full code for producing those estimates for all species from Bradfor
                   \DataTypeTok{alt_g0_spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'071'}\NormalTok{,}\StringTok{'099'}\NormalTok{,}\StringTok{'074'}\NormalTok{,}\StringTok{'075'}\NormalTok{),}
                   \DataTypeTok{combine_g0 =} \OtherTok{TRUE}\NormalTok{))}
   
+  \ControlFlowTok{if}\NormalTok{(g0_scenario}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+\NormalTok{    estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.35}\NormalTok{; estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.18}
+\NormalTok{    estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.32}\NormalTok{; estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.20}
+\NormalTok{  \}}
+  
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
                  \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
@@ -5003,7 +6444,15 @@ Here is the full code for producing those estimates for all species from Bradfor
          \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
 
   \CommentTok{# Density / abundance estimation plan}
-\NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =}\NormalTok{ spp, }\DataTypeTok{title =}\NormalTok{ pool_title)}
+\NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =}\NormalTok{ spp, }
+                         \DataTypeTok{title =}\NormalTok{ pool_title,}
+                         \DataTypeTok{alt_g0_spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'002'}\NormalTok{,}\StringTok{'013'}\NormalTok{,}\StringTok{'018'}\NormalTok{,}\StringTok{'015'}\NormalTok{, }\StringTok{'036'}\NormalTok{, }\StringTok{'021'}\NormalTok{),}
+                         \DataTypeTok{combine_g0 =} \OtherTok{TRUE}\NormalTok{)}
+  
+  \ControlFlowTok{if}\NormalTok{(g0_scenario}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+\NormalTok{    estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.33}\NormalTok{; estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.08}
+\NormalTok{    estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.29}\NormalTok{; estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.10}
+\NormalTok{  \}}
   
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
@@ -5048,6 +6497,11 @@ Here is the full code for producing those estimates for all species from Bradfor
                          \DataTypeTok{g0=}\FloatTok{1.0}\NormalTok{, }
                          \DataTypeTok{g0_cv =} \FloatTok{0.0}\NormalTok{)}
 
+  \ControlFlowTok{if}\NormalTok{(g0_scenario}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+\NormalTok{    estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{1.0}\NormalTok{; estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.0}
+\NormalTok{    estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{1.0}\NormalTok{; estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.0}
+\NormalTok{  \}}
+  
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
                  \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
@@ -5094,6 +6548,12 @@ Here is the full code for producing those estimates for all species from Bradfor
   
 \NormalTok{  estimator <-}\StringTok{ }\KeywordTok{lta_estimates}\NormalTok{(scenarios)}
 \NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'018'}\NormalTok{, }\DataTypeTok{title =} \StringTok{'Bottlenose dolphin'}\NormalTok{)}
+  
+  \ControlFlowTok{if}\NormalTok{(g0_scenario}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+    \CommentTok{# No ALB sightings in 2017, using 2020 g0}
+\NormalTok{    estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.24}\NormalTok{; estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.38}
+\NormalTok{    estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.24}\NormalTok{; estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.38}
+\NormalTok{  \}}
   
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
@@ -5142,6 +6602,11 @@ Here is the full code for producing those estimates for all species from Bradfor
 \NormalTok{  estimator <-}\StringTok{ }\KeywordTok{lta_estimates}\NormalTok{(scenarios)}
 \NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'002'}\NormalTok{, }\DataTypeTok{title =} \StringTok{'Pantropical spotted dolphin'}\NormalTok{)}
   
+  \ControlFlowTok{if}\NormalTok{(g0_scenario}\OperatorTok{==}\DecValTok{1}\NormalTok{)\{}
+\NormalTok{    estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.28}\NormalTok{; estimates[[}\DecValTok{1}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.11}
+\NormalTok{    estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0 <-}\StringTok{ }\FloatTok{0.25}\NormalTok{; estimates[[}\DecValTok{2}\NormalTok{]]}\OperatorTok{$}\NormalTok{g0_cv <-}\StringTok{ }\FloatTok{0.13}
+\NormalTok{  \}}
+  
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
                  \DataTypeTok{use_g0 =} \OtherTok{TRUE}\NormalTok{,}
@@ -5158,6 +6623,8 @@ Here is the full code for producing those estimates for all species from Bradfor
 \hypertarget{results}{%
 \section*{Results}\label{results}}
 \addcontentsline{toc}{section}{Results}
+
+To review results, we will use \emph{g(0)} scenario 3 (new auto-generated estimates of \emph{Relative g(0)} from \texttt{LTabundR}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5273,7 +6740,225 @@ Generate report:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-310-1.pdf}
+\includegraphics{figures/unnamed-chunk-370-1.pdf}
+
+\hypertarget{validation-1}{%
+\section*{Validation}\label{validation-1}}
+\addcontentsline{toc}{section}{Validation}
+
+To validate our results and the routines within \texttt{LTabundR}, we will compare the \texttt{LTabundR} WHICEAS results to those from A.L. Bradford et al.~(2022). To do so, we first bring in their results, which we've staged in a GoogleSheet provided in the code chunk below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(gsheet)}
+\NormalTok{url <-}\StringTok{ 'https://docs.google.com/spreadsheets/d/1S94I9I0R589Z8PFP41lYOF8hM6yetap7RFlPdBeet1M/edit?usp=sharing'}
+\NormalTok{alb <-}\StringTok{ }\KeywordTok{gsheet2tbl}\NormalTok{(url)}
+\end{Highlighting}
+\end{Shaded}
+
+Next we format these data to facilitate joining and analyzing alongside our new WHICEAS results within a \texttt{tidyverse} framework:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr)}
+\KeywordTok{library}\NormalTok{(tidyr)}
+\NormalTok{alb <-}
+\StringTok{    }\NormalTok{alb }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{title=}\KeywordTok{gsub}\NormalTok{(}\StringTok{"'"}\NormalTok{,}\StringTok{""}\NormalTok{,species)) }\OperatorTok{%>%}
+\StringTok{    }\NormalTok{tidyr}\OperatorTok{::}\KeywordTok{pivot_longer}\NormalTok{(}\DecValTok{3}\OperatorTok{:}\KeywordTok{ncol}\NormalTok{(alb),}
+                        \DataTypeTok{names_to=}\StringTok{'column'}\NormalTok{,}
+                        \DataTypeTok{values_to=}\StringTok{'value'}\NormalTok{,}
+                        \DataTypeTok{values_transform =}\NormalTok{ as.character) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{source=}\StringTok{'ALB et al. (2022)'}\NormalTok{,}
+           \DataTypeTok{title =}\NormalTok{ species,}
+           \DataTypeTok{code =}\NormalTok{ stringr}\OperatorTok{::}\KeywordTok{str_pad}\NormalTok{(code,}\DataTypeTok{width=}\DecValTok{3}\NormalTok{, }\DataTypeTok{side=}\StringTok{'left'}\NormalTok{, }\DataTypeTok{pad=}\StringTok{'0'}\NormalTok{),}
+           \DataTypeTok{year =} \KeywordTok{ifelse}\NormalTok{(}\KeywordTok{grepl}\NormalTok{(}\StringTok{'17'}\NormalTok{, column), }\DecValTok{2017}\NormalTok{, }\DecValTok{2020}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\NormalTok{as.numeric) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{select}\NormalTok{(}\OperatorTok{-}\NormalTok{species) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{rename}\NormalTok{(}\DataTypeTok{species =}\NormalTok{ code) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{column =} \KeywordTok{gsub}\NormalTok{(}\StringTok{'17'}\NormalTok{,}\StringTok{''}\NormalTok{,column)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{column =} \KeywordTok{gsub}\NormalTok{(}\StringTok{'20'}\NormalTok{,}\StringTok{''}\NormalTok{,column)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(title, species, year) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{summarize}\NormalTok{(}\DataTypeTok{g0 =}\NormalTok{ value[column }\OperatorTok{==}\StringTok{ 'g0'}\NormalTok{][}\DecValTok{1}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\NormalTok{as.numeric,}
+              \DataTypeTok{g0_cv =}\NormalTok{ value[column }\OperatorTok{==}\StringTok{ 'gcv'}\NormalTok{][}\DecValTok{1}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\NormalTok{as.numeric,}
+              \DataTypeTok{ESW =}\NormalTok{ value[column }\OperatorTok{==}\StringTok{ 'esw'}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\NormalTok{as.numeric,}
+              \DataTypeTok{ss =}\NormalTok{ value[column }\OperatorTok{==}\StringTok{ 'ss'}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\NormalTok{as.numeric,}
+              \DataTypeTok{D =}\NormalTok{ value[column }\OperatorTok{==}\StringTok{ 'd'}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\NormalTok{as.numeric,}
+              \DataTypeTok{N =} \KeywordTok{gsub}\NormalTok{(}\StringTok{','}\NormalTok{,}\StringTok{''}\NormalTok{, value[column }\OperatorTok{==}\StringTok{ 'n'}\NormalTok{]) }\OperatorTok{%>%}\StringTok{ }\NormalTok{as.numeric,}
+              \DataTypeTok{CV =}\NormalTok{ value[column }\OperatorTok{==}\StringTok{ 'cv'}\NormalTok{] }\OperatorTok{%>%}\StringTok{ }\NormalTok{as.numeric,}
+              \DataTypeTok{L95 =} \KeywordTok{gsub}\NormalTok{(}\StringTok{','}\NormalTok{,}\StringTok{''}\NormalTok{, value[column }\OperatorTok{==}\StringTok{ 'lci'}\NormalTok{]) }\OperatorTok{%>%}\StringTok{ }\NormalTok{as.numeric,}
+              \DataTypeTok{U95 =} \KeywordTok{gsub}\NormalTok{(}\StringTok{','}\NormalTok{,}\StringTok{''}\NormalTok{, value[column }\OperatorTok{==}\StringTok{ 'uci'}\NormalTok{]) }\OperatorTok{%>%}\StringTok{ }\NormalTok{as.numeric) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(D)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{N =} \KeywordTok{round}\NormalTok{(N))}
+
+\CommentTok{# Modify names}
+\KeywordTok{names}\NormalTok{(alb)[}\DecValTok{4}\OperatorTok{:}\KeywordTok{ncol}\NormalTok{(alb)] <-}\StringTok{ }\KeywordTok{paste0}\NormalTok{(}\StringTok{'alb_'}\NormalTok{,}\KeywordTok{names}\NormalTok{(alb)[}\DecValTok{4}\OperatorTok{:}\KeywordTok{ncol}\NormalTok{(alb)] )}
+\end{Highlighting}
+\end{Shaded}
+
+Review these results:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alb}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{ltabundr-results}{%
+\subsection*{\texorpdfstring{\texttt{LTabundR} results}{LTabundR results}}\label{ltabundr-results}}
+\addcontentsline{toc}{subsection}{\texttt{LTabundR} results}
+
+We will compare the ALB et al.~(2022) results to all three versions of the WHICEAS analysis we have produced: (1) manually specified g(0) parameters, (2) Rg(0) estimates from Barlow et al.~(2015), and (3) new Rg(0) estimates produced by \texttt{LTabundR} automatically. We will bring those results back in and join each to the results from ALB et al.~(2022), using a custom helper function, \texttt{whiceas\_join()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{whiceas_join <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(alb, ltas)\{}
+  \CommentTok{# Combine core info from each LTA list into a dataframe}
+\NormalTok{  ltabundr <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{()}
+  \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(ltas))\{}
+\NormalTok{    lti <-}\StringTok{ }\NormalTok{ltas[[i]]}
+\NormalTok{    ltabundi <-}
+\StringTok{      }\KeywordTok{left_join}\NormalTok{(lti}\OperatorTok{$}\NormalTok{estimate,}
+\NormalTok{                lti}\OperatorTok{$}\NormalTok{bootstrap}\OperatorTok{$}\NormalTok{summary }\OperatorTok{%>%}\StringTok{ }
+\StringTok{                  }\KeywordTok{select}\NormalTok{(title, Region, year, species, iterations, }
+\NormalTok{                         g0_cv, CV, L95, U95),}
+                \DataTypeTok{by=}\KeywordTok{c}\NormalTok{(}\StringTok{'title'}\NormalTok{, }\StringTok{'Region'}\NormalTok{, }\StringTok{'year'}\NormalTok{, }\StringTok{'species'}\NormalTok{))}
+\NormalTok{    ltabundr <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(ltabundr, ltabundi)}
+\NormalTok{  \}}
+
+  \CommentTok{# Format ltabundr data}
+\NormalTok{  ltabundr <-}\StringTok{ }\NormalTok{ltabundr }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{year =} \KeywordTok{as.numeric}\NormalTok{(year),}
+           \DataTypeTok{D =}\NormalTok{ D}\OperatorTok{*}\DecValTok{1000}\NormalTok{,}
+           \DataTypeTok{N =} \KeywordTok{round}\NormalTok{(N)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{select}\NormalTok{(title, species, year, }\DataTypeTok{g0=}\NormalTok{g0_est, g0_cv, }
+           \DataTypeTok{ESW =}\NormalTok{ ESW_mean, }\DataTypeTok{ss =}\NormalTok{ size_mean, D, N, CV, L95, U95)}
+
+  \CommentTok{# Join ALB to LTabundR}
+\NormalTok{  mr <-}\StringTok{ }\KeywordTok{left_join}\NormalTok{(ltabundr, alb, }\DataTypeTok{by=}\KeywordTok{c}\NormalTok{(}\StringTok{'title'}\NormalTok{, }\StringTok{'year'}\NormalTok{))}
+  \KeywordTok{return}\NormalTok{(mr)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Read in, format, and join the results:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Manually-specified g0}
+\NormalTok{ltas <-}\StringTok{ }\KeywordTok{lta_enlist}\NormalTok{(}\StringTok{'whiceas/lta_manual/'}\NormalTok{)}
+\NormalTok{mr1 <-}\StringTok{ }\KeywordTok{whiceas_join}\NormalTok{(alb, ltas) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{scenario =} \StringTok{'Manual g(0)'}\NormalTok{)}
+
+\CommentTok{# Barlow (2015) Rg0}
+\NormalTok{ltas <-}\StringTok{ }\KeywordTok{lta_enlist}\NormalTok{(}\StringTok{'whiceas/lta_barlow/'}\NormalTok{)}
+\NormalTok{mr2 <-}\StringTok{ }\KeywordTok{whiceas_join}\NormalTok{(alb, ltas) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{scenario =} \StringTok{'Barlow (2015) Rg(0)'}\NormalTok{)}
+
+\CommentTok{# New auto-generated Rg(0)}
+\NormalTok{ltas <-}\StringTok{ }\KeywordTok{lta_enlist}\NormalTok{(}\StringTok{'whiceas/lta/'}\NormalTok{)}
+\NormalTok{mr3 <-}\StringTok{ }\KeywordTok{whiceas_join}\NormalTok{(alb, ltas) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{scenario =} \StringTok{'New Rg(0) estimates'}\NormalTok{)}
+
+\CommentTok{# Join them together}
+\NormalTok{mr <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(mr1, mr2, mr3) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{scenario =} \KeywordTok{factor}\NormalTok{(scenario, }\DataTypeTok{levels =} \KeywordTok{c}\NormalTok{(}\StringTok{'Manual g(0)'}\NormalTok{,}
+                                                \StringTok{'Barlow (2015) Rg(0)'}\NormalTok{,}
+                                                \StringTok{'New Rg(0) estimates'}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can compare \texttt{LTabundR} estimates to those from ALB et al.~(2021):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(plotly)}
+
+\CommentTok{# Density}
+\KeywordTok{ggplot}\NormalTok{(mr,}
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{alb_D, }\DataTypeTok{y=}\NormalTok{D, }\DataTypeTok{color=}\NormalTok{title, }\DataTypeTok{shape=}\KeywordTok{factor}\NormalTok{(year))) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{trans=}\StringTok{'log'}\NormalTok{, }\DataTypeTok{limits=}\KeywordTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{, }\DecValTok{50}\NormalTok{), }
+                       \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.01}\NormalTok{, }\FloatTok{0.1}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{1.0}\NormalTok{, }\FloatTok{2.5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{25}\NormalTok{, }\DecValTok{50}\NormalTok{),}
+                       \DataTypeTok{labels =} \ControlFlowTok{function}\NormalTok{(x)}\KeywordTok{round}\NormalTok{(x, }\DecValTok{2}\NormalTok{)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{trans=}\StringTok{'log'}\NormalTok{, }\DataTypeTok{limits=}\KeywordTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{, }\DecValTok{50}\NormalTok{), }
+                       \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.01}\NormalTok{, }\FloatTok{0.1}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{1.0}\NormalTok{, }\FloatTok{2.5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{25}\NormalTok{, }\DecValTok{50}\NormalTok{),}
+                       \DataTypeTok{labels =} \ControlFlowTok{function}\NormalTok{(x)}\KeywordTok{round}\NormalTok{(x, }\DecValTok{2}\NormalTok{)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_abline}\NormalTok{(}\DataTypeTok{slope =} \DecValTok{1}\NormalTok{, }\DataTypeTok{intercept =} \DecValTok{0}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{3}\NormalTok{, }\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{6}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{ylab}\NormalTok{(}\StringTok{'LTabundR'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{'ALB et al. (2022)'}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{scenario, }\DataTypeTok{nrow=}\DecValTok{3}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title=}\StringTok{'Density (cetaceans per 1,000 km2)'}\NormalTok{, }
+       \DataTypeTok{shape=}\StringTok{'Year'}\NormalTok{, }\DataTypeTok{color =} \StringTok{'Species'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme_light}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-377-1.pdf}
+
+~
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Abundance}
+\KeywordTok{ggplot}\NormalTok{(mr,}
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{alb_N, }\DataTypeTok{y=}\NormalTok{N, }
+           \DataTypeTok{color=}\NormalTok{title, }\DataTypeTok{shape=}\KeywordTok{factor}\NormalTok{(year))) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_x_continuous}\NormalTok{(}\DataTypeTok{trans=}\StringTok{'log'}\NormalTok{, }
+                       \DataTypeTok{limits=}\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{30000}\NormalTok{), }
+                       \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{25}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{250}\NormalTok{, }\DecValTok{1000}\NormalTok{, }\DecValTok{2500}\NormalTok{, }\DecValTok{10000}\NormalTok{, }\DecValTok{30000}\NormalTok{),}
+                       \DataTypeTok{labels =} \ControlFlowTok{function}\NormalTok{(x)}\KeywordTok{round}\NormalTok{(x)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_y_continuous}\NormalTok{(}\DataTypeTok{trans=}\StringTok{'log'}\NormalTok{, }
+                       \DataTypeTok{limits=}\KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{30000}\NormalTok{), }
+                       \DataTypeTok{breaks =} \KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{25}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{250}\NormalTok{, }\DecValTok{1000}\NormalTok{, }\DecValTok{2500}\NormalTok{, }\DecValTok{10000}\NormalTok{, }\DecValTok{30000}\NormalTok{),}
+                       \DataTypeTok{labels =} \ControlFlowTok{function}\NormalTok{(x)}\KeywordTok{round}\NormalTok{(x)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_abline}\NormalTok{(}\DataTypeTok{slope =} \DecValTok{1}\NormalTok{, }\DataTypeTok{intercept =} \DecValTok{0}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{3}\NormalTok{, }\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{6}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{ylab}\NormalTok{(}\StringTok{'LTabundR'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{'ALB et al. (2022)'}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{scenario, }\DataTypeTok{nrow=}\DecValTok{3}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title=}\StringTok{'WHICEAS abundance'}\NormalTok{, }
+       \DataTypeTok{shape=}\StringTok{'Year'}\NormalTok{, }\DataTypeTok{color =} \StringTok{'Species'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme_light}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-378-1.pdf}
+
+~
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# g(0) estimate}
+\KeywordTok{ggplot}\NormalTok{(mr,}
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{alb_g0, }\DataTypeTok{y=}\NormalTok{g0, }
+           \DataTypeTok{color=}\NormalTok{title, }\DataTypeTok{shape=}\KeywordTok{factor}\NormalTok{(year))) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_abline}\NormalTok{(}\DataTypeTok{slope =} \DecValTok{1}\NormalTok{, }\DataTypeTok{intercept =} \DecValTok{0}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{3}\NormalTok{, }\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{6}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{ylab}\NormalTok{(}\StringTok{'LTabundR'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{'ALB et al. (2022)'}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{scenario, }\DataTypeTok{nrow=}\DecValTok{3}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title=}\StringTok{'Estimates of g(0)'}\NormalTok{, }
+       \DataTypeTok{shape=}\StringTok{'Year'}\NormalTok{, }\DataTypeTok{color =} \StringTok{'Species'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme_light}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-379-1.pdf}
+
+~
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# g(0) CV estimate}
+\KeywordTok{ggplot}\NormalTok{(mr,}
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{alb_g0_cv, }\DataTypeTok{y=}\NormalTok{g0_cv, }
+           \DataTypeTok{color=}\NormalTok{title, }\DataTypeTok{shape=}\KeywordTok{factor}\NormalTok{(year))) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_abline}\NormalTok{(}\DataTypeTok{slope =} \DecValTok{1}\NormalTok{, }\DataTypeTok{intercept =} \DecValTok{0}\NormalTok{, }\DataTypeTok{lty=}\DecValTok{3}\NormalTok{, }\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{6}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{ylab}\NormalTok{(}\StringTok{'LTabundR'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{'ALB et al. (2022)'}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{scenario, }\DataTypeTok{nrow=}\DecValTok{3}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title=}\StringTok{'Estimates of CV of g(0)'}\NormalTok{, }
+       \DataTypeTok{shape=}\StringTok{'Year'}\NormalTok{, }\DataTypeTok{color =} \StringTok{'Species'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme_light}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-380-1.pdf}
 
 \hypertarget{case_cnp}{%
 \chapter{Central North Pacific}\label{case_cnp}}
@@ -5600,7 +7285,7 @@ Use this to determine truncation distances. Note them in your \texttt{lta()} cod
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-329-1.pdf}
+\includegraphics{figures/unnamed-chunk-399-1.pdf}
 
 \hypertarget{density-abundance-1}{%
 \section*{Density \& abundance}\label{density-abundance-1}}
@@ -5850,7 +7535,10 @@ The \texttt{lta\_estimates()} function will generate a custom function that make
         \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'059'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Blainville's beaked whale"}\NormalTok{),}
         \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'061'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Curvier's beaked whale"}\NormalTok{),}
         \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'051'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Unidentified Mesoplodon"}\NormalTok{),}
-        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'049'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Unidentified beaked whale"}\NormalTok{),}
+        \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'049'}\NormalTok{, }
+                  \DataTypeTok{title =} \StringTok{"Unidentified beaked whale"}\NormalTok{,}
+                  \DataTypeTok{alt_g0_spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'061'}\NormalTok{,}\StringTok{'051'}\NormalTok{),}
+                  \DataTypeTok{combine_g0 =} \OtherTok{TRUE}\NormalTok{),}
         \KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =} \StringTok{'071'}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Minke whale"}\NormalTok{))}
 
   \CommentTok{# Run analysis}
@@ -5979,7 +7667,11 @@ The \texttt{lta\_estimates()} function will generate a custom function that make
          \DataTypeTok{not_regions =}\NormalTok{ fit_not_regions)}
 
   \CommentTok{# Density / abundance estimation plan}
-\NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =}\NormalTok{ spp, }\DataTypeTok{title =}\NormalTok{ pool_title)}
+\NormalTok{  estimates <-}\StringTok{ }\KeywordTok{estimator}\NormalTok{(}\DataTypeTok{spp =}\NormalTok{ spp, }
+                         \DataTypeTok{title =}\NormalTok{ pool_title,}
+                         \DataTypeTok{alt_g0_spp =} \KeywordTok{c}\NormalTok{(}\StringTok{'002'}\NormalTok{,}\StringTok{'013'}\NormalTok{,}\StringTok{'018'}\NormalTok{,}
+                                        \StringTok{'015'}\NormalTok{, }\StringTok{'036'}\NormalTok{, }\StringTok{'021'}\NormalTok{),}
+                         \DataTypeTok{combine_g0 =} \OtherTok{TRUE}\NormalTok{)}
   
   \CommentTok{# Run analysis}
 \NormalTok{  results <-}\StringTok{ }\KeywordTok{lta}\NormalTok{(cruz, Rg0, fit_filters, df_settings, estimates,}
@@ -6341,7 +8033,7 @@ The \texttt{lta\_estimates()} function will generate a custom function that make
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-366-1.pdf}
+\includegraphics{figures/unnamed-chunk-436-1.pdf}
 
 \hypertarget{california-current-system}{%
 \chapter{California Current System}\label{california-current-system}}
@@ -6543,7 +8235,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-377-1.pdf}
+\includegraphics{figures/unnamed-chunk-447-1.pdf}
 
 \hypertarget{day-vs-equal-length}{%
 \section*{Day vs Equal Length}\label{day-vs-equal-length}}
@@ -6570,7 +8262,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-378-1.pdf}
+\includegraphics{figures/unnamed-chunk-448-1.pdf}
 
 \hypertarget{by-target-length-of-150-km}{%
 \subsection*{By target length of 150 km}\label{by-target-length-of-150-km}}
@@ -6593,7 +8285,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-379-1.pdf}
+\includegraphics{figures/unnamed-chunk-449-1.pdf}
 
 \hypertarget{contiguous-vs.-non-contiguous-effort}{%
 \section*{Contiguous vs.~non-contiguous effort}\label{contiguous-vs.-non-contiguous-effort}}
@@ -6618,7 +8310,7 @@ The example above allows for non-contiguous effort; a segment is allowed to cont
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-380-1.pdf}
+\includegraphics{figures/unnamed-chunk-450-1.pdf}
 
 You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.
 
@@ -6649,7 +8341,7 @@ The other possible setting is \texttt{\textquotesingle{}disperse\textquotesingle
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-381-1.pdf}
+\includegraphics{figures/unnamed-chunk-451-1.pdf}
 
 Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:
 
@@ -6670,7 +8362,7 @@ Note that most segments are longer than the target length, due to the impact of 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-382-1.pdf}
+\includegraphics{figures/unnamed-chunk-452-1.pdf}
 
 But in general, the \texttt{disperse} option may be more appropriate for shorter segment lengths.
 
@@ -6700,14 +8392,14 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1826}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1817}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-383-1.pdf}
+\includegraphics{figures/unnamed-chunk-453-1.pdf}
 
 \hypertarget{abund9_compare}{%
 \chapter{\texorpdfstring{\texttt{LTabundR} vs.~\texttt{ABUND9}}{LTabundR vs.~ABUND9}}\label{abund9_compare}}

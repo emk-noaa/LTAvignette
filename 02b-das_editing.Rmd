@@ -9,13 +9,13 @@ library(LTabundR)
 run_from_scratch <- FALSE
 ```
 
-The `LTabundR` package includes several functions that facilitate the exploration of `DAS` files of `WinCruz` survey daa, as well as function that allow you to apply "edits" to the survey data in a reproducible way (i.e., using code, without modifying the actual data file). 
+The `LTabundR` package includes several functions that facilitate the exploration of `DAS` files of `WinCruz` survey data, as well as a function that allows you to apply "edits" to the survey data in a reproducible way (i.e., using code, without modifying the actual data file). 
 
 ## Reviewing a `DAS` file {-}
 
 ### `das_readtext()` {-} 
 
-The `swfscDAS` package has functions for reading in a `DAS` file and parsing it into columns of fixed-width text. To complement that function, `LTabundR` includes the function `das_readtext()`, which reads in a `DAS` file without applying any column parsing, so that the data can be read in its true raw format. 
+The `swfscDAS` package has functions for reading in a `DAS` file and parsing it into columns of fixed-width text. To complement those functions, `LTabundR` includes the function `das_readtext()`, which reads in a `DAS` file without applying any column parsing, so that the data can be read in its true raw format. 
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 das_file <- 'data/surveys/CenPac1986-2020_Final_alb.das'
@@ -347,9 +347,10 @@ This type of edit is also time-consuming; since the time zone needs to be calcul
 edit_1004_gmt10 <- 
   list(das_file = das_file, 
        type = 'function',
-       rows = 433327:437666, 
+       rows = 433327:437665, 
        chars = 6:39, 
        edit = 'function(x){das_time(x, tz_adjust = 10)$dt}')
+
 dase <- das_editor(list(edit_1004_gmt10))
 
 dase$das[[1]]$das$das[433326:433330]
@@ -357,6 +358,8 @@ dase$das[[1]]$das$das[437664:437667]
 ```
 
 #### Combining and saving edits {-}  
+
+Finally, we will collect these edits into a single `list` and save them for use during survey processing (next page).  
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 # Combine
@@ -369,3 +372,4 @@ edits <- list(edit_1607_55,
 # Save
 saveRDS(edits,file='cnp_1986_2020_edits.RData')
 ```
+

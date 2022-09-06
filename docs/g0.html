@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title> 7 Estimating g(0) | User’s guide for LTabundR</title>
+  <title> 8 Estimating g(0) | User’s guide for LTabundR</title>
   <meta name="description" content="vignette" />
   <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
-  <meta property="og:title" content=" 7 Estimating g(0) | User’s guide for LTabundR" />
+  <meta property="og:title" content=" 8 Estimating g(0) | User’s guide for LTabundR" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="vignette" />
   <meta name="github-repo" content="emk-noaa/emk-noaa.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content=" 7 Estimating g(0) | User’s guide for LTabundR" />
+  <meta name="twitter:title" content=" 8 Estimating g(0) | User’s guide for LTabundR" />
   
   <meta name="twitter:description" content="vignette" />
   
@@ -52,13 +52,17 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.23/datatables.js"></script>
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 <link href="libs/dt-ext-fixedcolumns-1.11.3/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
 <script src="libs/dt-ext-fixedcolumns-1.11.3/js/dataTables.fixedColumns.min.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
@@ -164,21 +168,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="settings.html#cohort-specific-settings">Cohort-specific settings<span></span></a></li>
 <li><a href="settings.html#example-code">Example code<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>3</b> Data processing<span></span></a><ul>
+<li class="chapter" data-level="3" data-path="das.html"><a href="das.html"><i class="fa fa-check"></i><b>3</b> DAS editing<span></span></a><ul>
+<li><a href="das.html#reviewing-a-das-file">Reviewing a <code>DAS</code> file<span></span></a></li>
+<li><a href="das.html#staging-edits">Staging edits<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>4</b> Data processing<span></span></a><ul>
 <li><a href="processing.html#behind-the-scenes">Behind the scenes<span></span></a></li>
 <li><a href="processing.html#review">Review<span></span></a></li>
+<li><a href="processing.html#validation">Validation<span></span></a></li>
 </ul></li>
 <li class="part"><span><b>II Data exploration<span></span></b></span></li>
-<li class="chapter" data-level="4" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>4</b> Maps<span></span></a><ul>
+<li class="chapter" data-level="5" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>5</b> Maps<span></span></a><ul>
 <li><a href="maps.html#publishable-maps">Publishable maps<span></span></a></li>
 <li><a href="maps.html#interactive-maps">Interactive maps<span></span></a></li>
 <li><a href="maps.html#interactive-dashboard">Interactive dashboard<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>5</b> Filter &amp; combine surveys<span></span></a><ul>
+<li class="chapter" data-level="6" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>6</b> Filter &amp; combine surveys<span></span></a><ul>
 <li><a href="filter.html#filter-1">Filter<span></span></a></li>
 <li><a href="filter.html#combine">Combine<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey<span></span></a><ul>
+<li class="chapter" data-level="7" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>7</b> Summarize survey<span></span></a><ul>
 <li><a href="summarize.html#summarize-effort">Summarize effort<span></span></a></li>
 <li><a href="summarize.html#summarize-by-beaufort">Summarize by Beaufort<span></span></a></li>
 <li><a href="summarize.html#summarize-sightings">Summarize sightings<span></span></a></li>
@@ -186,11 +195,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="summarize.html#cruz_explorer"><code>cruz_explorer()</code><span></span></a></li>
 </ul></li>
 <li class="part"><span><b>III Data analysis<span></span></b></span></li>
-<li class="chapter" data-level="7" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>7</b> Estimating g(0)<span></span></a><ul>
+<li class="chapter" data-level="8" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>8</b> Estimating g(0)<span></span></a><ul>
 <li><a href="g0.html#relative-g0">Relative <code>g(0)</code><span></span></a></li>
 <li><a href="g0.html#weighted-average-g0">Weighted average <code>g(0)</code><span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="lta.html"><a href="lta.html"><i class="fa fa-check"></i><b>8</b> Line-transect analysis<span></span></a><ul>
+<li class="chapter" data-level="9" data-path="lta.html"><a href="lta.html"><i class="fa fa-check"></i><b>9</b> Line-transect analysis<span></span></a><ul>
 <li><a href="lta.html#key-inputs">Key inputs<span></span></a></li>
 <li><a href="lta.html#variance-estimation">Variance estimation<span></span></a></li>
 <li><a href="lta.html#other-inputs">Other inputs<span></span></a></li>
@@ -198,31 +207,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="lta.html#unusual-estimate-scenarios">Unusual estimate scenarios<span></span></a></li>
 <li><a href="lta.html#behind-the-scenes-1">Behind the scenes<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="destratify.html"><a href="destratify.html"><i class="fa fa-check"></i><b>9</b> Stratified analysis<span></span></a></li>
-<li class="chapter" data-level="10" data-path="trend-analysis.html"><a href="trend-analysis.html"><i class="fa fa-check"></i><b>10</b> Trend analysis<span></span></a></li>
-<li class="chapter" data-level="11" data-path="subgroup-based-analysis.html"><a href="subgroup-based-analysis.html"><i class="fa fa-check"></i><b>11</b> Subgroup-based analysis<span></span></a><ul>
+<li class="chapter" data-level="10" data-path="destratify.html"><a href="destratify.html"><i class="fa fa-check"></i><b>10</b> Stratified analysis<span></span></a></li>
+<li class="chapter" data-level="11" data-path="trend-analysis.html"><a href="trend-analysis.html"><i class="fa fa-check"></i><b>11</b> Trend analysis<span></span></a></li>
+<li class="chapter" data-level="12" data-path="subgroup-based-analysis.html"><a href="subgroup-based-analysis.html"><i class="fa fa-check"></i><b>12</b> Subgroup-based analysis<span></span></a><ul>
 <li><a href="subgroup-based-analysis.html#inputs-1">Inputs<span></span></a></li>
 <li><a href="subgroup-based-analysis.html#outputs-1">Outputs<span></span></a></li>
 <li><a href="subgroup-based-analysis.html#behind-the-scenes-2">Behind the scenes<span></span></a></li>
 </ul></li>
 <li class="part"><span><b>IV Results<span></span></b></span></li>
-<li class="chapter" data-level="12" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>12</b> Tables<span></span></a><ul>
+<li class="chapter" data-level="13" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>13</b> Tables<span></span></a><ul>
 <li><a href="tables.html#summary-tables">Summary tables<span></span></a></li>
 <li><a href="tables.html#appendix-tables">Appendix tables<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>13</b> Plots<span></span></a><ul>
+<li class="chapter" data-level="14" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>14</b> Plots<span></span></a><ul>
 <li><a href="plots.html#abundance-plots">Abundance plots<span></span></a></li>
 <li><a href="plots.html#detection-function-plots">Detection function plots<span></span></a></li>
 </ul></li>
 <li class="part"><span><b>V Case studies<span></span></b></span></li>
-<li class="chapter" data-level="14" data-path="whiceas.html"><a href="whiceas.html"><i class="fa fa-check"></i><b>14</b> WHICEAS<span></span></a><ul>
+<li class="chapter" data-level="15" data-path="whiceas.html"><a href="whiceas.html"><i class="fa fa-check"></i><b>15</b> WHICEAS<span></span></a><ul>
 <li><a href="whiceas.html#data-processing">Data processing<span></span></a></li>
 <li><a href="whiceas.html#data-exploration">Data exploration<span></span></a></li>
 <li><a href="whiceas.html#rg0-1">Rg0<span></span></a></li>
 <li><a href="whiceas.html#density-abundance">Density &amp; abundance<span></span></a></li>
 <li><a href="whiceas.html#results">Results<span></span></a></li>
+<li><a href="whiceas.html#validation-1">Validation<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="case_cnp.html"><a href="case_cnp.html"><i class="fa fa-check"></i><b>15</b> Central North Pacific<span></span></a><ul>
+<li class="chapter" data-level="16" data-path="case_cnp.html"><a href="case_cnp.html"><i class="fa fa-check"></i><b>16</b> Central North Pacific<span></span></a><ul>
 <li><a href="case_cnp.html#data-processing-1">Data processing<span></span></a></li>
 <li><a href="case_cnp.html#data-exploration-1">Data exploration<span></span></a></li>
 <li><a href="case_cnp.html#rg0-2">Rg0<span></span></a></li>
@@ -231,14 +241,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="case_cnp.html#de-stratified-results">De-stratified results<span></span></a></li>
 <li><a href="case_cnp.html#plots-2">Plots<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="california-current-system.html"><a href="california-current-system.html"><i class="fa fa-check"></i><b>16</b> California Current System<span></span></a></li>
+<li class="chapter" data-level="17" data-path="california-current-system.html"><a href="california-current-system.html"><i class="fa fa-check"></i><b>17</b> California Current System<span></span></a></li>
 <li class="part"><span><b>VI Appendix<span></span></b></span></li>
-<li class="chapter" data-level="17" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>17</b> Strata gallery<span></span></a><ul>
+<li class="chapter" data-level="18" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>18</b> Strata gallery<span></span></a><ul>
 <li><a href="stratagallery.html#central-north-pacific">Central North Pacific<span></span></a></li>
 <li><a href="stratagallery.html#california-current">California Current<span></span></a></li>
 <li><a href="stratagallery.html#etp">ETP<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>18</b> Segmentizing<span></span></a><ul>
+<li class="chapter" data-level="19" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>19</b> Segmentizing<span></span></a><ul>
 <li><a href="segmentizing.html#approach">Approach<span></span></a></li>
 <li><a href="segmentizing.html#defaults-2">Defaults<span></span></a></li>
 <li><a href="segmentizing.html#day-vs-equal-length">Day vs Equal Length<span></span></a></li>
@@ -246,14 +256,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="segmentizing.html#segment-remainder-handling">Segment remainder handling<span></span></a></li>
 <li><a href="segmentizing.html#typical-settings">Typical settings<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="abund9_compare.html"><a href="abund9_compare.html"><i class="fa fa-check"></i><b>19</b> <code>LTabundR</code> vs. <code>ABUND9</code><span></span></a><ul>
+<li class="chapter" data-level="20" data-path="abund9_compare.html"><a href="abund9_compare.html"><i class="fa fa-check"></i><b>20</b> <code>LTabundR</code> vs. <code>ABUND9</code><span></span></a><ul>
 <li><a href="abund9_compare.html#differences-in-total-effort">Differences in total effort<span></span></a></li>
 <li><a href="abund9_compare.html#differences-in-on-effort-distance">Differences in on-effort distance<span></span></a></li>
 <li><a href="abund9_compare.html#differences-in-total-sightings">Differences in total sightings<span></span></a></li>
 <li><a href="abund9_compare.html#differences-in-on-effort-sightings">Differences in on-effort sightings<span></span></a></li>
 <li><a href="abund9_compare.html#differences-in-school-size-estimation">Differences in school size estimation<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>20</b> NOAA/NMFS species codes<span></span></a><ul>
+<li class="chapter" data-level="21" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>21</b> NOAA/NMFS species codes<span></span></a><ul>
 <li><a href="spp_codes.html#table">Table<span></span></a></li>
 <li><a href="spp_codes.html#species_translator"><code>species_translator()</code><span></span></a></li>
 </ul></li>
@@ -278,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="g0" class="section level1 hasAnchor">
-<h1><span class="header-section-number"> 7</span> Estimating g(0)<a href="g0.html#g0" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number"> 8</span> Estimating g(0)<a href="g0.html#g0" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p><strong>Detection function models assume <em>g(0)</em> is 1.0.</strong><br />
 In distance sampling, a “detection function” is fit to the your sighting distances to reflect the fact that animals farther out are more difficult to detect. That detection function is a model of how the probability of detection declines with increasing distance from your survey trackline. The equations for detection function models are all constructed to assume that the probability of detecting an animal on your trackline (distance = 0 km) is 1.0 – you never miss an animal on your trackline. This trackline detection probability is referred to as <em>g(0)</em>.</p>
 <p><strong>In reality, though, it almost never is – and it greatly impacts results.</strong><br />
@@ -299,49 +309,49 @@ So <em>g(0)</em> matters, and the assumption of most detection functions that <e
 <div id="archived-rg0-estimates" class="section level3 unnumbered hasAnchor">
 <h3>Archived <em>Rg(0)</em> estimates<a href="g0.html#archived-rg0-estimates" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As of 2022, most northeast Pacific NOAA-NMFS studies still use the <em>Rg(0)</em> estimates from Barlow (2015), which are based on NOAA-NMFS cruises from 1986 to 2010. <code>LTabundR</code> includes Barlow’s results in a built-in dataset.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="g0.html#cb87-1"></a><span class="kw">data</span>(barlow_<span class="dv">2015</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="g0.html#cb141-1"></a><span class="kw">data</span>(barlow_<span class="dv">2015</span>)</span></code></pre></div>
 <p>Here is the top of this dataset, in which each row is a <em>Rg(0)</em> estimate for a single species - Beaufort sea state scenario.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="g0.html#cb88-1"></a>barlow_<span class="dv">2015</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">12</span>)</span>
-<span id="cb88-2"><a href="g0.html#cb88-2"></a>                    title             scientific              spp truncation</span>
-<span id="cb88-3"><a href="g0.html#cb88-3"></a><span class="dv">1</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
-<span id="cb88-4"><a href="g0.html#cb88-4"></a><span class="dv">2</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
-<span id="cb88-5"><a href="g0.html#cb88-5"></a><span class="dv">3</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
-<span id="cb88-6"><a href="g0.html#cb88-6"></a><span class="dv">4</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
-<span id="cb88-7"><a href="g0.html#cb88-7"></a><span class="dv">5</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
-<span id="cb88-8"><a href="g0.html#cb88-8"></a><span class="dv">6</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
-<span id="cb88-9"><a href="g0.html#cb88-9"></a><span class="dv">7</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
-<span id="cb88-10"><a href="g0.html#cb88-10"></a><span class="dv">8</span>  Stenella attenuata ssp Stenella attenuata ssp <span class="dv">002-006-089</span>,<span class="op">-</span><span class="dv">090</span>        <span class="fl">5.5</span></span>
-<span id="cb88-11"><a href="g0.html#cb88-11"></a><span class="dv">9</span>  Stenella attenuata ssp Stenella attenuata ssp <span class="dv">002-006-089</span>,<span class="op">-</span><span class="dv">090</span>        <span class="fl">5.5</span></span>
-<span id="cb88-12"><a href="g0.html#cb88-12"></a><span class="dv">10</span> Stenella attenuata ssp Stenella attenuata ssp <span class="dv">002-006-089</span>,<span class="op">-</span><span class="dv">090</span>        <span class="fl">5.5</span></span>
-<span id="cb88-13"><a href="g0.html#cb88-13"></a><span class="dv">11</span> Stenella attenuata ssp Stenella attenuata ssp <span class="dv">002-006-089</span>,<span class="op">-</span><span class="dv">090</span>        <span class="fl">5.5</span></span>
-<span id="cb88-14"><a href="g0.html#cb88-14"></a><span class="dv">12</span> Stenella attenuata ssp Stenella attenuata ssp <span class="dv">002-006-089</span>,<span class="op">-</span><span class="dv">090</span>        <span class="fl">5.5</span></span>
-<span id="cb88-15"><a href="g0.html#cb88-15"></a>   pooling regions bft   Rg0 Rg0_CV</span>
-<span id="cb88-16"><a href="g0.html#cb88-16"></a><span class="dv">1</span>     none    none   <span class="dv">0</span> <span class="fl">1.000</span>   <span class="fl">0.00</span></span>
-<span id="cb88-17"><a href="g0.html#cb88-17"></a><span class="dv">2</span>     none    none   <span class="dv">1</span> <span class="fl">1.000</span>   <span class="fl">0.00</span></span>
-<span id="cb88-18"><a href="g0.html#cb88-18"></a><span class="dv">3</span>     none    none   <span class="dv">2</span> <span class="fl">0.940</span>   <span class="fl">0.25</span></span>
-<span id="cb88-19"><a href="g0.html#cb88-19"></a><span class="dv">4</span>     none    none   <span class="dv">3</span> <span class="fl">0.722</span>   <span class="fl">0.25</span></span>
-<span id="cb88-20"><a href="g0.html#cb88-20"></a><span class="dv">5</span>     none    none   <span class="dv">4</span> <span class="fl">0.485</span>   <span class="fl">0.14</span></span>
-<span id="cb88-21"><a href="g0.html#cb88-21"></a><span class="dv">6</span>     none    none   <span class="dv">5</span> <span class="fl">0.394</span>   <span class="fl">0.20</span></span>
-<span id="cb88-22"><a href="g0.html#cb88-22"></a><span class="dv">7</span>     none    none   <span class="dv">6</span> <span class="fl">0.404</span>   <span class="fl">0.50</span></span>
-<span id="cb88-23"><a href="g0.html#cb88-23"></a><span class="dv">8</span>     none    none   <span class="dv">0</span> <span class="fl">1.000</span>   <span class="fl">0.00</span></span>
-<span id="cb88-24"><a href="g0.html#cb88-24"></a><span class="dv">9</span>     none    none   <span class="dv">1</span> <span class="fl">0.728</span>   <span class="fl">0.03</span></span>
-<span id="cb88-25"><a href="g0.html#cb88-25"></a><span class="dv">10</span>    none    none   <span class="dv">2</span> <span class="fl">0.531</span>   <span class="fl">0.06</span></span>
-<span id="cb88-26"><a href="g0.html#cb88-26"></a><span class="dv">11</span>    none    none   <span class="dv">3</span> <span class="fl">0.386</span>   <span class="fl">0.09</span></span>
-<span id="cb88-27"><a href="g0.html#cb88-27"></a><span class="dv">12</span>    none    none   <span class="dv">4</span> <span class="fl">0.282</span>   <span class="fl">0.12</span></span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="g0.html#cb142-1"></a>barlow_<span class="dv">2015</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">12</span>)</span>
+<span id="cb142-2"><a href="g0.html#cb142-2"></a>                    title             scientific              spp truncation</span>
+<span id="cb142-3"><a href="g0.html#cb142-3"></a><span class="dv">1</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
+<span id="cb142-4"><a href="g0.html#cb142-4"></a><span class="dv">2</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
+<span id="cb142-5"><a href="g0.html#cb142-5"></a><span class="dv">3</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
+<span id="cb142-6"><a href="g0.html#cb142-6"></a><span class="dv">4</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
+<span id="cb142-7"><a href="g0.html#cb142-7"></a><span class="dv">5</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
+<span id="cb142-8"><a href="g0.html#cb142-8"></a><span class="dv">6</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
+<span id="cb142-9"><a href="g0.html#cb142-9"></a><span class="dv">7</span>           Delphinus spp              Delphinus      <span class="dv">005-016-017</span>        <span class="fl">5.5</span></span>
+<span id="cb142-10"><a href="g0.html#cb142-10"></a><span class="dv">8</span>  Stenella attenuata ssp Stenella attenuata ssp <span class="dv">002-006-089</span>,<span class="op">-</span><span class="dv">090</span>        <span class="fl">5.5</span></span>
+<span id="cb142-11"><a href="g0.html#cb142-11"></a><span class="dv">9</span>  Stenella attenuata ssp Stenella attenuata ssp <span class="dv">002-006-089</span>,<span class="op">-</span><span class="dv">090</span>        <span class="fl">5.5</span></span>
+<span id="cb142-12"><a href="g0.html#cb142-12"></a><span class="dv">10</span> Stenella attenuata ssp Stenella attenuata ssp <span class="dv">002-006-089</span>,<span class="op">-</span><span class="dv">090</span>        <span class="fl">5.5</span></span>
+<span id="cb142-13"><a href="g0.html#cb142-13"></a><span class="dv">11</span> Stenella attenuata ssp Stenella attenuata ssp <span class="dv">002-006-089</span>,<span class="op">-</span><span class="dv">090</span>        <span class="fl">5.5</span></span>
+<span id="cb142-14"><a href="g0.html#cb142-14"></a><span class="dv">12</span> Stenella attenuata ssp Stenella attenuata ssp <span class="dv">002-006-089</span>,<span class="op">-</span><span class="dv">090</span>        <span class="fl">5.5</span></span>
+<span id="cb142-15"><a href="g0.html#cb142-15"></a>   pooling regions bft   Rg0 Rg0_CV</span>
+<span id="cb142-16"><a href="g0.html#cb142-16"></a><span class="dv">1</span>     none    none   <span class="dv">0</span> <span class="fl">1.000</span>   <span class="fl">0.00</span></span>
+<span id="cb142-17"><a href="g0.html#cb142-17"></a><span class="dv">2</span>     none    none   <span class="dv">1</span> <span class="fl">1.000</span>   <span class="fl">0.00</span></span>
+<span id="cb142-18"><a href="g0.html#cb142-18"></a><span class="dv">3</span>     none    none   <span class="dv">2</span> <span class="fl">0.940</span>   <span class="fl">0.25</span></span>
+<span id="cb142-19"><a href="g0.html#cb142-19"></a><span class="dv">4</span>     none    none   <span class="dv">3</span> <span class="fl">0.722</span>   <span class="fl">0.25</span></span>
+<span id="cb142-20"><a href="g0.html#cb142-20"></a><span class="dv">5</span>     none    none   <span class="dv">4</span> <span class="fl">0.485</span>   <span class="fl">0.14</span></span>
+<span id="cb142-21"><a href="g0.html#cb142-21"></a><span class="dv">6</span>     none    none   <span class="dv">5</span> <span class="fl">0.394</span>   <span class="fl">0.20</span></span>
+<span id="cb142-22"><a href="g0.html#cb142-22"></a><span class="dv">7</span>     none    none   <span class="dv">6</span> <span class="fl">0.404</span>   <span class="fl">0.50</span></span>
+<span id="cb142-23"><a href="g0.html#cb142-23"></a><span class="dv">8</span>     none    none   <span class="dv">0</span> <span class="fl">1.000</span>   <span class="fl">0.00</span></span>
+<span id="cb142-24"><a href="g0.html#cb142-24"></a><span class="dv">9</span>     none    none   <span class="dv">1</span> <span class="fl">0.728</span>   <span class="fl">0.03</span></span>
+<span id="cb142-25"><a href="g0.html#cb142-25"></a><span class="dv">10</span>    none    none   <span class="dv">2</span> <span class="fl">0.531</span>   <span class="fl">0.06</span></span>
+<span id="cb142-26"><a href="g0.html#cb142-26"></a><span class="dv">11</span>    none    none   <span class="dv">3</span> <span class="fl">0.386</span>   <span class="fl">0.09</span></span>
+<span id="cb142-27"><a href="g0.html#cb142-27"></a><span class="dv">12</span>    none    none   <span class="dv">4</span> <span class="fl">0.282</span>   <span class="fl">0.12</span></span></code></pre></div>
 <p>This dataset includes <em>Rg(0)</em> estimates for the following species:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="g0.html#cb89-1"></a>barlow_<span class="dv">2015</span><span class="op">$</span>title <span class="op">%&gt;%</span><span class="st"> </span>unique</span>
-<span id="cb89-2"><a href="g0.html#cb89-2"></a> [<span class="dv">1</span>] <span class="st">&quot;Delphinus spp&quot;</span>               <span class="st">&quot;Stenella attenuata ssp&quot;</span>     </span>
-<span id="cb89-3"><a href="g0.html#cb89-3"></a> [<span class="dv">3</span>] <span class="st">&quot;Stenella longirostris ssp&quot;</span>   <span class="st">&quot;Striped dolphin&quot;</span>            </span>
-<span id="cb89-4"><a href="g0.html#cb89-4"></a> [<span class="dv">5</span>] <span class="st">&quot;Rough-toothed dolphin&quot;</span>       <span class="st">&quot;Bottlenose dolphin&quot;</span>         </span>
-<span id="cb89-5"><a href="g0.html#cb89-5"></a> [<span class="dv">7</span>] <span class="st">&quot;Risso&#39;s dolphin&quot;</span>             <span class="st">&quot;Short-finned pilot whale&quot;</span>   </span>
-<span id="cb89-6"><a href="g0.html#cb89-6"></a> [<span class="dv">9</span>] <span class="st">&quot;Killer whale&quot;</span>                <span class="st">&quot;Sperm whale&quot;</span>                </span>
-<span id="cb89-7"><a href="g0.html#cb89-7"></a>[<span class="dv">11</span>] <span class="st">&quot;Kogia spp&quot;</span>                   <span class="st">&quot;Cuvier&#39;s beaked whale&quot;</span>      </span>
-<span id="cb89-8"><a href="g0.html#cb89-8"></a>[<span class="dv">13</span>] <span class="st">&quot;Mesoplodon spp&quot;</span>              <span class="st">&quot;Dall&#39;s porpoise&quot;</span>            </span>
-<span id="cb89-9"><a href="g0.html#cb89-9"></a>[<span class="dv">15</span>] <span class="st">&quot;Minke whale&quot;</span>                 <span class="st">&quot;Sei/Bryde&#39;s&quot;</span>                </span>
-<span id="cb89-10"><a href="g0.html#cb89-10"></a>[<span class="dv">17</span>] <span class="st">&quot;Fin whale&quot;</span>                   <span class="st">&quot;Blue whale&quot;</span>                 </span>
-<span id="cb89-11"><a href="g0.html#cb89-11"></a>[<span class="dv">19</span>] <span class="st">&quot;Humpback whale&quot;</span>              <span class="st">&quot;Unidentified dolphin&quot;</span>       </span>
-<span id="cb89-12"><a href="g0.html#cb89-12"></a>[<span class="dv">21</span>] <span class="st">&quot;Unidentified cetacean&quot;</span>       <span class="st">&quot;Pacific white-sided dolphin&quot;</span></span>
-<span id="cb89-13"><a href="g0.html#cb89-13"></a>[<span class="dv">23</span>] <span class="st">&quot;Pygmy killer whale&quot;</span>         </span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="g0.html#cb143-1"></a>barlow_<span class="dv">2015</span><span class="op">$</span>title <span class="op">%&gt;%</span><span class="st"> </span>unique</span>
+<span id="cb143-2"><a href="g0.html#cb143-2"></a> [<span class="dv">1</span>] <span class="st">&quot;Delphinus spp&quot;</span>               <span class="st">&quot;Stenella attenuata ssp&quot;</span>     </span>
+<span id="cb143-3"><a href="g0.html#cb143-3"></a> [<span class="dv">3</span>] <span class="st">&quot;Stenella longirostris ssp&quot;</span>   <span class="st">&quot;Striped dolphin&quot;</span>            </span>
+<span id="cb143-4"><a href="g0.html#cb143-4"></a> [<span class="dv">5</span>] <span class="st">&quot;Rough-toothed dolphin&quot;</span>       <span class="st">&quot;Bottlenose dolphin&quot;</span>         </span>
+<span id="cb143-5"><a href="g0.html#cb143-5"></a> [<span class="dv">7</span>] <span class="st">&quot;Risso&#39;s dolphin&quot;</span>             <span class="st">&quot;Short-finned pilot whale&quot;</span>   </span>
+<span id="cb143-6"><a href="g0.html#cb143-6"></a> [<span class="dv">9</span>] <span class="st">&quot;Killer whale&quot;</span>                <span class="st">&quot;Sperm whale&quot;</span>                </span>
+<span id="cb143-7"><a href="g0.html#cb143-7"></a>[<span class="dv">11</span>] <span class="st">&quot;Kogia spp&quot;</span>                   <span class="st">&quot;Cuvier&#39;s beaked whale&quot;</span>      </span>
+<span id="cb143-8"><a href="g0.html#cb143-8"></a>[<span class="dv">13</span>] <span class="st">&quot;Mesoplodon spp&quot;</span>              <span class="st">&quot;Dall&#39;s porpoise&quot;</span>            </span>
+<span id="cb143-9"><a href="g0.html#cb143-9"></a>[<span class="dv">15</span>] <span class="st">&quot;Minke whale&quot;</span>                 <span class="st">&quot;Sei/Bryde&#39;s&quot;</span>                </span>
+<span id="cb143-10"><a href="g0.html#cb143-10"></a>[<span class="dv">17</span>] <span class="st">&quot;Fin whale&quot;</span>                   <span class="st">&quot;Blue whale&quot;</span>                 </span>
+<span id="cb143-11"><a href="g0.html#cb143-11"></a>[<span class="dv">19</span>] <span class="st">&quot;Humpback whale&quot;</span>              <span class="st">&quot;Unidentified dolphin&quot;</span>       </span>
+<span id="cb143-12"><a href="g0.html#cb143-12"></a>[<span class="dv">21</span>] <span class="st">&quot;Unidentified cetacean&quot;</span>       <span class="st">&quot;Pacific white-sided dolphin&quot;</span></span>
+<span id="cb143-13"><a href="g0.html#cb143-13"></a>[<span class="dv">23</span>] <span class="st">&quot;Pygmy killer whale&quot;</span>         </span></code></pre></div>
 <p>If your study species – or one with similar detectability – can be found on this list, then you can take this <code>data.frame</code> of <em>Rg(0)</em> values and move on to the next step.</p>
 <p>Note that if you do not have a large survey dataset, this may be the only option available to you. Estimating new <em>Rg(0)</em> values requires a large number of sightings (i.e., hundreds) across many Beaufort states.</p>
 </div>
@@ -349,74 +359,74 @@ So <em>g(0)</em> matters, and the assumption of most detection functions that <e
 <h3>New <em>Rg(0)</em> estimates<a href="g0.html#new-rg0-estimates" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><code>LTabundR</code> includes a function, <code>g0_model()</code>, which you can use to apply the Barlow (2015) modeling methods to generate new estimates of <em>Rg(0)</em> based on your own survey data.</p>
 <p>To do this, you first need a <code>cruz</code> object in which effort has been split into short segments (5 - 10 km). If you want to work with NOAA-NMFS <em>WinCruz</em> data from the Pacific, you can use a built-in dataset of 1986 - 2020 surveys that is processed specifically for use in <em>Rg(0)</em> estimation:</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="g0.html#cb90-1"></a><span class="kw">data</span>(<span class="st">&quot;noaa_10km_1986_2020&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="g0.html#cb144-1"></a><span class="kw">data</span>(<span class="st">&quot;noaa_10km_1986_2020&quot;</span>)</span></code></pre></div>
 <p>To use this dataset in <em>R(0)</em> estimation, we first filter it to systematic effort within sea states 0 - 6:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="g0.html#cb91-1"></a>cruzi &lt;-<span class="st"> </span><span class="kw">filter_cruz</span>(noaa_10km_<span class="dv">1986</span>_<span class="dv">2020</span>,</span>
-<span id="cb91-2"><a href="g0.html#cb91-2"></a>                     <span class="dt">analysis_only =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb91-3"><a href="g0.html#cb91-3"></a>                     <span class="dt">eff_types =</span> <span class="st">&#39;S&#39;</span>,</span>
-<span id="cb91-4"><a href="g0.html#cb91-4"></a>                     <span class="dt">bft_range =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">6</span>,</span>
-<span id="cb91-5"><a href="g0.html#cb91-5"></a>                     <span class="dt">on_off =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="g0.html#cb145-1"></a>cruzi &lt;-<span class="st"> </span><span class="kw">filter_cruz</span>(noaa_10km_<span class="dv">1986</span>_<span class="dv">2020</span>,</span>
+<span id="cb145-2"><a href="g0.html#cb145-2"></a>                     <span class="dt">analysis_only =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb145-3"><a href="g0.html#cb145-3"></a>                     <span class="dt">eff_types =</span> <span class="st">&#39;S&#39;</span>,</span>
+<span id="cb145-4"><a href="g0.html#cb145-4"></a>                     <span class="dt">bft_range =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">6</span>,</span>
+<span id="cb145-5"><a href="g0.html#cb145-5"></a>                     <span class="dt">on_off =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>You can then estimate <code>Rg(0)</code> for each Beaufort sea state using the function <code>g0_model()</code>. For example, the code for striped dolphin (<em>Stenella coeruleoalba</em>) is as follows:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="g0.html#cb92-1"></a>rg0 &lt;-<span class="st"> </span><span class="kw">g0_model</span>(<span class="dt">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
-<span id="cb92-2"><a href="g0.html#cb92-2"></a>                <span class="dt">truncation_distance =</span> <span class="fl">5.5</span>,</span>
-<span id="cb92-3"><a href="g0.html#cb92-3"></a>                <span class="dt">cruz =</span> cruzi,</span>
-<span id="cb92-4"><a href="g0.html#cb92-4"></a>                <span class="dt">pool_bft =</span> <span class="ot">NULL</span>,</span>
-<span id="cb92-5"><a href="g0.html#cb92-5"></a>                <span class="dt">jackknife_fraction =</span> <span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="g0.html#cb146-1"></a>rg0 &lt;-<span class="st"> </span><span class="kw">g0_model</span>(<span class="dt">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
+<span id="cb146-2"><a href="g0.html#cb146-2"></a>                <span class="dt">truncation_distance =</span> <span class="fl">5.5</span>,</span>
+<span id="cb146-3"><a href="g0.html#cb146-3"></a>                <span class="dt">cruz =</span> cruzi,</span>
+<span id="cb146-4"><a href="g0.html#cb146-4"></a>                <span class="dt">pool_bft =</span> <span class="ot">NULL</span>,</span>
+<span id="cb146-5"><a href="g0.html#cb146-5"></a>                <span class="dt">jackknife_fraction =</span> <span class="fl">.1</span>)</span></code></pre></div>
 <p>The <code>jackknife_fraction</code> input indicates that standard error and CV will be estimated using an iterative jackknife procedure in which 10% of the data is removed in each iteration. Find more details on this process using the function documentation, <code>?g0_model()</code>.</p>
 <p>The input <code>pool_bft</code> provides a way to specify that low Beaufort sea states, which are typically rare in open-ocean surveys, should be pooled. This step may be needed in order to achieve a monotonic decline in the <code>g(0) ~ Bft</code> relationship for some species, but the default is <code>NULL</code>, i.e., no pooling. If <code>pool_bft</code> is the character string <code>"01"</code>, Beaufort states 1 will be pooled into state 0. If <code>pool_bft</code> is the character string <code>"012"</code>, Beaufort states 1 and 2 will be pooled into state 0. We recommend beginning with <code>NULL</code> then modifying this if needed, based on the output.</p>
 <p>The chief result of this function is a <code>$summary</code> table:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="g0.html#cb93-1"></a>rg0<span class="op">$</span>summary</span>
-<span id="cb93-2"><a href="g0.html#cb93-2"></a>  bft       Rg0      ESW  n     Rg0_SE    Rg0_CV     ESW_SE</span>
-<span id="cb93-3"><a href="g0.html#cb93-3"></a><span class="dv">1</span>   <span class="dv">0</span> <span class="fl">1.0000000</span> <span class="fl">3.968033</span> <span class="dv">10</span> <span class="fl">0.00000000</span> <span class="fl">0.0000000</span> <span class="fl">0.16288323</span></span>
-<span id="cb93-4"><a href="g0.html#cb93-4"></a><span class="dv">2</span>   <span class="dv">1</span> <span class="fl">0.9574903</span> <span class="fl">3.724726</span> <span class="dv">10</span> <span class="fl">0.10437256</span> <span class="fl">0.1090064</span> <span class="fl">0.13458164</span></span>
-<span id="cb93-5"><a href="g0.html#cb93-5"></a><span class="dv">3</span>   <span class="dv">2</span> <span class="fl">0.8507491</span> <span class="fl">3.460165</span> <span class="dv">10</span> <span class="fl">0.16075534</span> <span class="fl">0.1889574</span> <span class="fl">0.10190113</span></span>
-<span id="cb93-6"><a href="g0.html#cb93-6"></a><span class="dv">4</span>   <span class="dv">3</span> <span class="fl">0.6374127</span> <span class="fl">3.180650</span> <span class="dv">10</span> <span class="fl">0.13055026</span> <span class="fl">0.2048128</span> <span class="fl">0.06967222</span></span>
-<span id="cb93-7"><a href="g0.html#cb93-7"></a><span class="dv">5</span>   <span class="dv">4</span> <span class="fl">0.4649322</span> <span class="fl">2.898497</span> <span class="dv">10</span> <span class="fl">0.08508186</span> <span class="fl">0.1829984</span> <span class="fl">0.05699997</span></span>
-<span id="cb93-8"><a href="g0.html#cb93-8"></a><span class="dv">6</span>   <span class="dv">5</span> <span class="fl">0.4238391</span> <span class="fl">2.624881</span> <span class="dv">10</span> <span class="fl">0.07858997</span> <span class="fl">0.1854241</span> <span class="fl">0.07451945</span></span>
-<span id="cb93-9"><a href="g0.html#cb93-9"></a><span class="dv">7</span>   <span class="dv">6</span> <span class="fl">0.4534225</span> <span class="fl">2.370146</span> <span class="dv">10</span> <span class="fl">0.10177148</span> <span class="fl">0.2244517</span> <span class="fl">0.10268952</span></span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="g0.html#cb147-1"></a>rg0<span class="op">$</span>summary</span>
+<span id="cb147-2"><a href="g0.html#cb147-2"></a>  bft       Rg0      ESW  n     Rg0_SE    Rg0_CV     ESW_SE</span>
+<span id="cb147-3"><a href="g0.html#cb147-3"></a><span class="dv">1</span>   <span class="dv">0</span> <span class="fl">1.0000000</span> <span class="fl">3.968033</span> <span class="dv">10</span> <span class="fl">0.00000000</span> <span class="fl">0.0000000</span> <span class="fl">0.16288323</span></span>
+<span id="cb147-4"><a href="g0.html#cb147-4"></a><span class="dv">2</span>   <span class="dv">1</span> <span class="fl">0.9574903</span> <span class="fl">3.724726</span> <span class="dv">10</span> <span class="fl">0.10437256</span> <span class="fl">0.1090064</span> <span class="fl">0.13458164</span></span>
+<span id="cb147-5"><a href="g0.html#cb147-5"></a><span class="dv">3</span>   <span class="dv">2</span> <span class="fl">0.8507491</span> <span class="fl">3.460165</span> <span class="dv">10</span> <span class="fl">0.16075534</span> <span class="fl">0.1889574</span> <span class="fl">0.10190113</span></span>
+<span id="cb147-6"><a href="g0.html#cb147-6"></a><span class="dv">4</span>   <span class="dv">3</span> <span class="fl">0.6374127</span> <span class="fl">3.180650</span> <span class="dv">10</span> <span class="fl">0.13055026</span> <span class="fl">0.2048128</span> <span class="fl">0.06967222</span></span>
+<span id="cb147-7"><a href="g0.html#cb147-7"></a><span class="dv">5</span>   <span class="dv">4</span> <span class="fl">0.4649322</span> <span class="fl">2.898497</span> <span class="dv">10</span> <span class="fl">0.08508186</span> <span class="fl">0.1829984</span> <span class="fl">0.05699997</span></span>
+<span id="cb147-8"><a href="g0.html#cb147-8"></a><span class="dv">6</span>   <span class="dv">5</span> <span class="fl">0.4238391</span> <span class="fl">2.624881</span> <span class="dv">10</span> <span class="fl">0.07858997</span> <span class="fl">0.1854241</span> <span class="fl">0.07451945</span></span>
+<span id="cb147-9"><a href="g0.html#cb147-9"></a><span class="dv">7</span>   <span class="dv">6</span> <span class="fl">0.4534225</span> <span class="fl">2.370146</span> <span class="dv">10</span> <span class="fl">0.10177148</span> <span class="fl">0.2244517</span> <span class="fl">0.10268952</span></span></code></pre></div>
 <p>The model predicts that <em>Rg(0)</em> declines rapidly with deteriorating sea state:</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="g0.html#cb94-1"></a><span class="kw">plot</span>(Rg0 <span class="op">~</span><span class="st"> </span>bft, <span class="dt">data =</span> rg0<span class="op">$</span>summary, </span>
-<span id="cb94-2"><a href="g0.html#cb94-2"></a>     <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">type=</span><span class="st">&#39;o&#39;</span>, <span class="dt">pch=</span><span class="dv">16</span>)</span>
-<span id="cb94-3"><a href="g0.html#cb94-3"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span>.<span class="dv">1</span>), </span>
-<span id="cb94-4"><a href="g0.html#cb94-4"></a>       <span class="dt">col=</span><span class="st">&#39;grey85&#39;</span>, <span class="dt">lty=</span><span class="dv">3</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-143-1.png" width="672" /></p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="g0.html#cb148-1"></a><span class="kw">plot</span>(Rg0 <span class="op">~</span><span class="st"> </span>bft, <span class="dt">data =</span> rg0<span class="op">$</span>summary, </span>
+<span id="cb148-2"><a href="g0.html#cb148-2"></a>     <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">type=</span><span class="st">&#39;o&#39;</span>, <span class="dt">pch=</span><span class="dv">16</span>)</span>
+<span id="cb148-3"><a href="g0.html#cb148-3"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dt">by=</span>.<span class="dv">1</span>), </span>
+<span id="cb148-4"><a href="g0.html#cb148-4"></a>       <span class="dt">col=</span><span class="st">&#39;grey85&#39;</span>, <span class="dt">lty=</span><span class="dv">3</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-201-1.png" width="672" /></p>
 <p>In addition to the summary above, this function returns various details, including the details of the Generalized Additive Model (GAM) (for both the estimate and the jackknifed datasets), and the raw sightings and segments used in the model.</p>
 <pre><code>[1] &quot;Rg0&quot;       &quot;gam&quot;       &quot;jackknife&quot; &quot;summary&quot;   &quot;sightings&quot; &quot;segments&quot; </code></pre>
 <p>To produce these estimates efficiently for many species, you can use the wrapper function <code>g0_table()</code>, as follows. First you build a list of parameters for each species/species group:</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="g0.html#cb96-1"></a>species &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
-<span id="cb96-2"><a href="g0.html#cb96-2"></a>  <span class="kw">list</span>(<span class="dt">spp =</span> <span class="kw">c</span>(<span class="st">&#39;005&#39;</span>, <span class="st">&#39;016&#39;</span>, <span class="st">&#39;017&#39;</span>),</span>
-<span id="cb96-3"><a href="g0.html#cb96-3"></a>       <span class="dt">title =</span> <span class="st">&#39;Delphinus spp&#39;</span>,</span>
-<span id="cb96-4"><a href="g0.html#cb96-4"></a>       <span class="dt">truncation =</span> <span class="fl">5.5</span>),</span>
-<span id="cb96-5"><a href="g0.html#cb96-5"></a>  <span class="kw">list</span>(<span class="dt">spp =</span> <span class="st">&#39;021&#39;</span>,</span>
-<span id="cb96-6"><a href="g0.html#cb96-6"></a>       <span class="dt">title =</span> <span class="st">&quot;Risso&#39;s dolphin&quot;</span>,</span>
-<span id="cb96-7"><a href="g0.html#cb96-7"></a>       <span class="dt">truncation =</span> <span class="fl">5.5</span>, </span>
-<span id="cb96-8"><a href="g0.html#cb96-8"></a>       <span class="dt">pool_bft =</span> <span class="st">&#39;12&#39;</span>),</span>
-<span id="cb96-9"><a href="g0.html#cb96-9"></a>  <span class="kw">list</span>(<span class="dt">spp =</span> <span class="st">&#39;046&#39;</span>,</span>
-<span id="cb96-10"><a href="g0.html#cb96-10"></a>       <span class="dt">title =</span> <span class="st">&#39;Sperm whale&#39;</span>,</span>
-<span id="cb96-11"><a href="g0.html#cb96-11"></a>       <span class="dt">truncation =</span> <span class="fl">5.5</span>),</span>
-<span id="cb96-12"><a href="g0.html#cb96-12"></a>  <span class="kw">list</span>(<span class="dt">spp =</span> <span class="kw">c</span>(<span class="st">&#39;047&#39;</span>, <span class="st">&#39;048&#39;</span>, <span class="st">&#39;080&#39;</span>),</span>
-<span id="cb96-13"><a href="g0.html#cb96-13"></a>       <span class="dt">title =</span> <span class="st">&#39;Kogia spp&#39;</span>,</span>
-<span id="cb96-14"><a href="g0.html#cb96-14"></a>       <span class="dt">truncation =</span> <span class="fl">4.0</span>),</span>
-<span id="cb96-15"><a href="g0.html#cb96-15"></a>  <span class="kw">list</span>(<span class="dt">spp =</span> <span class="st">&#39;061&#39;</span>,</span>
-<span id="cb96-16"><a href="g0.html#cb96-16"></a>       <span class="dt">title =</span> <span class="st">&quot;Cuvier&#39;s beaked whale&quot;</span>,</span>
-<span id="cb96-17"><a href="g0.html#cb96-17"></a>       <span class="dt">truncation =</span> <span class="fl">4.0</span>),</span>
-<span id="cb96-18"><a href="g0.html#cb96-18"></a>  <span class="kw">list</span>(<span class="dt">spp =</span> <span class="st">&#39;074&#39;</span>,</span>
-<span id="cb96-19"><a href="g0.html#cb96-19"></a>       <span class="dt">title =</span> <span class="st">&#39;Fin whale&#39;</span>,</span>
-<span id="cb96-20"><a href="g0.html#cb96-20"></a>       <span class="dt">truncation =</span> <span class="fl">5.5</span>,</span>
-<span id="cb96-21"><a href="g0.html#cb96-21"></a>       <span class="dt">regions =</span> <span class="st">&#39;CCS&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="g0.html#cb150-1"></a>species &lt;-<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb150-2"><a href="g0.html#cb150-2"></a>  <span class="kw">list</span>(<span class="dt">spp =</span> <span class="kw">c</span>(<span class="st">&#39;005&#39;</span>, <span class="st">&#39;016&#39;</span>, <span class="st">&#39;017&#39;</span>),</span>
+<span id="cb150-3"><a href="g0.html#cb150-3"></a>       <span class="dt">title =</span> <span class="st">&#39;Delphinus spp&#39;</span>,</span>
+<span id="cb150-4"><a href="g0.html#cb150-4"></a>       <span class="dt">truncation =</span> <span class="fl">5.5</span>),</span>
+<span id="cb150-5"><a href="g0.html#cb150-5"></a>  <span class="kw">list</span>(<span class="dt">spp =</span> <span class="st">&#39;021&#39;</span>,</span>
+<span id="cb150-6"><a href="g0.html#cb150-6"></a>       <span class="dt">title =</span> <span class="st">&quot;Risso&#39;s dolphin&quot;</span>,</span>
+<span id="cb150-7"><a href="g0.html#cb150-7"></a>       <span class="dt">truncation =</span> <span class="fl">5.5</span>, </span>
+<span id="cb150-8"><a href="g0.html#cb150-8"></a>       <span class="dt">pool_bft =</span> <span class="st">&#39;12&#39;</span>),</span>
+<span id="cb150-9"><a href="g0.html#cb150-9"></a>  <span class="kw">list</span>(<span class="dt">spp =</span> <span class="st">&#39;046&#39;</span>,</span>
+<span id="cb150-10"><a href="g0.html#cb150-10"></a>       <span class="dt">title =</span> <span class="st">&#39;Sperm whale&#39;</span>,</span>
+<span id="cb150-11"><a href="g0.html#cb150-11"></a>       <span class="dt">truncation =</span> <span class="fl">5.5</span>),</span>
+<span id="cb150-12"><a href="g0.html#cb150-12"></a>  <span class="kw">list</span>(<span class="dt">spp =</span> <span class="kw">c</span>(<span class="st">&#39;047&#39;</span>, <span class="st">&#39;048&#39;</span>, <span class="st">&#39;080&#39;</span>),</span>
+<span id="cb150-13"><a href="g0.html#cb150-13"></a>       <span class="dt">title =</span> <span class="st">&#39;Kogia spp&#39;</span>,</span>
+<span id="cb150-14"><a href="g0.html#cb150-14"></a>       <span class="dt">truncation =</span> <span class="fl">4.0</span>),</span>
+<span id="cb150-15"><a href="g0.html#cb150-15"></a>  <span class="kw">list</span>(<span class="dt">spp =</span> <span class="st">&#39;061&#39;</span>,</span>
+<span id="cb150-16"><a href="g0.html#cb150-16"></a>       <span class="dt">title =</span> <span class="st">&quot;Cuvier&#39;s beaked whale&quot;</span>,</span>
+<span id="cb150-17"><a href="g0.html#cb150-17"></a>       <span class="dt">truncation =</span> <span class="fl">4.0</span>),</span>
+<span id="cb150-18"><a href="g0.html#cb150-18"></a>  <span class="kw">list</span>(<span class="dt">spp =</span> <span class="st">&#39;074&#39;</span>,</span>
+<span id="cb150-19"><a href="g0.html#cb150-19"></a>       <span class="dt">title =</span> <span class="st">&#39;Fin whale&#39;</span>,</span>
+<span id="cb150-20"><a href="g0.html#cb150-20"></a>       <span class="dt">truncation =</span> <span class="fl">5.5</span>,</span>
+<span id="cb150-21"><a href="g0.html#cb150-21"></a>       <span class="dt">regions =</span> <span class="st">&#39;CCS&#39;</span>))</span></code></pre></div>
 <ul>
 <li><p>Note that we used shorter truncation distances for cryptic species.</p></li>
 <li><p>Note also that we had to pool Beaufort sea states 0-2 for Risso’s dolphins in order to maintain a monotonic decline in the <em>Rg(0)</em> ~ Beaufort curve.</p></li>
 <li><p>Note also that we limited the geostrata used to model the fin whale <em>Rg(0)</em> curve to the California Current System (‘CCS’, after Barlow 2015), so that zero-inflated segments did not confound the model.</p></li>
 </ul>
 <p>We then pass this species list to <code>g0_table()</code>. In this example, we are only estimating the <em>Rg(0)</em> relationship, without conducting jackknife estimation:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="g0.html#cb97-1"></a>rg0s &lt;-<span class="st"> </span><span class="kw">g0_table</span>(cruzi,</span>
-<span id="cb97-2"><a href="g0.html#cb97-2"></a>               species,</span>
-<span id="cb97-3"><a href="g0.html#cb97-3"></a>               <span class="dt">eff_types =</span> <span class="st">&#39;S&#39;</span>,</span>
-<span id="cb97-4"><a href="g0.html#cb97-4"></a>               <span class="dt">jackknife_fraction =</span> <span class="ot">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="g0.html#cb151-1"></a>rg0s &lt;-<span class="st"> </span><span class="kw">g0_table</span>(cruzi,</span>
+<span id="cb151-2"><a href="g0.html#cb151-2"></a>               species,</span>
+<span id="cb151-3"><a href="g0.html#cb151-3"></a>               <span class="dt">eff_types =</span> <span class="st">&#39;S&#39;</span>,</span>
+<span id="cb151-4"><a href="g0.html#cb151-4"></a>               <span class="dt">jackknife_fraction =</span> <span class="ot">NULL</span>)</span></code></pre></div>
 <p>Now plot the result using a dedicated <code>LTabundR</code> function:</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="g0.html#cb98-1"></a><span class="kw">g0_plot</span>(rg0s, <span class="dt">panes=</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-149-1.png" width="672" /></p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="g0.html#cb152-1"></a><span class="kw">g0_plot</span>(rg0s, <span class="dt">panes=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-207-1.png" width="672" /></p>
 </div>
 </div>
 <div id="weighted-average-g0" class="section level2 unnumbered hasAnchor">
@@ -424,62 +434,62 @@ So <em>g(0)</em> matters, and the assumption of most detection functions that <e
 <p>Since <code>g(0)</code> clearly depends upon survey conditions, and since each survey is carried out in a specific sequence of conditions, a unique, weighted <code>g(0)</code> value must be estimated for each species in each geostratum and year of interest.</p>
 <p>This will be done automatically by the line-transect analysis functions coming up (see <code>LTabundR::lta()</code>), meaning you only need a table of <em>Rg(0)</em> values in order to proceed to the next step. But you can also calculate weighted <em>g(0)</em> values separately as an isolated analysis, which we show below.</p>
 <p>Let’s say we want to estimate the average <code>g(0)</code> for striped dolphins during the WHICEAS survey years of 2017 and 2020. From above, we have an estimate of the <em>Rg(0)</em> and its CV for each Beaufort state:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="g0.html#cb99-1"></a>rg0<span class="op">$</span>summary <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(bft, Rg0, Rg0_CV)</span>
-<span id="cb99-2"><a href="g0.html#cb99-2"></a>  bft       Rg0    Rg0_CV</span>
-<span id="cb99-3"><a href="g0.html#cb99-3"></a><span class="dv">1</span>   <span class="dv">0</span> <span class="fl">1.0000000</span> <span class="fl">0.0000000</span></span>
-<span id="cb99-4"><a href="g0.html#cb99-4"></a><span class="dv">2</span>   <span class="dv">1</span> <span class="fl">0.9574903</span> <span class="fl">0.1090064</span></span>
-<span id="cb99-5"><a href="g0.html#cb99-5"></a><span class="dv">3</span>   <span class="dv">2</span> <span class="fl">0.8507491</span> <span class="fl">0.1889574</span></span>
-<span id="cb99-6"><a href="g0.html#cb99-6"></a><span class="dv">4</span>   <span class="dv">3</span> <span class="fl">0.6374127</span> <span class="fl">0.2048128</span></span>
-<span id="cb99-7"><a href="g0.html#cb99-7"></a><span class="dv">5</span>   <span class="dv">4</span> <span class="fl">0.4649322</span> <span class="fl">0.1829984</span></span>
-<span id="cb99-8"><a href="g0.html#cb99-8"></a><span class="dv">6</span>   <span class="dv">5</span> <span class="fl">0.4238391</span> <span class="fl">0.1854241</span></span>
-<span id="cb99-9"><a href="g0.html#cb99-9"></a><span class="dv">7</span>   <span class="dv">6</span> <span class="fl">0.4534225</span> <span class="fl">0.2244517</span></span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="g0.html#cb153-1"></a>rg0<span class="op">$</span>summary <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(bft, Rg0, Rg0_CV)</span>
+<span id="cb153-2"><a href="g0.html#cb153-2"></a>  bft       Rg0    Rg0_CV</span>
+<span id="cb153-3"><a href="g0.html#cb153-3"></a><span class="dv">1</span>   <span class="dv">0</span> <span class="fl">1.0000000</span> <span class="fl">0.0000000</span></span>
+<span id="cb153-4"><a href="g0.html#cb153-4"></a><span class="dv">2</span>   <span class="dv">1</span> <span class="fl">0.9574903</span> <span class="fl">0.1090064</span></span>
+<span id="cb153-5"><a href="g0.html#cb153-5"></a><span class="dv">3</span>   <span class="dv">2</span> <span class="fl">0.8507491</span> <span class="fl">0.1889574</span></span>
+<span id="cb153-6"><a href="g0.html#cb153-6"></a><span class="dv">4</span>   <span class="dv">3</span> <span class="fl">0.6374127</span> <span class="fl">0.2048128</span></span>
+<span id="cb153-7"><a href="g0.html#cb153-7"></a><span class="dv">5</span>   <span class="dv">4</span> <span class="fl">0.4649322</span> <span class="fl">0.1829984</span></span>
+<span id="cb153-8"><a href="g0.html#cb153-8"></a><span class="dv">6</span>   <span class="dv">5</span> <span class="fl">0.4238391</span> <span class="fl">0.1854241</span></span>
+<span id="cb153-9"><a href="g0.html#cb153-9"></a><span class="dv">7</span>   <span class="dv">6</span> <span class="fl">0.4534225</span> <span class="fl">0.2244517</span></span></code></pre></div>
 <p>We also have a processed <code>cruz</code> object with 2017 data:</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="g0.html#cb100-1"></a><span class="kw">load</span>(<span class="st">&#39;whiceas_cruz_1720.RData&#39;</span>)</span>
-<span id="cb100-2"><a href="g0.html#cb100-2"></a>cruz_<span class="dv">17</span> &lt;-<span class="st"> </span><span class="kw">filter_cruz</span>(cruz_<span class="dv">1720</span>, <span class="dt">years =</span> <span class="dv">2017</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="g0.html#cb154-1"></a><span class="kw">load</span>(<span class="st">&#39;whiceas_cruz_1720.RData&#39;</span>)</span>
+<span id="cb154-2"><a href="g0.html#cb154-2"></a>cruz_<span class="dv">17</span> &lt;-<span class="st"> </span><span class="kw">filter_cruz</span>(cruz_<span class="dv">1720</span>, <span class="dt">years =</span> <span class="dv">2017</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span></code></pre></div>
 <p>To view the distribution of effort in this WHICEAS 2017 across sea states, we can use the function <code>summarize_bft()</code>:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="g0.html#cb101-1"></a><span class="kw">summarize_bft</span>(cruz_<span class="dv">17</span>)<span class="op">$</span>overall</span>
-<span id="cb101-2"><a href="g0.html#cb101-2"></a><span class="co"># A tibble: 6 × 3</span></span>
-<span id="cb101-3"><a href="g0.html#cb101-3"></a>   bftr    km   prop</span>
-<span id="cb101-4"><a href="g0.html#cb101-4"></a>  <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
-<span id="cb101-5"><a href="g0.html#cb101-5"></a><span class="dv">1</span>     <span class="dv">1</span>  <span class="fl">130.</span> <span class="fl">0.0200</span></span>
-<span id="cb101-6"><a href="g0.html#cb101-6"></a><span class="dv">2</span>     <span class="dv">2</span>  <span class="fl">583.</span> <span class="fl">0.0897</span></span>
-<span id="cb101-7"><a href="g0.html#cb101-7"></a><span class="dv">3</span>     <span class="dv">3</span>  <span class="fl">901.</span> <span class="fl">0.139</span> </span>
-<span id="cb101-8"><a href="g0.html#cb101-8"></a><span class="dv">4</span>     <span class="dv">4</span> <span class="fl">2140.</span> <span class="fl">0.329</span> </span>
-<span id="cb101-9"><a href="g0.html#cb101-9"></a><span class="dv">5</span>     <span class="dv">5</span> <span class="fl">1873.</span> <span class="fl">0.288</span> </span>
-<span id="cb101-10"><a href="g0.html#cb101-10"></a><span class="dv">6</span>     <span class="dv">6</span>  <span class="fl">875.</span> <span class="fl">0.135</span> </span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="g0.html#cb155-1"></a><span class="kw">summarize_bft</span>(cruz_<span class="dv">17</span>)<span class="op">$</span>overall</span>
+<span id="cb155-2"><a href="g0.html#cb155-2"></a><span class="co"># A tibble: 6 × 3</span></span>
+<span id="cb155-3"><a href="g0.html#cb155-3"></a>   bftr    km   prop</span>
+<span id="cb155-4"><a href="g0.html#cb155-4"></a>  <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st"> </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb155-5"><a href="g0.html#cb155-5"></a><span class="dv">1</span>     <span class="dv">1</span>  <span class="fl">130.</span> <span class="fl">0.0200</span></span>
+<span id="cb155-6"><a href="g0.html#cb155-6"></a><span class="dv">2</span>     <span class="dv">2</span>  <span class="fl">583.</span> <span class="fl">0.0897</span></span>
+<span id="cb155-7"><a href="g0.html#cb155-7"></a><span class="dv">3</span>     <span class="dv">3</span>  <span class="fl">901.</span> <span class="fl">0.139</span> </span>
+<span id="cb155-8"><a href="g0.html#cb155-8"></a><span class="dv">4</span>     <span class="dv">4</span> <span class="fl">2140.</span> <span class="fl">0.329</span> </span>
+<span id="cb155-9"><a href="g0.html#cb155-9"></a><span class="dv">5</span>     <span class="dv">5</span> <span class="fl">1873.</span> <span class="fl">0.288</span> </span>
+<span id="cb155-10"><a href="g0.html#cb155-10"></a><span class="dv">6</span>     <span class="dv">6</span>  <span class="fl">875.</span> <span class="fl">0.135</span> </span></code></pre></div>
 <p>We then use the function <code>g0_weighted_var()</code> to compute the weighted <em>Rg(0)</em> for our survey as well as its CV. This function carries out an automated optimization routine to simulate a new distribution for the weighted <em>g(0)</em>, which is then used to estimate the weighted CV.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="g0.html#cb102-1"></a>weighted_g0_<span class="dv">2017</span> &lt;-<span class="st"> </span></span>
-<span id="cb102-2"><a href="g0.html#cb102-2"></a><span class="st">  </span><span class="kw">g0_weighted</span>(<span class="dt">Rg0 =</span> rg0<span class="op">$</span>summary<span class="op">$</span>Rg0,</span>
-<span id="cb102-3"><a href="g0.html#cb102-3"></a>              <span class="dt">Rg0_cv =</span> rg0<span class="op">$</span>summary<span class="op">$</span>Rg0_CV, </span>
-<span id="cb102-4"><a href="g0.html#cb102-4"></a>              <span class="dt">cruz =</span> cruz_<span class="dv">17</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="g0.html#cb156-1"></a>weighted_g0_<span class="dv">2017</span> &lt;-<span class="st"> </span></span>
+<span id="cb156-2"><a href="g0.html#cb156-2"></a><span class="st">  </span><span class="kw">g0_weighted</span>(<span class="dt">Rg0 =</span> rg0<span class="op">$</span>summary<span class="op">$</span>Rg0,</span>
+<span id="cb156-3"><a href="g0.html#cb156-3"></a>              <span class="dt">Rg0_cv =</span> rg0<span class="op">$</span>summary<span class="op">$</span>Rg0_CV, </span>
+<span id="cb156-4"><a href="g0.html#cb156-4"></a>              <span class="dt">cruz =</span> cruz_<span class="dv">17</span>)</span></code></pre></div>
 <p>The result:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="g0.html#cb103-1"></a>weighted_g0_<span class="dv">2017</span><span class="op">$</span>g0[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</span>
-<span id="cb103-2"><a href="g0.html#cb103-2"></a>  wt.mean wt.cv</span>
-<span id="cb103-3"><a href="g0.html#cb103-3"></a><span class="dv">1</span>   <span class="fl">0.526</span> <span class="fl">0.188</span></span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="g0.html#cb157-1"></a>weighted_g0_<span class="dv">2017</span><span class="op">$</span>g0[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</span>
+<span id="cb157-2"><a href="g0.html#cb157-2"></a>  wt.mean wt.cv</span>
+<span id="cb157-3"><a href="g0.html#cb157-3"></a><span class="dv">1</span>   <span class="fl">0.526</span> <span class="fl">0.188</span></span></code></pre></div>
 <p>Now let’s do the same for WHICEAS 2020 and compare the weighted <em>g(0)</em> estimate:</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="g0.html#cb104-1"></a><span class="co"># Filter to 2020</span></span>
-<span id="cb104-2"><a href="g0.html#cb104-2"></a>cruz_<span class="dv">20</span> &lt;-<span class="st"> </span><span class="kw">filter_cruz</span>(cruz_<span class="dv">1720</span>, <span class="dt">years =</span> <span class="dv">2020</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
-<span id="cb104-3"><a href="g0.html#cb104-3"></a></span>
-<span id="cb104-4"><a href="g0.html#cb104-4"></a><span class="co"># Summarize Bft effort</span></span>
-<span id="cb104-5"><a href="g0.html#cb104-5"></a><span class="kw">summarize_bft</span>(cruz_<span class="dv">20</span>)<span class="op">$</span>overall</span>
-<span id="cb104-6"><a href="g0.html#cb104-6"></a><span class="co"># A tibble: 6 × 3</span></span>
-<span id="cb104-7"><a href="g0.html#cb104-7"></a>   bftr     km   prop</span>
-<span id="cb104-8"><a href="g0.html#cb104-8"></a>  <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
-<span id="cb104-9"><a href="g0.html#cb104-9"></a><span class="dv">1</span>     <span class="dv">1</span>   <span class="fl">88.2</span> <span class="fl">0.0165</span></span>
-<span id="cb104-10"><a href="g0.html#cb104-10"></a><span class="dv">2</span>     <span class="dv">2</span>  <span class="fl">262.</span>  <span class="fl">0.0490</span></span>
-<span id="cb104-11"><a href="g0.html#cb104-11"></a><span class="dv">3</span>     <span class="dv">3</span>  <span class="fl">434.</span>  <span class="fl">0.0813</span></span>
-<span id="cb104-12"><a href="g0.html#cb104-12"></a><span class="dv">4</span>     <span class="dv">4</span> <span class="fl">1482.</span>  <span class="fl">0.278</span> </span>
-<span id="cb104-13"><a href="g0.html#cb104-13"></a><span class="dv">5</span>     <span class="dv">5</span> <span class="fl">2004.</span>  <span class="fl">0.376</span> </span>
-<span id="cb104-14"><a href="g0.html#cb104-14"></a><span class="dv">6</span>     <span class="dv">6</span> <span class="fl">1067.</span>  <span class="fl">0.200</span> </span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="g0.html#cb158-1"></a><span class="co"># Filter to 2020</span></span>
+<span id="cb158-2"><a href="g0.html#cb158-2"></a>cruz_<span class="dv">20</span> &lt;-<span class="st"> </span><span class="kw">filter_cruz</span>(cruz_<span class="dv">1720</span>, <span class="dt">years =</span> <span class="dv">2020</span>, <span class="dt">verbose=</span><span class="ot">FALSE</span>)</span>
+<span id="cb158-3"><a href="g0.html#cb158-3"></a></span>
+<span id="cb158-4"><a href="g0.html#cb158-4"></a><span class="co"># Summarize Bft effort</span></span>
+<span id="cb158-5"><a href="g0.html#cb158-5"></a><span class="kw">summarize_bft</span>(cruz_<span class="dv">20</span>)<span class="op">$</span>overall</span>
+<span id="cb158-6"><a href="g0.html#cb158-6"></a><span class="co"># A tibble: 6 × 3</span></span>
+<span id="cb158-7"><a href="g0.html#cb158-7"></a>   bftr     km   prop</span>
+<span id="cb158-8"><a href="g0.html#cb158-8"></a>  <span class="op">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span><span class="st">  </span><span class="er">&lt;</span>dbl<span class="op">&gt;</span></span>
+<span id="cb158-9"><a href="g0.html#cb158-9"></a><span class="dv">1</span>     <span class="dv">1</span>   <span class="fl">88.2</span> <span class="fl">0.0165</span></span>
+<span id="cb158-10"><a href="g0.html#cb158-10"></a><span class="dv">2</span>     <span class="dv">2</span>  <span class="fl">262.</span>  <span class="fl">0.0490</span></span>
+<span id="cb158-11"><a href="g0.html#cb158-11"></a><span class="dv">3</span>     <span class="dv">3</span>  <span class="fl">434.</span>  <span class="fl">0.0813</span></span>
+<span id="cb158-12"><a href="g0.html#cb158-12"></a><span class="dv">4</span>     <span class="dv">4</span> <span class="fl">1482.</span>  <span class="fl">0.278</span> </span>
+<span id="cb158-13"><a href="g0.html#cb158-13"></a><span class="dv">5</span>     <span class="dv">5</span> <span class="fl">2004.</span>  <span class="fl">0.376</span> </span>
+<span id="cb158-14"><a href="g0.html#cb158-14"></a><span class="dv">6</span>     <span class="dv">6</span> <span class="fl">1067.</span>  <span class="fl">0.200</span> </span></code></pre></div>
 <p>Note that conditions were a bit worse in 2020 compared to 2017. We therefore expect the weighted <em>g(0)</em> estimate to be lower:</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="g0.html#cb105-1"></a>weighted_g0_<span class="dv">2020</span> &lt;-<span class="st"> </span></span>
-<span id="cb105-2"><a href="g0.html#cb105-2"></a><span class="st">  </span><span class="kw">g0_weighted</span>(<span class="dt">Rg0 =</span> rg0<span class="op">$</span>summary<span class="op">$</span>Rg0,</span>
-<span id="cb105-3"><a href="g0.html#cb105-3"></a>              <span class="dt">Rg0_cv =</span> rg0<span class="op">$</span>summary<span class="op">$</span>Rg0_CV, </span>
-<span id="cb105-4"><a href="g0.html#cb105-4"></a>              <span class="dt">cruz =</span> cruz_<span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="g0.html#cb159-1"></a>weighted_g0_<span class="dv">2020</span> &lt;-<span class="st"> </span></span>
+<span id="cb159-2"><a href="g0.html#cb159-2"></a><span class="st">  </span><span class="kw">g0_weighted</span>(<span class="dt">Rg0 =</span> rg0<span class="op">$</span>summary<span class="op">$</span>Rg0,</span>
+<span id="cb159-3"><a href="g0.html#cb159-3"></a>              <span class="dt">Rg0_cv =</span> rg0<span class="op">$</span>summary<span class="op">$</span>Rg0_CV, </span>
+<span id="cb159-4"><a href="g0.html#cb159-4"></a>              <span class="dt">cruz =</span> cruz_<span class="dv">20</span>)</span></code></pre></div>
 <p>The result:</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="g0.html#cb106-1"></a>weighted_g0_<span class="dv">2020</span><span class="op">$</span>g0[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</span>
-<span id="cb106-2"><a href="g0.html#cb106-2"></a>  wt.mean wt.cv</span>
-<span id="cb106-3"><a href="g0.html#cb106-3"></a><span class="dv">1</span>   <span class="fl">0.494</span>  <span class="fl">0.19</span></span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="g0.html#cb160-1"></a>weighted_g0_<span class="dv">2020</span><span class="op">$</span>g0[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]</span>
+<span id="cb160-2"><a href="g0.html#cb160-2"></a>  wt.mean wt.cv</span>
+<span id="cb160-3"><a href="g0.html#cb160-3"></a><span class="dv">1</span>   <span class="fl">0.494</span>  <span class="fl">0.19</span></span></code></pre></div>
 <p>Confirmed: weighted <em>g(0)</em> for 2020 is slightly lower than in 2017, due to generally worse survey conditions. These year-specific estimates should prevent those different conditions from impacting their respective abundance estimates.</p>
 
 </div>
