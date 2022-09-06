@@ -2,6 +2,8 @@
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
 library(dplyr)
+library(ggplot2)
+library(plotly)
 library(magrittr)
 library(LTabundR)
 library(swfscDAS)
@@ -20,17 +22,32 @@ In our WHICEAS case study example, we are interested in estimating density/abund
 das_file <- 'data/surveys/CenPac1986-2020_Final_alb.das'
 ```
 
-You can process your survey data using a single function, **`process_surveys()`**, which takes two arguments: the filepath(s) to your `DAS` survey data, and your `settings` object. For example:  
+You can process your survey data using a single function, **`process_surveys()`**, which takes two primary arguments: the filepath(s) to your `DAS` survey data, and your `settings` object. For example:  
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE}
-cruz <- process_surveys(das_file, settings)
+cruz <- process_surveys(das_file, 
+                        settings)
 ```
 
 That single command will convert your raw `DAS` data to a "`cruz`" object, a list of polished datasets that are prepared to be passed to subsequent analyses.  
 
+In our case we will use a third argument to apply edits to the `DAS` data before processing (see previous page for details on those edits): 
+
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE}
+edits <- readRDS('cnp_1986_2020_edits.RData')
+
+cruz <- process_surveys(das_file, 
+                        settings,
+                        edits)
+```
+
 ## Behind the scenes {-} 
 
 The `process_surveys()` function is a wrapper for several discrete stages of data formatting/processing. Behind the scenes, each of those stages is carried out using a specific `LTabundR` function. The remainder of this page is a detailed step-by-step explanation of the data processing that occurs when you call `process_surveys()`.  
+
+### Edit cruise data {-}
+
+If the `edits` input argument is supplied to `process_surveys()`, a temporary copy of the `DAS` file(s) are made and edited before processing. This step is discussed on the previous page.  
 
 ### Bring in cruise data {-} 
 
@@ -377,5 +394,269 @@ Finally, let's save this `cruz` object locally, to use in downstream scripts:
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE}
 save(cruz,file='whiceas_cruz.RData')
+```
+
+## Validation {-}  
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE}
+load('whiceas_cruz.RData')
+```
+
+To validate these `LTabundR` functions, we can compare its output to that of `ABUND9`, written by Jay Barlow (NOAA-NMFS). First, we bring in the `ABUND9` output files:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+SIGHTS <- read.csv('data/SIGHTS.csv')
+EFFORT <- read.csv('data/EFFORT.csv')
+```
+
+### Sightings {-}  
+
+Pivot and format the `ABUND` `SIGHTS` data...
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, collapse=TRUE}
+abund <-
+  SIGHTS %>%
+  tidyr::pivot_longer(cols = 31:101,
+                      names_to = 'species',
+                      values_to = 'best') %>%
+  filter(best > 0) %>%
+  mutate(Region = gsub(' ','',Region)) %>%
+  mutate(DateTime = paste0(Yr,'-',Mo,'-',Da,' ',Hr,':',Min))
+```
+
+...then summarize counts of species within each cruise: 
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, collapse=TRUE}
+abund_summ <-
+  abund %>%
+  group_by(cruise = CruzNo, species) %>%
+  summarize(ntot_abund = n(),
+            nsys_abund = length(which(! Region %in% c('NONE', 
+                                                      'Off-Transect') & 
+                                        EffortSeg > 0))) %>%
+  mutate(species = gsub('SP','',species))
+```
+
+Then do the same for `LTabundR` output: 
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, collapse=TRUE}
+ltabundr <- cruz$cohorts$all$sightings
+
+ltabundr_summ <-
+  ltabundr %>%
+  filter(OnEffort == TRUE) %>%  
+  group_by(cruise = Cruise, species) %>%
+  summarize(ntot_ltabundr = n(),
+            nsys_ltabundr = length(which(included == TRUE & 
+                                           EffType %in% c('S','F'))))
+```
+
+Now join these two datasets by cruise and species code: 
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, collapse=TRUE}
+mr <- full_join(abund_summ, ltabundr_summ, by=c('cruise', 'species'))
+
+mr %>% head
+```
+
+Compare the total On-Effort sightings in both outputs: 
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, collapse=TRUE}
+mr$ntot_abund %>% sum(na.rm=TRUE)
+mr$ntot_ltabundr %>% sum(na.rm=TRUE)
+```
+
+Compare total sightings valid for use in density estimation (`EffType` `"S"` or `"F"` only, as well as other criteria such as Bft 0 - 6): 
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, collapse=TRUE}
+mr$nsys_abund %>% sum(na.rm=TRUE)
+mr$nsys_ltabundr %>% sum(na.rm=TRUE)
+```
+
+Let's find the rows with discrepancies in systematic effort: 
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, collapse=TRUE}
+bads <- which(mr$nsys_abund != mr$nsys_ltabundr | 
+              is.na(mr$nsys_abund) | 
+              is.na(mr$nsys_ltabundr))
+bads %>% length
+```
+
+Let's look at those rows in the joined dataframe: 
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, collapse=TRUE}
+mr[bads, ]
+```
+
+To investigate each of these discrepancies, we will write a helper function that returns sightings details from both outputs for a given cruise-species: 
+
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+sight_compare <- function(abund, ltabundr, cruise, spp){
+  message('ABUND:')
+  abund %>%
+    filter(CruzNo == cruise, species == paste0('SP',spp)) %>%
+    select(5, 34, 26, 29, 33, 3) %>%
+    mutate(use_sit = EffortSeg != 0) %>%
+    select(-EffortSeg) %>%
+    arrange(desc(use_sit)) %>%
+    print
+
+  abund %>%
+    filter(CruzNo == 1631) %>% pull(species) %>% table
+  
+  
+  message('\nLTabundR:')
+  ltabundr %>%
+    filter(Cruise == cruise, species == spp) %>%
+    select(6, 2, 13, 73, 69, 5, 9, 41, 86) %>%
+    rename(sys_sit = included, use_effort = use) %>%
+    arrange(desc(use_effort)) %>%
+    tibble %>% print
+}
+```
+
+#### Discrepancies {-} 
+
+##### Cruise 1165, Species 047 {-} 
+
+In this case, `LTabundR` has a systematic sighting of a pygmy sperm whale, whereas `ABUND` does not have anything. 
+
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+sight_compare(abund, ltabundr, 1165, '047')
+(ltabundr %>% filter(Cruise == 1165, species == '047'))[1,]
+```
+
+To investigate this sighting, we can filter our `cruz` object and take a look at a map of this sighting: 
+
+```{r, echo=TRUE, eval=FALSE, message=FALSE, collapse=TRUE}
+cruzi <- filter_cruz(cruz, spp='047', years = 1988)
+map_cruz(cruzi)
+```
+
+We see that this sighting occurred *just inside* of the `OtherCNP` geostratum. It is likely that the point-in-polygon subroutines inside `ABUND9` decided that this sighting was out of the study area, and therefore excluded it. The subroutines used by `LTabundR`, which are based in the `R` package `sf`, should not be wrong in this case. 
+
+##### Cruise 1607, Species CU {-} 
+
+This species code, `CU` (Northern fur seal), was not used in the list of species for the `ABUND9` input file. We could have specified that this species not be included in our `load_cohort_settings()` object above, but it is not an issue that this species has been included in the `LTabundR` output.   
+
+##### Cruise 1607, Species PU {-} 
+
+Similar to above, this species code, `PU` (Unidentified pinniped), was not used in the list of species for the `ABUND9` input file. 
+
+##### Cruise 1631, Species 003 {-} 
+
+This non-systematic sighting of species 003 was found by `LTabundR` but not by `ABUND`. 
+
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+sight_compare(abund, ltabundr, 1631, '003')
+(ltabundr %>% filter(Cruise == 1631, species == '003'))
+```
+
+The map indicates that this is not a geostratum boundary issue: 
+
+```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE, collapse=TRUE}
+cruzi <- filter_cruz(cruz, spp='003', years = 2006)
+map_cruz(cruzi)
+```
+
+Looking at the raw `DAS` data ...
+
+```{r, echo=TRUE, eval=FALSE, message=TRUE, collapse=TRUE}
+das$das[405190:405220]
+```
+
+It appears that this was a multi-species sighting, but percentages were only provided for one species and the overall school size was quite low. Currently we are not sure why `ABUND` ignored this sighting. 
+
+
+### School sizes {-}   
+
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+# Format ABUND
+abund <- 
+  SIGHTS %>% 
+  tidyr::pivot_longer(cols = 31:101,
+                      names_to = 'species',
+                      values_to = 'best') %>%
+  mutate(Region = gsub(' ','',Region)) %>%
+  filter(best > 0,
+         ! Region %in% c('NONE', 'Off-Transect'),
+         EffortSeg > 0) %>% 
+  select(Cruise = CruzNo, TotSS, LnTotSS, species, best) %>% 
+  mutate(Software='ABUND9')
+
+nrow(abund)
+
+# Format LTabundR
+ltabundr <- 
+  cruz$cohorts$all$sightings %>% 
+  filter(OnEffort == TRUE, 
+         included == TRUE, 
+         EffType %in% c('S', 'F')) %>% 
+  select(Cruise, TotSS = ss_tot, LnTotSS = lnsstot, species, best) %>% 
+  mutate(Software='LTabundR')
+
+# Combine the datasets
+ss <- rbind(abund, ltabundr)
+
+# Plot the datasets
+ggplot(ss,
+       aes(x=best, 
+           y=factor(Cruise), 
+           col=Software, 
+           pch=Software)) + 
+      geom_point(position=ggstance::position_dodgev(height=0.5),
+                 alpha=.6) +
+      scale_x_continuous(trans='log', breaks=c(1,2, 5,10,25,50,100,500,1000,2500,5000)) +
+      xlab('log Estimated School Size') +
+      ylab('Cruise') + 
+  theme_light()
+```
+
+### Effort {-} 
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE, collapse=TRUE}
+# Format ABUND
+abund <- 
+  EFFORT %>% 
+  mutate(Region = gsub(' ','',Region)) %>%
+  mutate(dt = paste0(Yr,
+                     stringr::str_pad(Mo, width=2, pad='0', side='left'),
+                     stringr::str_pad(Da, width=2, pad='0', side='left'))) %>% 
+  filter(! Region %in% c('NONE', 'Off-Transect'),
+         EffortSeg > 0) %>% 
+  select(Cruise = CruzNo, Date = dt, km = length) %>% 
+  mutate(software = 'ABUND9')
+  
+# Format LTabundR
+ltabundr <- 
+  cruz$cohorts$all$segments %>% 
+  mutate(dt = gsub('-','',substr(DateTime1, 1,10))) %>% 
+  filter(OnEffort == TRUE, 
+         use == TRUE, 
+         EffType %in% c('S', 'F')) %>% 
+  select(Cruise, Date = dt, km = dist) %>% 
+  mutate(software = 'LTabundR')
+  
+# Join the datasets
+eff <- 
+  rbind(abund, ltabundr) %>% 
+  group_by(Cruise) %>% 
+  mutate(km = round(km)) %>% 
+  summarize(km_abund = sum(km[software == 'ABUND9']),
+            km_ltabundr = sum(km[software == 'LTabundR']))
+
+# Plot
+p <- 
+  ggplot(eff, aes(x = km_abund, y = km_ltabundr, col=factor(Cruise))) +
+  geom_abline(slope=1, intercept=0, lty=3) + 
+  geom_point(alpha=.6) + 
+  ylab('LTabundR') + xlab('ABUND9') + 
+  scale_x_continuous(breaks = seq(0, 15000, by=2500)) + 
+  scale_y_continuous(breaks = seq(0, 15000, by=2500)) + 
+  labs(title='Systematic effort per cruise', col='Cruise') + 
+  theme_light()
+
+# Make it interactive
+ggplotly(p)
 ```
 

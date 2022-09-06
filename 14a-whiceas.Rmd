@@ -995,9 +995,9 @@ lta_plot(species = NULL,
 ```
 
 
-## Validation
+## Validation {-} 
 
-To validate our results and the routines within `LTabundR`, we will compare the `LTabundR` WHICEAS results to those from A.L. Bradford et al. (2021). To do so, we first bring in the ALB et al. (2021) results, which we've staged in a GoogleSheet provided in the code chunk below: 
+To validate our results and the routines within `LTabundR`, we will compare the `LTabundR` WHICEAS results to those from A.L. Bradford et al. (2022). To do so, we first bring in the ALB et al. (2022) results, which we've staged in a GoogleSheet provided in the code chunk below: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 library(gsheet)
@@ -1017,7 +1017,7 @@ alb <-
                         names_to='column',
                         values_to='value',
                         values_transform = as.character) %>%
-    mutate(source='ALB et al. (2021)',
+    mutate(source='ALB et al. (2022)',
            title = species,
            code = stringr::str_pad(code,width=3, side='left', pad='0'),
            year = ifelse(grepl('17', column), 2017, 2020) %>% as.numeric) %>%
@@ -1059,11 +1059,11 @@ alb %>%
   ))
 ```
 
-### `LTabundR` results
+### `LTabundR` results {-} 
 
-We will compare the ALB et al. (2021) results to all three versions of the WHICEAS analysis we have produced: (1) manually specified g(0) parameters, (2) Rg(0) estimates from Barlow et al. (2015), and (3) new Rg(0) estimates produced by `LTabundR` automatically. We will bring those results back in and join each to the results from ALB et al. (2021), using a custom helper function, `whiceas_join()`: 
+We will compare the ALB et al. (2022) results to all three versions of the WHICEAS analysis we have produced: (1) manually specified g(0) parameters, (2) Rg(0) estimates from Barlow et al. (2015), and (3) new Rg(0) estimates produced by `LTabundR` automatically. We will bring those results back in and join each to the results from ALB et al. (2022), using a custom helper function, `whiceas_join()`: 
 
-```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=8, fig.width=8}
 whiceas_join <- function(alb, ltas){
   # Combine core info from each LTA list into a dataframe
   ltabundr <- data.frame()
@@ -1071,7 +1071,9 @@ whiceas_join <- function(alb, ltas){
     lti <- ltas[[i]]
     ltabundi <-
       left_join(lti$estimate,
-                lti$bootstrap$summary %>% select(title, Region, year, species, iterations, g0_cv, CV, L95, U95),
+                lti$bootstrap$summary %>% 
+                  select(title, Region, year, species, iterations, 
+                         g0_cv, CV, L95, U95),
                 by=c('title', 'Region', 'year', 'species'))
     ltabundr <- rbind(ltabundr, ltabundi)
   }
@@ -1081,7 +1083,8 @@ whiceas_join <- function(alb, ltas){
     mutate(year = as.numeric(year),
            D = D*1000,
            N = round(N)) %>%
-    select(title, species, year, g0=g0_est, g0_cv, ESW = ESW_mean, ss = size_mean, D, N, CV, L95, U95)
+    select(title, species, year, g0=g0_est, g0_cv, 
+           ESW = ESW_mean, ss = size_mean, D, N, CV, L95, U95)
 
   # Join ALB to LTabundR
   mr <- left_join(ltabundr, alb, by=c('title', 'year'))
@@ -1089,182 +1092,108 @@ whiceas_join <- function(alb, ltas){
 }
 ```
 
-Read in and format the results: 
+Read in, format, and join the results: 
 
-```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=8, fig.width=8}
 # Manually-specified g0
 ltas <- lta_enlist('whiceas/lta_manual/')
-mr1 <- whiceas_join(alb, ltas)
+mr1 <- whiceas_join(alb, ltas) %>% mutate(scenario = 'Manual g(0)')
 
 # Barlow (2015) Rg0
 ltas <- lta_enlist('whiceas/lta_barlow/')
-mr2 <- whiceas_join(alb, ltas)
+mr2 <- whiceas_join(alb, ltas) %>% mutate(scenario = 'Barlow (2015) Rg(0)')
 
 # New auto-generated Rg(0)
 ltas <- lta_enlist('whiceas/lta/')
-mr3 <- whiceas_join(alb, ltas)
+mr3 <- whiceas_join(alb, ltas) %>% mutate(scenario = 'New Rg(0) estimates')
 
 # Join them together
-
+mr <- rbind(mr1, mr2, mr3) %>% 
+  mutate(scenario = factor(scenario, levels = c('Manual g(0)',
+                                                'Barlow (2015) Rg(0)',
+                                                'New Rg(0) estimates')))
 ```
 
-### Density & abundance
+Now we can compare `LTabundR` estimates to those from ALB et al. (2021): 
 
-Next, we will write a few helper functions. First, a function that joins the ALB et al. (2021) results together to our new estimates. 
-
-Then a set of plotting functions: 
-
-```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
 library(ggplot2)
 library(plotly)
 
-# Density comparison
-whiceas_d <- function(mr){
-    ggplot(mr %>% mutate(year = factor(year)),
-           aes(x=D, y=alb_D, color=title, shape=year)) +
+# Density
+
+ggplot(mr,
+       aes(x=alb_D, y=D, color=title, shape=factor(year))) +
     geom_point() +
     scale_x_continuous(trans='log', limits=c(0.1, 50), 
+                       breaks = c(0.01, 0.1, 0.25, 0.5, 1.0, 2.5, 5, 10, 25, 50),
                        labels = function(x)round(x, 2)) +
     scale_y_continuous(trans='log', limits=c(0.1, 50), 
+                       breaks = c(0.01, 0.1, 0.25, 0.5, 1.0, 2.5, 5, 10, 25, 50),
                        labels = function(x)round(x, 2)) +
     geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
-    xlab('LTabundR') + ylab('ALB et al. (2021)') +
-    labs(title='Density')
-}
-
-# Abundance comparison
-whiceas_n <- function(mr){
-    ggplot(mr %>% mutate(year = factor(year)),
-           aes(x=N, y=alb_N, color=title, shape=year)) +
-    geom_point() +
-    scale_x_continuous(trans='log', limits=c(10, 30000), 
-                       labels = function(x)round(x, 2)) +
-    scale_y_continuous(trans='log', limits=c(10, 30000), 
-                       labels = function(x)round(x, 2)) +
-    geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
-    xlab('LTabundR') + ylab('ALB et al. (2021)') +
-    labs(title='Abundance')
-}
-
-# Confidence interval comparison
-whiceas_lci <- function(mr){
-    ggplot(mr %>% mutate(year = factor(year)),
-           aes(x=L95, y=alb_L95, color=title, shape=year)) +
-    geom_point() +
-    scale_x_continuous(trans='log', labels = function(x)round(x, 2)) +
-    scale_y_continuous(trans='log', labels = function(x)round(x, 2)) +
-    geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
-    xlab('LTabundR') + ylab('ALB et al. (2021)') +
-    labs(title='Lower 95% CI of abundance')
-}
-
-whiceas_uci <- function(mr){
-    ggplot(mr %>% mutate(year = factor(year)),
-           aes(x=U95, y=alb_U95, color=title, shape=year)) +
-    geom_point() +
-    scale_x_continuous(trans='log', labels = function(x)round(x, 2)) +
-    scale_y_continuous(trans='log', labels = function(x)round(x, 2)) +
-    geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
-    xlab('LTabundR') + ylab('ALB et al. (2021)') +
-    labs(title='Upper 95% CI of abundance')
-}
-
-# School size comparison
-whiceas_ss <- function(mr){
-  ggplot(mr %>% mutate(year = factor(year)),
-           aes(x=ss, y=alb_ss, color=title, shape=year)) +
-    geom_point() +
-    scale_x_continuous(trans='log', limits=c(1, 300), labels = function(x)round(x, 2)) +
-    scale_y_continuous(trans='log', limits=c(1, 300), labels = function(x)round(x, 2)) +
-    geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
-    xlab('LTabundR') + ylab('ALB et al. (2021)') +
-    labs(title='School size')
-}
-
-# g(0) comparison
-whiceas_g0 <- function(mr){
-    ggplot(mr %>% mutate(year = factor(year)),
-           aes(x=g0, y=alb_g0, color=title, shape=year)) +
-    geom_point() +
-    geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
-    xlab('LTabundR') + ylab('ALB et al. (2021)') +
-    labs(title='g(0)')
-}
+    ylab('LTabundR') + xlab('ALB et al. (2022)') +
+  facet_wrap(~scenario, nrow=3) + 
+  labs(title='Density (cetaceans per 1,000 km2)', 
+       shape='Year', color = 'Species') + 
+  theme_light()
 ```
 
+&nbsp; 
 
-```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
-################################################################################
-# Manual g0 based on ALB et al. (2021) manuscript
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
+# Abundance
 
-ltas <- lta_enlist('../test_code/eric/whiceas/lta_manual_g0/')
-plots <- results_compare(ltas)
-plots$ss %>% ggplotly()
-plots$g0 %>% ggplotly()
-plots$esw %>% ggplotly()
-plots$d %>% ggplotly()
-plots$n %>% ggplotly()
-plots$lci %>% ggplotly()
-plots$uci %>% ggplotly()
-
-################################################################################
-# Auto g0 based on barlow2015
-
-#ltas <- lta_enlist('../LTabundR-dev/test_code/eric/whiceas/lta_barlow2015_g0/')
-ltas <- lta_enlist('../test_code/eric/whiceas/lta_barlow2015_g0/')
-plots2 <- results_compare(ltas)
-plots2$ss %>% ggplotly()
-plots2$g0 %>% ggplotly()
-plots2$esw %>% ggplotly()
-plots2$d %>% ggplotly()
-plots2$n %>% ggplotly()
-plots2$lci %>% ggplotly()
-plots2$uci %>% ggplotly()
-
-################################################################################
-# Auto g0 based on new Rg0
-
-ltas <- lta_enlist('../test_code/eric/whiceas/lta/')
-plots3 <- results_compare(ltas)
-plots3$ss %>% ggplotly()
-plots3$g0 %>% ggplotly()
-plots3$esw %>% ggplotly()
-plots3$d %>% ggplotly()
-plots3$n %>% ggplotly()
-plots3$lci %>% ggplotly()
-plots3$uci %>% ggplotly()
-
-################################################################################
-# Show N estimates in three panels:
-# with common legend
-
-df <- plots$n$data %>% mutate(version = 'g(0) from ALB et al. (2022)')
-df2 <- plots2$n$data %>% mutate(version = 'g(0) by LTabundR with Barlow (2015) data')
-df3 <- plots3$n$data %>% mutate(version = 'g(0) by LTabundR with 1986-2020 data')
-dfs <- rbind(df, df2, df3)
-head(dfs)
-
-ggplot(data=dfs, aes(x=N, y=alb_N, color=title, pch=year)) +
-  scale_x_continuous(trans='log', breaks=c(10, 100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000)) +
-  scale_y_continuous(trans='log', breaks=c(10, 100, 500, 1000, 5000, 10000, 50000, 100000, 500000, 1000000)) +
-  xlab('LTabundR') + ylab('ALB et al. (2022)') +
-  geom_point(alpha=.7) +
-  geom_abline(slope=1, intercept=0, lty=3, alpha=.5) +
-  facet_wrap(~version)
+ggplot(mr,
+       aes(x=alb_N, y=N, 
+           color=title, shape=factor(year))) +
+    geom_point() +
+    scale_x_continuous(trans='log', 
+                       limits=c(10, 30000), 
+                       breaks = c(10, 25, 100, 250, 1000, 2500, 10000, 30000),
+                       labels = function(x)round(x)) +
+    scale_y_continuous(trans='log', 
+                       limits=c(10, 30000), 
+                       breaks = c(10, 25, 100, 250, 1000, 2500, 10000, 30000),
+                       labels = function(x)round(x)) +
+    geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
+    ylab('LTabundR') + xlab('ALB et al. (2022)') +
+  facet_wrap(~scenario, nrow=3) + 
+  labs(title='WHICEAS abundance', 
+       shape='Year', color = 'Species') + 
+  theme_light()
 ```
 
+&nbsp; 
 
-### Sample sizes
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
+# g(0) estimate
 
-###  School-size estimates
-
-### g(0) 
-
-### Species pool sample sizes
-
-```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
-
-
-
+ggplot(mr,
+       aes(x=alb_g0, y=g0, 
+           color=title, shape=factor(year))) +
+    geom_point() +
+    geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
+    ylab('LTabundR') + xlab('ALB et al. (2022)') +
+  facet_wrap(~scenario, nrow=3) + 
+  labs(title='Estimates of g(0)', 
+       shape='Year', color = 'Species') + 
+  theme_light()
 ```
 
+&nbsp; 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
+# g(0) CV estimate
+
+ggplot(mr,
+       aes(x=alb_g0_cv, y=g0_cv, 
+           color=title, shape=factor(year))) +
+    geom_point() +
+    geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
+    ylab('LTabundR') + xlab('ALB et al. (2022)') +
+  facet_wrap(~scenario, nrow=3) + 
+  labs(title='Estimates of CV of g(0)', 
+       shape='Year', color = 'Species') + 
+  theme_light()
+```

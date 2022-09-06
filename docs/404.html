@@ -52,15 +52,12 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.23/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
-<link href="libs/dt-ext-fixedcolumns-1.11.3/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
-<script src="libs/dt-ext-fixedcolumns-1.11.3/js/dataTables.fixedColumns.min.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -157,21 +154,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="settings.html#cohort-specific-settings">Cohort-specific settings<span></span></a></li>
 <li><a href="settings.html#example-code">Example code<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>3</b> Data processing<span></span></a><ul>
+<li class="chapter" data-level="3" data-path="das.html"><a href="das.html"><i class="fa fa-check"></i><b>3</b> DAS editing<span></span></a><ul>
+<li><a href="das.html#reviewing-a-das-file">Reviewing a <code>DAS</code> file<span></span></a></li>
+<li><a href="das.html#staging-edits">Staging edits<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>4</b> Data processing<span></span></a><ul>
 <li><a href="processing.html#behind-the-scenes">Behind the scenes<span></span></a></li>
 <li><a href="processing.html#review">Review<span></span></a></li>
+<li><a href="processing.html#validation">Validation<span></span></a></li>
 </ul></li>
 <li class="part"><span><b>II Data exploration<span></span></b></span></li>
-<li class="chapter" data-level="4" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>4</b> Maps<span></span></a><ul>
+<li class="chapter" data-level="5" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>5</b> Maps<span></span></a><ul>
 <li><a href="maps.html#publishable-maps">Publishable maps<span></span></a></li>
 <li><a href="maps.html#interactive-maps">Interactive maps<span></span></a></li>
 <li><a href="maps.html#interactive-dashboard">Interactive dashboard<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>5</b> Filter &amp; combine surveys<span></span></a><ul>
+<li class="chapter" data-level="6" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>6</b> Filter &amp; combine surveys<span></span></a><ul>
 <li><a href="filter.html#filter-1">Filter<span></span></a></li>
 <li><a href="filter.html#combine">Combine<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey<span></span></a><ul>
+<li class="chapter" data-level="7" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>7</b> Summarize survey<span></span></a><ul>
 <li><a href="summarize.html#summarize-effort">Summarize effort<span></span></a></li>
 <li><a href="summarize.html#summarize-by-beaufort">Summarize by Beaufort<span></span></a></li>
 <li><a href="summarize.html#summarize-sightings">Summarize sightings<span></span></a></li>
@@ -179,11 +181,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="summarize.html#cruz_explorer"><code>cruz_explorer()</code><span></span></a></li>
 </ul></li>
 <li class="part"><span><b>III Data analysis<span></span></b></span></li>
-<li class="chapter" data-level="7" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>7</b> Estimating g(0)<span></span></a><ul>
+<li class="chapter" data-level="8" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>8</b> Estimating g(0)<span></span></a><ul>
 <li><a href="g0.html#relative-g0">Relative <code>g(0)</code><span></span></a></li>
 <li><a href="g0.html#weighted-average-g0">Weighted average <code>g(0)</code><span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="lta.html"><a href="lta.html"><i class="fa fa-check"></i><b>8</b> Line-transect analysis<span></span></a><ul>
+<li class="chapter" data-level="9" data-path="lta.html"><a href="lta.html"><i class="fa fa-check"></i><b>9</b> Line-transect analysis<span></span></a><ul>
 <li><a href="lta.html#key-inputs">Key inputs<span></span></a></li>
 <li><a href="lta.html#variance-estimation">Variance estimation<span></span></a></li>
 <li><a href="lta.html#other-inputs">Other inputs<span></span></a></li>
@@ -191,45 +193,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="lta.html#unusual-estimate-scenarios">Unusual estimate scenarios<span></span></a></li>
 <li><a href="lta.html#behind-the-scenes-1">Behind the scenes<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="destratify.html"><a href="destratify.html"><i class="fa fa-check"></i><b>9</b> Stratified analysis<span></span></a></li>
-<li class="chapter" data-level="10" data-path="trend-analysis.html"><a href="trend-analysis.html"><i class="fa fa-check"></i><b>10</b> Trend analysis<span></span></a></li>
-<li class="chapter" data-level="11" data-path="subgroup-based-analysis.html"><a href="subgroup-based-analysis.html"><i class="fa fa-check"></i><b>11</b> Subgroup-based analysis<span></span></a><ul>
+<li class="chapter" data-level="10" data-path="destratify.html"><a href="destratify.html"><i class="fa fa-check"></i><b>10</b> Stratified analysis<span></span></a></li>
+<li class="chapter" data-level="11" data-path="trend-analysis.html"><a href="trend-analysis.html"><i class="fa fa-check"></i><b>11</b> Trend analysis<span></span></a></li>
+<li class="chapter" data-level="12" data-path="subgroup-based-analysis.html"><a href="subgroup-based-analysis.html"><i class="fa fa-check"></i><b>12</b> Subgroup-based analysis<span></span></a><ul>
 <li><a href="subgroup-based-analysis.html#inputs-1">Inputs<span></span></a></li>
 <li><a href="subgroup-based-analysis.html#outputs-1">Outputs<span></span></a></li>
 <li><a href="subgroup-based-analysis.html#behind-the-scenes-2">Behind the scenes<span></span></a></li>
 </ul></li>
 <li class="part"><span><b>IV Results<span></span></b></span></li>
-<li class="chapter" data-level="12" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>12</b> Tables<span></span></a><ul>
+<li class="chapter" data-level="13" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>13</b> Tables<span></span></a><ul>
 <li><a href="tables.html#summary-tables">Summary tables<span></span></a></li>
 <li><a href="tables.html#appendix-tables">Appendix tables<span></span></a></li>
 <li><a href="tables.html#abundance-plots">Abundance plots<span></span></a></li>
 <li><a href="tables.html#detection-function-plots">Detection function plots<span></span></a></li>
 </ul></li>
 <li class="part"><span><b>V Case studies<span></span></b></span></li>
-<li class="chapter" data-level="13" data-path="whiceas.html"><a href="whiceas.html"><i class="fa fa-check"></i><b>13</b> WHICEAS<span></span></a><ul>
+<li class="chapter" data-level="14" data-path="whiceas.html"><a href="whiceas.html"><i class="fa fa-check"></i><b>14</b> WHICEAS<span></span></a><ul>
 <li><a href="whiceas.html#data-processing">Data processing<span></span></a></li>
 <li><a href="whiceas.html#data-exploration">Data exploration<span></span></a></li>
 <li><a href="whiceas.html#rg0-1">Rg0<span></span></a></li>
 <li><a href="whiceas.html#density-abundance">Density &amp; abundance<span></span></a></li>
 <li><a href="whiceas.html#results">Results<span></span></a></li>
-<li class="chapter" data-level="13.1" data-path="whiceas.html"><a href="whiceas.html#validation"><i class="fa fa-check"></i><b>13.1</b> Validation<span></span></a></li>
+<li><a href="whiceas.html#validation-1">Validation<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="case_cnp.html"><a href="case_cnp.html"><i class="fa fa-check"></i><b>14</b> Central North Pacific<span></span></a><ul>
+<li class="chapter" data-level="15" data-path="case_cnp.html"><a href="case_cnp.html"><i class="fa fa-check"></i><b>15</b> Central North Pacific<span></span></a><ul>
 <li><a href="case_cnp.html#data-processing-1">Data processing<span></span></a></li>
 <li><a href="case_cnp.html#data-exploration-1">Data exploration<span></span></a></li>
 <li><a href="case_cnp.html#rg0-2">Rg0<span></span></a></li>
-<li><a href="case_cnp.html#density-abundance-2">Density &amp; abundance<span></span></a></li>
+<li><a href="case_cnp.html#density-abundance-1">Density &amp; abundance<span></span></a></li>
 <li><a href="case_cnp.html#stratified-results">Stratified results<span></span></a></li>
 <li><a href="case_cnp.html#de-stratified-results">De-stratified results<span></span></a></li>
 <li><a href="case_cnp.html#plots-1">Plots<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="california-current-system.html"><a href="california-current-system.html"><i class="fa fa-check"></i><b>15</b> California Current System<span></span></a></li>
+<li class="chapter" data-level="16" data-path="california-current-system.html"><a href="california-current-system.html"><i class="fa fa-check"></i><b>16</b> California Current System<span></span></a></li>
 <li class="part"><span><b>VI Appendix<span></span></b></span><ul>
 <li><a href="california-current-system.html#central-north-pacific">Central North Pacific<span></span></a></li>
 <li><a href="california-current-system.html#california-current">California Current<span></span></a></li>
 <li><a href="california-current-system.html#etp">ETP<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>16</b> Segmentizing<span></span></a><ul>
+<li class="chapter" data-level="17" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>17</b> Segmentizing<span></span></a><ul>
 <li><a href="segmentizing.html#approach">Approach<span></span></a></li>
 <li><a href="segmentizing.html#defaults-2">Defaults<span></span></a></li>
 <li><a href="segmentizing.html#day-vs-equal-length">Day vs Equal Length<span></span></a></li>
@@ -237,14 +239,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="segmentizing.html#segment-remainder-handling">Segment remainder handling<span></span></a></li>
 <li><a href="segmentizing.html#typical-settings">Typical settings<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="abund9_compare.html"><a href="abund9_compare.html"><i class="fa fa-check"></i><b>17</b> <code>LTabundR</code> vs. <code>ABUND9</code><span></span></a><ul>
+<li class="chapter" data-level="18" data-path="abund9_compare.html"><a href="abund9_compare.html"><i class="fa fa-check"></i><b>18</b> <code>LTabundR</code> vs. <code>ABUND9</code><span></span></a><ul>
 <li><a href="abund9_compare.html#differences-in-total-effort">Differences in total effort<span></span></a></li>
 <li><a href="abund9_compare.html#differences-in-on-effort-distance">Differences in on-effort distance<span></span></a></li>
 <li><a href="abund9_compare.html#differences-in-total-sightings">Differences in total sightings<span></span></a></li>
 <li><a href="abund9_compare.html#differences-in-on-effort-sightings">Differences in on-effort sightings<span></span></a></li>
 <li><a href="abund9_compare.html#differences-in-school-size-estimation">Differences in school size estimation<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>18</b> NOAA/NMFS species codes<span></span></a><ul>
+<li class="chapter" data-level="19" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>19</b> NOAA/NMFS species codes<span></span></a><ul>
 <li><a href="spp_codes.html#table">Table<span></span></a></li>
 <li><a href="spp_codes.html#species_translator"><code>species_translator()</code><span></span></a></li>
 </ul></li>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 4 After | User’s guide for LTabundR</title>
+  <meta name="description" content="vignette" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 4 After | User’s guide for LTabundR" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="vignette" />
+  <meta name="github-repo" content="emk-noaa/emk-noaa.github.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 4 After | User’s guide for LTabundR" />
+  
+  <meta name="twitter:description" content="vignette" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="das.html"/>
+<link rel="next" href="processing.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">WinCruz analysis</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#overview">Overview<span></span></a></li>
+<li class="part"><span><b>I Data processing<span></span></b></span></li>
+<li class="chapter" data-level="1" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>1</b> Install <code>LTabundR</code><span></span></a><ul>
+<li><a href="install.html#option-1-install-from-github">Option 1: Install from GitHub<span></span></a></li>
+<li><a href="install.html#option-2-install-locally">Option 2: Install locally<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="settings.html"><a href="settings.html"><i class="fa fa-check"></i><b>2</b> Settings<span></span></a><ul>
+<li><a href="settings.html#survey-strata">Survey strata<span></span></a></li>
+<li><a href="settings.html#survey-wide-settings">Survey-wide settings<span></span></a></li>
+<li><a href="settings.html#cohort-specific-settings">Cohort-specific settings<span></span></a></li>
+<li><a href="settings.html#example-code">Example code<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="das.html"><a href="das.html"><i class="fa fa-check"></i><b>3</b> DAS editing<span></span></a><ul>
+<li><a href="das.html#reviewing-a-das-file">Reviewing a <code>DAS</code> file<span></span></a></li>
+<li><a href="das.html#staging-edits">Staging edits<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="after.html"><a href="after.html"><i class="fa fa-check"></i><b>4</b> After<span></span></a></li>
+<li class="chapter" data-level="5" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>5</b> Data processing<span></span></a><ul>
+<li><a href="processing.html#behind-the-scenes">Behind the scenes<span></span></a></li>
+<li><a href="processing.html#review">Review<span></span></a></li>
+<li><a href="processing.html#validation">Validation<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>II Data exploration<span></span></b></span></li>
+<li class="chapter" data-level="6" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>6</b> Maps<span></span></a><ul>
+<li><a href="maps.html#publishable-maps">Publishable maps<span></span></a></li>
+<li><a href="maps.html#interactive-maps">Interactive maps<span></span></a></li>
+<li><a href="maps.html#interactive-dashboard">Interactive dashboard<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>7</b> Filter &amp; combine surveys<span></span></a><ul>
+<li><a href="filter.html#filter-1">Filter<span></span></a></li>
+<li><a href="filter.html#combine">Combine<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>8</b> Summarize survey<span></span></a><ul>
+<li><a href="summarize.html#summarize-effort">Summarize effort<span></span></a></li>
+<li><a href="summarize.html#summarize-by-beaufort">Summarize by Beaufort<span></span></a></li>
+<li><a href="summarize.html#summarize-sightings">Summarize sightings<span></span></a></li>
+<li><a href="summarize.html#summarize-certain-species">Summarize certain species<span></span></a></li>
+<li><a href="summarize.html#cruz_explorer"><code>cruz_explorer()</code><span></span></a></li>
+</ul></li>
+<li class="part"><span><b>III Data analysis<span></span></b></span></li>
+<li class="chapter" data-level="9" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>9</b> Estimating g(0)<span></span></a><ul>
+<li><a href="g0.html#relative-g0">Relative <code>g(0)</code><span></span></a></li>
+<li><a href="g0.html#weighted-average-g0">Weighted average <code>g(0)</code><span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lta.html"><a href="lta.html"><i class="fa fa-check"></i><b>10</b> Line-transect analysis<span></span></a><ul>
+<li><a href="lta.html#key-inputs">Key inputs<span></span></a></li>
+<li><a href="lta.html#variance-estimation">Variance estimation<span></span></a></li>
+<li><a href="lta.html#other-inputs">Other inputs<span></span></a></li>
+<li><a href="lta.html#output">Output<span></span></a></li>
+<li><a href="lta.html#unusual-estimate-scenarios">Unusual estimate scenarios<span></span></a></li>
+<li><a href="lta.html#behind-the-scenes-1">Behind the scenes<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="destratify.html"><a href="destratify.html"><i class="fa fa-check"></i><b>11</b> Stratified analysis<span></span></a></li>
+<li class="chapter" data-level="12" data-path="trend-analysis.html"><a href="trend-analysis.html"><i class="fa fa-check"></i><b>12</b> Trend analysis<span></span></a></li>
+<li class="chapter" data-level="13" data-path="subgroup-based-analysis.html"><a href="subgroup-based-analysis.html"><i class="fa fa-check"></i><b>13</b> Subgroup-based analysis<span></span></a><ul>
+<li><a href="subgroup-based-analysis.html#inputs-1">Inputs<span></span></a></li>
+<li><a href="subgroup-based-analysis.html#outputs-1">Outputs<span></span></a></li>
+<li><a href="subgroup-based-analysis.html#behind-the-scenes-2">Behind the scenes<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>IV Results<span></span></b></span></li>
+<li class="chapter" data-level="14" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>14</b> Tables<span></span></a><ul>
+<li><a href="tables.html#summary-tables">Summary tables<span></span></a></li>
+<li><a href="tables.html#appendix-tables">Appendix tables<span></span></a></li>
+<li><a href="tables.html#abundance-plots">Abundance plots<span></span></a></li>
+<li><a href="tables.html#detection-function-plots">Detection function plots<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>V Case studies<span></span></b></span></li>
+<li class="chapter" data-level="15" data-path="whiceas.html"><a href="whiceas.html"><i class="fa fa-check"></i><b>15</b> WHICEAS<span></span></a><ul>
+<li><a href="whiceas.html#data-processing">Data processing<span></span></a></li>
+<li><a href="whiceas.html#data-exploration">Data exploration<span></span></a></li>
+<li><a href="whiceas.html#rg0-1">Rg0<span></span></a></li>
+<li><a href="whiceas.html#density-abundance">Density &amp; abundance<span></span></a></li>
+<li><a href="whiceas.html#results">Results<span></span></a></li>
+<li><a href="whiceas.html#validation-1">Validation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="case_cnp.html"><a href="case_cnp.html"><i class="fa fa-check"></i><b>16</b> Central North Pacific<span></span></a><ul>
+<li><a href="case_cnp.html#data-processing-1">Data processing<span></span></a></li>
+<li><a href="case_cnp.html#data-exploration-1">Data exploration<span></span></a></li>
+<li><a href="case_cnp.html#rg0-2">Rg0<span></span></a></li>
+<li><a href="case_cnp.html#density-abundance-1">Density &amp; abundance<span></span></a></li>
+<li><a href="case_cnp.html#stratified-results">Stratified results<span></span></a></li>
+<li><a href="case_cnp.html#de-stratified-results">De-stratified results<span></span></a></li>
+<li><a href="case_cnp.html#plots-1">Plots<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="california-current-system.html"><a href="california-current-system.html"><i class="fa fa-check"></i><b>17</b> California Current System<span></span></a></li>
+<li class="part"><span><b>VI Appendix<span></span></b></span><ul>
+<li><a href="california-current-system.html#central-north-pacific">Central North Pacific<span></span></a></li>
+<li><a href="california-current-system.html#california-current">California Current<span></span></a></li>
+<li><a href="california-current-system.html#etp">ETP<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>18</b> Segmentizing<span></span></a><ul>
+<li><a href="segmentizing.html#approach">Approach<span></span></a></li>
+<li><a href="segmentizing.html#defaults-2">Defaults<span></span></a></li>
+<li><a href="segmentizing.html#day-vs-equal-length">Day vs Equal Length<span></span></a></li>
+<li><a href="segmentizing.html#contiguous-vs.-non-contiguous-effort">Contiguous vs. non-contiguous effort<span></span></a></li>
+<li><a href="segmentizing.html#segment-remainder-handling">Segment remainder handling<span></span></a></li>
+<li><a href="segmentizing.html#typical-settings">Typical settings<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="abund9_compare.html"><a href="abund9_compare.html"><i class="fa fa-check"></i><b>19</b> <code>LTabundR</code> vs. <code>ABUND9</code><span></span></a><ul>
+<li><a href="abund9_compare.html#differences-in-total-effort">Differences in total effort<span></span></a></li>
+<li><a href="abund9_compare.html#differences-in-on-effort-distance">Differences in on-effort distance<span></span></a></li>
+<li><a href="abund9_compare.html#differences-in-total-sightings">Differences in total sightings<span></span></a></li>
+<li><a href="abund9_compare.html#differences-in-on-effort-sightings">Differences in on-effort sightings<span></span></a></li>
+<li><a href="abund9_compare.html#differences-in-school-size-estimation">Differences in school size estimation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>20</b> NOAA/NMFS species codes<span></span></a><ul>
+<li><a href="spp_codes.html#table">Table<span></span></a></li>
+<li><a href="spp_codes.html#species_translator"><code>species_translator()</code><span></span></a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/emk-noaa/emk-noaa.github.io" target="blank">Eric & Amanda</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">User’s guide for <code>LTabundR</code></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="after" class="section level1 hasAnchor">
+<h1><span class="header-section-number"> 4</span> After<a href="after.html#after" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="after.html#cb15-1"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(<span class="kw">list</span>(edit_<span class="dv">1607</span>_<span class="dv">55</span>))</span>
+<span id="cb15-2"><a href="after.html#cb15-2"></a><span class="co">## Applying edits to DAS file: data/surveys/CenPac1986-2020_Final_alb.das</span></span>
+<span id="cb15-3"><a href="after.html#cb15-3"></a><span class="co">## --- move, copy/paste, insertion, and deletion events ...</span></span>
+<span id="cb15-4"><a href="after.html#cb15-4"></a><span class="co">## --- --- working on edit 1 ...</span></span>
+<span id="cb15-5"><a href="after.html#cb15-5"></a>dase<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">128111</span><span class="op">:</span><span class="dv">128123</span>]</span>
+<span id="cb15-6"><a href="after.html#cb15-6"></a><span class="co">##  [1] &quot;022P 120643 041597 N37:00.08 W151:55.47  143  091  005&quot;                                   </span></span>
+<span id="cb15-7"><a href="after.html#cb15-7"></a><span class="co">##  [2] &quot;023C 120643 041597 N37:00.08 W151:55.47 both right and left on 7x and naked eye&quot;          </span></span>
+<span id="cb15-8"><a href="after.html#cb15-8"></a><span class="co">##  [3] &quot;024N 120643 041597 N37:00.08 W151:55.47  075 08.0&quot;                                        </span></span>
+<span id="cb15-9"><a href="after.html#cb15-9"></a><span class="co">##  [4] &quot;025W 120643 041597 N37:00.08 W151:55.47    1            310  6.0&quot;                         </span></span>
+<span id="cb15-10"><a href="after.html#cb15-10"></a><span class="co">##  [5] &quot;026C 120916 041597 N37:00.33 W151:55.18 both right and left on 7x and naked eye&quot;          </span></span>
+<span id="cb15-11"><a href="after.html#cb15-11"></a><span class="co">##  [6] &quot;027* 121120 041597 N37:00.45 W151:54.85&quot;                                                  </span></span>
+<span id="cb15-12"><a href="after.html#cb15-12"></a><span class="co">##  [7] &quot;028C 121933 041597 N37:00.75 W151:53.50 both right and left back on 25x&quot;                  </span></span>
+<span id="cb15-13"><a href="after.html#cb15-13"></a><span class="co">##  [8] &quot;   R.121933 041597 N37:00.75 W151:53.50    S&quot;                                             </span></span>
+<span id="cb15-14"><a href="after.html#cb15-14"></a><span class="co">##  [9] &quot;022P 121933 041597 N37:00.75 W151:53.50  143  091  005&quot;                                   </span></span>
+<span id="cb15-15"><a href="after.html#cb15-15"></a><span class="co">## [10] &quot;029*.122120 041597 N37:00.81 W151:53.22&quot;                                                  </span></span>
+<span id="cb15-16"><a href="after.html#cb15-16"></a><span class="co">## [11] &quot;030V.122120 041597 N37:00.81 W151:53.22    4   07  320      21.0&quot;                         </span></span>
+<span id="cb15-17"><a href="after.html#cb15-17"></a><span class="co">## [12] &quot;031C.122946 041597 N37:01.12 W151:51.77 wind speed appears lower than bridge speed, 10-15&quot;</span></span>
+<span id="cb15-18"><a href="after.html#cb15-18"></a><span class="co">## [13] &quot;032S.123023 041597 N37:01.14 W151:51.70  055  005    3    4  058  4.0  0.8&quot;</span></span></code></pre></div>
+<div id="cruise-1607-sighting-68" class="section level4 unnumbered hasAnchor">
+<h4>Cruise 1607 sighting 68<a href="after.html#cruise-1607-sighting-68" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>This sighting faces a similar issue: a rogue <code>R</code> event without the follow-up <code>P</code> event. This case is also missing the follow-up <code>V</code> event (viewing conditions).</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="after.html#cb16-1"></a>das[<span class="dv">129980</span><span class="op">:</span><span class="dv">129993</span>,] </span>
+<span id="cb16-2"><a href="after.html#cb16-2"></a><span class="co">##  [1] &quot;012* 065738 042797 N31:03.98 W136:03.60&quot;                                                              </span></span>
+<span id="cb16-3"><a href="after.html#cb16-3"></a><span class="co">##  [2] &quot;013C 065944 042797 N31:04.25 W136:03.55 Both observers on 7X since going ON EFFORT this morning.  JP.&quot;</span></span>
+<span id="cb16-4"><a href="after.html#cb16-4"></a><span class="co">##  [3] &quot;014P 070118 042797 N31:04.43 W136:03.51  091  005  148&quot;                                               </span></span>
+<span id="cb16-5"><a href="after.html#cb16-5"></a><span class="co">##  [4] &quot;015V 070118 042797 N31:04.43 W136:03.51    5   06  320      20.0&quot;                                     </span></span>
+<span id="cb16-6"><a href="after.html#cb16-6"></a><span class="co">##  [5] &quot;016N 070118 042797 N31:04.43 W136:03.51  010 08.0&quot;                                                    </span></span>
+<span id="cb16-7"><a href="after.html#cb16-7"></a><span class="co">##  [6] &quot;017W 070118 042797 N31:04.43 W136:03.51    1   02   03  035  6.0&quot;                                     </span></span>
+<span id="cb16-8"><a href="after.html#cb16-8"></a><span class="co">##  [7] &quot;018C 070257 042797 N31:04.65 W136:03.47 This rotation is now on the 25X&quot;                              </span></span>
+<span id="cb16-9"><a href="after.html#cb16-9"></a><span class="co">##  [8] &quot;   R.070257 042797 N31:04.65 W136:03.47    S&quot;                                                         </span></span>
+<span id="cb16-10"><a href="after.html#cb16-10"></a><span class="co">##  [9] &quot;019*.070738 042797 N31:05.25 W136:03.36&quot;                                                              </span></span>
+<span id="cb16-11"><a href="after.html#cb16-11"></a><span class="co">## [10] &quot;020S.071601 042797 N31:06.34 W136:03.16  068  148    3    4  028  1.8  1.5&quot;                           </span></span>
+<span id="cb16-12"><a href="after.html#cb16-12"></a><span class="co">## [11] &quot;021A.071601 042797 N31:06.34 W136:03.16  068         N    N  037&quot;                                     </span></span>
+<span id="cb16-13"><a href="after.html#cb16-13"></a><span class="co">## [12] &quot;   1                                     091 0009 0011 0008  100&quot;                                     </span></span>
+<span id="cb16-14"><a href="after.html#cb16-14"></a><span class="co">## [13] &quot;   2                                     005 0014 0015 0012  100&quot;                                     </span></span>
+<span id="cb16-15"><a href="after.html#cb16-15"></a><span class="co">## [14] &quot;   3                                     148 0018 0023 0015  100&quot;</span></span></code></pre></div>
+<p>To fix this we will stage a similar edit, this time copying and pasting two rows (<code>P</code> and <code>V</code> events) below the rogue <code>R</code> event:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="after.html#cb17-1"></a>edit_<span class="dv">1607</span>_<span class="dv">68</span> &lt;-<span class="st"> </span></span>
+<span id="cb17-2"><a href="after.html#cb17-2"></a><span class="st">  </span><span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
+<span id="cb17-3"><a href="after.html#cb17-3"></a>       <span class="dt">type =</span> <span class="st">&#39;copy&#39;</span>,</span>
+<span id="cb17-4"><a href="after.html#cb17-4"></a>       <span class="dt">rows =</span> <span class="kw">c</span>(<span class="dv">129982</span>, <span class="dv">129985</span>),</span>
+<span id="cb17-5"><a href="after.html#cb17-5"></a>       <span class="dt">chars =</span> <span class="ot">NULL</span>,</span>
+<span id="cb17-6"><a href="after.html#cb17-6"></a>       <span class="dt">edit =</span> <span class="dv">129987</span>)</span></code></pre></div>
+<p>Preview of change:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="after.html#cb18-1"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(<span class="kw">list</span>(edit_<span class="dv">1607</span>_<span class="dv">68</span>))</span>
+<span id="cb18-2"><a href="after.html#cb18-2"></a><span class="co">## Applying edits to DAS file: data/surveys/CenPac1986-2020_Final_alb.das</span></span>
+<span id="cb18-3"><a href="after.html#cb18-3"></a><span class="co">## --- move, copy/paste, insertion, and deletion events ...</span></span>
+<span id="cb18-4"><a href="after.html#cb18-4"></a><span class="co">## --- --- working on edit 1 ...</span></span>
+<span id="cb18-5"><a href="after.html#cb18-5"></a>dase<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">129982</span><span class="op">:</span><span class="dv">129995</span>]</span>
+<span id="cb18-6"><a href="after.html#cb18-6"></a><span class="co">##  [1] &quot;014P 070118 042797 N31:04.43 W136:03.51  091  005  148&quot;                    </span></span>
+<span id="cb18-7"><a href="after.html#cb18-7"></a><span class="co">##  [2] &quot;015V 070118 042797 N31:04.43 W136:03.51    5   06  320      20.0&quot;          </span></span>
+<span id="cb18-8"><a href="after.html#cb18-8"></a><span class="co">##  [3] &quot;016N 070118 042797 N31:04.43 W136:03.51  010 08.0&quot;                         </span></span>
+<span id="cb18-9"><a href="after.html#cb18-9"></a><span class="co">##  [4] &quot;017W 070118 042797 N31:04.43 W136:03.51    1   02   03  035  6.0&quot;          </span></span>
+<span id="cb18-10"><a href="after.html#cb18-10"></a><span class="co">##  [5] &quot;018C 070257 042797 N31:04.65 W136:03.47 This rotation is now on the 25X&quot;   </span></span>
+<span id="cb18-11"><a href="after.html#cb18-11"></a><span class="co">##  [6] &quot;   R.070257 042797 N31:04.65 W136:03.47    S&quot;                              </span></span>
+<span id="cb18-12"><a href="after.html#cb18-12"></a><span class="co">##  [7] &quot;014P 070257 042797 N31:04.65 W136:03.47  091  005  148&quot;                    </span></span>
+<span id="cb18-13"><a href="after.html#cb18-13"></a><span class="co">##  [8] &quot;017W 070257 042797 N31:04.65 W136:03.47    1   02   03  035  6.0&quot;          </span></span>
+<span id="cb18-14"><a href="after.html#cb18-14"></a><span class="co">##  [9] &quot;019*.070738 042797 N31:05.25 W136:03.36&quot;                                   </span></span>
+<span id="cb18-15"><a href="after.html#cb18-15"></a><span class="co">## [10] &quot;020S.071601 042797 N31:06.34 W136:03.16  068  148    3    4  028  1.8  1.5&quot;</span></span>
+<span id="cb18-16"><a href="after.html#cb18-16"></a><span class="co">## [11] &quot;021A.071601 042797 N31:06.34 W136:03.16  068         N    N  037&quot;          </span></span>
+<span id="cb18-17"><a href="after.html#cb18-17"></a><span class="co">## [12] &quot;   1                                     091 0009 0011 0008  100&quot;          </span></span>
+<span id="cb18-18"><a href="after.html#cb18-18"></a><span class="co">## [13] &quot;   2                                     005 0014 0015 0012  100&quot;          </span></span>
+<span id="cb18-19"><a href="after.html#cb18-19"></a><span class="co">## [14] &quot;   3                                     148 0018 0023 0015  100&quot;</span></span></code></pre></div>
+</div>
+<div id="cruise-1621-sighting-245" class="section level4 unnumbered hasAnchor">
+<h4>Cruise 1621 sighting 245<a href="after.html#cruise-1621-sighting-245" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>This is another case of a rogue <code>R</code> event, again missing both the requisite <code>P</code> and the <code>V</code> post-<code>R</code> events.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="after.html#cb19-1"></a>das[<span class="dv">271930</span><span class="op">:</span><span class="dv">271939</span>,] </span>
+<span id="cb19-2"><a href="after.html#cb19-2"></a><span class="co">##  [1] &quot;036E 085345 103002 N20:22.56 W160:02.21    U&quot;                                        </span></span>
+<span id="cb19-3"><a href="after.html#cb19-3"></a><span class="co">##  [2] &quot;037R.085346 103002 N20:22.56 W160:02.21    S&quot;                                        </span></span>
+<span id="cb19-4"><a href="after.html#cb19-4"></a><span class="co">##  [3] &quot;038P.085346 103002 N20:22.56 W160:02.21  126  224  200&quot;                              </span></span>
+<span id="cb19-5"><a href="after.html#cb19-5"></a><span class="co">##  [4] &quot;039V.085346 103002 N20:22.56 W160:02.21    5   07  000      21.0&quot;                    </span></span>
+<span id="cb19-6"><a href="after.html#cb19-6"></a><span class="co">##  [5] &quot;040N.085346 103002 N20:22.56 W160:02.21  285 09.7&quot;                                   </span></span>
+<span id="cb19-7"><a href="after.html#cb19-7"></a><span class="co">##  [6] &quot;041W.085346 103002 N20:22.56 W160:02.21    1   06   02  045  6.0&quot;                    </span></span>
+<span id="cb19-8"><a href="after.html#cb19-8"></a><span class="co">##  [7] &quot;042E 085352 103002 N20:22.56 W160:02.22    U&quot;                                        </span></span>
+<span id="cb19-9"><a href="after.html#cb19-9"></a><span class="co">##  [8] &quot;043R.085354 103002 N20:22.57 W160:02.23    S&quot;                                        </span></span>
+<span id="cb19-10"><a href="after.html#cb19-10"></a><span class="co">##  [9] &quot;048S.085359 103002 N20:22.57 W160:02.24  245  200    3    4  057 11.0 0.35  270  2.0&quot;</span></span>
+<span id="cb19-11"><a href="after.html#cb19-11"></a><span class="co">## [10] &quot;049A.085359 103002 N20:22.57 W160:02.24  245         N    N  015&quot;</span></span></code></pre></div>
+<p>Staged edit:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="after.html#cb20-1"></a>edit_<span class="dv">1621</span>_<span class="dv">245</span> &lt;-<span class="st"> </span></span>
+<span id="cb20-2"><a href="after.html#cb20-2"></a><span class="st">  </span><span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
+<span id="cb20-3"><a href="after.html#cb20-3"></a>       <span class="dt">type =</span> <span class="st">&#39;copy&#39;</span>,</span>
+<span id="cb20-4"><a href="after.html#cb20-4"></a>       <span class="dt">rows =</span> <span class="dv">271932</span><span class="op">:</span><span class="dv">271933</span>,</span>
+<span id="cb20-5"><a href="after.html#cb20-5"></a>       <span class="dt">chars =</span> <span class="ot">NULL</span>,</span>
+<span id="cb20-6"><a href="after.html#cb20-6"></a>       <span class="dt">edit =</span> <span class="dv">271937</span>)</span></code></pre></div>
+<p>Preview of change:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="after.html#cb21-1"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(<span class="kw">list</span>(edit_<span class="dv">1621</span>_<span class="dv">245</span>))</span>
+<span id="cb21-2"><a href="after.html#cb21-2"></a><span class="co">## Applying edits to DAS file: data/surveys/CenPac1986-2020_Final_alb.das</span></span>
+<span id="cb21-3"><a href="after.html#cb21-3"></a><span class="co">## --- move, copy/paste, insertion, and deletion events ...</span></span>
+<span id="cb21-4"><a href="after.html#cb21-4"></a><span class="co">## --- --- working on edit 1 ...</span></span>
+<span id="cb21-5"><a href="after.html#cb21-5"></a>dase<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">271930</span><span class="op">:</span><span class="dv">271941</span>]</span>
+<span id="cb21-6"><a href="after.html#cb21-6"></a><span class="co">##  [1] &quot;036E 085345 103002 N20:22.56 W160:02.21    U&quot;                                        </span></span>
+<span id="cb21-7"><a href="after.html#cb21-7"></a><span class="co">##  [2] &quot;037R.085346 103002 N20:22.56 W160:02.21    S&quot;                                        </span></span>
+<span id="cb21-8"><a href="after.html#cb21-8"></a><span class="co">##  [3] &quot;038P.085346 103002 N20:22.56 W160:02.21  126  224  200&quot;                              </span></span>
+<span id="cb21-9"><a href="after.html#cb21-9"></a><span class="co">##  [4] &quot;039V.085346 103002 N20:22.56 W160:02.21    5   07  000      21.0&quot;                    </span></span>
+<span id="cb21-10"><a href="after.html#cb21-10"></a><span class="co">##  [5] &quot;040N.085346 103002 N20:22.56 W160:02.21  285 09.7&quot;                                   </span></span>
+<span id="cb21-11"><a href="after.html#cb21-11"></a><span class="co">##  [6] &quot;041W.085346 103002 N20:22.56 W160:02.21    1   06   02  045  6.0&quot;                    </span></span>
+<span id="cb21-12"><a href="after.html#cb21-12"></a><span class="co">##  [7] &quot;042E 085352 103002 N20:22.56 W160:02.22    U&quot;                                        </span></span>
+<span id="cb21-13"><a href="after.html#cb21-13"></a><span class="co">##  [8] &quot;043R.085354 103002 N20:22.57 W160:02.23    S&quot;                                        </span></span>
+<span id="cb21-14"><a href="after.html#cb21-14"></a><span class="co">##  [9] &quot;038P.085354 103002 N20:22.57 W160:02.23  126  224  200&quot;                              </span></span>
+<span id="cb21-15"><a href="after.html#cb21-15"></a><span class="co">## [10] &quot;039V.085354 103002 N20:22.57 W160:02.23    5   07  000      21.0&quot;                    </span></span>
+<span id="cb21-16"><a href="after.html#cb21-16"></a><span class="co">## [11] &quot;048S.085359 103002 N20:22.57 W160:02.24  245  200    3    4  057 11.0 0.35  270  2.0&quot;</span></span>
+<span id="cb21-17"><a href="after.html#cb21-17"></a><span class="co">## [12] &quot;049A.085359 103002 N20:22.57 W160:02.24  245         N    N  015&quot;</span></span></code></pre></div>
+</div>
+<div id="timestamp-issues-with-cruise-1004" class="section level4 unnumbered hasAnchor">
+<h4>Timestamp issues with Cruise 1004<a href="after.html#timestamp-issues-with-cruise-1004" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="after.html#cb22-1"></a><span class="co"># Under construction</span></span></code></pre></div>
+</div>
+<div id="combining-and-saving-edits" class="section level4 unnumbered hasAnchor">
+<h4>Combining and saving edits<a href="after.html#combining-and-saving-edits" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="after.html#cb23-1"></a><span class="co"># Combine</span></span>
+<span id="cb23-2"><a href="after.html#cb23-2"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(edit_<span class="dv">1607</span>_<span class="dv">55</span>,</span>
+<span id="cb23-3"><a href="after.html#cb23-3"></a>              edit_<span class="dv">1607</span>_<span class="dv">68</span>,</span>
+<span id="cb23-4"><a href="after.html#cb23-4"></a>              edit_<span class="dv">1621</span>_<span class="dv">245</span>)</span>
+<span id="cb23-5"><a href="after.html#cb23-5"></a></span>
+<span id="cb23-6"><a href="after.html#cb23-6"></a><span class="co"># Save</span></span>
+<span id="cb23-7"><a href="after.html#cb23-7"></a><span class="kw">saveRDS</span>(edits,<span class="dt">file=</span><span class="st">&#39;cnp_1986_2020_edits.RData&#39;</span>)</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="das.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="processing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/emk-noaa/emk-noaa.github.io02b-das_editing.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["vignette.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
