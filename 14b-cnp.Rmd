@@ -8,6 +8,7 @@ library(LTabundR)
 ```
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
+reproc_from_scratch <- FALSE
 rerun_from_scratch <- FALSE
 # If you want to confirm the package works, change to TRUE.
 # If you already know it does, change to FALSE so that knitting is quick
@@ -24,6 +25,7 @@ rerun_from_scratch <- FALSE
 data(species_codes)
 data(ships)
 data(group_size_coefficients)
+edits <- readRDS('cnp_1986_2020_edits.RData')
 
 survey <- load_survey_settings(
   out_handling = 'remove',
@@ -97,7 +99,7 @@ spotted <- load_cohort_settings(
 
 ### Process {-}  
 
-```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=reproc_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 settings <- load_settings(strata = strata_cnp,
                           survey = survey,
                           cohorts = list(all_species,
@@ -107,6 +109,7 @@ settings <- load_settings(strata = strata_cnp,
 cruz <- 
   process_surveys(das_file = 'data/surveys/CenPac1986-2020_Final_alb.das',
                   settings = settings,
+                  edits = edits,
                   save_local = TRUE) 
 ```
 
@@ -270,7 +273,7 @@ g0_plot(Rg0, panes = 3)
 First we can define common values that will be constant across all estimates we produce: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-bootstraps <- 20
+bootstraps <- 100
 years <- 1986:2020
 fit_regions <- NULL
 fit_not_regions <- NULL

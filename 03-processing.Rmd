@@ -54,7 +54,7 @@ If the `edits` input argument is supplied to `process_surveys()`, temporary copi
 Read in and process your `.DAS` file using the functions in Sam Woodward's `swfscDAS` package. To do so quickly, we built a wrapper function that makes this quick and easy: 
 
 ```{r, echo=TRUE, eval=rerun_from_scratch, collapse=FALSE}
-das <- load_das(das_file, 
+das <- das_load(das_file, 
                 perform_checks = TRUE,
                 print_glimpse = TRUE)
 ```
@@ -73,10 +73,10 @@ A similar procedure is run if a dataframe is provided in `settings$study_area`. 
 
 ### Format `DAS` data into a `cruz` object {-}  
 
-The function `format_das()` takes care of some final formatting and initiates the `cruz` object data structure. 
+The function `das_format()` takes care of some final formatting and initiates the `cruz` object data structure. 
 
 ```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE}
-cruz <- format_das(das_strata, verbose=TRUE)
+cruz <- das_format(das_strata, verbose=TRUE)
 ```
 
 This function (1) remove rows with invalid Cruise numbers, times, or locations; (ii) calculate the distance, in km, between each row of data; (iii) adds a `ship` column to the dataset, with initials for the ship corresponding to each cruise; (iv) creates a new list, `cohorts`, which copies the cruise data for each cohort specified in your settings; and (v) adds a `stratum` column to the data in each cohort. That column specifies 
@@ -615,11 +615,11 @@ map_cruz(cruzi)
 
 Looking at the raw `DAS` data ...
 
-```{r, echo=TRUE, eval=FALSE, message=TRUE, collapse=TRUE}
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 das$das[405190:405220]
 ```
 
-It appears that this was a multi-species sighting, but percentages were only provided for one species and the overall school size was quite low. Currently we are not sure why `ABUND` ignored this sighting. 
+It appears that this was a multi-species sighting, but percentages were only provided for one species and the overall school size was quite low. We think that, in the absence of a best estimate and percent composition estimate for this species, it was ignored by `ABUND`. 
 
 
 ### School sizes {-}   

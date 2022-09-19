@@ -12,7 +12,7 @@ library(LTabundR)
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
 reproc_from_scratch <- FALSE
 rerun_from_scratch <- FALSE
-g0_scenario <- 1
+g0_scenario <- 3
 # If you want to confirm the package works, change to TRUE.
 # If you already know it does, change to FALSE so that knitting is quick
 # (it will use saved R objects instead of producing them anew)
@@ -28,7 +28,7 @@ g0_scenario <- 1
 data(species_codes)
 data(ships)
 data(group_size_coefficients)
-data(cnp_1986_2020_edits)
+edits <- readRDS('cnp_1986_2020_edits.RData')
 
 survey <- load_survey_settings(
   out_handling = 'remove',
@@ -112,7 +112,7 @@ settings <- load_settings(strata = strata_cnp,
 cruz <- 
   process_surveys(das_file = 'data/surveys/CenPac1986-2020_Final_alb.das',
                   settings = settings,
-                  edits = cnp_1986_2020_edits) 
+                  edits = edits) 
 
 save(cruz, file='whiceas/whiceas_cruz.RData')
 ```
@@ -184,7 +184,7 @@ For each *g(0)* scenario, our `Rg0` object and `results_path` will differ:
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
 # Specify scenario number here
-g0_scenario <- 3
+g0_scenario <- 1
 ```
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
@@ -210,7 +210,7 @@ if(g0_scenario == 3){ # New LTabundR estimates of Rg0
 First we can define common values that will be constant across all estimates we produce: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-bootstraps <- 20
+bootstraps <- 200
 years <- 1986:2020
 fit_regions <- NULL
 fit_not_regions <- NULL
