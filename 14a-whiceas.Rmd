@@ -7,12 +7,13 @@ Here we demonstrate code that reproduces the Bradford et al. (2022) WHICEAS repo
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
 library(dplyr)
 library(LTabundR)
+library(ggplot2)
 ```
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
 reproc_from_scratch <- FALSE
 rerun_from_scratch <- FALSE
-g0_scenario <- 3
+g0_scenario <- 2
 # If you want to confirm the package works, change to TRUE.
 # If you already know it does, change to FALSE so that knitting is quick
 # (it will use saved R objects instead of producing them anew)
@@ -156,6 +157,100 @@ map_cruz(cruz1720,
          effort_opacity = .4)
 ```
 
+```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
+# scratchpad
+
+# Map ==========================================================================
+
+data(coastline)
+coast <- coastline
+st_crs(coast) <- 4326
+
+data(land)
+landnew <- st_transform(land, crs= 4326)
+
+data(eez_hawaii)
+st_crs(eez_hawaii) <- 4326
+
+data(strata_cnp)
+whiceas_poly <- process_polygon(strata_cnp$WHICEAS)$sf
+st_crs(whiceas_poly) <- 4326
+
+bottlenose1 <- process_polygon(strata_cnp$Bottlenose_KaNi)$sf
+st_crs(bottlenose1) <- 4326
+bottlenose2 <- process_polygon(strata_cnp$Bottlenose_OUFI)$sf
+st_crs(bottlenose2) <- 4326
+bottlenose3 <- process_polygon(strata_cnp$Bottlenose_BI)$sf
+st_crs(bottlenose3) <- 4326
+
+spotted1 <- process_polygon(strata_cnp$Spotted_OU)$sf
+st_crs(spotted1) <- 4326
+spotted2 <- process_polygon(strata_cnp$Spotted_FI)$sf
+st_crs(spotted2) <- 4326
+spotted3 <- process_polygon(strata_cnp$Spotted_BI)$sf
+st_crs(spotted3) <- 4326
+
+# https://r-spatial.org/r/2018/10/25/ggplot2-sf.html
+
+library(ggplot2)
+library(ggspatial)
+library("rnaturalearth")
+library("rnaturalearthdata")
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+ggplot(data = land) +
+    geom_sf(fill='darkslategrey', color=NA, alpha=.6)  +
+    geom_sf(data=eez_hawaii, color='grey70', size=.2) + 
+    geom_sf(data=bottlenose1, size=.5, alpha=0, color=adjustcolor('firebrick', alpha=.5)) + 
+    geom_sf(data=bottlenose2, size=.5, alpha=0, color=adjustcolor('firebrick', alpha=.5)) + 
+    geom_sf(data=bottlenose3, size=.5, alpha=0, color=adjustcolor('firebrick', alpha=.5)) + 
+    geom_sf(data=spotted1, size=.5, alpha=0, color=adjustcolor('forestgreen', alpha=.5)) + 
+    geom_sf(data=spotted2, size=.5, alpha=0, color=adjustcolor('forestgreen', alpha=.5)) + 
+    geom_sf(data=spotted3, size=.5, alpha=0, color=adjustcolor('forestgreen', alpha=.5)) + 
+    geom_sf(data=whiceas_poly, size=.8, alpha=0, color=adjustcolor('steelblue4', alpha=.5)) + 
+    coord_sf(crs=4326, xlim=c(-162, -153), ylim=c(17, 24.2)) + 
+    annotation_north_arrow(location = "bl", 
+                         which_north = "true", 
+                         height = unit(1, 'cm'),
+                         width = unit(1, 'cm'),
+                         #pad_x = unit(0.5, "in"), pad_y = unit(0.5, "in"),
+                         style = north_arrow_fancy_orienteering) +
+   xlab(NULL) + ylab(NULL) + 
+   theme_light() + 
+   theme(strip.background = element_rect(fill = "grey45"),
+         panel.grid.major = element_blank(), 
+         panel.grid.minor = element_blank()) + 
+  # Effort
+  geom_point(data=cruz1720$cohorts$all$das %>% filter(Bft <= 6,
+                                                      EffType == 'S',
+                                                      OnEffort == TRUE, 
+                                                      use == TRUE),
+             mapping=aes(x=Lon,
+                         y=Lat),
+             cex=.01,
+             alpha=.1) + 
+  # Sightings
+  geom_point(data=cruz1720$cohorts$all$sightings %>% filter(included == TRUE),
+             mapping=aes(x=Lon,
+                         y=Lat)) + 
+  facet_wrap(~year, ncol=2)
+
+ggsave(filename = 'whiceas/map.pdf', width=9, height=4.5)
+
+
+# Sperm whale encounter rate analysis ==========================================
+er_results <- 
+  er_simulator(spp = '046', cohort = 1, cruz = cruz1720, iterations = 1000)
+er_results$summary
+
+# Short-finned pilot whale encounter rate analysis ==========================================
+er_results <- 
+  er_simulator(spp = '036', cohort = 1, cruz = cruz1720, iterations = 1000)
+er_results$summary
+
+```
+
+
 ### Interactive dashboard {-}  
 
 Use this to determine truncation distances.  Note them in your `lta()` code below: 
@@ -178,13 +273,28 @@ Rg0 <- g0_results
 g0_plot(Rg0, panes = 3)
 ```
 
+```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
+# scratchpad
+#pdf(file='whiceas/df.pdf', width=6, height=6)
+g0_plot(Rg0, panes = 3)
+ggsave(filename='whiceas/Rg0.pdf',width=6,height=8)
+#dev.off()
+
+Rg0 %>% 
+  group_by(title) %>% 
+  summarize(n = sum(sits)) %>% 
+  as.data.frame
+
+
+```
+
 To explore the effects of `LTabundR`'s *g(0)* estimation routines on our abundance estimates, we will be running the analyses below with three different *g(0)* scenarios. In scenario 1, we will manually specify the weighted `g(0)` and its CV for each species in 2020; these results should be nearly exact replicates of those from Bradford et al. (2021), and we can be sure that any discrepancy between the two sets of results are not attributable the *g(0)* aspect of the analysis. Second, we will allow `LTabundR` to calculate the weighted `g(0)` and its CV using the same *Relative g(0)* values that were used in Bradford et al. (2021) (i.e., the results of Barlow (2015), which used surveys from 1986 to 2010 and is provided in `LTabundR` as a built-in dataset), such that any difference between scenarios 1 and 2 are likely due to the weighted *g(0)* subroutines. Finally, in scenario 3, we will use the *Relative g(0)* esitmates produced by `LTabundR` using a more extensive survey dataset (1986-2020). 
 
 For each *g(0)* scenario, our `Rg0` object and `results_path` will differ:
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
 # Specify scenario number here
-g0_scenario <- 1
+g0_scenario <- 2
 ```
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
@@ -660,6 +770,8 @@ if(TRUE){ # toggle
                  bootstraps = bootstraps,
                  toplot=toplot, verbose=verbose)
 
+  results$bootstrap$summary %>% as.data.frame
+  
   # Save result
   (results_file <- paste0(results_path, fit_filters$pool, '.RData'))
   saveRDS(results, file=results_file)
@@ -860,6 +972,152 @@ To review results, we will use *g(0)* scenario 3 (new auto-generated estimates o
 ltas <- lta_enlist('whiceas/lta/')
 ```
 
+```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
+# scratchpad
+
+# ==============================================================================
+# Fix confidence intervals -- run this once -- 
+# It will read in each result, correct CIs, then re-save the RData object
+if(FALSE){
+  result_paths <- c('whiceas/lta_manual/',
+                    'whiceas/lta_barlow/',
+                    'whiceas/lta/')
+  p <- i <- 1
+  for(p in 1:length(result_paths)){
+    
+    (resulti <- result_paths[p])
+    message(resulti)
+    (diri <- paste0(resulti,dir(resulti)))
+    for(i in 1:length(diri)){
+      (lti_fn <- diri[i])
+      message('--- ',lti_fn)
+      lti <- readRDS(lti_fn)
+      lti %>% names
+      
+      # Harvst parts of results
+      (esti <- lti$estimate)
+      (summi_old <- lti$bootstrap$summary)
+      booti <- lti$bootstrap$details
+      booti <- left_join(booti,
+                         esti %>% select(title, Region, year, Nmean=N))
+      
+      # Replace confidence intervals
+      summi <- 
+        booti %>% 
+        group_by(title, year) %>% 
+        summarize(Nmeani = round(Nmean[1]),
+                  LCI = round(lta_ci(Nmeani, N)$bca_lognormal[1]),
+                  UCI = round(lta_ci(Nmeani, N)$bca_lognormal[2])) %>% 
+        rename(N = Nmeani)
+      summi
+      
+      # Make new summary object
+      summi_new <- left_join(summi_old %>% select(title:CV),
+                             summi %>% select(title, year, L95=LCI, U95=UCI))
+      summi_new %>% as.data.frame
+      
+      # Replace summary in lti
+      lti$bootstrap$summary <- summi_new
+      
+      # Resave RData object
+      saveRDS(lti, file=lti_fn)
+      
+    }
+  }
+} # end of FALSE
+# ==============================================================================
+
+# g0 table =====================================================================
+
+# ALB
+ltas <- lta_enlist('whiceas/lta_manual/')
+ltas[[1]]$bootstrap$summary # confirm 1000 iterations
+reporti <- lta_report(ltas, cruz)
+reporti$table3[,c(1,4,5, 8,9)]
+reporti$table4 %>% head
+reporti$table4[,c(1,2,4,6,8)]
+
+# Barlow
+ltas <- lta_enlist('whiceas/lta_barlow/')
+ltas[[1]]$bootstrap$summary # confirm 1000 iterations
+reporti <- lta_report(ltas, cruz)
+reporti$table3[,c(1,4,5, 8,9)]
+reporti$table4[,c(1,2,4,6,8)]
+
+# LTabundR
+ltas <- lta_enlist('whiceas/lta/')
+ltas[[1]]$bootstrap$summary %>% as.data.frame() # confirm 1000 iterations
+reporti <- lta_report(ltas, cruz)
+reporti$table3[,c(1,4,5, 8,9)]
+reporti$table4[,c(1,2,4,6,8)]
+reporti$table4[,c(1,3,5)] # 2017
+reporti$table4[,c(1,7,9)] # 2020
+
+# Bootstrap histograms
+mri <- ltas[[3]]$bootstrap$details
+ggplot(mri %>% filter(year==2020), 
+       aes(x=N)) + 
+  geom_histogram() + 
+  facet_wrap(~title, scales='free_x')
+
+# Detection function example ===================================================
+#pdf(file='whiceas/df.pdf', width=6, height=6)
+df_plot(ltas[[7]], 
+        bootstrap_alpha = 0.05)
+#dev.off()
+
+
+# Abundance plots ==============================================================
+ests <- data.frame()
+i=3
+for(i in 1:length(ltas)){
+  lti <- ltas[[i]]
+  lti$estimate %>% head
+  lte <- lti$estimate %>% select(title, species, Region, year, D, N)
+  ltb <- lti$bootstrap$summary %>% select(title, Region, year, L95, U95) 
+  
+  ltb95 <- left_join(lte, ltb)
+  ltb95
+  # ltb95 <- 
+  #   ltb %>% 
+  #   #filter(N < 300000) %>% 
+  #   group_by(title, year) %>% 
+  #   summarize(L95 = lta_ci(Nmean, N)
+  #               coxed::bca(N)[1],
+  #             U95 = coxed::bca(N)[2])
+  # ltb95
+  # lte <- left_join(lte, ltb95) #, by=c('title','year'))
+  ests <- rbind(ests, ltb95)
+}
+nrow(ests)
+ests %>% head
+
+ggplot(ests %>% 
+         mutate(title = gsub('Unidentified','Unid.',title)) %>% 
+         mutate(title = gsub('Pantropical','',title)) %>% 
+         mutate(title = gsub('spotted','Spotted',title)) %>% 
+         group_by(title) %>% 
+         mutate(both = all(N > 1)) %>% 
+         ungroup() %>% 
+         filter(both == TRUE) %>% 
+         filter(!grepl('Unid.', title))
+       ) +
+  geom_point(mapping = aes(x=year, y=N)) + 
+  geom_segment(mapping = aes(x=year, xend = year, y=L95, yend=U95)) + 
+  scale_y_continuous(labels=scales::comma) + 
+  facet_wrap(~title, scales='free_y', ncol=3) + 
+  theme_light() + 
+   theme(strip.background = element_rect(fill = "grey45"),
+        #panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()) + 
+  ylab('Abundance') + 
+  xlab(NULL)
+
+ggsave(filename='whiceas/abundance.pdf',width=8, height=6)
+
+```
+
+
 ### Tables {-}  
 
 Generate report: 
@@ -868,15 +1126,118 @@ Generate report:
 reporti <- lta_report(ltas, cruz)
 ```
 
-**Table 1a.** *Total and systematic sample sizes.* 
+**Table 1.** *Sample sizes.* 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
-reporti$table1a 
+The `lta_report()` function above attempts to generate sample size tables based on the `cruz` object and `ltas` results (see `$table1a` and `$table1b` outputs of `lta_report()`), but this is difficult to generalize into an automatic function, especially when cohort-specific geostrata are involved. To determine sample sizes with more control, we can write a quick helper function: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+sample_size <- function(cruz, spp, cohort, years, td, in_region=NULL, region_remove = NULL){
+  suppressMessages({
+    sits <- 
+    cruz$cohorts[[cohort]]$sightings %>% 
+    filter(species %in% spp) %>% 
+    filter(year %in% years) %>% 
+    filter(stratum %in% in_region) %>% 
+    filter(! stratum %in% region_remove) %>% 
+    mutate(species = paste(spp, collapse='/')) %>% 
+    group_by(species, year) %>% 
+    summarize(ntot = n(),
+              nsys = length(which(use == TRUE & 
+                                    Bft <= 6 & 
+                                    EffType == 'S')),
+              nest = length(which(use == TRUE &
+                                    included == TRUE & 
+                                    Bft <= 6 & 
+                                    EffType == 'S' & 
+                                    PerpDistKm <= td))) %>% 
+    tidyr::pivot_longer(cols = ntot:nest) %>% 
+    tidyr::pivot_wider(id_cols = species,
+                names_from = year:name,
+                values_from = value)
+  })
+  return(sits)
+}
 ```
 
-```{r, echo=FALSE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+Now we can use this function to generate sample size totals for each species/stock of interest: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+# Save years to re-use in the lines below
+years <- c(2017, 2020)
+
+# Spotted dolphin
+sample_size(cruz, 
+            spp = '002', 
+            cohort = 3, 
+            years, 
+            td = 5, 
+            in_region = 'WHICEAS',
+            region_remove = c('Spotted_OU','Spotted_FI','Spotted_BI'))
+
+# More efficient code for remaining species: 
+sample_size(cruz, '013', 1, years, 5, 'WHICEAS') # striped dolphin
+
+sample_size(cruz, '015', 1, years, 5, 'WHICEAS') # rough-toothed dolphin
+
+sample_size(cruz, '018', 2, years, 5, 'WHICEAS', # bottlenose dolphin
+            c('Bottlenose_KaNi','Bottlenose_OUFI','Bottlenose_BI'))
+
+sample_size(cruz, '021', 1, years, 5, 'WHICEAS') # risso's dolphin
+
+sample_size(cruz, '026', 1, years, 5, 'WHICEAS') # fraser's dolphin
+
+sample_size(cruz, '031', 1, years, 5, 'WHICEAS') # melon-headed whale
+
+sample_size(cruz, '032', 1, years, 5, 'WHICEAS') # pygmy killer whale
+
+sample_size(cruz, '036', 1, years, 5, 'WHICEAS') # short-finned pilot whale
+
+sample_size(cruz, '037', 1, years, 5.5, 'WHICEAS') # killer whale
+
+sample_size(cruz, '046', 1, years, 5.5, 'WHICEAS') # sperm whale
+
+sample_size(cruz, '047', 1, years, 4.5, 'WHICEAS') # pygmy sperm whale
+
+sample_size(cruz, '048', 1, years, 4.5, 'WHICEAS') # dwarf sperm whale
+
+sample_size(cruz, '080', 1, years, 4.5, 'WHICEAS') # UNID Kogia
+
+sample_size(cruz, '049', 1, years, 4.5, 'WHICEAS') # UNID beaked whale
+
+sample_size(cruz, '051', 1, years, 4.5, 'WHICEAS') # UNID Mesoplodon
+
+sample_size(cruz, '059', 1, years, 4.5, 'WHICEAS') # Blainville's beaked whale
+
+sample_size(cruz, '061', 1, years, 4.5, 'WHICEAS') # Cuvier's beaked whale
+
+sample_size(cruz, '065', 1, years, 4.5, 'WHICEAS') # Longman's beaked whale
+
+sample_size(cruz, '070', 1, years, 4.5, 'WHICEAS') # UNID rorqual
+
+sample_size(cruz, '071', 1, years, 4.5, 'WHICEAS') # Minke whale
+
+sample_size(cruz, c('199'), 
+            1, years, 5, 'WHICEAS') # Sei/Bryde's/Fin
+
+sample_size(cruz, '073', 1, years, 5, 'WHICEAS') # Sei whale
+
+sample_size(cruz, '074', 1, years, 5, 'WHICEAS') # Fin whale
+
+sample_size(cruz, '076', 1, years, 5.5, 'WHICEAS') # Humpback whale
+
+sample_size(cruz, '099', 1, years, 5, 'WHICEAS') # Sei/Brydes
+
+sample_size(cruz, c('177','277','377','077'), 
+            1, years, 5.5, 'WHICEAS') # UNID dolphin
+
+sample_size(cruz, c('078','079','098','096'), 
+            1, years, 5.5, 'WHICEAS') # UNID cetacean
+
+```
+
+```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
 reporti$table1a %>% 
-DT::datatable(extensions = "FixedColumns",
+  DT::datatable(extensions = "FixedColumns",
               options=list(scrollX=TRUE,
                            scrollY='450px',
                            paging = FALSE,
@@ -886,15 +1247,15 @@ DT::datatable(extensions = "FixedColumns",
   ))
 ```
 
---- 
+To expedite building up this sample size table, consider copying and pasting the table produced by `lta_report()$table1b`, then filling in the blanks with values from above:  
 
 **Table 1b.** *Sample sizes of sightings used in density esitmation.*  
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
 reporti$table1b 
 ```
 
-```{r, echo=FALSE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
 reporti$table1b %>% 
 DT::datatable(extensions = "FixedColumns",
               options=list(scrollX=TRUE,
@@ -1105,24 +1466,154 @@ Read in, format, and join the results:
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=8, fig.width=8}
 # Manually-specified g0
 ltas <- lta_enlist('whiceas/lta_manual/')
-mr1 <- whiceas_join(alb, ltas) %>% mutate(scenario = 'Manual g(0)')
+mr1 <- whiceas_join(alb, ltas) %>% mutate(scenario = 'ALB et al. (2022)')
 
 # Barlow (2015) Rg0
 ltas <- lta_enlist('whiceas/lta_barlow/')
-mr2 <- whiceas_join(alb, ltas) %>% mutate(scenario = 'Barlow (2015) Rg(0)')
+mr2 <- whiceas_join(alb, ltas) %>% mutate(scenario = 'Barlow (2015)')
 
 # New auto-generated Rg(0)
 ltas <- lta_enlist('whiceas/lta/')
-mr3 <- whiceas_join(alb, ltas) %>% mutate(scenario = 'New Rg(0) estimates')
+mr3 <- whiceas_join(alb, ltas) %>% mutate(scenario = 'LTabundR')
 
 # Join them together
 mr <- rbind(mr1, mr2, mr3) %>% 
-  mutate(scenario = factor(scenario, levels = c('Manual g(0)',
-                                                'Barlow (2015) Rg(0)',
-                                                'New Rg(0) estimates')))
+  mutate(scenario = factor(scenario, levels = c('ALB et al. (2022)',
+                                                'Barlow (2015)',
+                                                'LTabundR')))
 ```
 
 Now we can compare `LTabundR` estimates to those from ALB et al. (2021): 
+
+```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
+# scratchpad
+
+mr %>% head
+library(ggplot2)
+library(ggrepel)
+
+
+################################################################################
+# Comparison plots
+################################################################################
+
+# Common values ================================================================
+
+mr_plot <- 
+  mr %>% 
+  mutate(title_short = gsub('Unidentified','Unid.', title)) %>% 
+  mutate(title_short = gsub('dolphin','d.', title_short)) %>% 
+  mutate(title_short = gsub('Pantropical','', title_short)) %>% 
+  mutate(title_short = gsub('spotted','Spotted', title_short)) %>% 
+  mutate(title_short = gsub('whale','w.', title_short))
+
+pdf_height = 9
+pdf_width = 9
+
+# Density ======================================================================
+
+ggplot(mr_plot,
+       aes(x=alb_D, y=D, 
+           color=factor(year))) + 
+  geom_point(size=2) +
+  ggrepel::geom_text_repel(mapping=aes(label = title_short),
+                           size=2.5,
+                           min.segment.length=.25,
+                           max.overlaps=Inf,
+                           segment.size=.1,
+                           force=2) + 
+  scale_x_continuous(trans='log', limits=c(0.1, 50), 
+                     breaks = c(0.01, 0.1, 0.25, 0.5, 1.0, 2.5, 5, 10, 25, 50),
+                     labels = function(x)round(x, 2)) +
+  scale_y_continuous(trans='log', limits=c(0.1, 50), 
+                     breaks = c(0.01, 0.1, 0.25, 0.5, 1.0, 2.5, 5, 10, 25, 50),
+                     labels = function(x)round(x, 2)) +
+  geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
+  ylab('LTabundR') + xlab('ALB et al. (2022)') +
+  facet_wrap(~scenario, nrow=3) + 
+  labs(title='Density (cetaceans per 1,000 square km)', 
+       shape='Year', 
+       color = 'Year') + 
+  scale_color_manual(values=c("grey50", "black")) +
+  theme_light() + 
+  theme(strip.background = element_rect(fill = "grey45"),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+
+ggsave(filename='whiceas/compare_density.pdf', 
+       width= pdf_width, 
+       height=pdf_height)
+
+
+# Abundance ====================================================================
+
+ggplot(mr_plot,
+       aes(x=alb_N, y=N, 
+           color=factor(year))) + 
+  geom_point(size=2) +
+  ggrepel::geom_text_repel(mapping=aes(label = title_short),
+                           size=2.5,
+                           min.segment.length=.25,
+                           max.overlaps=Inf,
+                           segment.size=.1,
+                           force=1.5) + 
+  scale_x_continuous(trans='log', 
+                       limits=c(10, 50000), 
+                       breaks = c(10, 25, 100, 250, 1000, 2500, 10000, 50000),
+                       labels = function(x)round(x)) +
+    scale_y_continuous(trans='log', 
+                       limits=c(10, 50000), 
+                       breaks = c(10, 25, 100, 250, 1000, 2500, 10000, 50000),
+                       labels = function(x)round(x)) +
+  geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
+  ylab('LTabundR') + xlab('ALB et al. (2022)') +
+  facet_wrap(~scenario, nrow=3) + 
+  labs(title='Abundance in WHICEAS study area', 
+       shape='Year', 
+       color = 'Year') + 
+  scale_color_manual(values=c("grey50", "black")) +
+  theme_light() + 
+  theme(strip.background = element_rect(fill = "grey45"),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+
+ggsave(filename='whiceas/compare_abundance.pdf', 
+       width= pdf_width, 
+       height=pdf_height)
+
+
+# g(0) ====================================================================
+
+ggplot(mr_plot,
+       aes(x=alb_g0, y=g0, 
+           color=factor(year))) + 
+  geom_point(size=2) +
+  ggrepel::geom_text_repel(mapping=aes(label = title_short),
+                           size=2.5,
+                           min.segment.length=.25,
+                           max.overlaps=Inf,
+                           segment.size=.1,
+                           force=3) + 
+  geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
+  ylab('LTabundR') + xlab('ALB et al. (2022)') +
+  facet_wrap(~scenario, nrow=3) + 
+  labs(title='Estimates of g(0)', 
+       shape='Year', 
+       color = 'Year') + 
+  scale_color_manual(values=c("grey50", "black")) +
+  theme_light() + 
+  scale_x_continuous(limits=c(-.1,1.1), breaks=seq(0, 1, by=.1)) + 
+  scale_y_continuous(limits=c(-.1,1.1), breaks=seq(0, 1, by=.1)) + 
+  theme(strip.background = element_rect(fill = "grey45"),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank())
+
+ggsave(filename='whiceas/compare_g0.pdf', 
+       width= pdf_width, 
+       height=pdf_height)
+
+
+```
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
 library(ggplot2)
