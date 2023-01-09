@@ -59,12 +59,12 @@
 <link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
 <script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.23/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
-<link href="libs/dt-ext-fixedcolumns-1.11.3/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
-<script src="libs/dt-ext-fixedcolumns-1.11.3/js/dataTables.fixedColumns.min.js"></script>
+<script src="libs/datatables-binding-0.26/datatables.js"></script>
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
+<link href="libs/dt-ext-fixedcolumns-1.12.1/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="libs/dt-ext-fixedcolumns-1.12.1/js/dataTables.fixedColumns.min.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -153,7 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">WinCruz analysis</a></li>
+<li><a href="./">Users's guide for <kbd>LTabundR</kbd></a></li>
 
 <li class="divider"></li>
 <li><a href="index.html#overview">Overview<span></span></a></li>
@@ -295,35 +295,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="das_readtext" class="section level3 unnumbered hasAnchor">
 <h3><code>das_readtext()</code><a href="das.html#das_readtext" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>swfscDAS</code> package has functions for reading in a <code>DAS</code> file and parsing it into columns of fixed-width text. To complement those functions, <code>LTabundR</code> includes the function <code>das_readtext()</code>, which reads in a <code>DAS</code> file without applying any column parsing, so that the data can be read in its true raw format.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="das.html#cb22-1"></a>das_file &lt;-<span class="st"> &#39;data/surveys/CenPac1986-2020_Final_alb.das&#39;</span></span>
-<span id="cb22-2"><a href="das.html#cb22-2"></a></span>
-<span id="cb22-3"><a href="das.html#cb22-3"></a>das &lt;-<span class="st"> </span><span class="kw">das_readtext</span>(das_file)</span>
-<span id="cb22-4"><a href="das.html#cb22-4"></a>das<span class="op">$</span>das <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">20</span>)</span>
-<span id="cb22-5"><a href="das.html#cb22-5"></a> [<span class="dv">1</span>] <span class="st">&quot;  1B 1805   073086 N31:57.   W116:57.    989&quot;</span>                                   </span>
-<span id="cb22-6"><a href="das.html#cb22-6"></a> [<span class="dv">2</span>] <span class="st">&quot;  1S 1805   073086 N31:57.   W116:57.     01  004    6    4  300 1.77  1.5&quot;</span>     </span>
-<span id="cb22-7"><a href="das.html#cb22-7"></a> [<span class="dv">3</span>] <span class="st">&quot;  2A 1805   073086 N31:57.   W116:57.     01 15.0         N  099&quot;</span>               </span>
-<span id="cb22-8"><a href="das.html#cb22-8"></a> [<span class="dv">4</span>] <span class="st">&quot;   1                                     004 0001 0001 0001  100  000  000  000&quot;</span></span>
-<span id="cb22-9"><a href="das.html#cb22-9"></a> [<span class="dv">5</span>] <span class="st">&quot;  1S 0610   073186 N30:05.   W116:04.     01  004    3    4  340 5.00  0.1&quot;</span>     </span>
-<span id="cb22-10"><a href="das.html#cb22-10"></a> [<span class="dv">6</span>] <span class="st">&quot;  2A 0610   073186 N30:05.   W116:04.     01 18.3         N  005&quot;</span>               </span>
-<span id="cb22-11"><a href="das.html#cb22-11"></a> [<span class="dv">7</span>] <span class="st">&quot;   1                                     004 0150 0175 0125  100  000  000  000&quot;</span></span>
-<span id="cb22-12"><a href="das.html#cb22-12"></a> [<span class="dv">8</span>] <span class="st">&quot;  3B.1311   073186 N29:46.   W115:52.    989              N&quot;</span>                    </span>
-<span id="cb22-13"><a href="das.html#cb22-13"></a> [<span class="dv">9</span>] <span class="st">&quot;  4R.1311   073186 N29:46.   W115:52.      N&quot;</span>                                   </span>
-<span id="cb22-14"><a href="das.html#cb22-14"></a>[<span class="dv">10</span>] <span class="st">&quot;  5P.1311   073186 N29:46.   W115:52.    022  031  056&quot;</span>                         </span>
-<span id="cb22-15"><a href="das.html#cb22-15"></a>[<span class="dv">11</span>] <span class="st">&quot;  6V.1311   073186 N29:46.   W115:52.      4           16.1&quot;</span>                    </span>
-<span id="cb22-16"><a href="das.html#cb22-16"></a>[<span class="dv">12</span>] <span class="st">&quot;  7N.1311   073186 N29:46.   W115:52.    167 10.5&quot;</span>                              </span>
-<span id="cb22-17"><a href="das.html#cb22-17"></a>[<span class="dv">13</span>] <span class="st">&quot;  8W.1311   073186 N29:46.   W115:52.      2&quot;</span>                                   </span>
-<span id="cb22-18"><a href="das.html#cb22-18"></a>[<span class="dv">14</span>] <span class="st">&quot;  9V.1329   073186 N29:43.   W115:51.      5           16.1&quot;</span>                    </span>
-<span id="cb22-19"><a href="das.html#cb22-19"></a>[<span class="dv">15</span>] <span class="st">&quot; 10P.1404   073186 N29:37.   W115:50.    004  056  062&quot;</span>                         </span>
-<span id="cb22-20"><a href="das.html#cb22-20"></a>[<span class="dv">16</span>] <span class="st">&quot; 11V.1404   073186 N29:37.   W115:50.      5           18.3&quot;</span>                    </span>
-<span id="cb22-21"><a href="das.html#cb22-21"></a>[<span class="dv">17</span>] <span class="st">&quot; 12S.1406   073186 N29:37.   W115:50.     02  004    3    4  355  1.4  1.8&quot;</span>     </span>
-<span id="cb22-22"><a href="das.html#cb22-22"></a>[<span class="dv">18</span>] <span class="st">&quot; 13A.1406   073186 N29:37.   W115:50.     02 18.3         Y  005&quot;</span>               </span>
-<span id="cb22-23"><a href="das.html#cb22-23"></a>[<span class="dv">19</span>] <span class="st">&quot;   1                                     022 0030 0100 0020  100  000  000  000&quot;</span></span>
-<span id="cb22-24"><a href="das.html#cb22-24"></a>[<span class="dv">20</span>] <span class="st">&quot;   2                                     004 0250 0300 0200  100  000  000  000&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="das.html#cb24-1"></a>das_file &lt;-<span class="st"> &#39;data/surveys/CenPac1986-2020_Final_alb.das&#39;</span></span>
+<span id="cb24-2"><a href="das.html#cb24-2"></a></span>
+<span id="cb24-3"><a href="das.html#cb24-3"></a>das &lt;-<span class="st"> </span><span class="kw">das_readtext</span>(das_file)</span>
+<span id="cb24-4"><a href="das.html#cb24-4"></a>das<span class="op">$</span>das <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">20</span>)</span>
+<span id="cb24-5"><a href="das.html#cb24-5"></a> [<span class="dv">1</span>] <span class="st">&quot;  1B 1805   073086 N31:57.   W116:57.    989&quot;</span>                                   </span>
+<span id="cb24-6"><a href="das.html#cb24-6"></a> [<span class="dv">2</span>] <span class="st">&quot;  1S 1805   073086 N31:57.   W116:57.     01  004    6    4  300 1.77  1.5&quot;</span>     </span>
+<span id="cb24-7"><a href="das.html#cb24-7"></a> [<span class="dv">3</span>] <span class="st">&quot;  2A 1805   073086 N31:57.   W116:57.     01 15.0         N  099&quot;</span>               </span>
+<span id="cb24-8"><a href="das.html#cb24-8"></a> [<span class="dv">4</span>] <span class="st">&quot;   1                                     004 0001 0001 0001  100  000  000  000&quot;</span></span>
+<span id="cb24-9"><a href="das.html#cb24-9"></a> [<span class="dv">5</span>] <span class="st">&quot;  1S 0610   073186 N30:05.   W116:04.     01  004    3    4  340 5.00  0.1&quot;</span>     </span>
+<span id="cb24-10"><a href="das.html#cb24-10"></a> [<span class="dv">6</span>] <span class="st">&quot;  2A 0610   073186 N30:05.   W116:04.     01 18.3         N  005&quot;</span>               </span>
+<span id="cb24-11"><a href="das.html#cb24-11"></a> [<span class="dv">7</span>] <span class="st">&quot;   1                                     004 0150 0175 0125  100  000  000  000&quot;</span></span>
+<span id="cb24-12"><a href="das.html#cb24-12"></a> [<span class="dv">8</span>] <span class="st">&quot;  3B.1311   073186 N29:46.   W115:52.    989              N&quot;</span>                    </span>
+<span id="cb24-13"><a href="das.html#cb24-13"></a> [<span class="dv">9</span>] <span class="st">&quot;  4R.1311   073186 N29:46.   W115:52.      N&quot;</span>                                   </span>
+<span id="cb24-14"><a href="das.html#cb24-14"></a>[<span class="dv">10</span>] <span class="st">&quot;  5P.1311   073186 N29:46.   W115:52.    022  031  056&quot;</span>                         </span>
+<span id="cb24-15"><a href="das.html#cb24-15"></a>[<span class="dv">11</span>] <span class="st">&quot;  6V.1311   073186 N29:46.   W115:52.      4           16.1&quot;</span>                    </span>
+<span id="cb24-16"><a href="das.html#cb24-16"></a>[<span class="dv">12</span>] <span class="st">&quot;  7N.1311   073186 N29:46.   W115:52.    167 10.5&quot;</span>                              </span>
+<span id="cb24-17"><a href="das.html#cb24-17"></a>[<span class="dv">13</span>] <span class="st">&quot;  8W.1311   073186 N29:46.   W115:52.      2&quot;</span>                                   </span>
+<span id="cb24-18"><a href="das.html#cb24-18"></a>[<span class="dv">14</span>] <span class="st">&quot;  9V.1329   073186 N29:43.   W115:51.      5           16.1&quot;</span>                    </span>
+<span id="cb24-19"><a href="das.html#cb24-19"></a>[<span class="dv">15</span>] <span class="st">&quot; 10P.1404   073186 N29:37.   W115:50.    004  056  062&quot;</span>                         </span>
+<span id="cb24-20"><a href="das.html#cb24-20"></a>[<span class="dv">16</span>] <span class="st">&quot; 11V.1404   073186 N29:37.   W115:50.      5           18.3&quot;</span>                    </span>
+<span id="cb24-21"><a href="das.html#cb24-21"></a>[<span class="dv">17</span>] <span class="st">&quot; 12S.1406   073186 N29:37.   W115:50.     02  004    3    4  355  1.4  1.8&quot;</span>     </span>
+<span id="cb24-22"><a href="das.html#cb24-22"></a>[<span class="dv">18</span>] <span class="st">&quot; 13A.1406   073186 N29:37.   W115:50.     02 18.3         Y  005&quot;</span>               </span>
+<span id="cb24-23"><a href="das.html#cb24-23"></a>[<span class="dv">19</span>] <span class="st">&quot;   1                                     022 0030 0100 0020  100  000  000  000&quot;</span></span>
+<span id="cb24-24"><a href="das.html#cb24-24"></a>[<span class="dv">20</span>] <span class="st">&quot;   2                                     004 0250 0300 0200  100  000  000  000&quot;</span></span></code></pre></div>
 </div>
 <div id="das_inspector" class="section level3 unnumbered hasAnchor">
 <h3><code>das_inspector()</code><a href="das.html#das_inspector" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We also provide a function, <code>das_inspector()</code>, that allows you to explore a <code>DAS</code> file within an interactive <code>Shiny</code> app. This app can also be used to find, prepare, and preview coded edits to the <code>DAS</code> data.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="das.html#cb23-1"></a><span class="kw">das_inspector</span>(das_file)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="das.html#cb25-1"></a><span class="kw">das_inspector</span>(das_file)</span></code></pre></div>
 <p>In this app, you specify the rows and ‘columns’ (i.e., character indices) that will be affected by your edit, the edit you want to apply, and the type of edit it will be (see next subsection). You then “save” that edit with the click of a button, and when you close the app your log of staged edits will be returned as a <code>list</code>. You can then pass this list of edits to <code>das_editor()</code> (next subsection on this page), or as an argument within <code>process_surveys()</code> (next page).</p>
 </div>
 </div>
@@ -336,480 +336,480 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="types-of-editing" class="section level3 unnumbered hasAnchor">
 <h3>Types of editing<a href="das.html#types-of-editing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To demonstrate the types of editing actions that can be achieved through <code>das_editor()</code>, we will use the <code>DAS</code> file from the 2020 WHICEAS survey.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="das.html#cb24-1"></a>das_file &lt;-<span class="st"> &quot;data/surveys/HICEASwinter2020.das&quot;</span></span>
-<span id="cb24-2"><a href="das.html#cb24-2"></a>das &lt;-<span class="st"> </span><span class="kw">das_readtext</span>(das_file)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="das.html#cb26-1"></a>das_file &lt;-<span class="st"> &quot;data/surveys/HICEASwinter2020.das&quot;</span></span>
+<span id="cb26-2"><a href="das.html#cb26-2"></a>das &lt;-<span class="st"> </span><span class="kw">das_readtext</span>(das_file)</span></code></pre></div>
 <div id="verbatim-text-replacement" class="section level4 unnumbered hasAnchor">
 <h4>Verbatim text replacement<a href="das.html#verbatim-text-replacement" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The <code>edit</code> will be interpreted verbatim as text that will replace the specified data.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="das.html#cb25-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
-<span id="cb25-2"><a href="das.html#cb25-2"></a>                   <span class="dt">type =</span> <span class="st">&#39;text&#39;</span>,</span>
-<span id="cb25-3"><a href="das.html#cb25-3"></a>                   <span class="dt">rows =</span> <span class="dv">10</span><span class="op">:</span><span class="dv">15</span>, </span>
-<span id="cb25-4"><a href="das.html#cb25-4"></a>                   <span class="dt">chars =</span> <span class="dv">20</span><span class="op">:</span><span class="dv">39</span>, </span>
-<span id="cb25-5"><a href="das.html#cb25-5"></a>                   <span class="dt">edit =</span> <span class="st">&#39;lat, lon&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="das.html#cb27-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
+<span id="cb27-2"><a href="das.html#cb27-2"></a>                   <span class="dt">type =</span> <span class="st">&#39;text&#39;</span>,</span>
+<span id="cb27-3"><a href="das.html#cb27-3"></a>                   <span class="dt">rows =</span> <span class="dv">10</span><span class="op">:</span><span class="dv">15</span>, </span>
+<span id="cb27-4"><a href="das.html#cb27-4"></a>                   <span class="dt">chars =</span> <span class="dv">20</span><span class="op">:</span><span class="dv">39</span>, </span>
+<span id="cb27-5"><a href="das.html#cb27-5"></a>                   <span class="dt">edit =</span> <span class="st">&#39;lat, lon&#39;</span>))</span></code></pre></div>
 <p>Here is what this edit log object look like:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="das.html#cb26-1"></a>edits</span>
-<span id="cb26-2"><a href="das.html#cb26-2"></a>[[<span class="dv">1</span>]]</span>
-<span id="cb26-3"><a href="das.html#cb26-3"></a>[[<span class="dv">1</span>]]<span class="op">$</span>das_file</span>
-<span id="cb26-4"><a href="das.html#cb26-4"></a>[<span class="dv">1</span>] <span class="st">&quot;data/surveys/HICEASwinter2020.das&quot;</span></span>
-<span id="cb26-5"><a href="das.html#cb26-5"></a></span>
-<span id="cb26-6"><a href="das.html#cb26-6"></a>[[<span class="dv">1</span>]]<span class="op">$</span>type</span>
-<span id="cb26-7"><a href="das.html#cb26-7"></a>[<span class="dv">1</span>] <span class="st">&quot;text&quot;</span></span>
-<span id="cb26-8"><a href="das.html#cb26-8"></a></span>
-<span id="cb26-9"><a href="das.html#cb26-9"></a>[[<span class="dv">1</span>]]<span class="op">$</span>rows</span>
-<span id="cb26-10"><a href="das.html#cb26-10"></a>[<span class="dv">1</span>] <span class="dv">10</span> <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> <span class="dv">14</span> <span class="dv">15</span></span>
-<span id="cb26-11"><a href="das.html#cb26-11"></a></span>
-<span id="cb26-12"><a href="das.html#cb26-12"></a>[[<span class="dv">1</span>]]<span class="op">$</span>chars</span>
-<span id="cb26-13"><a href="das.html#cb26-13"></a> [<span class="dv">1</span>] <span class="dv">20</span> <span class="dv">21</span> <span class="dv">22</span> <span class="dv">23</span> <span class="dv">24</span> <span class="dv">25</span> <span class="dv">26</span> <span class="dv">27</span> <span class="dv">28</span> <span class="dv">29</span> <span class="dv">30</span> <span class="dv">31</span> <span class="dv">32</span> <span class="dv">33</span> <span class="dv">34</span> <span class="dv">35</span> <span class="dv">36</span> <span class="dv">37</span> <span class="dv">38</span> <span class="dv">39</span></span>
-<span id="cb26-14"><a href="das.html#cb26-14"></a></span>
-<span id="cb26-15"><a href="das.html#cb26-15"></a>[[<span class="dv">1</span>]]<span class="op">$</span>edit</span>
-<span id="cb26-16"><a href="das.html#cb26-16"></a>[<span class="dv">1</span>] <span class="st">&quot;lat, lon&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="das.html#cb28-1"></a>edits</span>
+<span id="cb28-2"><a href="das.html#cb28-2"></a>[[<span class="dv">1</span>]]</span>
+<span id="cb28-3"><a href="das.html#cb28-3"></a>[[<span class="dv">1</span>]]<span class="op">$</span>das_file</span>
+<span id="cb28-4"><a href="das.html#cb28-4"></a>[<span class="dv">1</span>] <span class="st">&quot;data/surveys/HICEASwinter2020.das&quot;</span></span>
+<span id="cb28-5"><a href="das.html#cb28-5"></a></span>
+<span id="cb28-6"><a href="das.html#cb28-6"></a>[[<span class="dv">1</span>]]<span class="op">$</span>type</span>
+<span id="cb28-7"><a href="das.html#cb28-7"></a>[<span class="dv">1</span>] <span class="st">&quot;text&quot;</span></span>
+<span id="cb28-8"><a href="das.html#cb28-8"></a></span>
+<span id="cb28-9"><a href="das.html#cb28-9"></a>[[<span class="dv">1</span>]]<span class="op">$</span>rows</span>
+<span id="cb28-10"><a href="das.html#cb28-10"></a>[<span class="dv">1</span>] <span class="dv">10</span> <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> <span class="dv">14</span> <span class="dv">15</span></span>
+<span id="cb28-11"><a href="das.html#cb28-11"></a></span>
+<span id="cb28-12"><a href="das.html#cb28-12"></a>[[<span class="dv">1</span>]]<span class="op">$</span>chars</span>
+<span id="cb28-13"><a href="das.html#cb28-13"></a> [<span class="dv">1</span>] <span class="dv">20</span> <span class="dv">21</span> <span class="dv">22</span> <span class="dv">23</span> <span class="dv">24</span> <span class="dv">25</span> <span class="dv">26</span> <span class="dv">27</span> <span class="dv">28</span> <span class="dv">29</span> <span class="dv">30</span> <span class="dv">31</span> <span class="dv">32</span> <span class="dv">33</span> <span class="dv">34</span> <span class="dv">35</span> <span class="dv">36</span> <span class="dv">37</span> <span class="dv">38</span> <span class="dv">39</span></span>
+<span id="cb28-14"><a href="das.html#cb28-14"></a></span>
+<span id="cb28-15"><a href="das.html#cb28-15"></a>[[<span class="dv">1</span>]]<span class="op">$</span>edit</span>
+<span id="cb28-16"><a href="das.html#cb28-16"></a>[<span class="dv">1</span>] <span class="st">&quot;lat, lon&quot;</span></span></code></pre></div>
 <p>And here is the effect it will have:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="das.html#cb27-1"></a><span class="co"># Before</span></span>
-<span id="cb27-2"><a href="das.html#cb27-2"></a>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
-<span id="cb27-3"><a href="das.html#cb27-3"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
-<span id="cb27-4"><a href="das.html#cb27-4"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
-<span id="cb27-5"><a href="das.html#cb27-5"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
-<span id="cb27-6"><a href="das.html#cb27-6"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
-<span id="cb27-7"><a href="das.html#cb27-7"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
-<span id="cb27-8"><a href="das.html#cb27-8"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
-<span id="cb27-9"><a href="das.html#cb27-9"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
-<span id="cb27-10"><a href="das.html#cb27-10"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span>
-<span id="cb27-11"><a href="das.html#cb27-11"></a></span>
-<span id="cb27-12"><a href="das.html#cb27-12"></a><span class="co"># After</span></span>
-<span id="cb27-13"><a href="das.html#cb27-13"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
-<span id="cb27-14"><a href="das.html#cb27-14"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
-<span id="cb27-15"><a href="das.html#cb27-15"></a><span class="op">---</span><span class="st"> </span>verbatim<span class="op">/</span><span class="cf">function</span> text replacements ...</span>
-<span id="cb27-16"><a href="das.html#cb27-16"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
-<span id="cb27-17"><a href="das.html#cb27-17"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
-<span id="cb27-18"><a href="das.html#cb27-18"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
-<span id="cb27-19"><a href="das.html#cb27-19"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 lat, lon&quot;</span>                                     </span>
-<span id="cb27-20"><a href="das.html#cb27-20"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 lat, lon 2001    C  -10    N&quot;</span>                 </span>
-<span id="cb27-21"><a href="das.html#cb27-21"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 lat, lon    F&quot;</span>                                </span>
-<span id="cb27-22"><a href="das.html#cb27-22"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 lat, lon  126  307  238     &quot;</span>                 </span>
-<span id="cb27-23"><a href="das.html#cb27-23"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 lat, lon    4   06  120      15.0&quot;</span>            </span>
-<span id="cb27-24"><a href="das.html#cb27-24"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 lat, lon  350 09.9&quot;</span>                           </span>
-<span id="cb27-25"><a href="das.html#cb27-25"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="das.html#cb29-1"></a><span class="co"># Before</span></span>
+<span id="cb29-2"><a href="das.html#cb29-2"></a>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
+<span id="cb29-3"><a href="das.html#cb29-3"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
+<span id="cb29-4"><a href="das.html#cb29-4"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
+<span id="cb29-5"><a href="das.html#cb29-5"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
+<span id="cb29-6"><a href="das.html#cb29-6"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
+<span id="cb29-7"><a href="das.html#cb29-7"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
+<span id="cb29-8"><a href="das.html#cb29-8"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
+<span id="cb29-9"><a href="das.html#cb29-9"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
+<span id="cb29-10"><a href="das.html#cb29-10"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span>
+<span id="cb29-11"><a href="das.html#cb29-11"></a></span>
+<span id="cb29-12"><a href="das.html#cb29-12"></a><span class="co"># After</span></span>
+<span id="cb29-13"><a href="das.html#cb29-13"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
+<span id="cb29-14"><a href="das.html#cb29-14"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
+<span id="cb29-15"><a href="das.html#cb29-15"></a><span class="op">---</span><span class="st"> </span>verbatim<span class="op">/</span><span class="cf">function</span> text replacements ...</span>
+<span id="cb29-16"><a href="das.html#cb29-16"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
+<span id="cb29-17"><a href="das.html#cb29-17"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
+<span id="cb29-18"><a href="das.html#cb29-18"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
+<span id="cb29-19"><a href="das.html#cb29-19"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 lat, lon&quot;</span>                                     </span>
+<span id="cb29-20"><a href="das.html#cb29-20"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 lat, lon 2001    C  -10    N&quot;</span>                 </span>
+<span id="cb29-21"><a href="das.html#cb29-21"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 lat, lon    F&quot;</span>                                </span>
+<span id="cb29-22"><a href="das.html#cb29-22"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 lat, lon  126  307  238     &quot;</span>                 </span>
+<span id="cb29-23"><a href="das.html#cb29-23"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 lat, lon    4   06  120      15.0&quot;</span>            </span>
+<span id="cb29-24"><a href="das.html#cb29-24"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 lat, lon  350 09.9&quot;</span>                           </span>
+<span id="cb29-25"><a href="das.html#cb29-25"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span></code></pre></div>
 </div>
 <div id="function-based-text-replacement" class="section level4 unnumbered hasAnchor">
 <h4>Function-based text replacement<a href="das.html#function-based-text-replacement" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The <code>edit</code> will be evaluated as a function that is applied to the specified characters in each of <code>rows</code>.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="das.html#cb28-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
-<span id="cb28-2"><a href="das.html#cb28-2"></a>                   <span class="dt">type =</span> <span class="st">&#39;function&#39;</span>,</span>
-<span id="cb28-3"><a href="das.html#cb28-3"></a>                   <span class="dt">rows =</span> <span class="dv">10</span><span class="op">:</span><span class="dv">15</span>, </span>
-<span id="cb28-4"><a href="das.html#cb28-4"></a>                   <span class="dt">chars =</span> <span class="dv">20</span><span class="op">:</span><span class="dv">39</span>, </span>
-<span id="cb28-5"><a href="das.html#cb28-5"></a>                   <span class="dt">edit =</span> <span class="st">&#39;tolower&#39;</span>))</span>
-<span id="cb28-6"><a href="das.html#cb28-6"></a></span>
-<span id="cb28-7"><a href="das.html#cb28-7"></a><span class="co"># Before</span></span>
-<span id="cb28-8"><a href="das.html#cb28-8"></a>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
-<span id="cb28-9"><a href="das.html#cb28-9"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
-<span id="cb28-10"><a href="das.html#cb28-10"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
-<span id="cb28-11"><a href="das.html#cb28-11"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
-<span id="cb28-12"><a href="das.html#cb28-12"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
-<span id="cb28-13"><a href="das.html#cb28-13"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
-<span id="cb28-14"><a href="das.html#cb28-14"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
-<span id="cb28-15"><a href="das.html#cb28-15"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
-<span id="cb28-16"><a href="das.html#cb28-16"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span>
-<span id="cb28-17"><a href="das.html#cb28-17"></a></span>
-<span id="cb28-18"><a href="das.html#cb28-18"></a><span class="co"># After</span></span>
-<span id="cb28-19"><a href="das.html#cb28-19"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
-<span id="cb28-20"><a href="das.html#cb28-20"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
-<span id="cb28-21"><a href="das.html#cb28-21"></a><span class="op">---</span><span class="st"> </span>verbatim<span class="op">/</span><span class="cf">function</span> text replacements ...</span>
-<span id="cb28-22"><a href="das.html#cb28-22"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
-<span id="cb28-23"><a href="das.html#cb28-23"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
-<span id="cb28-24"><a href="das.html#cb28-24"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
-<span id="cb28-25"><a href="das.html#cb28-25"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 n21:50.91 w159:46.33&quot;</span>                         </span>
-<span id="cb28-26"><a href="das.html#cb28-26"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 n21:51.12 w159:46.36 2001    C  -10    N&quot;</span>     </span>
-<span id="cb28-27"><a href="das.html#cb28-27"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 n21:51.12 w159:46.36    F&quot;</span>                    </span>
-<span id="cb28-28"><a href="das.html#cb28-28"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 n21:51.12 w159:46.36  126  307  238     &quot;</span>     </span>
-<span id="cb28-29"><a href="das.html#cb28-29"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 n21:51.12 w159:46.36    4   06  120      15.0&quot;</span></span>
-<span id="cb28-30"><a href="das.html#cb28-30"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 n21:51.12 w159:46.36  350 09.9&quot;</span>               </span>
-<span id="cb28-31"><a href="das.html#cb28-31"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span></code></pre></div>
-<p>A special application of this form of editing is adjusting timestamps using the <code>LTabundR</code> function <code>das_time()</code>. In this next example, we subtract an hour from the first 5 rows of timestamps:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="das.html#cb29-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
-<span id="cb29-2"><a href="das.html#cb29-2"></a>                   <span class="dt">type =</span> <span class="st">&#39;function&#39;</span>,</span>
-<span id="cb29-3"><a href="das.html#cb29-3"></a>                   <span class="dt">rows =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </span>
-<span id="cb29-4"><a href="das.html#cb29-4"></a>                   <span class="dt">chars =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">40</span>, </span>
-<span id="cb29-5"><a href="das.html#cb29-5"></a>                   <span class="dt">edit =</span> <span class="st">&#39;function(x){das_time(x, tz_adjust = -1)$dt}&#39;</span>))</span>
-<span id="cb29-6"><a href="das.html#cb29-6"></a></span>
-<span id="cb29-7"><a href="das.html#cb29-7"></a><span class="co"># Before</span></span>
-<span id="cb29-8"><a href="das.html#cb29-8"></a>das<span class="op">$</span>das[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</span>
-<span id="cb29-9"><a href="das.html#cb29-9"></a>[<span class="dv">1</span>] <span class="st">&quot;001* 071152 011920 N21:47.99 W159:45.91&quot;</span></span>
-<span id="cb29-10"><a href="das.html#cb29-10"></a>[<span class="dv">2</span>] <span class="st">&quot;002* 071352 011920 N21:48.31 W159:45.94&quot;</span></span>
-<span id="cb29-11"><a href="das.html#cb29-11"></a>[<span class="dv">3</span>] <span class="st">&quot;003* 071552 011920 N21:48.63 W159:45.97&quot;</span></span>
-<span id="cb29-12"><a href="das.html#cb29-12"></a>[<span class="dv">4</span>] <span class="st">&quot;004* 071752 011920 N21:48.95 W159:46.01&quot;</span></span>
-<span id="cb29-13"><a href="das.html#cb29-13"></a>[<span class="dv">5</span>] <span class="st">&quot;005* 071952 011920 N21:49.28 W159:46.04&quot;</span></span>
-<span id="cb29-14"><a href="das.html#cb29-14"></a>[<span class="dv">6</span>] <span class="st">&quot;006* 072152 011920 N21:49.60 W159:46.08&quot;</span></span>
-<span id="cb29-15"><a href="das.html#cb29-15"></a></span>
-<span id="cb29-16"><a href="das.html#cb29-16"></a><span class="co"># After</span></span>
-<span id="cb29-17"><a href="das.html#cb29-17"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
-<span id="cb29-18"><a href="das.html#cb29-18"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
-<span id="cb29-19"><a href="das.html#cb29-19"></a><span class="op">---</span><span class="st"> </span>verbatim<span class="op">/</span><span class="cf">function</span> text replacements ...</span>
-<span id="cb29-20"><a href="das.html#cb29-20"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
-<span id="cb29-21"><a href="das.html#cb29-21"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</span>
-<span id="cb29-22"><a href="das.html#cb29-22"></a>[<span class="dv">1</span>] <span class="st">&quot;001* 061152 011920 N21:47.99 W159:45.91&quot;</span></span>
-<span id="cb29-23"><a href="das.html#cb29-23"></a>[<span class="dv">2</span>] <span class="st">&quot;002* 061352 011920 N21:48.31 W159:45.94&quot;</span></span>
-<span id="cb29-24"><a href="das.html#cb29-24"></a>[<span class="dv">3</span>] <span class="st">&quot;003* 061552 011920 N21:48.63 W159:45.97&quot;</span></span>
-<span id="cb29-25"><a href="das.html#cb29-25"></a>[<span class="dv">4</span>] <span class="st">&quot;004* 061752 011920 N21:48.95 W159:46.01&quot;</span></span>
-<span id="cb29-26"><a href="das.html#cb29-26"></a>[<span class="dv">5</span>] <span class="st">&quot;005* 061952 011920 N21:49.28 W159:46.04&quot;</span></span>
-<span id="cb29-27"><a href="das.html#cb29-27"></a>[<span class="dv">6</span>] <span class="st">&quot;006* 072152 011920 N21:49.60 W159:46.08&quot;</span></span></code></pre></div>
-<p>In the event that a survey was conducted using UTC timestamps instead of local time, you can adjust each timestamp according to its actual timezone as determined from its corresponding lat/long coordinates. Let’s say the first 5 timestamps were collected in UTC by accident. The following code could correct that mistake:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="das.html#cb30-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
 <span id="cb30-2"><a href="das.html#cb30-2"></a>                   <span class="dt">type =</span> <span class="st">&#39;function&#39;</span>,</span>
-<span id="cb30-3"><a href="das.html#cb30-3"></a>                   <span class="dt">rows =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </span>
-<span id="cb30-4"><a href="das.html#cb30-4"></a>                   <span class="dt">chars =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">40</span>, </span>
-<span id="cb30-5"><a href="das.html#cb30-5"></a>                   <span class="dt">edit =</span> <span class="st">&#39;function(x){das_time(x, tz_adjust = &quot;from utc&quot;)$dt}&#39;</span>))</span>
+<span id="cb30-3"><a href="das.html#cb30-3"></a>                   <span class="dt">rows =</span> <span class="dv">10</span><span class="op">:</span><span class="dv">15</span>, </span>
+<span id="cb30-4"><a href="das.html#cb30-4"></a>                   <span class="dt">chars =</span> <span class="dv">20</span><span class="op">:</span><span class="dv">39</span>, </span>
+<span id="cb30-5"><a href="das.html#cb30-5"></a>                   <span class="dt">edit =</span> <span class="st">&#39;tolower&#39;</span>))</span>
 <span id="cb30-6"><a href="das.html#cb30-6"></a></span>
 <span id="cb30-7"><a href="das.html#cb30-7"></a><span class="co"># Before</span></span>
-<span id="cb30-8"><a href="das.html#cb30-8"></a>das<span class="op">$</span>das[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</span>
-<span id="cb30-9"><a href="das.html#cb30-9"></a>[<span class="dv">1</span>] <span class="st">&quot;001* 071152 011920 N21:47.99 W159:45.91&quot;</span></span>
-<span id="cb30-10"><a href="das.html#cb30-10"></a>[<span class="dv">2</span>] <span class="st">&quot;002* 071352 011920 N21:48.31 W159:45.94&quot;</span></span>
-<span id="cb30-11"><a href="das.html#cb30-11"></a>[<span class="dv">3</span>] <span class="st">&quot;003* 071552 011920 N21:48.63 W159:45.97&quot;</span></span>
-<span id="cb30-12"><a href="das.html#cb30-12"></a>[<span class="dv">4</span>] <span class="st">&quot;004* 071752 011920 N21:48.95 W159:46.01&quot;</span></span>
-<span id="cb30-13"><a href="das.html#cb30-13"></a>[<span class="dv">5</span>] <span class="st">&quot;005* 071952 011920 N21:49.28 W159:46.04&quot;</span></span>
-<span id="cb30-14"><a href="das.html#cb30-14"></a>[<span class="dv">6</span>] <span class="st">&quot;006* 072152 011920 N21:49.60 W159:46.08&quot;</span></span>
-<span id="cb30-15"><a href="das.html#cb30-15"></a></span>
-<span id="cb30-16"><a href="das.html#cb30-16"></a><span class="co"># After</span></span>
-<span id="cb30-17"><a href="das.html#cb30-17"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
-<span id="cb30-18"><a href="das.html#cb30-18"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
-<span id="cb30-19"><a href="das.html#cb30-19"></a><span class="op">---</span><span class="st"> </span>verbatim<span class="op">/</span><span class="cf">function</span> text replacements ...</span>
-<span id="cb30-20"><a href="das.html#cb30-20"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
-<span id="cb30-21"><a href="das.html#cb30-21"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</span>
-<span id="cb30-22"><a href="das.html#cb30-22"></a>[<span class="dv">1</span>] <span class="st">&quot;001* 201152 011820 N21:47.99 W159:45.91&quot;</span></span>
-<span id="cb30-23"><a href="das.html#cb30-23"></a>[<span class="dv">2</span>] <span class="st">&quot;002* 201352 011820 N21:48.31 W159:45.94&quot;</span></span>
-<span id="cb30-24"><a href="das.html#cb30-24"></a>[<span class="dv">3</span>] <span class="st">&quot;003* 201552 011820 N21:48.63 W159:45.97&quot;</span></span>
-<span id="cb30-25"><a href="das.html#cb30-25"></a>[<span class="dv">4</span>] <span class="st">&quot;004* 201752 011820 N21:48.95 W159:46.01&quot;</span></span>
-<span id="cb30-26"><a href="das.html#cb30-26"></a>[<span class="dv">5</span>] <span class="st">&quot;005* 201952 011820 N21:49.28 W159:46.04&quot;</span></span>
-<span id="cb30-27"><a href="das.html#cb30-27"></a>[<span class="dv">6</span>] <span class="st">&quot;006* 072152 011920 N21:49.60 W159:46.08&quot;</span></span></code></pre></div>
+<span id="cb30-8"><a href="das.html#cb30-8"></a>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
+<span id="cb30-9"><a href="das.html#cb30-9"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
+<span id="cb30-10"><a href="das.html#cb30-10"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
+<span id="cb30-11"><a href="das.html#cb30-11"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
+<span id="cb30-12"><a href="das.html#cb30-12"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
+<span id="cb30-13"><a href="das.html#cb30-13"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
+<span id="cb30-14"><a href="das.html#cb30-14"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
+<span id="cb30-15"><a href="das.html#cb30-15"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
+<span id="cb30-16"><a href="das.html#cb30-16"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span>
+<span id="cb30-17"><a href="das.html#cb30-17"></a></span>
+<span id="cb30-18"><a href="das.html#cb30-18"></a><span class="co"># After</span></span>
+<span id="cb30-19"><a href="das.html#cb30-19"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
+<span id="cb30-20"><a href="das.html#cb30-20"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
+<span id="cb30-21"><a href="das.html#cb30-21"></a><span class="op">---</span><span class="st"> </span>verbatim<span class="op">/</span><span class="cf">function</span> text replacements ...</span>
+<span id="cb30-22"><a href="das.html#cb30-22"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
+<span id="cb30-23"><a href="das.html#cb30-23"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
+<span id="cb30-24"><a href="das.html#cb30-24"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
+<span id="cb30-25"><a href="das.html#cb30-25"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 n21:50.91 w159:46.33&quot;</span>                         </span>
+<span id="cb30-26"><a href="das.html#cb30-26"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 n21:51.12 w159:46.36 2001    C  -10    N&quot;</span>     </span>
+<span id="cb30-27"><a href="das.html#cb30-27"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 n21:51.12 w159:46.36    F&quot;</span>                    </span>
+<span id="cb30-28"><a href="das.html#cb30-28"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 n21:51.12 w159:46.36  126  307  238     &quot;</span>     </span>
+<span id="cb30-29"><a href="das.html#cb30-29"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 n21:51.12 w159:46.36    4   06  120      15.0&quot;</span></span>
+<span id="cb30-30"><a href="das.html#cb30-30"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 n21:51.12 w159:46.36  350 09.9&quot;</span>               </span>
+<span id="cb30-31"><a href="das.html#cb30-31"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span></code></pre></div>
+<p>A special application of this form of editing is adjusting timestamps using the <code>LTabundR</code> function <code>das_time()</code>. In this next example, we subtract an hour from the first 5 rows of timestamps:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="das.html#cb31-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
+<span id="cb31-2"><a href="das.html#cb31-2"></a>                   <span class="dt">type =</span> <span class="st">&#39;function&#39;</span>,</span>
+<span id="cb31-3"><a href="das.html#cb31-3"></a>                   <span class="dt">rows =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </span>
+<span id="cb31-4"><a href="das.html#cb31-4"></a>                   <span class="dt">chars =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">40</span>, </span>
+<span id="cb31-5"><a href="das.html#cb31-5"></a>                   <span class="dt">edit =</span> <span class="st">&#39;function(x){das_time(x, tz_adjust = -1)$dt}&#39;</span>))</span>
+<span id="cb31-6"><a href="das.html#cb31-6"></a></span>
+<span id="cb31-7"><a href="das.html#cb31-7"></a><span class="co"># Before</span></span>
+<span id="cb31-8"><a href="das.html#cb31-8"></a>das<span class="op">$</span>das[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</span>
+<span id="cb31-9"><a href="das.html#cb31-9"></a>[<span class="dv">1</span>] <span class="st">&quot;001* 071152 011920 N21:47.99 W159:45.91&quot;</span></span>
+<span id="cb31-10"><a href="das.html#cb31-10"></a>[<span class="dv">2</span>] <span class="st">&quot;002* 071352 011920 N21:48.31 W159:45.94&quot;</span></span>
+<span id="cb31-11"><a href="das.html#cb31-11"></a>[<span class="dv">3</span>] <span class="st">&quot;003* 071552 011920 N21:48.63 W159:45.97&quot;</span></span>
+<span id="cb31-12"><a href="das.html#cb31-12"></a>[<span class="dv">4</span>] <span class="st">&quot;004* 071752 011920 N21:48.95 W159:46.01&quot;</span></span>
+<span id="cb31-13"><a href="das.html#cb31-13"></a>[<span class="dv">5</span>] <span class="st">&quot;005* 071952 011920 N21:49.28 W159:46.04&quot;</span></span>
+<span id="cb31-14"><a href="das.html#cb31-14"></a>[<span class="dv">6</span>] <span class="st">&quot;006* 072152 011920 N21:49.60 W159:46.08&quot;</span></span>
+<span id="cb31-15"><a href="das.html#cb31-15"></a></span>
+<span id="cb31-16"><a href="das.html#cb31-16"></a><span class="co"># After</span></span>
+<span id="cb31-17"><a href="das.html#cb31-17"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
+<span id="cb31-18"><a href="das.html#cb31-18"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
+<span id="cb31-19"><a href="das.html#cb31-19"></a><span class="op">---</span><span class="st"> </span>verbatim<span class="op">/</span><span class="cf">function</span> text replacements ...</span>
+<span id="cb31-20"><a href="das.html#cb31-20"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
+<span id="cb31-21"><a href="das.html#cb31-21"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</span>
+<span id="cb31-22"><a href="das.html#cb31-22"></a>[<span class="dv">1</span>] <span class="st">&quot;001* 061152 011920 N21:47.99 W159:45.91&quot;</span></span>
+<span id="cb31-23"><a href="das.html#cb31-23"></a>[<span class="dv">2</span>] <span class="st">&quot;002* 061352 011920 N21:48.31 W159:45.94&quot;</span></span>
+<span id="cb31-24"><a href="das.html#cb31-24"></a>[<span class="dv">3</span>] <span class="st">&quot;003* 061552 011920 N21:48.63 W159:45.97&quot;</span></span>
+<span id="cb31-25"><a href="das.html#cb31-25"></a>[<span class="dv">4</span>] <span class="st">&quot;004* 061752 011920 N21:48.95 W159:46.01&quot;</span></span>
+<span id="cb31-26"><a href="das.html#cb31-26"></a>[<span class="dv">5</span>] <span class="st">&quot;005* 061952 011920 N21:49.28 W159:46.04&quot;</span></span>
+<span id="cb31-27"><a href="das.html#cb31-27"></a>[<span class="dv">6</span>] <span class="st">&quot;006* 072152 011920 N21:49.60 W159:46.08&quot;</span></span></code></pre></div>
+<p>In the event that a survey was conducted using UTC timestamps instead of local time, you can adjust each timestamp according to its actual timezone as determined from its corresponding lat/long coordinates. Let’s say the first 5 timestamps were collected in UTC by accident. The following code could correct that mistake:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="das.html#cb32-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
+<span id="cb32-2"><a href="das.html#cb32-2"></a>                   <span class="dt">type =</span> <span class="st">&#39;function&#39;</span>,</span>
+<span id="cb32-3"><a href="das.html#cb32-3"></a>                   <span class="dt">rows =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, </span>
+<span id="cb32-4"><a href="das.html#cb32-4"></a>                   <span class="dt">chars =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">40</span>, </span>
+<span id="cb32-5"><a href="das.html#cb32-5"></a>                   <span class="dt">edit =</span> <span class="st">&#39;function(x){das_time(x, tz_adjust = &quot;from utc&quot;)$dt}&#39;</span>))</span>
+<span id="cb32-6"><a href="das.html#cb32-6"></a></span>
+<span id="cb32-7"><a href="das.html#cb32-7"></a><span class="co"># Before</span></span>
+<span id="cb32-8"><a href="das.html#cb32-8"></a>das<span class="op">$</span>das[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</span>
+<span id="cb32-9"><a href="das.html#cb32-9"></a>[<span class="dv">1</span>] <span class="st">&quot;001* 071152 011920 N21:47.99 W159:45.91&quot;</span></span>
+<span id="cb32-10"><a href="das.html#cb32-10"></a>[<span class="dv">2</span>] <span class="st">&quot;002* 071352 011920 N21:48.31 W159:45.94&quot;</span></span>
+<span id="cb32-11"><a href="das.html#cb32-11"></a>[<span class="dv">3</span>] <span class="st">&quot;003* 071552 011920 N21:48.63 W159:45.97&quot;</span></span>
+<span id="cb32-12"><a href="das.html#cb32-12"></a>[<span class="dv">4</span>] <span class="st">&quot;004* 071752 011920 N21:48.95 W159:46.01&quot;</span></span>
+<span id="cb32-13"><a href="das.html#cb32-13"></a>[<span class="dv">5</span>] <span class="st">&quot;005* 071952 011920 N21:49.28 W159:46.04&quot;</span></span>
+<span id="cb32-14"><a href="das.html#cb32-14"></a>[<span class="dv">6</span>] <span class="st">&quot;006* 072152 011920 N21:49.60 W159:46.08&quot;</span></span>
+<span id="cb32-15"><a href="das.html#cb32-15"></a></span>
+<span id="cb32-16"><a href="das.html#cb32-16"></a><span class="co"># After</span></span>
+<span id="cb32-17"><a href="das.html#cb32-17"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
+<span id="cb32-18"><a href="das.html#cb32-18"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
+<span id="cb32-19"><a href="das.html#cb32-19"></a><span class="op">---</span><span class="st"> </span>verbatim<span class="op">/</span><span class="cf">function</span> text replacements ...</span>
+<span id="cb32-20"><a href="das.html#cb32-20"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
+<span id="cb32-21"><a href="das.html#cb32-21"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>]</span>
+<span id="cb32-22"><a href="das.html#cb32-22"></a>[<span class="dv">1</span>] <span class="st">&quot;001* 201152 011820 N21:47.99 W159:45.91&quot;</span></span>
+<span id="cb32-23"><a href="das.html#cb32-23"></a>[<span class="dv">2</span>] <span class="st">&quot;002* 201352 011820 N21:48.31 W159:45.94&quot;</span></span>
+<span id="cb32-24"><a href="das.html#cb32-24"></a>[<span class="dv">3</span>] <span class="st">&quot;003* 201552 011820 N21:48.63 W159:45.97&quot;</span></span>
+<span id="cb32-25"><a href="das.html#cb32-25"></a>[<span class="dv">4</span>] <span class="st">&quot;004* 201752 011820 N21:48.95 W159:46.01&quot;</span></span>
+<span id="cb32-26"><a href="das.html#cb32-26"></a>[<span class="dv">5</span>] <span class="st">&quot;005* 201952 011820 N21:49.28 W159:46.04&quot;</span></span>
+<span id="cb32-27"><a href="das.html#cb32-27"></a>[<span class="dv">6</span>] <span class="st">&quot;006* 072152 011920 N21:49.60 W159:46.08&quot;</span></span></code></pre></div>
 </div>
 <div id="moving-data" class="section level4 unnumbered hasAnchor">
 <h4>Moving data<a href="das.html#moving-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The <code>rows</code> will be deleted from their current location and pasted immediately below the row number specified by <code>edit</code>. The moved rows will be given the same date, time, latitude, and longitude, as the <code>edit</code> row.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="das.html#cb31-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
-<span id="cb31-2"><a href="das.html#cb31-2"></a>                    <span class="dt">type =</span> <span class="st">&#39;move&#39;</span>,</span>
-<span id="cb31-3"><a href="das.html#cb31-3"></a>                    <span class="dt">rows =</span> <span class="dv">10</span>, </span>
-<span id="cb31-4"><a href="das.html#cb31-4"></a>                    <span class="dt">chars =</span> <span class="ot">NULL</span>, </span>
-<span id="cb31-5"><a href="das.html#cb31-5"></a>                    <span class="dt">edit =</span> <span class="dv">15</span>))</span>
-<span id="cb31-6"><a href="das.html#cb31-6"></a></span>
-<span id="cb31-7"><a href="das.html#cb31-7"></a><span class="co"># Before</span></span>
-<span id="cb31-8"><a href="das.html#cb31-8"></a>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
-<span id="cb31-9"><a href="das.html#cb31-9"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
-<span id="cb31-10"><a href="das.html#cb31-10"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
-<span id="cb31-11"><a href="das.html#cb31-11"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
-<span id="cb31-12"><a href="das.html#cb31-12"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
-<span id="cb31-13"><a href="das.html#cb31-13"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
-<span id="cb31-14"><a href="das.html#cb31-14"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
-<span id="cb31-15"><a href="das.html#cb31-15"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
-<span id="cb31-16"><a href="das.html#cb31-16"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span>
-<span id="cb31-17"><a href="das.html#cb31-17"></a></span>
-<span id="cb31-18"><a href="das.html#cb31-18"></a><span class="co"># After</span></span>
-<span id="cb31-19"><a href="das.html#cb31-19"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
-<span id="cb31-20"><a href="das.html#cb31-20"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
-<span id="cb31-21"><a href="das.html#cb31-21"></a><span class="op">---</span><span class="st"> </span>move, copy<span class="op">/</span>paste, insertion, and deletion events ...</span>
-<span id="cb31-22"><a href="das.html#cb31-22"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
-<span id="cb31-23"><a href="das.html#cb31-23"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
-<span id="cb31-24"><a href="das.html#cb31-24"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
-<span id="cb31-25"><a href="das.html#cb31-25"></a>[<span class="dv">2</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
-<span id="cb31-26"><a href="das.html#cb31-26"></a>[<span class="dv">3</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
-<span id="cb31-27"><a href="das.html#cb31-27"></a>[<span class="dv">4</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
-<span id="cb31-28"><a href="das.html#cb31-28"></a>[<span class="dv">5</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
-<span id="cb31-29"><a href="das.html#cb31-29"></a>[<span class="dv">6</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
-<span id="cb31-30"><a href="das.html#cb31-30"></a>[<span class="dv">7</span>] <span class="st">&quot;010* 073111 011920 N21:51.12 W159:46.36&quot;</span>                         </span>
-<span id="cb31-31"><a href="das.html#cb31-31"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="das.html#cb33-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
+<span id="cb33-2"><a href="das.html#cb33-2"></a>                    <span class="dt">type =</span> <span class="st">&#39;move&#39;</span>,</span>
+<span id="cb33-3"><a href="das.html#cb33-3"></a>                    <span class="dt">rows =</span> <span class="dv">10</span>, </span>
+<span id="cb33-4"><a href="das.html#cb33-4"></a>                    <span class="dt">chars =</span> <span class="ot">NULL</span>, </span>
+<span id="cb33-5"><a href="das.html#cb33-5"></a>                    <span class="dt">edit =</span> <span class="dv">15</span>))</span>
+<span id="cb33-6"><a href="das.html#cb33-6"></a></span>
+<span id="cb33-7"><a href="das.html#cb33-7"></a><span class="co"># Before</span></span>
+<span id="cb33-8"><a href="das.html#cb33-8"></a>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
+<span id="cb33-9"><a href="das.html#cb33-9"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
+<span id="cb33-10"><a href="das.html#cb33-10"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
+<span id="cb33-11"><a href="das.html#cb33-11"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
+<span id="cb33-12"><a href="das.html#cb33-12"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
+<span id="cb33-13"><a href="das.html#cb33-13"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
+<span id="cb33-14"><a href="das.html#cb33-14"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
+<span id="cb33-15"><a href="das.html#cb33-15"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
+<span id="cb33-16"><a href="das.html#cb33-16"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span>
+<span id="cb33-17"><a href="das.html#cb33-17"></a></span>
+<span id="cb33-18"><a href="das.html#cb33-18"></a><span class="co"># After</span></span>
+<span id="cb33-19"><a href="das.html#cb33-19"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
+<span id="cb33-20"><a href="das.html#cb33-20"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
+<span id="cb33-21"><a href="das.html#cb33-21"></a><span class="op">---</span><span class="st"> </span>move, copy<span class="op">/</span>paste, insertion, and deletion events ...</span>
+<span id="cb33-22"><a href="das.html#cb33-22"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
+<span id="cb33-23"><a href="das.html#cb33-23"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
+<span id="cb33-24"><a href="das.html#cb33-24"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
+<span id="cb33-25"><a href="das.html#cb33-25"></a>[<span class="dv">2</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
+<span id="cb33-26"><a href="das.html#cb33-26"></a>[<span class="dv">3</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
+<span id="cb33-27"><a href="das.html#cb33-27"></a>[<span class="dv">4</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
+<span id="cb33-28"><a href="das.html#cb33-28"></a>[<span class="dv">5</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
+<span id="cb33-29"><a href="das.html#cb33-29"></a>[<span class="dv">6</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
+<span id="cb33-30"><a href="das.html#cb33-30"></a>[<span class="dv">7</span>] <span class="st">&quot;010* 073111 011920 N21:51.12 W159:46.36&quot;</span>                         </span>
+<span id="cb33-31"><a href="das.html#cb33-31"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span></code></pre></div>
 </div>
 <div id="copying-pasting-data" class="section level4 unnumbered hasAnchor">
 <h4>Copying &amp; pasting data<a href="das.html#copying-pasting-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The <code>rows</code> will be copied from their current location and pasted immediately below the row number specified by <code>edit</code>. The pasted <code>rows</code> will be given the same date, time, latitude, and longitude, as the <code>edit</code> row.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="das.html#cb32-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
-<span id="cb32-2"><a href="das.html#cb32-2"></a>                   <span class="dt">type =</span> <span class="st">&#39;copy&#39;</span>,</span>
-<span id="cb32-3"><a href="das.html#cb32-3"></a>                   <span class="dt">rows =</span> <span class="dv">10</span>, </span>
-<span id="cb32-4"><a href="das.html#cb32-4"></a>                   <span class="dt">edit =</span> <span class="dv">15</span>))</span>
-<span id="cb32-5"><a href="das.html#cb32-5"></a></span>
-<span id="cb32-6"><a href="das.html#cb32-6"></a><span class="co"># Before</span></span>
-<span id="cb32-7"><a href="das.html#cb32-7"></a>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">17</span>]</span>
-<span id="cb32-8"><a href="das.html#cb32-8"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
-<span id="cb32-9"><a href="das.html#cb32-9"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
-<span id="cb32-10"><a href="das.html#cb32-10"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
-<span id="cb32-11"><a href="das.html#cb32-11"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
-<span id="cb32-12"><a href="das.html#cb32-12"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
-<span id="cb32-13"><a href="das.html#cb32-13"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
-<span id="cb32-14"><a href="das.html#cb32-14"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
-<span id="cb32-15"><a href="das.html#cb32-15"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span>
-<span id="cb32-16"><a href="das.html#cb32-16"></a>[<span class="dv">9</span>] <span class="st">&quot;017*.073152 011920 N21:51.24 W159:46.39&quot;</span>                         </span>
-<span id="cb32-17"><a href="das.html#cb32-17"></a></span>
-<span id="cb32-18"><a href="das.html#cb32-18"></a><span class="co"># After</span></span>
-<span id="cb32-19"><a href="das.html#cb32-19"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
-<span id="cb32-20"><a href="das.html#cb32-20"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
-<span id="cb32-21"><a href="das.html#cb32-21"></a><span class="op">---</span><span class="st"> </span>move, copy<span class="op">/</span>paste, insertion, and deletion events ...</span>
-<span id="cb32-22"><a href="das.html#cb32-22"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
-<span id="cb32-23"><a href="das.html#cb32-23"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">17</span>]</span>
-<span id="cb32-24"><a href="das.html#cb32-24"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
-<span id="cb32-25"><a href="das.html#cb32-25"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
-<span id="cb32-26"><a href="das.html#cb32-26"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
-<span id="cb32-27"><a href="das.html#cb32-27"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
-<span id="cb32-28"><a href="das.html#cb32-28"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
-<span id="cb32-29"><a href="das.html#cb32-29"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
-<span id="cb32-30"><a href="das.html#cb32-30"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
-<span id="cb32-31"><a href="das.html#cb32-31"></a>[<span class="dv">8</span>] <span class="st">&quot;010* 073111 011920 N21:51.12 W159:46.36&quot;</span>                         </span>
-<span id="cb32-32"><a href="das.html#cb32-32"></a>[<span class="dv">9</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="das.html#cb34-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
+<span id="cb34-2"><a href="das.html#cb34-2"></a>                   <span class="dt">type =</span> <span class="st">&#39;copy&#39;</span>,</span>
+<span id="cb34-3"><a href="das.html#cb34-3"></a>                   <span class="dt">rows =</span> <span class="dv">10</span>, </span>
+<span id="cb34-4"><a href="das.html#cb34-4"></a>                   <span class="dt">edit =</span> <span class="dv">15</span>))</span>
+<span id="cb34-5"><a href="das.html#cb34-5"></a></span>
+<span id="cb34-6"><a href="das.html#cb34-6"></a><span class="co"># Before</span></span>
+<span id="cb34-7"><a href="das.html#cb34-7"></a>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">17</span>]</span>
+<span id="cb34-8"><a href="das.html#cb34-8"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
+<span id="cb34-9"><a href="das.html#cb34-9"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
+<span id="cb34-10"><a href="das.html#cb34-10"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
+<span id="cb34-11"><a href="das.html#cb34-11"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
+<span id="cb34-12"><a href="das.html#cb34-12"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
+<span id="cb34-13"><a href="das.html#cb34-13"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
+<span id="cb34-14"><a href="das.html#cb34-14"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
+<span id="cb34-15"><a href="das.html#cb34-15"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span>
+<span id="cb34-16"><a href="das.html#cb34-16"></a>[<span class="dv">9</span>] <span class="st">&quot;017*.073152 011920 N21:51.24 W159:46.39&quot;</span>                         </span>
+<span id="cb34-17"><a href="das.html#cb34-17"></a></span>
+<span id="cb34-18"><a href="das.html#cb34-18"></a><span class="co"># After</span></span>
+<span id="cb34-19"><a href="das.html#cb34-19"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
+<span id="cb34-20"><a href="das.html#cb34-20"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
+<span id="cb34-21"><a href="das.html#cb34-21"></a><span class="op">---</span><span class="st"> </span>move, copy<span class="op">/</span>paste, insertion, and deletion events ...</span>
+<span id="cb34-22"><a href="das.html#cb34-22"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
+<span id="cb34-23"><a href="das.html#cb34-23"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">17</span>]</span>
+<span id="cb34-24"><a href="das.html#cb34-24"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
+<span id="cb34-25"><a href="das.html#cb34-25"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
+<span id="cb34-26"><a href="das.html#cb34-26"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
+<span id="cb34-27"><a href="das.html#cb34-27"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
+<span id="cb34-28"><a href="das.html#cb34-28"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
+<span id="cb34-29"><a href="das.html#cb34-29"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
+<span id="cb34-30"><a href="das.html#cb34-30"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
+<span id="cb34-31"><a href="das.html#cb34-31"></a>[<span class="dv">8</span>] <span class="st">&quot;010* 073111 011920 N21:51.12 W159:46.36&quot;</span>                         </span>
+<span id="cb34-32"><a href="das.html#cb34-32"></a>[<span class="dv">9</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span></code></pre></div>
 </div>
 <div id="inserting-data" class="section level4 unnumbered hasAnchor">
 <h4>Inserting data<a href="das.html#inserting-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The text provided in edit will be inserted verbatim immediately below the first of the rows provided.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="das.html#cb33-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
-<span id="cb33-2"><a href="das.html#cb33-2"></a>                   <span class="dt">type =</span> <span class="st">&#39;insert&#39;</span>,</span>
-<span id="cb33-3"><a href="das.html#cb33-3"></a>                   <span class="dt">rows =</span> <span class="dv">10</span>, </span>
-<span id="cb33-4"><a href="das.html#cb33-4"></a>                   <span class="dt">edit =</span> <span class="st">&quot;SEQ* HHMMSS MMDDYY NDG:MI.NT WDEG:MI.NT&quot;</span>))</span>
-<span id="cb33-5"><a href="das.html#cb33-5"></a><span class="co"># Before</span></span>
-<span id="cb33-6"><a href="das.html#cb33-6"></a>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
-<span id="cb33-7"><a href="das.html#cb33-7"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
-<span id="cb33-8"><a href="das.html#cb33-8"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
-<span id="cb33-9"><a href="das.html#cb33-9"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
-<span id="cb33-10"><a href="das.html#cb33-10"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
-<span id="cb33-11"><a href="das.html#cb33-11"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
-<span id="cb33-12"><a href="das.html#cb33-12"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
-<span id="cb33-13"><a href="das.html#cb33-13"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
-<span id="cb33-14"><a href="das.html#cb33-14"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span>
-<span id="cb33-15"><a href="das.html#cb33-15"></a></span>
-<span id="cb33-16"><a href="das.html#cb33-16"></a><span class="co"># After</span></span>
-<span id="cb33-17"><a href="das.html#cb33-17"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
-<span id="cb33-18"><a href="das.html#cb33-18"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
-<span id="cb33-19"><a href="das.html#cb33-19"></a><span class="op">---</span><span class="st"> </span>move, copy<span class="op">/</span>paste, insertion, and deletion events ...</span>
-<span id="cb33-20"><a href="das.html#cb33-20"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
-<span id="cb33-21"><a href="das.html#cb33-21"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
-<span id="cb33-22"><a href="das.html#cb33-22"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
-<span id="cb33-23"><a href="das.html#cb33-23"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
-<span id="cb33-24"><a href="das.html#cb33-24"></a>[<span class="dv">3</span>] <span class="st">&quot;SEQ* HHMMSS MMDDYY NDG:MI.NT WDEG:MI.NT&quot;</span>                         </span>
-<span id="cb33-25"><a href="das.html#cb33-25"></a>[<span class="dv">4</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
-<span id="cb33-26"><a href="das.html#cb33-26"></a>[<span class="dv">5</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
-<span id="cb33-27"><a href="das.html#cb33-27"></a>[<span class="dv">6</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
-<span id="cb33-28"><a href="das.html#cb33-28"></a>[<span class="dv">7</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
-<span id="cb33-29"><a href="das.html#cb33-29"></a>[<span class="dv">8</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="das.html#cb35-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
+<span id="cb35-2"><a href="das.html#cb35-2"></a>                   <span class="dt">type =</span> <span class="st">&#39;insert&#39;</span>,</span>
+<span id="cb35-3"><a href="das.html#cb35-3"></a>                   <span class="dt">rows =</span> <span class="dv">10</span>, </span>
+<span id="cb35-4"><a href="das.html#cb35-4"></a>                   <span class="dt">edit =</span> <span class="st">&quot;SEQ* HHMMSS MMDDYY NDG:MI.NT WDEG:MI.NT&quot;</span>))</span>
+<span id="cb35-5"><a href="das.html#cb35-5"></a><span class="co"># Before</span></span>
+<span id="cb35-6"><a href="das.html#cb35-6"></a>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
+<span id="cb35-7"><a href="das.html#cb35-7"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
+<span id="cb35-8"><a href="das.html#cb35-8"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
+<span id="cb35-9"><a href="das.html#cb35-9"></a>[<span class="dv">3</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
+<span id="cb35-10"><a href="das.html#cb35-10"></a>[<span class="dv">4</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
+<span id="cb35-11"><a href="das.html#cb35-11"></a>[<span class="dv">5</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
+<span id="cb35-12"><a href="das.html#cb35-12"></a>[<span class="dv">6</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
+<span id="cb35-13"><a href="das.html#cb35-13"></a>[<span class="dv">7</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span>
+<span id="cb35-14"><a href="das.html#cb35-14"></a>[<span class="dv">8</span>] <span class="st">&quot;016W.073111 011920 N21:51.12 W159:46.36    5            120  6.0&quot;</span></span>
+<span id="cb35-15"><a href="das.html#cb35-15"></a></span>
+<span id="cb35-16"><a href="das.html#cb35-16"></a><span class="co"># After</span></span>
+<span id="cb35-17"><a href="das.html#cb35-17"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
+<span id="cb35-18"><a href="das.html#cb35-18"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>HICEASwinter2020.das</span>
+<span id="cb35-19"><a href="das.html#cb35-19"></a><span class="op">---</span><span class="st"> </span>move, copy<span class="op">/</span>paste, insertion, and deletion events ...</span>
+<span id="cb35-20"><a href="das.html#cb35-20"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
+<span id="cb35-21"><a href="das.html#cb35-21"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
+<span id="cb35-22"><a href="das.html#cb35-22"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
+<span id="cb35-23"><a href="das.html#cb35-23"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
+<span id="cb35-24"><a href="das.html#cb35-24"></a>[<span class="dv">3</span>] <span class="st">&quot;SEQ* HHMMSS MMDDYY NDG:MI.NT WDEG:MI.NT&quot;</span>                         </span>
+<span id="cb35-25"><a href="das.html#cb35-25"></a>[<span class="dv">4</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
+<span id="cb35-26"><a href="das.html#cb35-26"></a>[<span class="dv">5</span>] <span class="st">&quot;012R.073111 011920 N21:51.12 W159:46.36    F&quot;</span>                    </span>
+<span id="cb35-27"><a href="das.html#cb35-27"></a>[<span class="dv">6</span>] <span class="st">&quot;013P.073111 011920 N21:51.12 W159:46.36  126  307  238     &quot;</span>     </span>
+<span id="cb35-28"><a href="das.html#cb35-28"></a>[<span class="dv">7</span>] <span class="st">&quot;014V.073111 011920 N21:51.12 W159:46.36    4   06  120      15.0&quot;</span></span>
+<span id="cb35-29"><a href="das.html#cb35-29"></a>[<span class="dv">8</span>] <span class="st">&quot;015N.073111 011920 N21:51.12 W159:46.36  350 09.9&quot;</span>               </span></code></pre></div>
 </div>
 <div id="deleting-data" class="section level4 unnumbered hasAnchor">
 <h4>Deleting data<a href="das.html#deleting-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The specified <code>rows</code> will be deleted.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="das.html#cb34-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
-<span id="cb34-2"><a href="das.html#cb34-2"></a>                   <span class="dt">type =</span> <span class="st">&#39;delete&#39;</span>,</span>
-<span id="cb34-3"><a href="das.html#cb34-3"></a>                   <span class="dt">rows =</span> <span class="dv">10</span>))</span>
-<span id="cb34-4"><a href="das.html#cb34-4"></a></span>
-<span id="cb34-5"><a href="das.html#cb34-5"></a><span class="co"># Before</span></span>
-<span id="cb34-6"><a href="das.html#cb34-6"></a>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
-<span id="cb34-7"><a href="das.html#cb34-7"></a></span>
-<span id="cb34-8"><a href="das.html#cb34-8"></a><span class="co"># After</span></span>
-<span id="cb34-9"><a href="das.html#cb34-9"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
-<span id="cb34-10"><a href="das.html#cb34-10"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="das.html#cb36-1"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
+<span id="cb36-2"><a href="das.html#cb36-2"></a>                   <span class="dt">type =</span> <span class="st">&#39;delete&#39;</span>,</span>
+<span id="cb36-3"><a href="das.html#cb36-3"></a>                   <span class="dt">rows =</span> <span class="dv">10</span>))</span>
+<span id="cb36-4"><a href="das.html#cb36-4"></a></span>
+<span id="cb36-5"><a href="das.html#cb36-5"></a><span class="co"># Before</span></span>
+<span id="cb36-6"><a href="das.html#cb36-6"></a>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span>
+<span id="cb36-7"><a href="das.html#cb36-7"></a></span>
+<span id="cb36-8"><a href="das.html#cb36-8"></a><span class="co"># After</span></span>
+<span id="cb36-9"><a href="das.html#cb36-9"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(edits)</span>
+<span id="cb36-10"><a href="das.html#cb36-10"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">9</span><span class="op">:</span><span class="dv">16</span>]</span></code></pre></div>
 </div>
 </div>
 <div id="actual-edits" class="section level3 unnumbered hasAnchor">
 <h3>Actual edits<a href="das.html#actual-edits" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The above examples were silly demonstrations of the types of edits that can be handled by <code>das_editor()</code>. Here we show the preparation of four edits that we will actually use when we process surveys on the next page.</p>
 <p>These edits will be applied to the following <code>DAS</code> file of survey data from 1986-2020:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="das.html#cb35-1"></a>das_file &lt;-<span class="st"> &#39;data/surveys/CenPac1986-2020_Final_alb.das&#39;</span></span>
-<span id="cb35-2"><a href="das.html#cb35-2"></a>das &lt;-<span class="st"> </span><span class="kw">das_readtext</span>(das_file)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="das.html#cb37-1"></a>das_file &lt;-<span class="st"> &#39;data/surveys/CenPac1986-2020_Final_alb.das&#39;</span></span>
+<span id="cb37-2"><a href="das.html#cb37-2"></a>das &lt;-<span class="st"> </span><span class="kw">das_readtext</span>(das_file)</span></code></pre></div>
 <div id="cruise-1607-sighting-55" class="section level4 unnumbered hasAnchor">
 <h4>Cruise 1607 sighting 55<a href="das.html#cruise-1607-sighting-55" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This sighting, at sequence ID <code>032</code> below, currently triggers errors in <code>swfscDAS</code> due to a manually entered <code>R</code> event a few lines above that does not have the <code>P</code> (observer positions) event that typically follows it. Without tht <code>P</code> entry, the observer positions of the sighting are unknown.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="das.html#cb36-1"></a>das[<span class="dv">128111</span><span class="op">:</span><span class="dv">128125</span>,] </span>
-<span id="cb36-2"><a href="das.html#cb36-2"></a> [<span class="dv">1</span>] <span class="st">&quot;022P 120643 041597 N37:00.08 W151:55.47  143  091  005&quot;</span>                                   </span>
-<span id="cb36-3"><a href="das.html#cb36-3"></a> [<span class="dv">2</span>] <span class="st">&quot;023C 120643 041597 N37:00.08 W151:55.47 both right and left on 7x and naked eye&quot;</span>          </span>
-<span id="cb36-4"><a href="das.html#cb36-4"></a> [<span class="dv">3</span>] <span class="st">&quot;024N 120643 041597 N37:00.08 W151:55.47  075 08.0&quot;</span>                                        </span>
-<span id="cb36-5"><a href="das.html#cb36-5"></a> [<span class="dv">4</span>] <span class="st">&quot;025W 120643 041597 N37:00.08 W151:55.47    1            310  6.0&quot;</span>                         </span>
-<span id="cb36-6"><a href="das.html#cb36-6"></a> [<span class="dv">5</span>] <span class="st">&quot;026C 120916 041597 N37:00.33 W151:55.18 both right and left on 7x and naked eye&quot;</span>          </span>
-<span id="cb36-7"><a href="das.html#cb36-7"></a> [<span class="dv">6</span>] <span class="st">&quot;027* 121120 041597 N37:00.45 W151:54.85&quot;</span>                                                  </span>
-<span id="cb36-8"><a href="das.html#cb36-8"></a> [<span class="dv">7</span>] <span class="st">&quot;028C 121933 041597 N37:00.75 W151:53.50 both right and left back on 25x&quot;</span>                  </span>
-<span id="cb36-9"><a href="das.html#cb36-9"></a> [<span class="dv">8</span>] <span class="st">&quot;   R.121933 041597 N37:00.75 W151:53.50    S&quot;</span>                                             </span>
-<span id="cb36-10"><a href="das.html#cb36-10"></a> [<span class="dv">9</span>] <span class="st">&quot;029*.122120 041597 N37:00.81 W151:53.22&quot;</span>                                                  </span>
-<span id="cb36-11"><a href="das.html#cb36-11"></a>[<span class="dv">10</span>] <span class="st">&quot;030V.122120 041597 N37:00.81 W151:53.22    4   07  320      21.0&quot;</span>                         </span>
-<span id="cb36-12"><a href="das.html#cb36-12"></a>[<span class="dv">11</span>] <span class="st">&quot;031C.122946 041597 N37:01.12 W151:51.77 wind speed appears lower than bridge speed, 10-15&quot;</span></span>
-<span id="cb36-13"><a href="das.html#cb36-13"></a>[<span class="dv">12</span>] <span class="st">&quot;032S.123023 041597 N37:01.14 W151:51.70  055  005    3    4  058  4.0  0.8&quot;</span>               </span>
-<span id="cb36-14"><a href="das.html#cb36-14"></a>[<span class="dv">13</span>] <span class="st">&quot;033A.123023 041597 N37:01.14 W151:51.70  055         N    N  022&quot;</span>                         </span>
-<span id="cb36-15"><a href="das.html#cb36-15"></a>[<span class="dv">14</span>] <span class="st">&quot;   1                                     005 0002 0002 0002  100&quot;</span>                         </span>
-<span id="cb36-16"><a href="das.html#cb36-16"></a>[<span class="dv">15</span>] <span class="st">&quot;034C.123120 041597 N37:01.17 W151:51.51  remained on effort after sighting&quot;</span>               </span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="das.html#cb38-1"></a>das[<span class="dv">128111</span><span class="op">:</span><span class="dv">128125</span>,] </span>
+<span id="cb38-2"><a href="das.html#cb38-2"></a> [<span class="dv">1</span>] <span class="st">&quot;022P 120643 041597 N37:00.08 W151:55.47  143  091  005&quot;</span>                                   </span>
+<span id="cb38-3"><a href="das.html#cb38-3"></a> [<span class="dv">2</span>] <span class="st">&quot;023C 120643 041597 N37:00.08 W151:55.47 both right and left on 7x and naked eye&quot;</span>          </span>
+<span id="cb38-4"><a href="das.html#cb38-4"></a> [<span class="dv">3</span>] <span class="st">&quot;024N 120643 041597 N37:00.08 W151:55.47  075 08.0&quot;</span>                                        </span>
+<span id="cb38-5"><a href="das.html#cb38-5"></a> [<span class="dv">4</span>] <span class="st">&quot;025W 120643 041597 N37:00.08 W151:55.47    1            310  6.0&quot;</span>                         </span>
+<span id="cb38-6"><a href="das.html#cb38-6"></a> [<span class="dv">5</span>] <span class="st">&quot;026C 120916 041597 N37:00.33 W151:55.18 both right and left on 7x and naked eye&quot;</span>          </span>
+<span id="cb38-7"><a href="das.html#cb38-7"></a> [<span class="dv">6</span>] <span class="st">&quot;027* 121120 041597 N37:00.45 W151:54.85&quot;</span>                                                  </span>
+<span id="cb38-8"><a href="das.html#cb38-8"></a> [<span class="dv">7</span>] <span class="st">&quot;028C 121933 041597 N37:00.75 W151:53.50 both right and left back on 25x&quot;</span>                  </span>
+<span id="cb38-9"><a href="das.html#cb38-9"></a> [<span class="dv">8</span>] <span class="st">&quot;   R.121933 041597 N37:00.75 W151:53.50    S&quot;</span>                                             </span>
+<span id="cb38-10"><a href="das.html#cb38-10"></a> [<span class="dv">9</span>] <span class="st">&quot;029*.122120 041597 N37:00.81 W151:53.22&quot;</span>                                                  </span>
+<span id="cb38-11"><a href="das.html#cb38-11"></a>[<span class="dv">10</span>] <span class="st">&quot;030V.122120 041597 N37:00.81 W151:53.22    4   07  320      21.0&quot;</span>                         </span>
+<span id="cb38-12"><a href="das.html#cb38-12"></a>[<span class="dv">11</span>] <span class="st">&quot;031C.122946 041597 N37:01.12 W151:51.77 wind speed appears lower than bridge speed, 10-15&quot;</span></span>
+<span id="cb38-13"><a href="das.html#cb38-13"></a>[<span class="dv">12</span>] <span class="st">&quot;032S.123023 041597 N37:01.14 W151:51.70  055  005    3    4  058  4.0  0.8&quot;</span>               </span>
+<span id="cb38-14"><a href="das.html#cb38-14"></a>[<span class="dv">13</span>] <span class="st">&quot;033A.123023 041597 N37:01.14 W151:51.70  055         N    N  022&quot;</span>                         </span>
+<span id="cb38-15"><a href="das.html#cb38-15"></a>[<span class="dv">14</span>] <span class="st">&quot;   1                                     005 0002 0002 0002  100&quot;</span>                         </span>
+<span id="cb38-16"><a href="das.html#cb38-16"></a>[<span class="dv">15</span>] <span class="st">&quot;034C.123120 041597 N37:01.17 W151:51.51  remained on effort after sighting&quot;</span>               </span></code></pre></div>
 <p>(Note that we used <code>das_inspector()</code> to get the row numbers for this region of the data.)</p>
 <p>To fix this, we can stage an edit that copies the “P” line that occurs minutes earlier and pastes that line just below the rogue “R” line.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="das.html#cb37-1"></a>edit_<span class="dv">1607</span>_<span class="dv">55</span> &lt;-<span class="st"> </span></span>
-<span id="cb37-2"><a href="das.html#cb37-2"></a><span class="st">  </span><span class="kw">list</span>(<span class="dt">das_file =</span> das_file,</span>
-<span id="cb37-3"><a href="das.html#cb37-3"></a>       <span class="dt">type =</span> <span class="st">&#39;copy&#39;</span>,</span>
-<span id="cb37-4"><a href="das.html#cb37-4"></a>       <span class="dt">rows =</span> <span class="dv">128111</span>,</span>
-<span id="cb37-5"><a href="das.html#cb37-5"></a>       <span class="dt">chars =</span> <span class="ot">NULL</span>,</span>
-<span id="cb37-6"><a href="das.html#cb37-6"></a>       <span class="dt">edit =</span> <span class="dv">128118</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="das.html#cb39-1"></a>edit_<span class="dv">1607</span>_<span class="dv">55</span> &lt;-<span class="st"> </span></span>
+<span id="cb39-2"><a href="das.html#cb39-2"></a><span class="st">  </span><span class="kw">list</span>(<span class="dt">das_file =</span> das_file,</span>
+<span id="cb39-3"><a href="das.html#cb39-3"></a>       <span class="dt">type =</span> <span class="st">&#39;copy&#39;</span>,</span>
+<span id="cb39-4"><a href="das.html#cb39-4"></a>       <span class="dt">rows =</span> <span class="dv">128111</span>,</span>
+<span id="cb39-5"><a href="das.html#cb39-5"></a>       <span class="dt">chars =</span> <span class="ot">NULL</span>,</span>
+<span id="cb39-6"><a href="das.html#cb39-6"></a>       <span class="dt">edit =</span> <span class="dv">128118</span>)</span></code></pre></div>
 <p>Here is what this change will look like:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="das.html#cb38-1"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(<span class="kw">list</span>(edit_<span class="dv">1607</span>_<span class="dv">55</span>))</span>
-<span id="cb38-2"><a href="das.html#cb38-2"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>CenPac1986<span class="dv">-2020</span>_Final_alb.das</span>
-<span id="cb38-3"><a href="das.html#cb38-3"></a><span class="op">---</span><span class="st"> </span>move, copy<span class="op">/</span>paste, insertion, and deletion events ...</span>
-<span id="cb38-4"><a href="das.html#cb38-4"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
-<span id="cb38-5"><a href="das.html#cb38-5"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">128111</span><span class="op">:</span><span class="dv">128123</span>]</span>
-<span id="cb38-6"><a href="das.html#cb38-6"></a> [<span class="dv">1</span>] <span class="st">&quot;022P 120643 041597 N37:00.08 W151:55.47  143  091  005&quot;</span>                                   </span>
-<span id="cb38-7"><a href="das.html#cb38-7"></a> [<span class="dv">2</span>] <span class="st">&quot;023C 120643 041597 N37:00.08 W151:55.47 both right and left on 7x and naked eye&quot;</span>          </span>
-<span id="cb38-8"><a href="das.html#cb38-8"></a> [<span class="dv">3</span>] <span class="st">&quot;024N 120643 041597 N37:00.08 W151:55.47  075 08.0&quot;</span>                                        </span>
-<span id="cb38-9"><a href="das.html#cb38-9"></a> [<span class="dv">4</span>] <span class="st">&quot;025W 120643 041597 N37:00.08 W151:55.47    1            310  6.0&quot;</span>                         </span>
-<span id="cb38-10"><a href="das.html#cb38-10"></a> [<span class="dv">5</span>] <span class="st">&quot;026C 120916 041597 N37:00.33 W151:55.18 both right and left on 7x and naked eye&quot;</span>          </span>
-<span id="cb38-11"><a href="das.html#cb38-11"></a> [<span class="dv">6</span>] <span class="st">&quot;027* 121120 041597 N37:00.45 W151:54.85&quot;</span>                                                  </span>
-<span id="cb38-12"><a href="das.html#cb38-12"></a> [<span class="dv">7</span>] <span class="st">&quot;028C 121933 041597 N37:00.75 W151:53.50 both right and left back on 25x&quot;</span>                  </span>
-<span id="cb38-13"><a href="das.html#cb38-13"></a> [<span class="dv">8</span>] <span class="st">&quot;   R.121933 041597 N37:00.75 W151:53.50    S&quot;</span>                                             </span>
-<span id="cb38-14"><a href="das.html#cb38-14"></a> [<span class="dv">9</span>] <span class="st">&quot;022P 121933 041597 N37:00.75 W151:53.50  143  091  005&quot;</span>                                   </span>
-<span id="cb38-15"><a href="das.html#cb38-15"></a>[<span class="dv">10</span>] <span class="st">&quot;029*.122120 041597 N37:00.81 W151:53.22&quot;</span>                                                  </span>
-<span id="cb38-16"><a href="das.html#cb38-16"></a>[<span class="dv">11</span>] <span class="st">&quot;030V.122120 041597 N37:00.81 W151:53.22    4   07  320      21.0&quot;</span>                         </span>
-<span id="cb38-17"><a href="das.html#cb38-17"></a>[<span class="dv">12</span>] <span class="st">&quot;031C.122946 041597 N37:01.12 W151:51.77 wind speed appears lower than bridge speed, 10-15&quot;</span></span>
-<span id="cb38-18"><a href="das.html#cb38-18"></a>[<span class="dv">13</span>] <span class="st">&quot;032S.123023 041597 N37:01.14 W151:51.70  055  005    3    4  058  4.0  0.8&quot;</span>               </span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="das.html#cb40-1"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(<span class="kw">list</span>(edit_<span class="dv">1607</span>_<span class="dv">55</span>))</span>
+<span id="cb40-2"><a href="das.html#cb40-2"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>CenPac1986<span class="dv">-2020</span>_Final_alb.das</span>
+<span id="cb40-3"><a href="das.html#cb40-3"></a><span class="op">---</span><span class="st"> </span>move, copy<span class="op">/</span>paste, insertion, and deletion events ...</span>
+<span id="cb40-4"><a href="das.html#cb40-4"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
+<span id="cb40-5"><a href="das.html#cb40-5"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">128111</span><span class="op">:</span><span class="dv">128123</span>]</span>
+<span id="cb40-6"><a href="das.html#cb40-6"></a> [<span class="dv">1</span>] <span class="st">&quot;022P 120643 041597 N37:00.08 W151:55.47  143  091  005&quot;</span>                                   </span>
+<span id="cb40-7"><a href="das.html#cb40-7"></a> [<span class="dv">2</span>] <span class="st">&quot;023C 120643 041597 N37:00.08 W151:55.47 both right and left on 7x and naked eye&quot;</span>          </span>
+<span id="cb40-8"><a href="das.html#cb40-8"></a> [<span class="dv">3</span>] <span class="st">&quot;024N 120643 041597 N37:00.08 W151:55.47  075 08.0&quot;</span>                                        </span>
+<span id="cb40-9"><a href="das.html#cb40-9"></a> [<span class="dv">4</span>] <span class="st">&quot;025W 120643 041597 N37:00.08 W151:55.47    1            310  6.0&quot;</span>                         </span>
+<span id="cb40-10"><a href="das.html#cb40-10"></a> [<span class="dv">5</span>] <span class="st">&quot;026C 120916 041597 N37:00.33 W151:55.18 both right and left on 7x and naked eye&quot;</span>          </span>
+<span id="cb40-11"><a href="das.html#cb40-11"></a> [<span class="dv">6</span>] <span class="st">&quot;027* 121120 041597 N37:00.45 W151:54.85&quot;</span>                                                  </span>
+<span id="cb40-12"><a href="das.html#cb40-12"></a> [<span class="dv">7</span>] <span class="st">&quot;028C 121933 041597 N37:00.75 W151:53.50 both right and left back on 25x&quot;</span>                  </span>
+<span id="cb40-13"><a href="das.html#cb40-13"></a> [<span class="dv">8</span>] <span class="st">&quot;   R.121933 041597 N37:00.75 W151:53.50    S&quot;</span>                                             </span>
+<span id="cb40-14"><a href="das.html#cb40-14"></a> [<span class="dv">9</span>] <span class="st">&quot;022P 121933 041597 N37:00.75 W151:53.50  143  091  005&quot;</span>                                   </span>
+<span id="cb40-15"><a href="das.html#cb40-15"></a>[<span class="dv">10</span>] <span class="st">&quot;029*.122120 041597 N37:00.81 W151:53.22&quot;</span>                                                  </span>
+<span id="cb40-16"><a href="das.html#cb40-16"></a>[<span class="dv">11</span>] <span class="st">&quot;030V.122120 041597 N37:00.81 W151:53.22    4   07  320      21.0&quot;</span>                         </span>
+<span id="cb40-17"><a href="das.html#cb40-17"></a>[<span class="dv">12</span>] <span class="st">&quot;031C.122946 041597 N37:01.12 W151:51.77 wind speed appears lower than bridge speed, 10-15&quot;</span></span>
+<span id="cb40-18"><a href="das.html#cb40-18"></a>[<span class="dv">13</span>] <span class="st">&quot;032S.123023 041597 N37:01.14 W151:51.70  055  005    3    4  058  4.0  0.8&quot;</span>               </span></code></pre></div>
 </div>
 <div id="cruise-1607-sighting-68" class="section level4 unnumbered hasAnchor">
 <h4>Cruise 1607 sighting 68<a href="das.html#cruise-1607-sighting-68" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This sighting faces a similar issue: a rogue <code>R</code> event without the follow-up <code>P</code> event. This case is also missing the follow-up <code>V</code> event (viewing conditions).</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="das.html#cb39-1"></a>das[<span class="dv">129980</span><span class="op">:</span><span class="dv">129993</span>,] </span>
-<span id="cb39-2"><a href="das.html#cb39-2"></a> [<span class="dv">1</span>] <span class="st">&quot;012* 065738 042797 N31:03.98 W136:03.60&quot;</span>                                                              </span>
-<span id="cb39-3"><a href="das.html#cb39-3"></a> [<span class="dv">2</span>] <span class="st">&quot;013C 065944 042797 N31:04.25 W136:03.55 Both observers on 7X since going ON EFFORT this morning.  JP.&quot;</span></span>
-<span id="cb39-4"><a href="das.html#cb39-4"></a> [<span class="dv">3</span>] <span class="st">&quot;014P 070118 042797 N31:04.43 W136:03.51  091  005  148&quot;</span>                                               </span>
-<span id="cb39-5"><a href="das.html#cb39-5"></a> [<span class="dv">4</span>] <span class="st">&quot;015V 070118 042797 N31:04.43 W136:03.51    5   06  320      20.0&quot;</span>                                     </span>
-<span id="cb39-6"><a href="das.html#cb39-6"></a> [<span class="dv">5</span>] <span class="st">&quot;016N 070118 042797 N31:04.43 W136:03.51  010 08.0&quot;</span>                                                    </span>
-<span id="cb39-7"><a href="das.html#cb39-7"></a> [<span class="dv">6</span>] <span class="st">&quot;017W 070118 042797 N31:04.43 W136:03.51    1   02   03  035  6.0&quot;</span>                                     </span>
-<span id="cb39-8"><a href="das.html#cb39-8"></a> [<span class="dv">7</span>] <span class="st">&quot;018C 070257 042797 N31:04.65 W136:03.47 This rotation is now on the 25X&quot;</span>                              </span>
-<span id="cb39-9"><a href="das.html#cb39-9"></a> [<span class="dv">8</span>] <span class="st">&quot;   R.070257 042797 N31:04.65 W136:03.47    S&quot;</span>                                                         </span>
-<span id="cb39-10"><a href="das.html#cb39-10"></a> [<span class="dv">9</span>] <span class="st">&quot;019*.070738 042797 N31:05.25 W136:03.36&quot;</span>                                                              </span>
-<span id="cb39-11"><a href="das.html#cb39-11"></a>[<span class="dv">10</span>] <span class="st">&quot;020S.071601 042797 N31:06.34 W136:03.16  068  148    3    4  028  1.8  1.5&quot;</span>                           </span>
-<span id="cb39-12"><a href="das.html#cb39-12"></a>[<span class="dv">11</span>] <span class="st">&quot;021A.071601 042797 N31:06.34 W136:03.16  068         N    N  037&quot;</span>                                     </span>
-<span id="cb39-13"><a href="das.html#cb39-13"></a>[<span class="dv">12</span>] <span class="st">&quot;   1                                     091 0009 0011 0008  100&quot;</span>                                     </span>
-<span id="cb39-14"><a href="das.html#cb39-14"></a>[<span class="dv">13</span>] <span class="st">&quot;   2                                     005 0014 0015 0012  100&quot;</span>                                     </span>
-<span id="cb39-15"><a href="das.html#cb39-15"></a>[<span class="dv">14</span>] <span class="st">&quot;   3                                     148 0018 0023 0015  100&quot;</span>                                     </span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="das.html#cb41-1"></a>das[<span class="dv">129980</span><span class="op">:</span><span class="dv">129993</span>,] </span>
+<span id="cb41-2"><a href="das.html#cb41-2"></a> [<span class="dv">1</span>] <span class="st">&quot;012* 065738 042797 N31:03.98 W136:03.60&quot;</span>                                                              </span>
+<span id="cb41-3"><a href="das.html#cb41-3"></a> [<span class="dv">2</span>] <span class="st">&quot;013C 065944 042797 N31:04.25 W136:03.55 Both observers on 7X since going ON EFFORT this morning.  JP.&quot;</span></span>
+<span id="cb41-4"><a href="das.html#cb41-4"></a> [<span class="dv">3</span>] <span class="st">&quot;014P 070118 042797 N31:04.43 W136:03.51  091  005  148&quot;</span>                                               </span>
+<span id="cb41-5"><a href="das.html#cb41-5"></a> [<span class="dv">4</span>] <span class="st">&quot;015V 070118 042797 N31:04.43 W136:03.51    5   06  320      20.0&quot;</span>                                     </span>
+<span id="cb41-6"><a href="das.html#cb41-6"></a> [<span class="dv">5</span>] <span class="st">&quot;016N 070118 042797 N31:04.43 W136:03.51  010 08.0&quot;</span>                                                    </span>
+<span id="cb41-7"><a href="das.html#cb41-7"></a> [<span class="dv">6</span>] <span class="st">&quot;017W 070118 042797 N31:04.43 W136:03.51    1   02   03  035  6.0&quot;</span>                                     </span>
+<span id="cb41-8"><a href="das.html#cb41-8"></a> [<span class="dv">7</span>] <span class="st">&quot;018C 070257 042797 N31:04.65 W136:03.47 This rotation is now on the 25X&quot;</span>                              </span>
+<span id="cb41-9"><a href="das.html#cb41-9"></a> [<span class="dv">8</span>] <span class="st">&quot;   R.070257 042797 N31:04.65 W136:03.47    S&quot;</span>                                                         </span>
+<span id="cb41-10"><a href="das.html#cb41-10"></a> [<span class="dv">9</span>] <span class="st">&quot;019*.070738 042797 N31:05.25 W136:03.36&quot;</span>                                                              </span>
+<span id="cb41-11"><a href="das.html#cb41-11"></a>[<span class="dv">10</span>] <span class="st">&quot;020S.071601 042797 N31:06.34 W136:03.16  068  148    3    4  028  1.8  1.5&quot;</span>                           </span>
+<span id="cb41-12"><a href="das.html#cb41-12"></a>[<span class="dv">11</span>] <span class="st">&quot;021A.071601 042797 N31:06.34 W136:03.16  068         N    N  037&quot;</span>                                     </span>
+<span id="cb41-13"><a href="das.html#cb41-13"></a>[<span class="dv">12</span>] <span class="st">&quot;   1                                     091 0009 0011 0008  100&quot;</span>                                     </span>
+<span id="cb41-14"><a href="das.html#cb41-14"></a>[<span class="dv">13</span>] <span class="st">&quot;   2                                     005 0014 0015 0012  100&quot;</span>                                     </span>
+<span id="cb41-15"><a href="das.html#cb41-15"></a>[<span class="dv">14</span>] <span class="st">&quot;   3                                     148 0018 0023 0015  100&quot;</span>                                     </span></code></pre></div>
 <p>To fix this we will stage a similar edit, this time copying and pasting two rows (<code>P</code> and <code>V</code> events) below the rogue <code>R</code> event:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="das.html#cb40-1"></a>edit_<span class="dv">1607</span>_<span class="dv">68</span> &lt;-<span class="st"> </span></span>
-<span id="cb40-2"><a href="das.html#cb40-2"></a><span class="st">  </span><span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
-<span id="cb40-3"><a href="das.html#cb40-3"></a>       <span class="dt">type =</span> <span class="st">&#39;copy&#39;</span>,</span>
-<span id="cb40-4"><a href="das.html#cb40-4"></a>       <span class="dt">rows =</span> <span class="kw">c</span>(<span class="dv">129982</span>, <span class="dv">129983</span> , <span class="dv">129985</span>),</span>
-<span id="cb40-5"><a href="das.html#cb40-5"></a>       <span class="dt">chars =</span> <span class="ot">NULL</span>,</span>
-<span id="cb40-6"><a href="das.html#cb40-6"></a>       <span class="dt">edit =</span> <span class="dv">129987</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="das.html#cb42-1"></a>edit_<span class="dv">1607</span>_<span class="dv">68</span> &lt;-<span class="st"> </span></span>
+<span id="cb42-2"><a href="das.html#cb42-2"></a><span class="st">  </span><span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
+<span id="cb42-3"><a href="das.html#cb42-3"></a>       <span class="dt">type =</span> <span class="st">&#39;copy&#39;</span>,</span>
+<span id="cb42-4"><a href="das.html#cb42-4"></a>       <span class="dt">rows =</span> <span class="kw">c</span>(<span class="dv">129982</span>, <span class="dv">129983</span> , <span class="dv">129985</span>),</span>
+<span id="cb42-5"><a href="das.html#cb42-5"></a>       <span class="dt">chars =</span> <span class="ot">NULL</span>,</span>
+<span id="cb42-6"><a href="das.html#cb42-6"></a>       <span class="dt">edit =</span> <span class="dv">129987</span>)</span></code></pre></div>
 <p>Preview of change:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="das.html#cb41-1"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(<span class="kw">list</span>(edit_<span class="dv">1607</span>_<span class="dv">68</span>))</span>
-<span id="cb41-2"><a href="das.html#cb41-2"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>CenPac1986<span class="dv">-2020</span>_Final_alb.das</span>
-<span id="cb41-3"><a href="das.html#cb41-3"></a><span class="op">---</span><span class="st"> </span>move, copy<span class="op">/</span>paste, insertion, and deletion events ...</span>
-<span id="cb41-4"><a href="das.html#cb41-4"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
-<span id="cb41-5"><a href="das.html#cb41-5"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">129982</span><span class="op">:</span><span class="dv">129995</span>]</span>
-<span id="cb41-6"><a href="das.html#cb41-6"></a> [<span class="dv">1</span>] <span class="st">&quot;014P 070118 042797 N31:04.43 W136:03.51  091  005  148&quot;</span>                    </span>
-<span id="cb41-7"><a href="das.html#cb41-7"></a> [<span class="dv">2</span>] <span class="st">&quot;015V 070118 042797 N31:04.43 W136:03.51    5   06  320      20.0&quot;</span>          </span>
-<span id="cb41-8"><a href="das.html#cb41-8"></a> [<span class="dv">3</span>] <span class="st">&quot;016N 070118 042797 N31:04.43 W136:03.51  010 08.0&quot;</span>                         </span>
-<span id="cb41-9"><a href="das.html#cb41-9"></a> [<span class="dv">4</span>] <span class="st">&quot;017W 070118 042797 N31:04.43 W136:03.51    1   02   03  035  6.0&quot;</span>          </span>
-<span id="cb41-10"><a href="das.html#cb41-10"></a> [<span class="dv">5</span>] <span class="st">&quot;018C 070257 042797 N31:04.65 W136:03.47 This rotation is now on the 25X&quot;</span>   </span>
-<span id="cb41-11"><a href="das.html#cb41-11"></a> [<span class="dv">6</span>] <span class="st">&quot;   R.070257 042797 N31:04.65 W136:03.47    S&quot;</span>                              </span>
-<span id="cb41-12"><a href="das.html#cb41-12"></a> [<span class="dv">7</span>] <span class="st">&quot;014P 070257 042797 N31:04.65 W136:03.47  091  005  148&quot;</span>                    </span>
-<span id="cb41-13"><a href="das.html#cb41-13"></a> [<span class="dv">8</span>] <span class="st">&quot;015V 070257 042797 N31:04.65 W136:03.47    5   06  320      20.0&quot;</span>          </span>
-<span id="cb41-14"><a href="das.html#cb41-14"></a> [<span class="dv">9</span>] <span class="st">&quot;017W 070257 042797 N31:04.65 W136:03.47    1   02   03  035  6.0&quot;</span>          </span>
-<span id="cb41-15"><a href="das.html#cb41-15"></a>[<span class="dv">10</span>] <span class="st">&quot;019*.070738 042797 N31:05.25 W136:03.36&quot;</span>                                   </span>
-<span id="cb41-16"><a href="das.html#cb41-16"></a>[<span class="dv">11</span>] <span class="st">&quot;020S.071601 042797 N31:06.34 W136:03.16  068  148    3    4  028  1.8  1.5&quot;</span></span>
-<span id="cb41-17"><a href="das.html#cb41-17"></a>[<span class="dv">12</span>] <span class="st">&quot;021A.071601 042797 N31:06.34 W136:03.16  068         N    N  037&quot;</span>          </span>
-<span id="cb41-18"><a href="das.html#cb41-18"></a>[<span class="dv">13</span>] <span class="st">&quot;   1                                     091 0009 0011 0008  100&quot;</span>          </span>
-<span id="cb41-19"><a href="das.html#cb41-19"></a>[<span class="dv">14</span>] <span class="st">&quot;   2                                     005 0014 0015 0012  100&quot;</span>          </span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="das.html#cb43-1"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(<span class="kw">list</span>(edit_<span class="dv">1607</span>_<span class="dv">68</span>))</span>
+<span id="cb43-2"><a href="das.html#cb43-2"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>CenPac1986<span class="dv">-2020</span>_Final_alb.das</span>
+<span id="cb43-3"><a href="das.html#cb43-3"></a><span class="op">---</span><span class="st"> </span>move, copy<span class="op">/</span>paste, insertion, and deletion events ...</span>
+<span id="cb43-4"><a href="das.html#cb43-4"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
+<span id="cb43-5"><a href="das.html#cb43-5"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">129982</span><span class="op">:</span><span class="dv">129995</span>]</span>
+<span id="cb43-6"><a href="das.html#cb43-6"></a> [<span class="dv">1</span>] <span class="st">&quot;014P 070118 042797 N31:04.43 W136:03.51  091  005  148&quot;</span>                    </span>
+<span id="cb43-7"><a href="das.html#cb43-7"></a> [<span class="dv">2</span>] <span class="st">&quot;015V 070118 042797 N31:04.43 W136:03.51    5   06  320      20.0&quot;</span>          </span>
+<span id="cb43-8"><a href="das.html#cb43-8"></a> [<span class="dv">3</span>] <span class="st">&quot;016N 070118 042797 N31:04.43 W136:03.51  010 08.0&quot;</span>                         </span>
+<span id="cb43-9"><a href="das.html#cb43-9"></a> [<span class="dv">4</span>] <span class="st">&quot;017W 070118 042797 N31:04.43 W136:03.51    1   02   03  035  6.0&quot;</span>          </span>
+<span id="cb43-10"><a href="das.html#cb43-10"></a> [<span class="dv">5</span>] <span class="st">&quot;018C 070257 042797 N31:04.65 W136:03.47 This rotation is now on the 25X&quot;</span>   </span>
+<span id="cb43-11"><a href="das.html#cb43-11"></a> [<span class="dv">6</span>] <span class="st">&quot;   R.070257 042797 N31:04.65 W136:03.47    S&quot;</span>                              </span>
+<span id="cb43-12"><a href="das.html#cb43-12"></a> [<span class="dv">7</span>] <span class="st">&quot;014P 070257 042797 N31:04.65 W136:03.47  091  005  148&quot;</span>                    </span>
+<span id="cb43-13"><a href="das.html#cb43-13"></a> [<span class="dv">8</span>] <span class="st">&quot;015V 070257 042797 N31:04.65 W136:03.47    5   06  320      20.0&quot;</span>          </span>
+<span id="cb43-14"><a href="das.html#cb43-14"></a> [<span class="dv">9</span>] <span class="st">&quot;017W 070257 042797 N31:04.65 W136:03.47    1   02   03  035  6.0&quot;</span>          </span>
+<span id="cb43-15"><a href="das.html#cb43-15"></a>[<span class="dv">10</span>] <span class="st">&quot;019*.070738 042797 N31:05.25 W136:03.36&quot;</span>                                   </span>
+<span id="cb43-16"><a href="das.html#cb43-16"></a>[<span class="dv">11</span>] <span class="st">&quot;020S.071601 042797 N31:06.34 W136:03.16  068  148    3    4  028  1.8  1.5&quot;</span></span>
+<span id="cb43-17"><a href="das.html#cb43-17"></a>[<span class="dv">12</span>] <span class="st">&quot;021A.071601 042797 N31:06.34 W136:03.16  068         N    N  037&quot;</span>          </span>
+<span id="cb43-18"><a href="das.html#cb43-18"></a>[<span class="dv">13</span>] <span class="st">&quot;   1                                     091 0009 0011 0008  100&quot;</span>          </span>
+<span id="cb43-19"><a href="das.html#cb43-19"></a>[<span class="dv">14</span>] <span class="st">&quot;   2                                     005 0014 0015 0012  100&quot;</span>          </span></code></pre></div>
 </div>
 <div id="cruise-1621-sighting-245" class="section level4 unnumbered hasAnchor">
 <h4>Cruise 1621 sighting 245<a href="das.html#cruise-1621-sighting-245" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This is another case of a rogue <code>R</code> event, again missing both the requisite <code>P</code> and the <code>V</code> post-<code>R</code> events.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="das.html#cb42-1"></a>das[<span class="dv">271930</span><span class="op">:</span><span class="dv">271939</span>,] </span>
-<span id="cb42-2"><a href="das.html#cb42-2"></a> [<span class="dv">1</span>] <span class="st">&quot;036E 085345 103002 N20:22.56 W160:02.21    U&quot;</span>                                        </span>
-<span id="cb42-3"><a href="das.html#cb42-3"></a> [<span class="dv">2</span>] <span class="st">&quot;037R.085346 103002 N20:22.56 W160:02.21    S&quot;</span>                                        </span>
-<span id="cb42-4"><a href="das.html#cb42-4"></a> [<span class="dv">3</span>] <span class="st">&quot;038P.085346 103002 N20:22.56 W160:02.21  126  224  200&quot;</span>                              </span>
-<span id="cb42-5"><a href="das.html#cb42-5"></a> [<span class="dv">4</span>] <span class="st">&quot;039V.085346 103002 N20:22.56 W160:02.21    5   07  000      21.0&quot;</span>                    </span>
-<span id="cb42-6"><a href="das.html#cb42-6"></a> [<span class="dv">5</span>] <span class="st">&quot;040N.085346 103002 N20:22.56 W160:02.21  285 09.7&quot;</span>                                   </span>
-<span id="cb42-7"><a href="das.html#cb42-7"></a> [<span class="dv">6</span>] <span class="st">&quot;041W.085346 103002 N20:22.56 W160:02.21    1   06   02  045  6.0&quot;</span>                    </span>
-<span id="cb42-8"><a href="das.html#cb42-8"></a> [<span class="dv">7</span>] <span class="st">&quot;042E 085352 103002 N20:22.56 W160:02.22    U&quot;</span>                                        </span>
-<span id="cb42-9"><a href="das.html#cb42-9"></a> [<span class="dv">8</span>] <span class="st">&quot;043R.085354 103002 N20:22.57 W160:02.23    S&quot;</span>                                        </span>
-<span id="cb42-10"><a href="das.html#cb42-10"></a> [<span class="dv">9</span>] <span class="st">&quot;048S.085359 103002 N20:22.57 W160:02.24  245  200    3    4  057 11.0 0.35  270  2.0&quot;</span></span>
-<span id="cb42-11"><a href="das.html#cb42-11"></a>[<span class="dv">10</span>] <span class="st">&quot;049A.085359 103002 N20:22.57 W160:02.24  245         N    N  015&quot;</span>                    </span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="das.html#cb44-1"></a>das[<span class="dv">271930</span><span class="op">:</span><span class="dv">271939</span>,] </span>
+<span id="cb44-2"><a href="das.html#cb44-2"></a> [<span class="dv">1</span>] <span class="st">&quot;036E 085345 103002 N20:22.56 W160:02.21    U&quot;</span>                                        </span>
+<span id="cb44-3"><a href="das.html#cb44-3"></a> [<span class="dv">2</span>] <span class="st">&quot;037R.085346 103002 N20:22.56 W160:02.21    S&quot;</span>                                        </span>
+<span id="cb44-4"><a href="das.html#cb44-4"></a> [<span class="dv">3</span>] <span class="st">&quot;038P.085346 103002 N20:22.56 W160:02.21  126  224  200&quot;</span>                              </span>
+<span id="cb44-5"><a href="das.html#cb44-5"></a> [<span class="dv">4</span>] <span class="st">&quot;039V.085346 103002 N20:22.56 W160:02.21    5   07  000      21.0&quot;</span>                    </span>
+<span id="cb44-6"><a href="das.html#cb44-6"></a> [<span class="dv">5</span>] <span class="st">&quot;040N.085346 103002 N20:22.56 W160:02.21  285 09.7&quot;</span>                                   </span>
+<span id="cb44-7"><a href="das.html#cb44-7"></a> [<span class="dv">6</span>] <span class="st">&quot;041W.085346 103002 N20:22.56 W160:02.21    1   06   02  045  6.0&quot;</span>                    </span>
+<span id="cb44-8"><a href="das.html#cb44-8"></a> [<span class="dv">7</span>] <span class="st">&quot;042E 085352 103002 N20:22.56 W160:02.22    U&quot;</span>                                        </span>
+<span id="cb44-9"><a href="das.html#cb44-9"></a> [<span class="dv">8</span>] <span class="st">&quot;043R.085354 103002 N20:22.57 W160:02.23    S&quot;</span>                                        </span>
+<span id="cb44-10"><a href="das.html#cb44-10"></a> [<span class="dv">9</span>] <span class="st">&quot;048S.085359 103002 N20:22.57 W160:02.24  245  200    3    4  057 11.0 0.35  270  2.0&quot;</span></span>
+<span id="cb44-11"><a href="das.html#cb44-11"></a>[<span class="dv">10</span>] <span class="st">&quot;049A.085359 103002 N20:22.57 W160:02.24  245         N    N  015&quot;</span>                    </span></code></pre></div>
 <p>Staged edit:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="das.html#cb43-1"></a>edit_<span class="dv">1621</span>_<span class="dv">245</span> &lt;-<span class="st"> </span></span>
-<span id="cb43-2"><a href="das.html#cb43-2"></a><span class="st">  </span><span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
-<span id="cb43-3"><a href="das.html#cb43-3"></a>       <span class="dt">type =</span> <span class="st">&#39;copy&#39;</span>,</span>
-<span id="cb43-4"><a href="das.html#cb43-4"></a>       <span class="dt">rows =</span> <span class="dv">271932</span><span class="op">:</span><span class="dv">271933</span>,</span>
-<span id="cb43-5"><a href="das.html#cb43-5"></a>       <span class="dt">chars =</span> <span class="ot">NULL</span>,</span>
-<span id="cb43-6"><a href="das.html#cb43-6"></a>       <span class="dt">edit =</span> <span class="dv">271937</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="das.html#cb45-1"></a>edit_<span class="dv">1621</span>_<span class="dv">245</span> &lt;-<span class="st"> </span></span>
+<span id="cb45-2"><a href="das.html#cb45-2"></a><span class="st">  </span><span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
+<span id="cb45-3"><a href="das.html#cb45-3"></a>       <span class="dt">type =</span> <span class="st">&#39;copy&#39;</span>,</span>
+<span id="cb45-4"><a href="das.html#cb45-4"></a>       <span class="dt">rows =</span> <span class="dv">271932</span><span class="op">:</span><span class="dv">271933</span>,</span>
+<span id="cb45-5"><a href="das.html#cb45-5"></a>       <span class="dt">chars =</span> <span class="ot">NULL</span>,</span>
+<span id="cb45-6"><a href="das.html#cb45-6"></a>       <span class="dt">edit =</span> <span class="dv">271937</span>)</span></code></pre></div>
 <p>Preview of change:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="das.html#cb44-1"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(<span class="kw">list</span>(edit_<span class="dv">1621</span>_<span class="dv">245</span>))</span>
-<span id="cb44-2"><a href="das.html#cb44-2"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>CenPac1986<span class="dv">-2020</span>_Final_alb.das</span>
-<span id="cb44-3"><a href="das.html#cb44-3"></a><span class="op">---</span><span class="st"> </span>move, copy<span class="op">/</span>paste, insertion, and deletion events ...</span>
-<span id="cb44-4"><a href="das.html#cb44-4"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
-<span id="cb44-5"><a href="das.html#cb44-5"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">271930</span><span class="op">:</span><span class="dv">271941</span>]</span>
-<span id="cb44-6"><a href="das.html#cb44-6"></a> [<span class="dv">1</span>] <span class="st">&quot;036E 085345 103002 N20:22.56 W160:02.21    U&quot;</span>                                        </span>
-<span id="cb44-7"><a href="das.html#cb44-7"></a> [<span class="dv">2</span>] <span class="st">&quot;037R.085346 103002 N20:22.56 W160:02.21    S&quot;</span>                                        </span>
-<span id="cb44-8"><a href="das.html#cb44-8"></a> [<span class="dv">3</span>] <span class="st">&quot;038P.085346 103002 N20:22.56 W160:02.21  126  224  200&quot;</span>                              </span>
-<span id="cb44-9"><a href="das.html#cb44-9"></a> [<span class="dv">4</span>] <span class="st">&quot;039V.085346 103002 N20:22.56 W160:02.21    5   07  000      21.0&quot;</span>                    </span>
-<span id="cb44-10"><a href="das.html#cb44-10"></a> [<span class="dv">5</span>] <span class="st">&quot;040N.085346 103002 N20:22.56 W160:02.21  285 09.7&quot;</span>                                   </span>
-<span id="cb44-11"><a href="das.html#cb44-11"></a> [<span class="dv">6</span>] <span class="st">&quot;041W.085346 103002 N20:22.56 W160:02.21    1   06   02  045  6.0&quot;</span>                    </span>
-<span id="cb44-12"><a href="das.html#cb44-12"></a> [<span class="dv">7</span>] <span class="st">&quot;042E 085352 103002 N20:22.56 W160:02.22    U&quot;</span>                                        </span>
-<span id="cb44-13"><a href="das.html#cb44-13"></a> [<span class="dv">8</span>] <span class="st">&quot;043R.085354 103002 N20:22.57 W160:02.23    S&quot;</span>                                        </span>
-<span id="cb44-14"><a href="das.html#cb44-14"></a> [<span class="dv">9</span>] <span class="st">&quot;038P.085354 103002 N20:22.57 W160:02.23  126  224  200&quot;</span>                              </span>
-<span id="cb44-15"><a href="das.html#cb44-15"></a>[<span class="dv">10</span>] <span class="st">&quot;039V.085354 103002 N20:22.57 W160:02.23    5   07  000      21.0&quot;</span>                    </span>
-<span id="cb44-16"><a href="das.html#cb44-16"></a>[<span class="dv">11</span>] <span class="st">&quot;048S.085359 103002 N20:22.57 W160:02.24  245  200    3    4  057 11.0 0.35  270  2.0&quot;</span></span>
-<span id="cb44-17"><a href="das.html#cb44-17"></a>[<span class="dv">12</span>] <span class="st">&quot;049A.085359 103002 N20:22.57 W160:02.24  245         N    N  015&quot;</span>                    </span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="das.html#cb46-1"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(<span class="kw">list</span>(edit_<span class="dv">1621</span>_<span class="dv">245</span>))</span>
+<span id="cb46-2"><a href="das.html#cb46-2"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>CenPac1986<span class="dv">-2020</span>_Final_alb.das</span>
+<span id="cb46-3"><a href="das.html#cb46-3"></a><span class="op">---</span><span class="st"> </span>move, copy<span class="op">/</span>paste, insertion, and deletion events ...</span>
+<span id="cb46-4"><a href="das.html#cb46-4"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
+<span id="cb46-5"><a href="das.html#cb46-5"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">271930</span><span class="op">:</span><span class="dv">271941</span>]</span>
+<span id="cb46-6"><a href="das.html#cb46-6"></a> [<span class="dv">1</span>] <span class="st">&quot;036E 085345 103002 N20:22.56 W160:02.21    U&quot;</span>                                        </span>
+<span id="cb46-7"><a href="das.html#cb46-7"></a> [<span class="dv">2</span>] <span class="st">&quot;037R.085346 103002 N20:22.56 W160:02.21    S&quot;</span>                                        </span>
+<span id="cb46-8"><a href="das.html#cb46-8"></a> [<span class="dv">3</span>] <span class="st">&quot;038P.085346 103002 N20:22.56 W160:02.21  126  224  200&quot;</span>                              </span>
+<span id="cb46-9"><a href="das.html#cb46-9"></a> [<span class="dv">4</span>] <span class="st">&quot;039V.085346 103002 N20:22.56 W160:02.21    5   07  000      21.0&quot;</span>                    </span>
+<span id="cb46-10"><a href="das.html#cb46-10"></a> [<span class="dv">5</span>] <span class="st">&quot;040N.085346 103002 N20:22.56 W160:02.21  285 09.7&quot;</span>                                   </span>
+<span id="cb46-11"><a href="das.html#cb46-11"></a> [<span class="dv">6</span>] <span class="st">&quot;041W.085346 103002 N20:22.56 W160:02.21    1   06   02  045  6.0&quot;</span>                    </span>
+<span id="cb46-12"><a href="das.html#cb46-12"></a> [<span class="dv">7</span>] <span class="st">&quot;042E 085352 103002 N20:22.56 W160:02.22    U&quot;</span>                                        </span>
+<span id="cb46-13"><a href="das.html#cb46-13"></a> [<span class="dv">8</span>] <span class="st">&quot;043R.085354 103002 N20:22.57 W160:02.23    S&quot;</span>                                        </span>
+<span id="cb46-14"><a href="das.html#cb46-14"></a> [<span class="dv">9</span>] <span class="st">&quot;038P.085354 103002 N20:22.57 W160:02.23  126  224  200&quot;</span>                              </span>
+<span id="cb46-15"><a href="das.html#cb46-15"></a>[<span class="dv">10</span>] <span class="st">&quot;039V.085354 103002 N20:22.57 W160:02.23    5   07  000      21.0&quot;</span>                    </span>
+<span id="cb46-16"><a href="das.html#cb46-16"></a>[<span class="dv">11</span>] <span class="st">&quot;048S.085359 103002 N20:22.57 W160:02.24  245  200    3    4  057 11.0 0.35  270  2.0&quot;</span></span>
+<span id="cb46-17"><a href="das.html#cb46-17"></a>[<span class="dv">12</span>] <span class="st">&quot;049A.085359 103002 N20:22.57 W160:02.24  245         N    N  015&quot;</span>                    </span></code></pre></div>
 </div>
 <div id="timestamp-issues-with-cruise-1004" class="section level4 unnumbered hasAnchor">
 <h4>Timestamp issues with Cruise 1004<a href="das.html#timestamp-issues-with-cruise-1004" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This edit will correct for the fact that all of Cruise 1004 was conducted using UTC timestamps instead of local timestamps.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="das.html#cb45-1"></a>edit_<span class="dv">1004</span>_utc &lt;-<span class="st"> </span></span>
-<span id="cb45-2"><a href="das.html#cb45-2"></a><span class="st">  </span><span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
-<span id="cb45-3"><a href="das.html#cb45-3"></a>       <span class="dt">type =</span> <span class="st">&#39;function&#39;</span>,</span>
-<span id="cb45-4"><a href="das.html#cb45-4"></a>       <span class="dt">rows =</span> <span class="dv">433327</span><span class="op">:</span><span class="dv">437666</span>, </span>
-<span id="cb45-5"><a href="das.html#cb45-5"></a>       <span class="dt">chars =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">39</span>, </span>
-<span id="cb45-6"><a href="das.html#cb45-6"></a>       <span class="dt">edit =</span> <span class="st">&#39;function(x){das_time(x, tz_adjust = &quot;from utc&quot;)$dt}&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="das.html#cb46-1"></a><span class="co"># Before</span></span>
-<span id="cb46-2"><a href="das.html#cb46-2"></a>das<span class="op">$</span>das[<span class="dv">433326</span><span class="op">:</span><span class="dv">433330</span>] <span class="co"># bginning of cruise</span></span>
-<span id="cb46-3"><a href="das.html#cb46-3"></a>[<span class="dv">1</span>] <span class="st">&quot;229* 181728 020510 N13:14.49 E145:00.34&quot;</span></span>
-<span id="cb46-4"><a href="das.html#cb46-4"></a>[<span class="dv">2</span>] <span class="st">&quot;001* 201109 041910 N13:35.01 E145:59.35&quot;</span></span>
-<span id="cb46-5"><a href="das.html#cb46-5"></a>[<span class="dv">3</span>] <span class="st">&quot;002* 201309 041910 N13:35.03 E145:59.42&quot;</span></span>
-<span id="cb46-6"><a href="das.html#cb46-6"></a>[<span class="dv">4</span>] <span class="st">&quot;003* 201509 041910 N13:35.08 E145:59.54&quot;</span></span>
-<span id="cb46-7"><a href="das.html#cb46-7"></a>[<span class="dv">5</span>] <span class="st">&quot;004* 201709 041910 N13:35.13 E145:59.70&quot;</span></span>
-<span id="cb46-8"><a href="das.html#cb46-8"></a>das<span class="op">$</span>das[<span class="dv">437664</span><span class="op">:</span><span class="dv">437667</span>] <span class="co"># end of cruise</span></span>
-<span id="cb46-9"><a href="das.html#cb46-9"></a>[<span class="dv">1</span>] <span class="st">&quot;431* 044625 050410 N21:15.78 W158:53.32&quot;</span></span>
-<span id="cb46-10"><a href="das.html#cb46-10"></a>[<span class="dv">2</span>] <span class="st">&quot;432* 044825 050410 N21:16.05 W158:53.31&quot;</span></span>
-<span id="cb46-11"><a href="das.html#cb46-11"></a>[<span class="dv">3</span>] <span class="st">&quot;001* 144327 080410 N32:39.39 W117:13.60&quot;</span></span>
-<span id="cb46-12"><a href="das.html#cb46-12"></a>[<span class="dv">4</span>] <span class="st">&quot;002* 144827 080410 N32:38.58 W117:13.49&quot;</span></span></code></pre></div>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="das.html#cb47-1"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(<span class="kw">list</span>(edit_<span class="dv">1004</span>_utc))</span></code></pre></div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="das.html#cb48-1"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">433326</span><span class="op">:</span><span class="dv">433330</span>]</span>
-<span id="cb48-2"><a href="das.html#cb48-2"></a>[<span class="dv">1</span>] <span class="st">&quot;229* 181728 020510 N13:14.49 E145:00.34&quot;</span></span>
-<span id="cb48-3"><a href="das.html#cb48-3"></a>[<span class="dv">2</span>] <span class="st">&quot;001* 061109 042010 N13:35.01 E145:59.35&quot;</span></span>
-<span id="cb48-4"><a href="das.html#cb48-4"></a>[<span class="dv">3</span>] <span class="st">&quot;002* 061309 042010 N13:35.03 E145:59.42&quot;</span></span>
-<span id="cb48-5"><a href="das.html#cb48-5"></a>[<span class="dv">4</span>] <span class="st">&quot;003* 061509 042010 N13:35.08 E145:59.54&quot;</span></span>
-<span id="cb48-6"><a href="das.html#cb48-6"></a>[<span class="dv">5</span>] <span class="st">&quot;004* 061709 042010 N13:35.13 E145:59.70&quot;</span></span>
-<span id="cb48-7"><a href="das.html#cb48-7"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">437664</span><span class="op">:</span><span class="dv">437667</span>]</span>
-<span id="cb48-8"><a href="das.html#cb48-8"></a>[<span class="dv">1</span>] <span class="st">&quot;431* 184625 050310 N21:15.78 W158:53.32&quot;</span></span>
-<span id="cb48-9"><a href="das.html#cb48-9"></a>[<span class="dv">2</span>] <span class="st">&quot;432* 184825 050310 N21:16.05 W158:53.31&quot;</span></span>
-<span id="cb48-10"><a href="das.html#cb48-10"></a>[<span class="dv">3</span>] <span class="st">&quot;001* 074327 080410 N32:39.39 W117:13.60&quot;</span></span>
-<span id="cb48-11"><a href="das.html#cb48-11"></a>[<span class="dv">4</span>] <span class="st">&quot;002* 144827 080410 N32:38.58 W117:13.49&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="das.html#cb47-1"></a>edit_<span class="dv">1004</span>_utc &lt;-<span class="st"> </span></span>
+<span id="cb47-2"><a href="das.html#cb47-2"></a><span class="st">  </span><span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
+<span id="cb47-3"><a href="das.html#cb47-3"></a>       <span class="dt">type =</span> <span class="st">&#39;function&#39;</span>,</span>
+<span id="cb47-4"><a href="das.html#cb47-4"></a>       <span class="dt">rows =</span> <span class="dv">433327</span><span class="op">:</span><span class="dv">437666</span>, </span>
+<span id="cb47-5"><a href="das.html#cb47-5"></a>       <span class="dt">chars =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">39</span>, </span>
+<span id="cb47-6"><a href="das.html#cb47-6"></a>       <span class="dt">edit =</span> <span class="st">&#39;function(x){das_time(x, tz_adjust = &quot;from utc&quot;)$dt}&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="das.html#cb48-1"></a><span class="co"># Before</span></span>
+<span id="cb48-2"><a href="das.html#cb48-2"></a>das<span class="op">$</span>das[<span class="dv">433326</span><span class="op">:</span><span class="dv">433330</span>] <span class="co"># bginning of cruise</span></span>
+<span id="cb48-3"><a href="das.html#cb48-3"></a>[<span class="dv">1</span>] <span class="st">&quot;229* 181728 020510 N13:14.49 E145:00.34&quot;</span></span>
+<span id="cb48-4"><a href="das.html#cb48-4"></a>[<span class="dv">2</span>] <span class="st">&quot;001* 201109 041910 N13:35.01 E145:59.35&quot;</span></span>
+<span id="cb48-5"><a href="das.html#cb48-5"></a>[<span class="dv">3</span>] <span class="st">&quot;002* 201309 041910 N13:35.03 E145:59.42&quot;</span></span>
+<span id="cb48-6"><a href="das.html#cb48-6"></a>[<span class="dv">4</span>] <span class="st">&quot;003* 201509 041910 N13:35.08 E145:59.54&quot;</span></span>
+<span id="cb48-7"><a href="das.html#cb48-7"></a>[<span class="dv">5</span>] <span class="st">&quot;004* 201709 041910 N13:35.13 E145:59.70&quot;</span></span>
+<span id="cb48-8"><a href="das.html#cb48-8"></a>das<span class="op">$</span>das[<span class="dv">437664</span><span class="op">:</span><span class="dv">437667</span>] <span class="co"># end of cruise</span></span>
+<span id="cb48-9"><a href="das.html#cb48-9"></a>[<span class="dv">1</span>] <span class="st">&quot;431* 044625 050410 N21:15.78 W158:53.32&quot;</span></span>
+<span id="cb48-10"><a href="das.html#cb48-10"></a>[<span class="dv">2</span>] <span class="st">&quot;432* 044825 050410 N21:16.05 W158:53.31&quot;</span></span>
+<span id="cb48-11"><a href="das.html#cb48-11"></a>[<span class="dv">3</span>] <span class="st">&quot;001* 144327 080410 N32:39.39 W117:13.60&quot;</span></span>
+<span id="cb48-12"><a href="das.html#cb48-12"></a>[<span class="dv">4</span>] <span class="st">&quot;002* 144827 080410 N32:38.58 W117:13.49&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="das.html#cb49-1"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(<span class="kw">list</span>(edit_<span class="dv">1004</span>_utc))</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="das.html#cb50-1"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">433326</span><span class="op">:</span><span class="dv">433330</span>]</span>
+<span id="cb50-2"><a href="das.html#cb50-2"></a>[<span class="dv">1</span>] <span class="st">&quot;229* 181728 020510 N13:14.49 E145:00.34&quot;</span></span>
+<span id="cb50-3"><a href="das.html#cb50-3"></a>[<span class="dv">2</span>] <span class="st">&quot;001* 061109 042010 N13:35.01 E145:59.35&quot;</span></span>
+<span id="cb50-4"><a href="das.html#cb50-4"></a>[<span class="dv">3</span>] <span class="st">&quot;002* 061309 042010 N13:35.03 E145:59.42&quot;</span></span>
+<span id="cb50-5"><a href="das.html#cb50-5"></a>[<span class="dv">4</span>] <span class="st">&quot;003* 061509 042010 N13:35.08 E145:59.54&quot;</span></span>
+<span id="cb50-6"><a href="das.html#cb50-6"></a>[<span class="dv">5</span>] <span class="st">&quot;004* 061709 042010 N13:35.13 E145:59.70&quot;</span></span>
+<span id="cb50-7"><a href="das.html#cb50-7"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">437664</span><span class="op">:</span><span class="dv">437667</span>]</span>
+<span id="cb50-8"><a href="das.html#cb50-8"></a>[<span class="dv">1</span>] <span class="st">&quot;431* 184625 050310 N21:15.78 W158:53.32&quot;</span></span>
+<span id="cb50-9"><a href="das.html#cb50-9"></a>[<span class="dv">2</span>] <span class="st">&quot;432* 184825 050310 N21:16.05 W158:53.31&quot;</span></span>
+<span id="cb50-10"><a href="das.html#cb50-10"></a>[<span class="dv">3</span>] <span class="st">&quot;001* 074327 080410 N32:39.39 W117:13.60&quot;</span></span>
+<span id="cb50-11"><a href="das.html#cb50-11"></a>[<span class="dv">4</span>] <span class="st">&quot;002* 144827 080410 N32:38.58 W117:13.49&quot;</span></span></code></pre></div>
 <p>Note that this type of edit can be dangerous, however, since ships can cross time zone boundaries mid-day, potentially repeating timestamps and giving the appearance that the <code>DAS</code> data is out of chronological order, which may bring about consequences for data processing that are difficult to predict.</p>
 <p>This type of edit is also time-consuming; since the time zone needs to be calculated in each <code>DAS</code> row individually, this edit could take &gt;20 minutes to process. An expedited (and safer) approximation of this edit would be to simply adjust the timezone by the GMT offset for Guam (UTC + 10 hours).</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="das.html#cb49-1"></a>edit_<span class="dv">1004</span>_gmt10 &lt;-<span class="st"> </span></span>
-<span id="cb49-2"><a href="das.html#cb49-2"></a><span class="st">  </span><span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
-<span id="cb49-3"><a href="das.html#cb49-3"></a>       <span class="dt">type =</span> <span class="st">&#39;function&#39;</span>,</span>
-<span id="cb49-4"><a href="das.html#cb49-4"></a>       <span class="dt">rows =</span> <span class="dv">433327</span><span class="op">:</span><span class="dv">437665</span>, </span>
-<span id="cb49-5"><a href="das.html#cb49-5"></a>       <span class="dt">chars =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">39</span>, </span>
-<span id="cb49-6"><a href="das.html#cb49-6"></a>       <span class="dt">edit =</span> <span class="st">&#39;function(x){das_time(x, tz_adjust = 10)$dt}&#39;</span>)</span>
-<span id="cb49-7"><a href="das.html#cb49-7"></a></span>
-<span id="cb49-8"><a href="das.html#cb49-8"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(<span class="kw">list</span>(edit_<span class="dv">1004</span>_gmt10))</span>
-<span id="cb49-9"><a href="das.html#cb49-9"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>CenPac1986<span class="dv">-2020</span>_Final_alb.das</span>
-<span id="cb49-10"><a href="das.html#cb49-10"></a><span class="op">---</span><span class="st"> </span>verbatim<span class="op">/</span><span class="cf">function</span> text replacements ...</span>
-<span id="cb49-11"><a href="das.html#cb49-11"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
-<span id="cb49-12"><a href="das.html#cb49-12"></a></span>
-<span id="cb49-13"><a href="das.html#cb49-13"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">433326</span><span class="op">:</span><span class="dv">433330</span>]</span>
-<span id="cb49-14"><a href="das.html#cb49-14"></a>[<span class="dv">1</span>] <span class="st">&quot;229* 181728 020510 N13:14.49 E145:00.34&quot;</span></span>
-<span id="cb49-15"><a href="das.html#cb49-15"></a>[<span class="dv">2</span>] <span class="st">&quot;001* 061109 042010 N13:35.01 E145:59.35&quot;</span></span>
-<span id="cb49-16"><a href="das.html#cb49-16"></a>[<span class="dv">3</span>] <span class="st">&quot;002* 061309 042010 N13:35.03 E145:59.42&quot;</span></span>
-<span id="cb49-17"><a href="das.html#cb49-17"></a>[<span class="dv">4</span>] <span class="st">&quot;003* 061509 042010 N13:35.08 E145:59.54&quot;</span></span>
-<span id="cb49-18"><a href="das.html#cb49-18"></a>[<span class="dv">5</span>] <span class="st">&quot;004* 061709 042010 N13:35.13 E145:59.70&quot;</span></span>
-<span id="cb49-19"><a href="das.html#cb49-19"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">437664</span><span class="op">:</span><span class="dv">437667</span>]</span>
-<span id="cb49-20"><a href="das.html#cb49-20"></a>[<span class="dv">1</span>] <span class="st">&quot;431* 144625 050410 N21:15.78 W158:53.32&quot;</span></span>
-<span id="cb49-21"><a href="das.html#cb49-21"></a>[<span class="dv">2</span>] <span class="st">&quot;432* 144825 050410 N21:16.05 W158:53.31&quot;</span></span>
-<span id="cb49-22"><a href="das.html#cb49-22"></a>[<span class="dv">3</span>] <span class="st">&quot;001* 144327 080410 N32:39.39 W117:13.60&quot;</span></span>
-<span id="cb49-23"><a href="das.html#cb49-23"></a>[<span class="dv">4</span>] <span class="st">&quot;002* 144827 080410 N32:38.58 W117:13.49&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="das.html#cb51-1"></a>edit_<span class="dv">1004</span>_gmt10 &lt;-<span class="st"> </span></span>
+<span id="cb51-2"><a href="das.html#cb51-2"></a><span class="st">  </span><span class="kw">list</span>(<span class="dt">das_file =</span> das_file, </span>
+<span id="cb51-3"><a href="das.html#cb51-3"></a>       <span class="dt">type =</span> <span class="st">&#39;function&#39;</span>,</span>
+<span id="cb51-4"><a href="das.html#cb51-4"></a>       <span class="dt">rows =</span> <span class="dv">433327</span><span class="op">:</span><span class="dv">437665</span>, </span>
+<span id="cb51-5"><a href="das.html#cb51-5"></a>       <span class="dt">chars =</span> <span class="dv">6</span><span class="op">:</span><span class="dv">39</span>, </span>
+<span id="cb51-6"><a href="das.html#cb51-6"></a>       <span class="dt">edit =</span> <span class="st">&#39;function(x){das_time(x, tz_adjust = 10)$dt}&#39;</span>)</span>
+<span id="cb51-7"><a href="das.html#cb51-7"></a></span>
+<span id="cb51-8"><a href="das.html#cb51-8"></a>dase &lt;-<span class="st"> </span><span class="kw">das_editor</span>(<span class="kw">list</span>(edit_<span class="dv">1004</span>_gmt10))</span>
+<span id="cb51-9"><a href="das.html#cb51-9"></a>Applying edits to DAS file<span class="op">:</span><span class="st"> </span>data<span class="op">/</span>surveys<span class="op">/</span>CenPac1986<span class="dv">-2020</span>_Final_alb.das</span>
+<span id="cb51-10"><a href="das.html#cb51-10"></a><span class="op">---</span><span class="st"> </span>verbatim<span class="op">/</span><span class="cf">function</span> text replacements ...</span>
+<span id="cb51-11"><a href="das.html#cb51-11"></a><span class="op">---</span><span class="st"> </span><span class="op">---</span><span class="st"> </span>working on edit <span class="dv">1</span> ...</span>
+<span id="cb51-12"><a href="das.html#cb51-12"></a></span>
+<span id="cb51-13"><a href="das.html#cb51-13"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">433326</span><span class="op">:</span><span class="dv">433330</span>]</span>
+<span id="cb51-14"><a href="das.html#cb51-14"></a>[<span class="dv">1</span>] <span class="st">&quot;229* 181728 020510 N13:14.49 E145:00.34&quot;</span></span>
+<span id="cb51-15"><a href="das.html#cb51-15"></a>[<span class="dv">2</span>] <span class="st">&quot;001* 061109 042010 N13:35.01 E145:59.35&quot;</span></span>
+<span id="cb51-16"><a href="das.html#cb51-16"></a>[<span class="dv">3</span>] <span class="st">&quot;002* 061309 042010 N13:35.03 E145:59.42&quot;</span></span>
+<span id="cb51-17"><a href="das.html#cb51-17"></a>[<span class="dv">4</span>] <span class="st">&quot;003* 061509 042010 N13:35.08 E145:59.54&quot;</span></span>
+<span id="cb51-18"><a href="das.html#cb51-18"></a>[<span class="dv">5</span>] <span class="st">&quot;004* 061709 042010 N13:35.13 E145:59.70&quot;</span></span>
+<span id="cb51-19"><a href="das.html#cb51-19"></a>dase<span class="op">$</span>das[[<span class="dv">1</span>]]<span class="op">$</span>das<span class="op">$</span>das[<span class="dv">437664</span><span class="op">:</span><span class="dv">437667</span>]</span>
+<span id="cb51-20"><a href="das.html#cb51-20"></a>[<span class="dv">1</span>] <span class="st">&quot;431* 144625 050410 N21:15.78 W158:53.32&quot;</span></span>
+<span id="cb51-21"><a href="das.html#cb51-21"></a>[<span class="dv">2</span>] <span class="st">&quot;432* 144825 050410 N21:16.05 W158:53.31&quot;</span></span>
+<span id="cb51-22"><a href="das.html#cb51-22"></a>[<span class="dv">3</span>] <span class="st">&quot;001* 144327 080410 N32:39.39 W117:13.60&quot;</span></span>
+<span id="cb51-23"><a href="das.html#cb51-23"></a>[<span class="dv">4</span>] <span class="st">&quot;002* 144827 080410 N32:38.58 W117:13.49&quot;</span></span></code></pre></div>
 </div>
 <div id="combining-and-saving-edits" class="section level4 unnumbered hasAnchor">
 <h4>Combining and saving edits<a href="das.html#combining-and-saving-edits" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Finally, we will collect these edits into a single <code>list</code> and save them for use during survey processing (next page).</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="das.html#cb50-1"></a><span class="co"># Combine</span></span>
-<span id="cb50-2"><a href="das.html#cb50-2"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(edit_<span class="dv">1607</span>_<span class="dv">55</span>,</span>
-<span id="cb50-3"><a href="das.html#cb50-3"></a>              edit_<span class="dv">1607</span>_<span class="dv">68</span>,</span>
-<span id="cb50-4"><a href="das.html#cb50-4"></a>              edit_<span class="dv">1621</span>_<span class="dv">245</span>,</span>
-<span id="cb50-5"><a href="das.html#cb50-5"></a>              <span class="co">#edit_1004_utc,</span></span>
-<span id="cb50-6"><a href="das.html#cb50-6"></a>              edit_<span class="dv">1004</span>_gmt10)</span>
-<span id="cb50-7"><a href="das.html#cb50-7"></a></span>
-<span id="cb50-8"><a href="das.html#cb50-8"></a><span class="co"># Save</span></span>
-<span id="cb50-9"><a href="das.html#cb50-9"></a><span class="kw">saveRDS</span>(edits,<span class="dt">file=</span><span class="st">&#39;cnp_1986_2020_edits.RData&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="das.html#cb52-1"></a><span class="co"># Combine</span></span>
+<span id="cb52-2"><a href="das.html#cb52-2"></a>edits &lt;-<span class="st"> </span><span class="kw">list</span>(edit_<span class="dv">1607</span>_<span class="dv">55</span>,</span>
+<span id="cb52-3"><a href="das.html#cb52-3"></a>              edit_<span class="dv">1607</span>_<span class="dv">68</span>,</span>
+<span id="cb52-4"><a href="das.html#cb52-4"></a>              edit_<span class="dv">1621</span>_<span class="dv">245</span>,</span>
+<span id="cb52-5"><a href="das.html#cb52-5"></a>              <span class="co">#edit_1004_utc,</span></span>
+<span id="cb52-6"><a href="das.html#cb52-6"></a>              edit_<span class="dv">1004</span>_gmt10)</span>
+<span id="cb52-7"><a href="das.html#cb52-7"></a></span>
+<span id="cb52-8"><a href="das.html#cb52-8"></a><span class="co"># Save</span></span>
+<span id="cb52-9"><a href="das.html#cb52-9"></a><span class="kw">saveRDS</span>(edits,<span class="dt">file=</span><span class="st">&#39;cnp_1986_2020_edits.RData&#39;</span>)</span></code></pre></div>
 
 </div>
 </div>

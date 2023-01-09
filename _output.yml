@@ -5,7 +5,7 @@ bookdown::gitbook:
     toc:
       collapse: section
       before: |
-        <li><a href="./">WinCruz analysis</a></li>
+        <li><a href="./">Users's guide for <kbd>LTabundR</kbd></a></li>
       after: |
         <li><a href="https://github.com/emk-noaa/emk-noaa.github.io" target="blank">Eric & Amanda</a></li>
     edit: https://github.com/emk-noaa/emk-noaa.github.io%s

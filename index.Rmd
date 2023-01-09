@@ -31,44 +31,44 @@ options(scipen=999)
 
 # Overview {-} 
 
-The `R` package `LTabundR` offers tools that facilitate and standardize the typical workflow for estimating cetacean abundance from NOAA-NMFS ship surveys in the eastern Pacific.  
+The `R` package `LTabundR` offers tools that facilitate and standardize design-based line-transect abundance estimation of cetaceans, based on typical workflow used following NOAA Fisheries ship surveys in the central and eastern Pacific. 
 
 That workflow typically involves four stages: 
 
 **(1) Data processing**  
 
-- This step involves reading in & processing raw `DAS` files, breaking effort into discrete segments for variance estimation, correcting school size estimates according to calibration models, then averaging together school size estimates for each sighting.  
+- This step involves reading in & processing raw `DAS` files (the files produced by the software Wincruz commonly used during NOAA Fisheries line-transect surveys in the Pacific), breaking effort into discrete segments for variance estimation, correcting school size estimates according to calibration models, and then averaging together school size estimates for each sighting.  
 
-- Most importantly, this step standardizes data structure in a way that all downstream analyses depend upon. The name we will use for this standardized data object is a `cruz` object.
+- Most importantly, this step standardizes the data structure in a way that all downstream analyses depend upon. The name we will use for this standardized data object is a `cruz` object.
 
 - The key `LTabundR` functions you will use in this stage are `load_settings()` and `process_surveys()`. 
 
 
 **(2) Data exploration**
 
-- This step involves summarizing effort and sightings totals, determining the appropriate truncation distances for each species based on their sample size, and producing maps.  
+- This step involves summarizing effort and sightings totals, determining the appropriate truncation distances for each species -- or pool of species -- based on sample sizes, and producing maps.  
 
 - The key functions in this stage are `cruz_explorer()` (a `Shiny` dashboard for data exploration) and the `summarize...`  functions, such as `summarize_species()` and `summarize_effort()`.
 
 
 **(3) Data analysis**
 
-- This step involves estimating Beaufort-specific "Relative" trackline detection probabilities -- i.e., *g(0)* estimates; estimating density/abundance with detection functions and determining the CV of that estimate; handling stratified analyses; and testing for the significance of interannual trends.
+- This step involves estimating Beaufort-specific "relative" trackline detection probabilities -- i.e., *g(0)* estimates; estimating density/abundance with detection functions and determining the CV of that estimate; handling stratified analyses; and testing for the significance of interannual trends.
 
 - The key `LTabundR` functions in this stage are `g0_table()` and `lta()`.  
 
-- Most analyses are group-based analyses, but false killer whales (*Pseudorca crassidens*) are analyzed differently using a subgroup-based approach. For this exception the function `lta_subgroup()` will be used.  
+- Most analyses are group-based analyses, but false killer whales (*Pseudorca crassidens*) are analyzed differently using a subgroup-based approach. For this exception, the function `lta_subgroup()` will be used.  
 
 
 **(4) Reports & plots**
 
-- This step involes produces standardly-formatted results tables of your line-transect estimates; plots the best-fitting detection function model; and plots abundance estimates (and their CV).  
+- This step produces summary tables of the processed data and line-transect estimates; plots the best-fitting detection function model(s); and plots species-specific abundance estimates (and their CV).  
 
 - They key `LTabundR` functions in this stage are `lta_report()`, `df_plot()`, and `lta_plot()`. 
  
 This user's guide is structured around these four workflow stages. Those pages are followed by a set of case studies with full-fledged example code. The guide concludes with appendices that offer further details and minutiae on certain aspects of the package. 
 
-Throughout this user's guide, we will primarily be using example data from recent 2017 & 2020 wintertime surveys in the region of the main Hawaiian Islands. That study area has been referred to "WHICEAS".   
+Throughout this user's guide, we will primarily be using example data from the winter [Hawaiian Islands Cetacean Ecosystem and Assessment Survey (WHICEAS)](https://repository.library.noaa.gov/view/noaa/47788) of 2020, along with the summer-fall HICEAS 2017 data collected within the WHICEAS study area. 
 
 ### Installation {-} 
 
@@ -77,5 +77,5 @@ Once the package is public, install details will go here.
 
 ### Credits {-}  
 
-This `R` package is a consolidation of code developed over many years by many NOAA-NMFS scientists, primarily Jay Barlow, Tim Gerrodette, Jeff Laake, Karin Forney, and Jeff Moore. This package was developed by Eric Keen and Amanda Bradford. 
+This `R` package is a consolidation of code developed over many years by many NOAA Fisheries scientists, primarily Jay Barlow, Tim Gerrodette, Jeff Laake, Karin Forney, Amanda Bradford, and Jeff Moore. This package was developed by Eric Keen and Amanda Bradford with support from the NOAA Fisheries National Protected Species Toolbox Initiative. 
  
