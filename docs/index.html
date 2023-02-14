@@ -292,11 +292,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="overview" class="section level1 unnumbered hasAnchor">
 <h1>Overview<a href="index.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The <code>R</code> package <code>LTabundR</code> offers tools that facilitate and standardize design-based line-transect abundance estimation of cetaceans, based on typical workflow used following NOAA Fisheries ship surveys in the central and eastern Pacific.</p>
+<p>The <code>R</code> package <code>LTabundR</code> offers tools that facilitate and standardize design-based line-transect abundance estimation of cetaceans, based on typical workflow used following NOAA Fisheries ship surveys in the central and eastern Pacific (e.g., <a href="https://www.google.com/url?q=https://onlinelibrary.wiley.com/doi/10.1111/j.1748-7692.2006.00032.x&amp;sa=D&amp;source=docs&amp;ust=1676392605333708&amp;usg=AOvVaw07ERYd9m2kJg0LttBFVyil">Barlow 2006</a>, <a href="https://spo.nmfs.noaa.gov/content/abundance-and-population-density-cetaceans-california-current-ecosystem">Barlow and Forney 2007</a>, <a href="https://spo.nmfs.noaa.gov/content/fishery-bulletin/abundance-estimates-cetaceans-line-transect-survey-within-us-hawaiian">Bradford et al. 2017</a>, <a href="https://repository.library.noaa.gov/view/noaa/29004">Bradford et al. 2021</a>).</p>
 <p>That workflow typically involves four stages:</p>
 <p><strong>(1) Data processing</strong></p>
 <ul>
-<li><p>This step involves reading in &amp; processing raw <code>DAS</code> files (the files produced by the software Wincruz commonly used during NOAA Fisheries line-transect surveys in the Pacific), breaking effort into discrete segments for variance estimation, correcting school size estimates according to calibration models, and then averaging together school size estimates for each sighting.</p></li>
+<li><p>This step involves reading in &amp; processing raw <code>DAS</code> files (the files produced by the software Wincruz commonly used during NOAA Fisheries line-transect surveys in the Pacific), breaking effort into discrete segments for variance estimation, correcting group size estimates according to calibration models, and then averaging together group size estimates for each sighting.</p></li>
 <li><p>Most importantly, this step standardizes the data structure in a way that all downstream analyses depend upon. The name we will use for this standardized data object is a <code>cruz</code> object.</p></li>
 <li><p>The key <code>LTabundR</code> functions you will use in this stage are <code>load_settings()</code> and <code>process_surveys()</code>.</p></li>
 </ul>
@@ -307,7 +307,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p><strong>(3) Data analysis</strong></p>
 <ul>
-<li><p>This step involves estimating Beaufort-specific “relative” trackline detection probabilities – i.e., <em>g(0)</em> estimates; estimating density/abundance with detection functions and determining the CV of that estimate; handling stratified analyses; and testing for the significance of interannual trends.</p></li>
+<li><p>This step involves estimating Beaufort-specific “relative” trackline detection probabilities – i.e., <em>g(0)</em> estimates; estimating density/abundance with detection functions and determining the CV of that estimate; handling stratified analyses; and evaluating if random variation in the encounter rate of a species may be driving differences in abundance estimates over time.</p></li>
 <li><p>The key <code>LTabundR</code> functions in this stage are <code>g0_table()</code> and <code>lta()</code>.</p></li>
 <li><p>Most analyses are group-based analyses, but false killer whales (<em>Pseudorca crassidens</em>) are analyzed differently using a subgroup-based approach. For this exception, the function <code>lta_subgroup()</code> will be used.</p></li>
 </ul>
@@ -324,7 +324,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="credits" class="section level3 unnumbered hasAnchor">
 <h3>Credits<a href="index.html#credits" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>This <code>R</code> package is a consolidation of code developed over many years by many NOAA Fisheries scientists, primarily Jay Barlow, Tim Gerrodette, Jeff Laake, Karin Forney, Amanda Bradford, and Jeff Moore. This package was developed by Eric Keen and Amanda Bradford with support from the NOAA Fisheries National Protected Species Toolbox Initiative.</p>
+<p>This <code>R</code> package is a consolidation of code developed over many years by many NOAA Fisheries scientists, primarily Jay Barlow, Tim Gerrodette, Jeff Laake, Karin Forney, Amanda Bradford, and Jeff Moore. This package was developed by Eric Keen and Amanda Bradford with support from the <a href="https://www.fisheries.noaa.gov/national/population-assessments/national-protected-species-toolbox-initiative">NOAA Fisheries National Protected Species Toolbox Initiative</a>.</p>
 
 </div>
 </div>

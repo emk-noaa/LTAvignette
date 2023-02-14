@@ -31,13 +31,13 @@ options(scipen=999)
 
 # Overview {-} 
 
-The `R` package `LTabundR` offers tools that facilitate and standardize design-based line-transect abundance estimation of cetaceans, based on typical workflow used following NOAA Fisheries ship surveys in the central and eastern Pacific. 
+The `R` package `LTabundR` offers tools that facilitate and standardize design-based line-transect abundance estimation of cetaceans, based on typical workflow used following NOAA Fisheries ship surveys in the central and eastern Pacific (e.g., [Barlow 2006](https://www.google.com/url?q=https://onlinelibrary.wiley.com/doi/10.1111/j.1748-7692.2006.00032.x&sa=D&source=docs&ust=1676392605333708&usg=AOvVaw07ERYd9m2kJg0LttBFVyil), [Barlow and Forney 2007](https://spo.nmfs.noaa.gov/content/abundance-and-population-density-cetaceans-california-current-ecosystem), [Bradford et al. 2017](https://spo.nmfs.noaa.gov/content/fishery-bulletin/abundance-estimates-cetaceans-line-transect-survey-within-us-hawaiian), [Bradford et al. 2021](https://repository.library.noaa.gov/view/noaa/29004)).
 
 That workflow typically involves four stages: 
 
 **(1) Data processing**  
 
-- This step involves reading in & processing raw `DAS` files (the files produced by the software Wincruz commonly used during NOAA Fisheries line-transect surveys in the Pacific), breaking effort into discrete segments for variance estimation, correcting school size estimates according to calibration models, and then averaging together school size estimates for each sighting.  
+- This step involves reading in & processing raw `DAS` files (the files produced by the software Wincruz commonly used during NOAA Fisheries line-transect surveys in the Pacific), breaking effort into discrete segments for variance estimation, correcting group size estimates according to calibration models, and then averaging together group size estimates for each sighting.  
 
 - Most importantly, this step standardizes the data structure in a way that all downstream analyses depend upon. The name we will use for this standardized data object is a `cruz` object.
 
@@ -53,7 +53,7 @@ That workflow typically involves four stages:
 
 **(3) Data analysis**
 
-- This step involves estimating Beaufort-specific "relative" trackline detection probabilities -- i.e., *g(0)* estimates; estimating density/abundance with detection functions and determining the CV of that estimate; handling stratified analyses; and testing for the significance of interannual trends.
+- This step involves estimating Beaufort-specific "relative" trackline detection probabilities -- i.e., *g(0)* estimates; estimating density/abundance with detection functions and determining the CV of that estimate; handling stratified analyses; and evaluating if random variation in the encounter rate of a species may be driving differences in abundance estimates over time.  
 
 - The key `LTabundR` functions in this stage are `g0_table()` and `lta()`.  
 
@@ -77,5 +77,5 @@ Once the package is public, install details will go here.
 
 ### Credits {-}  
 
-This `R` package is a consolidation of code developed over many years by many NOAA Fisheries scientists, primarily Jay Barlow, Tim Gerrodette, Jeff Laake, Karin Forney, Amanda Bradford, and Jeff Moore. This package was developed by Eric Keen and Amanda Bradford with support from the NOAA Fisheries National Protected Species Toolbox Initiative. 
+This `R` package is a consolidation of code developed over many years by many NOAA Fisheries scientists, primarily Jay Barlow, Tim Gerrodette, Jeff Laake, Karin Forney, Amanda Bradford, and Jeff Moore. This package was developed by Eric Keen and Amanda Bradford with support from the [NOAA Fisheries National Protected Species Toolbox Initiative](https://www.fisheries.noaa.gov/national/population-assessments/national-protected-species-toolbox-initiative). 
  

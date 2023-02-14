@@ -29,6 +29,10 @@ Then run this code **every time** you want to reinstall / update the package:
 ```{r, echo=TRUE, eval=FALSE}
 library(devtools)
 github_token <- Sys.getenv("GITHUB_TOKEN")
+
+# If install fails on Windoews 10, this might be useful (uncomment to use):
+# options(download.file.method = "wininet")
+
 devtools::install_github(repo = 'amandalbradford/LTabundR-dev',
                          subdir='LTabundR',
                          auth_token=github_token,

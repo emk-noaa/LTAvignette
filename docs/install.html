@@ -307,11 +307,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Then run this code <strong>every time</strong> you want to reinstall / update the package:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="install.html#cb2-1"></a><span class="kw">library</span>(devtools)</span>
 <span id="cb2-2"><a href="install.html#cb2-2"></a>github_token &lt;-<span class="st"> </span><span class="kw">Sys.getenv</span>(<span class="st">&quot;GITHUB_TOKEN&quot;</span>)</span>
-<span id="cb2-3"><a href="install.html#cb2-3"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="dt">repo =</span> <span class="st">&#39;amandalbradford/LTabundR-dev&#39;</span>,</span>
-<span id="cb2-4"><a href="install.html#cb2-4"></a>                         <span class="dt">subdir=</span><span class="st">&#39;LTabundR&#39;</span>,</span>
-<span id="cb2-5"><a href="install.html#cb2-5"></a>                         <span class="dt">auth_token=</span>github_token,</span>
-<span id="cb2-6"><a href="install.html#cb2-6"></a>                         <span class="dt">force=</span><span class="ot">TRUE</span>)</span>
-<span id="cb2-7"><a href="install.html#cb2-7"></a><span class="kw">library</span>(LTabundR)</span></code></pre></div>
+<span id="cb2-3"><a href="install.html#cb2-3"></a></span>
+<span id="cb2-4"><a href="install.html#cb2-4"></a><span class="co"># If install fails on Windoews 10, this might be useful (uncomment to use):</span></span>
+<span id="cb2-5"><a href="install.html#cb2-5"></a><span class="co"># options(download.file.method = &quot;wininet&quot;)</span></span>
+<span id="cb2-6"><a href="install.html#cb2-6"></a></span>
+<span id="cb2-7"><a href="install.html#cb2-7"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="dt">repo =</span> <span class="st">&#39;amandalbradford/LTabundR-dev&#39;</span>,</span>
+<span id="cb2-8"><a href="install.html#cb2-8"></a>                         <span class="dt">subdir=</span><span class="st">&#39;LTabundR&#39;</span>,</span>
+<span id="cb2-9"><a href="install.html#cb2-9"></a>                         <span class="dt">auth_token=</span>github_token,</span>
+<span id="cb2-10"><a href="install.html#cb2-10"></a>                         <span class="dt">force=</span><span class="ot">TRUE</span>)</span>
+<span id="cb2-11"><a href="install.html#cb2-11"></a><span class="kw">library</span>(LTabundR)</span></code></pre></div>
 </div>
 <div id="option-2-install-locally" class="section level2 unnumbered hasAnchor">
 <h2>Option 2: Install locally<a href="install.html#option-2-install-locally" class="anchor-section" aria-label="Anchor link to header"></a></h2>

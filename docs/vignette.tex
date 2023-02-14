@@ -133,7 +133,7 @@
 \chapter*{Overview}\label{overview}}
 \addcontentsline{toc}{chapter}{Overview}
 
-The \texttt{R} package \texttt{LTabundR} offers tools that facilitate and standardize design-based line-transect abundance estimation of cetaceans, based on typical workflow used following NOAA Fisheries ship surveys in the central and eastern Pacific.
+The \texttt{R} package \texttt{LTabundR} offers tools that facilitate and standardize design-based line-transect abundance estimation of cetaceans, based on typical workflow used following NOAA Fisheries ship surveys in the central and eastern Pacific (e.g., \href{https://www.google.com/url?q=https://onlinelibrary.wiley.com/doi/10.1111/j.1748-7692.2006.00032.x\&sa=D\&source=docs\&ust=1676392605333708\&usg=AOvVaw07ERYd9m2kJg0LttBFVyil}{Barlow 2006}, \href{https://spo.nmfs.noaa.gov/content/abundance-and-population-density-cetaceans-california-current-ecosystem}{Barlow and Forney 2007}, \href{https://spo.nmfs.noaa.gov/content/fishery-bulletin/abundance-estimates-cetaceans-line-transect-survey-within-us-hawaiian}{Bradford et al.~2017}, \href{https://repository.library.noaa.gov/view/noaa/29004}{Bradford et al.~2021}).
 
 That workflow typically involves four stages:
 
@@ -141,7 +141,7 @@ That workflow typically involves four stages:
 
 \begin{itemize}
 \item
-  This step involves reading in \& processing raw \texttt{DAS} files (the files produced by the software Wincruz commonly used during NOAA Fisheries line-transect surveys in the Pacific), breaking effort into discrete segments for variance estimation, correcting school size estimates according to calibration models, and then averaging together school size estimates for each sighting.
+  This step involves reading in \& processing raw \texttt{DAS} files (the files produced by the software Wincruz commonly used during NOAA Fisheries line-transect surveys in the Pacific), breaking effort into discrete segments for variance estimation, correcting group size estimates according to calibration models, and then averaging together group size estimates for each sighting.
 \item
   Most importantly, this step standardizes the data structure in a way that all downstream analyses depend upon. The name we will use for this standardized data object is a \texttt{cruz} object.
 \item
@@ -161,7 +161,7 @@ That workflow typically involves four stages:
 
 \begin{itemize}
 \item
-  This step involves estimating Beaufort-specific ``relative'' trackline detection probabilities -- i.e., \emph{g(0)} estimates; estimating density/abundance with detection functions and determining the CV of that estimate; handling stratified analyses; and testing for the significance of interannual trends.
+  This step involves estimating Beaufort-specific ``relative'' trackline detection probabilities -- i.e., \emph{g(0)} estimates; estimating density/abundance with detection functions and determining the CV of that estimate; handling stratified analyses; and evaluating if random variation in the encounter rate of a species may be driving differences in abundance estimates over time.
 \item
   The key \texttt{LTabundR} functions in this stage are \texttt{g0\_table()} and \texttt{lta()}.
 \item
@@ -191,7 +191,7 @@ Once the package is public, install details will go here.
 \subsection*{Credits}\label{credits}}
 \addcontentsline{toc}{subsection}{Credits}
 
-This \texttt{R} package is a consolidation of code developed over many years by many NOAA Fisheries scientists, primarily Jay Barlow, Tim Gerrodette, Jeff Laake, Karin Forney, Amanda Bradford, and Jeff Moore. This package was developed by Eric Keen and Amanda Bradford with support from the NOAA Fisheries National Protected Species Toolbox Initiative.
+This \texttt{R} package is a consolidation of code developed over many years by many NOAA Fisheries scientists, primarily Jay Barlow, Tim Gerrodette, Jeff Laake, Karin Forney, Amanda Bradford, and Jeff Moore. This package was developed by Eric Keen and Amanda Bradford with support from the \href{https://www.fisheries.noaa.gov/national/population-assessments/national-protected-species-toolbox-initiative}{NOAA Fisheries National Protected Species Toolbox Initiative}.
 
 \hypertarget{part-data-processing}{%
 \part{Data processing}\label{part-data-processing}}
@@ -230,6 +230,10 @@ Then run this code \textbf{every time} you want to reinstall / update the packag
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(devtools)}
 \NormalTok{github_token <-}\StringTok{ }\KeywordTok{Sys.getenv}\NormalTok{(}\StringTok{"GITHUB_TOKEN"}\NormalTok{)}
+
+\CommentTok{# If install fails on Windoews 10, this might be useful (uncomment to use):}
+\CommentTok{# options(download.file.method = "wininet")}
+
 \NormalTok{devtools}\OperatorTok{::}\KeywordTok{install_github}\NormalTok{(}\DataTypeTok{repo =} \StringTok{'amandalbradford/LTabundR-dev'}\NormalTok{,}
                          \DataTypeTok{subdir=}\StringTok{'LTabundR'}\NormalTok{,}
                          \DataTypeTok{auth_token=}\NormalTok{github_token,}
@@ -8779,7 +8783,7 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
 
 \CommentTok{# Number of segments}
 \NormalTok{cruz_demo}\OperatorTok{$}\NormalTok{cohorts}\OperatorTok{$}\NormalTok{default}\OperatorTok{$}\NormalTok{segments }\OperatorTok{%>%}\StringTok{ }\NormalTok{nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1823}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1820}
 
 \CommentTok{# Plot}
 \KeywordTok{segment_histogram}\NormalTok{(cruz_demo, }\DataTypeTok{by_day =} \OtherTok{TRUE}\NormalTok{)}
