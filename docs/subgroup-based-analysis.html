@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title> 12 Subgroup-based analysis | User’s guide for LTabundR</title>
+  <title> 11 Subgroup-based analysis | User’s guide for LTabundR</title>
   <meta name="description" content="vignette" />
-  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content=" 12 Subgroup-based analysis | User’s guide for LTabundR" />
+  <meta property="og:title" content=" 11 Subgroup-based analysis | User’s guide for LTabundR" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="vignette" />
   <meta name="github-repo" content="emk-noaa/emk-noaa.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content=" 12 Subgroup-based analysis | User’s guide for LTabundR" />
+  <meta name="twitter:title" content=" 11 Subgroup-based analysis | User’s guide for LTabundR" />
   
   <meta name="twitter:description" content="vignette" />
   
@@ -47,46 +47,45 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.26/datatables.js"></script>
-<link href="libs/dt-core-1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.12.1/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.12.1/js/jquery.dataTables.min.js"></script>
-<link href="libs/dt-ext-fixedcolumns-1.12.1/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
-<script src="libs/dt-ext-fixedcolumns-1.12.1/js/dataTables.fixedColumns.min.js"></script>
+<script src="libs/datatables-binding-0.28/datatables.js"></script>
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="libs/dt-ext-fixedcolumns-1.13.4/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="libs/dt-ext-fixedcolumns-1.13.4/js/dataTables.fixedColumns.min.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.1.2/leaflet.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -106,13 +105,13 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -125,7 +124,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -139,6 +138,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -156,116 +159,117 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Users's guide for <kbd>LTabundR</kbd></a></li>
 
 <li class="divider"></li>
-<li><a href="index.html#overview">Overview<span></span></a></li>
-<li class="part"><span><b>I Data processing<span></span></b></span></li>
-<li class="chapter" data-level="1" data-path="install.html"><a href="install.html"><i class="fa fa-check"></i><b>1</b> Install <code>LTabundR</code><span></span></a><ul>
-<li><a href="install.html#option-1-install-from-github">Option 1: Install from GitHub<span></span></a></li>
-<li><a href="install.html#option-2-install-locally">Option 2: Install locally<span></span></a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="1" data-path="settings.html"><a href="settings.html"><i class="fa fa-check"></i><b>1</b> Settings</a>
+<ul>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#survey-strata"><i class="fa fa-check"></i>Survey strata</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#survey-wide-settings"><i class="fa fa-check"></i>Survey-wide settings</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#cohort-specific-settings"><i class="fa fa-check"></i>Cohort-specific settings</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#example-code"><i class="fa fa-check"></i>Example code</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="settings.html"><a href="settings.html"><i class="fa fa-check"></i><b>2</b> Settings<span></span></a><ul>
-<li><a href="settings.html#survey-strata">Survey strata<span></span></a></li>
-<li><a href="settings.html#survey-wide-settings">Survey-wide settings<span></span></a></li>
-<li><a href="settings.html#cohort-specific-settings">Cohort-specific settings<span></span></a></li>
-<li><a href="settings.html#example-code">Example code<span></span></a></li>
+<li class="chapter" data-level="2" data-path="das.html"><a href="das.html"><i class="fa fa-check"></i><b>2</b> DAS editing</a>
+<ul>
+<li class="chapter" data-level="" data-path="das.html"><a href="das.html#reviewing-a-das-file"><i class="fa fa-check"></i>Reviewing a <code>DAS</code> file</a></li>
+<li class="chapter" data-level="" data-path="das.html"><a href="das.html#staging-edits"><i class="fa fa-check"></i>Staging edits</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="das.html"><a href="das.html"><i class="fa fa-check"></i><b>3</b> DAS editing<span></span></a><ul>
-<li><a href="das.html#reviewing-a-das-file">Reviewing a <code>DAS</code> file<span></span></a></li>
-<li><a href="das.html#staging-edits">Staging edits<span></span></a></li>
+<li class="chapter" data-level="3" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>3</b> Data processing</a>
+<ul>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#behind-the-scenes"><i class="fa fa-check"></i>Behind the scenes</a></li>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#review"><i class="fa fa-check"></i>Review</a></li>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#validation"><i class="fa fa-check"></i>Validation</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>4</b> Data processing<span></span></a><ul>
-<li><a href="processing.html#behind-the-scenes">Behind the scenes<span></span></a></li>
-<li><a href="processing.html#review">Review<span></span></a></li>
-<li><a href="processing.html#validation">Validation<span></span></a></li>
+<li class="part"><span><b>I Data exploration</b></span></li>
+<li class="chapter" data-level="4" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>4</b> Maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#publishable-maps"><i class="fa fa-check"></i>Publishable maps</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-maps"><i class="fa fa-check"></i>Interactive maps</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-dashboard"><i class="fa fa-check"></i>Interactive dashboard</a></li>
 </ul></li>
-<li class="part"><span><b>II Data exploration<span></span></b></span></li>
-<li class="chapter" data-level="5" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>5</b> Maps<span></span></a><ul>
-<li><a href="maps.html#publishable-maps">Publishable maps<span></span></a></li>
-<li><a href="maps.html#interactive-maps">Interactive maps<span></span></a></li>
-<li><a href="maps.html#interactive-dashboard">Interactive dashboard<span></span></a></li>
+<li class="chapter" data-level="5" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>5</b> Filter &amp; combine surveys</a>
+<ul>
+<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#filter-1"><i class="fa fa-check"></i>Filter</a></li>
+<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#combine"><i class="fa fa-check"></i>Combine</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>6</b> Filter &amp; combine surveys<span></span></a><ul>
-<li><a href="filter.html#filter-1">Filter<span></span></a></li>
-<li><a href="filter.html#combine">Combine<span></span></a></li>
+<li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey</a>
+<ul>
+<li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-effort"><i class="fa fa-check"></i>Summarize effort</a></li>
+<li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-by-beaufort"><i class="fa fa-check"></i>Summarize by Beaufort</a></li>
+<li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-sightings"><i class="fa fa-check"></i>Summarize sightings</a></li>
+<li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-certain-species"><i class="fa fa-check"></i>Summarize certain species</a></li>
+<li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#cruz_explorer"><i class="fa fa-check"></i><code>cruz_explorer()</code></a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>7</b> Summarize survey<span></span></a><ul>
-<li><a href="summarize.html#summarize-effort">Summarize effort<span></span></a></li>
-<li><a href="summarize.html#summarize-by-beaufort">Summarize by Beaufort<span></span></a></li>
-<li><a href="summarize.html#summarize-sightings">Summarize sightings<span></span></a></li>
-<li><a href="summarize.html#summarize-certain-species">Summarize certain species<span></span></a></li>
-<li><a href="summarize.html#cruz_explorer"><code>cruz_explorer()</code><span></span></a></li>
+<li class="part"><span><b>II Data analysis</b></span></li>
+<li class="chapter" data-level="7" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>7</b> Estimating g(0)</a>
+<ul>
+<li class="chapter" data-level="" data-path="g0.html"><a href="g0.html#relative-g0"><i class="fa fa-check"></i>Relative <code>g(0)</code></a></li>
+<li class="chapter" data-level="" data-path="g0.html"><a href="g0.html#weighted-average-g0"><i class="fa fa-check"></i>Weighted average <code>g(0)</code></a></li>
 </ul></li>
-<li class="part"><span><b>III Data analysis<span></span></b></span></li>
-<li class="chapter" data-level="8" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>8</b> Estimating g(0)<span></span></a><ul>
-<li><a href="g0.html#relative-g0">Relative <code>g(0)</code><span></span></a></li>
-<li><a href="g0.html#weighted-average-g0">Weighted average <code>g(0)</code><span></span></a></li>
+<li class="chapter" data-level="8" data-path="lta.html"><a href="lta.html"><i class="fa fa-check"></i><b>8</b> Line-transect analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#key-inputs"><i class="fa fa-check"></i>Key inputs</a></li>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#variance-estimation"><i class="fa fa-check"></i>Variance estimation</a></li>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#other-inputs"><i class="fa fa-check"></i>Other inputs</a></li>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#output"><i class="fa fa-check"></i>Output</a></li>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#unusual-estimate-scenarios"><i class="fa fa-check"></i>Unusual estimate scenarios</a></li>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#behind-the-scenes-1"><i class="fa fa-check"></i>Behind the scenes</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="lta.html"><a href="lta.html"><i class="fa fa-check"></i><b>9</b> Line-transect analysis<span></span></a><ul>
-<li><a href="lta.html#key-inputs">Key inputs<span></span></a></li>
-<li><a href="lta.html#variance-estimation">Variance estimation<span></span></a></li>
-<li><a href="lta.html#other-inputs">Other inputs<span></span></a></li>
-<li><a href="lta.html#output">Output<span></span></a></li>
-<li><a href="lta.html#unusual-estimate-scenarios">Unusual estimate scenarios<span></span></a></li>
-<li><a href="lta.html#behind-the-scenes-1">Behind the scenes<span></span></a></li>
+<li class="chapter" data-level="9" data-path="destratify.html"><a href="destratify.html"><i class="fa fa-check"></i><b>9</b> Stratified analysis</a></li>
+<li class="chapter" data-level="10" data-path="trend-analysis.html"><a href="trend-analysis.html"><i class="fa fa-check"></i><b>10</b> Trend analysis</a></li>
+<li class="chapter" data-level="11" data-path="subgroup-based-analysis.html"><a href="subgroup-based-analysis.html"><i class="fa fa-check"></i><b>11</b> Subgroup-based analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="subgroup-based-analysis.html"><a href="subgroup-based-analysis.html#inputs-1"><i class="fa fa-check"></i>Inputs</a></li>
+<li class="chapter" data-level="" data-path="subgroup-based-analysis.html"><a href="subgroup-based-analysis.html#outputs-1"><i class="fa fa-check"></i>Outputs</a></li>
+<li class="chapter" data-level="" data-path="subgroup-based-analysis.html"><a href="subgroup-based-analysis.html#behind-the-scenes-2"><i class="fa fa-check"></i>Behind the scenes</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="destratify.html"><a href="destratify.html"><i class="fa fa-check"></i><b>10</b> Stratified analysis<span></span></a></li>
-<li class="chapter" data-level="11" data-path="trend-analysis.html"><a href="trend-analysis.html"><i class="fa fa-check"></i><b>11</b> Trend analysis<span></span></a></li>
-<li class="chapter" data-level="12" data-path="subgroup-based-analysis.html"><a href="subgroup-based-analysis.html"><i class="fa fa-check"></i><b>12</b> Subgroup-based analysis<span></span></a><ul>
-<li><a href="subgroup-based-analysis.html#inputs-1">Inputs<span></span></a></li>
-<li><a href="subgroup-based-analysis.html#outputs-1">Outputs<span></span></a></li>
-<li><a href="subgroup-based-analysis.html#behind-the-scenes-2">Behind the scenes<span></span></a></li>
+<li class="part"><span><b>III Results</b></span></li>
+<li class="chapter" data-level="12" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>12</b> Tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="tables.html"><a href="tables.html#summary-tables"><i class="fa fa-check"></i>Summary tables</a></li>
+<li class="chapter" data-level="" data-path="tables.html"><a href="tables.html#appendix-tables"><i class="fa fa-check"></i>Appendix tables</a></li>
 </ul></li>
-<li class="part"><span><b>IV Results<span></span></b></span></li>
-<li class="chapter" data-level="13" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>13</b> Tables<span></span></a><ul>
-<li><a href="tables.html#summary-tables">Summary tables<span></span></a></li>
-<li><a href="tables.html#appendix-tables">Appendix tables<span></span></a></li>
+<li class="chapter" data-level="13" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>13</b> Plots</a>
+<ul>
+<li class="chapter" data-level="" data-path="plots.html"><a href="plots.html#abundance-plots"><i class="fa fa-check"></i>Abundance plots</a></li>
+<li class="chapter" data-level="" data-path="plots.html"><a href="plots.html#detection-function-plots"><i class="fa fa-check"></i>Detection function plots</a></li>
 </ul></li>
-<li class="chapter" data-level="14" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>14</b> Plots<span></span></a><ul>
-<li><a href="plots.html#abundance-plots">Abundance plots<span></span></a></li>
-<li><a href="plots.html#detection-function-plots">Detection function plots<span></span></a></li>
+<li class="part"><span><b>IV Case studies</b></span></li>
+<li class="chapter" data-level="14" data-path="whiceas.html"><a href="whiceas.html"><i class="fa fa-check"></i><b>14</b> WHICEAS</a>
+<ul>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#data-processing"><i class="fa fa-check"></i>Data processing</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#data-exploration"><i class="fa fa-check"></i>Data exploration</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#rg0-1"><i class="fa fa-check"></i>Rg0</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#density-abundance"><i class="fa fa-check"></i>Density &amp; abundance</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#results"><i class="fa fa-check"></i>Results</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#validation-1"><i class="fa fa-check"></i>Validation</a></li>
 </ul></li>
-<li class="part"><span><b>V Case studies<span></span></b></span></li>
-<li class="chapter" data-level="15" data-path="whiceas.html"><a href="whiceas.html"><i class="fa fa-check"></i><b>15</b> WHICEAS<span></span></a><ul>
-<li><a href="whiceas.html#data-processing">Data processing<span></span></a></li>
-<li><a href="whiceas.html#data-exploration">Data exploration<span></span></a></li>
-<li><a href="whiceas.html#rg0-1">Rg0<span></span></a></li>
-<li><a href="whiceas.html#density-abundance">Density &amp; abundance<span></span></a></li>
-<li><a href="whiceas.html#results">Results<span></span></a></li>
-<li><a href="whiceas.html#validation-1">Validation<span></span></a></li>
+<li class="part"><span><b>V Appendix</b></span></li>
+<li class="chapter" data-level="15" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>15</b> Strata gallery</a>
+<ul>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#central-north-pacific"><i class="fa fa-check"></i>Central North Pacific</a></li>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#california-current"><i class="fa fa-check"></i>California Current</a></li>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#etp"><i class="fa fa-check"></i>ETP</a></li>
 </ul></li>
-<li class="chapter" data-level="16" data-path="case_cnp.html"><a href="case_cnp.html"><i class="fa fa-check"></i><b>16</b> Central North Pacific<span></span></a><ul>
-<li><a href="case_cnp.html#data-processing-1">Data processing<span></span></a></li>
-<li><a href="case_cnp.html#data-exploration-1">Data exploration<span></span></a></li>
-<li><a href="case_cnp.html#rg0-2">Rg0<span></span></a></li>
-<li><a href="case_cnp.html#density-abundance-1">Density &amp; abundance<span></span></a></li>
-<li><a href="case_cnp.html#stratified-results">Stratified results<span></span></a></li>
-<li><a href="case_cnp.html#de-stratified-results">De-stratified results<span></span></a></li>
-<li><a href="case_cnp.html#plots-2">Plots<span></span></a></li>
+<li class="chapter" data-level="16" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>16</b> Segmentizing</a>
+<ul>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#approach"><i class="fa fa-check"></i>Approach</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#defaults-2"><i class="fa fa-check"></i>Defaults</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#day-vs-equal-length"><i class="fa fa-check"></i>Day vs Equal Length</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#contiguous-vs.-non-contiguous-effort"><i class="fa fa-check"></i>Contiguous vs. non-contiguous effort</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#segment-remainder-handling"><i class="fa fa-check"></i>Segment remainder handling</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#typical-settings"><i class="fa fa-check"></i>Typical settings</a></li>
 </ul></li>
-<li class="chapter" data-level="17" data-path="california-current-system.html"><a href="california-current-system.html"><i class="fa fa-check"></i><b>17</b> California Current System<span></span></a></li>
-<li class="part"><span><b>VI Appendix<span></span></b></span></li>
-<li class="chapter" data-level="18" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>18</b> Strata gallery<span></span></a><ul>
-<li><a href="stratagallery.html#central-north-pacific">Central North Pacific<span></span></a></li>
-<li><a href="stratagallery.html#california-current">California Current<span></span></a></li>
-<li><a href="stratagallery.html#etp">ETP<span></span></a></li>
+<li class="chapter" data-level="17" data-path="abund9_compare.html"><a href="abund9_compare.html"><i class="fa fa-check"></i><b>17</b> <code>LTabundR</code> vs. <code>ABUND9</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-total-effort"><i class="fa fa-check"></i>Differences in total effort</a></li>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-on-effort-distance"><i class="fa fa-check"></i>Differences in on-effort distance</a></li>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-total-sightings"><i class="fa fa-check"></i>Differences in total sightings</a></li>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-on-effort-sightings"><i class="fa fa-check"></i>Differences in on-effort sightings</a></li>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-school-size-estimation"><i class="fa fa-check"></i>Differences in school size estimation</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>19</b> Segmentizing<span></span></a><ul>
-<li><a href="segmentizing.html#approach">Approach<span></span></a></li>
-<li><a href="segmentizing.html#defaults-2">Defaults<span></span></a></li>
-<li><a href="segmentizing.html#day-vs-equal-length">Day vs Equal Length<span></span></a></li>
-<li><a href="segmentizing.html#contiguous-vs.-non-contiguous-effort">Contiguous vs. non-contiguous effort<span></span></a></li>
-<li><a href="segmentizing.html#segment-remainder-handling">Segment remainder handling<span></span></a></li>
-<li><a href="segmentizing.html#typical-settings">Typical settings<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="20" data-path="abund9_compare.html"><a href="abund9_compare.html"><i class="fa fa-check"></i><b>20</b> <code>LTabundR</code> vs. <code>ABUND9</code><span></span></a><ul>
-<li><a href="abund9_compare.html#differences-in-total-effort">Differences in total effort<span></span></a></li>
-<li><a href="abund9_compare.html#differences-in-on-effort-distance">Differences in on-effort distance<span></span></a></li>
-<li><a href="abund9_compare.html#differences-in-total-sightings">Differences in total sightings<span></span></a></li>
-<li><a href="abund9_compare.html#differences-in-on-effort-sightings">Differences in on-effort sightings<span></span></a></li>
-<li><a href="abund9_compare.html#differences-in-school-size-estimation">Differences in school size estimation<span></span></a></li>
-</ul></li>
-<li class="chapter" data-level="21" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>21</b> NOAA/NMFS species codes<span></span></a><ul>
-<li><a href="spp_codes.html#table">Table<span></span></a></li>
-<li><a href="spp_codes.html#species_translator"><code>species_translator()</code><span></span></a></li>
+<li class="chapter" data-level="18" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>18</b> NOAA/NMFS species codes</a>
+<ul>
+<li class="chapter" data-level="" data-path="spp_codes.html"><a href="spp_codes.html#table"><i class="fa fa-check"></i>Table</a></li>
+<li class="chapter" data-level="" data-path="spp_codes.html"><a href="spp_codes.html#species_translator"><i class="fa fa-check"></i><code>species_translator()</code></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/emk-noaa/emk-noaa.github.io" target="blank">Eric & Amanda</a></li>
@@ -287,30 +291,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="subgroup-based-analysis" class="section level1 hasAnchor">
-<h1><span class="header-section-number"> 12</span> Subgroup-based analysis<a href="subgroup-based-analysis.html#subgroup-based-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="subgroup-based-analysis" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number"> 11</span> Subgroup-based analysis<a href="subgroup-based-analysis.html#subgroup-based-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>False killer whales (<em>Pseudorca crassidens</em>) are rare and occur in dispersed subgroups, which complicates conventional distance sampling approaches to line-transect analysis. To better estimate their abundance, in 2010 the Pacific Islands Fisheries Science Center (PIFSC) initiated a sub-group protocol referred to as the “PC Protocol”, a reference to the species’ scientific name.</p>
 <p>To conduct line-transect analysis with this sub-group-based protocol, a method was developed in 2014 - 2017
 To handle this, a separate, <em>subgroup-based</em> analytical approach was developed in 2014 - 2017, then updated in 2020 (<a href="https://www.fisheries.noaa.gov/inport/item/59592">Bradford et al. 2020</a>).</p>
 <p>An additional complication is that false killer whales in Hawaiian waters belong to two discrete populations – the Northwest Hawaiian Islands (NWHI) population and a pelagic population – whose ranges partially overlap, which means that population assignment cannot always be based simply on the geographic location of sightings. When geographic inference of population is not possible, biopsy-sampled genetics, photo-identification, and acoustics are used to assign each sighting to a population <em>post-hoc</em>.</p>
 <p>To accommodate these special circumstances with an appropriate balance of flexibility and efficiency, <code>LTabundR</code> includes a function named <code>lta_subgroup()</code>, whose use will look something like this:</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="subgroup-based-analysis.html#cb205-1"></a><span class="kw">lta_subgroup</span>(df_sits,</span>
-<span id="cb205-2"><a href="subgroup-based-analysis.html#cb205-2"></a>             truncation_distance,</span>
-<span id="cb205-3"><a href="subgroup-based-analysis.html#cb205-3"></a>             ss,</span>
-<span id="cb205-4"><a href="subgroup-based-analysis.html#cb205-4"></a>             cruz10,</span>
-<span id="cb205-5"><a href="subgroup-based-analysis.html#cb205-5"></a>             g0_spp,</span>
-<span id="cb205-6"><a href="subgroup-based-analysis.html#cb205-6"></a>             g0_truncation,</span>
-<span id="cb205-7"><a href="subgroup-based-analysis.html#cb205-7"></a>             g0_pool_bft,</span>
-<span id="cb205-8"><a href="subgroup-based-analysis.html#cb205-8"></a>             <span class="dt">g0_jackknife_fraction =</span> <span class="fl">0.1</span>,</span>
-<span id="cb205-9"><a href="subgroup-based-analysis.html#cb205-9"></a>             density_segments,</span>
-<span id="cb205-10"><a href="subgroup-based-analysis.html#cb205-10"></a>             density_das,</span>
-<span id="cb205-11"><a href="subgroup-based-analysis.html#cb205-11"></a>             density_sightings,</span>
-<span id="cb205-12"><a href="subgroup-based-analysis.html#cb205-12"></a>             abundance_area,</span>
-<span id="cb205-13"><a href="subgroup-based-analysis.html#cb205-13"></a>             <span class="dt">iterations =</span> <span class="dv">1000</span>,</span>
-<span id="cb205-14"><a href="subgroup-based-analysis.html#cb205-14"></a>             <span class="dt">output_dir =</span> <span class="st">&#39;../test_code/subgroup/&#39;</span>,</span>
-<span id="cb205-15"><a href="subgroup-based-analysis.html#cb205-15"></a>             <span class="dt">toplot =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb205-16"><a href="subgroup-based-analysis.html#cb205-16"></a>             <span class="dt">verbose =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb205-17"><a href="subgroup-based-analysis.html#cb205-17"></a>             <span class="dt">density_bootstraps =</span> <span class="dv">10000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="subgroup-based-analysis.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lta_subgroup</span>(df_sits,</span>
+<span id="cb204-2"><a href="subgroup-based-analysis.html#cb204-2" aria-hidden="true" tabindex="-1"></a>             truncation_distance,</span>
+<span id="cb204-3"><a href="subgroup-based-analysis.html#cb204-3" aria-hidden="true" tabindex="-1"></a>             ss,</span>
+<span id="cb204-4"><a href="subgroup-based-analysis.html#cb204-4" aria-hidden="true" tabindex="-1"></a>             cruz10,</span>
+<span id="cb204-5"><a href="subgroup-based-analysis.html#cb204-5" aria-hidden="true" tabindex="-1"></a>             g0_spp,</span>
+<span id="cb204-6"><a href="subgroup-based-analysis.html#cb204-6" aria-hidden="true" tabindex="-1"></a>             g0_truncation,</span>
+<span id="cb204-7"><a href="subgroup-based-analysis.html#cb204-7" aria-hidden="true" tabindex="-1"></a>             g0_pool_bft,</span>
+<span id="cb204-8"><a href="subgroup-based-analysis.html#cb204-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">g0_jackknife_fraction =</span> <span class="fl">0.1</span>,</span>
+<span id="cb204-9"><a href="subgroup-based-analysis.html#cb204-9" aria-hidden="true" tabindex="-1"></a>             density_segments,</span>
+<span id="cb204-10"><a href="subgroup-based-analysis.html#cb204-10" aria-hidden="true" tabindex="-1"></a>             density_das,</span>
+<span id="cb204-11"><a href="subgroup-based-analysis.html#cb204-11" aria-hidden="true" tabindex="-1"></a>             density_sightings,</span>
+<span id="cb204-12"><a href="subgroup-based-analysis.html#cb204-12" aria-hidden="true" tabindex="-1"></a>             abundance_area,</span>
+<span id="cb204-13"><a href="subgroup-based-analysis.html#cb204-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">iterations =</span> <span class="dv">1000</span>,</span>
+<span id="cb204-14"><a href="subgroup-based-analysis.html#cb204-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">output_dir =</span> <span class="st">&#39;../test_code/subgroup/&#39;</span>,</span>
+<span id="cb204-15"><a href="subgroup-based-analysis.html#cb204-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">toplot =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb204-16"><a href="subgroup-based-analysis.html#cb204-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">verbose =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb204-17"><a href="subgroup-based-analysis.html#cb204-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">density_bootstraps =</span> <span class="dv">10000</span>)</span></code></pre></div>
 <p>We will step through each of these inputs below, using a case study in which we estimate false killer whale abundance in the Hawaiian EEZ for 2017.</p>
 <div id="inputs-1" class="section level2 unnumbered hasAnchor">
 <h2>Inputs<a href="subgroup-based-analysis.html#inputs-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -318,318 +322,318 @@ To handle this, a separate, <em>subgroup-based</em> analytical approach was deve
 <h3><code>df_sits</code><a href="subgroup-based-analysis.html#df_sits" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This is a <code>data.frame</code> of sightings you want to use to fit the detection function model. For false killer whales in Bradford et al. (2020), this is a combination of systematic sightings prior to 2010 and Phase 1 sightings from 2010 onwards (using the PC protocol). No filtering will be applied to these sightings within this function, so make sure you provide the data pre-filtered. Bradford et al. (2020) used a single detection function for all populations of false killer whale.</p>
 <p><code>LTabundR</code> has a built-in dataset for processed Central North Pacific surveys, 1986-2020, using 150-km segments. We will use that here:</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="subgroup-based-analysis.html#cb206-1"></a><span class="kw">data</span>(<span class="st">&quot;cnp_150km_1986_2020&quot;</span>)</span>
-<span id="cb206-2"><a href="subgroup-based-analysis.html#cb206-2"></a>cruz &lt;-<span class="st"> </span>cnp_150km_<span class="dv">1986</span>_<span class="dv">2020</span></span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="subgroup-based-analysis.html#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;cnp_150km_1986_2020&quot;</span>)</span>
+<span id="cb205-2"><a href="subgroup-based-analysis.html#cb205-2" aria-hidden="true" tabindex="-1"></a>cruz <span class="ot">&lt;-</span> cnp_150km_1986_2020</span></code></pre></div>
 <p>The code used to generate this dataset can be seen by pulling up the help documentation: <code>?noaa_10km_1986_2020</code>.</p>
 <p>As mentioned above, for 1986 - 2010, all detections are assumed to be ‘Phase 1’ sightings, and therefore usable in detection function estimation. Here we draw those sightings from the above <code>cruz</code> object, filtering as needed (the species code for false killer whales is <code>"033"</code>), and to simplify we will select only a few key columns.</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="subgroup-based-analysis.html#cb207-1"></a>sits1  &lt;-</span>
-<span id="cb207-2"><a href="subgroup-based-analysis.html#cb207-2"></a><span class="st">  </span>cruz<span class="op">$</span>cohorts<span class="op">$</span>all<span class="op">$</span>sightings <span class="op">%&gt;%</span></span>
-<span id="cb207-3"><a href="subgroup-based-analysis.html#cb207-3"></a><span class="st">  </span><span class="kw">filter</span>(OnEffort <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>,</span>
-<span id="cb207-4"><a href="subgroup-based-analysis.html#cb207-4"></a>         year <span class="op">&lt;</span><span class="st"> </span><span class="dv">2011</span>,</span>
-<span id="cb207-5"><a href="subgroup-based-analysis.html#cb207-5"></a>         Lat <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>, Lat <span class="op">&lt;=</span><span class="st"> </span><span class="dv">40</span>, Lon <span class="op">&gt;=</span><span class="st"> </span><span class="dv">-185</span>, Lon <span class="op">&lt;=</span><span class="st"> </span><span class="dv">-120</span>,</span>
-<span id="cb207-6"><a href="subgroup-based-analysis.html#cb207-6"></a>         species <span class="op">==</span><span class="st"> &#39;033&#39;</span>,</span>
-<span id="cb207-7"><a href="subgroup-based-analysis.html#cb207-7"></a>         mixed <span class="op">==</span><span class="st"> </span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span></span>
-<span id="cb207-8"><a href="subgroup-based-analysis.html#cb207-8"></a><span class="st">  </span><span class="kw">select</span>(DateTime, Lat, Lon, Cruise, PerpDistKm)</span>
-<span id="cb207-9"><a href="subgroup-based-analysis.html#cb207-9"></a></span>
-<span id="cb207-10"><a href="subgroup-based-analysis.html#cb207-10"></a>sits1 <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
-<span id="cb207-11"><a href="subgroup-based-analysis.html#cb207-11"></a>[<span class="dv">1</span>] <span class="dv">33</span></span>
-<span id="cb207-12"><a href="subgroup-based-analysis.html#cb207-12"></a></span>
-<span id="cb207-13"><a href="subgroup-based-analysis.html#cb207-13"></a>sits1 <span class="op">%&gt;%</span><span class="st"> </span>head</span>
-<span id="cb207-14"><a href="subgroup-based-analysis.html#cb207-14"></a>             DateTime       Lat       Lon Cruise PerpDistKm</span>
-<span id="cb207-15"><a href="subgroup-based-analysis.html#cb207-15"></a><span class="dv">1</span> <span class="dv">1986-11-13</span> <span class="dv">09</span><span class="op">:</span><span class="dv">43</span><span class="op">:</span><span class="dv">00</span> <span class="fl">10.466667</span> <span class="fl">-139.2833</span>    <span class="dv">990</span> <span class="fl">1.17493742</span></span>
-<span id="cb207-16"><a href="subgroup-based-analysis.html#cb207-16"></a><span class="dv">2</span> <span class="dv">1987-08-19</span> <span class="dv">15</span><span class="op">:</span><span class="dv">30</span><span class="op">:</span><span class="dv">00</span> <span class="fl">12.050000</span> <span class="fl">-133.3000</span>   <span class="dv">1080</span> <span class="fl">2.24543067</span></span>
-<span id="cb207-17"><a href="subgroup-based-analysis.html#cb207-17"></a><span class="dv">3</span> <span class="dv">1987-12-01</span> <span class="dv">09</span><span class="op">:</span><span class="dv">23</span><span class="op">:</span><span class="dv">00</span>  <span class="fl">8.266667</span> <span class="fl">-122.5500</span>   <span class="dv">1080</span> <span class="fl">0.42589077</span></span>
-<span id="cb207-18"><a href="subgroup-based-analysis.html#cb207-18"></a><span class="dv">4</span> <span class="dv">1989-08-22</span> <span class="dv">06</span><span class="op">:</span><span class="dv">45</span><span class="op">:</span><span class="dv">00</span> <span class="fl">11.800000</span> <span class="fl">-141.7333</span>   <span class="dv">1268</span> <span class="fl">0.40838431</span></span>
-<span id="cb207-19"><a href="subgroup-based-analysis.html#cb207-19"></a><span class="dv">5</span> <span class="dv">1989-08-22</span> <span class="dv">16</span><span class="op">:</span><span class="dv">39</span><span class="op">:</span><span class="dv">00</span> <span class="fl">12.716667</span> <span class="fl">-143.1000</span>   <span class="dv">1268</span> <span class="fl">0.68815211</span></span>
-<span id="cb207-20"><a href="subgroup-based-analysis.html#cb207-20"></a><span class="dv">6</span> <span class="dv">1989-09-10</span> <span class="dv">17</span><span class="op">:</span><span class="dv">18</span><span class="op">:</span><span class="dv">00</span>  <span class="fl">7.350000</span> <span class="fl">-129.5333</span>   <span class="dv">1268</span> <span class="fl">0.07751339</span></span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="subgroup-based-analysis.html#cb206-1" aria-hidden="true" tabindex="-1"></a>sits1  <span class="ot">&lt;-</span></span>
+<span id="cb206-2"><a href="subgroup-based-analysis.html#cb206-2" aria-hidden="true" tabindex="-1"></a>  cruz<span class="sc">$</span>cohorts<span class="sc">$</span>all<span class="sc">$</span>sightings <span class="sc">%&gt;%</span></span>
+<span id="cb206-3"><a href="subgroup-based-analysis.html#cb206-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(OnEffort <span class="sc">==</span> <span class="cn">TRUE</span>,</span>
+<span id="cb206-4"><a href="subgroup-based-analysis.html#cb206-4" aria-hidden="true" tabindex="-1"></a>         year <span class="sc">&lt;</span> <span class="dv">2011</span>,</span>
+<span id="cb206-5"><a href="subgroup-based-analysis.html#cb206-5" aria-hidden="true" tabindex="-1"></a>         Lat <span class="sc">&gt;=</span> <span class="dv">5</span>, Lat <span class="sc">&lt;=</span> <span class="dv">40</span>, Lon <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">185</span>, Lon <span class="sc">&lt;=</span> <span class="sc">-</span><span class="dv">120</span>,</span>
+<span id="cb206-6"><a href="subgroup-based-analysis.html#cb206-6" aria-hidden="true" tabindex="-1"></a>         species <span class="sc">==</span> <span class="st">&#39;033&#39;</span>,</span>
+<span id="cb206-7"><a href="subgroup-based-analysis.html#cb206-7" aria-hidden="true" tabindex="-1"></a>         mixed <span class="sc">==</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb206-8"><a href="subgroup-based-analysis.html#cb206-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DateTime, Lat, Lon, Cruise, PerpDistKm)</span>
+<span id="cb206-9"><a href="subgroup-based-analysis.html#cb206-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb206-10"><a href="subgroup-based-analysis.html#cb206-10" aria-hidden="true" tabindex="-1"></a>sits1 <span class="sc">%&gt;%</span> nrow</span>
+<span id="cb206-11"><a href="subgroup-based-analysis.html#cb206-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">33</span></span>
+<span id="cb206-12"><a href="subgroup-based-analysis.html#cb206-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb206-13"><a href="subgroup-based-analysis.html#cb206-13" aria-hidden="true" tabindex="-1"></a>sits1 <span class="sc">%&gt;%</span> head</span>
+<span id="cb206-14"><a href="subgroup-based-analysis.html#cb206-14" aria-hidden="true" tabindex="-1"></a>             DateTime       Lat       Lon Cruise PerpDistKm</span>
+<span id="cb206-15"><a href="subgroup-based-analysis.html#cb206-15" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">1986-11-13</span> <span class="dv">09</span><span class="sc">:</span><span class="dv">43</span><span class="sc">:</span><span class="dv">00</span> <span class="fl">10.466667</span> <span class="sc">-</span><span class="fl">139.2833</span>    <span class="dv">990</span> <span class="fl">1.17493742</span></span>
+<span id="cb206-16"><a href="subgroup-based-analysis.html#cb206-16" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">1987-08-19</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">30</span><span class="sc">:</span><span class="dv">00</span> <span class="fl">12.050000</span> <span class="sc">-</span><span class="fl">133.3000</span>   <span class="dv">1080</span> <span class="fl">2.24543067</span></span>
+<span id="cb206-17"><a href="subgroup-based-analysis.html#cb206-17" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">1987-12-01</span> <span class="dv">09</span><span class="sc">:</span><span class="dv">23</span><span class="sc">:</span><span class="dv">00</span>  <span class="fl">8.266667</span> <span class="sc">-</span><span class="fl">122.5500</span>   <span class="dv">1080</span> <span class="fl">0.42589077</span></span>
+<span id="cb206-18"><a href="subgroup-based-analysis.html#cb206-18" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">1989-08-22</span> <span class="dv">06</span><span class="sc">:</span><span class="dv">45</span><span class="sc">:</span><span class="dv">00</span> <span class="fl">11.800000</span> <span class="sc">-</span><span class="fl">141.7333</span>   <span class="dv">1268</span> <span class="fl">0.40838431</span></span>
+<span id="cb206-19"><a href="subgroup-based-analysis.html#cb206-19" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="dv">1989-08-22</span> <span class="dv">16</span><span class="sc">:</span><span class="dv">39</span><span class="sc">:</span><span class="dv">00</span> <span class="fl">12.716667</span> <span class="sc">-</span><span class="fl">143.1000</span>   <span class="dv">1268</span> <span class="fl">0.68815211</span></span>
+<span id="cb206-20"><a href="subgroup-based-analysis.html#cb206-20" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="dv">1989-09-10</span> <span class="dv">17</span><span class="sc">:</span><span class="dv">18</span><span class="sc">:</span><span class="dv">00</span>  <span class="fl">7.350000</span> <span class="sc">-</span><span class="fl">129.5333</span>   <span class="dv">1268</span> <span class="fl">0.07751339</span></span></code></pre></div>
 <p>For 2011 onwards, we will use Phase 1 subgroup detections from the PC protocol, making sure that the column holding detection distances is named <code>PerpDistKm</code>:</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="subgroup-based-analysis.html#cb208-1"></a>sits2  &lt;-</span>
-<span id="cb208-2"><a href="subgroup-based-analysis.html#cb208-2"></a><span class="st">  </span>cruz<span class="op">$</span>cohorts<span class="op">$</span>all<span class="op">$</span>subgroups<span class="op">$</span>subgroups <span class="op">%&gt;%</span></span>
-<span id="cb208-3"><a href="subgroup-based-analysis.html#cb208-3"></a><span class="st">  </span><span class="kw">filter</span>(OnEffort <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>,</span>
-<span id="cb208-4"><a href="subgroup-based-analysis.html#cb208-4"></a>         lubridate<span class="op">::</span><span class="kw">year</span>(DateTime) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2011</span>,</span>
-<span id="cb208-5"><a href="subgroup-based-analysis.html#cb208-5"></a>         Lat <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>, Lat <span class="op">&lt;=</span><span class="st"> </span><span class="dv">40</span>, Lon <span class="op">&gt;=</span><span class="st"> </span><span class="dv">-185</span>, Lon <span class="op">&lt;=</span><span class="st"> </span><span class="dv">-120</span>,</span>
-<span id="cb208-6"><a href="subgroup-based-analysis.html#cb208-6"></a>         Species <span class="op">==</span><span class="st"> &#39;033&#39;</span>,</span>
-<span id="cb208-7"><a href="subgroup-based-analysis.html#cb208-7"></a>         Phase <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></span>
-<span id="cb208-8"><a href="subgroup-based-analysis.html#cb208-8"></a><span class="st">  </span><span class="kw">select</span>(DateTime, Lat, Lon, Cruise, <span class="dt">PerpDistKm =</span> PerpDist)</span>
-<span id="cb208-9"><a href="subgroup-based-analysis.html#cb208-9"></a></span>
-<span id="cb208-10"><a href="subgroup-based-analysis.html#cb208-10"></a>sits2 <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
-<span id="cb208-11"><a href="subgroup-based-analysis.html#cb208-11"></a>[<span class="dv">1</span>] <span class="dv">53</span></span>
-<span id="cb208-12"><a href="subgroup-based-analysis.html#cb208-12"></a></span>
-<span id="cb208-13"><a href="subgroup-based-analysis.html#cb208-13"></a>sits1 <span class="op">%&gt;%</span><span class="st"> </span>head</span>
-<span id="cb208-14"><a href="subgroup-based-analysis.html#cb208-14"></a>             DateTime       Lat       Lon Cruise PerpDistKm</span>
-<span id="cb208-15"><a href="subgroup-based-analysis.html#cb208-15"></a><span class="dv">1</span> <span class="dv">1986-11-13</span> <span class="dv">09</span><span class="op">:</span><span class="dv">43</span><span class="op">:</span><span class="dv">00</span> <span class="fl">10.466667</span> <span class="fl">-139.2833</span>    <span class="dv">990</span> <span class="fl">1.17493742</span></span>
-<span id="cb208-16"><a href="subgroup-based-analysis.html#cb208-16"></a><span class="dv">2</span> <span class="dv">1987-08-19</span> <span class="dv">15</span><span class="op">:</span><span class="dv">30</span><span class="op">:</span><span class="dv">00</span> <span class="fl">12.050000</span> <span class="fl">-133.3000</span>   <span class="dv">1080</span> <span class="fl">2.24543067</span></span>
-<span id="cb208-17"><a href="subgroup-based-analysis.html#cb208-17"></a><span class="dv">3</span> <span class="dv">1987-12-01</span> <span class="dv">09</span><span class="op">:</span><span class="dv">23</span><span class="op">:</span><span class="dv">00</span>  <span class="fl">8.266667</span> <span class="fl">-122.5500</span>   <span class="dv">1080</span> <span class="fl">0.42589077</span></span>
-<span id="cb208-18"><a href="subgroup-based-analysis.html#cb208-18"></a><span class="dv">4</span> <span class="dv">1989-08-22</span> <span class="dv">06</span><span class="op">:</span><span class="dv">45</span><span class="op">:</span><span class="dv">00</span> <span class="fl">11.800000</span> <span class="fl">-141.7333</span>   <span class="dv">1268</span> <span class="fl">0.40838431</span></span>
-<span id="cb208-19"><a href="subgroup-based-analysis.html#cb208-19"></a><span class="dv">5</span> <span class="dv">1989-08-22</span> <span class="dv">16</span><span class="op">:</span><span class="dv">39</span><span class="op">:</span><span class="dv">00</span> <span class="fl">12.716667</span> <span class="fl">-143.1000</span>   <span class="dv">1268</span> <span class="fl">0.68815211</span></span>
-<span id="cb208-20"><a href="subgroup-based-analysis.html#cb208-20"></a><span class="dv">6</span> <span class="dv">1989-09-10</span> <span class="dv">17</span><span class="op">:</span><span class="dv">18</span><span class="op">:</span><span class="dv">00</span>  <span class="fl">7.350000</span> <span class="fl">-129.5333</span>   <span class="dv">1268</span> <span class="fl">0.07751339</span></span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="subgroup-based-analysis.html#cb207-1" aria-hidden="true" tabindex="-1"></a>sits2  <span class="ot">&lt;-</span></span>
+<span id="cb207-2"><a href="subgroup-based-analysis.html#cb207-2" aria-hidden="true" tabindex="-1"></a>  cruz<span class="sc">$</span>cohorts<span class="sc">$</span>all<span class="sc">$</span>subgroups<span class="sc">$</span>subgroups <span class="sc">%&gt;%</span></span>
+<span id="cb207-3"><a href="subgroup-based-analysis.html#cb207-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(OnEffort <span class="sc">==</span> <span class="cn">TRUE</span>,</span>
+<span id="cb207-4"><a href="subgroup-based-analysis.html#cb207-4" aria-hidden="true" tabindex="-1"></a>         lubridate<span class="sc">::</span><span class="fu">year</span>(DateTime) <span class="sc">&gt;=</span> <span class="dv">2011</span>,</span>
+<span id="cb207-5"><a href="subgroup-based-analysis.html#cb207-5" aria-hidden="true" tabindex="-1"></a>         Lat <span class="sc">&gt;=</span> <span class="dv">5</span>, Lat <span class="sc">&lt;=</span> <span class="dv">40</span>, Lon <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">185</span>, Lon <span class="sc">&lt;=</span> <span class="sc">-</span><span class="dv">120</span>,</span>
+<span id="cb207-6"><a href="subgroup-based-analysis.html#cb207-6" aria-hidden="true" tabindex="-1"></a>         Species <span class="sc">==</span> <span class="st">&#39;033&#39;</span>,</span>
+<span id="cb207-7"><a href="subgroup-based-analysis.html#cb207-7" aria-hidden="true" tabindex="-1"></a>         Phase <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb207-8"><a href="subgroup-based-analysis.html#cb207-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(DateTime, Lat, Lon, Cruise, <span class="at">PerpDistKm =</span> PerpDist)</span>
+<span id="cb207-9"><a href="subgroup-based-analysis.html#cb207-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb207-10"><a href="subgroup-based-analysis.html#cb207-10" aria-hidden="true" tabindex="-1"></a>sits2 <span class="sc">%&gt;%</span> nrow</span>
+<span id="cb207-11"><a href="subgroup-based-analysis.html#cb207-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">53</span></span>
+<span id="cb207-12"><a href="subgroup-based-analysis.html#cb207-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb207-13"><a href="subgroup-based-analysis.html#cb207-13" aria-hidden="true" tabindex="-1"></a>sits1 <span class="sc">%&gt;%</span> head</span>
+<span id="cb207-14"><a href="subgroup-based-analysis.html#cb207-14" aria-hidden="true" tabindex="-1"></a>             DateTime       Lat       Lon Cruise PerpDistKm</span>
+<span id="cb207-15"><a href="subgroup-based-analysis.html#cb207-15" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="dv">1986-11-13</span> <span class="dv">09</span><span class="sc">:</span><span class="dv">43</span><span class="sc">:</span><span class="dv">00</span> <span class="fl">10.466667</span> <span class="sc">-</span><span class="fl">139.2833</span>    <span class="dv">990</span> <span class="fl">1.17493742</span></span>
+<span id="cb207-16"><a href="subgroup-based-analysis.html#cb207-16" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="dv">1987-08-19</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">30</span><span class="sc">:</span><span class="dv">00</span> <span class="fl">12.050000</span> <span class="sc">-</span><span class="fl">133.3000</span>   <span class="dv">1080</span> <span class="fl">2.24543067</span></span>
+<span id="cb207-17"><a href="subgroup-based-analysis.html#cb207-17" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="dv">1987-12-01</span> <span class="dv">09</span><span class="sc">:</span><span class="dv">23</span><span class="sc">:</span><span class="dv">00</span>  <span class="fl">8.266667</span> <span class="sc">-</span><span class="fl">122.5500</span>   <span class="dv">1080</span> <span class="fl">0.42589077</span></span>
+<span id="cb207-18"><a href="subgroup-based-analysis.html#cb207-18" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="dv">1989-08-22</span> <span class="dv">06</span><span class="sc">:</span><span class="dv">45</span><span class="sc">:</span><span class="dv">00</span> <span class="fl">11.800000</span> <span class="sc">-</span><span class="fl">141.7333</span>   <span class="dv">1268</span> <span class="fl">0.40838431</span></span>
+<span id="cb207-19"><a href="subgroup-based-analysis.html#cb207-19" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="dv">1989-08-22</span> <span class="dv">16</span><span class="sc">:</span><span class="dv">39</span><span class="sc">:</span><span class="dv">00</span> <span class="fl">12.716667</span> <span class="sc">-</span><span class="fl">143.1000</span>   <span class="dv">1268</span> <span class="fl">0.68815211</span></span>
+<span id="cb207-20"><a href="subgroup-based-analysis.html#cb207-20" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="dv">1989-09-10</span> <span class="dv">17</span><span class="sc">:</span><span class="dv">18</span><span class="sc">:</span><span class="dv">00</span>  <span class="fl">7.350000</span> <span class="sc">-</span><span class="fl">129.5333</span>   <span class="dv">1268</span> <span class="fl">0.07751339</span></span></code></pre></div>
 <p>To create <code>df_sits</code> for detection function fitting, we combine these datasets together:</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="subgroup-based-analysis.html#cb209-1"></a>df_sits &lt;-<span class="st"> </span><span class="kw">rbind</span>(sits1, sits2)</span>
-<span id="cb209-2"><a href="subgroup-based-analysis.html#cb209-2"></a></span>
-<span id="cb209-3"><a href="subgroup-based-analysis.html#cb209-3"></a>df_sits <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
-<span id="cb209-4"><a href="subgroup-based-analysis.html#cb209-4"></a>[<span class="dv">1</span>] <span class="dv">86</span></span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="subgroup-based-analysis.html#cb208-1" aria-hidden="true" tabindex="-1"></a>df_sits <span class="ot">&lt;-</span> <span class="fu">rbind</span>(sits1, sits2)</span>
+<span id="cb208-2"><a href="subgroup-based-analysis.html#cb208-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb208-3"><a href="subgroup-based-analysis.html#cb208-3" aria-hidden="true" tabindex="-1"></a>df_sits <span class="sc">%&gt;%</span> nrow</span>
+<span id="cb208-4"><a href="subgroup-based-analysis.html#cb208-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">86</span></span></code></pre></div>
 </div>
 <div id="truncation_distance" class="section level3 unnumbered hasAnchor">
 <h3><code>truncation_distance</code><a href="subgroup-based-analysis.html#truncation_distance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The truncation distance, in km, will be applied during detection function model fitting. Typically the farthest 5 - 10% of sightings are truncated, but this needs to be balanced by sample size considerations.</p>
 <p>Get candidate distances:</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="subgroup-based-analysis.html#cb210-1"></a>truncation_options &lt;-<span class="st"> </span><span class="kw">quantile</span>(df_sits<span class="op">$</span>PerpDistKm, </span>
-<span id="cb210-2"><a href="subgroup-based-analysis.html#cb210-2"></a>                               <span class="kw">c</span>(<span class="fl">0.90</span>,<span class="fl">0.91</span>,<span class="fl">0.92</span>,<span class="fl">0.93</span>,<span class="fl">0.94</span>,.<span class="dv">95</span>))</span>
-<span id="cb210-3"><a href="subgroup-based-analysis.html#cb210-3"></a></span>
-<span id="cb210-4"><a href="subgroup-based-analysis.html#cb210-4"></a>truncation_options</span>
-<span id="cb210-5"><a href="subgroup-based-analysis.html#cb210-5"></a>     <span class="dv">90</span><span class="op">%      91%</span><span class="st">      </span><span class="dv">92</span><span class="op">%      93%</span><span class="st">      </span><span class="dv">94</span><span class="op">%      95%</span><span class="st"> </span></span>
-<span id="cb210-6"><a href="subgroup-based-analysis.html#cb210-6"></a><span class="fl">4.249637</span> <span class="fl">4.350266</span> <span class="fl">4.403387</span> <span class="fl">4.486396</span> <span class="fl">4.881672</span> <span class="fl">5.217843</span> </span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="subgroup-based-analysis.html#cb209-1" aria-hidden="true" tabindex="-1"></a>truncation_options <span class="ot">&lt;-</span> <span class="fu">quantile</span>(df_sits<span class="sc">$</span>PerpDistKm, </span>
+<span id="cb209-2"><a href="subgroup-based-analysis.html#cb209-2" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">c</span>(<span class="fl">0.90</span>,<span class="fl">0.91</span>,<span class="fl">0.92</span>,<span class="fl">0.93</span>,<span class="fl">0.94</span>,.<span class="dv">95</span>))</span>
+<span id="cb209-3"><a href="subgroup-based-analysis.html#cb209-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-4"><a href="subgroup-based-analysis.html#cb209-4" aria-hidden="true" tabindex="-1"></a>truncation_options</span>
+<span id="cb209-5"><a href="subgroup-based-analysis.html#cb209-5" aria-hidden="true" tabindex="-1"></a>     <span class="dv">90</span><span class="sc">%      91%</span>      <span class="dv">92</span><span class="sc">%      93%</span>      <span class="dv">94</span><span class="sc">%      95%</span> </span>
+<span id="cb209-6"><a href="subgroup-based-analysis.html#cb209-6" aria-hidden="true" tabindex="-1"></a><span class="fl">4.249637</span> <span class="fl">4.350266</span> <span class="fl">4.403387</span> <span class="fl">4.486396</span> <span class="fl">4.881672</span> <span class="fl">5.217843</span> </span></code></pre></div>
 <p>Plot these options:</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="subgroup-based-analysis.html#cb211-1"></a><span class="kw">hist</span>(df_sits<span class="op">$</span>PerpDistKm, <span class="dt">main=</span><span class="st">&#39;Detection distances&#39;</span>)</span>
-<span id="cb211-2"><a href="subgroup-based-analysis.html#cb211-2"></a><span class="kw">abline</span>(<span class="dt">v=</span>truncation_options, <span class="dt">col=</span><span class="st">&#39;red&#39;</span>, <span class="dt">lty=</span><span class="dv">3</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-281-1.png" width="672" /></p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="subgroup-based-analysis.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(df_sits<span class="sc">$</span>PerpDistKm, <span class="at">main=</span><span class="st">&#39;Detection distances&#39;</span>)</span>
+<span id="cb210-2"><a href="subgroup-based-analysis.html#cb210-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span>truncation_options, <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">lty=</span><span class="dv">3</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-280-1.png" width="672" /></p>
 <p>Get sample size remaining for each candidate distance:</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="subgroup-based-analysis.html#cb212-1"></a><span class="kw">data.frame</span>(<span class="dt">km =</span> truncation_options, </span>
-<span id="cb212-2"><a href="subgroup-based-analysis.html#cb212-2"></a>           <span class="dt">n =</span> <span class="kw">sapply</span>(truncation_options, </span>
-<span id="cb212-3"><a href="subgroup-based-analysis.html#cb212-3"></a>                      <span class="cf">function</span>(x){<span class="kw">length</span>(<span class="kw">which</span>(df_sits<span class="op">$</span>PerpDistKm <span class="op">&lt;=</span><span class="st"> </span>x))}))</span>
-<span id="cb212-4"><a href="subgroup-based-analysis.html#cb212-4"></a>          km  n</span>
-<span id="cb212-5"><a href="subgroup-based-analysis.html#cb212-5"></a><span class="dv">90</span>% <span class="fl">4.249637</span> <span class="dv">77</span></span>
-<span id="cb212-6"><a href="subgroup-based-analysis.html#cb212-6"></a><span class="dv">91</span>% <span class="fl">4.350266</span> <span class="dv">78</span></span>
-<span id="cb212-7"><a href="subgroup-based-analysis.html#cb212-7"></a><span class="dv">92</span>% <span class="fl">4.403387</span> <span class="dv">79</span></span>
-<span id="cb212-8"><a href="subgroup-based-analysis.html#cb212-8"></a><span class="dv">93</span>% <span class="fl">4.486396</span> <span class="dv">80</span></span>
-<span id="cb212-9"><a href="subgroup-based-analysis.html#cb212-9"></a><span class="dv">94</span>% <span class="fl">4.881672</span> <span class="dv">80</span></span>
-<span id="cb212-10"><a href="subgroup-based-analysis.html#cb212-10"></a><span class="dv">95</span>% <span class="fl">5.217843</span> <span class="dv">81</span></span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="subgroup-based-analysis.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">km =</span> truncation_options, </span>
+<span id="cb211-2"><a href="subgroup-based-analysis.html#cb211-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">n =</span> <span class="fu">sapply</span>(truncation_options, </span>
+<span id="cb211-3"><a href="subgroup-based-analysis.html#cb211-3" aria-hidden="true" tabindex="-1"></a>                      <span class="cf">function</span>(x){<span class="fu">length</span>(<span class="fu">which</span>(df_sits<span class="sc">$</span>PerpDistKm <span class="sc">&lt;=</span> x))}))</span>
+<span id="cb211-4"><a href="subgroup-based-analysis.html#cb211-4" aria-hidden="true" tabindex="-1"></a>          km  n</span>
+<span id="cb211-5"><a href="subgroup-based-analysis.html#cb211-5" aria-hidden="true" tabindex="-1"></a><span class="dv">90</span>% <span class="fl">4.249637</span> <span class="dv">77</span></span>
+<span id="cb211-6"><a href="subgroup-based-analysis.html#cb211-6" aria-hidden="true" tabindex="-1"></a><span class="dv">91</span>% <span class="fl">4.350266</span> <span class="dv">78</span></span>
+<span id="cb211-7"><a href="subgroup-based-analysis.html#cb211-7" aria-hidden="true" tabindex="-1"></a><span class="dv">92</span>% <span class="fl">4.403387</span> <span class="dv">79</span></span>
+<span id="cb211-8"><a href="subgroup-based-analysis.html#cb211-8" aria-hidden="true" tabindex="-1"></a><span class="dv">93</span>% <span class="fl">4.486396</span> <span class="dv">80</span></span>
+<span id="cb211-9"><a href="subgroup-based-analysis.html#cb211-9" aria-hidden="true" tabindex="-1"></a><span class="dv">94</span>% <span class="fl">4.881672</span> <span class="dv">80</span></span>
+<span id="cb211-10"><a href="subgroup-based-analysis.html#cb211-10" aria-hidden="true" tabindex="-1"></a><span class="dv">95</span>% <span class="fl">5.217843</span> <span class="dv">81</span></span></code></pre></div>
 <p>Based on these results, we will choose a truncation distance of 4.5 km.</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="subgroup-based-analysis.html#cb213-1"></a>truncation_distance &lt;-<span class="st"> </span><span class="fl">4.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="subgroup-based-analysis.html#cb212-1" aria-hidden="true" tabindex="-1"></a>truncation_distance <span class="ot">&lt;-</span> <span class="fl">4.5</span></span></code></pre></div>
 </div>
 <div id="ss" class="section level3 unnumbered hasAnchor">
 <h3><code>ss</code><a href="subgroup-based-analysis.html#ss" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This is a numeric vector of subgroup school sizes. The function will find this vector’s geometric mean and bootstrapped CV. In Bradford et al. (2020), school size data come from all Phase 1 and Phase 2 estimates of subgroup sizes from 2010 onwards. In the processed <code>cruz</code> object, each of those estimates is the geometric mean of repeat estimates from separate observers.</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="subgroup-based-analysis.html#cb214-1"></a>ss  &lt;-</span>
-<span id="cb214-2"><a href="subgroup-based-analysis.html#cb214-2"></a><span class="st">  </span>cruz<span class="op">$</span>cohort<span class="op">$</span>all<span class="op">$</span>subgroups<span class="op">$</span>subgroups <span class="op">%&gt;%</span></span>
-<span id="cb214-3"><a href="subgroup-based-analysis.html#cb214-3"></a><span class="st">  </span><span class="kw">filter</span>(lubridate<span class="op">::</span><span class="kw">year</span>(DateTime) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2011</span>,</span>
-<span id="cb214-4"><a href="subgroup-based-analysis.html#cb214-4"></a>         Lat <span class="op">&gt;=</span><span class="st"> </span><span class="dv">5</span>, Lat <span class="op">&lt;=</span><span class="st"> </span><span class="dv">40</span>, Lon <span class="op">&gt;=</span><span class="st"> </span><span class="dv">-185</span>, Lon <span class="op">&lt;=</span><span class="st"> </span><span class="dv">-120</span>,</span>
-<span id="cb214-5"><a href="subgroup-based-analysis.html#cb214-5"></a>         Species <span class="op">==</span><span class="st"> &#39;033&#39;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb214-6"><a href="subgroup-based-analysis.html#cb214-6"></a><span class="st">  </span><span class="kw">pull</span>(GSBest_geom)</span>
-<span id="cb214-7"><a href="subgroup-based-analysis.html#cb214-7"></a>  </span>
-<span id="cb214-8"><a href="subgroup-based-analysis.html#cb214-8"></a>ss <span class="op">%&gt;%</span><span class="st"> </span>length</span>
-<span id="cb214-9"><a href="subgroup-based-analysis.html#cb214-9"></a>[<span class="dv">1</span>] <span class="dv">183</span></span>
-<span id="cb214-10"><a href="subgroup-based-analysis.html#cb214-10"></a></span>
-<span id="cb214-11"><a href="subgroup-based-analysis.html#cb214-11"></a>ss</span>
-<span id="cb214-12"><a href="subgroup-based-analysis.html#cb214-12"></a>  [<span class="dv">1</span>]  <span class="fl">5.00</span>  <span class="fl">7.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.33</span>  <span class="fl">2.00</span>  <span class="fl">2.75</span>  <span class="fl">2.67</span>  <span class="fl">1.00</span>  <span class="fl">6.00</span>  <span class="fl">1.00</span></span>
-<span id="cb214-13"><a href="subgroup-based-analysis.html#cb214-13"></a> [<span class="dv">13</span>]  <span class="fl">2.00</span> <span class="fl">18.50</span>  <span class="fl">1.00</span>  <span class="fl">4.00</span>  <span class="fl">5.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">4.00</span>  <span class="fl">4.50</span>  <span class="fl">2.50</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span></span>
-<span id="cb214-14"><a href="subgroup-based-analysis.html#cb214-14"></a> [<span class="dv">25</span>]  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">5.00</span>  <span class="fl">1.00</span>  <span class="fl">4.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span></span>
-<span id="cb214-15"><a href="subgroup-based-analysis.html#cb214-15"></a> [<span class="dv">37</span>]  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">4.00</span>  <span class="fl">9.83</span>  <span class="fl">2.50</span>  <span class="fl">4.75</span>  <span class="fl">8.25</span>  <span class="fl">3.00</span>  <span class="fl">2.00</span>  <span class="fl">3.00</span>  <span class="fl">3.67</span>  <span class="fl">3.50</span></span>
-<span id="cb214-16"><a href="subgroup-based-analysis.html#cb214-16"></a> [<span class="dv">49</span>]  <span class="fl">4.50</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span></span>
-<span id="cb214-17"><a href="subgroup-based-analysis.html#cb214-17"></a> [<span class="dv">61</span>]  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">3.00</span>  <span class="fl">2.00</span>  <span class="fl">1.50</span>  <span class="fl">2.67</span>  <span class="fl">1.33</span>  <span class="fl">2.00</span>  <span class="fl">6.00</span>  <span class="fl">4.33</span>  <span class="fl">2.00</span></span>
-<span id="cb214-18"><a href="subgroup-based-analysis.html#cb214-18"></a> [<span class="dv">73</span>]  <span class="fl">1.00</span>  <span class="fl">3.00</span>  <span class="fl">5.00</span>  <span class="fl">5.80</span>  <span class="fl">4.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">4.00</span>  <span class="fl">4.50</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span></span>
-<span id="cb214-19"><a href="subgroup-based-analysis.html#cb214-19"></a> [<span class="dv">85</span>]  <span class="fl">2.00</span>  <span class="fl">4.50</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">1.50</span>  <span class="fl">4.50</span>  <span class="fl">1.00</span></span>
-<span id="cb214-20"><a href="subgroup-based-analysis.html#cb214-20"></a> [<span class="dv">97</span>]  <span class="fl">1.00</span>  <span class="fl">3.33</span>  <span class="fl">3.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">7.50</span>  <span class="fl">5.00</span>  <span class="fl">4.00</span>  <span class="fl">3.67</span>  <span class="fl">2.00</span>  <span class="fl">3.00</span>  <span class="fl">2.00</span></span>
-<span id="cb214-21"><a href="subgroup-based-analysis.html#cb214-21"></a>[<span class="dv">109</span>]  <span class="fl">8.50</span>  <span class="fl">8.00</span>  <span class="fl">4.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">4.00</span>  <span class="fl">4.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">6.00</span></span>
-<span id="cb214-22"><a href="subgroup-based-analysis.html#cb214-22"></a>[<span class="dv">121</span>]  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">2.50</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span></span>
-<span id="cb214-23"><a href="subgroup-based-analysis.html#cb214-23"></a>[<span class="dv">133</span>]  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">4.00</span></span>
-<span id="cb214-24"><a href="subgroup-based-analysis.html#cb214-24"></a>[<span class="dv">145</span>]  <span class="fl">7.50</span>  <span class="fl">1.50</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">3.00</span>  <span class="fl">3.00</span></span>
-<span id="cb214-25"><a href="subgroup-based-analysis.html#cb214-25"></a>[<span class="dv">157</span>]  <span class="fl">2.00</span>  <span class="fl">3.00</span>  <span class="fl">1.50</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">3.00</span>  <span class="fl">2.00</span>  <span class="fl">4.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span></span>
-<span id="cb214-26"><a href="subgroup-based-analysis.html#cb214-26"></a>[<span class="dv">169</span>]  <span class="fl">2.00</span>  <span class="fl">4.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">3.00</span>  <span class="fl">1.00</span>  <span class="fl">3.00</span>  <span class="fl">2.50</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span></span>
-<span id="cb214-27"><a href="subgroup-based-analysis.html#cb214-27"></a>[<span class="dv">181</span>]  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span></span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="subgroup-based-analysis.html#cb213-1" aria-hidden="true" tabindex="-1"></a>ss  <span class="ot">&lt;-</span></span>
+<span id="cb213-2"><a href="subgroup-based-analysis.html#cb213-2" aria-hidden="true" tabindex="-1"></a>  cruz<span class="sc">$</span>cohort<span class="sc">$</span>all<span class="sc">$</span>subgroups<span class="sc">$</span>subgroups <span class="sc">%&gt;%</span></span>
+<span id="cb213-3"><a href="subgroup-based-analysis.html#cb213-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(lubridate<span class="sc">::</span><span class="fu">year</span>(DateTime) <span class="sc">&gt;=</span> <span class="dv">2011</span>,</span>
+<span id="cb213-4"><a href="subgroup-based-analysis.html#cb213-4" aria-hidden="true" tabindex="-1"></a>         Lat <span class="sc">&gt;=</span> <span class="dv">5</span>, Lat <span class="sc">&lt;=</span> <span class="dv">40</span>, Lon <span class="sc">&gt;=</span> <span class="sc">-</span><span class="dv">185</span>, Lon <span class="sc">&lt;=</span> <span class="sc">-</span><span class="dv">120</span>,</span>
+<span id="cb213-5"><a href="subgroup-based-analysis.html#cb213-5" aria-hidden="true" tabindex="-1"></a>         Species <span class="sc">==</span> <span class="st">&#39;033&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb213-6"><a href="subgroup-based-analysis.html#cb213-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(GSBest_geom)</span>
+<span id="cb213-7"><a href="subgroup-based-analysis.html#cb213-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb213-8"><a href="subgroup-based-analysis.html#cb213-8" aria-hidden="true" tabindex="-1"></a>ss <span class="sc">%&gt;%</span> length</span>
+<span id="cb213-9"><a href="subgroup-based-analysis.html#cb213-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">183</span></span>
+<span id="cb213-10"><a href="subgroup-based-analysis.html#cb213-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb213-11"><a href="subgroup-based-analysis.html#cb213-11" aria-hidden="true" tabindex="-1"></a>ss</span>
+<span id="cb213-12"><a href="subgroup-based-analysis.html#cb213-12" aria-hidden="true" tabindex="-1"></a>  [<span class="dv">1</span>]  <span class="fl">5.00</span>  <span class="fl">7.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.33</span>  <span class="fl">2.00</span>  <span class="fl">2.75</span>  <span class="fl">2.67</span>  <span class="fl">1.00</span>  <span class="fl">6.00</span>  <span class="fl">1.00</span></span>
+<span id="cb213-13"><a href="subgroup-based-analysis.html#cb213-13" aria-hidden="true" tabindex="-1"></a> [<span class="dv">13</span>]  <span class="fl">2.00</span> <span class="fl">18.50</span>  <span class="fl">1.00</span>  <span class="fl">4.00</span>  <span class="fl">5.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">4.00</span>  <span class="fl">4.50</span>  <span class="fl">2.50</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span></span>
+<span id="cb213-14"><a href="subgroup-based-analysis.html#cb213-14" aria-hidden="true" tabindex="-1"></a> [<span class="dv">25</span>]  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">5.00</span>  <span class="fl">1.00</span>  <span class="fl">4.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span></span>
+<span id="cb213-15"><a href="subgroup-based-analysis.html#cb213-15" aria-hidden="true" tabindex="-1"></a> [<span class="dv">37</span>]  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">4.00</span>  <span class="fl">9.83</span>  <span class="fl">2.50</span>  <span class="fl">4.75</span>  <span class="fl">8.25</span>  <span class="fl">3.00</span>  <span class="fl">2.00</span>  <span class="fl">3.00</span>  <span class="fl">3.67</span>  <span class="fl">3.50</span></span>
+<span id="cb213-16"><a href="subgroup-based-analysis.html#cb213-16" aria-hidden="true" tabindex="-1"></a> [<span class="dv">49</span>]  <span class="fl">4.50</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span></span>
+<span id="cb213-17"><a href="subgroup-based-analysis.html#cb213-17" aria-hidden="true" tabindex="-1"></a> [<span class="dv">61</span>]  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">3.00</span>  <span class="fl">2.00</span>  <span class="fl">1.50</span>  <span class="fl">2.67</span>  <span class="fl">1.33</span>  <span class="fl">2.00</span>  <span class="fl">6.00</span>  <span class="fl">4.33</span>  <span class="fl">2.00</span></span>
+<span id="cb213-18"><a href="subgroup-based-analysis.html#cb213-18" aria-hidden="true" tabindex="-1"></a> [<span class="dv">73</span>]  <span class="fl">1.00</span>  <span class="fl">3.00</span>  <span class="fl">5.00</span>  <span class="fl">5.80</span>  <span class="fl">4.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">4.00</span>  <span class="fl">4.50</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span></span>
+<span id="cb213-19"><a href="subgroup-based-analysis.html#cb213-19" aria-hidden="true" tabindex="-1"></a> [<span class="dv">85</span>]  <span class="fl">2.00</span>  <span class="fl">4.50</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">1.50</span>  <span class="fl">4.50</span>  <span class="fl">1.00</span></span>
+<span id="cb213-20"><a href="subgroup-based-analysis.html#cb213-20" aria-hidden="true" tabindex="-1"></a> [<span class="dv">97</span>]  <span class="fl">1.00</span>  <span class="fl">3.33</span>  <span class="fl">3.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">7.50</span>  <span class="fl">5.00</span>  <span class="fl">4.00</span>  <span class="fl">3.67</span>  <span class="fl">2.00</span>  <span class="fl">3.00</span>  <span class="fl">2.00</span></span>
+<span id="cb213-21"><a href="subgroup-based-analysis.html#cb213-21" aria-hidden="true" tabindex="-1"></a>[<span class="dv">109</span>]  <span class="fl">8.50</span>  <span class="fl">8.00</span>  <span class="fl">4.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">4.00</span>  <span class="fl">4.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">6.00</span></span>
+<span id="cb213-22"><a href="subgroup-based-analysis.html#cb213-22" aria-hidden="true" tabindex="-1"></a>[<span class="dv">121</span>]  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">2.50</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span></span>
+<span id="cb213-23"><a href="subgroup-based-analysis.html#cb213-23" aria-hidden="true" tabindex="-1"></a>[<span class="dv">133</span>]  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">4.00</span></span>
+<span id="cb213-24"><a href="subgroup-based-analysis.html#cb213-24" aria-hidden="true" tabindex="-1"></a>[<span class="dv">145</span>]  <span class="fl">7.50</span>  <span class="fl">1.50</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span>  <span class="fl">3.00</span>  <span class="fl">3.00</span></span>
+<span id="cb213-25"><a href="subgroup-based-analysis.html#cb213-25" aria-hidden="true" tabindex="-1"></a>[<span class="dv">157</span>]  <span class="fl">2.00</span>  <span class="fl">3.00</span>  <span class="fl">1.50</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">3.00</span>  <span class="fl">2.00</span>  <span class="fl">4.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">2.00</span></span>
+<span id="cb213-26"><a href="subgroup-based-analysis.html#cb213-26" aria-hidden="true" tabindex="-1"></a>[<span class="dv">169</span>]  <span class="fl">2.00</span>  <span class="fl">4.00</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">3.00</span>  <span class="fl">1.00</span>  <span class="fl">3.00</span>  <span class="fl">2.50</span>  <span class="fl">2.00</span>  <span class="fl">2.00</span></span>
+<span id="cb213-27"><a href="subgroup-based-analysis.html#cb213-27" aria-hidden="true" tabindex="-1"></a>[<span class="dv">181</span>]  <span class="fl">1.00</span>  <span class="fl">1.00</span>  <span class="fl">1.00</span></span></code></pre></div>
 </div>
 <div id="cruz10" class="section level3 unnumbered hasAnchor">
 <h3><code>cruz10</code><a href="subgroup-based-analysis.html#cruz10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This is a processed <code>cruz</code> object with short segment lengths, ideally 10 km or less (hence the 10 in the input name). This <code>cruz</code> object will be used to estimate <em>Rg(0)</em>, i.e., the relative trackline detection probability (see its chapter). <code>LTabundR</code> comes with a built-in dataset we can use for this purpose:</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="subgroup-based-analysis.html#cb215-1"></a><span class="kw">data</span>(<span class="st">&quot;noaa_10km_1986_2020&quot;</span>)</span>
-<span id="cb215-2"><a href="subgroup-based-analysis.html#cb215-2"></a>cruz10 &lt;-<span class="st"> </span>noaa_10km_<span class="dv">1986</span>_<span class="dv">2020</span></span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="subgroup-based-analysis.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;noaa_10km_1986_2020&quot;</span>)</span>
+<span id="cb214-2"><a href="subgroup-based-analysis.html#cb214-2" aria-hidden="true" tabindex="-1"></a>cruz10 <span class="ot">&lt;-</span> noaa_10km_1986_2020</span></code></pre></div>
 <p>The code used to generate this dataset can be seen by pulling up the help documentation: <code>?noaa_10km_1986_2020</code>.</p>
 </div>
 <div id="g0_spp" class="section level3 unnumbered hasAnchor">
 <h3><code>g0_spp</code><a href="subgroup-based-analysis.html#g0_spp" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This is a character vector of species code(s) to use to estimate <em>Rg(0)</em>. In most cases this will be a single species, e.g., <code>"033"</code> for false killer whales.</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="subgroup-based-analysis.html#cb216-1"></a>g0_spp &lt;-<span class="st"> &#39;033&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="subgroup-based-analysis.html#cb215-1" aria-hidden="true" tabindex="-1"></a>g0_spp <span class="ot">&lt;-</span> <span class="st">&#39;033&#39;</span></span></code></pre></div>
 </div>
 <div id="g0_truncation" class="section level3 unnumbered hasAnchor">
 <h3><code>g0_truncation</code><a href="subgroup-based-analysis.html#g0_truncation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The truncation distance to use when estimating Rg(0). In Bradford et al. (2020) this is 5.5 km.</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="subgroup-based-analysis.html#cb217-1"></a>g0_truncation &lt;-<span class="st"> </span><span class="fl">5.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="subgroup-based-analysis.html#cb216-1" aria-hidden="true" tabindex="-1"></a>g0_truncation <span class="ot">&lt;-</span> <span class="fl">5.5</span></span></code></pre></div>
 </div>
 <div id="g0_pool_bft" class="section level3 unnumbered hasAnchor">
 <h3><code>g0_pool_bft</code><a href="subgroup-based-analysis.html#g0_pool_bft" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A way to specify that low Beaufort sea states, which are typically rare in open-ocean surveys, should be pooled. This step may be needed in order to achieve a monotonic decline in the <em>g(0)</em> ~ Bft relationship, but the default is <code>NULL</code>, i.e., no pooling. If <code>g0_pool_bft</code> is the character string <code>"01"</code>, Beaufort states 1 will be pooled into state 0. If <code>g0_pool_bft</code> is the character string <code>"012"</code>, Beaufort states 1 and 2 will be pooled into state 0.</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="subgroup-based-analysis.html#cb218-1"></a>g0_pool_bft =<span class="st"> </span><span class="ot">NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="subgroup-based-analysis.html#cb217-1" aria-hidden="true" tabindex="-1"></a>g0_pool_bft <span class="ot">=</span> <span class="cn">NULL</span></span></code></pre></div>
 </div>
 <div id="g0_jackknife_fraction" class="section level3 unnumbered hasAnchor">
 <h3><code>g0_jackknife_fraction</code><a href="subgroup-based-analysis.html#g0_jackknife_fraction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The proportion of data to leave out within each jackknife permutation. The default is <code>0.1</code> (i.e., 10% of the data, yielding 10 jackknife loops), after Barlow (2015).</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="subgroup-based-analysis.html#cb219-1"></a>g0_jackknife_fraction =<span class="st"> </span><span class="fl">0.1</span></span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="subgroup-based-analysis.html#cb218-1" aria-hidden="true" tabindex="-1"></a>g0_jackknife_fraction <span class="ot">=</span> <span class="fl">0.1</span></span></code></pre></div>
 </div>
 <div id="density_segments" class="section level3 unnumbered hasAnchor">
 <h3><code>density_segments</code><a href="subgroup-based-analysis.html#density_segments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The survey segments to be used in density/abundance estimation. For example, Bradford et al. (2020) used 150-km segments to estimate false killer whale density in the Hawaiian EEZ in 2017. For this we can use the 1986-2020 dataset we loaded above. Note that no filtering will be applied to these segments by the <code>lta_subgroup()</code> function, so w need to filter them ourselves first: we want only systematic segments for the Hawaiian EEZ in 2017 (specially, just cruises 1705 and 1706).</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="subgroup-based-analysis.html#cb220-1"></a>cruzi &lt;-<span class="st"> </span><span class="kw">filter_cruz</span>(<span class="dt">cruz =</span> cruz,</span>
-<span id="cb220-2"><a href="subgroup-based-analysis.html#cb220-2"></a>                      <span class="dt">analysis_only =</span> <span class="ot">TRUE</span>,</span>
-<span id="cb220-3"><a href="subgroup-based-analysis.html#cb220-3"></a>                      <span class="dt">years =</span> <span class="dv">2017</span>,</span>
-<span id="cb220-4"><a href="subgroup-based-analysis.html#cb220-4"></a>                      <span class="dt">cruises =</span> <span class="kw">c</span>(<span class="dv">1705</span>, <span class="dv">1706</span>),</span>
-<span id="cb220-5"><a href="subgroup-based-analysis.html#cb220-5"></a>                      <span class="dt">regions =</span> <span class="st">&#39;HI_EEZ&#39;</span>,</span>
-<span id="cb220-6"><a href="subgroup-based-analysis.html#cb220-6"></a>                      <span class="dt">bft_range =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">6</span>,</span>
-<span id="cb220-7"><a href="subgroup-based-analysis.html#cb220-7"></a>                      <span class="dt">eff_types =</span> <span class="st">&#39;S&#39;</span>,</span>
-<span id="cb220-8"><a href="subgroup-based-analysis.html#cb220-8"></a>                      <span class="dt">on_off =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="subgroup-based-analysis.html#cb219-1" aria-hidden="true" tabindex="-1"></a>cruzi <span class="ot">&lt;-</span> <span class="fu">filter_cruz</span>(<span class="at">cruz =</span> cruz,</span>
+<span id="cb219-2"><a href="subgroup-based-analysis.html#cb219-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">analysis_only =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb219-3"><a href="subgroup-based-analysis.html#cb219-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">years =</span> <span class="dv">2017</span>,</span>
+<span id="cb219-4"><a href="subgroup-based-analysis.html#cb219-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">cruises =</span> <span class="fu">c</span>(<span class="dv">1705</span>, <span class="dv">1706</span>),</span>
+<span id="cb219-5"><a href="subgroup-based-analysis.html#cb219-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">regions =</span> <span class="st">&#39;HI_EEZ&#39;</span>,</span>
+<span id="cb219-6"><a href="subgroup-based-analysis.html#cb219-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">bft_range =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span>,</span>
+<span id="cb219-7"><a href="subgroup-based-analysis.html#cb219-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">eff_types =</span> <span class="st">&#39;S&#39;</span>,</span>
+<span id="cb219-8"><a href="subgroup-based-analysis.html#cb219-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">on_off =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>From this filtered cruz object, we will isolate the segments data:</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="subgroup-based-analysis.html#cb221-1"></a>density_segments &lt;-<span class="st"> </span>cruzi<span class="op">$</span>cohorts<span class="op">$</span>all<span class="op">$</span>segments</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="subgroup-based-analysis.html#cb220-1" aria-hidden="true" tabindex="-1"></a>density_segments <span class="ot">&lt;-</span> cruzi<span class="sc">$</span>cohorts<span class="sc">$</span>all<span class="sc">$</span>segments</span></code></pre></div>
 <p>Since we do not want to stratify our analysis by smaller geostrata, such as the Main Hawaiian Islands, we will go ahead and coerce all stratum assignments to the Hawaiian EEZ geostratum:</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="subgroup-based-analysis.html#cb222-1"></a>density_segments<span class="op">$</span>stratum &lt;-<span class="st"> &#39;HI_EEZ&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="subgroup-based-analysis.html#cb221-1" aria-hidden="true" tabindex="-1"></a>density_segments<span class="sc">$</span>stratum <span class="ot">&lt;-</span> <span class="st">&#39;HI_EEZ&#39;</span></span></code></pre></div>
 </div>
 <div id="density_das" class="section level3 unnumbered hasAnchor">
 <h3><code>density_das</code><a href="subgroup-based-analysis.html#density_das" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This is the complete survey data corresponding to the above segments. These data will be used to determine the proportion of survey effort occurring in each Beaufort sea state during estimation of <em>Relative g(0)</em>.</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="subgroup-based-analysis.html#cb223-1"></a>density_das &lt;-<span class="st"> </span>cruzi<span class="op">$</span>cohorts<span class="op">$</span>all<span class="op">$</span>das</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="subgroup-based-analysis.html#cb222-1" aria-hidden="true" tabindex="-1"></a>density_das <span class="ot">&lt;-</span> cruzi<span class="sc">$</span>cohorts<span class="sc">$</span>all<span class="sc">$</span>das</span></code></pre></div>
 </div>
 <div id="density_sightings" class="section level3 unnumbered hasAnchor">
 <h3><code>density_sightings</code><a href="subgroup-based-analysis.html#density_sightings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>These are the encounters to use in density/abundance estimation. In Bradford et al. (20120), these were the Phase 1 detections of false killer whale subgroups within the population-region-year of interest, e.g., Northwest Hawaiian Island population sightings within the Hawaiian EEZ in 2017. No filtering is applied to these sightings within <code>lta_subgroups()</code>, so make sure only the sightings you wish to use are included and nothing more.</p>
 <p>In this example, since we do not have population information on hand, we will not filter detections to a specific population. Instead, we will estimate abundance of all false killer whales within the Hawaiian EEZ:</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="subgroup-based-analysis.html#cb224-1"></a>density_sightings  &lt;-</span>
-<span id="cb224-2"><a href="subgroup-based-analysis.html#cb224-2"></a><span class="st">  </span>cruz<span class="op">$</span>cohorts<span class="op">$</span>all<span class="op">$</span>subgroups<span class="op">$</span>subgroups <span class="op">%&gt;%</span></span>
-<span id="cb224-3"><a href="subgroup-based-analysis.html#cb224-3"></a><span class="st">  </span><span class="kw">filter</span>(EffType <span class="op">==</span><span class="st"> &#39;S&#39;</span>,</span>
-<span id="cb224-4"><a href="subgroup-based-analysis.html#cb224-4"></a>         OnEffort <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>,</span>
-<span id="cb224-5"><a href="subgroup-based-analysis.html#cb224-5"></a>         lubridate<span class="op">::</span><span class="kw">year</span>(DateTime) <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>,</span>
-<span id="cb224-6"><a href="subgroup-based-analysis.html#cb224-6"></a>         PerpDist <span class="op">&lt;=</span><span class="st"> </span>truncation_distance,</span>
-<span id="cb224-7"><a href="subgroup-based-analysis.html#cb224-7"></a>         Species <span class="op">==</span><span class="st"> &#39;033&#39;</span>,</span>
-<span id="cb224-8"><a href="subgroup-based-analysis.html#cb224-8"></a>         Phase <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</span>
-<span id="cb224-9"><a href="subgroup-based-analysis.html#cb224-9"></a></span>
-<span id="cb224-10"><a href="subgroup-based-analysis.html#cb224-10"></a>density_sightings <span class="op">%&gt;%</span><span class="st"> </span>nrow</span>
-<span id="cb224-11"><a href="subgroup-based-analysis.html#cb224-11"></a>[<span class="dv">1</span>] <span class="dv">32</span></span>
-<span id="cb224-12"><a href="subgroup-based-analysis.html#cb224-12"></a></span>
-<span id="cb224-13"><a href="subgroup-based-analysis.html#cb224-13"></a>density_sightings <span class="op">%&gt;%</span><span class="st"> </span>head</span>
-<span id="cb224-14"><a href="subgroup-based-analysis.html#cb224-14"></a>  Cruise       Date            DateTime      Lat       Lon OnEffort Bft EffType</span>
-<span id="cb224-15"><a href="subgroup-based-analysis.html#cb224-15"></a><span class="dv">1</span>   <span class="dv">1705</span> <span class="dv">2017-09-21</span> <span class="dv">2017-09-21</span> <span class="dv">14</span><span class="op">:</span><span class="dv">17</span><span class="op">:</span><span class="dv">27</span> <span class="fl">20.04283</span> <span class="fl">-161.9177</span>     <span class="ot">TRUE</span>   <span class="dv">5</span>       S</span>
-<span id="cb224-16"><a href="subgroup-based-analysis.html#cb224-16"></a><span class="dv">2</span>   <span class="dv">1705</span> <span class="dv">2017-09-21</span> <span class="dv">2017-09-21</span> <span class="dv">14</span><span class="op">:</span><span class="dv">39</span><span class="op">:</span><span class="dv">40</span> <span class="fl">20.06017</span> <span class="fl">-161.9840</span>     <span class="ot">TRUE</span>   <span class="dv">5</span>       S</span>
-<span id="cb224-17"><a href="subgroup-based-analysis.html#cb224-17"></a><span class="dv">3</span>   <span class="dv">1705</span> <span class="dv">2017-09-29</span> <span class="dv">2017-09-29</span> <span class="dv">13</span><span class="op">:</span><span class="dv">22</span><span class="op">:</span><span class="dv">08</span> <span class="fl">23.55750</span> <span class="fl">-175.8527</span>     <span class="ot">TRUE</span>   <span class="dv">1</span>       S</span>
-<span id="cb224-18"><a href="subgroup-based-analysis.html#cb224-18"></a><span class="dv">4</span>   <span class="dv">1705</span> <span class="dv">2017-09-29</span> <span class="dv">2017-09-29</span> <span class="dv">13</span><span class="op">:</span><span class="dv">26</span><span class="op">:</span><span class="dv">05</span> <span class="fl">23.56050</span> <span class="fl">-175.8643</span>     <span class="ot">TRUE</span>   <span class="dv">1</span>       S</span>
-<span id="cb224-19"><a href="subgroup-based-analysis.html#cb224-19"></a><span class="dv">5</span>   <span class="dv">1705</span> <span class="dv">2017-09-29</span> <span class="dv">2017-09-29</span> <span class="dv">13</span><span class="op">:</span><span class="dv">26</span><span class="op">:</span><span class="dv">43</span> <span class="fl">23.56083</span> <span class="fl">-175.8662</span>     <span class="ot">TRUE</span>   <span class="dv">1</span>       S</span>
-<span id="cb224-20"><a href="subgroup-based-analysis.html#cb224-20"></a><span class="dv">6</span>   <span class="dv">1705</span> <span class="dv">2017-09-29</span> <span class="dv">2017-09-29</span> <span class="dv">13</span><span class="op">:</span><span class="dv">32</span><span class="op">:</span><span class="dv">33</span> <span class="fl">23.56517</span> <span class="fl">-175.8832</span>     <span class="ot">TRUE</span>   <span class="dv">1</span>       S</span>
-<span id="cb224-21"><a href="subgroup-based-analysis.html#cb224-21"></a>  SightNo Species SubGrp Angle   RadDist seg_id  PerpDist GSBest GSH  GSL</span>
-<span id="cb224-22"><a href="subgroup-based-analysis.html#cb224-22"></a><span class="dv">1</span>     <span class="dv">064</span>     <span class="dv">033</span>      A    <span class="dv">14</span> <span class="fl">5.0374102</span>   <span class="dv">1602</span> <span class="fl">1.2186598</span>   <span class="fl">3.00</span>   <span class="dv">4</span> <span class="fl">2.00</span></span>
-<span id="cb224-23"><a href="subgroup-based-analysis.html#cb224-23"></a><span class="dv">2</span>     <span class="dv">064</span>     <span class="dv">033</span>      B    <span class="dv">24</span> <span class="fl">3.1483814</span>   <span class="dv">1602</span> <span class="fl">1.2805621</span>   <span class="fl">3.67</span>   <span class="dv">6</span> <span class="fl">2.33</span></span>
-<span id="cb224-24"><a href="subgroup-based-analysis.html#cb224-24"></a><span class="dv">3</span>     <span class="dv">073</span>     <span class="dv">033</span>      A    <span class="dv">49</span> <span class="fl">3.3706200</span>   <span class="dv">1610</span> <span class="fl">2.5438392</span>   <span class="fl">2.00</span>   <span class="dv">3</span> <span class="fl">1.00</span></span>
-<span id="cb224-25"><a href="subgroup-based-analysis.html#cb224-25"></a><span class="dv">4</span>     <span class="dv">073</span>     <span class="dv">033</span>      B    <span class="dv">68</span> <span class="fl">0.6852359</span>   <span class="dv">1610</span> <span class="fl">0.6353397</span>   <span class="fl">1.00</span>   <span class="dv">2</span> <span class="fl">1.00</span></span>
-<span id="cb224-26"><a href="subgroup-based-analysis.html#cb224-26"></a><span class="dv">5</span>     <span class="dv">073</span>     <span class="dv">033</span>      C    <span class="dv">40</span> <span class="fl">0.3703978</span>   <span class="dv">1610</span> <span class="fl">0.2380871</span>   <span class="fl">1.00</span>   <span class="dv">1</span> <span class="fl">1.00</span></span>
-<span id="cb224-27"><a href="subgroup-based-analysis.html#cb224-27"></a><span class="dv">6</span>     <span class="dv">073</span>     <span class="dv">033</span>      E    <span class="dv">89</span> <span class="fl">2.9817023</span>   <span class="dv">1610</span> <span class="fl">2.9812482</span>   <span class="fl">1.00</span>   <span class="dv">2</span> <span class="fl">1.00</span></span>
-<span id="cb224-28"><a href="subgroup-based-analysis.html#cb224-28"></a>  GSBest_geom GSH_geom GSL_geom  use stratum_HI_EEZ stratum_OtherCNP</span>
-<span id="cb224-29"><a href="subgroup-based-analysis.html#cb224-29"></a><span class="dv">1</span>        <span class="fl">3.00</span>        <span class="dv">4</span>     <span class="fl">2.00</span> <span class="ot">TRUE</span>           <span class="ot">TRUE</span>             <span class="ot">TRUE</span></span>
-<span id="cb224-30"><a href="subgroup-based-analysis.html#cb224-30"></a><span class="dv">2</span>        <span class="fl">3.67</span>        <span class="dv">6</span>     <span class="fl">2.33</span> <span class="ot">TRUE</span>           <span class="ot">TRUE</span>             <span class="ot">TRUE</span></span>
-<span id="cb224-31"><a href="subgroup-based-analysis.html#cb224-31"></a><span class="dv">3</span>        <span class="fl">2.00</span>        <span class="dv">3</span>     <span class="fl">1.00</span> <span class="ot">TRUE</span>           <span class="ot">TRUE</span>             <span class="ot">TRUE</span></span>
-<span id="cb224-32"><a href="subgroup-based-analysis.html#cb224-32"></a><span class="dv">4</span>        <span class="fl">1.00</span>        <span class="dv">2</span>     <span class="fl">1.00</span> <span class="ot">TRUE</span>           <span class="ot">TRUE</span>             <span class="ot">TRUE</span></span>
-<span id="cb224-33"><a href="subgroup-based-analysis.html#cb224-33"></a><span class="dv">5</span>        <span class="fl">1.00</span>        <span class="dv">1</span>     <span class="fl">1.00</span> <span class="ot">TRUE</span>           <span class="ot">TRUE</span>             <span class="ot">TRUE</span></span>
-<span id="cb224-34"><a href="subgroup-based-analysis.html#cb224-34"></a><span class="dv">6</span>        <span class="fl">1.00</span>        <span class="dv">2</span>     <span class="fl">1.00</span> <span class="ot">TRUE</span>           <span class="ot">TRUE</span>             <span class="ot">TRUE</span></span>
-<span id="cb224-35"><a href="subgroup-based-analysis.html#cb224-35"></a>  stratum_MHI stratum Phase</span>
-<span id="cb224-36"><a href="subgroup-based-analysis.html#cb224-36"></a><span class="dv">1</span>       <span class="ot">FALSE</span>  HI_EEZ     <span class="dv">1</span></span>
-<span id="cb224-37"><a href="subgroup-based-analysis.html#cb224-37"></a><span class="dv">2</span>       <span class="ot">FALSE</span>  HI_EEZ     <span class="dv">1</span></span>
-<span id="cb224-38"><a href="subgroup-based-analysis.html#cb224-38"></a><span class="dv">3</span>       <span class="ot">FALSE</span>  HI_EEZ     <span class="dv">1</span></span>
-<span id="cb224-39"><a href="subgroup-based-analysis.html#cb224-39"></a><span class="dv">4</span>       <span class="ot">FALSE</span>  HI_EEZ     <span class="dv">1</span></span>
-<span id="cb224-40"><a href="subgroup-based-analysis.html#cb224-40"></a><span class="dv">5</span>       <span class="ot">FALSE</span>  HI_EEZ     <span class="dv">1</span></span>
-<span id="cb224-41"><a href="subgroup-based-analysis.html#cb224-41"></a><span class="dv">6</span>       <span class="ot">FALSE</span>  HI_EEZ     <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="subgroup-based-analysis.html#cb223-1" aria-hidden="true" tabindex="-1"></a>density_sightings  <span class="ot">&lt;-</span></span>
+<span id="cb223-2"><a href="subgroup-based-analysis.html#cb223-2" aria-hidden="true" tabindex="-1"></a>  cruz<span class="sc">$</span>cohorts<span class="sc">$</span>all<span class="sc">$</span>subgroups<span class="sc">$</span>subgroups <span class="sc">%&gt;%</span></span>
+<span id="cb223-3"><a href="subgroup-based-analysis.html#cb223-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(EffType <span class="sc">==</span> <span class="st">&#39;S&#39;</span>,</span>
+<span id="cb223-4"><a href="subgroup-based-analysis.html#cb223-4" aria-hidden="true" tabindex="-1"></a>         OnEffort <span class="sc">==</span> <span class="cn">TRUE</span>,</span>
+<span id="cb223-5"><a href="subgroup-based-analysis.html#cb223-5" aria-hidden="true" tabindex="-1"></a>         lubridate<span class="sc">::</span><span class="fu">year</span>(DateTime) <span class="sc">==</span> <span class="dv">2017</span>,</span>
+<span id="cb223-6"><a href="subgroup-based-analysis.html#cb223-6" aria-hidden="true" tabindex="-1"></a>         PerpDist <span class="sc">&lt;=</span> truncation_distance,</span>
+<span id="cb223-7"><a href="subgroup-based-analysis.html#cb223-7" aria-hidden="true" tabindex="-1"></a>         Species <span class="sc">==</span> <span class="st">&#39;033&#39;</span>,</span>
+<span id="cb223-8"><a href="subgroup-based-analysis.html#cb223-8" aria-hidden="true" tabindex="-1"></a>         Phase <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb223-9"><a href="subgroup-based-analysis.html#cb223-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb223-10"><a href="subgroup-based-analysis.html#cb223-10" aria-hidden="true" tabindex="-1"></a>density_sightings <span class="sc">%&gt;%</span> nrow</span>
+<span id="cb223-11"><a href="subgroup-based-analysis.html#cb223-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">32</span></span>
+<span id="cb223-12"><a href="subgroup-based-analysis.html#cb223-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb223-13"><a href="subgroup-based-analysis.html#cb223-13" aria-hidden="true" tabindex="-1"></a>density_sightings <span class="sc">%&gt;%</span> head</span>
+<span id="cb223-14"><a href="subgroup-based-analysis.html#cb223-14" aria-hidden="true" tabindex="-1"></a>  Cruise       Date            DateTime      Lat       Lon OnEffort Bft EffType</span>
+<span id="cb223-15"><a href="subgroup-based-analysis.html#cb223-15" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">1705</span> <span class="dv">2017-09-21</span> <span class="dv">2017-09-21</span> <span class="dv">14</span><span class="sc">:</span><span class="dv">17</span><span class="sc">:</span><span class="dv">27</span> <span class="fl">20.04283</span> <span class="sc">-</span><span class="fl">161.9177</span>     <span class="cn">TRUE</span>   <span class="dv">5</span>       S</span>
+<span id="cb223-16"><a href="subgroup-based-analysis.html#cb223-16" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   <span class="dv">1705</span> <span class="dv">2017-09-21</span> <span class="dv">2017-09-21</span> <span class="dv">14</span><span class="sc">:</span><span class="dv">39</span><span class="sc">:</span><span class="dv">40</span> <span class="fl">20.06017</span> <span class="sc">-</span><span class="fl">161.9840</span>     <span class="cn">TRUE</span>   <span class="dv">5</span>       S</span>
+<span id="cb223-17"><a href="subgroup-based-analysis.html#cb223-17" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>   <span class="dv">1705</span> <span class="dv">2017-09-29</span> <span class="dv">2017-09-29</span> <span class="dv">13</span><span class="sc">:</span><span class="dv">22</span><span class="sc">:</span><span class="dv">08</span> <span class="fl">23.55750</span> <span class="sc">-</span><span class="fl">175.8527</span>     <span class="cn">TRUE</span>   <span class="dv">1</span>       S</span>
+<span id="cb223-18"><a href="subgroup-based-analysis.html#cb223-18" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="dv">1705</span> <span class="dv">2017-09-29</span> <span class="dv">2017-09-29</span> <span class="dv">13</span><span class="sc">:</span><span class="dv">26</span><span class="sc">:</span><span class="dv">05</span> <span class="fl">23.56050</span> <span class="sc">-</span><span class="fl">175.8643</span>     <span class="cn">TRUE</span>   <span class="dv">1</span>       S</span>
+<span id="cb223-19"><a href="subgroup-based-analysis.html#cb223-19" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>   <span class="dv">1705</span> <span class="dv">2017-09-29</span> <span class="dv">2017-09-29</span> <span class="dv">13</span><span class="sc">:</span><span class="dv">26</span><span class="sc">:</span><span class="dv">43</span> <span class="fl">23.56083</span> <span class="sc">-</span><span class="fl">175.8662</span>     <span class="cn">TRUE</span>   <span class="dv">1</span>       S</span>
+<span id="cb223-20"><a href="subgroup-based-analysis.html#cb223-20" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>   <span class="dv">1705</span> <span class="dv">2017-09-29</span> <span class="dv">2017-09-29</span> <span class="dv">13</span><span class="sc">:</span><span class="dv">32</span><span class="sc">:</span><span class="dv">33</span> <span class="fl">23.56517</span> <span class="sc">-</span><span class="fl">175.8832</span>     <span class="cn">TRUE</span>   <span class="dv">1</span>       S</span>
+<span id="cb223-21"><a href="subgroup-based-analysis.html#cb223-21" aria-hidden="true" tabindex="-1"></a>  SightNo Species SubGrp Angle   RadDist seg_id  PerpDist GSBest GSH  GSL</span>
+<span id="cb223-22"><a href="subgroup-based-analysis.html#cb223-22" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">064</span>     <span class="dv">033</span>      A    <span class="dv">14</span> <span class="fl">5.0374102</span>   <span class="dv">1602</span> <span class="fl">1.2186598</span>   <span class="fl">3.00</span>   <span class="dv">4</span> <span class="fl">2.00</span></span>
+<span id="cb223-23"><a href="subgroup-based-analysis.html#cb223-23" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">064</span>     <span class="dv">033</span>      B    <span class="dv">24</span> <span class="fl">3.1483814</span>   <span class="dv">1602</span> <span class="fl">1.2805621</span>   <span class="fl">3.67</span>   <span class="dv">6</span> <span class="fl">2.33</span></span>
+<span id="cb223-24"><a href="subgroup-based-analysis.html#cb223-24" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">073</span>     <span class="dv">033</span>      A    <span class="dv">49</span> <span class="fl">3.3706200</span>   <span class="dv">1610</span> <span class="fl">2.5438392</span>   <span class="fl">2.00</span>   <span class="dv">3</span> <span class="fl">1.00</span></span>
+<span id="cb223-25"><a href="subgroup-based-analysis.html#cb223-25" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>     <span class="dv">073</span>     <span class="dv">033</span>      B    <span class="dv">68</span> <span class="fl">0.6852359</span>   <span class="dv">1610</span> <span class="fl">0.6353397</span>   <span class="fl">1.00</span>   <span class="dv">2</span> <span class="fl">1.00</span></span>
+<span id="cb223-26"><a href="subgroup-based-analysis.html#cb223-26" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>     <span class="dv">073</span>     <span class="dv">033</span>      C    <span class="dv">40</span> <span class="fl">0.3703978</span>   <span class="dv">1610</span> <span class="fl">0.2380871</span>   <span class="fl">1.00</span>   <span class="dv">1</span> <span class="fl">1.00</span></span>
+<span id="cb223-27"><a href="subgroup-based-analysis.html#cb223-27" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>     <span class="dv">073</span>     <span class="dv">033</span>      E    <span class="dv">89</span> <span class="fl">2.9817023</span>   <span class="dv">1610</span> <span class="fl">2.9812482</span>   <span class="fl">1.00</span>   <span class="dv">2</span> <span class="fl">1.00</span></span>
+<span id="cb223-28"><a href="subgroup-based-analysis.html#cb223-28" aria-hidden="true" tabindex="-1"></a>  GSBest_geom GSH_geom GSL_geom  use stratum_HI_EEZ stratum_OtherCNP</span>
+<span id="cb223-29"><a href="subgroup-based-analysis.html#cb223-29" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>        <span class="fl">3.00</span>        <span class="dv">4</span>     <span class="fl">2.00</span> <span class="cn">TRUE</span>           <span class="cn">TRUE</span>             <span class="cn">TRUE</span></span>
+<span id="cb223-30"><a href="subgroup-based-analysis.html#cb223-30" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>        <span class="fl">3.67</span>        <span class="dv">6</span>     <span class="fl">2.33</span> <span class="cn">TRUE</span>           <span class="cn">TRUE</span>             <span class="cn">TRUE</span></span>
+<span id="cb223-31"><a href="subgroup-based-analysis.html#cb223-31" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>        <span class="fl">2.00</span>        <span class="dv">3</span>     <span class="fl">1.00</span> <span class="cn">TRUE</span>           <span class="cn">TRUE</span>             <span class="cn">TRUE</span></span>
+<span id="cb223-32"><a href="subgroup-based-analysis.html#cb223-32" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>        <span class="fl">1.00</span>        <span class="dv">2</span>     <span class="fl">1.00</span> <span class="cn">TRUE</span>           <span class="cn">TRUE</span>             <span class="cn">TRUE</span></span>
+<span id="cb223-33"><a href="subgroup-based-analysis.html#cb223-33" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>        <span class="fl">1.00</span>        <span class="dv">1</span>     <span class="fl">1.00</span> <span class="cn">TRUE</span>           <span class="cn">TRUE</span>             <span class="cn">TRUE</span></span>
+<span id="cb223-34"><a href="subgroup-based-analysis.html#cb223-34" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>        <span class="fl">1.00</span>        <span class="dv">2</span>     <span class="fl">1.00</span> <span class="cn">TRUE</span>           <span class="cn">TRUE</span>             <span class="cn">TRUE</span></span>
+<span id="cb223-35"><a href="subgroup-based-analysis.html#cb223-35" aria-hidden="true" tabindex="-1"></a>  stratum_MHI stratum Phase</span>
+<span id="cb223-36"><a href="subgroup-based-analysis.html#cb223-36" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>       <span class="cn">FALSE</span>  HI_EEZ     <span class="dv">1</span></span>
+<span id="cb223-37"><a href="subgroup-based-analysis.html#cb223-37" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>       <span class="cn">FALSE</span>  HI_EEZ     <span class="dv">1</span></span>
+<span id="cb223-38"><a href="subgroup-based-analysis.html#cb223-38" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>       <span class="cn">FALSE</span>  HI_EEZ     <span class="dv">1</span></span>
+<span id="cb223-39"><a href="subgroup-based-analysis.html#cb223-39" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>       <span class="cn">FALSE</span>  HI_EEZ     <span class="dv">1</span></span>
+<span id="cb223-40"><a href="subgroup-based-analysis.html#cb223-40" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>       <span class="cn">FALSE</span>  HI_EEZ     <span class="dv">1</span></span>
+<span id="cb223-41"><a href="subgroup-based-analysis.html#cb223-41" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       <span class="cn">FALSE</span>  HI_EEZ     <span class="dv">1</span></span></code></pre></div>
 <p>As above, let’s make sure the geostratum assignments for these sightings are simple:</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="subgroup-based-analysis.html#cb225-1"></a>density_segments<span class="op">$</span>stratum &lt;-<span class="st"> &#39;HI_EEZ&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="subgroup-based-analysis.html#cb224-1" aria-hidden="true" tabindex="-1"></a>density_segments<span class="sc">$</span>stratum <span class="ot">&lt;-</span> <span class="st">&#39;HI_EEZ&#39;</span></span></code></pre></div>
 </div>
 <div id="abundance_area" class="section level3 unnumbered hasAnchor">
 <h3><code>abundance_area</code><a href="subgroup-based-analysis.html#abundance_area" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This is the area, in square km, of the region of interest. The density estimate will be scaled by this area.</p>
 <p>We have two options for finding this area. The first is to draw the area from our <code>cohort$strata</code> slot:</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="subgroup-based-analysis.html#cb226-1"></a>cruz<span class="op">$</span>strata<span class="op">$</span>area[cruz<span class="op">$</span>strata<span class="op">$</span>stratum <span class="op">==</span><span class="st"> &#39;HI_EEZ&#39;</span>]</span>
-<span id="cb226-2"><a href="subgroup-based-analysis.html#cb226-2"></a>[<span class="dv">1</span>] <span class="dv">2474596</span></span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="subgroup-based-analysis.html#cb225-1" aria-hidden="true" tabindex="-1"></a>cruz<span class="sc">$</span>strata<span class="sc">$</span>area[cruz<span class="sc">$</span>strata<span class="sc">$</span>stratum <span class="sc">==</span> <span class="st">&#39;HI_EEZ&#39;</span>]</span>
+<span id="cb225-2"><a href="subgroup-based-analysis.html#cb225-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2474596</span></span></code></pre></div>
 <p>The second is to calculate it ourselves using the <code>LTabundR</code> function <code>strata_area()</code>. This second option will be useful if your study area is a complicated combination/substraction of multiple geostrata.</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="subgroup-based-analysis.html#cb227-1"></a><span class="kw">data</span>(strata_cnp)</span>
-<span id="cb227-2"><a href="subgroup-based-analysis.html#cb227-2"></a></span>
-<span id="cb227-3"><a href="subgroup-based-analysis.html#cb227-3"></a>abundance_area &lt;-<span class="st"> </span></span>
-<span id="cb227-4"><a href="subgroup-based-analysis.html#cb227-4"></a><span class="st">  </span><span class="kw">strata_area</span>(<span class="dt">strata_all =</span> strata_cnp,</span>
-<span id="cb227-5"><a href="subgroup-based-analysis.html#cb227-5"></a>              <span class="dt">strata_keep =</span> <span class="st">&#39;HI_EEZ&#39;</span>)<span class="op">$</span>km2</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-297-1.png" width="672" /></p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="subgroup-based-analysis.html#cb228-1"></a></span>
-<span id="cb228-2"><a href="subgroup-based-analysis.html#cb228-2"></a>abundance_area</span>
-<span id="cb228-3"><a href="subgroup-based-analysis.html#cb228-3"></a>[<span class="dv">1</span>] <span class="dv">2474596</span></span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="subgroup-based-analysis.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(strata_cnp)</span>
+<span id="cb226-2"><a href="subgroup-based-analysis.html#cb226-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb226-3"><a href="subgroup-based-analysis.html#cb226-3" aria-hidden="true" tabindex="-1"></a>abundance_area <span class="ot">&lt;-</span> </span>
+<span id="cb226-4"><a href="subgroup-based-analysis.html#cb226-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">strata_area</span>(<span class="at">strata_all =</span> strata_cnp,</span>
+<span id="cb226-5"><a href="subgroup-based-analysis.html#cb226-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">strata_keep =</span> <span class="st">&#39;HI_EEZ&#39;</span>)<span class="sc">$</span>km2</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-296-1.png" width="672" /></p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="subgroup-based-analysis.html#cb227-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb227-2"><a href="subgroup-based-analysis.html#cb227-2" aria-hidden="true" tabindex="-1"></a>abundance_area</span>
+<span id="cb227-3"><a href="subgroup-based-analysis.html#cb227-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2474596</span></span></code></pre></div>
 </div>
 <div id="remaining-inputs" class="section level3 unnumbered hasAnchor">
 <h3>Remaining inputs<a href="subgroup-based-analysis.html#remaining-inputs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong><code>iterations</code></strong>: Number of iterations to use in the various CV bootstrapping procedures occurring throughout this function, specifically: Effective Strip Half-Width CV estimation, school size CV estimation, weighted g(0) CV estimation, and encounter rate estimation.</p>
-<p><strong><code>output_dir</code></strong>: The path in which results RData files should be stored. If left "", the current working directory will be used.</p>
+<p><strong><code>output_dir</code></strong>: The path in which results RData files should be stored. If left ““, the current working directory will be used.</p>
 <p><strong><code>toplot</code></strong>: A Boolean, with default FALSE, indicating whether to plot various aspects of the analysis.</p>
 <p><strong><code>verbose</code></strong>: A Boolean, with default TRUE, indicating whether to print status updates to the Console.</p>
 <p><strong><code>density_bootstraps</code></strong>: Number of bootstrap iterations to use for the CV estimate of density and abundance specifically. This input allows this final step to use a different (typically larger) iteration size than the iterations input above.</p>
-<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="subgroup-based-analysis.html#cb229-1"></a><span class="kw">save</span>(results_subgroup, <span class="dt">file=</span><span class="st">&#39;results_subgroup.RData&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="subgroup-based-analysis.html#cb230-1"></a><span class="kw">load</span>(<span class="st">&#39;results_subgroup.RData&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="subgroup-based-analysis.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(results_subgroup, <span class="at">file=</span><span class="st">&#39;results_subgroup.RData&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="subgroup-based-analysis.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&#39;results_subgroup.RData&#39;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="outputs-1" class="section level2 unnumbered hasAnchor">
 <h2>Outputs<a href="subgroup-based-analysis.html#outputs-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The function returns a <code>list</code> with many slots, including estimates of density and abundance – along with estimates of intermediate parameters – with a CV derived from a bootstrapping routine. To demonstrate this output, we will use results from a call with only 10 bootstrap iterations.</p>
-<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="subgroup-based-analysis.html#cb231-1"></a>results_subgroup <span class="op">%&gt;%</span><span class="st"> </span>names</span>
-<span id="cb231-2"><a href="subgroup-based-analysis.html#cb231-2"></a> [<span class="dv">1</span>] <span class="st">&quot;D&quot;</span>                  <span class="st">&quot;D_CV&quot;</span>               <span class="st">&quot;D_L95&quot;</span>             </span>
-<span id="cb231-3"><a href="subgroup-based-analysis.html#cb231-3"></a> [<span class="dv">4</span>] <span class="st">&quot;D_U95&quot;</span>              <span class="st">&quot;N&quot;</span>                  <span class="st">&quot;N_CV&quot;</span>              </span>
-<span id="cb231-4"><a href="subgroup-based-analysis.html#cb231-4"></a> [<span class="dv">7</span>] <span class="st">&quot;N_L95&quot;</span>              <span class="st">&quot;N_U95&quot;</span>              <span class="st">&quot;ER&quot;</span>                </span>
-<span id="cb231-5"><a href="subgroup-based-analysis.html#cb231-5"></a>[<span class="dv">10</span>] <span class="st">&quot;ss&quot;</span>                 <span class="st">&quot;n&quot;</span>                  <span class="st">&quot;L&quot;</span>                 </span>
-<span id="cb231-6"><a href="subgroup-based-analysis.html#cb231-6"></a>[<span class="dv">13</span>] <span class="st">&quot;n_segments&quot;</span>         <span class="st">&quot;g0&quot;</span>                 <span class="st">&quot;g0_cv&quot;</span>             </span>
-<span id="cb231-7"><a href="subgroup-based-analysis.html#cb231-7"></a>[<span class="dv">16</span>] <span class="st">&quot;g0_details&quot;</span>         <span class="st">&quot;df&quot;</span>                 <span class="st">&quot;bootstraps&quot;</span>        </span>
-<span id="cb231-8"><a href="subgroup-based-analysis.html#cb231-8"></a>[<span class="dv">19</span>] <span class="st">&quot;iterations&quot;</span>         <span class="st">&quot;density_bootstraps&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="subgroup-based-analysis.html#cb230-1" aria-hidden="true" tabindex="-1"></a>results_subgroup <span class="sc">%&gt;%</span> names</span>
+<span id="cb230-2"><a href="subgroup-based-analysis.html#cb230-2" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;D&quot;</span>                  <span class="st">&quot;D_CV&quot;</span>               <span class="st">&quot;D_L95&quot;</span>             </span>
+<span id="cb230-3"><a href="subgroup-based-analysis.html#cb230-3" aria-hidden="true" tabindex="-1"></a> [<span class="dv">4</span>] <span class="st">&quot;D_U95&quot;</span>              <span class="st">&quot;N&quot;</span>                  <span class="st">&quot;N_CV&quot;</span>              </span>
+<span id="cb230-4"><a href="subgroup-based-analysis.html#cb230-4" aria-hidden="true" tabindex="-1"></a> [<span class="dv">7</span>] <span class="st">&quot;N_L95&quot;</span>              <span class="st">&quot;N_U95&quot;</span>              <span class="st">&quot;ER&quot;</span>                </span>
+<span id="cb230-5"><a href="subgroup-based-analysis.html#cb230-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">10</span>] <span class="st">&quot;ss&quot;</span>                 <span class="st">&quot;n&quot;</span>                  <span class="st">&quot;L&quot;</span>                 </span>
+<span id="cb230-6"><a href="subgroup-based-analysis.html#cb230-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">13</span>] <span class="st">&quot;n_segments&quot;</span>         <span class="st">&quot;g0&quot;</span>                 <span class="st">&quot;g0_cv&quot;</span>             </span>
+<span id="cb230-7"><a href="subgroup-based-analysis.html#cb230-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">16</span>] <span class="st">&quot;g0_details&quot;</span>         <span class="st">&quot;df&quot;</span>                 <span class="st">&quot;bootstraps&quot;</span>        </span>
+<span id="cb230-8"><a href="subgroup-based-analysis.html#cb230-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">19</span>] <span class="st">&quot;iterations&quot;</span>         <span class="st">&quot;density_bootstraps&quot;</span></span></code></pre></div>
 <p>Most of these slots hold best-estimates of parameters or sample size details:</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="subgroup-based-analysis.html#cb232-1"></a>results_subgroup[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>, <span class="dv">19</span><span class="op">:</span><span class="dv">20</span>)]</span>
-<span id="cb232-2"><a href="subgroup-based-analysis.html#cb232-2"></a><span class="op">$</span>D</span>
-<span id="cb232-3"><a href="subgroup-based-analysis.html#cb232-3"></a>          <span class="dv">1</span> </span>
-<span id="cb232-4"><a href="subgroup-based-analysis.html#cb232-4"></a><span class="fl">0.001663263</span> </span>
-<span id="cb232-5"><a href="subgroup-based-analysis.html#cb232-5"></a></span>
-<span id="cb232-6"><a href="subgroup-based-analysis.html#cb232-6"></a><span class="op">$</span>D_CV</span>
-<span id="cb232-7"><a href="subgroup-based-analysis.html#cb232-7"></a>       <span class="dv">1</span> </span>
-<span id="cb232-8"><a href="subgroup-based-analysis.html#cb232-8"></a><span class="fl">1.344861</span> </span>
-<span id="cb232-9"><a href="subgroup-based-analysis.html#cb232-9"></a></span>
-<span id="cb232-10"><a href="subgroup-based-analysis.html#cb232-10"></a><span class="op">$</span>D_L95</span>
-<span id="cb232-11"><a href="subgroup-based-analysis.html#cb232-11"></a>[<span class="dv">1</span>] <span class="fl">0.0005004478</span></span>
-<span id="cb232-12"><a href="subgroup-based-analysis.html#cb232-12"></a></span>
-<span id="cb232-13"><a href="subgroup-based-analysis.html#cb232-13"></a><span class="op">$</span>D_U95</span>
-<span id="cb232-14"><a href="subgroup-based-analysis.html#cb232-14"></a>[<span class="dv">1</span>] <span class="fl">0.01547307</span></span>
-<span id="cb232-15"><a href="subgroup-based-analysis.html#cb232-15"></a></span>
-<span id="cb232-16"><a href="subgroup-based-analysis.html#cb232-16"></a><span class="op">$</span>N</span>
-<span id="cb232-17"><a href="subgroup-based-analysis.html#cb232-17"></a>[<span class="dv">1</span>] <span class="dv">4116</span></span>
-<span id="cb232-18"><a href="subgroup-based-analysis.html#cb232-18"></a></span>
-<span id="cb232-19"><a href="subgroup-based-analysis.html#cb232-19"></a><span class="op">$</span>N_CV</span>
-<span id="cb232-20"><a href="subgroup-based-analysis.html#cb232-20"></a>[<span class="dv">1</span>] <span class="fl">1.344829</span></span>
-<span id="cb232-21"><a href="subgroup-based-analysis.html#cb232-21"></a></span>
-<span id="cb232-22"><a href="subgroup-based-analysis.html#cb232-22"></a><span class="op">$</span>N_L95</span>
-<span id="cb232-23"><a href="subgroup-based-analysis.html#cb232-23"></a>[<span class="dv">1</span>] <span class="fl">1238.357</span></span>
-<span id="cb232-24"><a href="subgroup-based-analysis.html#cb232-24"></a></span>
-<span id="cb232-25"><a href="subgroup-based-analysis.html#cb232-25"></a><span class="op">$</span>N_U95</span>
-<span id="cb232-26"><a href="subgroup-based-analysis.html#cb232-26"></a>[<span class="dv">1</span>] <span class="dv">38290</span></span>
-<span id="cb232-27"><a href="subgroup-based-analysis.html#cb232-27"></a></span>
-<span id="cb232-28"><a href="subgroup-based-analysis.html#cb232-28"></a><span class="op">$</span>ER</span>
-<span id="cb232-29"><a href="subgroup-based-analysis.html#cb232-29"></a>[<span class="dv">1</span>] <span class="fl">0.001860071</span></span>
-<span id="cb232-30"><a href="subgroup-based-analysis.html#cb232-30"></a></span>
-<span id="cb232-31"><a href="subgroup-based-analysis.html#cb232-31"></a><span class="op">$</span>ss</span>
-<span id="cb232-32"><a href="subgroup-based-analysis.html#cb232-32"></a>[<span class="dv">1</span>] <span class="fl">2.466557</span></span>
-<span id="cb232-33"><a href="subgroup-based-analysis.html#cb232-33"></a></span>
-<span id="cb232-34"><a href="subgroup-based-analysis.html#cb232-34"></a><span class="op">$</span>n</span>
-<span id="cb232-35"><a href="subgroup-based-analysis.html#cb232-35"></a>[<span class="dv">1</span>] <span class="dv">32</span></span>
-<span id="cb232-36"><a href="subgroup-based-analysis.html#cb232-36"></a></span>
-<span id="cb232-37"><a href="subgroup-based-analysis.html#cb232-37"></a><span class="op">$</span>L</span>
-<span id="cb232-38"><a href="subgroup-based-analysis.html#cb232-38"></a>[<span class="dv">1</span>] <span class="fl">17203.64</span></span>
-<span id="cb232-39"><a href="subgroup-based-analysis.html#cb232-39"></a></span>
-<span id="cb232-40"><a href="subgroup-based-analysis.html#cb232-40"></a><span class="op">$</span>n_segments</span>
-<span id="cb232-41"><a href="subgroup-based-analysis.html#cb232-41"></a>[<span class="dv">1</span>] <span class="dv">136</span></span>
-<span id="cb232-42"><a href="subgroup-based-analysis.html#cb232-42"></a></span>
-<span id="cb232-43"><a href="subgroup-based-analysis.html#cb232-43"></a><span class="op">$</span>g0</span>
-<span id="cb232-44"><a href="subgroup-based-analysis.html#cb232-44"></a>[<span class="dv">1</span>] <span class="fl">0.571</span></span>
-<span id="cb232-45"><a href="subgroup-based-analysis.html#cb232-45"></a></span>
-<span id="cb232-46"><a href="subgroup-based-analysis.html#cb232-46"></a><span class="op">$</span>g0_cv</span>
-<span id="cb232-47"><a href="subgroup-based-analysis.html#cb232-47"></a>[<span class="dv">1</span>] <span class="fl">0.365</span></span>
-<span id="cb232-48"><a href="subgroup-based-analysis.html#cb232-48"></a></span>
-<span id="cb232-49"><a href="subgroup-based-analysis.html#cb232-49"></a><span class="op">$</span>iterations</span>
-<span id="cb232-50"><a href="subgroup-based-analysis.html#cb232-50"></a>[<span class="dv">1</span>] <span class="dv">10</span></span>
-<span id="cb232-51"><a href="subgroup-based-analysis.html#cb232-51"></a></span>
-<span id="cb232-52"><a href="subgroup-based-analysis.html#cb232-52"></a><span class="op">$</span>density_bootstraps</span>
-<span id="cb232-53"><a href="subgroup-based-analysis.html#cb232-53"></a>[<span class="dv">1</span>] <span class="dv">10000</span></span></code></pre></div>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="subgroup-based-analysis.html#cb231-1" aria-hidden="true" tabindex="-1"></a>results_subgroup[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, <span class="dv">19</span><span class="sc">:</span><span class="dv">20</span>)]</span>
+<span id="cb231-2"><a href="subgroup-based-analysis.html#cb231-2" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>D</span>
+<span id="cb231-3"><a href="subgroup-based-analysis.html#cb231-3" aria-hidden="true" tabindex="-1"></a>          <span class="dv">1</span> </span>
+<span id="cb231-4"><a href="subgroup-based-analysis.html#cb231-4" aria-hidden="true" tabindex="-1"></a><span class="fl">0.001663263</span> </span>
+<span id="cb231-5"><a href="subgroup-based-analysis.html#cb231-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-6"><a href="subgroup-based-analysis.html#cb231-6" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>D_CV</span>
+<span id="cb231-7"><a href="subgroup-based-analysis.html#cb231-7" aria-hidden="true" tabindex="-1"></a>       <span class="dv">1</span> </span>
+<span id="cb231-8"><a href="subgroup-based-analysis.html#cb231-8" aria-hidden="true" tabindex="-1"></a><span class="fl">1.344861</span> </span>
+<span id="cb231-9"><a href="subgroup-based-analysis.html#cb231-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-10"><a href="subgroup-based-analysis.html#cb231-10" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>D_L95</span>
+<span id="cb231-11"><a href="subgroup-based-analysis.html#cb231-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.0005004478</span></span>
+<span id="cb231-12"><a href="subgroup-based-analysis.html#cb231-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-13"><a href="subgroup-based-analysis.html#cb231-13" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>D_U95</span>
+<span id="cb231-14"><a href="subgroup-based-analysis.html#cb231-14" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.01547307</span></span>
+<span id="cb231-15"><a href="subgroup-based-analysis.html#cb231-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-16"><a href="subgroup-based-analysis.html#cb231-16" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>N</span>
+<span id="cb231-17"><a href="subgroup-based-analysis.html#cb231-17" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4116</span></span>
+<span id="cb231-18"><a href="subgroup-based-analysis.html#cb231-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-19"><a href="subgroup-based-analysis.html#cb231-19" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>N_CV</span>
+<span id="cb231-20"><a href="subgroup-based-analysis.html#cb231-20" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.344829</span></span>
+<span id="cb231-21"><a href="subgroup-based-analysis.html#cb231-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-22"><a href="subgroup-based-analysis.html#cb231-22" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>N_L95</span>
+<span id="cb231-23"><a href="subgroup-based-analysis.html#cb231-23" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1238.357</span></span>
+<span id="cb231-24"><a href="subgroup-based-analysis.html#cb231-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-25"><a href="subgroup-based-analysis.html#cb231-25" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>N_U95</span>
+<span id="cb231-26"><a href="subgroup-based-analysis.html#cb231-26" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">38290</span></span>
+<span id="cb231-27"><a href="subgroup-based-analysis.html#cb231-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-28"><a href="subgroup-based-analysis.html#cb231-28" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>ER</span>
+<span id="cb231-29"><a href="subgroup-based-analysis.html#cb231-29" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.001860071</span></span>
+<span id="cb231-30"><a href="subgroup-based-analysis.html#cb231-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-31"><a href="subgroup-based-analysis.html#cb231-31" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>ss</span>
+<span id="cb231-32"><a href="subgroup-based-analysis.html#cb231-32" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.466557</span></span>
+<span id="cb231-33"><a href="subgroup-based-analysis.html#cb231-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-34"><a href="subgroup-based-analysis.html#cb231-34" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>n</span>
+<span id="cb231-35"><a href="subgroup-based-analysis.html#cb231-35" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">32</span></span>
+<span id="cb231-36"><a href="subgroup-based-analysis.html#cb231-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-37"><a href="subgroup-based-analysis.html#cb231-37" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>L</span>
+<span id="cb231-38"><a href="subgroup-based-analysis.html#cb231-38" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">17203.64</span></span>
+<span id="cb231-39"><a href="subgroup-based-analysis.html#cb231-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-40"><a href="subgroup-based-analysis.html#cb231-40" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>n_segments</span>
+<span id="cb231-41"><a href="subgroup-based-analysis.html#cb231-41" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">136</span></span>
+<span id="cb231-42"><a href="subgroup-based-analysis.html#cb231-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-43"><a href="subgroup-based-analysis.html#cb231-43" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>g0</span>
+<span id="cb231-44"><a href="subgroup-based-analysis.html#cb231-44" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.571</span></span>
+<span id="cb231-45"><a href="subgroup-based-analysis.html#cb231-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-46"><a href="subgroup-based-analysis.html#cb231-46" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>g0_cv</span>
+<span id="cb231-47"><a href="subgroup-based-analysis.html#cb231-47" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.365</span></span>
+<span id="cb231-48"><a href="subgroup-based-analysis.html#cb231-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-49"><a href="subgroup-based-analysis.html#cb231-49" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>iterations</span>
+<span id="cb231-50"><a href="subgroup-based-analysis.html#cb231-50" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">10</span></span>
+<span id="cb231-51"><a href="subgroup-based-analysis.html#cb231-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-52"><a href="subgroup-based-analysis.html#cb231-52" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span>density_bootstraps</span>
+<span id="cb231-53"><a href="subgroup-based-analysis.html#cb231-53" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">10000</span></span></code></pre></div>
 <p>The <code>g0_details</code> slot includes the results from the <code>g0_model()</code> and <code>g0_weighted()</code> functions called internally by <code>lta_subgroup()</code>. See those functions’ documentation pages for details.</p>
-<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="subgroup-based-analysis.html#cb233-1"></a>results_subgroup<span class="op">$</span>g0_details <span class="op">%&gt;%</span><span class="st"> </span>names</span>
-<span id="cb233-2"><a href="subgroup-based-analysis.html#cb233-2"></a>[<span class="dv">1</span>] <span class="st">&quot;Rg0&quot;</span>       <span class="st">&quot;gam&quot;</span>       <span class="st">&quot;jackknife&quot;</span> <span class="st">&quot;summary&quot;</span>   <span class="st">&quot;sightings&quot;</span> <span class="st">&quot;segments&quot;</span> </span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="subgroup-based-analysis.html#cb232-1" aria-hidden="true" tabindex="-1"></a>results_subgroup<span class="sc">$</span>g0_details <span class="sc">%&gt;%</span> names</span>
+<span id="cb232-2"><a href="subgroup-based-analysis.html#cb232-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;Rg0&quot;</span>       <span class="st">&quot;gam&quot;</span>       <span class="st">&quot;jackknife&quot;</span> <span class="st">&quot;summary&quot;</span>   <span class="st">&quot;sightings&quot;</span> <span class="st">&quot;segments&quot;</span> </span></code></pre></div>
 <p>The <code>df</code> slot includes details of the detection function fit. See the documentation for <code>df_plot()</code> for details.</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="subgroup-based-analysis.html#cb234-1"></a>results_subgroup<span class="op">$</span>df <span class="op">%&gt;%</span><span class="st"> </span>names</span>
-<span id="cb234-2"><a href="subgroup-based-analysis.html#cb234-2"></a>[<span class="dv">1</span>] <span class="st">&quot;best_models&quot;</span>  <span class="st">&quot;all_models&quot;</span>   <span class="st">&quot;best_objects&quot;</span> <span class="st">&quot;sightings&quot;</span>   </span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="subgroup-based-analysis.html#cb233-1" aria-hidden="true" tabindex="-1"></a>results_subgroup<span class="sc">$</span>df <span class="sc">%&gt;%</span> names</span>
+<span id="cb233-2"><a href="subgroup-based-analysis.html#cb233-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;best_models&quot;</span>  <span class="st">&quot;all_models&quot;</span>   <span class="st">&quot;best_objects&quot;</span> <span class="st">&quot;sightings&quot;</span>   </span></code></pre></div>
 <p>The <code>bootstraps</code> slot has the bootstrapped values for various parameters, in case they are useful for troubleshooting, subsequent analyses, and/or plotting:</p>
-<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="subgroup-based-analysis.html#cb235-1"></a>results_subgroup<span class="op">$</span>bootstraps <span class="op">%&gt;%</span><span class="st"> </span>names</span>
-<span id="cb235-2"><a href="subgroup-based-analysis.html#cb235-2"></a>[<span class="dv">1</span>] <span class="st">&quot;esw&quot;</span> <span class="st">&quot;ss&quot;</span>  <span class="st">&quot;g0&quot;</span>  <span class="st">&quot;er&quot;</span>  <span class="st">&quot;D&quot;</span>   <span class="st">&quot;N&quot;</span>  </span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="subgroup-based-analysis.html#cb234-1" aria-hidden="true" tabindex="-1"></a>results_subgroup<span class="sc">$</span>bootstraps <span class="sc">%&gt;%</span> names</span>
+<span id="cb234-2"><a href="subgroup-based-analysis.html#cb234-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;esw&quot;</span> <span class="st">&quot;ss&quot;</span>  <span class="st">&quot;g0&quot;</span>  <span class="st">&quot;er&quot;</span>  <span class="st">&quot;D&quot;</span>   <span class="st">&quot;N&quot;</span>  </span></code></pre></div>
 <p>Some examples:</p>
+<p><img src="figures/unnamed-chunk-305-1.png" width="672" /></p>
 <p><img src="figures/unnamed-chunk-306-1.png" width="672" /></p>
 <p><img src="figures/unnamed-chunk-307-1.png" width="672" /></p>
-<p><img src="figures/unnamed-chunk-308-1.png" width="672" /></p>
 </div>
 <div id="behind-the-scenes-2" class="section level2 unnumbered hasAnchor">
 <h2>Behind the scenes<a href="subgroup-based-analysis.html#behind-the-scenes-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>

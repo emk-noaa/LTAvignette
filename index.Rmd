@@ -72,8 +72,24 @@ Throughout this user's guide, we will primarily be using example data from the w
 
 ### Installation {-} 
 
-Once the package is public, install details will go here. 
+**Note: `BETA` testing only.** This package is currently in `beta` testing and is not yet ready for widespread use.
 
+The `LTabundR` package is available on `GitHub` [here](https://github.com/PIFSC-Protected-Species-Division/LTabundR).  To install directly within `R`, use the following code:  
+
+```{r, echo=TRUE, eval=FALSE, include=TRUE}
+# Install 'devtools' package, if needed
+if (!require('devtools')) install.packages('devtools')
+
+# Install LTabundR remotely from GitHub
+devtools::install_github('PIFSC-Protected-Species-Division/LTabundR')
+```
+
+```{r, echo=TRUE, eval=TRUE, include=TRUE, warning=FALSE}
+# Load into session
+library(LTabundR)
+```
+
+Note that this package contains large built-in datasets and may take several minutes to install.
 
 ### Credits {-}  
 
