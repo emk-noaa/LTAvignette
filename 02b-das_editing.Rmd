@@ -18,11 +18,14 @@ The `LTabundR` package includes several functions that facilitate the exploratio
 The `swfscDAS` package has functions for reading in a `DAS` file and parsing it into columns of fixed-width text. To complement those functions, `LTabundR` includes the function `das_readtext()`, which reads in a `DAS` file without applying any column parsing, so that the data can be read in its true raw format. 
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+# Local path to DAS file
 das_file <- 'data/surveys/CenPac1986-2020_Final_alb.das'
 
 das <- das_readtext(das_file)
 das$das %>% head(20)
 ```
+
+To follow along, this data file can be downloaded [here](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/surveys/CenPac1986-2020_Final_alb.das?token=GHSAT0AAAAAACFPESQVLR7DOE4I3UD4UJ2YZGRILEQ).
 
 ### `das_inspector()` {-} 
 
@@ -36,19 +39,20 @@ In this app, you specify the rows and 'columns' (i.e., character indices) that w
 
 ## Staging edits {-}  
 
-The `das_editor()` function allows you to apply edits to a `DAS` file without modifiyng the original data. You supply edits to this function as a set of instructions saved within a `list` object. You can prepare these instructions manually, or use the `das_inspector()` function above to get help. The `das_editor()` function then loops through each edit, applies them to a local version of the data, and returns that modified data to the user. This allows survey data to be modified reproducibly before being processed with `LTabundR::process_surveys()`, without touching the original DAS data files or requiring analysts to duplicate files and make one-off modifications manually.
+The `das_editor()` function allows you to apply edits to a `DAS` file without modifiyng the original data. You supply edits to this function as a set of instructions saved within a `list` object. You can prepare these instructions manually or use the `das_inspector()` function above to get help. The `das_editor()` function then loops through each edit, applies them to a local version of the data, and returns that modified data to the user. This allows survey data to be modified reproducibly before being processed with `LTabundR::process_surveys()` without touching the original `DAS` data files or requiring analysts to duplicate files and make one-off modifications manually.
 
 We expect it would be rare for a user to call `das_editor()` directly; instead, they would supply their edits as an argument in `process_surveys()`, and that function will call `das_editor()` internally to amend the survey data before it is processed (this is discussed on the next page). 
 
-Note that there is no limit to the number of edits that can be provided in a single `list`, and they can be provided in any order. The `das_editor()` function will sort the edits by `DAS` file and by edit type, then apply edits in increasing order of "disruption", i.e., text replacements first, then moving rows of data (no net change in number of rows), then copying-pasting, inserting, and deleting. 
+Note that there is no limit to the number of edits that can be provided in a single `list`, and they can be provided in any order. The `das_editor()` function will sort the edits by `DAS` file and by edit type, and then apply edits in increasing order of "disruption", i.e., text replacements first, then moving rows of data (no net change in number of rows), then copying-pasting, inserting, and deleting. 
 
-The `das_editor()` function can currently handle 6 types of edits, which we shall demostrate below. 
+The `das_editor()` function can currently handle 6 types of edits, which we shall demonstrate below. 
 
 ### Types of editing {-} 
 
-To demonstrate the types of editing actions that can be achieved through `das_editor()`, we will use the `DAS` file from the 2020 WHICEAS survey.  
+To demonstrate the types of editing actions that can be achieved through `das_editor()`, we will use the `DAS` file from the 2020 WHICEAS survey (you can download [here](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/surveys/HICEASwinter2020.das?token=GHSAT0AAAAAACFPESQVZWKAJE3NCRQBC4SCZGRJNLA)).  
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+# Local path to das_file
 das_file <- "data/surveys/HICEASwinter2020.das"
 das <- das_readtext(das_file)
 ```
@@ -65,7 +69,7 @@ edits <- list(list(das_file = das_file,
                    edit = 'lat, lon'))
 ```
 
-Here is what this edit log object look like: 
+Here is what this edit log object will look like: 
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 edits
@@ -213,6 +217,7 @@ The above examples were silly demonstrations of the types of edits that can be h
 These edits will be applied to the following `DAS` file of survey data from 1986-2020: 
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+# Local path to das_file
 das_file <- 'data/surveys/CenPac1986-2020_Final_alb.das'
 das <- das_readtext(das_file)
 ```
@@ -227,7 +232,7 @@ das[128111:128125,]
 
 (Note that we used `das_inspector()` to get the row numbers for this region of the data.)  
 
-To fix this, we can stage an edit that copies the "P" line that occurs minutes earlier and pastes that line just below the rogue "R" line. 
+To fix this, we can stage an edit that copies the `P` line that occurs minutes earlier and pastes that line just below the rogue `R` line. 
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 edit_1607_55 <- 
@@ -306,14 +311,14 @@ This edit will correct for the fact that all of Cruise 1004 was conducted using 
 edit_1004_utc <- 
   list(das_file = das_file, 
        type = 'function',
-       rows = 433327:437666, 
+       rows = 433327:437665, 
        chars = 6:39, 
        edit = 'function(x){das_time(x, tz_adjust = "from utc")$dt}')
 ```
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 # Before
-das$das[433326:433330] # bginning of cruise
+das$das[433326:433330] # beginning of cruise
 das$das[437664:437667] # end of cruise
 ```
 
@@ -335,6 +340,7 @@ load(file='edit_1004.RData')
 ```
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+# After
 dase$das[[1]]$das$das[433326:433330]
 dase$das[[1]]$das$das[437664:437667]
 ```

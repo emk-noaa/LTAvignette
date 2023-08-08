@@ -37,7 +37,7 @@ That workflow typically involves four stages:
 
 **(1) Data processing**  
 
-- This step involves reading in & processing raw `DAS` files (the files produced by the software Wincruz commonly used during NOAA Fisheries line-transect surveys in the Pacific), breaking effort into discrete segments for variance estimation, correcting group size estimates according to calibration models, and then averaging together group size estimates for each sighting.  
+- This step involves reading in & processing raw `DAS` files (the files produced by the software `Wincruz` commonly used during NOAA Fisheries line-transect surveys in the Pacific), breaking effort into discrete segments for variance estimation, correcting group size estimates according to calibration models, and then averaging together group size estimates for each sighting.  
 
 - Most importantly, this step standardizes the data structure in a way that all downstream analyses depend upon. The name we will use for this standardized data object is a `cruz` object.
 
@@ -48,7 +48,7 @@ That workflow typically involves four stages:
 
 - This step involves summarizing effort and sightings totals, determining the appropriate truncation distances for each species -- or pool of species -- based on sample sizes, and producing maps.  
 
-- The key functions in this stage are `cruz_explorer()` (a `Shiny` dashboard for data exploration) and the `summarize...`  functions, such as `summarize_species()` and `summarize_effort()`.
+- The key `LTabundR` functions in this stage are `cruz_explorer()` (a `Shiny` dashboard for data exploration) and the `summarize...`  functions, such as `summarize_species()` and `summarize_effort()`.
 
 
 **(3) Data analysis**
@@ -79,6 +79,9 @@ The `LTabundR` package is available on `GitHub` [here](https://github.com/PIFSC-
 ```{r, echo=TRUE, eval=FALSE, include=TRUE}
 # Install 'devtools' package, if needed
 if (!require('devtools')) install.packages('devtools')
+
+# Increase timeout for download, since there are datasets
+options(timeout=9999999)
 
 # Install LTabundR remotely from GitHub
 devtools::install_github('PIFSC-Protected-Species-Division/LTabundR')

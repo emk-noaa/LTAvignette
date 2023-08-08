@@ -16,11 +16,14 @@ rerun_from_scratch <- FALSE
 # (it will use saved R objects instead of producing them anew)
 ```
 
-In our WHICEAS case study example, we are interested in estimating density/abundance for 2017 and 2020 only, but we want to use surveys from previous years to help model species detection functions. We will therefore be using a dataset of NOAA surveys in the Central North Pacific from 1986 to 2020.  
+In our WHICEAS case study example, we are interested in estimating density/abundance for 2017 and 2020 only, but we want to use surveys from previous years to help model species detection functions. We will therefore be using a dataset of NOAA Fisheries surveys in the Central North Pacific from 1986 to 2020.  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+# Local path to DAS file
 das_file <- 'data/surveys/CenPac1986-2020_Final_alb.das'
 ```
+
+To follow along, this data file can be downloaded [here](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/surveys/CenPac1986-2020_Final_alb.das?token=GHSAT0AAAAAACFPESQVLR7DOE4I3UD4UJ2YZGRILEQ).
 
 You can process your survey data using a single function, **`process_surveys()`**, which takes two primary arguments: the filepath(s) to your `DAS` survey data, and your `settings` object. For example:  
 
@@ -47,7 +50,7 @@ The `process_surveys()` function is a wrapper for several discrete stages of dat
 
 ### Edit cruise data {-}
 
-If the `edits` input argument is supplied to `process_surveys()`, temporary copies of the `DAS` file(s) ar made and edited before processing. This step is discussed on the previous page.  
+If the `edits` input argument is supplied to `process_surveys()`, temporary copies of the `DAS` file(s) are made and edited before processing. This step is discussed on the previous page.  
 
 ### Bring in cruise data {-} 
 
@@ -69,8 +72,6 @@ das_strata <- process_strata(das, settings)
 
 This function loops through each stratum `data.frame` you have provided it in `settings$strata`, formats the stratum, and asks whether each DAS row occurs within it. For each stratum, a column named `stratum_<StratumName>` is added to the `das` object; each row in this column is `TRUE` (included) or `FALSE`.
 
-A similar procedure is run if a dataframe is provided in `settings$study_area`. A column named `study_area` is added to `das` containing a boolean (`TRUE` if the sub-segment or sighting occurs within the study area). 
-
 ### Format `DAS` data into a `cruz` object {-}  
 
 The function `das_format()` takes care of some final formatting and initiates the `cruz` object data structure. 
@@ -79,7 +80,7 @@ The function `das_format()` takes care of some final formatting and initiates th
 cruz <- das_format(das_strata, verbose=TRUE)
 ```
 
-This function (1) remove rows with invalid Cruise numbers, times, or locations; (ii) calculate the distance, in km, between each row of data; (iii) adds a `ship` column to the dataset, with initials for the ship corresponding to each cruise; (iv) creates a new list, `cohorts`, which copies the cruise data for each cohort specified in your settings; and (v) adds a `stratum` column to the data in each cohort. That column specifies 
+This function (1) removes rows with invalid Cruise numbers, times, or locations; (ii) calculate the distance, in km, between each row of data; (iii) adds a `ship` column to the dataset, with initials for the ship corresponding to each cruise; (iv) creates a new list, `cohorts`, which copies the cruise data for each cohort specified in your settings; and (v) adds a `stratum` column to the data in each cohort. That column specifies 
 a single stratum assignment for each row of `DAS` data in the event of overlapping strata, based upon the cohort setting `stratum_overlap_handling`.  
 
 ```{r, echo=FALSE, eval=rerun_from_scratch, collapse=TRUE}
@@ -94,7 +95,7 @@ load('whiceas_cruz_format.RData')
 
 ### The `cruz` object {-}
 
-The function `format_das()` returns a list, which we have saved in an object named `cruz`, with several slots:  
+The function `das_format()` returns a list, which we have saved in an object named `cruz`, with several slots:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 cruz %>% names
@@ -124,7 +125,7 @@ Since the `bottlenose` cohort uses a different subset of geostrata, its distribu
 cruz$cohorts$bottlenose$stratum %>% table(useNA='ifany')
 ```
 
-This list, with these five primary slots, will be referred to from hereon as a `cruz` object. 
+This list, with these three primary slots, will be referred to from hereon as a `cruz` object. 
 
 
 ### Segmentize the data {-} 
@@ -185,7 +186,7 @@ hist(x,
      main=paste0('Target km: ',settings$survey$segment_target_km))
 ```
 
-And the `das` slot holds the original `data.frame` of `DAS` data, modified slightly: the column `OnEffort` has been modified according to Beaufort range conditions, and the column `seg_id` indicates which segment the event occurs within  
+And the `das` slot holds the original `data.frame` of `DAS` data, modified slightly: the column `OnEffort` has been modified according to Beaufort range conditions, and the column `seg_id` indicates which segment the event occurs within.  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 cruz$cohorts$all$das %>% names
@@ -225,9 +226,9 @@ cruz$cohorts$spotted %>% names
 Note that the `sightings` table has a column named `included` (`TRUE` = yes, use it in the analysis). Any sightings that do not meet the inclusion criteria as specified in your settings will be `included = FALSE`, but they won't be removed from the data.   
 
 The `sightings` table also has a new column, `ss_valid`, 
-indicating whether or not the school size estimate for this sighting 
+indicating whether or not the group size estimate for this sighting 
 is valid and appropriate for use in abundance estimation and detection function fitting
-when school size is used as a covariate. 
+when group size is used as a covariate. 
 
 Since the sightings in each cohort are processed slightly differently according to the cohort's specific settings -- most importantly the species that will be included -- you should expect different numbers of included/excluded sightings in each cohort dataset:  
 
@@ -267,11 +268,11 @@ cruz$cohorts$all$sightings %>% glimpse
 Note that the `process_sightings()` function draws upon `cruz$settings` for inclusion criteria, but some of those settings can be overridden with the function's manual inputs if you want to explore your options (see below).  
 
 
-#### School size estimates {.unnumbered #ss_calibration} 
+#### Group size estimates {.unnumbered #ss_calibration} 
 
-In the settings we are using in this tutorial, school size estimates are adjusted using the calibration models from [Barlow, Gerrodette, and Perryman (1998)](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C43&q=barlow+1998+group+size+caliration&btnG=) (their analysis is refined slightly and further explained in [Gerrodette, Perryman and Barlow, 2002](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C43&q=barlow+1998+group+size+caliration&btnG=)). These calibration corrections are observer-specific. Most observers tend to underestimate school size and their estimates are adjusted up; others tend to overestimate and their estimates are adjusted down. Some observers do not have calibration coefficients, and for them a generic adjustment (upwards, by dividing estimates by 0.8625) is used. In `LTabundR`, each observer's estimate is calibrated, then all observer estimates are averaged. To do that averaging, our `settings` specify that we shall use a geometric weighted mean, instead of an arithmetic mean, that weights school size estimates from multiple observers according to the variance of their calibration coefficients.   
+In the settings we are using in this tutorial, group size estimates are adjusted using the calibration models from [Barlow et al. (1998)](https://repository.library.noaa.gov/view/noaa/25848) (their analysis is refined slightly and further explained in [Gerrodette et al. (2002)](https://www.academia.edu/download/45586682/lj_02_08.pdf)). These calibration corrections are observer-specific. Most observers tend to underestimate group size and their estimates are adjusted up; others tend to overestimate and their estimates are adjusted down. Some observers do not have calibration coefficients, and for them a generic adjustment (upwards, by dividing estimates by 0.8625) is used. In `LTabundR`, each observer's estimate is calibrated, then all observer estimates are averaged. To do that averaging, our `settings` specify that we shall use a geometric weighted mean, instead of an arithmetic mean, that weights school size estimates from multiple observers according to the variance of their calibration coefficients.   
 
-Here are our current best estimates of school size:  
+Here are our current best estimates of group size:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 cruz$cohorts$all$sightings$best %>% head(20)
@@ -299,8 +300,6 @@ load('whiceas_cruz_demo1.RData')
 cruz_demo$cohorts$all$sightings$best %>% head(20)
 ```
 
-Note that, since calibration is only used for schools above a certain size, the difference between calibration and non-calibrated estimates becomes clearer in larger groups.  
-
 You can also carry out calibration corrections without using a geometric weighted mean (the arithmetic mean will be used instead): 
 
 ```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE}
@@ -326,12 +325,12 @@ cruz_demo$cohorts$all$sightings$best %>% head(20)
 
 Note that when `geometric_mean = TRUE` but calibration is not carried out, the simple geometric mean is calculated instead of the *weighted* geometric mean, since the weights are the variance estimates from the calibration routine.  
 
-Also note that school size calibration is only carried out if `settings$group_size_calibration` is not `NULL`.  However, even when calibration coefficients *are* provided, it is possible to specify that calibration should only be carried out for raw estimates above a minimum threshold (see cohort setting `calibration_floor`, whose default is `0`), since observers may be unlikely to mis-estimate the school size of a lone whale or pair. For observers who have calibration coefficients in the `settings$group_size_coefficients` table, that minimum is specified for each observer individually. For observers not in that table, calibration will only be applied to raw school size estimates above `settings$cohorts[[i]]$calibration_floor` or above.   
+Also note that group size calibration is only carried out if `settings$group_size_calibration` is not `NULL`.  However, even when calibration coefficients *are* provided, it is possible to specify that calibration should only be carried out for raw estimates above a minimum threshold (see cohort setting `calibration_floor`, whose default is `0`), since observers may be unlikely to mis-estimate the group size of a lone whale or pair. For observers who have calibration coefficients in the `settings$group_size_coefficients` table, that minimum is specified for each observer individually. For observers not in that table, calibration will only be applied to raw group size estimates above `settings$cohorts[[i]]$calibration_floor` or above.   
 
 
 #### Subgroup size estimates {.unnumbered #subgroups}
 
-After sightings data are processed, the `process_surveys()` function calls the subroutine `process_subgroups()` to find and calculate subgroup school size estimates for false killer whales, if any occur in the `DAS` data (Event code "`G`").  
+After sightings data are processed, the `process_surveys()` function calls the subroutine `process_subgroups()` to find and calculate subgroup group size estimates for false killer whales (or other species that may have been recorded using the subgroup functionality in `WinCruz`), if any occur in the `DAS` data (Event code "`G`").  
 
 ```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, include=TRUE}
 cruz <- process_subgroups(cruz) 
@@ -353,13 +352,13 @@ If subgroups are found, a `subgroups` slot is added to the analysis list for a c
 cruz$cohorts$all %>% names
 ```
 
-This `subgroups` slot holds a list with three dataframes: `events` (each row is a school size estimate for a single subgroup during a single phase -- 1 or 2 -- within a single sighting; this is effectively the raw data); `subgroups` (each row is a single phase for a single subgroup, with all school size estimates averaged together (both arithmetically and geometrically); and `sightings` (each row is a school size estimate for a single phase for a single sighting, with all subgroup school sizes summed together).   
+This `subgroups` slot holds a list with three dataframes: `events` (each row is a group size estimate for a single subgroup during a single phase of the false killer whale protocol (if applicable) within a single sighting; this is effectively the raw data); `subgroups` (each row is a single subgroup for a single protocol phase, with all group size estimates averaged together (both arithmetically and geometrically); and `sightings` (each row is a "group" size estimate for a single sighting during a single protocol, with all subgroup group sizes summed together). Note for false killer whales this “group” size estimate is not likely to represent actual group size because groups can be spread out over tens of kilometers, and it is not expected that every subgroup is detected during each protocol phase.   
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 cruz$cohorts$all$subgroups %>% names
 ```
 
-See the case study on false killer whales for detailed examples.  
+For a detailed example, see the [vignette page on subgroup analysis](#subgroups) using data on Central North Pacific false killer whales.  
 
 ## Review {-}  
 
@@ -386,14 +385,14 @@ In each of these `data.frame`'s, there are three critically important columns to
 
 - **`seg_id`**: this column is used to indicate the segment ID that a row of data belongs to.  
 
-- **`use`**: this column indicates whether a row of effort should be used in the line-transect analysis Every row of data within a single segment with have the same `use` value.  
+- **`use`**: this column indicates whether a row of effort should be used in the line-transect analysis. Every row of data within a single segment will have the same `use` value.  
 
 - **`included`**: this column occurs in the `sightings` dataframe only. It indicates whether the sightings should be included in line-transect analysis based on the specified settings. Any sighting with `use == FALSE` will also have `included == FALSE`, but it *is* possible for sightings to have `use == TRUE` with `included == FALSE`. For example, if the setting `abeam_sightings` is set to `FALSE`, a sighting with a bearing angle beyond the ship's beam can be excluded from the analysis  (`included == FALSE`) even though the effort segment it occurs within will still be used (`use == TRUE`).  
 
 Finally, let's save this `cruz` object locally, to use in downstream scripts:  
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE}
-save(cruz,file='whiceas_cruz.RData')
+save(cruz, file='whiceas_cruz.RData')
 ```
 
 ## Validation {-}  
@@ -402,12 +401,16 @@ save(cruz,file='whiceas_cruz.RData')
 load('whiceas_cruz.RData')
 ```
 
-To validate these `LTabundR` functions, we can compare its output to that of `ABUND9`, written by Jay Barlow (NOAA-NMFS). First, we bring in the `ABUND9` output files for the same `DAS` data: 
+To validate these `LTabundR` functions, we can compare its output to that of `ABUND9`, written by Jay Barlow (NOAA Fisheries). First, we bring in the `ABUND9` output files for the same `DAS` data: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+# Local paths to these files
 SIGHTS <- read.csv('data/SIGHTS.csv')
 EFFORT <- read.csv('data/EFFORT.csv')
 ```
+
+You may download these files here: [`SIGHTS.csv`](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/SIGHTS.csv?token=GHSAT0AAAAAACFPESQVEDYQZ5I77WTDK2WIZGRKVMA) and [`EFFORT.csv`](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/EFFORT.csv?token=GHSAT0AAAAAACFPESQVOUD6HRSILDUWOFF2ZGRKU6A). 
+
 
 ### Sightings {-}  
 
@@ -546,7 +549,8 @@ i <- which(substr(das$das, 6, 18) == '131944 051312')
 das$das[i]
 ```
 
-We see that this was a sighting of false killer whales during which species `015` was picked up during photo-ID. This discrepancy, then, may not be a mistake in the `LTabundR` processing.  
+We see that this was a sighting of false killer whales during which species `015` was picked up during photo-ID. In the absence of a percent composition estimate for this sighting, it was ignored by `ABUND`.  
+
 
 ##### Cruise 1203, Species 049 {-} 
 
@@ -619,10 +623,10 @@ Looking at the raw `DAS` data ...
 das$das[405190:405220]
 ```
 
-It appears that this was a multi-species sighting, but percentages were only provided for one species and the overall school size was quite low. We think that, in the absence of a best estimate and percent composition estimate for this species, it was ignored by `ABUND`. 
+It appears that this was a multi-species sighting, but no species percentages. In the absence of a percent composition estimate for this sighting, it was ignored by `ABUND`. 
 
 
-### School sizes {-}   
+### Group sizes {-}   
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 # Format ABUND
@@ -637,8 +641,6 @@ abund <-
          EffortSeg > 0) %>% 
   select(Cruise = CruzNo, TotSS, LnTotSS, species, best) %>% 
   mutate(Software='ABUND9')
-
-nrow(abund)
 
 # Format LTabundR
 ltabundr <- 

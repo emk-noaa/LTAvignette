@@ -7,9 +7,9 @@ library(magrittr)
 library(LTabundR)
 ```
 
-To customize the way data are processed and included in your analysis, use the `load_settings()` function. This function emulates and expands upon the settings file, `ABUND.INP`, that was used to run `ABUND7/9` in `FORTRAN`. `ABUND7/9` was a program written by Jay Barlow (NOAA Southwest Fisheries Science Center) to process DAS files.  
+To customize the way data are processed and included in your analysis, use the `load_settings()` function. This function emulates and expands upon the settings file, `ABUND.INP`, that was used to run `ABUND7/9` in `FORTRAN`. `ABUND7/9` was a program written by Jay Barlow (NOAA Fisheries) to process `DAS` files.  
    
-
+   
 This function allows you to use 'factory defaults' if you don't wish to specify anything special such as strata or study area polygons:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, size='tiny'}
@@ -37,25 +37,27 @@ settings %>% names
 
 Stratum polygons can be provided as a named list of `data.frame` objects.  Each `data.frame` must have `Lon` and `Lat` as the first two columns, providing coordinates in decimal degrees in which West and South coordinates are negative. Other columns are allowed, but the first two need to be `Lon` and `Lat`.  The name of the slot holding the `data.frame` will be used as a reference name for the stratum.  
 
+Note that if coordinates in your data span the International Date Line (IDL) such that some longitudes are positive and some are negative, during data processing all longitudes will be coerced to negative degrees West. The same transformation will be applied to any survey strata you provide that span the IDL. 
+
 If `strata` is `NULL`, abundance will not be estimated; only density within the searched area (i.e., the total segment length x effective strip width).  
 
-While users are welcome to upload polygons of their own, the package comes with built-in polygons for strata that are commonly used in the main NOAA Fisheries study regions: the Central North Pacific  (CNP, including Hawaii) ...
+While users are welcome to upload polygons of their own, the package comes with built-in polygons for strata that are commonly used in three NOAA Fisheries study regions: the central and eastern Pacific: the Central North Pacific (CNP, including Hawaii) ...
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 data(strata_cnp) 
 names(strata_cnp)
 
-# HI-EEZ: Hawaii's Exclusive Economic Zone.
-# OtherCNP: Large Central North Pacific study area.
-# MHI: Main Hawaiian Islands
-# WHICEAS: Study area for Winter HICEAS 2020
-# Spotted_OU: Spotted dolphin ______
-# Spotted_FI: Spotted dolphin ______
-# Spotted_BI: Spotted dolphin ______
-# Bottlenose_KaNi: Bottlenose dolphin _____
-# Bottlenose_OUFI: Bottlenose dolphin _____
-# Bottlenose_BI: Bottlenose dolphin _____
-# NWHI: stock boundary for the Northwestern Hawaiian Islands population of false killer whale. 
+# HI-EEZ: U.S. Exclusive Economic Zone around the Hawaiian Islands.
+# OtherCNP: Extended Central North Pacific study area.
+# MHI: Main Hawaiian Islands survey stratum during HICEAS 2002.
+# WHICEAS: Study area for winter HICEAS of 2020.
+# Spotted_OU: Stock boundary for the Oahu population of spotted dolphins.
+# Spotted_FI: Stock boundary for the 4-Islands population of spotted dolphins.
+# Spotted_BI: Stock boundary for the Hawaii Island population of spotted dolphins.
+# Bottlenose_KaNi: Stock boundary for the Kauai/Niihau population of bottlenose dolphins.
+# Bottlenose_OUFI: Collective stock boundaries for the adjacent Oahu and 4-Islands populations of bottlenose dolphins.
+# Bottlenose_BI: Stock boundary for the Hawaii Island population of bottlenose dolphins.
+# NWHI: Stock boundary for the Northwestern Hawaiian Islands population of false killer whales. 
 ```
 
 ...the California Current System (CCS) ...
@@ -63,6 +65,8 @@ names(strata_cnp)
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 data(strata_ccs) 
 names(strata_ccs)
+
+#For more information on these strata, see Barlow (2010).
 ```
 
 ... and the Eastern Tropical Pacific (ETP):  
@@ -70,6 +74,8 @@ names(strata_ccs)
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 data(strata_etp) 
 names(strata_etp)
+
+#For more information on these strata, contact <swfsc.info@noaa.gov> 
 ```
 
 The package includes functions for visualizing and selecting from these strata. See the [Strata Gallery](#stratagallery) appendix.  
@@ -130,7 +136,7 @@ Defaults for the `survey` argument list are built up efficiently  using the func
 
 ### Details {-}  
 
-The `survey_settings` input accepts a list with any of the following named slots.  
+The `survey_settings` input accepts a list with any of the following named slots:  
 
 - **`out_handling:`** the first slot allows you to specify how data occurring outside of geo-strata should be handled. If this is set to `"remove"`, those rows will be filtered out of the data early in the process. This reduces memory usage, speeds up processing, and gives you geographic control of how effort and sightings will be summarize.  If this is set to `"stratum"`, those data will be assigned to a fake geo-stratum, named `"out"`. Effort in the `"out"` stratum will not be segmentized, but `"out"` sightings will be processed and retained in the final datasets. This setting might be useful if you want to use `"out"` data for survey summaries and/or detection function estimation.  The default is `"remove"`, since that saves the most time and memory.  
 
@@ -140,13 +146,13 @@ The `survey_settings` input accepts a list with any of the following named slots
 
 - **`segment_target_km:`** if segmentizing by `"equallength"`, this field allows you to specify what that target length is, in km.    
 
-- **`segment_max_interval:`** if segmentizing by `"equallength"`, this setting allows you to specify the time gaps in effort that are allowed to be contained within a single segment. For example, if your goal is a few large segments of equal length (e.g., 150-km segments, for bootstrap estimation of density variance), you are probably willing for discrete periods of effort to be concatenated into a single segment, even if the gaps between effort are as large as 1 or 2 days, in which case you would set `segment_max_interval` to 24 or 48 (hours), respectively.  However, if your goal is many smaller segments (e.g., 5-km segments, for habitat modeling), you want to ensure that effort is contiguous so that segment locations can be accurately related to environmental variables, in which case you would set `segment_max_interval` to be very small (e.g., .2 hours, or 12 minutes). Setting this interval to a small number, such as 0.2, also allows the segmentizing function overlook momentary breaks in effort, such as when an unofficial observer logs a sighting.  
+- **`segment_max_interval:`** if segmentizing by `"equallength"`, this setting allows you to specify the time gaps in effort that are allowed to be contained within a single segment. For example, if your goal is a few large segments of equal length (e.g., 150-km segments, for bootstrap estimation of density variance), you are probably willing for discrete periods of effort to be concatenated into a single segment, even if the gaps between effort are as large as 1 or 2 days, in which case you would set `segment_max_interval` to 24 or 48 (hours), respectively.  However, if your goal is many smaller segments (e.g., 5-km segments, for habitat modeling), you want to ensure that effort is contiguous so that segment locations can be accurately related to environmental variables, in which case you would set `segment_max_interval` to be very small (e.g., .2 hours, or 12 minutes). Setting this interval to a small number, such as 0.2, also allows the segmentizing function to overlook momentary breaks in effort.  
 
-- **`segment_remainder_handling:`** if segmentizing by `"equallength"`, periods of effectively-contiguous effort (as specified by `segment_max_interval`) are unlikely to be perfectly divisible by your `segment_target_km`; there is going to be a remainder. You can handle this remainder in three ways: (1) `"disperse"` allows the function to adjust `segment_target_km` so that there is in fact no remainder, effectively dispersing the remainder evenly across all segments within that period of contiguous effort; (2) `"append"` asks the function to append the remainder to a randomly selected segment, such that most segments are the target length with the exception of one longer one; or (3) `"segment"` asks the function to simply place the remainder in its own segment, placed randomly within the period of contiguous effort. This setting also has a second layer of versatility, because it can accept a one- or two-element character vector. If a two-element vector is provided (e.g., `c("append","segment")`), the first element will be used in the event that the remainder is less than or equal to half your `segment_target_km`; if the remainder is more than half that target length, the second element will be used. This feature allows for replication of the segmentizing methods in [Becker et al. (2010)](https://www.int-res.com/abstracts/meps/v413/p163-183/).  
+- **`segment_remainder_handling:`** if segmentizing by `"equallength"`, periods of effectively-contiguous effort (as specified by `segment_max_interval`) are unlikely to be perfectly divisible by your `segment_target_km`; there is going to be a remainder. You can handle this remainder in three ways: (1) `"disperse"` allows the function to adjust `segment_target_km` so that there is in fact no remainder, effectively dispersing the remainder evenly across all segments within that period of contiguous effort; (2) `"append"` asks the function to append the remainder to a randomly selected segment, such that most segments are the target length with the exception of one longer one; or (3) `"segment"` asks the function to simply place the remainder in its own segment, placed randomly within the period of contiguous effort. This setting also has a second layer of versatility because it can accept a one- or two-element character vector. If a two-element vector is provided (e.g., `c("append","segment")`), the first element will be used in the event that the remainder is less than or equal to half your `segment_target_km`; if the remainder is more than half that target length, the second element will be used. This feature allows for replication of the segmentizing methods in [Becker et al. (2010)](https://www.int-res.com/abstracts/meps/v413/p163-183/).  
 
 The remaining slots in `survey_settings` pertain to various datasets and settings used in data processing:  
 
-- **`ship_list:`**  A `data.frame` containing a list of ship names. If not provided the default version, which was current as of the release of `ABUND9` in 2020, will be used (`data(ships)`). Supplied `data.frames` must match the column naming structure of `data(ships)`.  
+- **`ship_list:`**  A `data.frame` containing a list of survey numbers and ship names. If not provided the default version, which was current as of the release of `ABUND9` in 2020, will be used (`data(ships)`), although note that surveys not included there will not be associated with a ship. Supplied `data.frames` must match the column naming structure of `data(ships)`.  
 
 - **`species_codes:`** A `data.frame` containing species codes. If not provided the default version, which was current as of the release of `ABUND9` in 2020, will be used (`data(species_codes)`). Supplied `data.frames` must match the column naming structure of `data(species_codes)`.  
 
@@ -183,7 +189,7 @@ The `cohort_settings` input accepts a list of any length. Each slot in that list
 
 - **`id:`** An informal identifier for this cohort, to help you keep track of which cohort is which.  For example, settings for a cohort of large whales species could be named `"big whales"`; settings for small delphinids and phocoenids could be named `"small_odontocetes"`; settings for beaked whales could be named `"beakers"`.  
 
-- **`species:`** A character vector of species codes to include in this cohort. If `NULL` (the default), all species will be included. Note that any species to be used in modeling a detection function for this cohort must be included here.  **For example,** in Hawaii the bottlenose dolphin is analyzed as part of a multi-species pool along with the rough-toothed dolphin, Risso's dolphin, and pygmy killer whale. However, the bottlenose dolphin has insular populations that need to be differentiated from their pelagic counterpart, which requires some special geostratum handling that behooves the preparation of a dedicated cohort for bottlenose dolphin. Even so, in the `cohort_settings` object for the bottlenose dolphin cohort, the species codes for the rough-toothed, Risso's, and pygmy-killer-whale dolphins need to be provided in this `species` argument. Conversely, in the `cohort_settings` object that holds most other species, including the rough-toothed, Risso's, and pygmy-killer-whale dolphins, the bottlenose dolphin's code still needs to be included in this `species` argument.
+- **`species:`** A character vector of species codes to include in this cohort. If `NULL` (the default), all species within the survey data will be included. Note that if you specify a vector, all species to be used in modeling a detection function for this cohort must be included here.  **For example,** in Hawaii the bottlenose dolphin is analyzed as part of a multi-species pool along with the rough-toothed dolphin, Risso's dolphin, and pygmy killer whale. However, the bottlenose dolphin has insular populations that need to be differentiated from their pelagic counterpart, which requires some special geostratum handling that behooves the preparation of a dedicated cohort for bottlenose dolphin. Even so, in the `cohort_settings` object for the bottlenose dolphin cohort, the species codes for the rough-toothed, Risso's, and pygmy-killer-whale dolphins need to be provided in this `species` argument. Conversely, in the `cohort_settings` object that holds most other species, including the rough-toothed, Risso's, and pygmy-killer-whale dolphins, the bottlenose dolphin's code still needs to be included in this `species` argument.
 
 - **`strata:`** A character vector of geostratum names. These must match the names
 listed in the `strata` slot of your survey settings (see documentation for `load_survey_settings()`). If `NULL` (the default), *all* geostrata in your survey settings will be used. This argument is an opportunity to subset the geostrata used for a cohort.  **For example,** as discussed above, certain dolphin species in Hawaiian waters have unique geostrata that apply only to their insular/pelagic populations, and should only have a role in breaking effort segments in the bootstrap variance analysis for these specific species. Those dolphins should be given their own cohort, and those insular/pelagic geostrata should be included in this `strata` argument. Conversely, all other species should be placed in a separate cohort and only the generic geostrata should be included in this `strata` argument. See the WHICEAS example below for a demonstration.
@@ -196,23 +202,23 @@ listed in the `strata` slot of your survey settings (see documentation for `load
 
 - **`school_size_range:`**  Minimum and maximum group sizes to be included in estimates of abundance.  This is the overall group size, not the number of the given species that are present in a mixed-species group. 
 
-- **`school_size_calibrate:`**  A logical (`TRUE` or `FALSE`) specifying whether or not to carry out school size adjustments according to the calibration table provided in `survey$group_size_coefficients` (if that table is provided). This setting allows you to toggle the survey-wide setting for certain cohorts. For example, perhaps you want to carry out calibration for a cohort of dolphin species, but not for a cohort of large whales whose group sizes tend to be smaller and easier to estimate accurately.  
+- **`school_size_calibrate:`**  A logical (`TRUE` or `FALSE`) specifying whether or not to carry out group size adjustments according to the calibration table provided in `survey$group_size_coefficients` (if that table is provided). This setting allows you to toggle the survey-wide setting for certain cohorts. For example, perhaps you want to carry out calibration for a cohort of dolphin species, but not for a cohort of large whales whose group sizes tend to be smaller and easier to estimate accurately.  
 
-- **`calibration_floor:`** A numeric indicating the minimum school size estimate for which school size calibration will be attempted. This pertains only to observers who do no have an entry in the `group_size_coefficients` table provided in `load_survey_settings()` (that table has a calibration floor for each observer). The default is 0, meaning that calibration will be attempted for *all* school size estimates, regardless of the raw estimate. 
+- **`calibration_floor:`** A numeric indicating the minimum school size estimate for which group size calibration will be attempted. This pertains only to observers who do no have an entry in the `group_size_coefficients` table provided in `load_survey_settings()` (that table has a calibration floor for each observer). The default is 0, meaning that calibration will be attempted for *all* group size estimates, regardless of the raw estimate. 
 
 - **`use_low_if_na:`**  If this setting is `TRUE`, and an observer(s) does not make a best estimate of group size, mean group size will be calculated from "low" estimates.  This will be done only if no observer has a "best" estimate.
 
 - **`io_sightings:`** A coded integer which specifies how sightings by the independent observer will be handled.  Allowable codes, which are inherited from those used in `ABUND7/9`, are `"_1"`=include independent observer sightings wih all other sightings, `"0"`=ignore sightings by independent observer, `"1"`=use only sightings made by regular observer team WHEN an independent observer was present, `"2"`=include only sightings made by the independent observer.  IO sightings are typically used only for making g(0) estimates, otherwise IO sightings are usually ignored (code = `"0"`). 
 
-- **`geometric_mean_group:`** This logical variable specifies whether to use a weighted geometric mean when calculating  mean group size.  Barlow, Gerrodette, and Perryman (1998) found that this gave slightly better performance than a straight mean group size. Default is `TRUE`, but it will only be done if `group_size_coefficients` is not `NULL`. (This does not apply to subgroup analyses.)
+- **`geometric_mean_group:`** This logical variable specifies whether to use a weighted geometric mean when calculating  mean group size.  [Barlow et al. (1998)](https://repository.library.noaa.gov/view/noaa/25848) found that this gave slightly better performance than an arithmetic mean group size for calibrated estimates. Default is `TRUE`, but a geometric mean will only be calculated if `group_size_coefficients` is not `NULL`. If `group_size_coefficients` is `NULL`, then an arithmetic mean will be calculated. (This setting does not apply to subgroup analyses.)
 
-- **`truncation_km:`**  Specifies the maximum perpendicular distance for groups that could potentially be included for abundance estimation. Also determines the bins used for grouped perpendicular distances. This is not the stage at which you set the truncation distance for detection function modeling; it is simply a preliminary cutoff for very distant sightings that whose distance is unlikely to be measured accurately from shipboard reticle readings. For that reason, the default is set to be quite far (5.5 km). 
+- **`truncation_km:`**  Specifies the maximum perpendicular distance for groups that could potentially be included for abundance estimation. This is not the stage at which you set the truncation distance for detection function modeling; it is simply a preliminary cutoff for sightings made at unrealiable detection distances. The default is set at 5.5 km, which is the maximum distance sightings are typically approached ("closing mode") during NOAA Fisheries surveys. 
 
 - **`beaufort_range:`** Vector of Beaufort sea states (integers) that are acceptable in estimating the detection function and density. Beaufort data with a decimal place will be rounded to the nearest integer to evaluate for inclusion.  
 
 - **`abeam_sightings:`** = If `TRUE`, sightings that occur aft of beam (i.e., 90 degrees) are included in estimating the detection function and densities. Default is `FALSE`: all abeam sightings will be ignored.
 
-- **`strata_overlap_handling:`**  In the event that survey strata overlap, this setting tells `R` how to handle it. The options are `"smallest"` (the default), in which effort can belong to only a single stratum, and the smallest of overlapping strata will be used (e.g., an insular polygon nested within a larger EEZ polygon); `"largest"`, in which effort can belong to only a single stratum and the largest of overlapping strata will be used (we are not sure what use case this would serve, but we offer it as an option for niche analyses); and `"each"`, in which each effort is allowed to belong to two or more strata at once and all analyses will be conducted for each overlapping polygon separately (e.g., this may be appropriate for nested strata in which you want to estimate density in the entirety of the larger stratum in addition to estimating density for the nested stratum).   
+- **`strata_overlap_handling:`**  In the event that survey strata overlap, this setting tells `R` how to handle it. The options are `"smallest"` (the default), in which effort can belong to only a single stratum, and the smallest of overlapping strata will be used (e.g., an insular polygon nested within a larger EEZ polygon); `"largest"`, in which effort can belong to only a single stratum and the largest of overlapping strata will be used (we are not sure what use case this would serve, but we offer it as an option for niche analyses); and `"each"`, in which each effort is allowed to belong to two or more strata at once and all analyses will be conducted for each overlapping polygon separately (e.g., this may be appropriate for nested strata in which you want to estimate density in the entirety of the larger stratum in addition to estimating density for the nested stratum). 
 
 - **`distance_types:`**  A character vector of the effort types that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing.  Accepted values are `"S"` (systematic/standard effort), `"F"` (fine-scale effort), and `"N"` (non-systematic/non-standard effort, in which systematic protocols are being used but effort is not occurring along design-based transect routes).  The default values are `c("S","F","N")`.  
 
@@ -309,7 +315,7 @@ strata_cnp %>% names
 #### Species cohorts {-} 
 
 **Cohort 1: All species**  
-This first cohort will serve as a 'catch-all' for species who do not need special handling. It does not hurt to include *all* species in this catch-all cohort -- except perhaps by increasing the file-size of your processed data by a few kilobytes -- *even if* you will be creating a separate, dedicated cohort for one of these species downstream. Having a catch-all cohort like this serves two purposes: (1) it avoids unforeseen complications if you will be modeling detection functions with multi-species pools, as mentioned above; and (2) it will simplify the code you will use to produce summary statistics of effort and sightings totals, since you will not need to pool together statistics from multiple cohorts.  
+At least one cohort needs to be specified in order to run process survey data, so this first cohort will serve as a 'catch-all' for species who do not need special handling. It does not hurt to include *all* species in this catch-all cohort -- except perhaps by increasing the file-size of your processed data by a few kilobytes -- *even if* you will be creating a separate, dedicated cohort for one of these species downstream. Having a catch-all cohort like this serves two purposes: (1) it avoids unforeseen complications if you will be modeling detection functions with multi-species pools, as mentioned above; and (2) it will simplify the code you will use to produce summary statistics of effort and sightings totals, since you will not need to pool together statistics from multiple cohorts.  
 
 To build this catch-all cohort, we will not specify any species so that *all* species in the data are included, and we will specify that only the generic geostrata should be used, so that species specific insular stock boundaries are ignored.  
 
@@ -331,7 +337,7 @@ all_species <- load_cohort_settings(
   geometric_mean_group = TRUE,
   truncation_km = 7.5, # *
   beaufort_range = 0:6,
-  abeam_sightings = TRUE,
+  abeam_sightings = FALSE, # *
   strata_overlap_handling = c("smallest"),
   distance_types = c('S','F','N'),
   distance_modes = c('P','C'),
@@ -370,7 +376,7 @@ spotted <- load_cohort_settings(
 
 #### Compile settings {-} 
 
-Finally, we create our `settings` object: 
+Finally, we create our `settings` object, providing `cohorts` as a list of lists: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
 settings <- load_settings(strata = strata_cnp,

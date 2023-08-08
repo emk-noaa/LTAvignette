@@ -1,4 +1,4 @@
-# Subgroup-based analysis
+# Subgroup-based analysis {#subgroups}
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
 library(dplyr)

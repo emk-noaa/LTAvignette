@@ -145,7 +145,7 @@ That workflow typically involves four stages:
 
 \begin{itemize}
 \item
-  This step involves reading in \& processing raw \texttt{DAS} files (the files produced by the software Wincruz commonly used during NOAA Fisheries line-transect surveys in the Pacific), breaking effort into discrete segments for variance estimation, correcting group size estimates according to calibration models, and then averaging together group size estimates for each sighting.
+  This step involves reading in \& processing raw \texttt{DAS} files (the files produced by the software \texttt{Wincruz} commonly used during NOAA Fisheries line-transect surveys in the Pacific), breaking effort into discrete segments for variance estimation, correcting group size estimates according to calibration models, and then averaging together group size estimates for each sighting.
 \item
   Most importantly, this step standardizes the data structure in a way that all downstream analyses depend upon. The name we will use for this standardized data object is a \texttt{cruz} object.
 \item
@@ -158,7 +158,7 @@ That workflow typically involves four stages:
 \item
   This step involves summarizing effort and sightings totals, determining the appropriate truncation distances for each species -- or pool of species -- based on sample sizes, and producing maps.
 \item
-  The key functions in this stage are \texttt{cruz\_explorer()} (a \texttt{Shiny} dashboard for data exploration) and the \texttt{summarize...} functions, such as \texttt{summarize\_species()} and \texttt{summarize\_effort()}.
+  The key \texttt{LTabundR} functions in this stage are \texttt{cruz\_explorer()} (a \texttt{Shiny} dashboard for data exploration) and the \texttt{summarize...} functions, such as \texttt{summarize\_species()} and \texttt{summarize\_effort()}.
 \end{itemize}
 
 \textbf{(3) Data analysis}
@@ -198,6 +198,9 @@ The \texttt{LTabundR} package is available on \texttt{GitHub} \href{https://gith
 \CommentTok{\# Install \textquotesingle{}devtools\textquotesingle{} package, if needed}
 \ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(}\StringTok{\textquotesingle{}devtools\textquotesingle{}}\NormalTok{)) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{\textquotesingle{}devtools\textquotesingle{}}\NormalTok{)}
 
+\CommentTok{\# Increase timeout for download, since there are datasets}
+\FunctionTok{options}\NormalTok{(}\AttributeTok{timeout=}\DecValTok{9999999}\NormalTok{)}
+
 \CommentTok{\# Install LTabundR remotely from GitHub}
 \NormalTok{devtools}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{\textquotesingle{}PIFSC{-}Protected{-}Species{-}Division/LTabundR\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
@@ -221,7 +224,7 @@ This \texttt{R} package is a consolidation of code developed over many years by 
 \hypertarget{settings}{%
 \chapter{Settings}\label{settings}}
 
-To customize the way data are processed and included in your analysis, use the \texttt{load\_settings()} function. This function emulates and expands upon the settings file, \texttt{ABUND.INP}, that was used to run \texttt{ABUND7/9} in \texttt{FORTRAN}. \texttt{ABUND7/9} was a program written by Jay Barlow (NOAA Southwest Fisheries Science Center) to process DAS files.
+To customize the way data are processed and included in your analysis, use the \texttt{load\_settings()} function. This function emulates and expands upon the settings file, \texttt{ABUND.INP}, that was used to run \texttt{ABUND7/9} in \texttt{FORTRAN}. \texttt{ABUND7/9} was a program written by Jay Barlow (NOAA Fisheries) to process \texttt{DAS} files.
 
 This function allows you to use `factory defaults' if you don't wish to specify anything special such as strata or study area polygons:
 
@@ -257,9 +260,11 @@ The output of \texttt{load\_settings()} is a named list with a slot for each of 
 
 Stratum polygons can be provided as a named list of \texttt{data.frame} objects. Each \texttt{data.frame} must have \texttt{Lon} and \texttt{Lat} as the first two columns, providing coordinates in decimal degrees in which West and South coordinates are negative. Other columns are allowed, but the first two need to be \texttt{Lon} and \texttt{Lat}. The name of the slot holding the \texttt{data.frame} will be used as a reference name for the stratum.
 
+Note that if coordinates in your data span the International Date Line (IDL) such that some longitudes are positive and some are negative, during data processing all longitudes will be coerced to negative degrees West. The same transformation will be applied to any survey strata you provide that span the IDL.
+
 If \texttt{strata} is \texttt{NULL}, abundance will not be estimated; only density within the searched area (i.e., the total segment length x effective strip width).
 
-While users are welcome to upload polygons of their own, the package comes with built-in polygons for strata that are commonly used in the main NOAA Fisheries study regions: the Central North Pacific (CNP, including Hawaii) \ldots{}
+While users are welcome to upload polygons of their own, the package comes with built-in polygons for strata that are commonly used in three NOAA Fisheries study regions: the central and eastern Pacific: the Central North Pacific (CNP, including Hawaii) \ldots{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -269,17 +274,17 @@ While users are welcome to upload polygons of their own, the package comes with 
 \NormalTok{ [}\DecValTok{5}\NormalTok{] }\StringTok{"Spotted\_OU"}      \StringTok{"Spotted\_FI"}      \StringTok{"Spotted\_BI"}      \StringTok{"Bottlenose\_KaNi"}
 \NormalTok{ [}\DecValTok{9}\NormalTok{] }\StringTok{"Bottlenose\_OUFI"} \StringTok{"Bottlenose\_BI"}   \StringTok{"NWHI"}           
 
-\CommentTok{\# HI{-}EEZ: Hawaii\textquotesingle{}s Exclusive Economic Zone.}
-\CommentTok{\# OtherCNP: Large Central North Pacific study area.}
-\CommentTok{\# MHI: Main Hawaiian Islands}
-\CommentTok{\# WHICEAS: Study area for Winter HICEAS 2020}
-\CommentTok{\# Spotted\_OU: Spotted dolphin \_\_\_\_\_\_}
-\CommentTok{\# Spotted\_FI: Spotted dolphin \_\_\_\_\_\_}
-\CommentTok{\# Spotted\_BI: Spotted dolphin \_\_\_\_\_\_}
-\CommentTok{\# Bottlenose\_KaNi: Bottlenose dolphin \_\_\_\_\_}
-\CommentTok{\# Bottlenose\_OUFI: Bottlenose dolphin \_\_\_\_\_}
-\CommentTok{\# Bottlenose\_BI: Bottlenose dolphin \_\_\_\_\_}
-\CommentTok{\# NWHI: stock boundary for the Northwestern Hawaiian Islands population of false killer whale. }
+\CommentTok{\# HI{-}EEZ: U.S. Exclusive Economic Zone around the Hawaiian Islands.}
+\CommentTok{\# OtherCNP: Extended Central North Pacific study area.}
+\CommentTok{\# MHI: Main Hawaiian Islands survey stratum during HICEAS 2002.}
+\CommentTok{\# WHICEAS: Study area for winter HICEAS of 2020.}
+\CommentTok{\# Spotted\_OU: Stock boundary for the Oahu population of spotted dolphins.}
+\CommentTok{\# Spotted\_FI: Stock boundary for the 4{-}Islands population of spotted dolphins.}
+\CommentTok{\# Spotted\_BI: Stock boundary for the Hawaii Island population of spotted dolphins.}
+\CommentTok{\# Bottlenose\_KaNi: Stock boundary for the Kauai/Niihau population of bottlenose dolphins.}
+\CommentTok{\# Bottlenose\_OUFI: Collective stock boundaries for the adjacent Oahu and 4{-}Islands populations of bottlenose dolphins.}
+\CommentTok{\# Bottlenose\_BI: Stock boundary for the Hawaii Island population of bottlenose dolphins.}
+\CommentTok{\# NWHI: Stock boundary for the Northwestern Hawaiian Islands population of false killer whales. }
 \end{Highlighting}
 \end{Shaded}
 
@@ -290,6 +295,8 @@ While users are welcome to upload polygons of their own, the package comes with 
 \FunctionTok{data}\NormalTok{(strata\_ccs) }
 \FunctionTok{names}\NormalTok{(strata\_ccs)}
 \NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"CCS"}         \StringTok{"Southern\_CA"} \StringTok{"Central\_CA"}  \StringTok{"Nothern\_CA"}  \StringTok{"OR\_WA"}      
+
+\CommentTok{\#For more information on these strata, see Barlow (2010).}
 \end{Highlighting}
 \end{Shaded}
 
@@ -323,6 +330,8 @@ While users are welcome to upload polygons of their own, the package comes with 
 \NormalTok{[}\DecValTok{64}\NormalTok{] }\StringTok{"STAR\_AreaSCstS"}     \StringTok{"STAR\_AreaSPn"}       \StringTok{"STAR\_AreaSPs"}      
 \NormalTok{[}\DecValTok{67}\NormalTok{] }\StringTok{"STAR\_AreaSTAR"}      \StringTok{"STAR\_AreaSTAR2"}     \StringTok{"STAR\_AreaSTARlite"} 
 \NormalTok{[}\DecValTok{70}\NormalTok{] }\StringTok{"STAR\_Dcaparea"}     
+
+\CommentTok{\#For more information on these strata, contact \textless{}swfsc.info@noaa.gov\textgreater{} }
 \end{Highlighting}
 \end{Shaded}
 
@@ -463,7 +472,7 @@ Defaults for the \texttt{survey} argument list are built up efficiently using th
 \subsection*{Details}\label{details}}
 \addcontentsline{toc}{subsection}{Details}
 
-The \texttt{survey\_settings} input accepts a list with any of the following named slots.
+The \texttt{survey\_settings} input accepts a list with any of the following named slots:
 
 \begin{itemize}
 \item
@@ -475,16 +484,16 @@ The \texttt{survey\_settings} input accepts a list with any of the following nam
 \item
   \textbf{\texttt{segment\_target\_km:}} if segmentizing by \texttt{"equallength"}, this field allows you to specify what that target length is, in km.
 \item
-  \textbf{\texttt{segment\_max\_interval:}} if segmentizing by \texttt{"equallength"}, this setting allows you to specify the time gaps in effort that are allowed to be contained within a single segment. For example, if your goal is a few large segments of equal length (e.g., 150-km segments, for bootstrap estimation of density variance), you are probably willing for discrete periods of effort to be concatenated into a single segment, even if the gaps between effort are as large as 1 or 2 days, in which case you would set \texttt{segment\_max\_interval} to 24 or 48 (hours), respectively. However, if your goal is many smaller segments (e.g., 5-km segments, for habitat modeling), you want to ensure that effort is contiguous so that segment locations can be accurately related to environmental variables, in which case you would set \texttt{segment\_max\_interval} to be very small (e.g., .2 hours, or 12 minutes). Setting this interval to a small number, such as 0.2, also allows the segmentizing function overlook momentary breaks in effort, such as when an unofficial observer logs a sighting.
+  \textbf{\texttt{segment\_max\_interval:}} if segmentizing by \texttt{"equallength"}, this setting allows you to specify the time gaps in effort that are allowed to be contained within a single segment. For example, if your goal is a few large segments of equal length (e.g., 150-km segments, for bootstrap estimation of density variance), you are probably willing for discrete periods of effort to be concatenated into a single segment, even if the gaps between effort are as large as 1 or 2 days, in which case you would set \texttt{segment\_max\_interval} to 24 or 48 (hours), respectively. However, if your goal is many smaller segments (e.g., 5-km segments, for habitat modeling), you want to ensure that effort is contiguous so that segment locations can be accurately related to environmental variables, in which case you would set \texttt{segment\_max\_interval} to be very small (e.g., .2 hours, or 12 minutes). Setting this interval to a small number, such as 0.2, also allows the segmentizing function to overlook momentary breaks in effort.
 \item
-  \textbf{\texttt{segment\_remainder\_handling:}} if segmentizing by \texttt{"equallength"}, periods of effectively-contiguous effort (as specified by \texttt{segment\_max\_interval}) are unlikely to be perfectly divisible by your \texttt{segment\_target\_km}; there is going to be a remainder. You can handle this remainder in three ways: (1) \texttt{"disperse"} allows the function to adjust \texttt{segment\_target\_km} so that there is in fact no remainder, effectively dispersing the remainder evenly across all segments within that period of contiguous effort; (2) \texttt{"append"} asks the function to append the remainder to a randomly selected segment, such that most segments are the target length with the exception of one longer one; or (3) \texttt{"segment"} asks the function to simply place the remainder in its own segment, placed randomly within the period of contiguous effort. This setting also has a second layer of versatility, because it can accept a one- or two-element character vector. If a two-element vector is provided (e.g., \texttt{c("append","segment")}), the first element will be used in the event that the remainder is less than or equal to half your \texttt{segment\_target\_km}; if the remainder is more than half that target length, the second element will be used. This feature allows for replication of the segmentizing methods in \href{https://www.int-res.com/abstracts/meps/v413/p163-183/}{Becker et al.~(2010)}.
+  \textbf{\texttt{segment\_remainder\_handling:}} if segmentizing by \texttt{"equallength"}, periods of effectively-contiguous effort (as specified by \texttt{segment\_max\_interval}) are unlikely to be perfectly divisible by your \texttt{segment\_target\_km}; there is going to be a remainder. You can handle this remainder in three ways: (1) \texttt{"disperse"} allows the function to adjust \texttt{segment\_target\_km} so that there is in fact no remainder, effectively dispersing the remainder evenly across all segments within that period of contiguous effort; (2) \texttt{"append"} asks the function to append the remainder to a randomly selected segment, such that most segments are the target length with the exception of one longer one; or (3) \texttt{"segment"} asks the function to simply place the remainder in its own segment, placed randomly within the period of contiguous effort. This setting also has a second layer of versatility because it can accept a one- or two-element character vector. If a two-element vector is provided (e.g., \texttt{c("append","segment")}), the first element will be used in the event that the remainder is less than or equal to half your \texttt{segment\_target\_km}; if the remainder is more than half that target length, the second element will be used. This feature allows for replication of the segmentizing methods in \href{https://www.int-res.com/abstracts/meps/v413/p163-183/}{Becker et al.~(2010)}.
 \end{itemize}
 
 The remaining slots in \texttt{survey\_settings} pertain to various datasets and settings used in data processing:
 
 \begin{itemize}
 \item
-  \textbf{\texttt{ship\_list:}} A \texttt{data.frame} containing a list of ship names. If not provided the default version, which was current as of the release of \texttt{ABUND9} in 2020, will be used (\texttt{data(ships)}). Supplied \texttt{data.frames} must match the column naming structure of \texttt{data(ships)}.
+  \textbf{\texttt{ship\_list:}} A \texttt{data.frame} containing a list of survey numbers and ship names. If not provided the default version, which was current as of the release of \texttt{ABUND9} in 2020, will be used (\texttt{data(ships)}), although note that surveys not included there will not be associated with a ship. Supplied \texttt{data.frames} must match the column naming structure of \texttt{data(ships)}.
 \item
   \textbf{\texttt{species\_codes:}} A \texttt{data.frame} containing species codes. If not provided the default version, which was current as of the release of \texttt{ABUND9} in 2020, will be used (\texttt{data(species\_codes)}). Supplied \texttt{data.frames} must match the column naming structure of \texttt{data(species\_codes)}.
 \item
@@ -588,7 +597,7 @@ The \texttt{cohort\_settings} input accepts a list of any length. Each slot in t
 \item
   \textbf{\texttt{id:}} An informal identifier for this cohort, to help you keep track of which cohort is which. For example, settings for a cohort of large whales species could be named \texttt{"big\ whales"}; settings for small delphinids and phocoenids could be named \texttt{"small\_odontocetes"}; settings for beaked whales could be named \texttt{"beakers"}.
 \item
-  \textbf{\texttt{species:}} A character vector of species codes to include in this cohort. If \texttt{NULL} (the default), all species will be included. Note that any species to be used in modeling a detection function for this cohort must be included here. \textbf{For example,} in Hawaii the bottlenose dolphin is analyzed as part of a multi-species pool along with the rough-toothed dolphin, Risso's dolphin, and pygmy killer whale. However, the bottlenose dolphin has insular populations that need to be differentiated from their pelagic counterpart, which requires some special geostratum handling that behooves the preparation of a dedicated cohort for bottlenose dolphin. Even so, in the \texttt{cohort\_settings} object for the bottlenose dolphin cohort, the species codes for the rough-toothed, Risso's, and pygmy-killer-whale dolphins need to be provided in this \texttt{species} argument. Conversely, in the \texttt{cohort\_settings} object that holds most other species, including the rough-toothed, Risso's, and pygmy-killer-whale dolphins, the bottlenose dolphin's code still needs to be included in this \texttt{species} argument.
+  \textbf{\texttt{species:}} A character vector of species codes to include in this cohort. If \texttt{NULL} (the default), all species within the survey data will be included. Note that if you specify a vector, all species to be used in modeling a detection function for this cohort must be included here. \textbf{For example,} in Hawaii the bottlenose dolphin is analyzed as part of a multi-species pool along with the rough-toothed dolphin, Risso's dolphin, and pygmy killer whale. However, the bottlenose dolphin has insular populations that need to be differentiated from their pelagic counterpart, which requires some special geostratum handling that behooves the preparation of a dedicated cohort for bottlenose dolphin. Even so, in the \texttt{cohort\_settings} object for the bottlenose dolphin cohort, the species codes for the rough-toothed, Risso's, and pygmy-killer-whale dolphins need to be provided in this \texttt{species} argument. Conversely, in the \texttt{cohort\_settings} object that holds most other species, including the rough-toothed, Risso's, and pygmy-killer-whale dolphins, the bottlenose dolphin's code still needs to be included in this \texttt{species} argument.
 \item
   \textbf{\texttt{strata:}} A character vector of geostratum names. These must match the names
   listed in the \texttt{strata} slot of your survey settings (see documentation for \texttt{load\_survey\_settings()}). If \texttt{NULL} (the default), \emph{all} geostrata in your survey settings will be used. This argument is an opportunity to subset the geostrata used for a cohort. \textbf{For example,} as discussed above, certain dolphin species in Hawaiian waters have unique geostrata that apply only to their insular/pelagic populations, and should only have a role in breaking effort segments in the bootstrap variance analysis for these specific species. Those dolphins should be given their own cohort, and those insular/pelagic geostrata should be included in this \texttt{strata} argument. Conversely, all other species should be placed in a separate cohort and only the generic geostrata should be included in this \texttt{strata} argument. See the WHICEAS example below for a demonstration.
@@ -601,17 +610,17 @@ The \texttt{cohort\_settings} input accepts a list of any length. Each slot in t
 \item
   \textbf{\texttt{school\_size\_range:}} Minimum and maximum group sizes to be included in estimates of abundance. This is the overall group size, not the number of the given species that are present in a mixed-species group.
 \item
-  \textbf{\texttt{school\_size\_calibrate:}} A logical (\texttt{TRUE} or \texttt{FALSE}) specifying whether or not to carry out school size adjustments according to the calibration table provided in \texttt{survey\$group\_size\_coefficients} (if that table is provided). This setting allows you to toggle the survey-wide setting for certain cohorts. For example, perhaps you want to carry out calibration for a cohort of dolphin species, but not for a cohort of large whales whose group sizes tend to be smaller and easier to estimate accurately.
+  \textbf{\texttt{school\_size\_calibrate:}} A logical (\texttt{TRUE} or \texttt{FALSE}) specifying whether or not to carry out group size adjustments according to the calibration table provided in \texttt{survey\$group\_size\_coefficients} (if that table is provided). This setting allows you to toggle the survey-wide setting for certain cohorts. For example, perhaps you want to carry out calibration for a cohort of dolphin species, but not for a cohort of large whales whose group sizes tend to be smaller and easier to estimate accurately.
 \item
-  \textbf{\texttt{calibration\_floor:}} A numeric indicating the minimum school size estimate for which school size calibration will be attempted. This pertains only to observers who do no have an entry in the \texttt{group\_size\_coefficients} table provided in \texttt{load\_survey\_settings()} (that table has a calibration floor for each observer). The default is 0, meaning that calibration will be attempted for \emph{all} school size estimates, regardless of the raw estimate.
+  \textbf{\texttt{calibration\_floor:}} A numeric indicating the minimum school size estimate for which group size calibration will be attempted. This pertains only to observers who do no have an entry in the \texttt{group\_size\_coefficients} table provided in \texttt{load\_survey\_settings()} (that table has a calibration floor for each observer). The default is 0, meaning that calibration will be attempted for \emph{all} group size estimates, regardless of the raw estimate.
 \item
   \textbf{\texttt{use\_low\_if\_na:}} If this setting is \texttt{TRUE}, and an observer(s) does not make a best estimate of group size, mean group size will be calculated from ``low'' estimates. This will be done only if no observer has a ``best'' estimate.
 \item
   \textbf{\texttt{io\_sightings:}} A coded integer which specifies how sightings by the independent observer will be handled. Allowable codes, which are inherited from those used in \texttt{ABUND7/9}, are \texttt{"\_1"}=include independent observer sightings wih all other sightings, \texttt{"0"}=ignore sightings by independent observer, \texttt{"1"}=use only sightings made by regular observer team WHEN an independent observer was present, \texttt{"2"}=include only sightings made by the independent observer. IO sightings are typically used only for making g(0) estimates, otherwise IO sightings are usually ignored (code = \texttt{"0"}).
 \item
-  \textbf{\texttt{geometric\_mean\_group:}} This logical variable specifies whether to use a weighted geometric mean when calculating mean group size. Barlow, Gerrodette, and Perryman (1998) found that this gave slightly better performance than a straight mean group size. Default is \texttt{TRUE}, but it will only be done if \texttt{group\_size\_coefficients} is not \texttt{NULL}. (This does not apply to subgroup analyses.)
+  \textbf{\texttt{geometric\_mean\_group:}} This logical variable specifies whether to use a weighted geometric mean when calculating mean group size. \href{https://repository.library.noaa.gov/view/noaa/25848}{Barlow et al.~(1998)} found that this gave slightly better performance than an arithmetic mean group size for calibrated estimates. Default is \texttt{TRUE}, but a geometric mean will only be calculated if \texttt{group\_size\_coefficients} is not \texttt{NULL}. If \texttt{group\_size\_coefficients} is \texttt{NULL}, then an arithmetic mean will be calculated. (This setting does not apply to subgroup analyses.)
 \item
-  \textbf{\texttt{truncation\_km:}} Specifies the maximum perpendicular distance for groups that could potentially be included for abundance estimation. Also determines the bins used for grouped perpendicular distances. This is not the stage at which you set the truncation distance for detection function modeling; it is simply a preliminary cutoff for very distant sightings that whose distance is unlikely to be measured accurately from shipboard reticle readings. For that reason, the default is set to be quite far (5.5 km).
+  \textbf{\texttt{truncation\_km:}} Specifies the maximum perpendicular distance for groups that could potentially be included for abundance estimation. This is not the stage at which you set the truncation distance for detection function modeling; it is simply a preliminary cutoff for sightings made at unrealiable detection distances. The default is set at 5.5 km, which is the maximum distance sightings are typically approached (``closing mode'') during NOAA Fisheries surveys.
 \item
   \textbf{\texttt{beaufort\_range:}} Vector of Beaufort sea states (integers) that are acceptable in estimating the detection function and density. Beaufort data with a decimal place will be rounded to the nearest integer to evaluate for inclusion.
 \item
@@ -742,7 +751,7 @@ We will use the built-in dataset of Central North Pacific geostrata:
 \addcontentsline{toc}{subsubsection}{Species cohorts}
 
 \textbf{Cohort 1: All species}\\
-This first cohort will serve as a `catch-all' for species who do not need special handling. It does not hurt to include \emph{all} species in this catch-all cohort -- except perhaps by increasing the file-size of your processed data by a few kilobytes -- \emph{even if} you will be creating a separate, dedicated cohort for one of these species downstream. Having a catch-all cohort like this serves two purposes: (1) it avoids unforeseen complications if you will be modeling detection functions with multi-species pools, as mentioned above; and (2) it will simplify the code you will use to produce summary statistics of effort and sightings totals, since you will not need to pool together statistics from multiple cohorts.
+At least one cohort needs to be specified in order to run process survey data, so this first cohort will serve as a `catch-all' for species who do not need special handling. It does not hurt to include \emph{all} species in this catch-all cohort -- except perhaps by increasing the file-size of your processed data by a few kilobytes -- \emph{even if} you will be creating a separate, dedicated cohort for one of these species downstream. Having a catch-all cohort like this serves two purposes: (1) it avoids unforeseen complications if you will be modeling detection functions with multi-species pools, as mentioned above; and (2) it will simplify the code you will use to produce summary statistics of effort and sightings totals, since you will not need to pool together statistics from multiple cohorts.
 
 To build this catch-all cohort, we will not specify any species so that \emph{all} species in the data are included, and we will specify that only the generic geostrata should be used, so that species specific insular stock boundaries are ignored.
 
@@ -765,7 +774,7 @@ Here we show all possible inputs. Most of these match the built-in defaults. Tho
   \AttributeTok{geometric\_mean\_group =} \ConstantTok{TRUE}\NormalTok{,}
   \AttributeTok{truncation\_km =} \FloatTok{7.5}\NormalTok{, }\CommentTok{\# *}
   \AttributeTok{beaufort\_range =} \DecValTok{0}\SpecialCharTok{:}\DecValTok{6}\NormalTok{,}
-  \AttributeTok{abeam\_sightings =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{abeam\_sightings =} \ConstantTok{FALSE}\NormalTok{, }\CommentTok{\# *}
   \AttributeTok{strata\_overlap\_handling =} \FunctionTok{c}\NormalTok{(}\StringTok{"smallest"}\NormalTok{),}
   \AttributeTok{distance\_types =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}S\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}F\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}N\textquotesingle{}}\NormalTok{),}
   \AttributeTok{distance\_modes =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}P\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{),}
@@ -810,7 +819,7 @@ Similar to the bottlenose dolphin above, spotted dolphins in Hawaiian waters bel
 \subsubsection*{Compile settings}\label{compile-settings}}
 \addcontentsline{toc}{subsubsection}{Compile settings}
 
-Finally, we create our \texttt{settings} object:
+Finally, we create our \texttt{settings} object, providing \texttt{cohorts} as a list of lists:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -847,6 +856,7 @@ The \texttt{swfscDAS} package has functions for reading in a \texttt{DAS} file a
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Local path to DAS file}
 \NormalTok{das\_file }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}data/surveys/CenPac1986{-}2020\_Final\_alb.das\textquotesingle{}}
 
 \NormalTok{das }\OtherTok{\textless{}{-}} \FunctionTok{das\_readtext}\NormalTok{(das\_file)}
@@ -874,6 +884,8 @@ The \texttt{swfscDAS} package has functions for reading in a \texttt{DAS} file a
 \end{Highlighting}
 \end{Shaded}
 
+To follow along, this data file can be downloaded \href{https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/surveys/CenPac1986-2020_Final_alb.das?token=GHSAT0AAAAAACFPESQVLR7DOE4I3UD4UJ2YZGRILEQ}{here}.
+
 \hypertarget{das_inspector}{%
 \subsection*{\texorpdfstring{\texttt{das\_inspector()}}{das\_inspector()}}\label{das_inspector}}
 \addcontentsline{toc}{subsection}{\texttt{das\_inspector()}}
@@ -892,22 +904,23 @@ In this app, you specify the rows and `columns' (i.e., character indices) that w
 \section*{Staging edits}\label{staging-edits}}
 \addcontentsline{toc}{section}{Staging edits}
 
-The \texttt{das\_editor()} function allows you to apply edits to a \texttt{DAS} file without modifiyng the original data. You supply edits to this function as a set of instructions saved within a \texttt{list} object. You can prepare these instructions manually, or use the \texttt{das\_inspector()} function above to get help. The \texttt{das\_editor()} function then loops through each edit, applies them to a local version of the data, and returns that modified data to the user. This allows survey data to be modified reproducibly before being processed with \texttt{LTabundR::process\_surveys()}, without touching the original DAS data files or requiring analysts to duplicate files and make one-off modifications manually.
+The \texttt{das\_editor()} function allows you to apply edits to a \texttt{DAS} file without modifiyng the original data. You supply edits to this function as a set of instructions saved within a \texttt{list} object. You can prepare these instructions manually or use the \texttt{das\_inspector()} function above to get help. The \texttt{das\_editor()} function then loops through each edit, applies them to a local version of the data, and returns that modified data to the user. This allows survey data to be modified reproducibly before being processed with \texttt{LTabundR::process\_surveys()} without touching the original \texttt{DAS} data files or requiring analysts to duplicate files and make one-off modifications manually.
 
 We expect it would be rare for a user to call \texttt{das\_editor()} directly; instead, they would supply their edits as an argument in \texttt{process\_surveys()}, and that function will call \texttt{das\_editor()} internally to amend the survey data before it is processed (this is discussed on the next page).
 
-Note that there is no limit to the number of edits that can be provided in a single \texttt{list}, and they can be provided in any order. The \texttt{das\_editor()} function will sort the edits by \texttt{DAS} file and by edit type, then apply edits in increasing order of ``disruption'', i.e., text replacements first, then moving rows of data (no net change in number of rows), then copying-pasting, inserting, and deleting.
+Note that there is no limit to the number of edits that can be provided in a single \texttt{list}, and they can be provided in any order. The \texttt{das\_editor()} function will sort the edits by \texttt{DAS} file and by edit type, and then apply edits in increasing order of ``disruption'', i.e., text replacements first, then moving rows of data (no net change in number of rows), then copying-pasting, inserting, and deleting.
 
-The \texttt{das\_editor()} function can currently handle 6 types of edits, which we shall demostrate below.
+The \texttt{das\_editor()} function can currently handle 6 types of edits, which we shall demonstrate below.
 
 \hypertarget{types-of-editing}{%
 \subsection*{Types of editing}\label{types-of-editing}}
 \addcontentsline{toc}{subsection}{Types of editing}
 
-To demonstrate the types of editing actions that can be achieved through \texttt{das\_editor()}, we will use the \texttt{DAS} file from the 2020 WHICEAS survey.
+To demonstrate the types of editing actions that can be achieved through \texttt{das\_editor()}, we will use the \texttt{DAS} file from the 2020 WHICEAS survey (you can download \href{https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/surveys/HICEASwinter2020.das?token=GHSAT0AAAAAACFPESQVZWKAJE3NCRQBC4SCZGRJNLA}{here}).
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Local path to das\_file}
 \NormalTok{das\_file }\OtherTok{\textless{}{-}} \StringTok{"data/surveys/HICEASwinter2020.das"}
 \NormalTok{das }\OtherTok{\textless{}{-}} \FunctionTok{das\_readtext}\NormalTok{(das\_file)}
 \end{Highlighting}
@@ -929,7 +942,7 @@ The \texttt{edit} will be interpreted verbatim as text that will replace the spe
 \end{Highlighting}
 \end{Shaded}
 
-Here is what this edit log object look like:
+Here is what this edit log object will look like:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1250,6 +1263,7 @@ These edits will be applied to the following \texttt{DAS} file of survey data fr
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Local path to das\_file}
 \NormalTok{das\_file }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}data/surveys/CenPac1986{-}2020\_Final\_alb.das\textquotesingle{}}
 \NormalTok{das }\OtherTok{\textless{}{-}} \FunctionTok{das\_readtext}\NormalTok{(das\_file)}
 \end{Highlighting}
@@ -1284,7 +1298,7 @@ This sighting, at sequence ID \texttt{032} below, currently triggers errors in \
 
 (Note that we used \texttt{das\_inspector()} to get the row numbers for this region of the data.)
 
-To fix this, we can stage an edit that copies the ``P'' line that occurs minutes earlier and pastes that line just below the rogue ``R'' line.
+To fix this, we can stage an edit that copies the \texttt{P} line that occurs minutes earlier and pastes that line just below the rogue \texttt{R} line.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1457,7 +1471,7 @@ This edit will correct for the fact that all of Cruise 1004 was conducted using 
 \NormalTok{edit\_1004\_utc }\OtherTok{\textless{}{-}} 
   \FunctionTok{list}\NormalTok{(}\AttributeTok{das\_file =}\NormalTok{ das\_file, }
        \AttributeTok{type =} \StringTok{\textquotesingle{}function\textquotesingle{}}\NormalTok{,}
-       \AttributeTok{rows =} \DecValTok{433327}\SpecialCharTok{:}\DecValTok{437666}\NormalTok{, }
+       \AttributeTok{rows =} \DecValTok{433327}\SpecialCharTok{:}\DecValTok{437665}\NormalTok{, }
        \AttributeTok{chars =} \DecValTok{6}\SpecialCharTok{:}\DecValTok{39}\NormalTok{, }
        \AttributeTok{edit =} \StringTok{\textquotesingle{}function(x)\{das\_time(x, tz\_adjust = "from utc")$dt\}\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
@@ -1466,7 +1480,7 @@ This edit will correct for the fact that all of Cruise 1004 was conducted using 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Before}
-\NormalTok{das}\SpecialCharTok{$}\NormalTok{das[}\DecValTok{433326}\SpecialCharTok{:}\DecValTok{433330}\NormalTok{] }\CommentTok{\# bginning of cruise}
+\NormalTok{das}\SpecialCharTok{$}\NormalTok{das[}\DecValTok{433326}\SpecialCharTok{:}\DecValTok{433330}\NormalTok{] }\CommentTok{\# beginning of cruise}
 \NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"229* 181728 020510 N13:14.49 E145:00.34"}
 \NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"001* 201109 041910 N13:35.01 E145:59.35"}
 \NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"002* 201309 041910 N13:35.03 E145:59.42"}
@@ -1488,6 +1502,7 @@ This edit will correct for the fact that all of Cruise 1004 was conducted using 
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# After}
 \NormalTok{dase}\SpecialCharTok{$}\NormalTok{das[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{$}\NormalTok{das}\SpecialCharTok{$}\NormalTok{das[}\DecValTok{433326}\SpecialCharTok{:}\DecValTok{433330}\NormalTok{]}
 \NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"229* 181728 020510 N13:14.49 E145:00.34"}
 \NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"001* 061109 042010 N13:35.01 E145:59.35"}
@@ -1557,13 +1572,16 @@ Finally, we will collect these edits into a single \texttt{list} and save them f
 \hypertarget{processing}{%
 \chapter{Data processing}\label{processing}}
 
-In our WHICEAS case study example, we are interested in estimating density/abundance for 2017 and 2020 only, but we want to use surveys from previous years to help model species detection functions. We will therefore be using a dataset of NOAA surveys in the Central North Pacific from 1986 to 2020.
+In our WHICEAS case study example, we are interested in estimating density/abundance for 2017 and 2020 only, but we want to use surveys from previous years to help model species detection functions. We will therefore be using a dataset of NOAA Fisheries surveys in the Central North Pacific from 1986 to 2020.
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Local path to DAS file}
 \NormalTok{das\_file }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}data/surveys/CenPac1986{-}2020\_Final\_alb.das\textquotesingle{}}
 \end{Highlighting}
 \end{Shaded}
+
+To follow along, this data file can be downloaded \href{https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/surveys/CenPac1986-2020_Final_alb.das?token=GHSAT0AAAAAACFPESQVLR7DOE4I3UD4UJ2YZGRILEQ}{here}.
 
 You can process your survey data using a single function, \textbf{\texttt{process\_surveys()}}, which takes two primary arguments: the filepath(s) to your \texttt{DAS} survey data, and your \texttt{settings} object. For example:
 
@@ -1598,7 +1616,7 @@ The \texttt{process\_surveys()} function is a wrapper for several discrete stage
 \subsection*{Edit cruise data}\label{edit-cruise-data}}
 \addcontentsline{toc}{subsection}{Edit cruise data}
 
-If the \texttt{edits} input argument is supplied to \texttt{process\_surveys()}, temporary copies of the \texttt{DAS} file(s) ar made and edited before processing. This step is discussed on the previous page.
+If the \texttt{edits} input argument is supplied to \texttt{process\_surveys()}, temporary copies of the \texttt{DAS} file(s) are made and edited before processing. This step is discussed on the previous page.
 
 \hypertarget{bring-in-cruise-data}{%
 \subsection*{Bring in cruise data}\label{bring-in-cruise-data}}
@@ -1628,8 +1646,6 @@ Run the following function to add strata and study-area information to each row 
 
 This function loops through each stratum \texttt{data.frame} you have provided it in \texttt{settings\$strata}, formats the stratum, and asks whether each DAS row occurs within it. For each stratum, a column named \texttt{stratum\_\textless{}StratumName\textgreater{}} is added to the \texttt{das} object; each row in this column is \texttt{TRUE} (included) or \texttt{FALSE}.
 
-A similar procedure is run if a dataframe is provided in \texttt{settings\$study\_area}. A column named \texttt{study\_area} is added to \texttt{das} containing a boolean (\texttt{TRUE} if the sub-segment or sighting occurs within the study area).
-
 \hypertarget{format-das-data-into-a-cruz-object}{%
 \subsection*{\texorpdfstring{Format \texttt{DAS} data into a \texttt{cruz} object}{Format DAS data into a cruz object}}\label{format-das-data-into-a-cruz-object}}
 \addcontentsline{toc}{subsection}{Format \texttt{DAS} data into a \texttt{cruz} object}
@@ -1642,14 +1658,14 @@ The function \texttt{das\_format()} takes care of some final formatting and init
 \end{Highlighting}
 \end{Shaded}
 
-This function (1) remove rows with invalid Cruise numbers, times, or locations; (ii) calculate the distance, in km, between each row of data; (iii) adds a \texttt{ship} column to the dataset, with initials for the ship corresponding to each cruise; (iv) creates a new list, \texttt{cohorts}, which copies the cruise data for each cohort specified in your settings; and (v) adds a \texttt{stratum} column to the data in each cohort. That column specifies
+This function (1) removes rows with invalid Cruise numbers, times, or locations; (ii) calculate the distance, in km, between each row of data; (iii) adds a \texttt{ship} column to the dataset, with initials for the ship corresponding to each cruise; (iv) creates a new list, \texttt{cohorts}, which copies the cruise data for each cohort specified in your settings; and (v) adds a \texttt{stratum} column to the data in each cohort. That column specifies
 a single stratum assignment for each row of \texttt{DAS} data in the event of overlapping strata, based upon the cohort setting \texttt{stratum\_overlap\_handling}.
 
 \hypertarget{the-cruz-object}{%
 \subsection*{\texorpdfstring{The \texttt{cruz} object}{The cruz object}}\label{the-cruz-object}}
 \addcontentsline{toc}{subsection}{The \texttt{cruz} object}
 
-The function \texttt{format\_das()} returns a list, which we have saved in an object named \texttt{cruz}, with several slots:
+The function \texttt{das\_format()} returns a list, which we have saved in an object named \texttt{cruz}, with several slots:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1711,7 +1727,7 @@ Since the \texttt{bottlenose} cohort uses a different subset of geostrata, its d
 \end{Highlighting}
 \end{Shaded}
 
-This list, with these five primary slots, will be referred to from hereon as a \texttt{cruz} object.
+This list, with these three primary slots, will be referred to from hereon as a \texttt{cruz} object.
 
 \hypertarget{segmentize-the-data}{%
 \subsection*{Segmentize the data}\label{segmentize-the-data}}
@@ -1822,7 +1838,7 @@ The \texttt{segments} slot contains summary data for each effort segment, includ
 
 \includegraphics{figures/unnamed-chunk-77-1.pdf}
 
-And the \texttt{das} slot holds the original \texttt{data.frame} of \texttt{DAS} data, modified slightly: the column \texttt{OnEffort} has been modified according to Beaufort range conditions, and the column \texttt{seg\_id} indicates which segment the event occurs within
+And the \texttt{das} slot holds the original \texttt{data.frame} of \texttt{DAS} data, modified slightly: the column \texttt{OnEffort} has been modified according to Beaufort range conditions, and the column \texttt{seg\_id} indicates which segment the event occurs within.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1876,9 +1892,9 @@ The function produces a formatted dataset and adds it to a new \texttt{sightings
 Note that the \texttt{sightings} table has a column named \texttt{included} (\texttt{TRUE} = yes, use it in the analysis). Any sightings that do not meet the inclusion criteria as specified in your settings will be \texttt{included\ =\ FALSE}, but they won't be removed from the data.
 
 The \texttt{sightings} table also has a new column, \texttt{ss\_valid},
-indicating whether or not the school size estimate for this sighting
+indicating whether or not the group size estimate for this sighting
 is valid and appropriate for use in abundance estimation and detection function fitting
-when school size is used as a covariate.
+when group size is used as a covariate.
 
 Since the sightings in each cohort are processed slightly differently according to the cohort's specific settings -- most importantly the species that will be included -- you should expect different numbers of included/excluded sightings in each cohort dataset:
 
@@ -2044,12 +2060,12 @@ Here is a glimpse of the data:
 Note that the \texttt{process\_sightings()} function draws upon \texttt{cruz\$settings} for inclusion criteria, but some of those settings can be overridden with the function's manual inputs if you want to explore your options (see below).
 
 \hypertarget{ss_calibration}{%
-\subsubsection*{School size estimates}\label{ss_calibration}}
-\addcontentsline{toc}{subsubsection}{School size estimates}
+\subsubsection*{Group size estimates}\label{ss_calibration}}
+\addcontentsline{toc}{subsubsection}{Group size estimates}
 
-In the settings we are using in this tutorial, school size estimates are adjusted using the calibration models from \href{https://scholar.google.com/scholar?hl=en\&as_sdt=0\%2C43\&q=barlow+1998+group+size+caliration\&btnG=}{Barlow, Gerrodette, and Perryman (1998)} (their analysis is refined slightly and further explained in \href{https://scholar.google.com/scholar?hl=en\&as_sdt=0\%2C43\&q=barlow+1998+group+size+caliration\&btnG=}{Gerrodette, Perryman and Barlow, 2002}). These calibration corrections are observer-specific. Most observers tend to underestimate school size and their estimates are adjusted up; others tend to overestimate and their estimates are adjusted down. Some observers do not have calibration coefficients, and for them a generic adjustment (upwards, by dividing estimates by 0.8625) is used. In \texttt{LTabundR}, each observer's estimate is calibrated, then all observer estimates are averaged. To do that averaging, our \texttt{settings} specify that we shall use a geometric weighted mean, instead of an arithmetic mean, that weights school size estimates from multiple observers according to the variance of their calibration coefficients.
+In the settings we are using in this tutorial, group size estimates are adjusted using the calibration models from \href{https://repository.library.noaa.gov/view/noaa/25848}{Barlow et al.~(1998)} (their analysis is refined slightly and further explained in \href{https://www.academia.edu/download/45586682/lj_02_08.pdf}{Gerrodette et al.~(2002)}). These calibration corrections are observer-specific. Most observers tend to underestimate group size and their estimates are adjusted up; others tend to overestimate and their estimates are adjusted down. Some observers do not have calibration coefficients, and for them a generic adjustment (upwards, by dividing estimates by 0.8625) is used. In \texttt{LTabundR}, each observer's estimate is calibrated, then all observer estimates are averaged. To do that averaging, our \texttt{settings} specify that we shall use a geometric weighted mean, instead of an arithmetic mean, that weights school size estimates from multiple observers according to the variance of their calibration coefficients.
 
-Here are our current best estimates of school size:
+Here are our current best estimates of group size:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2081,8 +2097,6 @@ Let's compare those estimates to unadjusted ones, in which calibration (and ther
 \end{Highlighting}
 \end{Shaded}
 
-Note that, since calibration is only used for schools above a certain size, the difference between calibration and non-calibrated estimates becomes clearer in larger groups.
-
 You can also carry out calibration corrections without using a geometric weighted mean (the arithmetic mean will be used instead):
 
 \begin{Shaded}
@@ -2106,13 +2120,13 @@ You can also carry out calibration corrections without using a geometric weighte
 
 Note that when \texttt{geometric\_mean\ =\ TRUE} but calibration is not carried out, the simple geometric mean is calculated instead of the \emph{weighted} geometric mean, since the weights are the variance estimates from the calibration routine.
 
-Also note that school size calibration is only carried out if \texttt{settings\$group\_size\_calibration} is not \texttt{NULL}. However, even when calibration coefficients \emph{are} provided, it is possible to specify that calibration should only be carried out for raw estimates above a minimum threshold (see cohort setting \texttt{calibration\_floor}, whose default is \texttt{0}), since observers may be unlikely to mis-estimate the school size of a lone whale or pair. For observers who have calibration coefficients in the \texttt{settings\$group\_size\_coefficients} table, that minimum is specified for each observer individually. For observers not in that table, calibration will only be applied to raw school size estimates above \texttt{settings\$cohorts{[}{[}i{]}{]}\$calibration\_floor} or above.
+Also note that group size calibration is only carried out if \texttt{settings\$group\_size\_calibration} is not \texttt{NULL}. However, even when calibration coefficients \emph{are} provided, it is possible to specify that calibration should only be carried out for raw estimates above a minimum threshold (see cohort setting \texttt{calibration\_floor}, whose default is \texttt{0}), since observers may be unlikely to mis-estimate the group size of a lone whale or pair. For observers who have calibration coefficients in the \texttt{settings\$group\_size\_coefficients} table, that minimum is specified for each observer individually. For observers not in that table, calibration will only be applied to raw group size estimates above \texttt{settings\$cohorts{[}{[}i{]}{]}\$calibration\_floor} or above.
 
 \hypertarget{subgroups}{%
 \subsubsection*{Subgroup size estimates}\label{subgroups}}
 \addcontentsline{toc}{subsubsection}{Subgroup size estimates}
 
-After sightings data are processed, the \texttt{process\_surveys()} function calls the subroutine \texttt{process\_subgroups()} to find and calculate subgroup school size estimates for false killer whales, if any occur in the \texttt{DAS} data (Event code ``\texttt{G}'').
+After sightings data are processed, the \texttt{process\_surveys()} function calls the subroutine \texttt{process\_subgroups()} to find and calculate subgroup group size estimates for false killer whales (or other species that may have been recorded using the subgroup functionality in \texttt{WinCruz}), if any occur in the \texttt{DAS} data (Event code ``\texttt{G}'').
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2129,7 +2143,7 @@ If subgroups are found, a \texttt{subgroups} slot is added to the analysis list 
 \end{Highlighting}
 \end{Shaded}
 
-This \texttt{subgroups} slot holds a list with three dataframes: \texttt{events} (each row is a school size estimate for a single subgroup during a single phase -- 1 or 2 -- within a single sighting; this is effectively the raw data); \texttt{subgroups} (each row is a single phase for a single subgroup, with all school size estimates averaged together (both arithmetically and geometrically); and \texttt{sightings} (each row is a school size estimate for a single phase for a single sighting, with all subgroup school sizes summed together).
+This \texttt{subgroups} slot holds a list with three dataframes: \texttt{events} (each row is a group size estimate for a single subgroup during a single phase of the false killer whale protocol (if applicable) within a single sighting; this is effectively the raw data); \texttt{subgroups} (each row is a single subgroup for a single protocol phase, with all group size estimates averaged together (both arithmetically and geometrically); and \texttt{sightings} (each row is a ``group'' size estimate for a single sighting during a single protocol, with all subgroup group sizes summed together). Note for false killer whales this ``group'' size estimate is not likely to represent actual group size because groups can be spread out over tens of kilometers, and it is not expected that every subgroup is detected during each protocol phase.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2138,7 +2152,7 @@ This \texttt{subgroups} slot holds a list with three dataframes: \texttt{events}
 \end{Highlighting}
 \end{Shaded}
 
-See the case study on false killer whales for detailed examples.
+For a detailed example, see the \protect\hyperlink{subgroups}{vignette page on subgroup analysis} using data on Central North Pacific false killer whales.
 
 \hypertarget{review}{%
 \section*{Review}\label{review}}
@@ -2205,7 +2219,7 @@ In each of these \texttt{data.frame}'s, there are three critically important col
 \item
   \textbf{\texttt{seg\_id}}: this column is used to indicate the segment ID that a row of data belongs to.
 \item
-  \textbf{\texttt{use}}: this column indicates whether a row of effort should be used in the line-transect analysis Every row of data within a single segment with have the same \texttt{use} value.
+  \textbf{\texttt{use}}: this column indicates whether a row of effort should be used in the line-transect analysis. Every row of data within a single segment will have the same \texttt{use} value.
 \item
   \textbf{\texttt{included}}: this column occurs in the \texttt{sightings} dataframe only. It indicates whether the sightings should be included in line-transect analysis based on the specified settings. Any sighting with \texttt{use\ ==\ FALSE} will also have \texttt{included\ ==\ FALSE}, but it \emph{is} possible for sightings to have \texttt{use\ ==\ TRUE} with \texttt{included\ ==\ FALSE}. For example, if the setting \texttt{abeam\_sightings} is set to \texttt{FALSE}, a sighting with a bearing angle beyond the ship's beam can be excluded from the analysis (\texttt{included\ ==\ FALSE}) even though the effort segment it occurs within will still be used (\texttt{use\ ==\ TRUE}).
 \end{itemize}
@@ -2214,7 +2228,7 @@ Finally, let's save this \texttt{cruz} object locally, to use in downstream scri
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{save}\NormalTok{(cruz,}\AttributeTok{file=}\StringTok{\textquotesingle{}whiceas\_cruz.RData\textquotesingle{}}\NormalTok{)}
+\FunctionTok{save}\NormalTok{(cruz, }\AttributeTok{file=}\StringTok{\textquotesingle{}whiceas\_cruz.RData\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2222,14 +2236,17 @@ Finally, let's save this \texttt{cruz} object locally, to use in downstream scri
 \section*{Validation}\label{validation}}
 \addcontentsline{toc}{section}{Validation}
 
-To validate these \texttt{LTabundR} functions, we can compare its output to that of \texttt{ABUND9}, written by Jay Barlow (NOAA-NMFS). First, we bring in the \texttt{ABUND9} output files for the same \texttt{DAS} data:
+To validate these \texttt{LTabundR} functions, we can compare its output to that of \texttt{ABUND9}, written by Jay Barlow (NOAA Fisheries). First, we bring in the \texttt{ABUND9} output files for the same \texttt{DAS} data:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# Local paths to these files}
 \NormalTok{SIGHTS }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{\textquotesingle{}data/SIGHTS.csv\textquotesingle{}}\NormalTok{)}
 \NormalTok{EFFORT }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{\textquotesingle{}data/EFFORT.csv\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+You may download these files here: \href{https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/SIGHTS.csv?token=GHSAT0AAAAAACFPESQVEDYQZ5I77WTDK2WIZGRKVMA}{\texttt{SIGHTS.csv}} and \href{https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/EFFORT.csv?token=GHSAT0AAAAAACFPESQVOUD6HRSILDUWOFF2ZGRKU6A}{\texttt{EFFORT.csv}}.
 
 \hypertarget{sightings}{%
 \subsection*{Sightings}\label{sightings}}
@@ -2466,7 +2483,7 @@ According to \texttt{ABUND}, this sighting is not mixed-species, but \texttt{LTa
 \end{Highlighting}
 \end{Shaded}
 
-We see that this was a sighting of false killer whales during which species \texttt{015} was picked up during photo-ID. This discrepancy, then, may not be a mistake in the \texttt{LTabundR} processing.
+We see that this was a sighting of false killer whales during which species \texttt{015} was picked up during photo-ID. In the absence of a percent composition estimate for this sighting, it was ignored by \texttt{ABUND}.
 
 \hypertarget{cruise-1203-species-049}{%
 \paragraph*{Cruise 1203, Species 049}\label{cruise-1203-species-049}}
@@ -2704,11 +2721,11 @@ Looking at the raw \texttt{DAS} data \ldots{}
 \end{Highlighting}
 \end{Shaded}
 
-It appears that this was a multi-species sighting, but percentages were only provided for one species and the overall school size was quite low. We think that, in the absence of a best estimate and percent composition estimate for this species, it was ignored by \texttt{ABUND}.
+It appears that this was a multi-species sighting, but no species percentages. In the absence of a percent composition estimate for this sighting, it was ignored by \texttt{ABUND}.
 
-\hypertarget{school-sizes}{%
-\subsection*{School sizes}\label{school-sizes}}
-\addcontentsline{toc}{subsection}{School sizes}
+\hypertarget{group-sizes}{%
+\subsection*{Group sizes}\label{group-sizes}}
+\addcontentsline{toc}{subsection}{Group sizes}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2724,9 +2741,6 @@ It appears that this was a multi-species sighting, but percentages were only pro
 \NormalTok{         EffortSeg }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{select}\NormalTok{(}\AttributeTok{Cruise =}\NormalTok{ CruzNo, TotSS, LnTotSS, species, best) }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Software=}\StringTok{\textquotesingle{}ABUND9\textquotesingle{}}\NormalTok{)}
-
-\FunctionTok{nrow}\NormalTok{(abund)}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2478}
 
 \CommentTok{\# Format LTabundR}
 \NormalTok{ltabundr }\OtherTok{\textless{}{-}} 
@@ -4786,7 +4800,7 @@ The second option, \texttt{"bootstrap"}, uses an iterative method that draws boo
 \NormalTok{(ltas\_2b }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{lta\_report}\NormalTok{(}\AttributeTok{verbose=}\ConstantTok{FALSE}\NormalTok{))}\SpecialCharTok{$}\NormalTok{table4}
                          \DecValTok{2002}\NormalTok{  (HI\_EEZ)                       }\DecValTok{2010}\NormalTok{  (HI\_EEZ)}
 \DecValTok{1}\NormalTok{ Species or category Density Abundance   CV        }\DecValTok{95}\NormalTok{\% CI Density Abundance}
-\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{9.15}    \DecValTok{22}\NormalTok{,}\DecValTok{646} \FloatTok{0.23} \DecValTok{22}\NormalTok{,}\DecValTok{484{-}48}\NormalTok{,}\DecValTok{617}   \FloatTok{14.36}    \DecValTok{35}\NormalTok{,}\DecValTok{527}
+\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{9.15}    \DecValTok{22}\NormalTok{,}\DecValTok{646} \FloatTok{0.24} \DecValTok{22}\NormalTok{,}\DecValTok{484{-}48}\NormalTok{,}\DecValTok{617}   \FloatTok{14.36}    \DecValTok{35}\NormalTok{,}\DecValTok{527}
                     
 \DecValTok{1}\NormalTok{   CV        }\DecValTok{95}\NormalTok{\% CI}
 \DecValTok{2} \FloatTok{0.27} \DecValTok{35}\NormalTok{,}\DecValTok{038{-}77}\NormalTok{,}\DecValTok{911}
@@ -4869,8 +4883,8 @@ The \texttt{details} slot returns the simulation predictions for each year, whic
 
 A dataframe with a row for each year. Columns provide the number of observations of the species of interest during systematic effort, and the p-value of the test. The p-value represents the fraction of simulated encounter rates that exceed the observed encounter rate.
 
-\hypertarget{subgroup-based-analysis}{%
-\chapter{Subgroup-based analysis}\label{subgroup-based-analysis}}
+\hypertarget{subgroups}{%
+\chapter{Subgroup-based analysis}\label{subgroups}}
 
 False killer whales (\emph{Pseudorca crassidens}) are rare and occur in dispersed subgroups, which complicates conventional distance sampling approaches to line-transect analysis. To better estimate their abundance, in 2010 the Pacific Islands Fisheries Science Center (PIFSC) initiated a sub-group protocol referred to as the ``PC Protocol'', a reference to the species' scientific name.
 
@@ -7087,10 +7101,8 @@ To validate our results and the routines within \texttt{LTabundR}, we will compa
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(gsheet)}
-\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{library}\NormalTok{(gsheet)}\SpecialCharTok{:}\NormalTok{ there is no package called }\StringTok{\textquotesingle{}gsheet\textquotesingle{}}
 \NormalTok{url }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}https://docs.google.com/spreadsheets/d/1S94I9I0R589Z8PFP41lYOF8hM6yetap7RFlPdBeet1M/edit?usp=sharing\textquotesingle{}}
 \NormalTok{alb }\OtherTok{\textless{}{-}} \FunctionTok{gsheet2tbl}\NormalTok{(url)}
-\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{gsheet2tbl}\NormalTok{(url)}\SpecialCharTok{:}\NormalTok{ could not find }\ControlFlowTok{function} \StringTok{"gsheet2tbl"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7127,11 +7139,9 @@ Next we format these data to facilitate joining and analyzing alongside our new 
               \AttributeTok{U95 =} \FunctionTok{gsub}\NormalTok{(}\StringTok{\textquotesingle{},\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, value[column }\SpecialCharTok{==} \StringTok{\textquotesingle{}uci\textquotesingle{}}\NormalTok{]) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ as.numeric) }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(D)) }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{mutate}\NormalTok{(}\AttributeTok{N =} \FunctionTok{round}\NormalTok{(N))}
-\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{mutate}\NormalTok{(., }\AttributeTok{title =} \FunctionTok{gsub}\NormalTok{(}\StringTok{"\textquotesingle{}"}\NormalTok{, }\StringTok{""}\NormalTok{, species))}\SpecialCharTok{:}\NormalTok{ object }\StringTok{\textquotesingle{}alb\textquotesingle{}}\NormalTok{ not found}
 
 \CommentTok{\# Modify names}
 \FunctionTok{names}\NormalTok{(alb)[}\DecValTok{4}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(alb)] }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}alb\_\textquotesingle{}}\NormalTok{,}\FunctionTok{names}\NormalTok{(alb)[}\DecValTok{4}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(alb)] )}
-\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{paste0}\NormalTok{(}\StringTok{"alb\_"}\NormalTok{, }\FunctionTok{names}\NormalTok{(alb)[}\DecValTok{4}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(alb)])}\SpecialCharTok{:}\NormalTok{ object }\StringTok{\textquotesingle{}alb\textquotesingle{}}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7142,10 +7152,6 @@ Review these results:
 \NormalTok{alb}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-Error in crosstalk::is.SharedData(data): object 'alb' not found
-\end{verbatim}
 
 \hypertarget{ltabundr-results}{%
 \subsection*{\texorpdfstring{\texttt{LTabundR} results}{LTabundR results}}\label{ltabundr-results}}
@@ -7191,24 +7197,20 @@ Read in, format, and join the results:
 \CommentTok{\# Manually{-}specified g0}
 \NormalTok{ltas }\OtherTok{\textless{}{-}} \FunctionTok{lta\_enlist}\NormalTok{(}\StringTok{\textquotesingle{}whiceas/lta\_manual/\textquotesingle{}}\NormalTok{)}
 \NormalTok{mr1 }\OtherTok{\textless{}{-}} \FunctionTok{whiceas\_join}\NormalTok{(alb, ltas) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{scenario =} \StringTok{\textquotesingle{}ALB et al. (2022)\textquotesingle{}}\NormalTok{)}
-\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{is.data.frame}\NormalTok{(y)}\SpecialCharTok{:}\NormalTok{ object }\StringTok{\textquotesingle{}alb\textquotesingle{}}\NormalTok{ not found}
 
 \CommentTok{\# Barlow (2015) Rg0}
 \NormalTok{ltas }\OtherTok{\textless{}{-}} \FunctionTok{lta\_enlist}\NormalTok{(}\StringTok{\textquotesingle{}whiceas/lta\_barlow/\textquotesingle{}}\NormalTok{)}
 \NormalTok{mr2 }\OtherTok{\textless{}{-}} \FunctionTok{whiceas\_join}\NormalTok{(alb, ltas) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{scenario =} \StringTok{\textquotesingle{}Barlow (2015)\textquotesingle{}}\NormalTok{)}
-\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{is.data.frame}\NormalTok{(y)}\SpecialCharTok{:}\NormalTok{ object }\StringTok{\textquotesingle{}alb\textquotesingle{}}\NormalTok{ not found}
 
 \CommentTok{\# New auto{-}generated Rg(0)}
 \NormalTok{ltas }\OtherTok{\textless{}{-}} \FunctionTok{lta\_enlist}\NormalTok{(}\StringTok{\textquotesingle{}whiceas/lta/\textquotesingle{}}\NormalTok{)}
 \NormalTok{mr3 }\OtherTok{\textless{}{-}} \FunctionTok{whiceas\_join}\NormalTok{(alb, ltas) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{scenario =} \StringTok{\textquotesingle{}LTabundR\textquotesingle{}}\NormalTok{)}
-\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{is.data.frame}\NormalTok{(y)}\SpecialCharTok{:}\NormalTok{ object }\StringTok{\textquotesingle{}alb\textquotesingle{}}\NormalTok{ not found}
 
 \CommentTok{\# Join them together}
 \NormalTok{mr }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(mr1, mr2, mr3) }\SpecialCharTok{\%\textgreater{}\%} 
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{scenario =} \FunctionTok{factor}\NormalTok{(scenario, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}ALB et al. (2022)\textquotesingle{}}\NormalTok{,}
                                                 \StringTok{\textquotesingle{}Barlow (2015)\textquotesingle{}}\NormalTok{,}
                                                 \StringTok{\textquotesingle{}LTabundR\textquotesingle{}}\NormalTok{)))}
-\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{rbind}\NormalTok{(mr1, mr2, mr3)}\SpecialCharTok{:}\NormalTok{ object }\StringTok{\textquotesingle{}mr1\textquotesingle{}}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7235,13 +7237,10 @@ Now we can compare \texttt{LTabundR} estimates to those from ALB et al.~(2021):
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{\textquotesingle{}Density (cetaceans per 1,000 km2)\textquotesingle{}}\NormalTok{, }
        \AttributeTok{shape=}\StringTok{\textquotesingle{}Year\textquotesingle{}}\NormalTok{, }\AttributeTok{color =} \StringTok{\textquotesingle{}Species\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
   \FunctionTok{theme\_light}\NormalTok{()}
-\NormalTok{Error }\ControlFlowTok{in} \StringTok{\textasciigrave{}}\AttributeTok{combine\_vars()}\StringTok{\textasciigrave{}}\SpecialCharTok{:}
-\SpecialCharTok{!}\NormalTok{ At least one layer must contain all faceting variables}\SpecialCharTok{:} \StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
-\NormalTok{x Plot is missing }\StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
-\NormalTok{x Layer }\DecValTok{1}\NormalTok{ is missing }\StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
-\NormalTok{x Layer }\DecValTok{2}\NormalTok{ is missing }\StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-383-1.pdf}
 
 ~
 
@@ -7266,13 +7265,10 @@ Now we can compare \texttt{LTabundR} estimates to those from ALB et al.~(2021):
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{\textquotesingle{}WHICEAS abundance\textquotesingle{}}\NormalTok{, }
        \AttributeTok{shape=}\StringTok{\textquotesingle{}Year\textquotesingle{}}\NormalTok{, }\AttributeTok{color =} \StringTok{\textquotesingle{}Species\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
   \FunctionTok{theme\_light}\NormalTok{()}
-\NormalTok{Error }\ControlFlowTok{in} \StringTok{\textasciigrave{}}\AttributeTok{combine\_vars()}\StringTok{\textasciigrave{}}\SpecialCharTok{:}
-\SpecialCharTok{!}\NormalTok{ At least one layer must contain all faceting variables}\SpecialCharTok{:} \StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
-\NormalTok{x Plot is missing }\StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
-\NormalTok{x Layer }\DecValTok{1}\NormalTok{ is missing }\StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
-\NormalTok{x Layer }\DecValTok{2}\NormalTok{ is missing }\StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-384-1.pdf}
 
 ~
 
@@ -7289,13 +7285,10 @@ Now we can compare \texttt{LTabundR} estimates to those from ALB et al.~(2021):
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{\textquotesingle{}Estimates of g(0)\textquotesingle{}}\NormalTok{, }
        \AttributeTok{shape=}\StringTok{\textquotesingle{}Year\textquotesingle{}}\NormalTok{, }\AttributeTok{color =} \StringTok{\textquotesingle{}Species\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
   \FunctionTok{theme\_light}\NormalTok{()}
-\NormalTok{Error }\ControlFlowTok{in} \StringTok{\textasciigrave{}}\AttributeTok{combine\_vars()}\StringTok{\textasciigrave{}}\SpecialCharTok{:}
-\SpecialCharTok{!}\NormalTok{ At least one layer must contain all faceting variables}\SpecialCharTok{:} \StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
-\NormalTok{x Plot is missing }\StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
-\NormalTok{x Layer }\DecValTok{1}\NormalTok{ is missing }\StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
-\NormalTok{x Layer }\DecValTok{2}\NormalTok{ is missing }\StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-385-1.pdf}
 
 ~
 
@@ -7312,13 +7305,10 @@ Now we can compare \texttt{LTabundR} estimates to those from ALB et al.~(2021):
   \FunctionTok{labs}\NormalTok{(}\AttributeTok{title=}\StringTok{\textquotesingle{}Estimates of CV of g(0)\textquotesingle{}}\NormalTok{, }
        \AttributeTok{shape=}\StringTok{\textquotesingle{}Year\textquotesingle{}}\NormalTok{, }\AttributeTok{color =} \StringTok{\textquotesingle{}Species\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+} 
   \FunctionTok{theme\_light}\NormalTok{()}
-\NormalTok{Error }\ControlFlowTok{in} \StringTok{\textasciigrave{}}\AttributeTok{combine\_vars()}\StringTok{\textasciigrave{}}\SpecialCharTok{:}
-\SpecialCharTok{!}\NormalTok{ At least one layer must contain all faceting variables}\SpecialCharTok{:} \StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
-\NormalTok{x Plot is missing }\StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
-\NormalTok{x Layer }\DecValTok{1}\NormalTok{ is missing }\StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
-\NormalTok{x Layer }\DecValTok{2}\NormalTok{ is missing }\StringTok{\textasciigrave{}}\AttributeTok{scenario}\StringTok{\textasciigrave{}}
 \end{Highlighting}
 \end{Shaded}
+
+\includegraphics{figures/unnamed-chunk-386-1.pdf}
 
 \hypertarget{part-appendix}{%
 \part{Appendix}\label{part-appendix}}
@@ -7583,7 +7573,7 @@ The example above allows for non-contiguous effort; a segment is allowed to cont
 
 \CommentTok{\# Number of segments}
 \NormalTok{cruz\_demo}\SpecialCharTok{$}\NormalTok{cohorts}\SpecialCharTok{$}\NormalTok{default}\SpecialCharTok{$}\NormalTok{segments }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{597}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{596}
 
 \CommentTok{\# Plot}
 \FunctionTok{segment\_histogram}\NormalTok{(cruz\_demo, }\AttributeTok{by\_day =} \ConstantTok{TRUE}\NormalTok{)}
@@ -7672,7 +7662,7 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
 
 \CommentTok{\# Number of segments}
 \NormalTok{cruz\_demo}\SpecialCharTok{$}\NormalTok{cohorts}\SpecialCharTok{$}\NormalTok{default}\SpecialCharTok{$}\NormalTok{segments }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1824}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1820}
 
 \CommentTok{\# Plot}
 \FunctionTok{segment\_histogram}\NormalTok{(cruz\_demo, }\AttributeTok{by\_day =} \ConstantTok{TRUE}\NormalTok{)}
