@@ -495,7 +495,7 @@ The remaining slots in \texttt{survey\_settings} pertain to various datasets and
 \item
   \textbf{\texttt{ship\_list:}} A \texttt{data.frame} containing a list of survey numbers and ship names. If not provided the default version, which was current as of the release of \texttt{ABUND9} in 2020, will be used (\texttt{data(ships)}), although note that surveys not included there will not be associated with a ship. Supplied \texttt{data.frames} must match the column naming structure of \texttt{data(ships)}.
 \item
-  \textbf{\texttt{species\_codes:}} A \texttt{data.frame} containing species codes. If not provided the default version, which was current as of the release of \texttt{ABUND9} in 2020, will be used (\texttt{data(species\_codes)}). Supplied \texttt{data.frames} must match the column naming structure of \texttt{data(species\_codes)}.
+  \textbf{\texttt{species\_codes:}} A \texttt{data.frame} containing species codes. This is an optional input, chiefly used to format species names in the reporting stage of the workflow (\texttt{lta\_report()} especially). If missing neither data processing nor line transect analysis will be obstructed. If the user supplies a \texttt{data.frames} it must match the column naming structure of \texttt{data(species\_codes)}.
 \item
   \textbf{\texttt{group\_size\_coefficients:}} A \texttt{data.frame} of calibration factors. Find details in the subsection on processing sightings and \protect\hyperlink{ss_calibration}{estimating school size}.
 \item
@@ -626,7 +626,18 @@ The \texttt{cohort\_settings} input accepts a list of any length. Each slot in t
 \item
   \textbf{\texttt{abeam\_sightings:}} = If \texttt{TRUE}, sightings that occur aft of beam (i.e., 90 degrees) are included in estimating the detection function and densities. Default is \texttt{FALSE}: all abeam sightings will be ignored.
 \item
-  \textbf{\texttt{strata\_overlap\_handling:}} In the event that survey strata overlap, this setting tells \texttt{R} how to handle it. The options are \texttt{"smallest"} (the default), in which effort can belong to only a single stratum, and the smallest of overlapping strata will be used (e.g., an insular polygon nested within a larger EEZ polygon); \texttt{"largest"}, in which effort can belong to only a single stratum and the largest of overlapping strata will be used (we are not sure what use case this would serve, but we offer it as an option for niche analyses); and \texttt{"each"}, in which each effort is allowed to belong to two or more strata at once and all analyses will be conducted for each overlapping polygon separately (e.g., this may be appropriate for nested strata in which you want to estimate density in the entirety of the larger stratum in addition to estimating density for the nested stratum).
+  \textbf{\texttt{strata\_overlap\_handling:}} This setting informs how effort is split into segments when surveys cross stratum boundaries, and also which stratum name is assigned to each row of data. Note that the main impact of this setting is on how effort is broken into segments; the assigned stratum name is for display only and will not constrain options for including/excluding strata in analyses farther along in the \texttt{LTabundR} workflow. The default option is \texttt{"smallest"}, which means that effort will always be assigned to the smallest stratum when multiple strata overlap spatially. This is a safe option for surveys with ``nested'' strata (such as the Central North Pacific strata used by NOAA Fisheries; see below).
+\end{itemize}
+
+\includegraphics[width=0.75\textwidth,height=\textheight]{img/strata_overlap_hiceas.png}
+
+Another option is \texttt{"each"}in which each time a stratum boundary is crossed the current segment will end and a new segment will begin. Also, stratum assignments for each row of effort will be shown as a concatenation of all the stratum layers overlapping at its position (e.g., ``OtherCNP\&HI\_EEZ''). Note that the \texttt{"each"} option segmentizes effort in the exact same was as \texttt{"smallest"} when strata are fully nested; its main advantage is in dealing with partially overlapping strata (such as strata used in the Marianas archipelago; see below).
+
+The third option is \texttt{"largest"}, in which the largest of overlapping strata is used to assign a stratum name to each row. (We are not sure what use case this would serve, but we offer it as an option for niche analyses.)
+
+\includegraphics{img/strata_overlap_marianas.png}
+
+\begin{itemize}
 \item
   \textbf{\texttt{distance\_types:}} A character vector of the effort types that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing. Accepted values are \texttt{"S"} (systematic/standard effort), \texttt{"F"} (fine-scale effort), and \texttt{"N"} (non-systematic/non-standard effort, in which systematic protocols are being used but effort is not occurring along design-based transect routes). The default values are \texttt{c("S","F","N")}.
 \item
@@ -1658,7 +1669,7 @@ The function \texttt{das\_format()} takes care of some final formatting and init
 \end{Highlighting}
 \end{Shaded}
 
-This function (1) removes rows with invalid Cruise numbers, times, or locations; (ii) calculate the distance, in km, between each row of data; (iii) adds a \texttt{ship} column to the dataset, with initials for the ship corresponding to each cruise; (iv) creates a new list, \texttt{cohorts}, which copies the cruise data for each cohort specified in your settings; and (v) adds a \texttt{stratum} column to the data in each cohort. That column specifies
+This function (1) removes rows with invalid Cruise numbers, times, or locations; (ii) calculates the distance, in km, between each row of data; (iii) adds a \texttt{ship} column to the dataset, with initials for the ship corresponding to each cruise; (iv) creates a new list, \texttt{cohorts}, which copies the cruise data for each cohort specified in your settings; and (v) adds a \texttt{stratum} column to the data in each cohort. That column specifies
 a single stratum assignment for each row of \texttt{DAS} data in the event of overlapping strata, based upon the cohort setting \texttt{stratum\_overlap\_handling}.
 
 \hypertarget{the-cruz-object}{%
@@ -4800,7 +4811,7 @@ The second option, \texttt{"bootstrap"}, uses an iterative method that draws boo
 \NormalTok{(ltas\_2b }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{lta\_report}\NormalTok{(}\AttributeTok{verbose=}\ConstantTok{FALSE}\NormalTok{))}\SpecialCharTok{$}\NormalTok{table4}
                          \DecValTok{2002}\NormalTok{  (HI\_EEZ)                       }\DecValTok{2010}\NormalTok{  (HI\_EEZ)}
 \DecValTok{1}\NormalTok{ Species or category Density Abundance   CV        }\DecValTok{95}\NormalTok{\% CI Density Abundance}
-\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{9.15}    \DecValTok{22}\NormalTok{,}\DecValTok{646} \FloatTok{0.24} \DecValTok{22}\NormalTok{,}\DecValTok{484{-}48}\NormalTok{,}\DecValTok{617}   \FloatTok{14.36}    \DecValTok{35}\NormalTok{,}\DecValTok{527}
+\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{9.15}    \DecValTok{22}\NormalTok{,}\DecValTok{646} \FloatTok{0.23} \DecValTok{22}\NormalTok{,}\DecValTok{484{-}48}\NormalTok{,}\DecValTok{617}   \FloatTok{14.36}    \DecValTok{35}\NormalTok{,}\DecValTok{527}
                     
 \DecValTok{1}\NormalTok{   CV        }\DecValTok{95}\NormalTok{\% CI}
 \DecValTok{2} \FloatTok{0.27} \DecValTok{35}\NormalTok{,}\DecValTok{038{-}77}\NormalTok{,}\DecValTok{911}
@@ -7662,7 +7673,7 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
 
 \CommentTok{\# Number of segments}
 \NormalTok{cruz\_demo}\SpecialCharTok{$}\NormalTok{cohorts}\SpecialCharTok{$}\NormalTok{default}\SpecialCharTok{$}\NormalTok{segments }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1820}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1823}
 
 \CommentTok{\# Plot}
 \FunctionTok{segment\_histogram}\NormalTok{(cruz\_demo, }\AttributeTok{by\_day =} \ConstantTok{TRUE}\NormalTok{)}
