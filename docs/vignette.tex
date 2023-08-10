@@ -1790,7 +1790,7 @@ The \texttt{segments} slot contains summary data for each effort segment, includ
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{cruz}\SpecialCharTok{$}\NormalTok{cohorts}\SpecialCharTok{$}\NormalTok{all}\SpecialCharTok{$}\NormalTok{segments }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ glimpse}
-\NormalTok{Rows}\SpecialCharTok{:} \DecValTok{1}\NormalTok{,}\DecValTok{890}
+\NormalTok{Rows}\SpecialCharTok{:} \DecValTok{1}\NormalTok{,}\DecValTok{889}
 \NormalTok{Columns}\SpecialCharTok{:} \DecValTok{37}
 \SpecialCharTok{$}\NormalTok{ Cruise       }\SpecialCharTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \DecValTok{901}\NormalTok{, }\DecValTok{901}\NormalTok{, }\DecValTok{901}\NormalTok{, }\DecValTok{901}\NormalTok{, }\DecValTok{901}\NormalTok{, }\DecValTok{901}\NormalTok{, }\DecValTok{901}\NormalTok{, }\DecValTok{901}\NormalTok{, }\DecValTok{901}\NormalTok{, }\DecValTok{901}\NormalTok{, }\DecValTok{901}\NormalTok{, }\DecValTok{90}\SpecialCharTok{\textasciitilde{}}
 \ErrorTok{$}\NormalTok{ ship         }\SpecialCharTok{\textless{}}\NormalTok{chr}\SpecialCharTok{\textgreater{}} \StringTok{"Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"Mc2"}\NormalTok{, }\StringTok{"\textasciitilde{}}
@@ -1836,7 +1836,7 @@ The \texttt{segments} slot contains summary data for each effort segment, includ
 \begin{Highlighting}[]
 \CommentTok{\# Number of segments}
 \NormalTok{cruz}\SpecialCharTok{$}\NormalTok{cohorts}\SpecialCharTok{$}\NormalTok{all}\SpecialCharTok{$}\NormalTok{segments }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ nrow}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1890}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{1889}
 
 \CommentTok{\# Segment length distribution}
 \NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ cruz}\SpecialCharTok{$}\NormalTok{cohorts}\SpecialCharTok{$}\NormalTok{all}\SpecialCharTok{$}\NormalTok{segments}\SpecialCharTok{$}\NormalTok{dist}
@@ -1847,7 +1847,7 @@ The \texttt{segments} slot contains summary data for each effort segment, includ
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-77-1.pdf}
+\includegraphics{figures/unnamed-chunk-78-1.pdf}
 
 And the \texttt{das} slot holds the original \texttt{data.frame} of \texttt{DAS} data, modified slightly: the column \texttt{OnEffort} has been modified according to Beaufort range conditions, and the column \texttt{seg\_id} indicates which segment the event occurs within.
 
@@ -1914,7 +1914,7 @@ Since the sightings in each cohort are processed slightly differently according 
 \NormalTok{cruz}\SpecialCharTok{$}\NormalTok{cohorts}\SpecialCharTok{$}\NormalTok{all}\SpecialCharTok{$}\NormalTok{sightings}\SpecialCharTok{$}\NormalTok{included }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ table}
 \NormalTok{.}
 \ConstantTok{FALSE}  \ConstantTok{TRUE} 
-  \DecValTok{810}  \DecValTok{3124} 
+  \DecValTok{811}  \DecValTok{3123} 
 
 \NormalTok{cruz}\SpecialCharTok{$}\NormalTok{cohorts}\SpecialCharTok{$}\NormalTok{bottlenose}\SpecialCharTok{$}\NormalTok{sightings}\SpecialCharTok{$}\NormalTok{included }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ table}
 \NormalTok{.}
@@ -2192,21 +2192,21 @@ The \texttt{LTabundR} function \texttt{cruz\_structure()} provides a synopsis of
 
         \SpecialCharTok{$}\NormalTok{all}
 \NormalTok{            geostrata}\SpecialCharTok{:}\NormalTok{ WHICEAS, HI\_EEZ, OtherCNP}
-            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{1890} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{149.3}\NormalTok{ km)}
-            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329632}\NormalTok{ data rows}
+            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{1889} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{149.3}\NormalTok{ km)}
+            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329638}\NormalTok{ data rows}
             \SpecialCharTok{$}\NormalTok{sightings }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{3934}\NormalTok{ detections}
             \SpecialCharTok{$}\NormalTok{subgroups }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{255}\NormalTok{ subgroups, }\DecValTok{49}\NormalTok{ sightings, and }\DecValTok{389}\NormalTok{ events}
 
         \SpecialCharTok{$}\NormalTok{bottlenose}
 \NormalTok{            geostrata}\SpecialCharTok{:}\NormalTok{ WHICEAS, HI\_EEZ, OtherCNP, Bottlenose\_BI, Bottlenose\_OUFI, Bottlenose\_KaNi}
-            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{2049} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
-            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329632}\NormalTok{ data rows}
+            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{2051} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{148.7}\NormalTok{ km)}
+            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329638}\NormalTok{ data rows}
             \SpecialCharTok{$}\NormalTok{sightings }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{523}\NormalTok{ detections}
 
         \SpecialCharTok{$}\NormalTok{spotted}
 \NormalTok{            geostrata}\SpecialCharTok{:}\NormalTok{ WHICEAS, HI\_EEZ, OtherCNP, Spotted\_OU, Spotted\_FI, Spotted\_BI}
-            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{2057} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{148.5}\NormalTok{ km)}
-            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329632}\NormalTok{ data rows}
+            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{2056} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{148.5}\NormalTok{ km)}
+            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329638}\NormalTok{ data rows}
             \SpecialCharTok{$}\NormalTok{sightings }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{527}\NormalTok{ detections}
 \end{Highlighting}
 \end{Shaded}
@@ -2339,7 +2339,7 @@ Compare the total On-Effort sightings in both outputs:
 \NormalTok{mr}\SpecialCharTok{$}\NormalTok{ntot\_abund }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{sum}\NormalTok{(}\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{)}
 \NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{3223}
 \NormalTok{mr}\SpecialCharTok{$}\NormalTok{ntot\_ltabundr }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{sum}\NormalTok{(}\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{)}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{3225}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{3227}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2350,7 +2350,7 @@ Compare total sightings valid for use in density estimation (\texttt{EffType} \t
 \NormalTok{mr}\SpecialCharTok{$}\NormalTok{nsys\_abund }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{sum}\NormalTok{(}\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{)}
 \NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2478}
 \NormalTok{mr}\SpecialCharTok{$}\NormalTok{nsys\_ltabundr }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{sum}\NormalTok{(}\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{)}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2474}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{2478}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2365,7 +2365,7 @@ Let's find the rows with discrepancies in sighting counts:
               \FunctionTok{is.na}\NormalTok{(mr}\SpecialCharTok{$}\NormalTok{nsys\_abund) }\SpecialCharTok{|} 
               \FunctionTok{is.na}\NormalTok{(mr}\SpecialCharTok{$}\NormalTok{nsys\_ltabundr))}
 \NormalTok{bads }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ length}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{9}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\DecValTok{5}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2374,23 +2374,19 @@ Let's look at those rows in the joined dataframe:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{mr[bads, ]}
-\CommentTok{\# A tibble: 9 x 6}
-\CommentTok{\# Groups:   cruise [6]}
+\CommentTok{\# A tibble: 5 x 6}
+\CommentTok{\# Groups:   cruise [4]}
 \NormalTok{  cruise species ntot\_abund nsys\_abund ntot\_ltabundr nsys\_ltabundr}
    \SpecialCharTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{chr}\SpecialCharTok{\textgreater{}}        \ErrorTok{\textless{}}\NormalTok{int}\SpecialCharTok{\textgreater{}}      \ErrorTok{\textless{}}\NormalTok{int}\SpecialCharTok{\textgreater{}}         \ErrorTok{\textless{}}\NormalTok{int}\SpecialCharTok{\textgreater{}}         \ErrorTok{\textless{}}\NormalTok{int}\SpecialCharTok{\textgreater{}}
-\DecValTok{1}   \DecValTok{1004} \DecValTok{002}              \DecValTok{3}          \DecValTok{2}             \DecValTok{2}             \DecValTok{1}
-\DecValTok{2}   \DecValTok{1004} \DecValTok{046}              \DecValTok{4}          \DecValTok{4}             \DecValTok{3}             \DecValTok{3}
-\DecValTok{3}   \DecValTok{1203} \DecValTok{015}              \DecValTok{1}          \DecValTok{0}             \DecValTok{2}             \DecValTok{0}
-\DecValTok{4}   \DecValTok{1203} \DecValTok{049}              \DecValTok{1}          \DecValTok{1}             \DecValTok{2}             \DecValTok{1}
-\DecValTok{5}   \DecValTok{1607} \DecValTok{022}              \DecValTok{8}          \DecValTok{8}             \DecValTok{8}             \DecValTok{7}
-\DecValTok{6}   \DecValTok{1607} \DecValTok{037}              \DecValTok{3}          \DecValTok{3}             \DecValTok{3}             \DecValTok{2}
-\DecValTok{7}   \DecValTok{1621} \DecValTok{015}              \DecValTok{7}          \DecValTok{7}             \DecValTok{7}             \DecValTok{6}
-\DecValTok{8}   \DecValTok{1165} \DecValTok{047}             \ConstantTok{NA}         \ConstantTok{NA}             \DecValTok{1}             \DecValTok{1}
-\DecValTok{9}   \DecValTok{1631} \DecValTok{003}             \ConstantTok{NA}         \ConstantTok{NA}             \DecValTok{1}             \DecValTok{0}
+\DecValTok{1}   \DecValTok{1203} \DecValTok{015}              \DecValTok{1}          \DecValTok{0}             \DecValTok{2}             \DecValTok{0}
+\DecValTok{2}   \DecValTok{1203} \DecValTok{049}              \DecValTok{1}          \DecValTok{1}             \DecValTok{2}             \DecValTok{1}
+\DecValTok{3}   \DecValTok{1621} \DecValTok{073}              \DecValTok{5}          \DecValTok{4}             \DecValTok{5}             \DecValTok{3}
+\DecValTok{4}   \DecValTok{1165} \DecValTok{047}             \ConstantTok{NA}         \ConstantTok{NA}             \DecValTok{1}             \DecValTok{1}
+\DecValTok{5}   \DecValTok{1631} \DecValTok{003}             \ConstantTok{NA}         \ConstantTok{NA}             \DecValTok{1}             \DecValTok{0}
 \end{Highlighting}
 \end{Shaded}
 
-To investigate these 4 discrepancies, we will write a helper function that returns sightings details from both outputs for a given cruise-species:
+To investigate these 5 discrepancies, we will write a helper function that returns sightings details from both outputs for a given cruise-species:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2459,10 +2455,10 @@ Looking at the sighting details from \texttt{LTabundR} \ldots{}
 \DecValTok{1}\NormalTok{       N        }\DecValTok{2}     \DecValTok{18}   \FloatTok{9.2}   \DecValTok{5}         \DecValTok{6}        \DecValTok{21}       \DecValTok{5}       \DecValTok{12}
 \NormalTok{  VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot EventNum}
 \DecValTok{1}      \DecValTok{12} \ConstantTok{FALSE}   \DecValTok{6}  \DecValTok{073} \DecValTok{235}  \DecValTok{280}   \SpecialCharTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}      \ConstantTok{TRUE}      \DecValTok{268}
-\NormalTok{                       file\_das line\_num stratum\_HI\_EEZ stratum\_OtherCNP}
-\DecValTok{1}\NormalTok{ CenPac1986}\SpecialCharTok{{-}}\NormalTok{2020\_Final\_alb.das   }\DecValTok{493021}          \ConstantTok{FALSE}             \ConstantTok{TRUE}
+\NormalTok{                              file\_das line\_num stratum\_HI\_EEZ stratum\_OtherCNP}
+\DecValTok{1}\NormalTok{ CenPac1986}\SpecialCharTok{{-}}\NormalTok{2020\_Final\_alb\_edited.das   }\DecValTok{493027}          \ConstantTok{FALSE}             \ConstantTok{TRUE}
 \NormalTok{  stratum\_WHICEAS year month day yday km\_int   km\_cum ship  stratum seg\_id  use}
-\DecValTok{1}           \ConstantTok{FALSE} \DecValTok{2012}     \DecValTok{5}  \DecValTok{13}  \DecValTok{134}      \DecValTok{0} \FloatTok{171109.1}\NormalTok{  OES OtherCNP    }\DecValTok{276} \ConstantTok{TRUE}
+\DecValTok{1}           \ConstantTok{FALSE} \DecValTok{2012}     \DecValTok{5}  \DecValTok{13}  \DecValTok{134}      \DecValTok{0} \FloatTok{171168.7}\NormalTok{  OES OtherCNP    }\DecValTok{276} \ConstantTok{TRUE}
 \NormalTok{  SightNo Subgroup SightNoDaily Obs ObsStd Bearing Reticle DistNm Cue Method}
 \DecValTok{1}     \DecValTok{069}     \SpecialCharTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}\NormalTok{ 20120513\_123 }\DecValTok{235}   \ConstantTok{TRUE}      \DecValTok{90}      \ConstantTok{NA}    \FloatTok{0.1}   \DecValTok{3}      \DecValTok{1}
 \NormalTok{  Photos Birds CalibSchool PhotosAerial Biopsy CourseSchool TurtleSp TurtleGs}
@@ -2532,10 +2528,10 @@ Looking at the sighting details from \texttt{LTabundR} \ldots{}
 \DecValTok{2}\NormalTok{       N        }\DecValTok{2}    \DecValTok{269}   \FloatTok{8.8}   \DecValTok{7}         \DecValTok{9}        \DecValTok{30}       \DecValTok{5}        \DecValTok{5}
 \NormalTok{  VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot EventNum}
 \DecValTok{2}       \DecValTok{1} \ConstantTok{FALSE} \FloatTok{4.5}  \DecValTok{238} \DecValTok{328}  \DecValTok{073}   \SpecialCharTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}      \ConstantTok{TRUE}      \DecValTok{145}
-\NormalTok{                       file\_das line\_num stratum\_HI\_EEZ stratum\_OtherCNP}
-\DecValTok{2}\NormalTok{ CenPac1986}\SpecialCharTok{{-}}\NormalTok{2020\_Final\_alb.das   }\DecValTok{489954}          \ConstantTok{FALSE}             \ConstantTok{TRUE}
+\NormalTok{                              file\_das line\_num stratum\_HI\_EEZ stratum\_OtherCNP}
+\DecValTok{2}\NormalTok{ CenPac1986}\SpecialCharTok{{-}}\NormalTok{2020\_Final\_alb\_edited.das   }\DecValTok{489960}          \ConstantTok{FALSE}             \ConstantTok{TRUE}
 \NormalTok{  stratum\_WHICEAS year month day yday km\_int   km\_cum ship  stratum seg\_id}
-\DecValTok{2}           \ConstantTok{FALSE} \DecValTok{2012}     \DecValTok{5}   \DecValTok{7}  \DecValTok{128}      \DecValTok{0} \FloatTok{170008.1}\NormalTok{  OES OtherCNP    }\DecValTok{268}
+\DecValTok{2}           \ConstantTok{FALSE} \DecValTok{2012}     \DecValTok{5}   \DecValTok{7}  \DecValTok{128}      \DecValTok{0} \FloatTok{170067.7}\NormalTok{  OES OtherCNP    }\DecValTok{268}
 \NormalTok{    use SightNo Subgroup SightNoDaily Obs ObsStd Bearing Reticle DistNm Cue}
 \DecValTok{2} \ConstantTok{FALSE}     \DecValTok{052}     \SpecialCharTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}\NormalTok{ 20120507\_103 }\DecValTok{238}   \ConstantTok{TRUE}     \DecValTok{310}      \DecValTok{10}   \FloatTok{0.52}   \DecValTok{3}
 \NormalTok{  Method Photos Birds CalibSchool PhotosAerial Biopsy CourseSchool TurtleSp}
@@ -2549,7 +2545,7 @@ Looking at the sighting details from \texttt{LTabundR} \ldots{}
 \end{Highlighting}
 \end{Shaded}
 
-This is a sighting of a single Ziphiid whale. It appears to be squarely within the geostratum:
+This is a sighting of a single Ziphiid whale. It appears to be within the geostratum:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2581,7 +2577,7 @@ Loooking at the raw \texttt{DAS} data \ldots{}
 \end{Highlighting}
 \end{Shaded}
 
-It is not clear why \texttt{ABUND} did not include this sighting as non-systematic.
+It is not clear why \texttt{ABUND} did not include this sighting as non-systematic. Perhaps the \texttt{ABUND} geostratum calculations placed this sighting outside of the study area.
 
 \hypertarget{cruise-1165-species-047}{%
 \paragraph*{Cruise 1165, Species 047}\label{cruise-1165-species-047}}
@@ -2610,8 +2606,8 @@ In this case, \texttt{LTabundR} has a \emph{systematic} sighting of a pygmy sper
 \DecValTok{1}\NormalTok{       S        }\DecValTok{2}    \DecValTok{163}  \FloatTok{10.5}   \DecValTok{0}        \ConstantTok{NA}        \ConstantTok{NA}       \DecValTok{1}       \ConstantTok{NA}
 \NormalTok{  VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot EventNum}
 \DecValTok{1}      \ConstantTok{NA}    \ConstantTok{NA}  \ConstantTok{NA}  \DecValTok{038} \DecValTok{068}  \DecValTok{051}   \SpecialCharTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}      \ConstantTok{TRUE}       \DecValTok{92}
-\NormalTok{                       file\_das line\_num stratum\_HI\_EEZ stratum\_OtherCNP}
-\DecValTok{1}\NormalTok{ CenPac1986}\SpecialCharTok{{-}}\NormalTok{2020\_Final\_alb.das    }\DecValTok{50173}          \ConstantTok{FALSE}             \ConstantTok{TRUE}
+\NormalTok{                              file\_das line\_num stratum\_HI\_EEZ stratum\_OtherCNP}
+\DecValTok{1}\NormalTok{ CenPac1986}\SpecialCharTok{{-}}\NormalTok{2020\_Final\_alb\_edited.das    }\DecValTok{50173}          \ConstantTok{FALSE}             \ConstantTok{TRUE}
 \NormalTok{  stratum\_WHICEAS year month day yday km\_int   km\_cum ship  stratum seg\_id  use}
 \DecValTok{1}           \ConstantTok{FALSE} \DecValTok{1988}     \DecValTok{7}  \DecValTok{30}  \DecValTok{212}      \DecValTok{0} \FloatTok{13618.39}\NormalTok{  MAC OtherCNP    }\DecValTok{237} \ConstantTok{TRUE}
 \NormalTok{  SightNo Subgroup SightNoDaily Obs ObsStd Bearing Reticle DistNm Cue Method}
@@ -2640,6 +2636,83 @@ To investigate this sighting, we can filter our \texttt{cruz} object and take a 
 
 Using that map we see that this sighting occurred \emph{just inside} of the \texttt{OtherCNP} geostratum. It is likely that the point-in-polygon subroutines inside \texttt{ABUND9} decided that this sighting was out of the study area, and therefore excluded it. The subroutines used by \texttt{LTabundR}, which are based in the \texttt{R} package \texttt{sf}, should not be wrong in this case.
 
+\hypertarget{cruise-1621-073}{%
+\paragraph*{Cruise 1621-073}\label{cruise-1621-073}}
+\addcontentsline{toc}{paragraph}{Cruise 1621-073}
+
+In this case, both \texttt{LTabundR} and \texttt{ABUND} logged the same total number of sightings, but \texttt{LTabundR} decided that one of them was not systematic.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sight\_compare}\NormalTok{(abund, ltabundr, }\DecValTok{1621}\NormalTok{, }\StringTok{\textquotesingle{}073\textquotesingle{}}\NormalTok{)}
+\NormalTok{ABUND}\SpecialCharTok{:}
+\CommentTok{\# A tibble: 5 x 6}
+\NormalTok{  CruzNo DateTime         Beauf Mixed  best use\_sit}
+   \SpecialCharTok{\textless{}}\NormalTok{int}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{chr}\SpecialCharTok{\textgreater{}}            \ErrorTok{\textless{}}\NormalTok{int}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{chr}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{lgl}\SpecialCharTok{\textgreater{}}  
+\DecValTok{1}   \DecValTok{1621} \DecValTok{2002{-}11{-}8} \DecValTok{14}\SpecialCharTok{:}\DecValTok{19}      \DecValTok{3} \StringTok{" F"}   \FloatTok{3.48} \ConstantTok{TRUE}   
+\DecValTok{2}   \DecValTok{1621} \DecValTok{2002{-}11{-}20} \DecValTok{16}\SpecialCharTok{:}\DecValTok{2}      \DecValTok{4} \StringTok{" F"}   \FloatTok{3.97} \ConstantTok{TRUE}   
+\DecValTok{3}   \DecValTok{1621} \DecValTok{2002{-}11{-}22} \DecValTok{10}\SpecialCharTok{:}\DecValTok{27}     \DecValTok{4} \StringTok{" F"}   \FloatTok{4.96} \ConstantTok{TRUE}   
+\DecValTok{4}   \DecValTok{1621} \DecValTok{2002{-}11{-}22} \DecValTok{12}\SpecialCharTok{:}\DecValTok{20}     \DecValTok{4} \StringTok{" F"}   \FloatTok{1.16} \ConstantTok{TRUE}   
+\DecValTok{5}   \DecValTok{1621} \DecValTok{2002{-}11{-}29} \DecValTok{13}\SpecialCharTok{:}\DecValTok{48}     \DecValTok{5} \StringTok{" F"}   \FloatTok{2.32} \ConstantTok{TRUE}   
+
+\NormalTok{LTabundR}\SpecialCharTok{:}
+\CommentTok{\# A tibble: 7 x 9}
+\NormalTok{  Cruise DateTime              Bft mixed  best OnEffort EffType use\_effort}
+   \SpecialCharTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dttm}\SpecialCharTok{\textgreater{}}              \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{lgl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{lgl}\SpecialCharTok{\textgreater{}}    \ErrorTok{\textless{}}\NormalTok{chr}\SpecialCharTok{\textgreater{}}   \ErrorTok{\textless{}}\NormalTok{lgl}\SpecialCharTok{\textgreater{}}     
+\DecValTok{1}   \DecValTok{1621} \DecValTok{2002{-}11{-}08} \DecValTok{14}\SpecialCharTok{:}\DecValTok{19}\SpecialCharTok{:}\DecValTok{04}     \DecValTok{3} \ConstantTok{FALSE}  \FloatTok{3.48} \ConstantTok{TRUE}\NormalTok{     S       }\ConstantTok{TRUE}      
+\DecValTok{2}   \DecValTok{1621} \DecValTok{2002{-}11{-}20} \DecValTok{16}\SpecialCharTok{:}\DecValTok{02}\SpecialCharTok{:}\DecValTok{58}     \DecValTok{4} \ConstantTok{FALSE}  \FloatTok{3.97} \ConstantTok{TRUE}\NormalTok{     S       }\ConstantTok{TRUE}      
+\DecValTok{3}   \DecValTok{1621} \DecValTok{2002{-}11{-}22} \DecValTok{10}\SpecialCharTok{:}\DecValTok{27}\SpecialCharTok{:}\DecValTok{28}     \DecValTok{4} \ConstantTok{FALSE}  \FloatTok{4.96} \ConstantTok{TRUE}\NormalTok{     S       }\ConstantTok{TRUE}      
+\DecValTok{4}   \DecValTok{1621} \DecValTok{2002{-}11{-}22} \DecValTok{12}\SpecialCharTok{:}\DecValTok{20}\SpecialCharTok{:}\DecValTok{33}     \DecValTok{4} \ConstantTok{FALSE}  \FloatTok{1.16} \ConstantTok{TRUE}\NormalTok{     S       }\ConstantTok{TRUE}      
+\DecValTok{5}   \DecValTok{1621} \DecValTok{2002{-}11{-}29} \DecValTok{13}\SpecialCharTok{:}\DecValTok{48}\SpecialCharTok{:}\DecValTok{49}     \DecValTok{5} \ConstantTok{FALSE}  \FloatTok{2.32} \ConstantTok{TRUE}\NormalTok{     N       }\ConstantTok{TRUE}      
+\DecValTok{6}   \DecValTok{1621} \DecValTok{2002{-}11{-}20} \DecValTok{12}\SpecialCharTok{:}\DecValTok{59}\SpecialCharTok{:}\DecValTok{22}     \DecValTok{4} \ConstantTok{FALSE}  \FloatTok{1.16} \ConstantTok{FALSE}\NormalTok{    S       }\ConstantTok{FALSE}     
+\DecValTok{7}   \DecValTok{1621} \DecValTok{2002{-}11{-}21} \DecValTok{11}\SpecialCharTok{:}\DecValTok{57}\SpecialCharTok{:}\DecValTok{55}     \DecValTok{4} \ConstantTok{FALSE}  \FloatTok{1.16} \ConstantTok{FALSE}\NormalTok{    S       }\ConstantTok{FALSE}     
+\CommentTok{\# i 1 more variable: use\_sit \textless{}lgl\textgreater{}}
+\end{Highlighting}
+\end{Shaded}
+
+The discrepancy is in the November 8, 2002 sighting at 14:19:04. Looking at the sighting details from LTabundR\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(ltabundr }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(Cruise }\SpecialCharTok{==} \DecValTok{1621}\NormalTok{, species }\SpecialCharTok{==} \StringTok{\textquotesingle{}073\textquotesingle{}}\NormalTok{))[}\DecValTok{1}\NormalTok{,]}
+\NormalTok{  Event            DateTime    Lat       Lon OnEffort Cruise Mode OffsetGMT}
+\DecValTok{1}\NormalTok{     S }\DecValTok{2002{-}11{-}08} \DecValTok{14}\SpecialCharTok{:}\DecValTok{19}\SpecialCharTok{:}\DecValTok{04} \FloatTok{22.539} \SpecialCharTok{{-}}\FloatTok{171.7638}     \ConstantTok{TRUE}   \DecValTok{1621}\NormalTok{    C        }\DecValTok{10}
+\NormalTok{  EffType ESWsides Course SpdKt Bft SwellHght WindSpdKt RainFog HorizSun}
+\DecValTok{1}\NormalTok{       S        }\DecValTok{2}    \DecValTok{108}   \FloatTok{9.4}   \DecValTok{3}         \DecValTok{5}        \DecValTok{10}       \DecValTok{1}        \DecValTok{3}
+\NormalTok{  VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot EventNum}
+\DecValTok{1}       \DecValTok{2} \ConstantTok{FALSE}   \DecValTok{6}  \DecValTok{200} \DecValTok{073}  \DecValTok{208}   \SpecialCharTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}      \ConstantTok{TRUE}      \DecValTok{129}
+\NormalTok{                              file\_das line\_num stratum\_HI\_EEZ stratum\_OtherCNP}
+\DecValTok{1}\NormalTok{ CenPac1986}\SpecialCharTok{{-}}\NormalTok{2020\_Final\_alb\_edited.das   }\DecValTok{273857}           \ConstantTok{TRUE}             \ConstantTok{TRUE}
+\NormalTok{  stratum\_WHICEAS year month day yday km\_int   km\_cum ship stratum seg\_id  use}
+\DecValTok{1}           \ConstantTok{FALSE} \DecValTok{2002}    \DecValTok{11}   \DecValTok{8}  \DecValTok{312}      \DecValTok{0} \FloatTok{80534.72}\NormalTok{  DSJ  HI\_EEZ    }\DecValTok{843} \ConstantTok{TRUE}
+\NormalTok{  SightNo Subgroup SightNoDaily Obs ObsStd Bearing Reticle DistNm Cue Method}
+\DecValTok{1}     \DecValTok{275}     \SpecialCharTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}\NormalTok{  20021108\_37 }\DecValTok{208}   \ConstantTok{TRUE}      \DecValTok{93}     \FloatTok{0.5}   \FloatTok{2.75}   \DecValTok{6}      \DecValTok{4}
+\NormalTok{  Photos Birds CalibSchool PhotosAerial Biopsy CourseSchool TurtleSp TurtleGs}
+\DecValTok{1}\NormalTok{      Y     N        }\SpecialCharTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}         \ErrorTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}   \ErrorTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}           \ConstantTok{NA}     \SpecialCharTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}       \ConstantTok{NA}
+\NormalTok{  TurtleJFR TurtleAge TurtleCapt PinnipedSp PinnipedGs BoatType BoatGs}
+\DecValTok{1}      \SpecialCharTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}      \ErrorTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}       \ErrorTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}       \ErrorTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}         \ConstantTok{NA}     \SpecialCharTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}     \ConstantTok{NA}
+\NormalTok{  PerpDistKm species     best low high  prob mixed   ss\_tot  lnsstot ss\_percent}
+\DecValTok{1}    \FloatTok{5.08602}     \DecValTok{073} \FloatTok{3.478261}   \DecValTok{3}    \DecValTok{3} \ConstantTok{FALSE} \ConstantTok{FALSE} \FloatTok{3.478261} \FloatTok{1.246532}          \DecValTok{1}
+\NormalTok{  n\_sp n\_obs n\_best n\_low n\_high calibr ss\_valid mixed\_max spp\_max included}
+\DecValTok{1}    \DecValTok{1}     \DecValTok{6}      \DecValTok{6}     \DecValTok{6}      \DecValTok{6}   \ConstantTok{TRUE}     \ConstantTok{TRUE}      \ConstantTok{TRUE}     \DecValTok{073}    \ConstantTok{FALSE}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{LTabundR} was correct to exclude this sighting because the bearing was past the beam (93 degrees). The bearing of 93 is also given in the raw \texttt{DAS} data\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{das\_file }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}data/surveys/CenPac1986{-}2020\_Final\_alb.das\textquotesingle{}}
+\NormalTok{das }\OtherTok{\textless{}{-}} \FunctionTok{das\_readtext}\NormalTok{(das\_file)}
+\NormalTok{i }\OtherTok{\textless{}{-}} \FunctionTok{which}\NormalTok{(}\FunctionTok{substr}\NormalTok{(das}\SpecialCharTok{$}\NormalTok{das, }\DecValTok{6}\NormalTok{, }\DecValTok{18}\NormalTok{) }\SpecialCharTok{==} \StringTok{\textquotesingle{}141904 110802\textquotesingle{}}\NormalTok{)}
+\NormalTok{das}\SpecialCharTok{$}\NormalTok{das[i]}
+\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"129S.141904 110802 N22:32.34 W171:45.83  275  208    6    4  093  0.5 2.75"}
+\NormalTok{[}\DecValTok{2}\NormalTok{] }\StringTok{"130A.141904 110802 N22:32.34 W171:45.83  275         Y    N  073"}          
+\end{Highlighting}
+\end{Shaded}
+
+\ldots{} so it is not clear why \texttt{ABUND} did not exclude this sighting from the systematic count as well.
+
 \hypertarget{cruise-1631-species-003}{%
 \paragraph*{Cruise 1631, Species 003}\label{cruise-1631-species-003}}
 \addcontentsline{toc}{paragraph}{Cruise 1631, Species 003}
@@ -2667,8 +2740,8 @@ In this case, there was a non-systematic sighting of species 003 that was found 
 \DecValTok{1}\NormalTok{       N        }\DecValTok{2}    \DecValTok{155}    \DecValTok{10}   \DecValTok{5}         \DecValTok{4}        \DecValTok{18}       \DecValTok{1}       \DecValTok{10}
 \NormalTok{  VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot EventNum}
 \DecValTok{1}       \DecValTok{2} \ConstantTok{FALSE}   \DecValTok{7}  \DecValTok{073} \DecValTok{196}  \DecValTok{197}   \SpecialCharTok{\textless{}}\ConstantTok{NA}\SpecialCharTok{\textgreater{}}      \ConstantTok{TRUE}      \DecValTok{026}
-\NormalTok{                       file\_das line\_num stratum\_HI\_EEZ stratum\_OtherCNP}
-\DecValTok{1}\NormalTok{ CenPac1986}\SpecialCharTok{{-}}\NormalTok{2020\_Final\_alb.das   }\DecValTok{405216}           \ConstantTok{TRUE}             \ConstantTok{TRUE}
+\NormalTok{                              file\_das line\_num stratum\_HI\_EEZ stratum\_OtherCNP}
+\DecValTok{1}\NormalTok{ CenPac1986}\SpecialCharTok{{-}}\NormalTok{2020\_Final\_alb\_edited.das   }\DecValTok{405222}           \ConstantTok{TRUE}             \ConstantTok{TRUE}
 \NormalTok{  stratum\_WHICEAS year month day yday km\_int   km\_cum ship stratum seg\_id  use}
 \DecValTok{1}            \ConstantTok{TRUE} \DecValTok{2006}     \DecValTok{9}   \DecValTok{2}  \DecValTok{245}      \DecValTok{0} \FloatTok{124035.2}\NormalTok{  Mc2 WHICEAS   }\DecValTok{1275} \ConstantTok{TRUE}
 \NormalTok{  SightNo Subgroup SightNoDaily Obs ObsStd Bearing Reticle DistNm Cue Method}
@@ -2780,7 +2853,7 @@ It appears that this was a multi-species sighting, but no species percentages. I
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-125-1.pdf}
+\includegraphics{figures/unnamed-chunk-128-1.pdf}
 
 \hypertarget{effort}{%
 \subsection*{Effort}\label{effort}}
@@ -3130,21 +3203,21 @@ Here we will continue with the \texttt{cruz} object we created on the previous p
 
         \SpecialCharTok{$}\NormalTok{all}
 \NormalTok{            geostrata}\SpecialCharTok{:}\NormalTok{ WHICEAS, HI\_EEZ, OtherCNP}
-            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{1890} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{149.3}\NormalTok{ km)}
-            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329632}\NormalTok{ data rows}
+            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{1889} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{149.3}\NormalTok{ km)}
+            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329638}\NormalTok{ data rows}
             \SpecialCharTok{$}\NormalTok{sightings }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{3934}\NormalTok{ detections}
             \SpecialCharTok{$}\NormalTok{subgroups }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{255}\NormalTok{ subgroups, }\DecValTok{49}\NormalTok{ sightings, and }\DecValTok{389}\NormalTok{ events}
 
         \SpecialCharTok{$}\NormalTok{bottlenose}
 \NormalTok{            geostrata}\SpecialCharTok{:}\NormalTok{ WHICEAS, HI\_EEZ, OtherCNP, Bottlenose\_BI, Bottlenose\_OUFI, Bottlenose\_KaNi}
-            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{2049} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
-            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329632}\NormalTok{ data rows}
+            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{2051} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{148.7}\NormalTok{ km)}
+            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329638}\NormalTok{ data rows}
             \SpecialCharTok{$}\NormalTok{sightings }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{523}\NormalTok{ detections}
 
         \SpecialCharTok{$}\NormalTok{spotted}
 \NormalTok{            geostrata}\SpecialCharTok{:}\NormalTok{ WHICEAS, HI\_EEZ, OtherCNP, Spotted\_OU, Spotted\_FI, Spotted\_BI}
-            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{2057} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{148.5}\NormalTok{ km)}
-            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329632}\NormalTok{ data rows}
+            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{2056} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{148.5}\NormalTok{ km)}
+            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329638}\NormalTok{ data rows}
             \SpecialCharTok{$}\NormalTok{sightings }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{527}\NormalTok{ detections}
 \end{Highlighting}
 \end{Shaded}
@@ -3238,21 +3311,21 @@ Re-constituted data structure:
 
         \SpecialCharTok{$}\NormalTok{all}
 \NormalTok{            geostrata}\SpecialCharTok{:}\NormalTok{ WHICEAS, HI\_EEZ, OtherCNP}
-            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{1890} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{149.3}\NormalTok{ km)}
-            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329632}\NormalTok{ data rows}
+            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{1889} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{149.3}\NormalTok{ km)}
+            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329638}\NormalTok{ data rows}
             \SpecialCharTok{$}\NormalTok{sightings }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{3934}\NormalTok{ detections}
-            \SpecialCharTok{$}\NormalTok{subgroups }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{237}\NormalTok{ subgroups, }\DecValTok{39}\NormalTok{ sightings, and }\DecValTok{345}\NormalTok{ events}
+            \SpecialCharTok{$}\NormalTok{subgroups }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{237}\NormalTok{ subgroups, }\DecValTok{37}\NormalTok{ sightings, and }\DecValTok{345}\NormalTok{ events}
 
         \SpecialCharTok{$}\NormalTok{bottlenose}
 \NormalTok{            geostrata}\SpecialCharTok{:}\NormalTok{ WHICEAS, HI\_EEZ, OtherCNP, Bottlenose\_BI, Bottlenose\_OUFI, Bottlenose\_KaNi}
-            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{2049} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{148.6}\NormalTok{ km)}
-            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329632}\NormalTok{ data rows}
+            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{2051} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{148.7}\NormalTok{ km)}
+            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329638}\NormalTok{ data rows}
             \SpecialCharTok{$}\NormalTok{sightings }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{523}\NormalTok{ detections}
 
         \SpecialCharTok{$}\NormalTok{spotted}
 \NormalTok{            geostrata}\SpecialCharTok{:}\NormalTok{ WHICEAS, HI\_EEZ, OtherCNP, Spotted\_OU, Spotted\_FI, Spotted\_BI}
-            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{2057} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{148.5}\NormalTok{ km)}
-            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329632}\NormalTok{ data rows}
+            \SpecialCharTok{$}\NormalTok{segments  }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{2056} \FunctionTok{segments}\NormalTok{ (}\AttributeTok{median =} \FloatTok{148.5}\NormalTok{ km)}
+            \SpecialCharTok{$}\NormalTok{das       }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{329638}\NormalTok{ data rows}
             \SpecialCharTok{$}\NormalTok{sightings }\SpecialCharTok{{-}{-}{-}}\NormalTok{ with }\DecValTok{527}\NormalTok{ detections}
 \end{Highlighting}
 \end{Shaded}
@@ -3373,6 +3446,11 @@ The \texttt{summarize\_sightings()} function builds tables summarizing the sight
 \begin{Highlighting}[]
 \NormalTok{sightings }\OtherTok{\textless{}{-}} \FunctionTok{summarize\_sightings}\NormalTok{(cruz\_1720,}
                                  \AttributeTok{cohort=}\DecValTok{1}\NormalTok{)}
+\NormalTok{Error }\ControlFlowTok{in} \StringTok{\textasciigrave{}}\AttributeTok{dplyr::summarize()}\StringTok{\textasciigrave{}}\SpecialCharTok{:}
+\NormalTok{i In argument}\SpecialCharTok{:} \StringTok{\textasciigrave{}}\AttributeTok{dplyr::across(short\_name:common\_name1, unique)}\StringTok{\textasciigrave{}}\NormalTok{.}
+\NormalTok{Caused by error }\ControlFlowTok{in} \StringTok{\textasciigrave{}}\AttributeTok{across()}\StringTok{\textasciigrave{}}\SpecialCharTok{:}
+\SpecialCharTok{!}\NormalTok{ Can}\StringTok{\textquotesingle{}t subset columns that don\textquotesingle{}}\NormalTok{t exist.}
+\NormalTok{x Column }\StringTok{\textasciigrave{}}\AttributeTok{common\_name1}\StringTok{\textasciigrave{}}\NormalTok{ doesn}\StringTok{\textquotesingle{}t exist.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3381,8 +3459,7 @@ This function summarizes sightings in four default tables:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{sightings }\SpecialCharTok{\%\textgreater{}\%}  \FunctionTok{names}\NormalTok{()}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"simple\_totals"}           \StringTok{"analysis\_totals"}        
-\NormalTok{[}\DecValTok{3}\NormalTok{] }\StringTok{"stratum\_simple\_totals"}   \StringTok{"stratum\_analysis\_totals"}
+\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ sightings }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{names}\NormalTok{()}\SpecialCharTok{:}\NormalTok{ object }\StringTok{\textquotesingle{}sightings\textquotesingle{}}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3392,11 +3469,19 @@ This function summarizes sightings in four default tables:
 
 The slot \texttt{\$simple\_totals} includes all sightings, even if they will not be inluded in analysis:
 
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'sightings' not found
+\end{verbatim}
+
 \hypertarget{analysis-totals}{%
 \subsubsection*{Analysis totals}\label{analysis-totals}}
 \addcontentsline{toc}{subsubsection}{Analysis totals}
 
 The slot \texttt{\$analysis\_totals} only includes sightings that meet all inclusion criteria for the analysis:
+
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'sightings' not found
+\end{verbatim}
 
 \hypertarget{simple-totals-for-each-stratum}{%
 \subsubsection*{Simple totals for each stratum}\label{simple-totals-for-each-stratum}}
@@ -3404,11 +3489,19 @@ The slot \texttt{\$analysis\_totals} only includes sightings that meet all inclu
 
 The slot \texttt{\$stratum\_simple\_totals} splits the first table (simple species totals) so that sightings are tallied for each geo-stratum separately:
 
+\begin{verbatim}
+Error in dplyr::select(., year:code, common_name1:ss_sd): object 'sightings' not found
+\end{verbatim}
+
 \hypertarget{analysis-totals-for-each-stratum}{%
 \subsubsection*{Analysis totals for each stratum}\label{analysis-totals-for-each-stratum}}
 \addcontentsline{toc}{subsubsection}{Analysis totals for each stratum}
 
 The slot \texttt{\$stratum\_analysis\_totals} splits the second table (analysis totals for each species) so that sightings are tallied for each geo-stratum separately:
+
+\begin{verbatim}
+Error in dplyr::select(., year:code, common_name1:ss_sd): object 'sightings' not found
+\end{verbatim}
 
 \hypertarget{summarize-certain-species}{%
 \section*{Summarize certain species}\label{summarize-certain-species}}
@@ -3668,7 +3761,7 @@ The model predicts that \emph{Rg(0)} declines rapidly with deteriorating sea sta
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-202-1.pdf}
+\includegraphics{figures/unnamed-chunk-205-1.pdf}
 
 In addition to the summary above, this function returns various details, including the details of the Generalized Additive Model (GAM) (for both the estimate and the jackknifed datasets), and the raw sightings and segments used in the model.
 
@@ -3732,7 +3825,7 @@ Now plot the result using a dedicated \texttt{LTabundR} function:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-208-1.pdf}
+\includegraphics{figures/unnamed-chunk-211-1.pdf}
 
 \hypertarget{weighted-average-g0}{%
 \section*{\texorpdfstring{Weighted average \texttt{g(0)}}{Weighted average g(0)}}\label{weighted-average-g0}}
@@ -4186,19 +4279,22 @@ While \texttt{lta()} is running, it will print things to the Console (if \texttt
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-237-1.pdf}
+\includegraphics{figures/unnamed-chunk-240-1.pdf}
 
 \begin{verbatim}
     Cruise            DateTime SightNoDaily line_num species Bft  lnsstot
 41    1164 1988-08-08 08:05:00   19880808_9    41585     026  NA 6.856462
 72    1268 1989-08-23 17:45:00  19890823_12    60352     013  NA 2.995732
 82    1268 1989-11-25 06:10:00  19891125_22    66719     013  NA 4.716132
-387   2001 2020-01-26 07:51:40 20200126_129   609065     013  NA 3.676782
+387   2001 2020-01-26 07:51:40 20200126_129   609071     013  NA 3.676782
     Cruise            DateTime SightNoDaily line_num species best ss_valid
-334   1604 2016-07-07 07:15:57 20160707_105   512744   Other    1    FALSE
+285   1004 2010-04-29 08:06:17  20100429_40   435814   Other    1    FALSE
+286   1004 2010-04-30 09:37:06  20100430_36   436190   Other    1    FALSE
+287   1004 2010-04-30 10:55:41  20100430_38   436259   Other    1    FALSE
+334   1604 2016-07-07 07:15:57 20160707_105   512750   Other    1    FALSE
 \end{verbatim}
 
-\includegraphics{figures/unnamed-chunk-237-2.pdf} \includegraphics{figures/unnamed-chunk-237-3.pdf} \includegraphics{figures/unnamed-chunk-237-4.pdf} \includegraphics{figures/unnamed-chunk-237-5.pdf} \includegraphics{figures/unnamed-chunk-237-6.pdf} \includegraphics{figures/unnamed-chunk-237-7.pdf} \includegraphics{figures/unnamed-chunk-237-8.pdf} \includegraphics{figures/unnamed-chunk-237-9.pdf} \includegraphics{figures/unnamed-chunk-237-10.pdf} \includegraphics{figures/unnamed-chunk-237-11.pdf} \includegraphics{figures/unnamed-chunk-237-12.pdf}
+\includegraphics{figures/unnamed-chunk-240-2.pdf} \includegraphics{figures/unnamed-chunk-240-3.pdf} \includegraphics{figures/unnamed-chunk-240-4.pdf} \includegraphics{figures/unnamed-chunk-240-5.pdf} \includegraphics{figures/unnamed-chunk-240-6.pdf} \includegraphics{figures/unnamed-chunk-240-7.pdf} \includegraphics{figures/unnamed-chunk-240-8.pdf} \includegraphics{figures/unnamed-chunk-240-9.pdf} \includegraphics{figures/unnamed-chunk-240-10.pdf} \includegraphics{figures/unnamed-chunk-240-11.pdf} \includegraphics{figures/unnamed-chunk-240-12.pdf}
 
 Additionally, windows will appear showing details for the detection function models and details of the density/abundance estimate.
 
@@ -4540,7 +4636,7 @@ Say you want to estimate abundance in the `WHCEAS' study area, but you want to m
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-250-1.pdf}
+\includegraphics{figures/unnamed-chunk-253-1.pdf}
 
 Say you want to estimate abundance in the pelagic Hawaiian EEZ, ignoring effort and sightings within the Main Hawaiian Islands stratum and accurately removing small islands in northwest Hawaii:
 
@@ -4553,7 +4649,7 @@ Say you want to estimate abundance in the pelagic Hawaiian EEZ, ignoring effort 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-251-1.pdf}
+\includegraphics{figures/unnamed-chunk-254-1.pdf}
 
 Say you want to estimate abundance of pelagic bottlenose dolphins within the WHICEAS study area, ignoring the insular stocks:
 
@@ -4566,7 +4662,7 @@ Say you want to estimate abundance of pelagic bottlenose dolphins within the WHI
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-252-1.pdf}
+\includegraphics{figures/unnamed-chunk-255-1.pdf}
 
 Say you want to estimate abundance for \emph{only} the insular bottlenose stocks:
 
@@ -4578,7 +4674,7 @@ Say you want to estimate abundance for \emph{only} the insular bottlenose stocks
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-253-1.pdf}
+\includegraphics{figures/unnamed-chunk-256-1.pdf}
 
 Say you want to estimate abundance for false killer whales within the Northwest Hawaiian Islands and Main Hawaiian Islands study areas combined, but those geostrata partially overlap:
 
@@ -4590,7 +4686,7 @@ Say you want to estimate abundance for false killer whales within the Northwest 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-254-1.pdf}
+\includegraphics{figures/unnamed-chunk-257-1.pdf}
 
 Say you want to estimate abundance for the Hawaiian EEZ \emph{outside} of those partially overlapping geostrata:
 
@@ -4603,7 +4699,7 @@ Say you want to estimate abundance for the Hawaiian EEZ \emph{outside} of those 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-255-1.pdf}
+\includegraphics{figures/unnamed-chunk-258-1.pdf}
 
 \hypertarget{g0-estimation}{%
 \subsection*{\texorpdfstring{\emph{g(0)} estimation}{g(0) estimation}}\label{g0-estimation}}
@@ -4753,12 +4849,7 @@ As these results stand, 2002 estimates are stratified into 2 separate regions:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{(ltas }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{lta\_report}\NormalTok{(}\AttributeTok{verbose =} \ConstantTok{FALSE}\NormalTok{))}\SpecialCharTok{$}\NormalTok{table4}
-                         \DecValTok{2002}\NormalTok{ (HI\_EEZ) }\SpecialCharTok{{-}}\NormalTok{ (MHI)                       }\DecValTok{2002}
-\DecValTok{1}\NormalTok{ Species or category Density        Abundance   CV        }\DecValTok{95}\NormalTok{\% CI Density}
-\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{9.22}           \DecValTok{20}\NormalTok{,}\DecValTok{855} \FloatTok{0.26} \DecValTok{21}\NormalTok{,}\DecValTok{638{-}44}\NormalTok{,}\DecValTok{648}    \FloatTok{8.44}
-\NormalTok{      (MHI)                 }\DecValTok{2010}\NormalTok{  (HI\_EEZ)                   }
-\DecValTok{1}\NormalTok{ Abundance   CV  }\DecValTok{95}\SpecialCharTok{\% CI Density Abundance   CV        95\%}\NormalTok{ CI}
-\DecValTok{2}     \DecValTok{1}\NormalTok{,}\DecValTok{790} \FloatTok{0.81} \DecValTok{0{-}3}\NormalTok{,}\DecValTok{854}   \FloatTok{14.36}    \DecValTok{35}\NormalTok{,}\DecValTok{527} \FloatTok{0.27} \DecValTok{35}\NormalTok{,}\DecValTok{038{-}77}\NormalTok{,}\DecValTok{911}
+\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{species\_translator}\NormalTok{(}\AttributeTok{id =}\NormalTok{ sizi}\SpecialCharTok{$}\NormalTok{species, }\AttributeTok{species\_codes =}\NormalTok{ spp\_codes)}\SpecialCharTok{:}\NormalTok{ unused }\FunctionTok{argument}\NormalTok{ (}\AttributeTok{species\_codes =}\NormalTok{ spp\_codes)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4781,12 +4872,7 @@ Now let's re-check the summary table:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{(ltas\_2a }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{lta\_report}\NormalTok{(}\AttributeTok{verbose=}\ConstantTok{FALSE}\NormalTok{))}\SpecialCharTok{$}\NormalTok{table4}
-                         \DecValTok{2002}\NormalTok{  (HI\_EEZ)                      }\DecValTok{2010}\NormalTok{  (HI\_EEZ)}
-\DecValTok{1}\NormalTok{ Species or category Density Abundance   CV       }\DecValTok{95}\NormalTok{\% CI Density Abundance}
-\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{9.15}    \DecValTok{22}\NormalTok{,}\DecValTok{646} \FloatTok{0.74} \DecValTok{6}\NormalTok{,}\DecValTok{176{-}83}\NormalTok{,}\DecValTok{039}   \FloatTok{14.36}    \DecValTok{35}\NormalTok{,}\DecValTok{527}
-                    
-\DecValTok{1}\NormalTok{   CV        }\DecValTok{95}\NormalTok{\% CI}
-\DecValTok{2} \FloatTok{0.27} \DecValTok{35}\NormalTok{,}\DecValTok{038{-}77}\NormalTok{,}\DecValTok{911}
+\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{species\_translator}\NormalTok{(}\AttributeTok{id =}\NormalTok{ sizi}\SpecialCharTok{$}\NormalTok{species, }\AttributeTok{species\_codes =}\NormalTok{ spp\_codes)}\SpecialCharTok{:}\NormalTok{ unused }\FunctionTok{argument}\NormalTok{ (}\AttributeTok{species\_codes =}\NormalTok{ spp\_codes)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4809,12 +4895,7 @@ The second option, \texttt{"bootstrap"}, uses an iterative method that draws boo
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{(ltas\_2b }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{lta\_report}\NormalTok{(}\AttributeTok{verbose=}\ConstantTok{FALSE}\NormalTok{))}\SpecialCharTok{$}\NormalTok{table4}
-                         \DecValTok{2002}\NormalTok{  (HI\_EEZ)                       }\DecValTok{2010}\NormalTok{  (HI\_EEZ)}
-\DecValTok{1}\NormalTok{ Species or category Density Abundance   CV        }\DecValTok{95}\NormalTok{\% CI Density Abundance}
-\DecValTok{2}\NormalTok{     Striped dolphin    }\FloatTok{9.15}    \DecValTok{22}\NormalTok{,}\DecValTok{646} \FloatTok{0.23} \DecValTok{22}\NormalTok{,}\DecValTok{484{-}48}\NormalTok{,}\DecValTok{617}   \FloatTok{14.36}    \DecValTok{35}\NormalTok{,}\DecValTok{527}
-                    
-\DecValTok{1}\NormalTok{   CV        }\DecValTok{95}\NormalTok{\% CI}
-\DecValTok{2} \FloatTok{0.27} \DecValTok{35}\NormalTok{,}\DecValTok{038{-}77}\NormalTok{,}\DecValTok{911}
+\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{species\_translator}\NormalTok{(}\AttributeTok{id =}\NormalTok{ sizi}\SpecialCharTok{$}\NormalTok{species, }\AttributeTok{species\_codes =}\NormalTok{ spp\_codes)}\SpecialCharTok{:}\NormalTok{ unused }\FunctionTok{argument}\NormalTok{ (}\AttributeTok{species\_codes =}\NormalTok{ spp\_codes)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4890,7 +4971,7 @@ In this example, the encounter rates observed in 2002 and 2010 are very likely d
 
 The \texttt{details} slot returns the simulation predictions for each year, which can be used to replicate the histograms that are printed when the function is run.
 
-\includegraphics{figures/unnamed-chunk-272-1.pdf}
+\includegraphics{figures/unnamed-chunk-275-1.pdf}
 
 A dataframe with a row for each year. Columns provide the number of observations of the species of interest during systematic effort, and the p-value of the test. The p-value represents the fraction of simulated encounter rates that exceed the observed encounter rate.
 
@@ -5044,7 +5125,7 @@ Plot these options:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-280-1.pdf}
+\includegraphics{figures/unnamed-chunk-283-1.pdf}
 
 Get sample size remaining for each candidate distance:
 
@@ -5308,7 +5389,7 @@ The second is to calculate it ourselves using the \texttt{LTabundR} function \te
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-296-1.pdf}
+\includegraphics{figures/unnamed-chunk-299-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5452,11 +5533,11 @@ The \texttt{bootstraps} slot has the bootstrapped values for various parameters,
 
 Some examples:
 
-\includegraphics{figures/unnamed-chunk-305-1.pdf}
+\includegraphics{figures/unnamed-chunk-308-1.pdf}
 
-\includegraphics{figures/unnamed-chunk-306-1.pdf}
+\includegraphics{figures/unnamed-chunk-309-1.pdf}
 
-\includegraphics{figures/unnamed-chunk-307-1.pdf}
+\includegraphics{figures/unnamed-chunk-310-1.pdf}
 
 \hypertarget{behind-the-scenes-2}{%
 \section*{Behind the scenes}\label{behind-the-scenes-2}}
@@ -5529,6 +5610,7 @@ To summarize \texttt{lta()} results using the standard table format provided in 
 \NormalTok{tables }\OtherTok{\textless{}{-}} \FunctionTok{lta\_report}\NormalTok{(lta\_result, }
                      \AttributeTok{cruz =}\NormalTok{ cnp\_150km\_1986\_2020,}
                      \AttributeTok{verbose =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{species\_translator}\NormalTok{(}\AttributeTok{id =}\NormalTok{ sizi}\SpecialCharTok{$}\NormalTok{species, }\AttributeTok{species\_codes =}\NormalTok{ spp\_codes)}\SpecialCharTok{:}\NormalTok{ unused }\FunctionTok{argument}\NormalTok{ (}\AttributeTok{species\_codes =}\NormalTok{ spp\_codes)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5537,7 +5619,7 @@ Providing the \texttt{cruz} object is not required, but if it is not provided, o
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{tables }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ names}
-\NormalTok{[}\DecValTok{1}\NormalTok{] }\StringTok{"table1a"} \StringTok{"table1b"} \StringTok{"table2"}  \StringTok{"table3"}  \StringTok{"table4"}  \StringTok{"tableA1"} \StringTok{"tableA2"}
+\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ tables }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ names}\SpecialCharTok{:}\NormalTok{ object }\StringTok{\textquotesingle{}tables\textquotesingle{}}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5559,6 +5641,7 @@ These counts are provided separately from the \texttt{\$table1b} slot below, sin
 \NormalTok{  DT}\SpecialCharTok{::}\FunctionTok{datatable}\NormalTok{(}\AttributeTok{options=}\FunctionTok{list}\NormalTok{(}\AttributeTok{initComplete =}\NormalTok{ htmlwidgets}\SpecialCharTok{::}\FunctionTok{JS}\NormalTok{(}
     \StringTok{"function(settings, json) \{$(this.api().table().container()).css(\{\textquotesingle{}font{-}size\textquotesingle{}: \textquotesingle{}9pt\textquotesingle{}\});\}"}\NormalTok{)}
 \NormalTok{  ))}
+\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ crosstalk}\SpecialCharTok{::}\FunctionTok{is.SharedData}\NormalTok{(data)}\SpecialCharTok{:}\NormalTok{ object }\StringTok{\textquotesingle{}tables\textquotesingle{}}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5574,6 +5657,7 @@ This table holds sighting counts used in estimates of density/abundance. The row
 \NormalTok{  DT}\SpecialCharTok{::}\FunctionTok{datatable}\NormalTok{(}\AttributeTok{options=}\FunctionTok{list}\NormalTok{(}\AttributeTok{initComplete =}\NormalTok{ htmlwidgets}\SpecialCharTok{::}\FunctionTok{JS}\NormalTok{(}
     \StringTok{"function(settings, json) \{$(this.api().table().container()).css(\{\textquotesingle{}font{-}size\textquotesingle{}: \textquotesingle{}9pt\textquotesingle{}\});\}"}\NormalTok{)}
 \NormalTok{  ))}
+\NormalTok{Error }\ControlFlowTok{in}\NormalTok{ crosstalk}\SpecialCharTok{::}\FunctionTok{is.SharedData}\NormalTok{(data)}\SpecialCharTok{:}\NormalTok{ object }\StringTok{\textquotesingle{}tables\textquotesingle{}}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5581,13 +5665,25 @@ This table holds sighting counts used in estimates of density/abundance. The row
 \subsection*{Table 2 in reports: Detection functions}\label{table-2-in-reports-detection-functions}}
 \addcontentsline{toc}{subsection}{Table 2 in reports: Detection functions}
 
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'tables' not found
+\end{verbatim}
+
 \hypertarget{table-3-parameter-estimates}{%
 \subsection*{Table 3: Parameter estimates}\label{table-3-parameter-estimates}}
 \addcontentsline{toc}{subsection}{Table 3: Parameter estimates}
 
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'tables' not found
+\end{verbatim}
+
 \hypertarget{table-4-densityabundance}{%
 \subsection*{Table 4: Density/abundance}\label{table-4-densityabundance}}
 \addcontentsline{toc}{subsection}{Table 4: Density/abundance}
+
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'tables' not found
+\end{verbatim}
 
 \hypertarget{appendix-tables}{%
 \section*{Appendix tables}\label{appendix-tables}}
@@ -5597,6 +5693,10 @@ This table holds sighting counts used in estimates of density/abundance. The row
 \subsection*{Table A1: Study areas}\label{table-a1-study-areas}}
 \addcontentsline{toc}{subsection}{Table A1: Study areas}
 
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'tables' not found
+\end{verbatim}
+
 \hypertarget{table-a2-effort-totals-parsed-by-beaufort-sea-state}{%
 \subsection*{Table A2: Effort totals (parsed by Beaufort sea state)}\label{table-a2-effort-totals-parsed-by-beaufort-sea-state}}
 \addcontentsline{toc}{subsection}{Table A2: Effort totals (parsed by Beaufort sea state)}
@@ -5604,17 +5704,7 @@ This table holds sighting counts used in estimates of density/abundance. The row
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{tables}\SpecialCharTok{$}\NormalTok{tableA2}
-\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{2010}\StringTok{\textasciigrave{}}
-\CommentTok{\# A tibble: 1 x 10}
-\NormalTok{  Species Stratum Effort      B0     B1     B2    B3    B4    B5     B6}
-  \SpecialCharTok{\textless{}}\NormalTok{chr}\SpecialCharTok{\textgreater{}}   \ErrorTok{\textless{}}\NormalTok{chr}\SpecialCharTok{\textgreater{}}    \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}   \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}  \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}  \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}  \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}
-\DecValTok{1}\NormalTok{ all     HI\_EEZ   }\DecValTok{16166} \FloatTok{0.00124} \FloatTok{0.0127} \FloatTok{0.0383} \FloatTok{0.117} \FloatTok{0.480} \FloatTok{0.303} \FloatTok{0.0474}
-
-\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{2017}\StringTok{\textasciigrave{}}
-\CommentTok{\# A tibble: 1 x 10}
-\NormalTok{  Species Stratum Effort       B0     B1     B2    B3    B4    B5    B6}
-  \SpecialCharTok{\textless{}}\NormalTok{chr}\SpecialCharTok{\textgreater{}}   \ErrorTok{\textless{}}\NormalTok{chr}\SpecialCharTok{\textgreater{}}    \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}    \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}  \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}  \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}
-\DecValTok{1}\NormalTok{ all     HI\_EEZ   }\DecValTok{15913} \FloatTok{0.000828} \FloatTok{0.0102} \FloatTok{0.0370} \FloatTok{0.117} \FloatTok{0.312} \FloatTok{0.350} \FloatTok{0.173}
+\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{eval}\NormalTok{(expr, envir, enclos)}\SpecialCharTok{:}\NormalTok{ object }\StringTok{\textquotesingle{}tables\textquotesingle{}}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5634,7 +5724,7 @@ To plot the abundance estimate with error bars representing the 95\% confidence 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-320-1.pdf}
+\includegraphics{figures/unnamed-chunk-323-1.pdf}
 
 \hypertarget{detection-function-plots}{%
 \section*{Detection function plots}\label{detection-function-plots}}
@@ -5648,7 +5738,7 @@ To plot the best-fit detection model for a species pool, use the \texttt{df\_plo
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-321-1.pdf}
+\includegraphics{figures/unnamed-chunk-324-1.pdf}
 
 This function provides various stylization options, including the option to show multiple best-fitting models atop a single histogram of detections:
 
@@ -5665,7 +5755,7 @@ This function provides various stylization options, including the option to show
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-322-1.pdf}
+\includegraphics{figures/unnamed-chunk-325-1.pdf}
 
 \hypertarget{part-case-studies}{%
 \part{Case studies}\label{part-case-studies}}
@@ -5897,7 +5987,7 @@ We can use the built-in dataset, \texttt{data(g0\_results)}, which has Beaufort-
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-338-1.pdf}
+\includegraphics{figures/unnamed-chunk-341-1.pdf}
 
 To explore the effects of \texttt{LTabundR}'s \emph{g(0)} estimation routines on our abundance estimates, we will be running the analyses below with three different \emph{g(0)} scenarios. In scenario 1, we will manually specify the weighted \texttt{g(0)} and its CV for each species in 2020; these results should be nearly exact replicates of those from Bradford et al.~(2021), and we can be sure that any discrepancy between the two sets of results are not attributable the \emph{g(0)} aspect of the analysis. Second, we will allow \texttt{LTabundR} to calculate the weighted \texttt{g(0)} and its CV using the same \emph{Relative g(0)} values that were used in Bradford et al.~(2021) (i.e., the results of Barlow (2015), which used surveys from 1986 to 2010 and is provided in \texttt{LTabundR} as a built-in dataset), such that any difference between scenarios 1 and 2 are likely due to the weighted \emph{g(0)} subroutines. Finally, in scenario 3, we will use the \emph{Relative g(0)} esitmates produced by \texttt{LTabundR} using a more extensive survey dataset (1986-2020).
 
@@ -6752,6 +6842,7 @@ Generate report:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{reporti }\OtherTok{\textless{}{-}} \FunctionTok{lta\_report}\NormalTok{(ltas, cruz)}
+\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{species\_translator}\NormalTok{(}\AttributeTok{id =}\NormalTok{ sizi}\SpecialCharTok{$}\NormalTok{species, }\AttributeTok{species\_codes =}\NormalTok{ spp\_codes)}\SpecialCharTok{:}\NormalTok{ unused }\FunctionTok{argument}\NormalTok{ (}\AttributeTok{species\_codes =}\NormalTok{ spp\_codes)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7034,6 +7125,10 @@ To expedite building up this sample size table, consider copying and pasting the
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'reporti' not found
+\end{verbatim}
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \textbf{Table 3.} \emph{Estimates of line-transect parameters for cetacean species and taxonomic categories.}
@@ -7043,6 +7138,10 @@ To expedite building up this sample size table, consider copying and pasting the
 \NormalTok{reporti}\SpecialCharTok{$}\NormalTok{table3 }
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'reporti' not found
+\end{verbatim}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -7054,6 +7153,10 @@ To expedite building up this sample size table, consider copying and pasting the
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'reporti' not found
+\end{verbatim}
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \textbf{Table A1.} \emph{Study areas}.
@@ -7064,6 +7167,10 @@ To expedite building up this sample size table, consider copying and pasting the
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+Error in crosstalk::is.SharedData(data): object 'reporti' not found
+\end{verbatim}
+
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \textbf{Table A2.} \emph{Effort totals and by Beaufort sea-state, in each survey year}.
@@ -7071,21 +7178,7 @@ To expedite building up this sample size table, consider copying and pasting the
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{reporti}\SpecialCharTok{$}\NormalTok{tableA2}
-\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{2017}\StringTok{\textasciigrave{}}
-\CommentTok{\# A tibble: 3 x 9}
-\NormalTok{  Species    Stratum Effort     B1     B2    B3    B4    B5     B6}
-  \SpecialCharTok{\textless{}}\NormalTok{chr}\SpecialCharTok{\textgreater{}}      \ErrorTok{\textless{}}\NormalTok{chr}\SpecialCharTok{\textgreater{}}    \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}  \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}  \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}  \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}
-\DecValTok{1}\NormalTok{ spotted    WHICEAS   }\DecValTok{2787} \FloatTok{0.0125} \FloatTok{0.103}  \FloatTok{0.114} \FloatTok{0.304} \FloatTok{0.368} \FloatTok{0.0987}
-\DecValTok{2}\NormalTok{ bottlenose WHICEAS   }\DecValTok{2939} \FloatTok{0.0119} \FloatTok{0.0911} \FloatTok{0.114} \FloatTok{0.312} \FloatTok{0.380} \FloatTok{0.0910}
-\DecValTok{3}\NormalTok{ all        WHICEAS   }\DecValTok{3040} \FloatTok{0.0115} \FloatTok{0.0942} \FloatTok{0.111} \FloatTok{0.320} \FloatTok{0.370} \FloatTok{0.0934}
-
-\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{2020}\StringTok{\textasciigrave{}}
-\CommentTok{\# A tibble: 3 x 9}
-\NormalTok{  Species    Stratum Effort     B1     B2     B3    B4    B5    B6}
-  \SpecialCharTok{\textless{}}\NormalTok{chr}\SpecialCharTok{\textgreater{}}      \ErrorTok{\textless{}}\NormalTok{chr}\SpecialCharTok{\textgreater{}}    \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}  \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}  \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}  \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}} \ErrorTok{\textless{}}\NormalTok{dbl}\SpecialCharTok{\textgreater{}}
-\DecValTok{1}\NormalTok{ spotted    WHICEAS   }\DecValTok{4079} \FloatTok{0.0147} \FloatTok{0.0382} \FloatTok{0.0710} \FloatTok{0.274} \FloatTok{0.401} \FloatTok{0.201}
-\DecValTok{2}\NormalTok{ bottlenose WHICEAS   }\DecValTok{4417} \FloatTok{0.0174} \FloatTok{0.0390} \FloatTok{0.0715} \FloatTok{0.281} \FloatTok{0.407} \FloatTok{0.185}
-\DecValTok{3}\NormalTok{ all        WHICEAS   }\DecValTok{4585} \FloatTok{0.0170} \FloatTok{0.0406} \FloatTok{0.0695} \FloatTok{0.281} \FloatTok{0.407} \FloatTok{0.184}
+\NormalTok{Error }\ControlFlowTok{in} \FunctionTok{eval}\NormalTok{(expr, envir, enclos)}\SpecialCharTok{:}\NormalTok{ object }\StringTok{\textquotesingle{}reporti\textquotesingle{}}\NormalTok{ not found}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7101,7 +7194,7 @@ To expedite building up this sample size table, consider copying and pasting the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-375-1.pdf}
+\includegraphics{figures/unnamed-chunk-378-1.pdf}
 
 \hypertarget{validation-1}{%
 \section*{Validation}\label{validation-1}}
@@ -7251,7 +7344,7 @@ Now we can compare \texttt{LTabundR} estimates to those from ALB et al.~(2021):
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-383-1.pdf}
+\includegraphics{figures/unnamed-chunk-386-1.pdf}
 
 ~
 
@@ -7279,7 +7372,7 @@ Now we can compare \texttt{LTabundR} estimates to those from ALB et al.~(2021):
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-384-1.pdf}
+\includegraphics{figures/unnamed-chunk-387-1.pdf}
 
 ~
 
@@ -7299,7 +7392,7 @@ Now we can compare \texttt{LTabundR} estimates to those from ALB et al.~(2021):
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-385-1.pdf}
+\includegraphics{figures/unnamed-chunk-388-1.pdf}
 
 ~
 
@@ -7319,7 +7412,7 @@ Now we can compare \texttt{LTabundR} estimates to those from ALB et al.~(2021):
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-386-1.pdf}
+\includegraphics{figures/unnamed-chunk-389-1.pdf}
 
 \hypertarget{part-appendix}{%
 \part{Appendix}\label{part-appendix}}
@@ -7516,7 +7609,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-396-1.pdf}
+\includegraphics{figures/unnamed-chunk-399-1.pdf}
 
 \hypertarget{day-vs-equal-length}{%
 \section*{Day vs Equal Length}\label{day-vs-equal-length}}
@@ -7543,7 +7636,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-397-1.pdf}
+\includegraphics{figures/unnamed-chunk-400-1.pdf}
 
 \hypertarget{by-target-length-of-150-km}{%
 \subsection*{By target length of 150 km}\label{by-target-length-of-150-km}}
@@ -7566,7 +7659,7 @@ Here is the \texttt{segmentize()} function parameterized with the ``factory defa
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-398-1.pdf}
+\includegraphics{figures/unnamed-chunk-401-1.pdf}
 
 \hypertarget{contiguous-vs.-non-contiguous-effort}{%
 \section*{Contiguous vs.~non-contiguous effort}\label{contiguous-vs.-non-contiguous-effort}}
@@ -7591,7 +7684,7 @@ The example above allows for non-contiguous effort; a segment is allowed to cont
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-399-1.pdf}
+\includegraphics{figures/unnamed-chunk-402-1.pdf}
 
 You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.
 
@@ -7622,7 +7715,7 @@ The other possible setting is \texttt{\textquotesingle{}disperse\textquotesingle
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-400-1.pdf}
+\includegraphics{figures/unnamed-chunk-403-1.pdf}
 
 Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:
 
@@ -7643,7 +7736,7 @@ Note that most segments are longer than the target length, due to the impact of 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-401-1.pdf}
+\includegraphics{figures/unnamed-chunk-404-1.pdf}
 
 But in general, the \texttt{disperse} option may be more appropriate for shorter segment lengths.
 
@@ -7680,7 +7773,7 @@ To replicate the methods used in typical habitat modeling studies, use smaller s
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{figures/unnamed-chunk-402-1.pdf}
+\includegraphics{figures/unnamed-chunk-405-1.pdf}
 
 \hypertarget{abund9_compare}{%
 \chapter{\texorpdfstring{\texttt{LTabundR} vs.~\texttt{ABUND9}}{LTabundR vs.~ABUND9}}\label{abund9_compare}}
@@ -7776,14 +7869,12 @@ You can search by species code:
 \begin{Highlighting}[]
 \CommentTok{\# source(\textquotesingle{}R/species\_translator.R\textasciigrave{})}
 \FunctionTok{species\_translator}\NormalTok{(}\AttributeTok{id =} \StringTok{\textquotesingle{}035\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{t}\NormalTok{()}
-                \DecValTok{35}                       
-\NormalTok{code            }\StringTok{"035"}                    
-\NormalTok{short\_name      }\StringTok{"LONG\_PILOT"}             
-\NormalTok{scientific\_name }\StringTok{"Globicephala melas"}     
-\NormalTok{common\_name1    }\StringTok{"Long{-}finned pilot whale"}
-\NormalTok{common\_name2    }\StringTok{"Atlantic pilot whale"}   
-\NormalTok{common\_name3    }\StringTok{"blackfish"}              
-\NormalTok{common\_name4    }\StringTok{"pothead"}                
+                \DecValTok{35}                                        
+\NormalTok{code            }\StringTok{"035"}                                     
+\NormalTok{short\_name      }\StringTok{"LONG\_PILOT"}                              
+\NormalTok{scientific\_name }\StringTok{"Globicephala melas"}                      
+\NormalTok{common          }\StringTok{"Long{-}finned pilot whale"}                 
+\NormalTok{description     }\StringTok{"Atlantic pilot whale; blackfish; pothead"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7792,14 +7883,12 @@ By the short code name:
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{species\_translator}\NormalTok{(}\AttributeTok{id =} \StringTok{\textquotesingle{}LONG\_PILOT\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{t}\NormalTok{()}
-                \DecValTok{35}                       
-\NormalTok{code            }\StringTok{"035"}                    
-\NormalTok{short\_name      }\StringTok{"LONG\_PILOT"}             
-\NormalTok{scientific\_name }\StringTok{"Globicephala melas"}     
-\NormalTok{common\_name1    }\StringTok{"Long{-}finned pilot whale"}
-\NormalTok{common\_name2    }\StringTok{"Atlantic pilot whale"}   
-\NormalTok{common\_name3    }\StringTok{"blackfish"}              
-\NormalTok{common\_name4    }\StringTok{"pothead"}                
+                \DecValTok{35}                                        
+\NormalTok{code            }\StringTok{"035"}                                     
+\NormalTok{short\_name      }\StringTok{"LONG\_PILOT"}                              
+\NormalTok{scientific\_name }\StringTok{"Globicephala melas"}                      
+\NormalTok{common          }\StringTok{"Long{-}finned pilot whale"}                 
+\NormalTok{description     }\StringTok{"Atlantic pilot whale; blackfish; pothead"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7808,14 +7897,12 @@ By the scientific name:
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{species\_translator}\NormalTok{(}\AttributeTok{id =} \StringTok{\textquotesingle{}Globicephala melas\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{t}\NormalTok{()}
-                \DecValTok{35}                       
-\NormalTok{code            }\StringTok{"035"}                    
-\NormalTok{short\_name      }\StringTok{"LONG\_PILOT"}             
-\NormalTok{scientific\_name }\StringTok{"Globicephala melas"}     
-\NormalTok{common\_name1    }\StringTok{"Long{-}finned pilot whale"}
-\NormalTok{common\_name2    }\StringTok{"Atlantic pilot whale"}   
-\NormalTok{common\_name3    }\StringTok{"blackfish"}              
-\NormalTok{common\_name4    }\StringTok{"pothead"}                
+                \DecValTok{35}                                        
+\NormalTok{code            }\StringTok{"035"}                                     
+\NormalTok{short\_name      }\StringTok{"LONG\_PILOT"}                              
+\NormalTok{scientific\_name }\StringTok{"Globicephala melas"}                      
+\NormalTok{common          }\StringTok{"Long{-}finned pilot whale"}                 
+\NormalTok{description     }\StringTok{"Atlantic pilot whale; blackfish; pothead"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7824,14 +7911,12 @@ Or by one of the species' common names:
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{species\_translator}\NormalTok{(}\AttributeTok{id =} \StringTok{\textquotesingle{}Long{-}finned pilot whale\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{t}\NormalTok{()}
-                \DecValTok{35}                       
-\NormalTok{code            }\StringTok{"035"}                    
-\NormalTok{short\_name      }\StringTok{"LONG\_PILOT"}             
-\NormalTok{scientific\_name }\StringTok{"Globicephala melas"}     
-\NormalTok{common\_name1    }\StringTok{"Long{-}finned pilot whale"}
-\NormalTok{common\_name2    }\StringTok{"Atlantic pilot whale"}   
-\NormalTok{common\_name3    }\StringTok{"blackfish"}              
-\NormalTok{common\_name4    }\StringTok{"pothead"}                
+                \DecValTok{35}                                        
+\NormalTok{code            }\StringTok{"035"}                                     
+\NormalTok{short\_name      }\StringTok{"LONG\_PILOT"}                              
+\NormalTok{scientific\_name }\StringTok{"Globicephala melas"}                      
+\NormalTok{common          }\StringTok{"Long{-}finned pilot whale"}                 
+\NormalTok{description     }\StringTok{"Atlantic pilot whale; blackfish; pothead"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -7844,25 +7929,21 @@ The function will return any species for which there is a partial match:
 \NormalTok{code            }\StringTok{"076"}                   
 \NormalTok{short\_name      }\StringTok{"HUMPBACK\_W"}            
 \NormalTok{scientific\_name }\StringTok{"Megaptera novaeangliae"}
-\NormalTok{common\_name1    }\StringTok{"Humpback whale"}        
-\NormalTok{common\_name2    }\StringTok{""}                      
-\NormalTok{common\_name3    }\StringTok{""}                      
-\NormalTok{common\_name4    }\StringTok{""}                      
+\NormalTok{common          }\StringTok{"Humpback whale"}        
+\NormalTok{description     }\StringTok{""}                      
                 \DecValTok{70}                                              
 \NormalTok{code            }\StringTok{"070"}                                           
 \NormalTok{short\_name      }\StringTok{"UNID\_RORQL"}                                    
 \NormalTok{scientific\_name }\StringTok{"Balaenopterid sp"}                              
-\NormalTok{common\_name1    }\StringTok{"Unidentified rorqual (Balaenoptera; Megaptera)"}
-\NormalTok{common\_name2    }\StringTok{""}                                              
-\NormalTok{common\_name3    }\StringTok{""}                                              
-\NormalTok{common\_name4    }\StringTok{""}                                              
+\NormalTok{common          }\StringTok{"Unidentified rorqual (Balaenoptera; Megaptera)"}
+\NormalTok{description     }\StringTok{""}                                              
 \end{Highlighting}
 \end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{species\_translator}\NormalTok{(}\AttributeTok{id =} \StringTok{\textquotesingle{}killer\textquotesingle{}}\NormalTok{)}
-\NormalTok{    code short\_name      scientific\_name                  common\_name1}
+\NormalTok{    code short\_name      scientific\_name                        common}
 \DecValTok{32}   \DecValTok{032}\NormalTok{ PYGMY\_KLLR     Feresa attenuata            Pygmy killer whale}
 \DecValTok{33}   \DecValTok{033}\NormalTok{ FALSE\_KLLR Pseudorca crassidens            False killer whale}
 \DecValTok{37}   \DecValTok{037}\NormalTok{ KILLER\_WHA         Orcinus orca                  Killer whale}
@@ -7872,16 +7953,16 @@ The function will return any species for which there is a partial match:
 \DecValTok{113}  \DecValTok{113}\NormalTok{                    Orcinus orca Type A Antarctic killer whale}
 \DecValTok{114}  \DecValTok{114}\NormalTok{                    Orcinus orca Type B Antarctic killer whale}
 \DecValTok{115}  \DecValTok{115}\NormalTok{                    Orcinus orca Type C Antarctic killer whale}
-\NormalTok{         common\_name2 common\_name3 common\_name4}
-\DecValTok{32}\NormalTok{  slender blackfish                          }
-\DecValTok{33}                                             
-\DecValTok{37}                                             
-\DecValTok{110}                                            
-\DecValTok{111}                                            
-\DecValTok{112}                                            
-\DecValTok{113}                                            
-\DecValTok{114}                                            
-\DecValTok{115}                                            
+\NormalTok{          description}
+\DecValTok{32}\NormalTok{  slender blackfish}
+\DecValTok{33}                   
+\DecValTok{37}                   
+\DecValTok{110}                  
+\DecValTok{111}                  
+\DecValTok{112}                  
+\DecValTok{113}                  
+\DecValTok{114}                  
+\DecValTok{115}                  
 \end{Highlighting}
 \end{Shaded}
 
