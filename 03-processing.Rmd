@@ -365,7 +365,7 @@ This `subgroups` slot holds a list with three dataframes: `events` (each row is 
 cruz$cohorts$all$subgroups %>% names
 ```
 
-For a detailed example, see the [vignette page on subgroup analysis](#subgroups) using data on Central North Pacific false killer whales.  
+For a detailed example, see the [vignette page on subgroup analysis](#subgroups2) using data on Central North Pacific false killer whales.  
 
 ## Review {-}  
 
