@@ -74,6 +74,15 @@ das <- das_load(das_file,
                 print_glimpse = TRUE)
 ```
 
+### Interpolate cruise data {-}
+
+Run the following function if you wish to interpolate the `DAS` data to a more frequent time interval, which can be useful for stratum assignment and effort calculations in some circucmstances.  This is only done in `process_surveys()` if the `settings` object passed to it has the `interpolate` input for `load_survey_settings()` set to a number (indicating the desired interval in seconds). In this example the interval is set to 120 seconds. 
+
+```{r, echo=TRUE, eval=FALSE, collapse=FALSE}
+das <- das_interpolate(das_file, new_interval = 120)
+```
+
+
 ### Process strata {-}  
 
 Run the following function to add strata and study-area information to each row of `DAS` data:  
