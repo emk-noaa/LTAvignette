@@ -23,7 +23,7 @@ In our WHICEAS case study example, we are interested in estimating density/abund
 das_file <- 'data/surveys/CenPac1986-2020_Final_alb.das'
 ```
 
-To follow along, this data file can be downloaded [here](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/surveys/CenPac1986-2020_Final_alb.das?token=GHSAT0AAAAAACFPESQVLR7DOE4I3UD4UJ2YZGRILEQ).
+To follow along, this data file can be downloaded [here](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/surveys/CenPac1986-2020_Final_alb.das).
 
 You can process your survey data using a single function, **`process_surveys()`**, which takes two primary arguments: the filepath(s) to your `DAS` survey data, and your `settings` object. For example:  
 
@@ -76,7 +76,7 @@ das <- das_load(das_file,
 
 ### Interpolate cruise data {-}
 
-Run the following function if you wish to interpolate the `DAS` data to a more frequent time interval, which can be useful for stratum assignment and effort calculations in some circucmstances.  This is only done in `process_surveys()` if the `settings` object passed to it has the `interpolate` input for `load_survey_settings()` set to a number (indicating the desired interval in seconds). In this example the interval is set to 120 seconds.  Interpolation will only occur for On-Effort rows.  
+Run the following function if you wish to interpolate the `DAS` data to a more frequent time interval, which can be useful for stratum assignment and effort calculations in some circumstances.  This is only done in `process_surveys()` if the `settings` object passed to it has the `interpolate` input for `load_survey_settings()` set to a number (indicating the desired interval in seconds). In this example the interval is set to 120 seconds.  Interpolation will only occur for On-Effort rows.  
 
 ```{r, echo=TRUE, eval=FALSE, collapse=FALSE}
 das <- das_interpolate(das_file, new_interval = 120)
@@ -397,7 +397,7 @@ Each species-specific cohort has its own list under `cruz$cohorts`, and each of 
 - `subgroups` (if any subgroup data exist in your survey) is a list with subgroup details.  
 
 
-In each of these `data.frame`'s, there are three critically important columns to keep in mind: 
+In each cohort `data.frame`, there are three critically important columns to keep in mind: 
 
 - **`seg_id`**: this column is used to indicate the segment ID that a row of data belongs to.  
 
@@ -425,7 +425,7 @@ SIGHTS <- read.csv('data/SIGHTS.csv')
 EFFORT <- read.csv('data/EFFORT.csv')
 ```
 
-You may download these files here: [`SIGHTS.csv`](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/SIGHTS.csv?token=GHSAT0AAAAAACFPESQVEDYQZ5I77WTDK2WIZGRKVMA) and [`EFFORT.csv`](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/EFFORT.csv?token=GHSAT0AAAAAACFPESQVOUD6HRSILDUWOFF2ZGRKU6A). 
+You may download these files here: [`SIGHTS.csv`](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/SIGHTS.csv) and [`EFFORT.csv`](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/EFFORT.csv). 
 
 
 ### Sightings {-}  
@@ -585,7 +585,7 @@ Looking at the sighting details from `LTabundR` ...
 This is a sighting of a single Ziphiid whale. It appears to be within the geostratum: 
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-cruzi <- filter_cruz(cruz, spp='047', years = 1988)
+cruzi <- filter_cruz(cruz, spp='049', years = 1988)
 map_cruz(cruzi)
 ```
 
@@ -600,7 +600,7 @@ It is not clear why `ABUND` did not include this sighting as non-systematic. Per
 
 ##### Cruise 1165, Species 047 {-} 
 
-In this case, `LTabundR` has a *systematic* sighting of a pygmy sperm whale, whereas `ABUND` does not have anything. 
+In this case, `LTabundR` has a *systematic* sighting of a pygmy sperm whale that `ABUND` has ignored. 
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 sight_compare(abund, ltabundr, 1165, '047')
@@ -610,7 +610,7 @@ sight_compare(abund, ltabundr, 1165, '047')
 To investigate this sighting, we can filter our `cruz` object and take a look at a map of this sighting: 
 
 ```{r, echo=TRUE, eval=FALSE, message=FALSE, collapse=TRUE}
-cruzi <- filter_cruz(cruz, spp='047', years = 1988)
+cruzi <- filter_cruz(cruz, spp='047', years = 2012)
 map_cruz(cruzi)
 ```
 
@@ -618,13 +618,13 @@ Using that map we see that this sighting occurred *just inside* of the `OtherCNP
 
 ##### Cruise 1621-073 {-} 
 
-In this case, both `LTabundR` and `ABUND` logged the same total number of sightings, but `LTabundR` decided that one of them was not systematic. 
+In this case, both `LTabundR` and `ABUND` logged the same total number of sightings, but `ABUND` determined that that one was not valid for for density estimation, whereas `LTabundR` determined that two of them were not valid. 
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 sight_compare(abund, ltabundr, 1621, '073')
 ```
 
-The discrepancy is in the November 8, 2002 sighting at 14:19:04. Looking at the sighting details from LTabundR...
+The discrepancy is in the November 8, 2002 sighting at 14:19:04. Looking at the sighting details from `LTabundR`...
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 (ltabundr %>% filter(Cruise == 1621, species == '073'))[1,]
@@ -639,7 +639,7 @@ i <- which(substr(das$das, 6, 18) == '141904 110802')
 das$das[i]
 ```
 
-... so it is not clear why `ABUND` did not exclude this sighting from the systematic count as well.  
+... so it is not clear why `ABUND` did not exclude this sighting as invalid as well. It may be that `ABUND` was not expecting bearings above 90 degrees in the on-effort data. 
 
 
 ##### Cruise 1631, Species 003 {-} 
@@ -664,7 +664,7 @@ Looking at the raw `DAS` data ...
 das$das[405190:405220]
 ```
 
-It appears that this was a multi-species sighting, but no species percentages. In the absence of a percent composition estimate for this sighting, it was ignored by `ABUND`. 
+It appears that this was a multi-species sighting, but no species percentages were provided. In the absence of a percent composition estimate for this sighting, it was ignored by `ABUND`. 
 
 
 ### Group sizes {-}   

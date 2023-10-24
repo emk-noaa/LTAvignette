@@ -25,17 +25,34 @@ das <- das_readtext(das_file)
 das$das %>% head(20)
 ```
 
-To follow along, this data file can be downloaded [here](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/surveys/CenPac1986-2020_Final_alb.das?token=GHSAT0AAAAAACFPESQVLR7DOE4I3UD4UJ2YZGRILEQ).
+To follow along, this data file can be downloaded [here](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/surveys/CenPac1986-2020_Final_alb.das).
 
 ### `das_inspector()` {-} 
 
 We also provide a function, `das_inspector()`, that allows you to explore a `DAS` file within an interactive `Shiny` app. This app can also be used to find, prepare, and preview coded edits to the `DAS` data. 
 
 ```{r, echo=TRUE, eval=FALSE, message=TRUE, collapse=TRUE}
-das_inspector(das_file)
+dasi <- das_inspector(das_file)
 ```
 
-In this app, you specify the rows and 'columns' (i.e., character indices) that will be affected by your edit, the edit you want to apply, and the type of edit it will be (see next subsection). You then "save" that edit with the click of a button, and when you close the app your log of staged edits will be returned as a `list`. You can then pass this list of edits to `das_editor()` (next subsection on this page), or as an argument within `process_surveys()` (next page).  
+In this app, you specify the rows and 'columns' (i.e., character indices) that will be affected by your edit, the edit you want to apply, and the type of edit it will be (see next subsection).   
+
+*A screenshot of the `das_inspector()` app:* 
+![](img/das_inspector_app.png){width=95%}. 
+
+
+Once you have an edit prepared and previewed within the app, you can then "save" that edit with the click of a button, and when you close the app your log of staged edits will be returned as a `list`.  
+
+
+*The list produced from the edit staged in the screenshot above:*  
+
+![](img/das_inspector_output.png){width=30%}. 
+
+
+
+For this reason it can be useful to type the above command such that the output is saved into an object; in the example above we saved the output into an object named `dasi`. 
+
+You can then pass this list of edits to `das_editor()` (next subsection on this page), or as an argument within `process_surveys()` (next page).  However, for the sake of full code reproducibility, it may be most useful to use this output to write code to stage this edit using the `das_editor()` function below. 
 
 ## Staging edits {-}  
 
@@ -49,7 +66,7 @@ The `das_editor()` function can currently handle 6 types of edits, which we shal
 
 ### Types of editing {-} 
 
-To demonstrate the types of editing actions that can be achieved through `das_editor()`, we will use the `DAS` file from the 2020 WHICEAS survey (you can download [here](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/surveys/HICEASwinter2020.das?token=GHSAT0AAAAAACFPESQVZWKAJE3NCRQBC4SCZGRJNLA)).  
+To demonstrate the types of editing actions that can be achieved through `das_editor()`, we will use the `DAS` file from the 2020 WHICEAS survey (you can download [here](https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/surveys/HICEASwinter2020.das)).  
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 # Local path to das_file
@@ -197,7 +214,7 @@ dase$das[[1]]$das$das[9:16]
 
 The specified `rows` will be deleted.  
 
-```{r, echo=TRUE, eval=FALSE, message=TRUE, collapse=TRUE}
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 edits <- list(list(das_file = das_file, 
                    type = 'delete',
                    rows = 10))

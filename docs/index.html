@@ -320,7 +320,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>This step produces summary tables of the processed data and line-transect estimates; plots the best-fitting detection function model(s); and plots species-specific abundance estimates (and their CV).</p></li>
 <li><p>They key <code>LTabundR</code> functions in this stage are <code>lta_report()</code>, <code>df_plot()</code>, and <code>lta_plot()</code>.</p></li>
 </ul>
-<p>This user’s guide is structured around these four workflow stages. Those pages are followed by a set of case studies with full-fledged example code. The guide concludes with appendices that offer further details and minutiae on certain aspects of the package.</p>
+<p>This user’s guide is structured around these four workflow stages. Those pages are followed by a case study with full-fledged example code. The guide concludes with appendices that offer further details and minutiae on certain aspects of the package.</p>
 <p>Throughout this user’s guide, we will primarily be using example data from the winter <a href="https://repository.library.noaa.gov/view/noaa/47788">Hawaiian Islands Cetacean Ecosystem and Assessment Survey (WHICEAS)</a> of 2020, along with the summer-fall HICEAS 2017 data collected within the WHICEAS study area.</p>
 <div id="installation" class="section level3 unnumbered hasAnchor">
 <h3>Installation<a href="index.html#installation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -336,7 +336,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-8"><a href="index.html#cb1-8" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&#39;PIFSC-Protected-Species-Division/LTabundR&#39;</span>)</span></code></pre></div>
 <p>You may need to download “Rtools” if it is not already installed on your computer. <a href="https://cran.r-project.org/bin/windows/Rtools/">You can do so here.</a></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" tabindex="-1"></a><span class="co"># Load into session</span></span>
-<span id="cb2-2"><a href="index.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(LTabundR)</span></code></pre></div>
+<span id="cb2-2"><a href="index.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(LTabundR)</span>
+<span id="cb2-3"><a href="index.html#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="index.html#cb2-4" tabindex="-1"></a><span class="co"># Check package version</span></span>
+<span id="cb2-5"><a href="index.html#cb2-5" tabindex="-1"></a>utils<span class="sc">::</span><span class="fu">packageVersion</span>(<span class="st">&#39;LTabundR&#39;</span>)</span></code></pre></div>
+<pre><code>[1] &#39;0.0.9&#39;</code></pre>
 <p>Note that this package contains large built-in datasets and may take several minutes to install.</p>
 </div>
 <div id="credits" class="section level3 unnumbered hasAnchor">

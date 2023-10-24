@@ -66,7 +66,7 @@ That workflow typically involves four stages:
 
 - They key `LTabundR` functions in this stage are `lta_report()`, `df_plot()`, and `lta_plot()`. 
  
-This user's guide is structured around these four workflow stages. Those pages are followed by a set of case studies with full-fledged example code. The guide concludes with appendices that offer further details and minutiae on certain aspects of the package. 
+This user's guide is structured around these four workflow stages. Those pages are followed by a case study with full-fledged example code. The guide concludes with appendices that offer further details and minutiae on certain aspects of the package. 
 
 Throughout this user's guide, we will primarily be using example data from the winter [Hawaiian Islands Cetacean Ecosystem and Assessment Survey (WHICEAS)](https://repository.library.noaa.gov/view/noaa/47788) of 2020, along with the summer-fall HICEAS 2017 data collected within the WHICEAS study area. 
 
@@ -93,6 +93,9 @@ You may need to download "Rtools" if it is not already installed on your compute
 ```{r, echo=TRUE, eval=TRUE, include=TRUE, warning=FALSE}
 # Load into session
 library(LTabundR)
+
+# Check package version
+utils::packageVersion('LTabundR')
 ```
 
 Note that this package contains large built-in datasets and may take several minutes to install.
