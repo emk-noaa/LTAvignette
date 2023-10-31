@@ -294,39 +294,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="tables" class="section level1 hasAnchor" number="12">
 <h1><span class="header-section-number"> 12</span> Tables<a href="tables.html#tables" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>To demonstrate how LTA results can be summarized, tabularized, and plotted, we will use a built-in <code>LTabundR</code> dataset, which has denisty/abundance estimates for the Hawaiian EEZ in 2010 and 2017 for striped dolphins, Fraser’s dolphins, and melon-headed whales, ran with only 20 iterations:</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="tables.html#cb244-1" tabindex="-1"></a><span class="fu">data</span>(lta_result)</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="tables.html#cb242-1" tabindex="-1"></a><span class="fu">data</span>(lta_result)</span></code></pre></div>
 <p>We created these LTA results using the following built-in dataset:</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="tables.html#cb245-1" tabindex="-1"></a><span class="fu">data</span>(cnp_150km_1986_2020)</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="tables.html#cb243-1" tabindex="-1"></a><span class="fu">data</span>(cnp_150km_1986_2020)</span></code></pre></div>
 <div id="summary-tables" class="section level2 unnumbered hasAnchor">
 <h2>Summary tables<a href="tables.html#summary-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To summarize <code>lta()</code> results using the standard table format provided in recent NOAA stock assessment reports, use the function <code>lta_report()</code>.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="tables.html#cb246-1" tabindex="-1"></a>tables <span class="ot">&lt;-</span> <span class="fu">lta_report</span>(lta_result, </span>
-<span id="cb246-2"><a href="tables.html#cb246-2" tabindex="-1"></a>                     <span class="at">cruz =</span> cnp_150km_1986_2020,</span>
-<span id="cb246-3"><a href="tables.html#cb246-3" tabindex="-1"></a>                     <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb246-4"><a href="tables.html#cb246-4" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">species_translator</span>(<span class="at">id =</span> sizi<span class="sc">$</span>species, <span class="at">species_codes =</span> spp_codes)<span class="sc">:</span> unused <span class="fu">argument</span> (<span class="at">species_codes =</span> spp_codes)</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="tables.html#cb244-1" tabindex="-1"></a>tables <span class="ot">&lt;-</span> <span class="fu">lta_report</span>(lta_result, </span>
+<span id="cb244-2"><a href="tables.html#cb244-2" tabindex="-1"></a>                     <span class="at">cruz =</span> cnp_150km_1986_2020,</span>
+<span id="cb244-3"><a href="tables.html#cb244-3" tabindex="-1"></a>                     <span class="at">verbose =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb244-4"><a href="tables.html#cb244-4" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">species_translator</span>(<span class="at">id =</span> sizi<span class="sc">$</span>species, <span class="at">species_codes =</span> spp_codes)<span class="sc">:</span> unused <span class="fu">argument</span> (<span class="at">species_codes =</span> spp_codes)</span></code></pre></div>
 <p>Providing the <code>cruz</code> object is not required, but if it is not provided, one of the five summary tables (<code>$table1a</code> below) will not be returned.</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="tables.html#cb247-1" tabindex="-1"></a>tables <span class="sc">%&gt;%</span> names</span>
-<span id="cb247-2"><a href="tables.html#cb247-2" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos)<span class="sc">:</span> object <span class="st">&#39;tables&#39;</span> not found</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="tables.html#cb245-1" tabindex="-1"></a>tables <span class="sc">%&gt;%</span> names</span>
+<span id="cb245-2"><a href="tables.html#cb245-2" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos)<span class="sc">:</span> object <span class="st">&#39;tables&#39;</span> not found</span></code></pre></div>
 <div id="table-1-in-reports-sample-sizes" class="section level3 unnumbered hasAnchor">
 <h3>Table 1 in reports: Sample sizes<a href="tables.html#table-1-in-reports-sample-sizes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="table-1a" class="section level4 unnumbered hasAnchor">
 <h4>Table 1a<a href="tables.html#table-1a" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>If <code>cruz</code> was provided, <code>$table1a</code> 1a will include total sighting counts for all species in the years from <code>lta_result</code>, broken down by region. The <code>Ntot</code> column holds all sightings, regardless of effort status or Beaufort sea state. <code>Nsys</code> holds counts of systematic-only sightings (i.e., EffType = “S” and Bft &lt;= 6), which may still include sightings that are beyond the species-specific truncation distance and were therefore excluded from density/abundance estimation.</p>
 <p>These counts are provided separately from the <code>$table1b</code> slot below, since those counts are based on the <code>lta_result</code> object, and will not include sightings for species that did not have a specific LTA estimate specified when it was made. We also include this separately so as to give the user full flexibility in how they summarize sighting counts by region/population/stock.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="tables.html#cb248-1" tabindex="-1"></a>tables<span class="sc">$</span>table1a <span class="sc">%&gt;%</span></span>
-<span id="cb248-2"><a href="tables.html#cb248-2" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">options=</span><span class="fu">list</span>(<span class="at">initComplete =</span> htmlwidgets<span class="sc">::</span><span class="fu">JS</span>(</span>
-<span id="cb248-3"><a href="tables.html#cb248-3" tabindex="-1"></a>    <span class="st">&quot;function(settings, json) {$(this.api().table().container()).css({&#39;font-size&#39;: &#39;9pt&#39;});}&quot;</span>)</span>
-<span id="cb248-4"><a href="tables.html#cb248-4" tabindex="-1"></a>  ))</span>
-<span id="cb248-5"><a href="tables.html#cb248-5" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos)<span class="sc">:</span> object <span class="st">&#39;tables&#39;</span> not found</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="tables.html#cb246-1" tabindex="-1"></a>tables<span class="sc">$</span>table1a <span class="sc">%&gt;%</span></span>
+<span id="cb246-2"><a href="tables.html#cb246-2" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">options=</span><span class="fu">list</span>(<span class="at">initComplete =</span> htmlwidgets<span class="sc">::</span><span class="fu">JS</span>(</span>
+<span id="cb246-3"><a href="tables.html#cb246-3" tabindex="-1"></a>    <span class="st">&quot;function(settings, json) {$(this.api().table().container()).css({&#39;font-size&#39;: &#39;9pt&#39;});}&quot;</span>)</span>
+<span id="cb246-4"><a href="tables.html#cb246-4" tabindex="-1"></a>  ))</span>
+<span id="cb246-5"><a href="tables.html#cb246-5" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos)<span class="sc">:</span> object <span class="st">&#39;tables&#39;</span> not found</span></code></pre></div>
 </div>
 <div id="table-1b" class="section level4 unnumbered hasAnchor">
 <h4>Table 1b<a href="tables.html#table-1b" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This table holds sighting counts used in estimates of density/abundance. The rows match the rows for Tables 3 and 4. In this table, columns are still prepared for total sightings (<code>Ntot</code>) and systematic sightings (<code>Nsys</code>), but they are left blank, since it is not clear how sightings from multiple regions in <code>$table1a</code> would be concatenated for this table. The user can fill in those gaps accordingly.</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="tables.html#cb249-1" tabindex="-1"></a>tables<span class="sc">$</span>table1b <span class="sc">%&gt;%</span></span>
-<span id="cb249-2"><a href="tables.html#cb249-2" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">options=</span><span class="fu">list</span>(<span class="at">initComplete =</span> htmlwidgets<span class="sc">::</span><span class="fu">JS</span>(</span>
-<span id="cb249-3"><a href="tables.html#cb249-3" tabindex="-1"></a>    <span class="st">&quot;function(settings, json) {$(this.api().table().container()).css({&#39;font-size&#39;: &#39;9pt&#39;});}&quot;</span>)</span>
-<span id="cb249-4"><a href="tables.html#cb249-4" tabindex="-1"></a>  ))</span>
-<span id="cb249-5"><a href="tables.html#cb249-5" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos)<span class="sc">:</span> object <span class="st">&#39;tables&#39;</span> not found</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="tables.html#cb247-1" tabindex="-1"></a>tables<span class="sc">$</span>table1b <span class="sc">%&gt;%</span></span>
+<span id="cb247-2"><a href="tables.html#cb247-2" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">options=</span><span class="fu">list</span>(<span class="at">initComplete =</span> htmlwidgets<span class="sc">::</span><span class="fu">JS</span>(</span>
+<span id="cb247-3"><a href="tables.html#cb247-3" tabindex="-1"></a>    <span class="st">&quot;function(settings, json) {$(this.api().table().container()).css({&#39;font-size&#39;: &#39;9pt&#39;});}&quot;</span>)</span>
+<span id="cb247-4"><a href="tables.html#cb247-4" tabindex="-1"></a>  ))</span>
+<span id="cb247-5"><a href="tables.html#cb247-5" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos)<span class="sc">:</span> object <span class="st">&#39;tables&#39;</span> not found</span></code></pre></div>
 </div>
 </div>
 <div id="table-2-in-reports-detection-functions" class="section level3 unnumbered hasAnchor">
@@ -350,8 +350,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="table-a2-effort-totals-parsed-by-beaufort-sea-state" class="section level3 unnumbered hasAnchor">
 <h3>Table A2: Effort totals (parsed by Beaufort sea state)<a href="tables.html#table-a2-effort-totals-parsed-by-beaufort-sea-state" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="tables.html#cb254-1" tabindex="-1"></a>tables<span class="sc">$</span>tableA2</span>
-<span id="cb254-2"><a href="tables.html#cb254-2" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos)<span class="sc">:</span> object <span class="st">&#39;tables&#39;</span> not found</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="tables.html#cb252-1" tabindex="-1"></a>tables<span class="sc">$</span>tableA2</span>
+<span id="cb252-2"><a href="tables.html#cb252-2" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">eval</span>(expr, envir, enclos)<span class="sc">:</span> object <span class="st">&#39;tables&#39;</span> not found</span></code></pre></div>
 </div>
 </div>
 </div>

@@ -35,9 +35,7 @@ settings %>% names
 
 ## Survey strata {-}  
 
-Stratum polygons can be provided as a named list of `data.frame` objects.  Each `data.frame` must have `Lon` and `Lat` as the first two columns, providing coordinates in decimal degrees in which West and South coordinates are negative. Other columns are allowed, but the first two need to be `Lon` and `Lat`.  The name of the slot holding the `data.frame` will be used as a reference name for the stratum.  
-
-Note that if coordinates in your data span the International Date Line (IDL) such that some longitudes are positive and some are negative, during data processing all longitudes will be coerced to negative degrees West. The same transformation will be applied to any survey strata you provide that span the IDL. 
+Stratum polygons can be provided as a named list of `data.frame` objects.  Each `data.frame` must have `Lon` and `Lat` as the first two columns, providing coordinates in decimal degrees in which West and South coordinates are negative. Other columns are allowed, but the first two need to be `Lon` and `Lat`.  The name of the slot holding the `data.frame` will be used as a reference name for the stratum.  It is acceptable if vertices in the eastern hemisphere are described using negative longitudes below -180, e.g., -185. (`LTabundR` will correct these to proper decimal degrees, e.g., -185 will become 175.)
 
 If `strata` is `NULL`, abundance will not be estimated; only density within the searched area (i.e., the total segment length x effective strip width).  
 
