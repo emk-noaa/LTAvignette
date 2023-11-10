@@ -115,11 +115,29 @@ cruz <-
                   settings = settings,
                   edits = edits) 
 
+
 save(cruz, file='whiceas/whiceas_cruz.RData')
 ```
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 load('whiceas/whiceas_cruz.RData')
+```
+
+
+```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+# scratchpad
+cruz <- 
+  process_surveys(das_file = 'data/surveys/CenPac1986-2020_Final_alb.das',
+                  settings = settings,
+                  edits = NULL) 
+
+cruz$cohorts$all$sightings %>% 
+  filter(Cruise == '1004') %>% 
+  pull(ss_valid) %>% 
+  table
+
+cruz$cohorts$all$sightings %>% filter(Cruise == '1004')
+
 ```
 
 ## Data exploration {-}  

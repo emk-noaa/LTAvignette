@@ -166,7 +166,7 @@ The slot `$stratum_simple_totals` splits the first table (simple species totals)
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
 sightings$stratum_simple_totals %>% 
-  dplyr::select(year:code,common_name1:ss_sd) %>% 
+  dplyr::select(year:code,common:ss_sd) %>% 
   DT::datatable(options=list(initComplete = htmlwidgets::JS(
           "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
        )) 
@@ -179,7 +179,7 @@ The slot `$stratum_analysis_totals`  splits the second table (analysis totals fo
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
 sightings$stratum_analysis_totals %>% 
-  dplyr::select(year:code,common_name1:ss_sd) %>% 
+  dplyr::select(year:code,common:ss_sd) %>% 
   DT::datatable(options=list(initComplete = htmlwidgets::JS(
           "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
        )) 
