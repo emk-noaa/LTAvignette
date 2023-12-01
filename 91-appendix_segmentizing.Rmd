@@ -45,9 +45,10 @@ cruz <- process_strata(das,
 cruz <- das_format(cruz)
 ```
 
-And this is the histogram function we will be using to display the results of each run of `segmentize()`:  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=3.5}
+```{r, echo=FALSE, eval=FALSE, collapse=TRUE, fig.width=7, fig.height=3.5}
+# And this is the histogram function we will be using to display the results of each run of `segmentize()`:  
+
 segment_histogram <- function(cruz, cohort=1, by_day=FALSE){
   (settings <- cruz$settings)
   (segs <- cruz$cohorts[[cohort]]$segments)
@@ -75,29 +76,31 @@ segment_histogram <- function(cruz, cohort=1, by_day=FALSE){
        cex.main = .8, cex.axis = .8, cex.lab = .8)
   par(mfrow=c(1,1))
 }
+
+# Number of segments
+#cruz_demo$cohorts$default$segments %>% nrow
+
+# Plot
+#segment_histogram(cruz_demo, by_day = TRUE)
+
 ```
 
 
-## Defaults {-}  
+## Base example {-}  
 
-Here is the `segmentize()` function parameterized with the "factory default" settings from `load_settings()`.  
+Here is the `segmentize()` function parameterized with some basic settings: a target segment length of 30km, with the maximum allowable gap in effort within segments to be 24 hours.   
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=3.5}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=7}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'equallength',
                         segment_target_km = 30,
-                        segment_max_interval = 48,
+                        segment_max_interval = 24,
                         segment_remainder_handling = c('append','segment'),
                         distance_types = c('S','F','N'),
                         distance_modes = c('P','C'),
                         distance_on_off = c(TRUE),
-                        verbose=FALSE)
-
-# Number of segments
-cruz_demo$cohorts$default$segments %>% nrow
-
-# Plot
-segment_histogram(cruz_demo)
+                        verbose=FALSE,
+                        to_plot = TRUE)
 ```
 
 
@@ -105,92 +108,67 @@ segment_histogram(cruz_demo)
 
 ### By day {-}  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=3.5}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=7}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'day',
-                        segment_target_km = 30,
-                        segment_max_interval = 48,
-                        verbose=FALSE)
-
-# Number of segments
-cruz_demo$cohorts$default$segments %>% nrow
-
-# Plot
-segment_histogram(cruz_demo, by_day = TRUE)
+                        verbose=FALSE,
+                        to_plot = TRUE)
 ```
 
-### By target length of 150 km {-}  
+### By target length of 100 km {-}  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=3.5}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=7}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'equallength',
-                        segment_target_km = 150,
+                        segment_target_km = 100,
                         segment_max_interval = 48,
-                        verbose=FALSE)
-
-# Number of segments
-cruz_demo$cohorts$default$segments %>% nrow
-
-# Plot
-segment_histogram(cruz_demo, by_day = TRUE)
+                        verbose=FALSE,
+                        to_plot = TRUE)
 ```
 
 ## Contiguous vs. non-contiguous effort {-}
 
-The example above allows for non-contiguous effort; a segment is allowed to contain effort separated by gaps as large as 24 hours (`settings$max_interval`).  To coerce segments to represent only contiguous effort, make that setting very small:  
+The default example at the top allows for non-contiguous effort; a segment is allowed to contain effort separated by gaps as large as 24 hours (`settings$segment_max_interval`).  To coerce segments to represent only contiguous effort, make that setting very small:  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=3.5}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=7}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'equallength',
                         segment_target_km = 30,
                         segment_max_interval = .1,
-                        verbose=FALSE)
-
-# Number of segments
-cruz_demo$cohorts$default$segments %>% nrow
-
-# Plot
-segment_histogram(cruz_demo, by_day = TRUE)
+                        verbose=FALSE,
+                        to_plot = TRUE)
 ```
 
 You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.  
 
 ## Segment remainder handling {-} 
 
-The default setting for `segment_remainder_handling`, `c('append','segment')`, means that remainders less than half the target length will be randomly appended to another segment, while remainders more than half will be treated as their own segment (and will be placed randomly along the trackline).  
+In the top example, the setting for `segment_remainder_handling`, `c('append','segment')`, means that remainders less than half the target length will be randomly appended to another segment, while remainders more than half will be treated as their own segment (and will be placed randomly along the trackline).  
 
 If you don't want that level of complexity, you can simply assign a single setting: `'append'` will append the remainder in all cases, regardless of remainder length relative to the target length. The same idea goes for `'segment'`.  
 
-The other possible setting is `'disperse'`, which disperses the remainder evenly across all segments. To demonstrate, let's use a target length of 100 km. 
+The other possible setting is `'disperse'`, which disperses the remainder evenly across all segments. To demonstrate, let's use a target length of 10 km. 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=3.5}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=7}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'equallength',
-                        segment_target_km = 100,
-                        segment_max_interval = 48,
-                        verbose=FALSE)
-
-# Number of segments
-cruz_demo$cohorts$default$segments %>% nrow
-
-# Plot
-segment_histogram(cruz_demo, by_day = TRUE)
+                        segment_target_km = 10,
+                        segment_max_interval = 6,
+                        segment_remainder_handling = 'disperse',
+                        verbose=FALSE,
+                        to_plot = TRUE)
 ```
 
 Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=3.5}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=7}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'equallength',
-                        segment_target_km = 90,
-                        segment_max_interval = 48,
-                        verbose=FALSE)
-
-# Number of segments
-cruz_demo$cohorts$default$segments %>% nrow
-
-# Plot
-segment_histogram(cruz_demo, by_day = TRUE)
+                        segment_target_km = 9.5,
+                        segment_max_interval = 6,
+                        segment_remainder_handling = 'disperse',
+                        verbose=FALSE,
+                        to_plot = TRUE)
 ```
 
 But in general, the `disperse` option may be more appropriate for shorter segment lengths.  
@@ -206,18 +184,13 @@ To replicate methods used in density estimation analyses, use large segment leng
 
 To replicate the methods used in typical habitat modeling studies, use smaller segment lengths of contiguous effort. 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.height=3.5, fig.width=7}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.height=7, fig.width=7}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'equallength',
                         segment_target_km = 5,
                         segment_max_interval = .1,
-                        verbose=FALSE)
-
-# Number of segments
-cruz_demo$cohorts$default$segments %>% nrow
-
-# Plot
-segment_histogram(cruz_demo, by_day = TRUE)
+                        verbose=FALSE,
+                        to_plot = TRUE)
 ```
 
 

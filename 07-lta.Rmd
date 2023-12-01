@@ -53,6 +53,13 @@ data("g0_results")
 Rg0 <- g0_results
 ```
 
+This dataset looks as follows. Each row is a `Rg(0)` estimate for a species group in a given Beaufort state, with details on the data used to generate that estimate and the CV of the estimate. For the `lta()` routine, the critical columns are `spp`, `bft`, `Rg0`, and `Rg0_CV`. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+Rg0 %>% head
+```
+
+
 ### `fit_filters` {-}  
 
 The `fit_filters` input specifies how to filter the data before fitting the detection function. It accepts a named list, which in our example will look like this: 
@@ -285,7 +292,7 @@ new_estimates <- list(
          g0 = 0.35, g0_cv = 0.19))
 
 # Run it:
-demo <- lta(cruz, Rg0, fit_filters, df_settings, new_estimates)
+demo <- lta(cruz, Rg0, fit_filters, df_settings, new_estimates, bootstraps = 0)
 ```
 
 Additionally, windows will appear showing details for the detection function models and details of the density/abundance estimate. 
@@ -495,7 +502,87 @@ To handle this, a separate, *subgroup-based* analytical approach was developed i
 
 ## Behind the scenes {-}  
 
-### Area estimation {-}  
+### Step-by-step operations {-}
+
+The following list is a summary of each step of the `lta()` function, in order of operations. 
+
+1. Function inputs are checked for valid formatting, and any optional inputs that are not user-provided are given default values.  
+
+2. For each sublist in your `estimates` input, the following actions are taken: 
+
+    1. Sublist inputs are checked for valid formatting, and any optional inputs that are not user-provided are given default values.  
+    
+    2. A polygon is created based on the sublist's slots for `regions` (strata to include in abundance estimation) and `region_remove` (strata to exclude). This process is detailed in the [Area Estimation](#area_estimation) section below.  
+    
+    3. The spatial area, in square km, is calculated for that polygon.  
+    
+    4. Weighted `g(0)` values are estimated based on the survey effort related to this sublist:  
+    
+        1. Determine the species code(s) to be used to filter the `Rg0` dataset. Usually this is the species code(s) in the `spp` slot, but if the sublist has an `alt_g0` slot, the code(s) in that slot is used to filter the `Rg(0)` dataset. If multiple codes are provided, and the sublist has a slot named `combine_g0` with the value `TRUE`, then weighted *g(0)* values will be estimated for each species then those values will be averaged together a few steps down. (If multiple species codes are provided but `combine_g0` is not provided or is `FALSE`, then only the first species code will be used.) If the species code(s) are not found in the `Rg0` dataset, weighted *g(0)* will be coerced to 1.0 with CV of 0.  
+        
+        2. Survey effort is filtered down according to the relevant slots in the sublist -- `years`, `regions` (the strata to include), and, optionally, `regions_remove` (the strata to exclude) --- as well as the `lta()` inputs `abund_eff_types` (which `EffortType` values are usable for abundance estimation) and `abund_bft_range` (which Beaufort sea states are usable).  
+        
+        3. That survey effort is used to estimate weighted *g(0)* and its CV for each species code using the `LTabundR` function `g0_weighted()`. That function does the following:    
+        
+            1. Determines the proportion of survey effort occurring in each Beaufort state (this is done using the `LTabundR` function `summarize_bft()`).  
+            
+            2. Uses those sea state proportions as weights to calculate the weighted mean *g(0)* based on the values in `Rg(0)`. For example, if the `Rg(0)` values for species code `"046"` (sperm whale) in Beaufort states 0 to 6 are 1.00, 0.87, 0.75, 0.65, 0.57, 0.49, and 0.42, respectively, and the proportion of effort in those respective sea states are 0.01, 0.03, 0.07, 0.19, 0.35, 0.24, and 0.11, then the weighted *g(0)* is `0.679`. This weighted *g(0)* is the value provided in the final results table for the function.  
+            
+            3. To estimate the CV of this weighted *g(0)*, a MCMC routine is used that first approximates the distribution of *g(0)* ... (details needed here) ... This is essentially a direct adaptation of the code developed by Jeff Moore and Amanda Bradford, and described in Bradford et al. (2021).  
+            
+            4. If multiple species codes were provided and therefore multiple estimates of weighted *g(0)* were produced, those estimates are averaged using the `LTabundR` function `g0_combine()`.  That function uses the same equations as the Excel spreadsheet used in the Bradford et al. (2022) WHICEAS study.  
+            
+            5. The sublist is updated with these resulting values: the study area polygon, the estimated of weighted *g(0)*, its CV, and the proportional effort in each Beaufort state.  
+
+            
+3. A reference list is built containing details for the *g(0)* distributions for each sublist in `estimates`. This is done in order to facilitate easy recall during the bootstrapping phase later on in the function. Each weighted *g(0)* and its CV are passed to the `LTabundR` function `g0_optimize()`, which returns the parameters needed to generate a distribution from which to draw bootstrap values of *g(0)*. That function is a near-exact replica of the code developed by Jay Barlow to produce bootstrapped estimates in Barlow (2006). It involves an optimization routine which can take several seconds to complete, so this step is conducted once here rather than repeatedly during bootstrap iterations.      
+
+4. The `cruz` object is filtered to survey data for the specified `cohort`, to segments for which the column `use` is `TRUE`, and to sightings for which the column `included` is `TRUE`. The sightings are filtered further to include only the species specified in the input `fit_filters$spp`. The resulting datasets will be used for modeling the detection function, and a subset of the datasets will be used for estimating abundance. 
+
+5. Handling "Other" species designations: if the input `fit_filters` has a slot for `other_species`, certain species codes in mixed-species sightings may be modified if they do not constitute the plurality of the group size. See details in [Fit filters](#fit_filters) above.  
+
+6. If any of the covariates requested within the input `df_settings$covariates` have missing values (i.e., `NA`), those sightings will be removed from the dataset used for fitting detection functions and estimating abundance. Similarly, any sightings with invalid group size estimates (the column `ss_valid == FALSE`) are removed.  
+
+7. The sample sizes used in fitting the detection function are stored. 
+
+8. If the input `df_settings$simplify_cue` exists and is `TRUE`, cue codes (column `Cue` in the sightings dataset) are simplified to aid in overcoming factor level sample size limitations.    
+
+9. If the input `df_settings$simplify_bino` exists and is `TRUE`, sighting method codes (column `Method` in the sightings dataset) are simplified to aid in overcoming factor level sample size limitations.    
+
+10. If any of the covariates to be used in modeling the detection function should be treated as a factor (this is specified in the input `df$covariates_factor`), then the covariates columns are updated as such. All covariates specified as a factor are first tested for eligibility. Only factors with at least two levels (or whatever you specified with `df_settings$covariates_levels`) and 10 observations in each level (or whatever you specified with `df_settings$covariates_n_per_level`) are eligible for inclusion in the final set of covariates.
+
+11. The final results object is staged; this is a list with slots for data regarding the species pool, the inputs used, the detection function model, and the resulting estimates.    
+
+12. A large loop is then initiated, with the first iteration being the formal estimate. Subsequent iterations are part of the bootstrapping process for estimating CV and confidence intervals.   
+
+    1. The detection function is modelled based on the sightings, covariates and truncation distance provided. This is done by calling the `LTabundR` function `df_fit()`, which depends upon the detection function modeling function `mrds()` from the package `Distance`. See further details in the section below on ["Fitting a detection function"](#df_fitting). Detailed results of the best-fit model are stored, its detection curve is generated using the `LTabundR` function `df_curve()`, and the Effective Strip Half-Width estimates for each sighting is added to the sightings data. 
+    
+    2. Segments and sightings are filtered to only data appropriate for estimating density/abundance. This means `OnEffort` is `TRUE`, `EffortType` is one of the variables in the `lta()` input `abund_efftypes` (the defaults is just `"S"`), `Bft` can be rounded to one of the values provided in the input `abund_bft_range` (the default is `0:6`), and sightings occur within the truncation distance.  
+    
+    3. Loop through each sublist in the `lta()` input `estimates`:  
+    
+        1. Segments and sightings are filtered to the species, years, cruises, and regions specified.  
+        
+        2. Abundance is estimated using the `LTabundR()` function `abundance()`, based upon the filtered data and the *g(0)* value for this sublist. The resulting Effective Strip Half-Width (ESW) is based on the mean ESW of the sightings used to estimate abundance. The resulting g(0) is based on the mean weighted *g(0)* value for each sighting, since in some use cases a different *g(0)* value is supplied for small vs. large schools. 
+        
+        3. Results are stored.  
+        
+        4. If a filepath was supplied for the `lta()` input `results_file`, an `RData` object with all of the results up to this point is saved to file. 
+
+13. The loop is repeated for bootstrap iterations if the `lta()` input `bootstraps` is not `NULL` and is a number greater than `0`.  The differences in these bootstrap iterations from the original estimate routine are as follows:  
+
+    1. Before the detection function is modeled, bootstrapped versions of the segments and sightings are generated using the `LTabundR` function `prep_bootstrap_datasets()`.  This function (1) determines the number of segments occurring within each stratum; (2) resamples the segment IDs within each stratum (with replacement), to yield the same number of segments (though some segments may be replicated) and preserve the relative distribution of effort across strata; then (3) gathers the sightings associated with each of those bootstrapped segments. If a segment is counted twice, two copies of its respective sightings are used. These new versions of the segments and sightings are used to model the detection function, and are then filtered to estimate density/abundance.  
+    
+    2. Before abundance is estimated, a new *g(0)* value is drawn randomly from a distribution that is based on the parameters stored in the reference table described in step 3 above. The code for doing this is copied directly from the routine written by Jay Barlow's for his 2006 report.  
+    
+    3. After abundance is estimated, details of the bootstrap iteration are saved and the `results_file` is updated.  
+    
+
+14. At the end of all bootstrap iterations, a summary of the bootstrap iteration process is generated and the `results_file` is updated. The CV of *g(0)* in this summary table is based on the bootstrapped values of *g(0)*. The confidence intervals for density/abundance in this summary table are generated using the `LTabundR` function `lta_ci()`.  
+
+ 
+
+### Area estimation {-} {#area_estimation}  
 
 Unless you manually specify the study area in your `estimates` list, `lta()` will calculate your study area for you based on the geostrata you provide. It does so by calling the `LTabundR` function `strata_area()`, which you can use on your own to explore geostratum combination options. This function was designed using the `sf` package to handle complex polygon combinations, and it uses Natural Earth datasets to remove land within your study area (this is a feature you can turn off, if you want). 
 
@@ -567,11 +654,7 @@ If you want to supply a weighted *g(0)* estimate and its CV yourself, you can ad
 If you want to coerce *g(0)* to be assumed to be 1.0 (with CV = 0.0), you can either (1) *not* supply the `Rg0` input, or (2) manually specify the `g0` and `g0_cv` slots in your `estimates` sub-list accordingly.  
 
 
-### Covariates in detection function estimation {-} 
-
-Before detection functions are modelled, any covariates supplied by the user and specified as a factor are first tested for eligibility. Only factors with at least two levels (or whatever you specified with `df_settings$covariates_levels`) and 10 observations in each level (or whatever you specified with `df_settings$covariates_n_per_level`) are eligible for inclusion.
-
-### Fitting a detection function {-}  
+### Fitting a detection function {-} {#df_fitting}
 
 The detection function is estimated using functions in the package `mrds`, primarily the main function `mrds::ddf()`, which uses a Horvitz-Thompson-like estimator to predict the probability of detection for each sighting. If multiple base key functions (e.g., half-normal or hazard-rate) are provided, and/or if covariates are specified, model fitting is done in a forward stepwise procedure:  
 

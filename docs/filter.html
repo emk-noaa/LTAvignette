@@ -252,7 +252,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>16</b> Segmentizing</a>
 <ul>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#approach"><i class="fa fa-check"></i>Approach</a></li>
-<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#defaults-2"><i class="fa fa-check"></i>Defaults</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#base-example"><i class="fa fa-check"></i>Base example</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#day-vs-equal-length"><i class="fa fa-check"></i>Day vs Equal Length</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#contiguous-vs.-non-contiguous-effort"><i class="fa fa-check"></i>Contiguous vs. non-contiguous effort</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#segment-remainder-handling"><i class="fa fa-check"></i>Segment remainder handling</a></li>
@@ -300,7 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb128-3"><a href="filter.html#cb128-3" tabindex="-1"></a></span>
 <span id="cb128-4"><a href="filter.html#cb128-4" tabindex="-1"></a><span class="er">$</span>settings</span>
 <span id="cb128-5"><a href="filter.html#cb128-5" tabindex="-1"></a>         <span class="sc">$</span>strata <span class="sc">---</span> with <span class="dv">11</span> polygon coordinate sets</span>
-<span id="cb128-6"><a href="filter.html#cb128-6" tabindex="-1"></a>         <span class="sc">$</span>survey <span class="sc">---</span> with <span class="dv">10</span> input arguments</span>
+<span id="cb128-6"><a href="filter.html#cb128-6" tabindex="-1"></a>         <span class="sc">$</span>survey <span class="sc">---</span> with <span class="dv">11</span> input arguments</span>
 <span id="cb128-7"><a href="filter.html#cb128-7" tabindex="-1"></a>         <span class="sc">$</span>cohorts <span class="sc">---</span> with <span class="dv">3</span> cohorts specified, each with <span class="dv">19</span> input arguments</span>
 <span id="cb128-8"><a href="filter.html#cb128-8" tabindex="-1"></a></span>
 <span id="cb128-9"><a href="filter.html#cb128-9" tabindex="-1"></a><span class="sc">$</span>strata</span>
@@ -312,20 +312,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb128-15"><a href="filter.html#cb128-15" tabindex="-1"></a></span>
 <span id="cb128-16"><a href="filter.html#cb128-16" tabindex="-1"></a>        <span class="sc">$</span>all</span>
 <span id="cb128-17"><a href="filter.html#cb128-17" tabindex="-1"></a>            geostrata<span class="sc">:</span> WHICEAS, HI_EEZ, OtherCNP</span>
-<span id="cb128-18"><a href="filter.html#cb128-18" tabindex="-1"></a>            <span class="sc">$</span>segments  <span class="sc">---</span> with <span class="dv">1889</span> <span class="fu">segments</span> (<span class="at">median =</span> <span class="fl">149.3</span> km)</span>
+<span id="cb128-18"><a href="filter.html#cb128-18" tabindex="-1"></a>            <span class="sc">$</span>segments  <span class="sc">---</span> with <span class="dv">1897</span> <span class="fu">segments</span> (<span class="at">median =</span> <span class="fl">149.3</span> km)</span>
 <span id="cb128-19"><a href="filter.html#cb128-19" tabindex="-1"></a>            <span class="sc">$</span>das       <span class="sc">---</span> with <span class="dv">329638</span> data rows</span>
 <span id="cb128-20"><a href="filter.html#cb128-20" tabindex="-1"></a>            <span class="sc">$</span>sightings <span class="sc">---</span> with <span class="dv">3934</span> detections</span>
 <span id="cb128-21"><a href="filter.html#cb128-21" tabindex="-1"></a>            <span class="sc">$</span>subgroups <span class="sc">---</span> with <span class="dv">255</span> subgroups, <span class="dv">49</span> sightings, and <span class="dv">389</span> events</span>
 <span id="cb128-22"><a href="filter.html#cb128-22" tabindex="-1"></a></span>
 <span id="cb128-23"><a href="filter.html#cb128-23" tabindex="-1"></a>        <span class="sc">$</span>bottlenose</span>
 <span id="cb128-24"><a href="filter.html#cb128-24" tabindex="-1"></a>            geostrata<span class="sc">:</span> WHICEAS, HI_EEZ, OtherCNP, Bottlenose_BI, Bottlenose_OUFI, Bottlenose_KaNi</span>
-<span id="cb128-25"><a href="filter.html#cb128-25" tabindex="-1"></a>            <span class="sc">$</span>segments  <span class="sc">---</span> with <span class="dv">2051</span> <span class="fu">segments</span> (<span class="at">median =</span> <span class="fl">148.7</span> km)</span>
+<span id="cb128-25"><a href="filter.html#cb128-25" tabindex="-1"></a>            <span class="sc">$</span>segments  <span class="sc">---</span> with <span class="dv">2060</span> <span class="fu">segments</span> (<span class="at">median =</span> <span class="fl">148.6</span> km)</span>
 <span id="cb128-26"><a href="filter.html#cb128-26" tabindex="-1"></a>            <span class="sc">$</span>das       <span class="sc">---</span> with <span class="dv">329638</span> data rows</span>
 <span id="cb128-27"><a href="filter.html#cb128-27" tabindex="-1"></a>            <span class="sc">$</span>sightings <span class="sc">---</span> with <span class="dv">523</span> detections</span>
 <span id="cb128-28"><a href="filter.html#cb128-28" tabindex="-1"></a></span>
 <span id="cb128-29"><a href="filter.html#cb128-29" tabindex="-1"></a>        <span class="sc">$</span>spotted</span>
 <span id="cb128-30"><a href="filter.html#cb128-30" tabindex="-1"></a>            geostrata<span class="sc">:</span> WHICEAS, HI_EEZ, OtherCNP, Spotted_OU, Spotted_FI, Spotted_BI</span>
-<span id="cb128-31"><a href="filter.html#cb128-31" tabindex="-1"></a>            <span class="sc">$</span>segments  <span class="sc">---</span> with <span class="dv">2056</span> <span class="fu">segments</span> (<span class="at">median =</span> <span class="fl">148.5</span> km)</span>
+<span id="cb128-31"><a href="filter.html#cb128-31" tabindex="-1"></a>            <span class="sc">$</span>segments  <span class="sc">---</span> with <span class="dv">2068</span> <span class="fu">segments</span> (<span class="at">median =</span> <span class="fl">148.4</span> km)</span>
 <span id="cb128-32"><a href="filter.html#cb128-32" tabindex="-1"></a>            <span class="sc">$</span>das       <span class="sc">---</span> with <span class="dv">329638</span> data rows</span>
 <span id="cb128-33"><a href="filter.html#cb128-33" tabindex="-1"></a>            <span class="sc">$</span>sightings <span class="sc">---</span> with <span class="dv">527</span> detections</span></code></pre></div>
 <div id="filter-1" class="section level2 unnumbered hasAnchor">
@@ -365,7 +365,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb134-3"><a href="filter.html#cb134-3" tabindex="-1"></a></span>
 <span id="cb134-4"><a href="filter.html#cb134-4" tabindex="-1"></a><span class="er">$</span>settings</span>
 <span id="cb134-5"><a href="filter.html#cb134-5" tabindex="-1"></a>         <span class="sc">$</span>strata <span class="sc">---</span> with <span class="dv">11</span> polygon coordinate sets</span>
-<span id="cb134-6"><a href="filter.html#cb134-6" tabindex="-1"></a>         <span class="sc">$</span>survey <span class="sc">---</span> with <span class="dv">10</span> input arguments</span>
+<span id="cb134-6"><a href="filter.html#cb134-6" tabindex="-1"></a>         <span class="sc">$</span>survey <span class="sc">---</span> with <span class="dv">11</span> input arguments</span>
 <span id="cb134-7"><a href="filter.html#cb134-7" tabindex="-1"></a>         <span class="sc">$</span>cohorts <span class="sc">---</span> with <span class="dv">3</span> cohorts specified, each with <span class="dv">19</span> input arguments</span>
 <span id="cb134-8"><a href="filter.html#cb134-8" tabindex="-1"></a></span>
 <span id="cb134-9"><a href="filter.html#cb134-9" tabindex="-1"></a><span class="sc">$</span>strata</span>
@@ -377,21 +377,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb134-15"><a href="filter.html#cb134-15" tabindex="-1"></a></span>
 <span id="cb134-16"><a href="filter.html#cb134-16" tabindex="-1"></a>        <span class="sc">$</span>all</span>
 <span id="cb134-17"><a href="filter.html#cb134-17" tabindex="-1"></a>            geostrata<span class="sc">:</span> WHICEAS, HI_EEZ, OtherCNP</span>
-<span id="cb134-18"><a href="filter.html#cb134-18" tabindex="-1"></a>            <span class="sc">$</span>segments  <span class="sc">---</span> with <span class="dv">1851</span> <span class="fu">segments</span> (<span class="at">median =</span> <span class="fl">149.3</span> km)</span>
-<span id="cb134-19"><a href="filter.html#cb134-19" tabindex="-1"></a>            <span class="sc">$</span>das       <span class="sc">---</span> with <span class="dv">326317</span> data rows</span>
+<span id="cb134-18"><a href="filter.html#cb134-18" tabindex="-1"></a>            <span class="sc">$</span>segments  <span class="sc">---</span> with <span class="dv">1857</span> <span class="fu">segments</span> (<span class="at">median =</span> <span class="fl">149.4</span> km)</span>
+<span id="cb134-19"><a href="filter.html#cb134-19" tabindex="-1"></a>            <span class="sc">$</span>das       <span class="sc">---</span> with <span class="dv">326623</span> data rows</span>
 <span id="cb134-20"><a href="filter.html#cb134-20" tabindex="-1"></a>            <span class="sc">$</span>sightings <span class="sc">---</span> with <span class="dv">3930</span> detections</span>
-<span id="cb134-21"><a href="filter.html#cb134-21" tabindex="-1"></a>            <span class="sc">$</span>subgroups <span class="sc">---</span> with <span class="dv">237</span> subgroups, <span class="dv">37</span> sightings, and <span class="dv">345</span> events</span>
+<span id="cb134-21"><a href="filter.html#cb134-21" tabindex="-1"></a>            <span class="sc">$</span>subgroups <span class="sc">---</span> with <span class="dv">237</span> subgroups, <span class="dv">36</span> sightings, and <span class="dv">345</span> events</span>
 <span id="cb134-22"><a href="filter.html#cb134-22" tabindex="-1"></a></span>
 <span id="cb134-23"><a href="filter.html#cb134-23" tabindex="-1"></a>        <span class="sc">$</span>bottlenose</span>
 <span id="cb134-24"><a href="filter.html#cb134-24" tabindex="-1"></a>            geostrata<span class="sc">:</span> WHICEAS, HI_EEZ, OtherCNP, Bottlenose_BI, Bottlenose_OUFI, Bottlenose_KaNi</span>
-<span id="cb134-25"><a href="filter.html#cb134-25" tabindex="-1"></a>            <span class="sc">$</span>segments  <span class="sc">---</span> with <span class="dv">2014</span> <span class="fu">segments</span> (<span class="at">median =</span> <span class="fl">148.7</span> km)</span>
-<span id="cb134-26"><a href="filter.html#cb134-26" tabindex="-1"></a>            <span class="sc">$</span>das       <span class="sc">---</span> with <span class="dv">326624</span> data rows</span>
+<span id="cb134-25"><a href="filter.html#cb134-25" tabindex="-1"></a>            <span class="sc">$</span>segments  <span class="sc">---</span> with <span class="dv">2022</span> <span class="fu">segments</span> (<span class="at">median =</span> <span class="fl">148.7</span> km)</span>
+<span id="cb134-26"><a href="filter.html#cb134-26" tabindex="-1"></a>            <span class="sc">$</span>das       <span class="sc">---</span> with <span class="dv">326623</span> data rows</span>
 <span id="cb134-27"><a href="filter.html#cb134-27" tabindex="-1"></a>            <span class="sc">$</span>sightings <span class="sc">---</span> with <span class="dv">523</span> detections</span>
 <span id="cb134-28"><a href="filter.html#cb134-28" tabindex="-1"></a></span>
 <span id="cb134-29"><a href="filter.html#cb134-29" tabindex="-1"></a>        <span class="sc">$</span>spotted</span>
 <span id="cb134-30"><a href="filter.html#cb134-30" tabindex="-1"></a>            geostrata<span class="sc">:</span> WHICEAS, HI_EEZ, OtherCNP, Spotted_OU, Spotted_FI, Spotted_BI</span>
-<span id="cb134-31"><a href="filter.html#cb134-31" tabindex="-1"></a>            <span class="sc">$</span>segments  <span class="sc">---</span> with <span class="dv">2017</span> <span class="fu">segments</span> (<span class="at">median =</span> <span class="fl">148.6</span> km)</span>
-<span id="cb134-32"><a href="filter.html#cb134-32" tabindex="-1"></a>            <span class="sc">$</span>das       <span class="sc">---</span> with <span class="dv">326515</span> data rows</span>
+<span id="cb134-31"><a href="filter.html#cb134-31" tabindex="-1"></a>            <span class="sc">$</span>segments  <span class="sc">---</span> with <span class="dv">2028</span> <span class="fu">segments</span> (<span class="at">median =</span> <span class="fl">148.4</span> km)</span>
+<span id="cb134-32"><a href="filter.html#cb134-32" tabindex="-1"></a>            <span class="sc">$</span>das       <span class="sc">---</span> with <span class="dv">326623</span> data rows</span>
 <span id="cb134-33"><a href="filter.html#cb134-33" tabindex="-1"></a>            <span class="sc">$</span>sightings <span class="sc">---</span> with <span class="dv">527</span> detections</span></code></pre></div>
 
 </div>

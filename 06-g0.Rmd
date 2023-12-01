@@ -90,7 +90,6 @@ You can then estimate `Rg(0)` for each Beaufort sea state using the function `g0
 rg0 <- g0_model(spp = '013',
                 truncation_distance = 5.5,
                 cruz = cruzi,
-                pool_bft = NULL,
                 jackknife_fraction = .1)
 ```
 
@@ -133,11 +132,12 @@ To produce these estimates efficiently for many species, you can use the wrapper
 species <- list(
   list(spp = c('005', '016', '017'),
        title = 'Delphinus spp',
+       constrain_shape = TRUE,
        truncation = 5.5),
   list(spp = '021',
        title = "Risso's dolphin",
        truncation = 5.5, 
-       pool_bft = '12'),
+       constrain_shape = TRUE),
   list(spp = '046',
        title = 'Sperm whale',
        truncation = 5.5),

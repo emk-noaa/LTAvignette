@@ -6,6 +6,8 @@ filter
 summarize
 g0
 lta
+area_estimation
+df_fitting
 destratify
 trend-analysis
 subgroups2

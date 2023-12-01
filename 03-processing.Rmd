@@ -533,7 +533,7 @@ sight_compare <- function(abund, ltabundr, cruise, spp){
   message('\nLTabundR:')
   ltabundr %>%
     filter(Cruise == cruise, species == spp) %>%
-    select(6, 2, 13, 73, 69, 5, 9, 41, 86) %>%
+    select(6, 2, 13, 74, 70, 5, 9, 40, 87) %>%
     rename(use_sit = included, use_effort = use) %>%
     arrange(desc(use_effort)) %>%
     tibble %>% print
