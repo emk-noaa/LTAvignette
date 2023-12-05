@@ -535,7 +535,7 @@ The following list is a summary of each step of the `lta()` function, in order o
             5. The sublist is updated with these resulting values: the study area polygon, the estimated of weighted *g(0)*, its CV, and the proportional effort in each Beaufort state.  
 
             
-3. A reference list is built containing details for the *g(0)* distributions for each sublist in `estimates`. This is done in order to facilitate easy recall during the bootstrapping phase later on in the function. Each weighted *g(0)* and its CV are passed to the `LTabundR` function `g0_optimize()`, which returns the parameters needed to generate a distribution from which to draw bootstrap values of *g(0)*. That function is a near-exact replica of the code developed by Jay Barlow to produce bootstrapped estimates in Barlow (2006). It involves an optimization routine which can take several seconds to complete, so this step is conducted once here rather than repeatedly during bootstrap iterations.      
+3. A reference list is built containing details for the *g(0)* distributions for each sublist in `estimates`. This is done in order to facilitate easy recall during the bootstrapping phase later on in the function. Each weighted *g(0)* and its CV are passed to the `LTabundR` function `g0_optimize()`, which returns the parameters needed to generate a distribution from which to draw bootstrap values of *g(0)*. That function is a near-exact replica of the code developed by Jay Barlow to produce bootstrapped estimates in Barlow (2006). It involves an optimization routine which can take several seconds to complete, so this step is conducted once here rather than repeatedly during bootstrap iterations.       
 
 4. The `cruz` object is filtered to survey data for the specified `cohort`, to segments for which the column `use` is `TRUE`, and to sightings for which the column `included` is `TRUE`. The sightings are filtered further to include only the species specified in the input `fit_filters$spp`. The resulting datasets will be used for modeling the detection function, and a subset of the datasets will be used for estimating abundance. 
 
@@ -580,9 +580,9 @@ The following list is a summary of each step of the `lta()` function, in order o
 
 14. At the end of all bootstrap iterations, a summary of the bootstrap iteration process is generated and the `results_file` is updated. The CV of *g(0)* in this summary table is based on the bootstrapped values of *g(0)*. The confidence intervals for density/abundance in this summary table are generated using the `LTabundR` function `lta_ci()`.  
 
- 
+### Other details {-}   
 
-### Area estimation {-} {#area_estimation}  
+#### Area estimation {-} {#area_estimation}  
 
 Unless you manually specify the study area in your `estimates` list, `lta()` will calculate your study area for you based on the geostrata you provide. It does so by calling the `LTabundR` function `strata_area()`, which you can use on your own to explore geostratum combination options. This function was designed using the `sf` package to handle complex polygon combinations, and it uses Natural Earth datasets to remove land within your study area (this is a feature you can turn off, if you want). 
 
@@ -639,7 +639,7 @@ demo <- strata_area(strata_all = cruz$settings$strata,
                     verbose = FALSE)
 ```
 
-### *g(0)* estimation {-}  
+#### *g(0)* estimation {-}  
 
 If you want `lta()` to calculate a weighted *g(0)* estimate (and associated CV) that is specific to the conditions associated with your `estimates` sub-list parameters, all you need to do is provide the `Rg0` input. When you do this, the `lta()` function will find the `Rg0` values associated with the species code(s) in your `estimates` sub-list, then calculate weighted *g(0)* and its CV using the `LTabundR` function, `g0_weighted()`, which we discussed and demonstrated on the previous page. 
 
@@ -654,7 +654,7 @@ If you want to supply a weighted *g(0)* estimate and its CV yourself, you can ad
 If you want to coerce *g(0)* to be assumed to be 1.0 (with CV = 0.0), you can either (1) *not* supply the `Rg0` input, or (2) manually specify the `g0` and `g0_cv` slots in your `estimates` sub-list accordingly.  
 
 
-### Fitting a detection function {-} {#df_fitting}
+#### Fitting a detection function {-} {#df_fitting}
 
 The detection function is estimated using functions in the package `mrds`, primarily the main function `mrds::ddf()`, which uses a Horvitz-Thompson-like estimator to predict the probability of detection for each sighting. If multiple base key functions (e.g., half-normal or hazard-rate) are provided, and/or if covariates are specified, model fitting is done in a forward stepwise procedure:  
 
@@ -671,7 +671,7 @@ Note that if `LnSsTot` is included as a covariate, the function will (1) check t
 
 This stage of the `lta()` command is executed within a backend function, `LTabundR::fit_df()`, which has its own documentation for your reference.
 
-### Estimating density & abundance {-}  
+#### Estimating density & abundance {-}  
 
 Estimates are produced for various combinations of species, regions, and years, according to the arguments specified in your `estimates` list(s). Before these estimates are produced, we filter the data used to fit the detection function to strictly systematic (design-based) effort (i.e., `EffType = "S"`), in which standard protocols are in use (i.e., `OnEffort = TRUE`) and the Beaufort sea state is less than 7 (though these controls can be modified using the `lta()` inputs `abund_eff_types` and `abund_bft_range` (see above).  
 
@@ -679,14 +679,24 @@ Note that if `sightings` has a column named `ss_valid` (all standard `cruz` obje
 
 This stage of the `lta()` command is executed within a back-end function, `LTabundR::abundance()`, which has its own documentation for your reference.
 
-### Bootstrap variance estimation {-} 
+#### Bootstrap variance estimation {-} 
 
 If the `bootstraps` input value is greater than 1, bootstrap variance estimation will be attempted. In each bootstrap iteration, survey segments are re-sampled with replacement before fitting the detection function and estimating density/abundance. Re-sampling is done in a routine that preserves the proportion of segments from each geostratum.
 
 Note that the entire process is repeated in each bootstrap: step-wise fitting of the detection function, averaging of the best-fitting models, and density/abundance estimation for all species/region/year combinations specified in your `estimates` input. At the end of the bootstrap process, results are summarized for each species/region/year combination. 95% confidence intervals are calculated using the BCA method (package `coxed`, function `bca()`).
 
-### `g(0)` values during bootstrapping {-}  
+#### `g(0)` values during bootstrapping {-}  
 
 When conducting the non-parametric bootstrap routine to estimate the CV of density and abundance, uncertainty is incorporated into the g(0) value in each iteration using a parametric bootstrapping subroutine:  First, a logit-transformed distribution is modeled based upon the mean and CV of g(0) provided by the user in the `estimates` input (see documentation for `LTabundR::g0_optimize()` for details on this step). This modeled distribution is used to randomly draw a g(0) value for each iteration of the density/abundance bootstrap routine. In this way, the uncertainty in g(0) is propagated into uncertainty in density/abundance.
 
+
+#### Returned estimates for weighted `g(0)` {-} 
+
+Note that the results object returned by `lta()` (we will refer to this object as `lta_result` here) contains various `g(0)` estimates in various places. Here is a key:
+
+In **`lta_result$estimate`**, you will find the columns `g0_small` (the weighted *g(0)* estimate for small group sizes) and `g0_large` (the weighted *g(0)* estimate for large group sizes). These values may differ if you manually provided different weighted *g(0)* estimates for small amnd large schools. In most cases, however, the two values will be the same. You will also find the column `g0_est`, which is the average *g(0)* of the detections used for the point estimate. This can differ from `g0_small` and `g0_large` since some schools may be large and some may be small. You will also find `g0_cv_small` and `g0_cv_large` which are the CV's of `g0_small` and `g0_large`, respectively, that are estimated using a Monte Carlo Markov Chain routine described in the Step-by-Step outline provided above. If small vs large estimates of *g(0)* do not differ, the CVs will be the same. These four values (`g0_small`, `g0_large`, `g0_cv_small`, and `g0_cv_large`) are the weighted *g(0)* estimates reported by the `LTabundR` functions provided for summarizing your results (e.g., `lta_diagnostics()` and `lta_report()`). 
+
+In **`lta_result$bootstrap$summary`**, you will find the columns `g0_mean` and `g0_cv`, which report the mean and CV, respectively, of the parametric bootstrap values of *g(0)* used in each bootstrap iteration. These should be similar to the *g(0)* values you find in `lta_result$estimate` but will maybe not exactly equal.  
+
+In **`lta_result$bootstrap$details`**, you will find a column `g0_est` which provides the bootstrapped *g(0)* value used in each iteration of the bootstrap routine.  
 

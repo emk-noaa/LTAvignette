@@ -87,6 +87,18 @@ options(timeout=9999999)
 devtools::install_github('PIFSC-Protected-Species-Division/LTabundR')
 ```
 
+```{r, echo=FALSE, eval=FALSE, include=FALSE}
+# Install support packages, if needed
+if (!require('devtools')) install.packages('devtools')
+
+# Increase timeout for download, since there are datasets
+options(timeout=9999999)
+
+# Install LTabundR remotely from GitHub
+# this version will not update dependencies
+devtools::install_github('PIFSC-Protected-Species-Division/LTabundR', upgrade=FALSE)
+```
+
 You may need to download "Rtools" if it is not already installed on your computer. [You can do so here.](https://cran.r-project.org/bin/windows/Rtools/)  
 
 

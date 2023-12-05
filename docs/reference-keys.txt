@@ -11,6 +11,7 @@ df_fitting
 destratify
 trend-analysis
 subgroups2
+diagnostic-plots
 tables
 plots
 whiceas

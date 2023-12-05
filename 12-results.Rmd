@@ -1,5 +1,101 @@
 # (PART) Results {-}
 
+# Diagnostic plots 
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(magrittr)
+library(LTabundR)
+```
+
+To demonstrate how LTA results can explored quickly and reviewed for QA/QC using diagnostic plots, we will use a built-in `LTabundR` dataset, which has density/abundance estimates for the Hawaiian EEZ in 2010 and 2017 for striped dolphins, Fraser's dolphins, and melon-headed whales, ran with only 100 iterations:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+data(lta_result)
+```
+
+We created these LTA results using the following built-in processed dataset:
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+data(cnp_150km_1986_2020)
+```
+
+The function `lta_diagnostics()` can be used to review the object returned by the `LTabundR` function `lta()`, which is the primary function in this package for line-transect analysis. The typical way to use this function is simply:
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
+lta_diagnostics(lta_result)
+```
+
+When you run this, the function will step through many diagnostic outputs (there are currently 8), some of which are tables and some of which are plots. Between each output, the function will wait for the user to press `<Enter>`. To turn that waiting feature off, you can add the input `wait = FALSE`.    
+
+To see which outputs are currently available from this function, use the following code:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, message=TRUE}
+lta_diagnostics(lta_result, 
+                options = c(),
+                describe_options = TRUE)
+
+```
+
+To call specific outputs and not others, use the `options` input. We demonstrate this be stepping through each output below. 
+
+**Option 1: The point estimate**  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+lta_diagnostics(lta_result, options = 1)
+
+```
+
+**Option  2: Summary of bootstrap iterations**  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+lta_diagnostics(lta_result, options = 2)
+
+```
+
+**Option 3: Plot of detection function**  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+lta_diagnostics(lta_result, options = 3)
+
+```
+
+**Option 4: Histogram of bootstrapped detection counts**  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, fig.height=8}
+lta_diagnostics(lta_result, options = 4)
+
+```
+
+**Option 5: Histogram of bootstrapped g(0) values**  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, fig.height=8}
+lta_diagnostics(lta_result, options = 5)
+
+```
+
+**Option 6: Histogram of bootstrapped abundance estimates**  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, fig.height=8}
+lta_diagnostics(lta_result, options = 6)
+
+```
+
+**Option 7: Relationship between bootstrap g(0) and abudance**  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, fig.height=8}
+lta_diagnostics(lta_result, options = 7)
+
+```
+
+**Option 8: Running calculation of CV during bootstrap process**  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+lta_diagnostics(lta_result, options = 8)
+
+```
+
+
 # Tables
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
@@ -8,13 +104,13 @@ library(magrittr)
 library(LTabundR)
 ```
 
-To demonstrate how LTA results can be summarized, tabularized, and plotted, we will use a built-in `LTabundR` dataset, which has denisty/abundance estimates for the Hawaiian EEZ in 2010 and 2017 for striped dolphins, Fraser's dolphins, and melon-headed whales, ran with only 20 iterations:  
+To demonstrate how LTA results can be summarized, tabularized, and plotted, we will use the same built-in dataset as the previous chapter: density/abundance estimates for the Hawaiian EEZ in 2010 and 2017 for striped dolphins, Fraser's dolphins, and melon-headed whales, ran with only 100 iterations:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 data(lta_result)
 ```
 
-We created these LTA results using the following built-in dataset:
+We created these LTA results using the following built-in processed dataset:
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 data(cnp_150km_1986_2020)
