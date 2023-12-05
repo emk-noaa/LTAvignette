@@ -24,10 +24,11 @@ To accommodate these special circumstances with an appropriate balance of flexib
 lta_subgroup(df_sits,
              truncation_distance,
              ss,
-             cruz10,
-             g0_spp,
-             g0_truncation,
-             g0_pool_bft,
+             cruz10 = NULL,
+             Rg0= NULL, 
+             g0_spp = NULL,
+             g0_truncation = NULL,
+             g0_constrain_shape = FALSE,
              g0_jackknife_fraction = 0.1,
              density_segments,
              density_das,
@@ -161,9 +162,29 @@ cruz10 <- noaa_10km_1986_2020
 
 The code used to generate this dataset can be seen by pulling up the help documentation: `?noaa_10km_1986_2020`.  
 
+### `Rg0` {-}  
+
+This is a `data.frame` with estimates of Relative *g(0)* and its CV at each Beaufort sea state. If this input is left `NULL`, then these estimates will be produced by the function using the subsequent `g0_` inputs below. If this input is *not* supplied and any of the subsequent `g0_` inputs are missing, then *g(0)* will be assumed to be 1.0 with CV of 0.0.  
+
+When you do supply this `Rg0` input, the `data.frame` has three required columns: `bft` (Beaufort sea state, numbers between 0 and 7), `Rg0` (*Rg(0)* estimates for each Beaufort state), `Rg0_CV` (the CV of the *Rg(0)* estimate in each Beaufort state). Other columns are allowed but will be ignored. 
+
+Here is an example of a valid `Rg0` input based on the values reported for false killer whales in ([Bradford et al. (2020)](https://www.fisheries.noaa.gov/inport/item/59592)).  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+Rg0 <- data.frame(bft = 0:6,
+                  Rg0 = c(1, 1, .72, .51, .37, .26, .19),
+                  Rg0_CV = c(0, 0, 0.11, 0.22, 0.34, 0.46, 0.59))
+
+Rg0
+```
+
+Again: if you supply this input, then the following `g0_` inputs will be ignored. 
+
 ### `g0_spp` {-}  
 
-This is a character vector of species code(s) to use to estimate *Rg(0)*. In most cases this will be a single species, e.g., `"033"` for false killer whales.  
+This and the following `g0_` inputs will be used to model Relative *g(0)* estimates and their CV in various Beaufort sea states. If the previous input, `Rg0` is provided, then these `g0_` inputs will be ignored and no *Rg(0)* modeling will take place. Furthermore, if any of these `g0_` inputs are not provided, *Rg(0)* will be coerced to 1.0 with a CV of 0.0 for all sea states.  
+
+This input, `g0_spp`, is a character vector of species code(s) to use to estimate *Rg(0)*. In most cases this will be a single species, e.g., `"033"` for false killer whales.  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 g0_spp <- '033'
@@ -177,12 +198,12 @@ The truncation distance to use when estimating Rg(0). In Bradford et al. (2020) 
 g0_truncation <- 5.5
 ```
 
-### `g0_pool_bft` {-}  
+### `g0_constrain_shape` {-}  
 
-A way to specify that low Beaufort sea states, which are typically rare in open-ocean surveys, should be pooled. This step may be needed in order to achieve a monotonic decline in the *g(0)* ~ Bft relationship, but the default is `NULL`, i.e., no pooling. If `g0_pool_bft` is the character string `"01"`, Beaufort states 1 will be pooled into state 0. If `g0_pool_bft` is the character string `"012"`, Beaufort states 1 and 2 will be pooled into state 0.  
+Some *Rg(0)* curves will not decline monotonically due to sample size issues at low Bft (0-2) or high Bft (5-6) states. To coerce monotonic decline, set this input to `TRUE`, and the function will use a shape-constrained GAM (`scam()` from package `scam`) instead of a classic `mgcv::gam()`.
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-g0_pool_bft = NULL
+g0_constrain_shape = FALSE
 ```
 
 ### `g0_jackknife_fraction` {-}  
@@ -251,7 +272,6 @@ density_sightings %>% head
 
 As above, let's make sure the geostratum assignments for these sightings are simple: 
 
-
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 density_segments$stratum <- 'HI_EEZ'
 ```
@@ -293,22 +313,23 @@ abundance_area
 ```{r, echo=FALSE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 results_subgroup <- 
   lta_subgroup(df_sits,
-             truncation_distance,
-             ss,
-             cruz10,
-             g0_spp,
-             g0_truncation,
-             g0_pool_bft,
-             g0_jackknife_fraction = 0.1,
-             density_segments,
-             density_das,
-             density_sightings,
-             abundance_area,
-             iterations = 10,
-             output_dir = 'subgroup/',
-             toplot = TRUE,
-             verbose = TRUE,
-             density_bootstraps = 10000)
+               truncation_distance,
+               ss,
+               cruz10,
+               Rg0,
+               g0_spp,
+               g0_truncation,
+               g0_constrain_shape,
+               g0_jackknife_fraction = 0.1,
+               density_segments,
+               density_das,
+               density_sightings,
+               abundance_area,
+               iterations = 20,
+               output_dir = 'subgroup/',
+               toplot = TRUE,
+               verbose = TRUE,
+               density_bootstraps = 10000)
 ```
 
 
