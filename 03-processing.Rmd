@@ -368,7 +368,10 @@ If subgroups are found, a `subgroups` slot is added to the analysis list for a c
 cruz$cohorts$all %>% names
 ```
 
-This `subgroups` slot holds a list with three dataframes: `events` (each row is a group size estimate for a single subgroup during a single phase of the false killer whale protocol (if applicable) within a single sighting; this is effectively the raw data); `subgroups` (each row is a single subgroup for a single protocol phase, with all group size estimates averaged together (both arithmetically and geometrically); and `sightings` (each row is a "group" size estimate for a single sighting during a single protocol, with all subgroup group sizes summed together). Note for false killer whales this “group” size estimate is not likely to represent actual group size because groups can be spread out over tens of kilometers, and it is not expected that every subgroup is detected during each protocol phase.   
+This `subgroups` slot holds a list with three dataframes: `events` (each row is a group size estimate for a single subgroup during a single phase of the false killer whale protocol (if applicable) within a single sighting; this is effectively the raw data); `subgroups` (each row is a single subgroup for a single protocol phase, with all group size estimates averaged together (both arithmetically and geometrically); and `sightings` (each row is a "group" size estimate for a single sighting during a single phase protocol, with all subgroup group sizes summed together). Note for false killer whales this “group” size estimate is not likely to represent actual group size because groups can be spread out over tens of kilometers, and it is not expected that every subgroup is detected during each protocol phase.   
+
+Currently, the protocol phase is determined simply according to the column `OnEffort`: if `TRUE`, the column `Phase` is 1; if `FALSE`, it is 2.  
+
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 cruz$cohorts$all$subgroups %>% names

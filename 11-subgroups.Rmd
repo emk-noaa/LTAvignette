@@ -24,23 +24,24 @@ To accommodate these special circumstances with an appropriate balance of flexib
 lta_subgroup(df_sits,
              truncation_distance,
              ss,
-             cruz10 = NULL,
+             density_segments,
+             density_das,
+             density_sightings,
              Rg0= NULL, 
+             cruz10 = NULL,
              g0_spp = NULL,
              g0_truncation = NULL,
              g0_constrain_shape = FALSE,
              g0_jackknife_fraction = 0.1,
-             density_segments,
-             density_das,
-             density_sightings,
-             abundance_area,
-             iterations = 1000,
-             output_dir = '../test_code/subgroup/',
+             abundance_area = NULL,
+             iterations = 5000,
+             density_bootstraps = 10000,
+             output_dir = NULL,
              toplot = TRUE,
-             verbose = TRUE,
-             density_bootstraps = 10000)
+             verbose = TRUE
 ```
 
+Note that there are several required inputs (without any defaults) as well as many optional inputs (with defaults provided). 
 We will step through each of these inputs below, using a case study in which we estimate false killer whale abundance in the Hawaiian EEZ for 2017. 
 
 ## Inputs {-}  
@@ -62,11 +63,13 @@ As mentioned above, for 1986 - 2010, all detections are assumed to be 'Phase 1' 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 sits1  <-
-  cruz$cohorts$all$sightings %>%
+  cruz$cohorts$pseudorca$sightings %>%
   filter(OnEffort == TRUE,
          year < 2011,
          Lat >= 5, Lat <= 40, Lon >= -185, Lon <= -120,
          species == '033',
+         ObsStd == TRUE,
+         Bearing <= 90,
          mixed == FALSE) %>%
   select(DateTime, Lat, Lon, Cruise, PerpDistKm)
 
@@ -79,17 +82,19 @@ For 2011 onwards, we will use Phase 1 subgroup detections from the PC protocol, 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 sits2  <-
-  cruz$cohorts$all$subgroups$subgroups %>%
+  cruz$cohorts$pseudorca$subgroups$subgroups %>%
   filter(OnEffort == TRUE,
          lubridate::year(DateTime) >= 2011,
          Lat >= 5, Lat <= 40, Lon >= -185, Lon <= -120,
+         ObsStd == TRUE,
+         Angle <= 90,
          Species == '033',
          Phase == 1) %>%
   select(DateTime, Lat, Lon, Cruise, PerpDistKm = PerpDist)
 
 sits2 %>% nrow
 
-sits1 %>% head
+sits2 %>% head
 ```
 
 To create `df_sits` for detection function fitting, we combine these datasets together:  
@@ -143,6 +148,7 @@ ss  <-
   cruz$cohort$all$subgroups$subgroups %>%
   filter(lubridate::year(DateTime) >= 2011,
          Lat >= 5, Lat <= 40, Lon >= -185, Lon <= -120,
+         GSBest_geom_valid == TRUE, # only use valid "Best" estimates
          Species == '033') %>%
   pull(GSBest_geom)
   
@@ -150,17 +156,6 @@ ss %>% length
 
 ss
 ```
-
-### `cruz10` {-}  
-
-This is a processed `cruz` object with short segment lengths, ideally 10 km or less (hence the 10 in the input name). This `cruz` object will be used to estimate *Rg(0)*, i.e., the relative trackline detection probability (see its chapter). `LTabundR` comes with a built-in dataset we can use for this purpose:  
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-data("noaa_10km_1986_2020")
-cruz10 <- noaa_10km_1986_2020
-```
-
-The code used to generate this dataset can be seen by pulling up the help documentation: `?noaa_10km_1986_2020`.  
 
 ### `Rg0` {-}  
 
@@ -179,6 +174,18 @@ Rg0
 ```
 
 Again: if you supply this input, then the following `g0_` inputs will be ignored. 
+
+### `cruz10` {-}  
+
+This is a processed `cruz` object with short segment lengths, ideally 10 km or less (hence the 10 in the input name). This `cruz` object will be used to estimate *Rg(0)*, i.e., the relative trackline detection probability (see its chapter), using the following `g0_` inputs. `LTabundR` comes with a built-in dataset we can use for this purpose:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+data("noaa_10km_1986_2020")
+cruz10 <- noaa_10km_1986_2020
+```
+
+The code used to generate this dataset can be seen by pulling up the help documentation: `?noaa_10km_1986_2020`.  
+
 
 ### `g0_spp` {-}  
 
@@ -258,10 +265,12 @@ In this example, since we do not have population information on hand, we will no
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 density_sightings  <-
   cruz$cohorts$all$subgroups$subgroups %>%
-  filter(EffType == 'S',
+  filter(lubridate::year(DateTime) == 2017,
+         EffType == 'S',
          OnEffort == TRUE,
-         lubridate::year(DateTime) == 2017,
          PerpDist <= truncation_distance,
+         Angle <= 90,
+         ObsStd == TRUE,
          Species == '033',
          Phase == 1)
 
@@ -308,24 +317,22 @@ abundance_area
 
 **`verbose`**: A Boolean, with default TRUE, indicating whether to print status updates to the Console.  
 
-**`density_bootstraps`**: Number of bootstrap iterations to use for the CV estimate of density and abundance specifically. This input allows this final step to use a different (typically larger) iteration size than the iterations input above.  
+**`density_bootstraps`**: Number of bootstrap iterations to use for the CV estimate of density and abundance specifically. This input allows this final step to use a different (typically larger) iteration size than the iterations input above.   
 
-```{r, echo=FALSE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
+
+Here we call the `lta_subgroup()` function without re-modeling the Relative *g(0)* parameters, with only 200 iterations: 
+
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE}
 results_subgroup <- 
-  lta_subgroup(df_sits,
-               truncation_distance,
-               ss,
-               cruz10,
-               Rg0,
-               g0_spp,
-               g0_truncation,
-               g0_constrain_shape,
-               g0_jackknife_fraction = 0.1,
-               density_segments,
-               density_das,
-               density_sightings,
-               abundance_area,
-               iterations = 20,
+  lta_subgroup(df_sits = df_sits,
+               truncation_distance = truncation_distance,
+               ss = ss,
+               density_segments = density_segments,
+               density_das = density_das,
+               density_sightings = density_sightings,
+               Rg0 = Rg0,
+               abundance_area = abundance_area,
+               iterations = 200,
                output_dir = 'subgroup/',
                toplot = TRUE,
                verbose = TRUE,
