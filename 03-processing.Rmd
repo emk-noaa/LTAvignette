@@ -349,7 +349,7 @@ Note that when `geometric_mean = TRUE` but calibration is not carried out, the s
 Also note that group size calibration is only carried out if `settings$group_size_calibration` is not `NULL`.  However, even when calibration coefficients *are* provided, it is possible to specify that calibration should only be carried out for raw estimates above a minimum threshold (see cohort setting `calibration_floor`, whose default is `0`), since observers may be unlikely to mis-estimate the group size of a lone whale or pair. For observers who have calibration coefficients in the `settings$group_size_coefficients` table, that minimum is specified for each observer individually. For observers not in that table, calibration will only be applied to raw group size estimates above `settings$cohorts[[i]]$calibration_floor` or above.   
 
 
-#### Subgroup size estimates {.unnumbered #subgroups}
+### Process subgroups {.unnumbered #subgroups}
 
 After sightings data are processed, the `process_surveys()` function calls the subroutine `process_subgroups()` to find and calculate subgroup group size estimates for false killer whales (or other species that may have been recorded using the subgroup functionality in `WinCruz`), if any occur in the `DAS` data (Event code "`G`").  
 
@@ -368,16 +368,76 @@ If subgroups are found, a `subgroups` slot is added to the analysis list for a c
 cruz$cohorts$all %>% names
 ```
 
-This `subgroups` slot holds a list with three dataframes: `events` (each row is a group size estimate for a single subgroup during a single phase of the false killer whale protocol (if applicable) within a single sighting; this is effectively the raw data); `subgroups` (each row is a single subgroup for a single protocol phase, with all group size estimates averaged together (both arithmetically and geometrically); and `sightings` (each row is a "group" size estimate for a single sighting during a single phase protocol, with all subgroup group sizes summed together). Note for false killer whales this “group” size estimate is not likely to represent actual group size because groups can be spread out over tens of kilometers, and it is not expected that every subgroup is detected during each protocol phase.   
+This `subgroups` slot holds a list with three dataframes:  
 
-Currently, the protocol phase is determined simply according to the column `OnEffort`: if `TRUE`, the column `Phase` is 1; if `FALSE`, it is 2.  
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+cruz$cohorts$all$subgroups %>% names
+```
+  
+  
+- **`$events`** (each row is a group size estimate for a single subgroup during a single phase of the false killer whale protocol (if applicable) within a single sighting; this is effectively the raw data). Internally, `LTabundR` uses the function `subgroup_events()` to produce this `data.frame`.  
 
+- **`$subgroups`** (each row is a single subgroup for a single protocol phase, with all group size estimates averaged together (both arithmetically and geometrically). Internally, `LTabundR` uses the function `subgroup_subgroups()` to produce this `data.frame`.    
+
+- **`sightings`** (each row is a "group" size estimate for a single sighting during a single phase protocol, with all subgroup group sizes summed together). Note for false killer whales this “group” size estimate is not likely to represent actual group size because groups can be spread out over tens of kilometers, and it is not expected that every subgroup is detected during each protocol phase. Internally, `LTabundR` uses the function `subgroup_sightings()` to produce this `data.frame`.    
+  
+  
+For a detailed example of how subgroup data are analyzed, see the [vignette page on subgroup analysis](#subgroups2) using data on Central North Pacific false killer whales.  
+
+#### Subgroup phase assignments {-}
+
+Currently, the protocol phase for each `event` is automatically determined simply according to the column `OnEffort`: if `TRUE`, the column `Phase` is 1; if `FALSE`, it is 2.  
+
+Since this assignment routine is simplistic, users may find the need to manually revise some of these assignments. To facilitate that work, `LTabundR` offers the function `subgroup_phases()`, which will launch an interactive `Shiny` app that allows users to review phase assignments and manually stage a set of revisions. Here is a step-by-step example of what this process would look like:  
+
+
+**First,** process your `DAS` data as usual using the `process_surveys()` function. The resulting `cruz` object will contain a `subgroups` slot for cohorts with `G` events in the `DAS` data:   
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 cruz$cohorts$all$subgroups %>% names
 ```
 
-For a detailed example, see the [vignette page on subgroup analysis](#subgroups2) using data on Central North Pacific false killer whales.  
+**Second,** manually review the phase assignments for subgroup events in your cohort of interest using the function `subgroup_phases()`:  
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
+edits <- subgroup_phases(cruz, cohort = 'all')
+```
+
+This function will launch a `Shiny` app that looks like this:    
+
+![](img/subgroup_phases.png){width=95%}
+
+The app provides instructions at the top of its screen. In short, you select the rows of data whose `Phase` column needs to be revised. Below the table, you specify what the revised `Phase` should be, and a button will appear (not shown above) to add this revision to a list of staged edits. You can repeat this process as many times as you need as you review the data. If you make a mistake, you can select the staged edit that you need to delete and a button will appear allowing you to delete it.  
+
+By the end of this processed, you will have a list of staged edits that you will want to save. A button will be available in the top right of the screen (not shown above) that allows you to close the app and return the staged edits as a `data.frame`. We capture that output in the object `edits` in our code above.  
+
+```{r, echo=FALSE, eval=FALSE, collapse=TRUE, include=FALSE}
+edits <- subgroup_phases(cruz, 'all')
+save(edits, file="/Users/ekezell/repos/LTAvignette/data/phase_edits.rds")
+```
+
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
+load('data/phase_edits.rds')
+```
+
+Those staged edits will look something like this:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+# Example of `edits` output
+edits
+```
+
+If you need to repeat step 2, just save your edits into new objects (e.g., `edits2`, `edits3`, etc.), then bind them together with `rbind()` as you would any set of `data.frame`'s with identifcal column names.  
+
+**Third,** now you want to update your `cruz` object with these edits. To do so, run the `LTabundR` function `process_subgroups()` and include your edits as an input:  
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
+cruz <- process_subgroups(cruz, 
+                          phase_edits = edits)
+```
+
+This will essentially re-do the subgroup processing phase of `process_surveys()` but this time will take into account your phase edits. 
+
 
 ## Review {-}  
 

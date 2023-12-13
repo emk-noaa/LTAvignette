@@ -582,7 +582,7 @@ The following list is a summary of each step of the `lta()` function, in order o
 
 ### Other details {-}   
 
-#### Area estimation {-} {#area_estimation}  
+#### Area estimation {-} {.unnumbered #area_estimation}  
 
 Unless you manually specify the study area in your `estimates` list, `lta()` will calculate your study area for you based on the geostrata you provide. It does so by calling the `LTabundR` function `strata_area()`, which you can use on your own to explore geostratum combination options. This function was designed using the `sf` package to handle complex polygon combinations, and it uses Natural Earth datasets to remove land within your study area (this is a feature you can turn off, if you want). 
 
@@ -654,7 +654,7 @@ If you want to supply a weighted *g(0)* estimate and its CV yourself, you can ad
 If you want to coerce *g(0)* to be assumed to be 1.0 (with CV = 0.0), you can either (1) *not* supply the `Rg0` input, or (2) manually specify the `g0` and `g0_cv` slots in your `estimates` sub-list accordingly.  
 
 
-#### Fitting a detection function {-} {#df_fitting}
+#### Fitting a detection function {-} {.unnumbered #df_fitting}
 
 The detection function is estimated using functions in the package `mrds`, primarily the main function `mrds::ddf()`, which uses a Horvitz-Thompson-like estimator to predict the probability of detection for each sighting. If multiple base key functions (e.g., half-normal or hazard-rate) are provided, and/or if covariates are specified, model fitting is done in a forward stepwise procedure:  
 

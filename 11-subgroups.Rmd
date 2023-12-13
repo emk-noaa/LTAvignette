@@ -44,6 +44,9 @@ lta_subgroup(df_sits,
 Note that there are several required inputs (without any defaults) as well as many optional inputs (with defaults provided). 
 We will step through each of these inputs below, using a case study in which we estimate false killer whale abundance in the Hawaiian EEZ for 2017. 
 
+Before proceeding, we recommend that you review the details of [how subgroup data are processed](#subgroups) within the `LTabundR` framework.  
+
+
 ## Inputs {-}  
 
 ### `df_sits` {-}  
