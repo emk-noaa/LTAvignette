@@ -178,19 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#review"><i class="fa fa-check"></i>Review</a></li>
 <li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#validation"><i class="fa fa-check"></i>Validation</a></li>
 </ul></li>
-<li class="part"><span><b>I Data exploration</b></span></li>
-<li class="chapter" data-level="4" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>4</b> Maps</a>
-<ul>
-<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#publishable-maps"><i class="fa fa-check"></i>Publishable maps</a></li>
-<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-maps"><i class="fa fa-check"></i>Interactive maps</a></li>
-<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-dashboard"><i class="fa fa-check"></i>Interactive dashboard</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>5</b> Filter &amp; combine surveys</a>
-<ul>
-<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#filter-1"><i class="fa fa-check"></i>Filter</a></li>
-<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#combine"><i class="fa fa-check"></i>Combine</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey</a>
+<li class="chapter" data-level="4" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>4</b> Summarize survey</a>
 <ul>
 <li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-effort"><i class="fa fa-check"></i>Summarize effort</a></li>
 <li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-by-beaufort"><i class="fa fa-check"></i>Summarize by Beaufort</a></li>
@@ -198,8 +186,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-certain-species"><i class="fa fa-check"></i>Summarize certain species</a></li>
 <li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#cruz_explorer"><i class="fa fa-check"></i><code>cruz_explorer()</code></a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>5</b> Filter &amp; combine surveys</a>
+<ul>
+<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#filter-1"><i class="fa fa-check"></i>Filter</a></li>
+<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#combine"><i class="fa fa-check"></i>Combine</a></li>
+</ul></li>
+<li class="part"><span><b>I Data exploration</b></span></li>
+<li class="chapter" data-level="6" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>6</b> Maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#publishable-maps"><i class="fa fa-check"></i>Publishable maps</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-maps"><i class="fa fa-check"></i>Interactive maps</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-dashboard"><i class="fa fa-check"></i>Interactive dashboard</a></li>
+</ul></li>
 <li class="part"><span><b>II Data analysis</b></span></li>
-<li class="chapter" data-level="7" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>7</b> Estimating g(0)</a>
+<li class="chapter" data-level="7" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>7</b> Estimating <em>g(0)</em></a>
 <ul>
 <li class="chapter" data-level="" data-path="g0.html"><a href="g0.html#relative-g0"><i class="fa fa-check"></i>Relative <code>g(0)</code></a></li>
 <li class="chapter" data-level="" data-path="g0.html"><a href="g0.html#weighted-average-g0"><i class="fa fa-check"></i>Weighted average <code>g(0)</code></a></li>
@@ -593,7 +593,7 @@ listed in the <code>strata</code> slot of your survey settings (see documentatio
 <p>The third option is <code>"largest"</code>, in which the largest of overlapping strata is used to assign a stratum name to each row. (We are not sure what use case this would serve, but we offer it as an option for niche analyses.)</p>
 <p><img src="img/strata_overlap_marianas.png" /></p>
 <ul>
-<li><p><strong><code>distance_types:</code></strong> A character vector of the effort types that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing. Accepted values are <code>"S"</code> (systematic/standard effort), <code>"F"</code> (fine-scale effort), and <code>"N"</code> (non-systematic/non-standard effort, in which systematic protocols are being used but effort is not occurring along design-based transect routes). The default values are <code>c("S","F","N")</code>.</p></li>
+<li><p><strong><code>distance_types:</code></strong> A character vector of the full-range of effort types that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing. Accepted values are <code>"S"</code> (systematic/standard effort), <code>"F"</code> (fine-scale effort), and <code>"N"</code> (non-systematic/non-standard effort, in which systematic protocols are being used but effort is not occurring along design-based transect routes). The default values are <code>c("S","F","N")</code>. Note that it is possible to further subset the effort types specifically for density estimation in the line transect analysis function (see <a href="lta.html#lta">later chapter</a>).</p></li>
 <li><p><strong><code>distance_modes:</code></strong> The effort modes that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing. Accepted values are <code>"P"</code> (passing) and <code>"C"</code> (closing), and the default values are <code>c("P","C")</code>.</p></li>
 <li><p><strong><code>distance_on_off:</code></strong> The value(s) of <code>OnEffort</code> (On Effort is <code>TRUE</code>, Off Effort is <code>FALSE</code>) that will be included in detection function estimation and density estimation, and therefore considered in effort segmentizing. Default is <code>TRUE</code> only. (We don’t expect <code>FALSE</code> or <code>c(TRUE,FALSE)</code> to be used much, if at all, but we make this option available).</p></li>
 </ul>

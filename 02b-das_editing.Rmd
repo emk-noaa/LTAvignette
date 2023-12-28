@@ -50,9 +50,10 @@ Once you have an edit prepared and previewed within the app, you can then "save"
 
 
 
-For this reason it can be useful to type the above command such that the output is saved into an object; in the example above we saved the output into an object named `dasi`. 
+For this reason, it can be useful to type the above command such that the output is saved into an object; in the example above we saved the output into an object named `dasi`. 
 
-You can then pass this list of edits to `das_editor()` (next subsection on this page), or as an argument within `process_surveys()` (next page).  However, for the sake of full code reproducibility, it may be most useful to use this output to write code to stage this edit using the `das_editor()` function below. 
+You can then pass this list of edits to `das_editor()` (next subsection on this page), or as an argument within `process_surveys()` (next page).  However, for the sake of full code reproducibility, it may be most useful to use this output to write coded edits for us with `process_surveys()` (or `das_editor()`) as demonstrated below.   
+
 
 ## Staging edits {-}  
 

@@ -25,10 +25,12 @@ To build a flexible system for mapping cruise data, we have the following functi
 
 ### Base maps {-}  
 
-Begin with a basic map, including EEZ borders:  
+Begin with a basic map of the waters surrounding the Hawaiian archipelago, including EEZ borders:  
 
 ```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m <- map_base(region='cnp')
+
+# Show map
 m
 ```
 
@@ -44,6 +46,8 @@ We also have a base map for the California Current ...
 
 ```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
 m <- map_base(region='ccs')
+
+# Show map
 m
 ```
 
@@ -59,6 +63,8 @@ And the ETP:
 
 ```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m <- map_base(region='etp')
+
+# Show map
 m
 ```
 
@@ -82,6 +88,9 @@ m <- map_base(region='cnp')
 m1 <- map_strata(m,
                 cruz_1720$settings, 
                 region='cnp')
+
+# Show map
+m1
 ```
 
 ```{r, echo=FALSE, eval=rerun_from_scratch}
@@ -94,8 +103,26 @@ dev.off()
 
 ### Add survey tracks {-}  
 
+To demonstrate how to map data, we will use survey data from 2017 and 2020 within the WHICEAS study area:
+
+```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, include=TRUE}
+# Load the cruz object we made in the "Processing" chapter
+load('whiceas_cruz.RData')
+
+# Filter
+cruz_1720 <- 
+  filter_cruz(cruz,
+              analysis_only = TRUE,
+              years = c(2017, 2020),
+              regions = 'WHICEAS')
+```
+
+Here is the function that maps effort: 
+
 ```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m1 <- map_effort(m, cruz_1720)
+
+# Show map
 m1
 ```
 
@@ -121,6 +148,9 @@ m1 <- map_effort(m,
                 effort_color='firebrick',
                 effort_stroke=2.5,
                 effort_linetype=1,)
+
+# Show map
+m1
 ```
 
 ```{r, echo=FALSE, eval=rerun_from_scratch}
@@ -188,6 +218,9 @@ Use the function `map_sightings()` to add sightings to your map:
 
 ```{r, echo=TRUE, eval=rerun_from_scratch, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=4}
 m1 <- map_sightings(m, cruz_1720)
+
+# Show map
+m1
 ```
 
 ```{r, echo=FALSE, eval=rerun_from_scratch}
@@ -227,6 +260,9 @@ m1 <- map_sightings(m,
                    include_species = c('076','046'),
                    color_code = TRUE,
                    shape_code = TRUE)
+
+# Show map
+m1
 ```
 
 ```{r, echo=FALSE, eval=rerun_from_scratch}

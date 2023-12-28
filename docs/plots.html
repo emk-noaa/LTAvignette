@@ -178,19 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#review"><i class="fa fa-check"></i>Review</a></li>
 <li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#validation"><i class="fa fa-check"></i>Validation</a></li>
 </ul></li>
-<li class="part"><span><b>I Data exploration</b></span></li>
-<li class="chapter" data-level="4" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>4</b> Maps</a>
-<ul>
-<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#publishable-maps"><i class="fa fa-check"></i>Publishable maps</a></li>
-<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-maps"><i class="fa fa-check"></i>Interactive maps</a></li>
-<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-dashboard"><i class="fa fa-check"></i>Interactive dashboard</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>5</b> Filter &amp; combine surveys</a>
-<ul>
-<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#filter-1"><i class="fa fa-check"></i>Filter</a></li>
-<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#combine"><i class="fa fa-check"></i>Combine</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey</a>
+<li class="chapter" data-level="4" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>4</b> Summarize survey</a>
 <ul>
 <li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-effort"><i class="fa fa-check"></i>Summarize effort</a></li>
 <li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-by-beaufort"><i class="fa fa-check"></i>Summarize by Beaufort</a></li>
@@ -198,8 +186,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-certain-species"><i class="fa fa-check"></i>Summarize certain species</a></li>
 <li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#cruz_explorer"><i class="fa fa-check"></i><code>cruz_explorer()</code></a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>5</b> Filter &amp; combine surveys</a>
+<ul>
+<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#filter-1"><i class="fa fa-check"></i>Filter</a></li>
+<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#combine"><i class="fa fa-check"></i>Combine</a></li>
+</ul></li>
+<li class="part"><span><b>I Data exploration</b></span></li>
+<li class="chapter" data-level="6" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>6</b> Maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#publishable-maps"><i class="fa fa-check"></i>Publishable maps</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-maps"><i class="fa fa-check"></i>Interactive maps</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-dashboard"><i class="fa fa-check"></i>Interactive dashboard</a></li>
+</ul></li>
 <li class="part"><span><b>II Data analysis</b></span></li>
-<li class="chapter" data-level="7" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>7</b> Estimating g(0)</a>
+<li class="chapter" data-level="7" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>7</b> Estimating <em>g(0)</em></a>
 <ul>
 <li class="chapter" data-level="" data-path="g0.html"><a href="g0.html#relative-g0"><i class="fa fa-check"></i>Relative <code>g(0)</code></a></li>
 <li class="chapter" data-level="" data-path="g0.html"><a href="g0.html#weighted-average-g0"><i class="fa fa-check"></i>Weighted average <code>g(0)</code></a></li>
@@ -297,25 +297,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="abundance-plots" class="section level2 unnumbered hasAnchor">
 <h2>Abundance plots<a href="plots.html#abundance-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To plot the abundance estimate with error bars representing the 95% confidence interval, use the function <code>lta_plot()</code>:</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="plots.html#cb265-1" tabindex="-1"></a><span class="fu">lta_plot</span>(lta_result, </span>
-<span id="cb265-2"><a href="plots.html#cb265-2" tabindex="-1"></a>         <span class="at">nrows=</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-346-1.png" width="672" /></p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="plots.html#cb266-1" tabindex="-1"></a><span class="fu">lta_plot</span>(lta_result, </span>
+<span id="cb266-2"><a href="plots.html#cb266-2" tabindex="-1"></a>         <span class="at">nrows=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-347-1.png" width="672" /></p>
 </div>
 <div id="detection-function-plots" class="section level2 unnumbered hasAnchor">
 <h2>Detection function plots<a href="plots.html#detection-function-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To plot the best-fit detection model for a species pool, use the <code>df_plot()</code> function.</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="plots.html#cb266-1" tabindex="-1"></a><span class="fu">df_plot</span>(lta_result)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-347-1.png" width="672" /></p>
-<p>This function provides various stylization options, including the option to show multiple best-fitting models atop a single histogram of detections:</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="plots.html#cb267-1" tabindex="-1"></a><span class="fu">df_plot</span>(lta_result,</span>
-<span id="cb267-2"><a href="plots.html#cb267-2" tabindex="-1"></a>        <span class="at">model_colors=</span>RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">name =</span> <span class="st">&quot;Dark2&quot;</span>),</span>
-<span id="cb267-3"><a href="plots.html#cb267-3" tabindex="-1"></a>        <span class="at">model_pch =</span> <span class="dv">16</span>,</span>
-<span id="cb267-4"><a href="plots.html#cb267-4" tabindex="-1"></a>        <span class="at">pt_show=</span><span class="dv">2</span>,</span>
-<span id="cb267-5"><a href="plots.html#cb267-5" tabindex="-1"></a>        <span class="at">pt_alpha=</span>.<span class="dv">3</span>,</span>
-<span id="cb267-6"><a href="plots.html#cb267-6" tabindex="-1"></a>        <span class="at">bootstrap_show =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb267-7"><a href="plots.html#cb267-7" tabindex="-1"></a>        <span class="at">legend_show=</span><span class="cn">TRUE</span>,</span>
-<span id="cb267-8"><a href="plots.html#cb267-8" tabindex="-1"></a>        <span class="at">legend_x=</span><span class="fl">2.8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="plots.html#cb267-1" tabindex="-1"></a><span class="fu">df_plot</span>(lta_result)</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-348-1.png" width="672" /></p>
+<p>This function provides various stylization options, including the option to show multiple best-fitting models atop a single histogram of detections:</p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="plots.html#cb268-1" tabindex="-1"></a><span class="fu">df_plot</span>(lta_result,</span>
+<span id="cb268-2"><a href="plots.html#cb268-2" tabindex="-1"></a>        <span class="at">model_colors=</span>RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">name =</span> <span class="st">&quot;Dark2&quot;</span>),</span>
+<span id="cb268-3"><a href="plots.html#cb268-3" tabindex="-1"></a>        <span class="at">model_pch =</span> <span class="dv">16</span>,</span>
+<span id="cb268-4"><a href="plots.html#cb268-4" tabindex="-1"></a>        <span class="at">pt_show=</span><span class="dv">2</span>,</span>
+<span id="cb268-5"><a href="plots.html#cb268-5" tabindex="-1"></a>        <span class="at">pt_alpha=</span>.<span class="dv">3</span>,</span>
+<span id="cb268-6"><a href="plots.html#cb268-6" tabindex="-1"></a>        <span class="at">bootstrap_show =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb268-7"><a href="plots.html#cb268-7" tabindex="-1"></a>        <span class="at">legend_show=</span><span class="cn">TRUE</span>,</span>
+<span id="cb268-8"><a href="plots.html#cb268-8" tabindex="-1"></a>        <span class="at">legend_x=</span><span class="fl">2.8</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-349-1.png" width="672" /></p>
 
 </div>
 </div>

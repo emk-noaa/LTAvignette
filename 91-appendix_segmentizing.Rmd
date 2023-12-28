@@ -12,11 +12,11 @@ The package's `segmentize()` function and its associated settings were designed 
 
 - Segments are built and stored separately for each cohort of species, since each cohort has specific settings for segmentizing.  
 
-- Within each cohort, the survey is first grouped into blocs of data that all share the same "effort scenario", i.e., all rows share the same Cruise number, study area status (in or out), geographic stratum, and year. Since a survey may leave a stratum then return to it many days hence, it is normal for these blocs to contain non-contiguous data with large spatial gaps. These gaps will be addressed a few steps down.  
+- Within each cohort, the survey is first grouped into blocs of data that all share the same geographic/scientific scenario, i.e., all rows share the same Cruise number and geographic stratum. Since a survey may leave a stratum then return to it many days hence, it is normal for these blocs to contain non-contiguous data with large spatial gaps. These gaps will be addressed a few steps down.  
 
-- The blocs are split a final time according to whether the effort scenario meets inclusion criteria for the analysis. These inclusion criteria are controlled by the cohort-specific settings such as `distance_types`, `distance_modes`, and `distance_on_off`.  Rows of data that meet the inclusion criteria are relegated to their own data bloc, and given a new column, `use`, with the value `TRUE`. Data that do *not* meet the criteria are relegated to their own bloc as well (column `use` is `FALSE`).  This means that, at the end of this process, we will have segments that *will* be used in the density/detection function analysis, and segments that will *not*. (The excluded segments are not deleted or transformed in any other way; they can still be used in summarizing detections, etc.)
+- Those blocs are split further according to whether the effort scenario meets inclusion criteria for the analysis. These inclusion criteria are controlled by the cohort-specific settings such as `distance_types`, `distance_modes`, and `distance_on_off`.  Rows of data that meet the inclusion criteria are relegated to their own data bloc, and given a new column, `use`, with the value `TRUE`. Data that do *not* meet the criteria are relegated to their own bloc as well (column `use` is `FALSE`).  This means that, at the end of this process, we will have segments that *will* be used in the density/detection function analysis, and segments that will *not*. (The excluded segments are not deleted or transformed in any other way; they can still be used in summarizing detections, etc.)
 
-- Next, the `segmentize()` function loops through each of these blocs of effort and parses its data into segments according to the `segment_method`. If segmentizing by `"day"`, this is straightforward: all data occurring on a unique date are assigned to its own segment. Segmentizing by `"equallength"` is a bit more complicated in terms of coding: segments are built up one line of data at a time; if the `segment_target_km` is reached or the `segment_max_interval` is exceeded, a new segment begins. 
+- Next, the `segmentize()` function loops through each of these blocs of effort and parses its data into segments according to the `segment_method`. If segmentizing by `"day"`, this is straightforward: all data occurring on a unique date are assigned to its own segment. Segmentizing by `"equallength"` (a target length for each segment) is a bit more complicated in terms of coding: segments are built up one line of data at a time; if the `segment_target_km` is reached or the `segment_max_interval` is exceeded, a new segment begins. 
 
 At the end of this process, you have lists of data sorted into their segments, each with a unique `seg_id`, as well as a summary dataframe that provides the distance (km); time and coordinates for the beginning, middle, and end of the segment; and the weighted averages of sighting conditions and weather data contained in the segment.   
 
@@ -88,13 +88,13 @@ segment_histogram <- function(cruz, cohort=1, by_day=FALSE){
 
 ## Base example {-}  
 
-Here is the `segmentize()` function parameterized with some basic settings: a target segment length of 30km, with the maximum allowable gap in effort within segments to be 24 hours.   
+Here is the `segmentize()` function parameterized with some basic settings: a target segment length of 30km, with the maximum allowable gap in effort within segments to be 6 hours.   
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=7}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'equallength',
                         segment_target_km = 30,
-                        segment_max_interval = 24,
+                        segment_max_interval = 6,
                         segment_remainder_handling = c('append','segment'),
                         distance_types = c('S','F','N'),
                         distance_modes = c('P','C'),
@@ -108,7 +108,7 @@ cruz_demo <- segmentize(cruz,
 
 ### By day {-}  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=7}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'day',
                         verbose=FALSE,
@@ -117,7 +117,7 @@ cruz_demo <- segmentize(cruz,
 
 ### By target length of 100 km {-}  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=7}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'equallength',
                         segment_target_km = 100,
@@ -130,7 +130,7 @@ cruz_demo <- segmentize(cruz,
 
 The default example at the top allows for non-contiguous effort; a segment is allowed to contain effort separated by gaps as large as 24 hours (`settings$segment_max_interval`).  To coerce segments to represent only contiguous effort, make that setting very small:  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=7}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'equallength',
                         segment_target_km = 30,
@@ -145,11 +145,37 @@ You can see that many contiguous periods of effort were much shorter than the ta
 
 In the top example, the setting for `segment_remainder_handling`, `c('append','segment')`, means that remainders less than half the target length will be randomly appended to another segment, while remainders more than half will be treated as their own segment (and will be placed randomly along the trackline).  
 
-If you don't want that level of complexity, you can simply assign a single setting: `'append'` will append the remainder in all cases, regardless of remainder length relative to the target length. The same idea goes for `'segment'`.  
+If you don't want that level of complexity, you can simply assign a single setting: `'append'` will append the remainder in all cases, regardless of remainder length relative to the target length. The same idea goes for `'segment'`.  Here is a simple comparison of those two approaches:
+
+### `"append"` {-}
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4}
+cruz_demo <- segmentize(cruz,
+                        segment_method = 'equallength',
+                        segment_target_km = 10,
+                        segment_max_interval = 6,
+                        segment_remainder_handling = 'append',
+                        verbose=FALSE,
+                        to_plot = TRUE)
+```
+
+### `"segment"` {-} 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4}
+cruz_demo <- segmentize(cruz,
+                        segment_method = 'equallength',
+                        segment_target_km = 10,
+                        segment_max_interval = 6,
+                        segment_remainder_handling = 'segment',
+                        verbose=FALSE,
+                        to_plot = TRUE)
+```
+
+### `"disperse"` {-} 
 
 The other possible setting is `'disperse'`, which disperses the remainder evenly across all segments. To demonstrate, let's use a target length of 10 km. 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=7}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'equallength',
                         segment_target_km = 10,
@@ -161,7 +187,7 @@ cruz_demo <- segmentize(cruz,
 
 Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:  
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=7}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.width=7, fig.height=4}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'equallength',
                         segment_target_km = 9.5,
@@ -177,14 +203,14 @@ But in general, the `disperse` option may be more appropriate for shorter segmen
 
 ### Design-based line transect analysis  {-}
 
-To replicate methods used in density estimation analyses, use large segment lengths (100 km or more) or simply segmentize by day. (See the examples above.) Remember that long segment lengths won't work well unless you allow for non-contiguous effort.
+To replicate methods used in density estimation analyses, use large segment lengths (100 km or more) or simply segmentize by day. *(See the examples above.)* Remember that long segment lengths won't work well unless you allow for non-contiguous effort.
 
 
 ### Habitat modeling  {-}
 
 To replicate the methods used in typical habitat modeling studies, use smaller segment lengths of contiguous effort. 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.height=7, fig.width=7}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, fig.height=4, fig.width=7}
 cruz_demo <- segmentize(cruz,
                         segment_method = 'equallength',
                         segment_target_km = 5,

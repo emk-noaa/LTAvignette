@@ -1,9 +1,9 @@
 settings
 das
 processing
-maps
-filter
 summarize
+filter
+maps
 g0
 lta
 destratify

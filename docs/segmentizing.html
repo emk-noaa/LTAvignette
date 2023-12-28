@@ -178,19 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#review"><i class="fa fa-check"></i>Review</a></li>
 <li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#validation"><i class="fa fa-check"></i>Validation</a></li>
 </ul></li>
-<li class="part"><span><b>I Data exploration</b></span></li>
-<li class="chapter" data-level="4" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>4</b> Maps</a>
-<ul>
-<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#publishable-maps"><i class="fa fa-check"></i>Publishable maps</a></li>
-<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-maps"><i class="fa fa-check"></i>Interactive maps</a></li>
-<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-dashboard"><i class="fa fa-check"></i>Interactive dashboard</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>5</b> Filter &amp; combine surveys</a>
-<ul>
-<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#filter-1"><i class="fa fa-check"></i>Filter</a></li>
-<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#combine"><i class="fa fa-check"></i>Combine</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>6</b> Summarize survey</a>
+<li class="chapter" data-level="4" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>4</b> Summarize survey</a>
 <ul>
 <li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-effort"><i class="fa fa-check"></i>Summarize effort</a></li>
 <li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-by-beaufort"><i class="fa fa-check"></i>Summarize by Beaufort</a></li>
@@ -198,8 +186,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-certain-species"><i class="fa fa-check"></i>Summarize certain species</a></li>
 <li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#cruz_explorer"><i class="fa fa-check"></i><code>cruz_explorer()</code></a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>5</b> Filter &amp; combine surveys</a>
+<ul>
+<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#filter-1"><i class="fa fa-check"></i>Filter</a></li>
+<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#combine"><i class="fa fa-check"></i>Combine</a></li>
+</ul></li>
+<li class="part"><span><b>I Data exploration</b></span></li>
+<li class="chapter" data-level="6" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>6</b> Maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#publishable-maps"><i class="fa fa-check"></i>Publishable maps</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-maps"><i class="fa fa-check"></i>Interactive maps</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-dashboard"><i class="fa fa-check"></i>Interactive dashboard</a></li>
+</ul></li>
 <li class="part"><span><b>II Data analysis</b></span></li>
-<li class="chapter" data-level="7" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>7</b> Estimating g(0)</a>
+<li class="chapter" data-level="7" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>7</b> Estimating <em>g(0)</em></a>
 <ul>
 <li class="chapter" data-level="" data-path="g0.html"><a href="g0.html#relative-g0"><i class="fa fa-check"></i>Relative <code>g(0)</code></a></li>
 <li class="chapter" data-level="" data-path="g0.html"><a href="g0.html#weighted-average-g0"><i class="fa fa-check"></i>Weighted average <code>g(0)</code></a></li>
@@ -299,528 +299,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Approach<a href="segmentizing.html#approach" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>Segments are built and stored separately for each cohort of species, since each cohort has specific settings for segmentizing.</p></li>
-<li><p>Within each cohort, the survey is first grouped into blocs of data that all share the same “effort scenario”, i.e., all rows share the same Cruise number, study area status (in or out), geographic stratum, and year. Since a survey may leave a stratum then return to it many days hence, it is normal for these blocs to contain non-contiguous data with large spatial gaps. These gaps will be addressed a few steps down.</p></li>
-<li><p>The blocs are split a final time according to whether the effort scenario meets inclusion criteria for the analysis. These inclusion criteria are controlled by the cohort-specific settings such as <code>distance_types</code>, <code>distance_modes</code>, and <code>distance_on_off</code>. Rows of data that meet the inclusion criteria are relegated to their own data bloc, and given a new column, <code>use</code>, with the value <code>TRUE</code>. Data that do <em>not</em> meet the criteria are relegated to their own bloc as well (column <code>use</code> is <code>FALSE</code>). This means that, at the end of this process, we will have segments that <em>will</em> be used in the density/detection function analysis, and segments that will <em>not</em>. (The excluded segments are not deleted or transformed in any other way; they can still be used in summarizing detections, etc.)</p></li>
-<li><p>Next, the <code>segmentize()</code> function loops through each of these blocs of effort and parses its data into segments according to the <code>segment_method</code>. If segmentizing by <code>"day"</code>, this is straightforward: all data occurring on a unique date are assigned to its own segment. Segmentizing by <code>"equallength"</code> is a bit more complicated in terms of coding: segments are built up one line of data at a time; if the <code>segment_target_km</code> is reached or the <code>segment_max_interval</code> is exceeded, a new segment begins.</p></li>
+<li><p>Within each cohort, the survey is first grouped into blocs of data that all share the same geographic/scientific scenario, i.e., all rows share the same Cruise number and geographic stratum. Since a survey may leave a stratum then return to it many days hence, it is normal for these blocs to contain non-contiguous data with large spatial gaps. These gaps will be addressed a few steps down.</p></li>
+<li><p>Those blocs are split further according to whether the effort scenario meets inclusion criteria for the analysis. These inclusion criteria are controlled by the cohort-specific settings such as <code>distance_types</code>, <code>distance_modes</code>, and <code>distance_on_off</code>. Rows of data that meet the inclusion criteria are relegated to their own data bloc, and given a new column, <code>use</code>, with the value <code>TRUE</code>. Data that do <em>not</em> meet the criteria are relegated to their own bloc as well (column <code>use</code> is <code>FALSE</code>). This means that, at the end of this process, we will have segments that <em>will</em> be used in the density/detection function analysis, and segments that will <em>not</em>. (The excluded segments are not deleted or transformed in any other way; they can still be used in summarizing detections, etc.)</p></li>
+<li><p>Next, the <code>segmentize()</code> function loops through each of these blocs of effort and parses its data into segments according to the <code>segment_method</code>. If segmentizing by <code>"day"</code>, this is straightforward: all data occurring on a unique date are assigned to its own segment. Segmentizing by <code>"equallength"</code> (a target length for each segment) is a bit more complicated in terms of coding: segments are built up one line of data at a time; if the <code>segment_target_km</code> is reached or the <code>segment_max_interval</code> is exceeded, a new segment begins.</p></li>
 </ul>
 <p>At the end of this process, you have lists of data sorted into their segments, each with a unique <code>seg_id</code>, as well as a summary dataframe that provides the distance (km); time and coordinates for the beginning, middle, and end of the segment; and the weighted averages of sighting conditions and weather data contained in the segment.</p>
 <div id="setting-up-this-demo" class="section level3 unnumbered hasAnchor">
 <h3>Setting up this demo<a href="segmentizing.html#setting-up-this-demo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The demonstration of <code>segmentize()</code> on in <a href="processing.html#processing">Processing chapter</a> relies on the <code>settings</code> list that is attached as a slot in the <code>cruz</code> object. But you can override those settings with direct function inputs in <code>segmentize()</code>, which gives us a chance to explore segmentization options.</p>
 <p>First we load the demo data and carry out initial processing:</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="segmentizing.html#cb328-1" tabindex="-1"></a><span class="co"># Load built-in settings example</span></span>
-<span id="cb328-2"><a href="segmentizing.html#cb328-2" tabindex="-1"></a><span class="fu">data</span>(example_settings)</span>
-<span id="cb328-3"><a href="segmentizing.html#cb328-3" tabindex="-1"></a>settings <span class="ot">&lt;-</span> example_settings</span>
-<span id="cb328-4"><a href="segmentizing.html#cb328-4" tabindex="-1"></a></span>
-<span id="cb328-5"><a href="segmentizing.html#cb328-5" tabindex="-1"></a><span class="co"># Set path to DAS file</span></span>
-<span id="cb328-6"><a href="segmentizing.html#cb328-6" tabindex="-1"></a>das_file <span class="ot">&lt;-</span> <span class="st">&#39;data/surveys/HICEASwinter2020.das&#39;</span></span>
-<span id="cb328-7"><a href="segmentizing.html#cb328-7" tabindex="-1"></a></span>
-<span id="cb328-8"><a href="segmentizing.html#cb328-8" tabindex="-1"></a><span class="co"># First steps of formatting</span></span>
-<span id="cb328-9"><a href="segmentizing.html#cb328-9" tabindex="-1"></a>das <span class="ot">&lt;-</span> <span class="fu">das_load</span>(das_file, </span>
-<span id="cb328-10"><a href="segmentizing.html#cb328-10" tabindex="-1"></a>                <span class="at">perform_checks =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb328-11"><a href="segmentizing.html#cb328-11" tabindex="-1"></a>                <span class="at">print_glimpse =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb328-12"><a href="segmentizing.html#cb328-12" tabindex="-1"></a>cruz <span class="ot">&lt;-</span> <span class="fu">process_strata</span>(das,</span>
-<span id="cb328-13"><a href="segmentizing.html#cb328-13" tabindex="-1"></a>                       settings,</span>
-<span id="cb328-14"><a href="segmentizing.html#cb328-14" tabindex="-1"></a>                       <span class="at">verbose=</span><span class="cn">FALSE</span>)</span>
-<span id="cb328-15"><a href="segmentizing.html#cb328-15" tabindex="-1"></a>cruz <span class="ot">&lt;-</span> <span class="fu">das_format</span>(cruz)</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="segmentizing.html#cb329-1" tabindex="-1"></a><span class="co"># Load built-in settings example</span></span>
+<span id="cb329-2"><a href="segmentizing.html#cb329-2" tabindex="-1"></a><span class="fu">data</span>(example_settings)</span>
+<span id="cb329-3"><a href="segmentizing.html#cb329-3" tabindex="-1"></a>settings <span class="ot">&lt;-</span> example_settings</span>
+<span id="cb329-4"><a href="segmentizing.html#cb329-4" tabindex="-1"></a></span>
+<span id="cb329-5"><a href="segmentizing.html#cb329-5" tabindex="-1"></a><span class="co"># Set path to DAS file</span></span>
+<span id="cb329-6"><a href="segmentizing.html#cb329-6" tabindex="-1"></a>das_file <span class="ot">&lt;-</span> <span class="st">&#39;data/surveys/HICEASwinter2020.das&#39;</span></span>
+<span id="cb329-7"><a href="segmentizing.html#cb329-7" tabindex="-1"></a></span>
+<span id="cb329-8"><a href="segmentizing.html#cb329-8" tabindex="-1"></a><span class="co"># First steps of formatting</span></span>
+<span id="cb329-9"><a href="segmentizing.html#cb329-9" tabindex="-1"></a>das <span class="ot">&lt;-</span> <span class="fu">das_load</span>(das_file, </span>
+<span id="cb329-10"><a href="segmentizing.html#cb329-10" tabindex="-1"></a>                <span class="at">perform_checks =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb329-11"><a href="segmentizing.html#cb329-11" tabindex="-1"></a>                <span class="at">print_glimpse =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb329-12"><a href="segmentizing.html#cb329-12" tabindex="-1"></a>cruz <span class="ot">&lt;-</span> <span class="fu">process_strata</span>(das,</span>
+<span id="cb329-13"><a href="segmentizing.html#cb329-13" tabindex="-1"></a>                       settings,</span>
+<span id="cb329-14"><a href="segmentizing.html#cb329-14" tabindex="-1"></a>                       <span class="at">verbose=</span><span class="cn">FALSE</span>)</span>
+<span id="cb329-15"><a href="segmentizing.html#cb329-15" tabindex="-1"></a>cruz <span class="ot">&lt;-</span> <span class="fu">das_format</span>(cruz)</span></code></pre></div>
 </div>
 </div>
 <div id="base-example" class="section level2 unnumbered hasAnchor">
 <h2>Base example<a href="segmentizing.html#base-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Here is the <code>segmentize()</code> function parameterized with some basic settings: a target segment length of 30km, with the maximum allowable gap in effort within segments to be 24 hours.</p>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="segmentizing.html#cb329-1" tabindex="-1"></a>cruz_demo <span class="ot">&lt;-</span> <span class="fu">segmentize</span>(cruz,</span>
-<span id="cb329-2"><a href="segmentizing.html#cb329-2" tabindex="-1"></a>                        <span class="at">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
-<span id="cb329-3"><a href="segmentizing.html#cb329-3" tabindex="-1"></a>                        <span class="at">segment_target_km =</span> <span class="dv">30</span>,</span>
-<span id="cb329-4"><a href="segmentizing.html#cb329-4" tabindex="-1"></a>                        <span class="at">segment_max_interval =</span> <span class="dv">24</span>,</span>
-<span id="cb329-5"><a href="segmentizing.html#cb329-5" tabindex="-1"></a>                        <span class="at">segment_remainder_handling =</span> <span class="fu">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
-<span id="cb329-6"><a href="segmentizing.html#cb329-6" tabindex="-1"></a>                        <span class="at">distance_types =</span> <span class="fu">c</span>(<span class="st">&#39;S&#39;</span>,<span class="st">&#39;F&#39;</span>,<span class="st">&#39;N&#39;</span>),</span>
-<span id="cb329-7"><a href="segmentizing.html#cb329-7" tabindex="-1"></a>                        <span class="at">distance_modes =</span> <span class="fu">c</span>(<span class="st">&#39;P&#39;</span>,<span class="st">&#39;C&#39;</span>),</span>
-<span id="cb329-8"><a href="segmentizing.html#cb329-8" tabindex="-1"></a>                        <span class="at">distance_on_off =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>),</span>
-<span id="cb329-9"><a href="segmentizing.html#cb329-9" tabindex="-1"></a>                        <span class="at">verbose=</span><span class="cn">FALSE</span>,</span>
-<span id="cb329-10"><a href="segmentizing.html#cb329-10" tabindex="-1"></a>                        <span class="at">to_plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-423-1.png" width="672" /></p>
-<pre><code># A tibble: 76 × 39
-   seg_id Cruise ship  stratum use   Mode  EffType OnEffort   ESWsides  dist
-    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
- 1      1   2001 OES   HI_EEZ  FALSE NA-P  NA-S    FALSE-TRUE       NA   0  
- 2     14   2001 OES   WHICEAS TRUE  C     F       TRUE              2  30.1
- 3     18   2001 OES   WHICEAS TRUE  C     N       TRUE              2  30.4
- 4     19   2001 OES   WHICEAS TRUE  C     N       TRUE              2  30.6
- 5     26   2001 OES   WHICEAS TRUE  C     S       TRUE              2  29.7
- 6     29   2001 OES   WHICEAS TRUE  C     S       TRUE              2  30.0
- 7     32   2001 OES   WHICEAS TRUE  C     S       TRUE              2  29.8
- 8     38   2001 OES   WHICEAS TRUE  C     S       TRUE              2  30.1
- 9     44   2001 OES   WHICEAS TRUE  C     S       TRUE              2  30.2
-10     45   2001 OES   WHICEAS TRUE  C     S       TRUE              2  29.9
-# ℹ 66 more rows
-# ℹ 29 more variables: minutes &lt;dbl&gt;, n_rows &lt;int&gt;, min_line &lt;int&gt;,
-#   max_line &lt;int&gt;, year &lt;dbl&gt;, month &lt;dbl&gt;, day &lt;int&gt;, lat1 &lt;dbl&gt;, lon1 &lt;dbl&gt;,
-#   DateTime1 &lt;dttm&gt;, timestamp1 &lt;dbl&gt;, yday1 &lt;dbl&gt;, lat2 &lt;dbl&gt;, lon2 &lt;dbl&gt;,
-#   DateTime2 &lt;dttm&gt;, timestamp2 &lt;dbl&gt;, yday2 &lt;dbl&gt;, mlat &lt;dbl&gt;, mlon &lt;dbl&gt;,
-#   mDateTime &lt;dttm&gt;, mtimestamp &lt;dbl&gt;, avgBft &lt;dbl&gt;, avgSwellHght &lt;dbl&gt;,
-#   avgHorizSun &lt;dbl&gt;, avgVertSun &lt;dbl&gt;, avgGlare &lt;dbl&gt;, avgVis &lt;dbl&gt;, …
-   seg_id Cruise ship stratum   use   Mode  EffType   OnEffort ESWsides
-1       1   2001  OES  HI_EEZ FALSE   NA-P     NA-S FALSE-TRUE       NA
-2      14   2001  OES WHICEAS  TRUE      C        F       TRUE        2
-3      18   2001  OES WHICEAS  TRUE      C        N       TRUE        2
-4      19   2001  OES WHICEAS  TRUE      C        N       TRUE        2
-5      26   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-6      29   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-7      32   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-8      38   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-9      44   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-10     45   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-11     50   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-12     53   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-13     59   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-14     60   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-15     66   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-16     71   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-17     77   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-18     78   2001  OES WHICEAS  TRUE    C-P        S       TRUE        2
-19     79   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-20     85   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-21     95   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-22    103   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-23    113   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-24    117   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-25    123   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-26    124   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-27    126   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-28    132   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-29    135   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-30    138   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-31    147   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-32    151   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-33    152   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-34    153   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-35    154   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-36    155   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-37    157   2001  OES WHICEAS FALSE   C-NA S-NA-N-F FALSE-TRUE        2
-38    158   2001  OES WHICEAS FALSE   C-NA F-N-NA-S FALSE-TRUE        2
-39    159   2001  OES WHICEAS FALSE   C-NA   N-S-NA FALSE-TRUE        2
-40    160   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-41    161   2001  OES WHICEAS FALSE   C-NA     F-NA FALSE-TRUE        2
-42    165   2001  OES WHICEAS FALSE   C-NA   S-F-NA FALSE-TRUE        2
-43    166   2001  OES WHICEAS FALSE   C-NA   S-N-NA FALSE-TRUE        2
-44    171   2001  OES WHICEAS FALSE P-NA-C   N-NA-S FALSE-TRUE        2
-45    173   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-46    175   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-47    176   2001  OES WHICEAS FALSE   C-NA S-NA-F-N FALSE-TRUE        2
-48    178   2001  OES WHICEAS FALSE   C-NA   N-NA-S FALSE-TRUE        2
-49    180   2001  OES WHICEAS FALSE   NA-C   NA-F-S FALSE-TRUE       NA
-50    181   2001  OES WHICEAS FALSE    C-P   F-S-NA FALSE-TRUE        2
-51    182   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-52    184   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-53    188   2001  OES WHICEAS FALSE   NA-C     NA-S FALSE-TRUE       NA
-54    192   2001  OES WHICEAS FALSE   C-NA     S-NA      FALSE        2
-55    196   2001  OES WHICEAS FALSE   C-NA     N-NA FALSE-TRUE        2
-56    198   2001  OES WHICEAS FALSE   C-NA     N-NA FALSE-TRUE        2
-57    199   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-58    202   2001  OES WHICEAS FALSE   C-NA   N-NA-S FALSE-TRUE        2
-59    203   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-60    204   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-61    205   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-62    209   2001  OES WHICEAS FALSE   NA-C   NA-N-S FALSE-TRUE       NA
-63    214   2001  OES WHICEAS FALSE   C-NA     S-NA      FALSE        2
-64    219   2001  OES WHICEAS FALSE   C-NA   S-NA-N FALSE-TRUE        2
-65    220   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-66    221   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-67    224   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-68    227   2001  OES WHICEAS FALSE   C-NA S-NA-F-N FALSE-TRUE        2
-69    228   2001  OES WHICEAS FALSE   C-NA   N-F-NA FALSE-TRUE        2
-70    235   2001  OES WHICEAS  TRUE    C-P        N       TRUE        2
-71    236   2001  OES WHICEAS  TRUE      C        N       TRUE        2
-72    240   2001  OES WHICEAS  TRUE      C        N       TRUE        2
-73    241   2001  OES WHICEAS  TRUE      C        N       TRUE        2
-74    247   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-75    253   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-76    263   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-       dist   minutes n_rows min_line max_line year month day     lat1
-1   0.00000        NA     15     1080     1549 2020     1  21 22.33300
-2  30.11134  1172.033    104      580      872 2020     1  19 21.83833
-3  30.41913 17538.917     93     5804     6479 2020     1  30 20.87867
-4  30.57750  6934.483    108    10874    11483 2020     2  10 19.40450
-5  29.68669   931.767     66     2151     2254 2020     1  22 22.30717
-6  29.97408   970.833     81     2485     2613 2020     1  23 22.84950
-7  29.82113  1019.683     85     3006     3195 2020     1  24 23.13983
-8  30.06078   955.750     79     3507     3614 2020     1  25 23.11800
-9  30.18372   898.033     63     4038     4121 2020     1  26 22.08867
-10 29.85571   912.467     66     1044     1120 2020     1  20 21.91817
-11 29.63976   969.300     92     4545     4715 2020     1  27 22.24983
-12 30.23046  1044.600     80     4909     5138 2020     1  28 20.88550
-13 29.67595   977.850     89     5581     5697 2020     1  29 19.93500
-14 30.21943  1372.267     87     5698     6143 2020     1  30 20.94583
-15 30.19170   929.733     70     6571     6680 2020     1  31 20.75250
-16 30.07983   912.200     84     6990     7081 2020     2   1 19.58400
-17 30.23991   900.750     71     7541     7617 2020     2   2 19.37333
-18 30.12915  1205.217     95     1269     1566 2020     1  21 22.15417
-19 37.77530  1433.267    104     7618     8078 2020     2   3 20.44300
-20 30.07272   872.900     69     8459     8539 2020     2   4 19.98200
-21 30.14647  1008.117     77    10295    10472 2020     2   8 21.21033
-22 29.95008   899.150     72     9786     9881 2020     2   7 19.51833
-23 30.20142   881.200     85    13295    13390 2020     2  22 22.58550
-24 29.80910   958.050     87    13789    13940 2020     2  23 21.77583
-25 29.93410  1410.900    101    14361    14877 2020     2  24 22.36100
-26 29.97225  2475.950     72    14878    15702 2020     2  25 21.45900
-27 29.51911  1425.750     98    15794    16218 2020     2  27 18.86183
-28 30.00331   963.283     84    12868    13017 2020     2  21 23.01600
-29 29.69969  2651.933     66    20657    20917 2020     3   8 21.46933
-30 30.11431   881.383     84    21848    21971 2020     3  10 21.34117
-31 29.90610   962.700     88    21324    21490 2020     3   9 20.83850
-32 30.28818  1381.700    143     2896     3345 2020     1  24 23.24167
-33 29.85207  1314.783     79     3346     3691 2020     1  25 23.27300
-34 29.67374  1882.033    103     3692     4510 2020     1  26 22.37667
-35 30.25388  1311.300    153     4511     4951 2020     1  27 22.23950
-36 30.09869   972.600    124     4952     5129 2020     1  28 20.82167
-37 30.29592  1533.017    132     5407     5930 2020     1  29 20.13883
-38 29.87289  1484.367    149     5931     6441 2020     1  30 20.66533
-39 29.88844  1459.733    125     6442     6943 2020     1  31 20.74050
-40 30.26964  2570.950    172     6944     7705 2020     2   1 19.62133
-41 30.36532  1169.933    153      347      667 2020     1  19 21.98533
-42 30.15990  2560.433    114     7957     8664 2020     2   3 20.21333
-43 30.27013  1226.300     69     8665     8989 2020     2   5 19.24783
-44 30.18635  1151.917    103     9274     9502 2020     2   6 20.33467
-45 29.51573  1251.150    102     9503     9864 2020     2   7 19.77117
-46 30.09191  1196.117    125    10122    10436 2020     2   8 21.05450
-47 29.92316  1570.300    119    10437    11060 2020     2   9 20.75683
-48 29.94592  1292.083     94    11211    11571 2020     2  10 20.03083
-49 30.07269  1696.517    195      772     1476 2020     1  20 21.53550
-50 30.21295  1319.100    123     1477     1950 2020     1  21 21.97083
-51 29.76123  1260.917    103     1951     2303 2020     1  22 22.44267
-52 29.94687  1176.150     85     2390     2682 2020     1  23 22.70117
-53 29.52854  3890.100    122    12408    12990 2020     2  21 22.59067
-54 29.88480   937.750     73    16006    16078 2020     2  27 18.98750
-55 39.17835   915.133     85    16491    16648 2020     2  28 19.08167
-56 29.83348   990.833     94    16998    17208 2020     2  29 19.82750
-57 30.44439  1507.200    115    12991    13527 2020     2  22 22.80083
-58 30.19830  1426.333    112    17444    17840 2020     3   1 18.78983
-59 29.95142  1129.467    112    17841    18122 2020     3   2 18.87733
-60 30.16677  2924.150    104    18123    19174 2020     3   3 18.42000
-61 29.80048  1330.533     89    19175    19556 2020     3   5 17.75567
-62 30.14852  1400.583     85    19725    20212 2020     3   6 18.66700
-63 29.88025   873.050     63    20398    20460 2020     3   7 20.38633
-64 30.32890  2410.333    101    20732    21416 2020     3   8 21.54700
-65 29.96941  1592.167    132    21417    22049 2020     3  10 21.66900
-66 29.85556  1102.333     96    13816    14073 2020     2  23 21.76900
-67 29.85875  1181.633    113    14074    14388 2020     2  24 22.20917
-68 29.86928  1311.183    174    14740    15277 2020     2  25 21.45600
-69 29.71765  1122.650    142    15278    15579 2020     2  26 19.60250
-70 23.22903  8630.017     70     8927     9263 2020     2   5 19.52183
-71 29.55520  3853.250    135    16263    16611 2020     2  28 19.13517
-72 29.79137   980.950    104    17021    17228 2020     2  29 19.80067
-73 30.53747  1557.567    105    17229    17722 2020     3   1 19.02300
-74 29.79833   901.267     84    18534    18644 2020     3   3 18.13633
-75 30.21042   852.883     69    18969    19041 2020     3   4 18.19567
-76 29.90193  1016.333     85    17923    18093 2020     3   2 18.89667
-        lon1           DateTime1 timestamp1 yday1     lat2      lon2
-1  -161.2520 2020-01-21 07:28:48 1579591728    21 22.68750 -161.1208
-2  -160.1427 2020-01-19 17:48:16 1579456096    19 21.75217 -160.5167
-3  -157.0888 2020-01-30 11:28:54 1580383734    30 20.74350 -159.3752
-4  -154.8637 2020-02-10 07:45:59 1581320759    41 21.12850 -156.6312
-5  -159.6305 2020-01-22 18:09:55 1579716595    22 22.67867 -159.5432
-6  -160.2023 2020-01-23 15:25:41 1579793141    23 23.32000 -160.3017
-7  -159.5945 2020-01-24 15:25:54 1579879554    24 23.42867 -159.2748
-8  -158.0090 2020-01-25 16:19:35 1579969175    25 22.43183 -158.4972
-9  -157.0058 2020-01-26 17:54:22 1580061262    26 21.96517 -158.0397
-10 -161.0890 2020-01-20 17:12:20 1579540340    20 22.29700 -161.1112
-11 -159.3815 2020-01-27 17:44:24 1580147064    27 20.98850 -159.1777
-12 -158.5883 2020-01-28 14:09:42 1580220582    28 20.25967 -157.8320
-13 -156.5590 2020-01-29 16:52:18 1580316738    29 20.94767 -157.3412
-14 -157.3360 2020-01-30 09:10:09 1580375409    30 20.36683 -158.2468
-15 -159.7268 2020-01-31 17:58:42 1580493522    31 19.81217 -159.4830
-16 -158.5412 2020-02-01 16:30:26 1580574626    32 19.72950 -157.5458
-17 -156.1343 2020-02-02 17:46:38 1580665598    33 20.44417 -157.0048
-18 -160.5357 2020-01-21 11:46:48 1579607208    21 22.68150 -161.0983
-19 -156.9997 2020-02-03 08:47:23 1580719643    34 20.37950 -154.8502
-20 -153.5155 2020-02-04 17:45:03 1580838303    35 19.11783 -153.4092
-21 -155.2308 2020-02-08 17:45:34 1581183934    39 20.78217 -155.2000
-22 -153.2655 2020-02-07 17:30:25 1581096625    38 20.86700 -153.8352
-23 -157.3837 2020-02-22 16:51:15 1582390275    53 22.04067 -156.7950
-24 -155.7580 2020-02-23 16:36:30 1582475790    54 22.04450 -155.2472
-25 -156.5795 2020-02-24 17:56:36 1582566996    55 21.45900 -156.2140
-26 -156.2140 2020-02-25 17:25:32 1582651532    56 18.78150 -156.9642
-27 -157.2763 2020-02-27 12:37:27 1582807047    58 19.15467 -156.5753
-28 -157.6487 2020-02-21 18:15:47 1582308947    52 22.75767 -158.2260
-29 -161.0363 2020-03-08 13:00:52 1583672452    68 21.19283 -161.5130
-30 -158.9122 2020-03-10 16:53:50 1583859230    70 21.80100 -159.1330
-31 -160.0968 2020-03-09 16:49:08 1583772548    69 21.64350 -160.0990
-32 -159.8905 2020-01-24 13:05:53 1579871153    24 23.27450 -158.6780
-33 -158.6727 2020-01-25 12:07:35 1579954055    25 22.38017 -158.2480
-34 -158.2438 2020-01-26 10:02:22 1580032942    26 22.23883 -159.3152
-35 -159.3212 2020-01-27 17:24:24 1580145864    27 20.82300 -158.5038
-36 -158.5065 2020-01-28 15:15:42 1580224542    28 20.26350 -157.8470
-37 -157.1785 2020-01-29 12:50:18 1580302218    29 20.66650 -157.0180
-38 -157.0158 2020-01-30 14:24:20 1580394260    30 20.73850 -159.2903
-39 -159.2873 2020-01-31 15:08:42 1580483322    31 19.62233 -158.6952
-40 -158.6907 2020-02-01 15:28:26 1580570906    32 20.42483 -156.9735
-41 -159.9723 2020-01-19 13:37:58 1579441078    19 21.61683 -160.7107
-42 -156.1027 2020-02-03 16:54:10 1580748850    34 19.25017 -153.8952
-43 -153.8957 2020-02-05 11:33:57 1580902437    36 19.30733 -154.8340
-44 -154.1268 2020-02-06 16:00:54 1581004854    37 19.77333 -154.1133
-45 -154.1118 2020-02-07 11:13:23 1581074003    38 20.83767 -153.7818
-46 -154.6462 2020-02-08 13:43:34 1581169414    39 20.75183 -155.3288
-47 -155.3277 2020-02-09 09:39:41 1581241181    40 19.76050 -154.8913
-48 -155.2315 2020-02-10 15:13:59 1581347639    41 21.23117 -156.8088
-49 -160.4632 2020-01-20 11:36:18 1579520178    20 21.97400 -160.1832
-50 -160.1843 2020-01-21 15:52:49 1579621969    21 22.44150 -160.1892
-51 -160.1907 2020-01-22 13:51:55 1579701115    22 22.72067 -159.7432
-52 -159.8097 2020-01-23 13:03:41 1579784621    23 23.27833 -160.1368
-53 -155.9668 2020-02-21 07:13:47 1582269227    52 22.80517 -158.2527
-54 -157.7680 2020-02-27 17:15:27 1582823727    58 19.22517 -156.9488
-55 -156.0213 2020-02-28 18:07:44 1582913264    59 19.18850 -156.3523
-56 -156.1603 2020-02-29 16:55:00 1582995300    60 19.01950 -156.0935
-57 -158.2507 2020-02-22 09:41:15 1582364475    53 21.95100 -156.4322
-58 -155.4313 2020-03-01 14:44:08 1583073848    61 18.87567 -155.6212
-59 -155.6228 2020-03-02 14:30:28 1583159428    62 18.42100 -155.5743
-60 -155.5698 2020-03-03 09:19:56 1583227196    63 17.75783 -156.1800
-61 -156.1852 2020-03-05 10:04:05 1583402645    65 18.46200 -157.2170
-62 -158.0068 2020-03-06 12:52:37 1583499157    66 20.19067 -159.3087
-63 -160.1068 2020-03-07 17:11:12 1583601072    67 21.23150 -160.1178
-64 -161.3487 2020-03-08 14:50:15 1583679015    68 21.67017 -160.2080
-65 -160.2052 2020-03-10 06:59:50 1583823590    70 21.69333 -158.8137
-66 -155.6813 2020-02-23 17:08:30 1582477710    54 22.20517 -155.6708
-67 -155.6685 2020-02-24 11:30:36 1582543836    55 21.66800 -157.0692
-68 -156.3440 2020-02-25 15:03:37 1582643017    56 19.60517 -156.0277
-69 -156.0267 2020-02-26 12:56:48 1582721808    57 18.65183 -156.4478
-70 -154.7868 2020-02-05 17:26:59 1580923619    36 20.32900 -154.1045
-71 -156.4318 2020-02-28 13:20:30 1582896030    59 19.20317 -156.2690
-72 -156.2268 2020-02-29 17:21:00 1582996860    60 19.02500 -156.0512
-73 -156.0487 2020-03-01 09:42:08 1583055728    61 18.72400 -155.2490
-74 -154.4443 2020-03-03 17:49:56 1583257796    63 17.85150 -154.8355
-75 -156.1580 2020-03-04 16:51:12 1583340672    64 17.68383 -155.7863
-76 -155.8423 2020-03-02 15:52:28 1583164348    62 18.44033 -155.6443
-             DateTime2 timestamp2 yday2     mlat      mlon           mDateTime
-1  2020-01-22 07:42:01 1579678921    22 22.69050 -161.1327 2020-01-22 07:33:52
-2  2020-01-20 13:20:18 1579526418    20 21.56783 -160.4438 2020-01-20 12:08:01
-3  2020-01-31 16:00:53 1580486453    31 20.57667 -156.8462 2020-01-30 17:46:23
-4  2020-02-11 11:25:23 1581420323    42 19.88600 -155.0652 2020-02-10 13:27:59
-5  2020-01-23 09:39:41 1579772381    23 22.63000 -159.3107 2020-01-23 08:17:41
-6  2020-01-24 07:34:31 1579851271    24 22.92150 -160.4980 2020-01-23 17:18:12
-7  2020-01-25 08:23:35 1579940615    25 23.10933 -159.4403 2020-01-24 16:26:57
-8  2020-01-26 08:14:22 1580026462    26 23.09167 -157.8485 2020-01-25 17:21:02
-9  2020-01-27 08:50:24 1580115024    27 21.90683 -157.9103 2020-01-27 08:02:24
-10 2020-01-21 08:22:48 1579594968    21 21.93883 -161.2147 2020-01-20 17:56:20
-11 2020-01-28 09:51:42 1580205102    28 21.04950 -159.3770 2020-01-28 07:37:42
-12 2020-01-29 07:32:18 1580283138    29 20.84467 -158.4327 2020-01-28 16:03:42
-13 2020-01-30 09:08:09 1580375289    30 19.89133 -156.3947 2020-01-29 17:56:18
-14 2020-01-31 08:00:25 1580457625    31 20.87500 -157.1435 2020-01-30 11:08:12
-15 2020-02-01 09:26:26 1580549186    32 19.85550 -159.6207 2020-02-01 08:18:26
-16 2020-02-02 07:40:38 1580629238    33 19.55233 -158.4150 2020-02-01 17:20:30
-17 2020-02-03 08:45:23 1580719523    34 20.47317 -157.1222 2020-02-03 08:00:46
-18 2020-01-22 07:50:01 1579679401    22 22.07117 -160.3347 2020-01-21 13:18:48
-19 2020-02-04 08:38:39 1580805519    35 20.37800 -155.0227 2020-02-04 07:33:03
-20 2020-02-05 08:15:57 1580890557    36 19.08667 -153.2877 2020-02-05 07:33:57
-21 2020-02-09 10:31:41 1581244301    40 20.79650 -155.3543 2020-02-09 07:59:41
-22 2020-02-08 08:27:34 1581150454    39 20.81100 -153.6818 2020-02-08 07:20:14
-23 2020-02-23 07:30:27 1582443027    54 22.55267 -157.2653 2020-02-22 17:41:15
-24 2020-02-24 08:32:33 1582533153    55 21.74833 -155.5783 2020-02-23 18:00:36
-25 2020-02-25 17:25:30 1582651530    56 21.51467 -156.4527 2020-02-25 13:41:12
-26 2020-02-27 10:41:27 1582800087    58 19.81033 -156.0953 2020-02-26 11:04:48
-27 2020-02-28 12:21:12 1582892472    59 18.89283 -157.4175 2020-02-27 13:33:27
-28 2020-02-22 10:17:04 1582366624    53 22.84833 -158.4280 2020-02-22 08:09:15
-29 2020-03-09 07:29:08 1583738948    69 21.50533 -161.1775 2020-03-08 13:50:15
-30 2020-03-11 07:33:13 1583911993    71 21.30933 -158.7917 2020-03-10 17:37:50
-31 2020-03-10 08:49:50 1583830190    70 20.80117 -159.9445 2020-03-09 17:51:08
-32 2020-01-25 12:05:35 1579953935    25 23.13483 -159.4045 2020-01-24 17:05:54
-33 2020-01-26 10:00:22 1580032822    26 22.44500 -158.5460 2020-01-26 07:56:04
-34 2020-01-27 17:22:24 1580145744    27 22.14200 -158.9722 2020-01-27 14:21:57
-35 2020-01-28 15:13:42 1580224422    28 20.99633 -159.2700 2020-01-28 09:11:42
-36 2020-01-29 07:26:18 1580282778    29 20.78467 -158.3702 2020-01-28 17:02:16
-37 2020-01-30 14:22:20 1580394140    30 20.85867 -157.2002 2020-01-30 10:38:12
-38 2020-01-31 15:06:42 1580483202    31 20.56167 -156.8263 2020-01-30 17:12:20
-39 2020-02-01 15:26:26 1580570786    32 19.78867 -159.3478 2020-02-01 10:18:26
-40 2020-02-03 10:17:23 1580725043    34 19.39117 -156.2590 2020-02-02 16:50:38
-41 2020-01-20 09:05:54 1579511154    20 21.85967 -159.9373 2020-01-19 16:09:58
-42 2020-02-05 11:32:36 1580902356    36 20.12617 -154.0845 2020-02-04 13:39:03
-43 2020-02-06 07:58:54 1580975934    37 19.40733 -154.8660 2020-02-06 06:51:18
-44 2020-02-07 11:12:25 1581073945    38 19.77000 -154.2380 2020-02-07 09:34:25
-45 2020-02-08 08:03:34 1581149014    39 19.67917 -153.9075 2020-02-07 13:02:25
-46 2020-02-09 09:37:41 1581241061    40 20.87667 -155.4635 2020-02-09 07:09:41
-47 2020-02-10 11:47:59 1581335279    41 19.29517 -154.8390 2020-02-10 07:05:53
-48 2020-02-11 12:44:04 1581425044    42 21.19117 -156.4023 2020-02-11 09:12:21
-49 2020-01-21 15:50:49 1579621849    21 22.11200 -160.4542 2020-01-21 12:21:12
-50 2020-01-22 13:49:55 1579700995    22 22.66667 -161.0353 2020-01-22 08:13:17
-51 2020-01-23 10:50:50 1579776650    23 22.32667 -159.6942 2020-01-22 17:43:35
-52 2020-01-24 08:37:50 1579855070    24 22.87300 -160.3497 2020-01-23 16:23:41
-53 2020-02-22 09:39:15 1582364355    53 22.88383 -157.2532 2020-02-21 15:42:18
-54 2020-02-28 08:51:12 1582879872    59 19.20800 -157.0698 2020-02-28 07:49:12
-55 2020-02-29 09:22:44 1582968164    60 19.18033 -156.1485 2020-02-29 07:51:24
-56 2020-03-01 09:24:08 1583054648    61 19.06000 -155.9935 2020-03-01 08:02:13
-57 2020-02-23 10:46:27 1582454787    54 22.72650 -157.9458 2020-02-22 12:53:15
-58 2020-03-02 14:28:28 1583159308    62 18.65467 -154.9318 2020-03-02 09:12:26
-59 2020-03-03 09:17:56 1583227076    63 19.04017 -156.0997 2020-03-02 17:54:28
-60 2020-03-05 10:02:05 1583402525    65 17.80233 -154.6550 2020-03-04 07:37:12
-61 2020-03-06 08:12:37 1583482357    66 18.42233 -157.0558 2020-03-06 07:03:45
-62 2020-03-07 12:11:12 1583583072    67 20.14767 -159.1818 2020-03-07 11:20:24
-63 2020-03-08 07:42:15 1583653335    68 21.19583 -159.9885 2020-03-08 06:56:15
-64 2020-03-10 06:58:35 1583823515    70 21.14183 -161.3468 2020-03-09 08:37:08
-65 2020-03-11 09:30:45 1583919045    71 21.43433 -159.2933 2020-03-10 14:13:10
-66 2020-02-24 11:28:50 1582543730    55 21.98117 -155.0772 2020-02-24 07:26:33
-67 2020-02-25 07:10:28 1582614628    56 22.25250 -155.9182 2020-02-24 13:34:36
-68 2020-02-26 12:54:48 1582721688    57 21.46117 -156.3065 2020-02-25 16:25:32
-69 2020-02-27 07:37:27 1582789047    58 19.58917 -156.0185 2020-02-26 16:42:48
-70 2020-02-06 15:50:54 1581004254    37 20.19217 -154.1955 2020-02-06 14:46:44
-71 2020-02-29 08:40:03 1582965603    60 19.06033 -156.0258 2020-02-28 17:59:12
-72 2020-03-01 09:40:54 1583055654    61 19.22900 -155.9470 2020-03-01 06:57:34
-73 2020-03-02 11:38:28 1583149108    62 18.93683 -155.9200 2020-03-01 10:41:04
-74 2020-03-04 08:49:12 1583311752    64 17.81283 -154.6905 2020-03-04 07:51:12
-75 2020-03-05 07:02:05 1583391725    65 18.22867 -156.2812 2020-03-04 17:35:56
-76 2020-03-03 08:46:48 1583225208    63 18.94217 -156.0327 2020-03-02 16:59:56
-   mtimestamp   avgBft avgSwellHght avgHorizSun avgVertSun    avgGlare   avgVis
-1  1579678432      NaN          NaN         NaN        NaN         NaN      NaN
-2  1579522081 6.000000     7.000000    5.006984   1.265965 0.000000000 5.906890
-3  1580406383 3.449423     3.424377    9.873088   1.476085 0.025320055 5.758327
-4  1581341279 4.984964     6.609969    6.354441   1.629767 0.000000000 4.945342
-5  1579767461 3.908640    10.589045    5.969112   2.853276 0.000000000 5.840040
-6  1579799892 5.000000     8.018897   10.000000   2.841371 0.000000000 5.134127
-7  1579883217 4.604578     6.928138    6.608468   2.323192 0.323191764 5.063091
-8  1579972862 4.848507     9.697013    7.019397   2.288485 0.288485308 4.388787
-9  1580112144 4.244529     6.076286    5.977618   2.868228 0.000000000 5.538539
-10 1579542980 4.500147     7.000000   11.457187   2.457187 1.000000000 6.123167
-11 1580197062 2.856164     4.287279   11.699757   2.666664 1.000000000 5.974494
-12 1580227422 3.209909     4.859939    5.125472   1.887951 0.000000000 6.000000
-13 1580320578 3.374642     3.687321    6.900354   2.398922 0.312679018 5.687321
-14 1580382492 3.933876     3.731258    6.666280   2.051634 0.320376349 5.182815
-15 1580545106 3.293369     7.000000   11.964046   2.800021 1.000000000 5.000000
-16 1580577630 4.514820    11.604233    4.771231   2.169337 0.057092434 5.057092
-17 1580716846 5.356001     4.761397   10.190179   3.000000 0.761397228 5.119301
-18 1579612728 3.635635     5.545779    2.719912   1.000000 0.000000000 6.388294
-19 1580801583 5.395991     5.780025    6.824756   2.148208 0.716175060 4.716175
-20 1580888037 4.000000     6.000000    5.808575   3.000000 0.000000000 5.139739
-21 1581235181 4.558632     6.144830    5.793097   2.260357 0.861473879 5.185497
-22 1581146414 3.728904     6.728904    5.967942   2.814019 0.000000000 6.210854
-23 1582393275 4.424060     6.707446    6.794641   2.307835 0.292553879 5.292554
-24 1582480836 4.489379     6.503823    4.927080   2.037364 0.000000000 5.068030
-25 1582638072 5.743381     6.827423    3.453381   1.189094 0.045773787 4.956306
-26 1582715088 4.840472     6.848849    6.449868   1.597097 0.000000000 5.494620
-27 1582810407 5.394489     8.185377    5.822288   1.000000 0.000000000 5.124709
-28 1582358955 5.000000     4.973905   12.000000   2.347732 1.000000000 5.657877
-29 1583675415 5.714547     7.000000    9.428236   1.543040 0.271519945 5.142726
-30 1583861870 2.305764     3.356311    7.572113   1.734890 0.367444759 6.030576
-31 1583776268 4.668650     5.337300    7.299543   2.019907 0.331349978 6.000867
-32 1579885554 4.892875     8.590881    2.505890   1.357796 0.000000000 5.116564
-33 1580025364 4.705114     9.335287    1.922227   1.512782 0.428943475 4.736200
-34 1580134917 4.170120     6.425127    9.170609   1.845090 0.000000000 5.320284
-35 1580202702 3.164030     4.216177    6.855799   1.963057 0.463619780 6.121177
-36 1580230936 2.746796     4.757814    5.806156   1.873854 0.126602105 6.000000
-37 1580380692 3.240878     3.139038    7.889379   1.580339 0.580338554 5.337239
-38 1580404340 3.205111     3.151402    4.661279   1.868094 0.000000000 5.751274
-39 1580552306 4.617969     7.406833    4.195037   1.652238 0.477562502 4.515688
-40 1580662238 4.654442     5.800119    5.893508   2.062579 0.314448079 5.231499
-41 1579450198 4.877867     6.766707    4.671661   2.118434 0.156681937 6.255405
-42 1580823543 5.645166     6.843838    4.835606   1.891730 0.008451011 4.411348
-43 1580971878 3.259680     4.277834    7.000000   1.000000 0.000000000 4.397393
-44 1581068065 3.982997     6.000000    1.000000   2.000000 1.000000000 5.536595
-45 1581080545 3.594203     6.763412    6.000000   3.000000 0.000000000 5.868732
-46 1581232181 4.943615     8.539837    9.974673   1.658224 0.658224324 4.600021
-47 1581318353 5.954118     8.427358    6.007619   1.194107 0.147237008 5.200512
-48 1581412341 5.794124     8.808814    8.692008   1.464069 0.000000000 4.612411
-49 1579609272 4.224909     5.776142    5.431631   1.154758 0.154757717 6.178133
-50 1579680797 3.062491     4.000000    1.361171   1.000000 0.000000000 6.306494
-51 1579715015 2.855288     6.940613    4.916079   1.899784 0.000000000 5.070247
-52 1579796621 4.259707     9.503537   10.741760   2.124116 0.370879984 5.623382
-53 1582299738 5.135638     5.864874   10.121714   1.370616 0.177347502 5.214919
-54 1582876152 7.000000    10.376316    7.717734   2.156957 0.589716702 4.452502
-55 1582962684 2.126459     3.117313    6.298214   2.701786 0.000000000 6.525142
-56 1583049733 2.803562     1.956678    8.430326   2.088816 0.095953080 5.961721
-57 1582375995 5.000000     5.476359    6.659753   1.506336 0.506336432 5.186444
-58 1583140346 5.559758     8.361793    6.480688   1.614324 0.000000000 5.117277
-59 1583171668 4.713039     6.989733   10.100864   1.884139 0.328714703 4.926707
-60 1583307432 5.478923     7.621954    5.878409   1.550156 0.203464108 4.606435
-61 1583478225 6.256296     6.256296    6.000000   2.256296 0.000000000 5.185926
-62 1583580024 6.759634     7.562509    7.566860   1.000000 0.000000000 5.000000
-63 1583650575 7.000000     7.515620   10.750647   1.750647 0.750646863 4.387116
-64 1583743028 6.440106     6.973877   10.154108   1.269022 0.268246133 5.235192
-65 1583849590 2.748577     4.356881    7.012370   1.826218 0.413109098 5.212602
-66 1582529193 5.000000     5.435467    6.299025   1.350488 0.000000000 5.341576
-67 1582551276 4.984325     5.015675    9.261732   1.000000 0.000000000 5.984325
-68 1582647932 5.709386     6.519762    8.405883   1.549700 0.094283570 4.993677
-69 1582735368 4.737827     4.068456    6.435252   1.898638 0.184123829 5.039025
-70 1581000404 4.661152     5.392446         NaN        NaN         NaN 4.661152
-71 1582912752 3.124031     4.696677    4.746863   1.568667 0.000000000 5.896244
-72 1583045854 3.556184     3.587292    8.310047   2.641688 0.332120086 6.245119
-73 1583059264 4.581598     6.182030    7.242571   1.436082 0.351593765 5.762387
-74 1583308272 6.000000     7.355514    5.867296   2.132704 0.000000000 4.232596
-75 1583343356 5.000000     6.551219   10.199061   2.578598 0.839812233 4.806988
-76 1583168396 5.511027     7.210660   11.087888   2.000000 1.000000000 6.152876
-   avgCourse  avgSpdKt
-1        NaN       NaN
-2  277.06736  9.378851
-3  196.90959 10.100242
-4  149.24496  9.374871
-5  278.11305  9.761088
-6  282.49730  9.636017
-7  107.52274  8.904260
-8  105.21406  8.911500
-9  283.41214 10.158480
-10 193.76189  9.751525
-11 152.74168  9.371143
-12 113.29408  9.758419
-13 106.87208  9.305486
-14 165.77821  9.602570
-15 109.26712  7.829979
-16 104.73646  8.433167
-17 103.72003  9.528129
-18  95.67923 10.108030
-19 100.55758  8.897106
-20 268.49225 10.437658
-21 113.38549  9.139067
-22 236.64596  9.041504
-23 105.53631  8.377777
-24 203.79156  8.968617
-25 128.57580  8.158653
-26 229.71624  9.037101
-27 224.24830  9.068803
-28 109.56795  8.581114
-29 234.39393  9.647128
-30 105.98013  9.380064
-31 104.17249  8.712338
-32  86.96993  7.626220
-33 104.47611  9.382258
-34 235.42051  9.639034
-35 112.17294  9.518207
-36 137.42443  9.052868
-37 113.27997  8.960292
-38 136.70792  9.412532
-39  99.17958  8.314833
-40 154.58488  7.781760
-41 220.49238  7.535807
-42 134.82876  8.957854
-43 218.43837  6.996102
-44 215.34375  9.262080
-45 124.22752  8.617591
-46 211.30645  7.604920
-47 213.10523  8.891897
-48 305.41260  7.949114
-49 191.42105  9.114373
-50 184.02287  6.541224
-51 217.62333  9.006339
-52 228.88836  8.317266
-53 198.76962  9.651166
-54 179.82995  8.747033
-55 192.06600  9.751325
-56 213.97951  9.544307
-57  96.29962  8.368427
-58 130.96991  8.413619
-59 200.45450  8.739029
-60 207.09261  9.142551
-61 284.05139  9.793405
-62 282.14061  9.465631
-63 287.19773  9.844472
-64 224.62145  9.440073
-65 106.12943  9.114607
-66 272.51401  9.387362
-67 277.92410  9.422015
-68 240.28175  7.508963
-69 206.66743 10.133638
-70  63.34059  9.370393
-71 139.44272  9.419229
-72 205.93911  9.496354
-73  68.28127  8.935122
-74 267.62211  9.177008
-75 285.29438  9.806098
-76 255.80068  9.543037</code></pre>
+<p>Here is the <code>segmentize()</code> function parameterized with some basic settings: a target segment length of 30km, with the maximum allowable gap in effort within segments to be 6 hours.</p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="segmentizing.html#cb330-1" tabindex="-1"></a>cruz_demo <span class="ot">&lt;-</span> <span class="fu">segmentize</span>(cruz,</span>
+<span id="cb330-2"><a href="segmentizing.html#cb330-2" tabindex="-1"></a>                        <span class="at">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb330-3"><a href="segmentizing.html#cb330-3" tabindex="-1"></a>                        <span class="at">segment_target_km =</span> <span class="dv">30</span>,</span>
+<span id="cb330-4"><a href="segmentizing.html#cb330-4" tabindex="-1"></a>                        <span class="at">segment_max_interval =</span> <span class="dv">6</span>,</span>
+<span id="cb330-5"><a href="segmentizing.html#cb330-5" tabindex="-1"></a>                        <span class="at">segment_remainder_handling =</span> <span class="fu">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
+<span id="cb330-6"><a href="segmentizing.html#cb330-6" tabindex="-1"></a>                        <span class="at">distance_types =</span> <span class="fu">c</span>(<span class="st">&#39;S&#39;</span>,<span class="st">&#39;F&#39;</span>,<span class="st">&#39;N&#39;</span>),</span>
+<span id="cb330-7"><a href="segmentizing.html#cb330-7" tabindex="-1"></a>                        <span class="at">distance_modes =</span> <span class="fu">c</span>(<span class="st">&#39;P&#39;</span>,<span class="st">&#39;C&#39;</span>),</span>
+<span id="cb330-8"><a href="segmentizing.html#cb330-8" tabindex="-1"></a>                        <span class="at">distance_on_off =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>),</span>
+<span id="cb330-9"><a href="segmentizing.html#cb330-9" tabindex="-1"></a>                        <span class="at">verbose=</span><span class="cn">FALSE</span>,</span>
+<span id="cb330-10"><a href="segmentizing.html#cb330-10" tabindex="-1"></a>                        <span class="at">to_plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-424-1.png" width="672" /></p>
 </div>
 <div id="day-vs-equal-length" class="section level2 unnumbered hasAnchor">
 <h2>Day vs Equal Length<a href="segmentizing.html#day-vs-equal-length" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -830,7 +348,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb331-2"><a href="segmentizing.html#cb331-2" tabindex="-1"></a>                        <span class="at">segment_method =</span> <span class="st">&#39;day&#39;</span>,</span>
 <span id="cb331-3"><a href="segmentizing.html#cb331-3" tabindex="-1"></a>                        <span class="at">verbose=</span><span class="cn">FALSE</span>,</span>
 <span id="cb331-4"><a href="segmentizing.html#cb331-4" tabindex="-1"></a>                        <span class="at">to_plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-424-1.png" width="672" /></p>
+<p><img src="figures/unnamed-chunk-425-1.png" width="672" /></p>
 </div>
 <div id="by-target-length-of-100-km" class="section level3 unnumbered hasAnchor">
 <h3>By target length of 100 km<a href="segmentizing.html#by-target-length-of-100-km" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -840,459 +358,86 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb332-4"><a href="segmentizing.html#cb332-4" tabindex="-1"></a>                        <span class="at">segment_max_interval =</span> <span class="dv">48</span>,</span>
 <span id="cb332-5"><a href="segmentizing.html#cb332-5" tabindex="-1"></a>                        <span class="at">verbose=</span><span class="cn">FALSE</span>,</span>
 <span id="cb332-6"><a href="segmentizing.html#cb332-6" tabindex="-1"></a>                        <span class="at">to_plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-425-1.png" width="672" /></p>
-<pre><code># A tibble: 62 × 39
-   seg_id Cruise ship  stratum use   Mode   EffType  OnEffort   ESWsides  dist
-    &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;
- 1      1   2001 OES   HI_EEZ  FALSE NA-P   NA-S     FALSE-TRUE       NA   0  
- 2      6   2001 OES   WHICEAS FALSE C-NA   NA-F-N-S TRUE-FALSE       NA  99.9
- 3      7   2001 OES   WHICEAS FALSE C-NA   S-NA-F-N FALSE-TRUE        2  99.6
- 4      8   2001 OES   WHICEAS FALSE C-NA   F-N-NA-S FALSE-TRUE        2 100. 
- 5      9   2001 OES   WHICEAS FALSE C-NA-P S-NA-F   FALSE-TRUE        2  99.5
- 6     10   2001 OES   WHICEAS FALSE C-NA   S-NA     FALSE-TRUE        2 101. 
- 7     11   2001 OES   WHICEAS FALSE C-NA   S-NA     FALSE-TRUE        2  99.6
- 8     12   2001 OES   WHICEAS FALSE C-NA   S-NA-N-F FALSE-TRUE        2  99.9
- 9     13   2001 OES   WHICEAS FALSE C-NA   S-N-NA   FALSE-TRUE        2 100. 
-10     14   2001 OES   WHICEAS FALSE C-NA   S-F-NA-N FALSE-TRUE        2  98.7
-# ℹ 52 more rows
-# ℹ 29 more variables: minutes &lt;dbl&gt;, n_rows &lt;int&gt;, min_line &lt;int&gt;,
-#   max_line &lt;int&gt;, year &lt;dbl&gt;, month &lt;dbl&gt;, day &lt;int&gt;, lat1 &lt;dbl&gt;, lon1 &lt;dbl&gt;,
-#   DateTime1 &lt;dttm&gt;, timestamp1 &lt;dbl&gt;, yday1 &lt;dbl&gt;, lat2 &lt;dbl&gt;, lon2 &lt;dbl&gt;,
-#   DateTime2 &lt;dttm&gt;, timestamp2 &lt;dbl&gt;, yday2 &lt;dbl&gt;, mlat &lt;dbl&gt;, mlon &lt;dbl&gt;,
-#   mDateTime &lt;dttm&gt;, mtimestamp &lt;dbl&gt;, avgBft &lt;dbl&gt;, avgSwellHght &lt;dbl&gt;,
-#   avgHorizSun &lt;dbl&gt;, avgVertSun &lt;dbl&gt;, avgGlare &lt;dbl&gt;, avgVis &lt;dbl&gt;, …
-   seg_id Cruise ship stratum   use   Mode  EffType   OnEffort ESWsides
-1       1   2001  OES  HI_EEZ FALSE   NA-P     NA-S FALSE-TRUE       NA
-2       6   2001  OES WHICEAS FALSE   C-NA NA-F-N-S TRUE-FALSE       NA
-3       7   2001  OES WHICEAS FALSE   C-NA S-NA-F-N FALSE-TRUE        2
-4       8   2001  OES WHICEAS FALSE   C-NA F-N-NA-S FALSE-TRUE        2
-5       9   2001  OES WHICEAS FALSE C-NA-P   S-NA-F FALSE-TRUE        2
-6      10   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-7      11   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-8      12   2001  OES WHICEAS FALSE   C-NA S-NA-N-F FALSE-TRUE        2
-9      13   2001  OES WHICEAS FALSE   C-NA   S-N-NA FALSE-TRUE        2
-10     14   2001  OES WHICEAS FALSE   C-NA S-F-NA-N FALSE-TRUE        2
-11     15   2001  OES WHICEAS FALSE   C-NA     N-NA      FALSE        2
-12     16   2001  OES WHICEAS FALSE NA-P-C   NA-N-S FALSE-TRUE       NA
-13     17   2001  OES WHICEAS FALSE   NA-P     NA-N FALSE-TRUE       NA
-14     18   2001  OES WHICEAS FALSE   C-NA     S-NA FALSE-TRUE        2
-15     19   2001  OES WHICEAS FALSE   NA-C   NA-N-S FALSE-TRUE       NA
-16     20   2001  OES WHICEAS FALSE   C-NA     S-NA      FALSE        2
-17     22   2001  OES WHICEAS FALSE   NA-C     NA-S FALSE-TRUE       NA
-18     23   2001  OES WHICEAS FALSE   NA-C   NA-S-N FALSE-TRUE       NA
-19     25   2001  OES WHICEAS FALSE   NA-C     NA-S FALSE-TRUE       NA
-20     26   2001  OES WHICEAS FALSE   NA-C     NA-S FALSE-TRUE       NA
-21     27   2001  OES WHICEAS FALSE   NA-C NA-S-F-N FALSE-TRUE       NA
-22     28   2001  OES WHICEAS FALSE   NA-C     NA-S FALSE-TRUE       NA
-23     29   2001  OES WHICEAS FALSE   NA-C   NA-S-N FALSE-TRUE       NA
-24     30   2001  OES WHICEAS FALSE C-P-NA     N-NA FALSE-TRUE        2
-25     31   2001  OES WHICEAS FALSE   C-NA   N-NA-S FALSE-TRUE        2
-26     33   2001  OES WHICEAS  TRUE      C        F       TRUE        2
-27     39   2001  OES WHICEAS  TRUE      C        N       TRUE        2
-28     40   2001  OES WHICEAS  TRUE    C-P        N       TRUE        2
-29     41   2001  OES WHICEAS  TRUE      C        N       TRUE        2
-30     43   2001  OES WHICEAS  TRUE      C        N       TRUE        2
-31     45   2001  OES WHICEAS  TRUE    C-P        N       TRUE        2
-32     47   2001  OES WHICEAS  TRUE      C        N       TRUE        2
-33     48   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-34     49   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-35     51   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-36     52   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-37     54   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-38     55   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-39     57   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-40     59   2001  OES WHICEAS  TRUE    C-P        S       TRUE        2
-41     60   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-42     62   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-43     63   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-44     65   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-45     66   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-46     69   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-47     70   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-48     71   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-49     72   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-50     74   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-51     76   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-52     78   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-53     80   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-54     81   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-55     82   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-56     84   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-57     85   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-58     87   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-59     88   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-60     90   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-61     92   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-62     93   2001  OES WHICEAS  TRUE      C        S       TRUE        2
-        dist   minutes n_rows min_line max_line year month day     lat1
-1    0.00000        NA     15     1080     1549 2020     1  21 22.33300
-2   99.91877        NA    405       11      975 2020     1  19 21.85200
-3   99.62116  4289.567    363     9523    11034 2020     2   7 19.73233
-4  100.45678  1850.367    325    11035    11819 2020     2  10 19.72267
-5   99.47289  4139.367    438      976     2373 2020     1  20 21.87317
-6  100.51920  2855.900    395     2374     3345 2020     1  23 22.66483
-7   99.63959  4548.117    362     3346     4989 2020     1  25 23.27300
-8   99.86654  3979.150    476     4990     6229 2020     1  28 20.83917
-9  100.19596  4491.317    420     6230     7816 2020     1  31 20.46583
-10  98.72089  3166.283    284     7817     8950 2020     2   3 20.34800
-11  77.46174  1044.450    138     8951     9088 2020     2   5 19.47583
-12 100.28697  1469.517    261     9089     9522 2020     2   6 19.69033
-13  99.54315 11100.800    291    11820    12188 2020     2  17 21.47567
-14  99.79480  4260.683    264    18225    19645 2020     3   3 18.33950
-15 100.50612  1628.583    222    19646    20270 2020     3   6 18.56800
-16  99.48314  1097.050    207    20271    20477 2020     3   7 20.24800
-17  99.94458  1280.983    194    20532    20890 2020     3   8 21.32333
-18 100.29250  3577.983    385    20891    22486 2020     3   9 21.21333
-19 100.33608  6621.400    395    12394    13875 2020     2  19 21.91733
-20  99.99051  1740.650    350    13876    14561 2020     2  24 21.96067
-21  99.48936  2706.250    463    14562    15632 2020     2  25 21.56367
-22 100.47495  1459.167    271    15633    16096 2020     2  27 18.72617
-23 100.09871  1362.933    248    16097    16581 2020     2  28 19.17133
-24 100.00432  1690.583    326    16582    17349 2020     2  29 19.20117
-25  99.64886  2843.800    336    17350    18224 2020     3   1 18.86233
-26 100.47710  3146.833    358      154     1411 2020     1  19 22.15500
-27  30.41913 17538.917     93     5804     6479 2020     1  30 20.87867
-28  23.22903  8630.017     70     8927     9263 2020     2   5 19.52183
-29  30.57750  6934.483    108    10874    11483 2020     2  10 19.40450
-30  99.78729 16955.750    358    15198    16743 2020     2  26 19.81117
-31 100.04330  2825.467    330    16807    17722 2020     2  29 19.40967
-32  32.50858  7087.367     86    21382    22378 2020     3   9 20.79533
-33  99.59164        NA    211      876     1139 2020     1  20 21.75400
-34 100.18874  1195.300    289     4231     4593 2020     1  27 21.98250
-35 100.12115  1356.083    237     5013     5496 2020     1  28 20.81400
-36 100.21993  2486.517    272     5497     6161 2020     1  29 20.00500
-37 100.41031  1303.733    245     6395     6787 2020     1  31 20.63717
-38  99.77602  1224.200    264     6788     7104 2020     2   1 19.74983
-39 100.41197  2496.067    268     7386     8055 2020     2   2 19.48233
-40 100.33778  1453.067    333     1140     1700 2020     1  21 22.27383
-41  99.95286  1118.900    226     8313     8561 2020     2   4 20.11067
-42 100.15064  2814.467    275     8803     9623 2020     2   5 19.33800
-43  65.89289  1036.067    167     9624     9817 2020     2   7 19.66050
-44 100.01454  1273.717    258    10161    10549 2020     2   8 21.09550
-45  99.92863  2598.650    252    10550    11258 2020     2   9 20.76300
-46  99.82449  1357.833    223     2028     2438 2020     1  22 22.38500
-47 100.08784  1468.150    285     2439     2977 2020     1  23 22.79333
-48 100.16879  1327.683    252     2978     3375 2020     1  24 23.16417
-49  99.93565  1219.067    237     3376     3658 2020     1  25 23.24400
-50  99.96439  1188.033    269     3937     4230 2020     1  26 22.17567
-51 100.39218  1198.033    232    12619    12944 2020     2  21 22.81750
-52  24.74341   861.200     69    13295    13374 2020     2  22 22.58550
-53  99.65584  1362.100    263    13801    14261 2020     2  23 21.76567
-54 100.20570  4010.850    257    14262    15687 2020     2  24 22.26667
-55 100.26581  1811.750    293    15688    16427 2020     2  27 18.77083
-56 100.07364  1214.700    265    21267    21615 2020     3   9 20.88667
-57  99.77226  1155.383    252    21616    21950 2020     3  10 21.56100
-58  94.98663  1323.717    286    17865    18280 2020     3   2 18.87900
-59 100.05430  1197.017    331    18281    18643 2020     3   3 18.29917
-60 100.07779  1108.883    213    18874    19120 2020     3   4 18.07967
-61 100.27928  2510.483    208    19373    20084 2020     3   5 17.97517
-62 100.03120  2922.567    239    20085    21037 2020     3   7 20.05817
-        lon1           DateTime1 timestamp1 yday1     lat2      lon2
-1  -161.2520 2020-01-21 07:28:48 1579591728    21 22.68750 -161.1208
-2  -159.7727 2020-01-19 07:31:11 1579419071    19 21.87200 -160.8287
-3  -154.0735 2020-02-07 11:46:25 1581075985    38 19.72050 -154.8105
-4  -154.8148 2020-02-10 11:15:59 1581333359    41 21.41150 -157.1700
-5  -160.8292 2020-01-20 15:32:19 1579534339    20 22.66250 -159.7163
-6  -159.7220 2020-01-23 12:31:41 1579782701    23 23.27450 -158.6780
-7  -158.6727 2020-01-25 12:07:35 1579954055    25 20.83583 -158.4482
-8  -158.4432 2020-01-28 15:55:42 1580226942    28 20.46433 -158.6277
-9  -158.6332 2020-01-31 10:14:42 1580465682    31 20.34917 -156.6358
-10 -156.6317 2020-02-03 13:06:10 1580735170    34 19.47600 -154.7962
-11 -154.7963 2020-02-05 17:50:32 1580925032    36 19.68550 -154.5397
-12 -154.5363 2020-02-06 11:16:54 1580987814    37 19.73167 -154.0748
-13 -158.3557 2020-02-17 13:35:46 1581946546    48 21.70483 -157.2177
-14 -155.2558 2020-03-03 11:39:56 1583235596    63 18.56650 -157.6283
-15 -157.6342 2020-03-06 10:40:37 1583491237    66 20.24683 -159.5543
-16 -159.5595 2020-03-07 13:49:12 1583588952    67 21.25000 -160.1823
-17 -160.4623 2020-03-08 09:38:15 1583660295    68 21.21333 -161.5942
-18 -161.5942 2020-03-09 06:57:14 1583737034    69 21.16850 -158.2605
-19 -158.0488 2020-02-19 16:35:09 1582130109    50 21.95917 -154.9905
-20 -154.9962 2020-02-24 06:56:33 1582527393    55 21.56417 -156.6513
-21 -156.6485 2020-02-25 11:57:12 1582631832    56 18.72333 -156.6857
-22 -156.6907 2020-02-27 09:03:27 1582794207    58 19.17233 -157.0005
-23 -157.0015 2020-02-28 09:21:12 1582881672    59 19.19833 -156.1737
-24 -156.1763 2020-02-29 08:05:00 1582963500    60 18.86350 -155.7190
-25 -155.7145 2020-03-01 12:16:08 1583064968    61 18.34050 -155.2600
-26 -159.8438 2020-01-19 09:49:58 1579427398    19 22.03983 -160.1947
-27 -157.0888 2020-01-30 11:28:54 1580383734    30 20.74350 -159.3752
-28 -154.7868 2020-02-05 17:26:59 1580923619    36 20.32900 -154.1045
-29 -154.8637 2020-02-10 07:45:59 1581320759    41 21.12850 -156.6312
-30 -156.1415 2020-02-26 11:25:48 1582716348    57 19.41917 -156.2707
-31 -156.1407 2020-02-29 12:35:00 1582979700    60 18.72400 -155.2490
-32 -159.9180 2020-03-09 18:01:52 1583776912    69 21.25333 -158.5208
-33 -160.5175 2020-01-20 13:21:01 1579526461    20 22.27533 -161.0252
-34 -158.5092 2020-01-27 11:30:24 1580124624    27 21.05833 -159.4150
-35 -158.3635 2020-01-28 16:29:42 1580228982    28 20.00517 -156.8398
-36 -156.8395 2020-01-29 15:04:18 1580310258    29 20.38817 -158.3330
-37 -159.2742 2020-01-31 14:08:42 1580479722    31 19.75117 -159.2102
-38 -159.2048 2020-02-01 11:52:26 1580557946    32 19.70800 -157.4600
-39 -156.5632 2020-02-02 14:36:38 1580654198    33 20.38800 -154.9230
-40 -161.0195 2020-01-21 08:54:48 1579596888    21 22.63017 -160.8893
-41 -154.0280 2020-02-04 14:15:03 1580825703    35 19.14500 -153.5140
-42 -154.4548 2020-02-05 14:47:57 1580914077    36 19.66150 -153.8213
-43 -153.8163 2020-02-07 13:42:25 1581082945    38 20.79433 -153.6182
-44 -154.8023 2020-02-08 14:41:34 1581172894    39 20.76417 -154.9823
-45 -154.9768 2020-02-09 11:55:42 1581249342    40 21.06500 -156.1200
-46 -159.9168 2020-01-22 15:43:55 1579707835    22 22.79133 -160.0227
-47 -160.0282 2020-01-23 14:21:41 1579789301    23 23.16550 -159.6905
-48 -159.6855 2020-01-24 14:49:54 1579877394    24 23.24517 -158.5435
-49 -158.5380 2020-01-25 12:57:35 1579957055    25 22.44167 -158.3548
-50 -157.3620 2020-01-26 15:42:22 1580053342    26 21.98100 -158.5037
-51 -156.8680 2020-02-21 12:31:47 1582288307    52 22.83583 -158.3788
-52 -157.3837 2020-02-22 16:51:15 1582390275    53 22.05400 -156.8443
-53 -155.7195 2020-02-23 16:52:30 1582476750    54 22.26567 -156.1680
-54 -156.1738 2020-02-24 15:34:36 1582558476    55 18.76967 -156.9142
-55 -156.9198 2020-02-27 10:25:27 1582799127    58 19.01667 -156.1702
-56 -160.2858 2020-03-09 15:31:08 1583767868    69 21.56300 -159.6428
-57 -159.6378 2020-03-10 11:45:50 1583840750    70 21.82317 -159.2223
-58 -155.6678 2020-03-02 14:48:28 1583160508    62 18.30033 -155.0988
-59 -155.0950 2020-03-03 12:51:56 1583239916    63 17.85017 -154.8307
-60 -155.7152 2020-03-04 14:17:12 1583331432    64 17.74417 -155.9767
-61 -156.9033 2020-03-05 15:16:05 1583421365    65 20.05767 -158.8173
-62 -158.8190 2020-03-07 09:05:12 1583571912    67 21.11550 -161.1690
-             DateTime2 timestamp2 yday2     mlat      mlon           mDateTime
-1  2020-01-22 07:42:01 1579678921    22 22.69050 -161.1327 2020-01-22 07:33:52
-2  2020-01-20 15:30:19 1579534219    20 21.57383 -160.5790 2020-01-20 08:04:18
-3  2020-02-10 11:13:59 1581333239    41 21.22617 -155.2492 2020-02-08 17:55:34
-4  2020-02-11 18:04:21 1581444261    42 21.18783 -156.4072 2020-02-11 09:14:21
-5  2020-01-23 12:29:41 1579782581    23 22.59867 -160.7162 2020-01-22 10:07:52
-6  2020-01-25 12:05:35 1579953935    25 23.29883 -160.1023 2020-01-24 10:55:58
-7  2020-01-28 15:53:42 1580226822    28 22.23800 -159.3092 2020-01-27 17:20:24
-8  2020-01-31 10:12:51 1580465571    31 19.99317 -156.7923 2020-01-29 15:22:19
-9  2020-02-03 13:04:10 1580735050    34 19.62217 -157.1203 2020-02-02 11:06:13
-10 2020-02-05 17:50:27 1580925027    36 20.21200 -156.0975 2020-02-03 16:56:10
-11 2020-02-06 11:14:54 1580987694    37 19.35817 -154.7625 2020-02-06 08:58:54
-12 2020-02-07 11:44:25 1581075865    38 20.33267 -154.1053 2020-02-06 15:52:54
-13 2020-02-19 11:05:09 1582110309    50 22.04250 -158.2913 2020-02-17 18:13:43
-14 2020-03-06 10:38:37 1583491117    66 18.42300 -157.0583 2020-03-06 07:04:37
-15 2020-03-07 13:47:12 1583588832    67 19.96317 -158.4395 2020-03-07 06:47:12
-16 2020-03-08 08:04:15 1583654655    68 20.35783 -159.9943 2020-03-07 16:31:12
-17 2020-03-09 06:57:14 1583737034    69 21.43617 -160.9142 2020-03-08 12:18:15
-18 2020-03-11 18:35:13 1583951713    71 21.82383 -159.2247 2020-03-11 06:58:19
-19 2020-02-24 06:54:33 1582527273    55 22.53633 -157.1957 2020-02-22 18:10:38
-20 2020-02-25 11:55:12 1582631712    56 21.66850 -157.0722 2020-02-25 07:08:33
-21 2020-02-27 09:01:27 1582794087    58 19.91500 -156.0813 2020-02-26 09:50:48
-22 2020-02-28 09:20:37 1582881637    59 18.93817 -157.5803 2020-02-27 16:01:27
-23 2020-02-29 08:03:33 1582963413    60 19.13750 -156.3623 2020-02-28 14:39:12
-24 2020-03-01 12:14:08 1583064848    61 19.70700 -156.3120 2020-02-29 18:23:00
-25 2020-03-03 11:37:56 1583235476    63 18.65917 -155.2378 2020-03-02 10:58:28
-26 2020-01-21 14:14:48 1579616088    21 21.80333 -160.0330 2020-01-19 17:10:48
-27 2020-01-31 16:00:53 1580486453    31 20.57667 -156.8462 2020-01-30 17:46:23
-28 2020-02-06 15:50:54 1581004254    37 20.19217 -154.1955 2020-02-06 14:46:44
-29 2020-02-11 11:25:23 1581420323    42 19.88600 -155.0652 2020-02-10 13:27:59
-30 2020-02-29 11:19:28 1582975168    60 19.04500 -156.0290 2020-02-28 17:53:12
-31 2020-03-02 11:38:28 1583149108    62 19.72267 -156.3125 2020-02-29 18:17:00
-32 2020-03-11 16:33:59 1583944439    71 21.42967 -158.4652 2020-03-11 14:51:13
-33 2020-01-21 08:52:48 1579596768    21 21.90333 -160.9970 2020-01-20 16:40:23
-34 2020-01-28 07:23:42 1580196222    28 22.16217 -159.0873 2020-01-27 15:06:24
-35 2020-01-29 15:04:11 1580310251    29 20.16533 -157.4640 2020-01-29 09:48:18
-36 2020-01-31 08:30:42 1580459442    31 20.97050 -157.4058 2020-01-30 08:43:41
-37 2020-02-01 11:50:26 1580557826    32 19.86550 -159.6578 2020-02-01 08:04:26
-38 2020-02-02 08:14:38 1580631278    33 19.61050 -158.6485 2020-02-01 15:46:26
-39 2020-02-04 08:10:42 1580803842    35 20.49433 -157.2042 2020-02-03 07:30:05
-40 2020-01-22 09:05:52 1579683952    22 22.07067 -160.3225 2020-01-21 13:22:48
-41 2020-02-05 08:51:57 1580892717    36 20.00533 -153.5913 2020-02-04 17:15:03
-42 2020-02-07 13:40:25 1581082825    38 19.83367 -154.4798 2020-02-07 08:02:25
-43 2020-02-08 06:56:29 1581144989    39 19.58017 -153.4778 2020-02-07 16:00:39
-44 2020-02-09 11:53:42 1581249222    40 20.86767 -155.4500 2020-02-09 07:15:41
-45 2020-02-11 07:12:21 1581405141    42 20.63567 -154.4630 2020-02-09 15:29:42
-46 2020-01-23 14:19:45 1579789185    23 22.63133 -159.3223 2020-01-23 08:21:41
-47 2020-01-24 14:47:54 1579877274    24 23.30067 -160.2283 2020-01-24 08:00:40
-48 2020-01-25 12:55:35 1579956935    25 23.41117 -159.2327 2020-01-25 08:40:17
-49 2020-01-26 09:14:39 1580030079    26 23.13117 -158.0577 2020-01-25 16:00:26
-50 2020-01-27 11:28:24 1580124504    27 21.92233 -157.9422 2020-01-27 08:14:24
-51 2020-02-22 08:29:15 1582360155    53 22.94933 -157.3898 2020-02-21 16:47:47
-52 2020-02-23 07:10:27 1582441827    54 22.55700 -157.2845 2020-02-22 17:33:15
-53 2020-02-24 15:32:36 1582558356    55 22.08633 -155.4900 2020-02-24 09:58:33
-54 2020-02-27 10:23:27 1582799007    58 21.52683 -156.5017 2020-02-25 13:19:12
-55 2020-02-28 16:35:12 1582907712    59 18.89100 -157.3922 2020-02-27 13:23:27
-56 2020-03-10 11:43:50 1583840630    70 21.64983 -160.1223 2020-03-10 08:40:25
-57 2020-03-11 06:59:13 1583909953    71 21.40467 -159.1643 2020-03-10 15:03:50
-58 2020-03-03 12:50:11 1583239811    63 18.42883 -155.6037 2020-03-03 09:04:59
-59 2020-03-04 08:47:12 1583311632    64 18.18233 -154.6457 2020-03-03 16:19:56
-60 2020-03-05 08:44:05 1583397845    65 18.20600 -156.1960 2020-03-04 17:05:12
-61 2020-03-07 09:04:34 1583571874    67 18.08650 -157.3400 2020-03-05 17:46:05
-62 2020-03-09 09:47:08 1583747228    69 21.50950 -161.1948 2020-03-08 13:56:15
-   mtimestamp   avgBft avgSwellHght avgHorizSun avgVertSun    avgGlare   avgVis
-1  1579678432      NaN          NaN         NaN        NaN         NaN      NaN
-2  1579507458 5.128083     7.063235    4.467992   1.682369 0.344517876 5.967136
-3  1581184534 4.710589     8.112782    7.546051   1.568233 0.262374221 4.994149
-4  1581412461 5.651883     8.704314    8.611582   1.263381 0.000000000 4.880111
-5  1579687672 2.913489     6.293346    5.276111   1.511402 0.261874672 5.898653
-6  1579863358 4.435180     8.240447    7.710615   1.913823 0.402052802 5.534311
-7  1580145624 3.909132     6.485278    6.099406   1.713658 0.263751103 5.455732
-8  1580311339 3.478643     3.806445    4.825466   1.824426 0.419240667 5.680916
-9  1580641573 5.313369     6.805166    4.291268   1.631312 0.252835438 4.746676
-10 1580748970 6.321631     7.387893    3.711664   1.698973 0.002814260 4.134020
-11 1580979534 2.267559     3.267559         NaN        NaN         NaN 4.866220
-12 1581004374 3.257916     4.567725    1.000000   2.000000 1.000000000 4.817161
-13 1581963223 6.670442     6.207687    5.666958   2.199876 0.199876411 4.474237
-14 1583478277 6.438988     6.769782    5.805191   2.071638 0.000000000 4.996988
-15 1583563632 6.927898     7.446039    7.775695   1.000000 0.000000000 5.000000
-16 1583598672 7.000000     7.781233   10.155382   1.155382 0.155382336 4.705996
-17 1583669895 6.997715     7.000000    8.170470   1.066167 0.000000000 5.000000
-18 1583909899 2.941494     4.157675    4.529329   1.541471 0.237820380 6.024604
-19 1582395038 5.513195     6.482226    6.248737   1.377216 0.214242704 5.156535
-20 1582614513 5.364939     5.724447    7.531359   1.574425 0.382497255 5.374254
-21 1582710648 5.810685     6.255111    6.096551   2.061110 0.081455686 4.714421
-22 1582819287 6.808077     9.432417    8.335450   1.916293 0.415347692 4.593235
-23 1582900752 4.994516     7.785228    4.338661   1.661617 0.000000000 5.181479
-24 1583000580 3.798583     3.835136    6.514971   1.590703 0.209360315 6.141686
-25 1583146708 5.755097     7.557364    6.049363   1.560368 0.133177633 5.138967
-26 1579453848 5.477926     7.203073    7.091664   1.428277 0.204144664 5.887604
-27 1580406383 3.449423     3.424377    9.873088   1.476085 0.025320055 5.758327
-28 1581000404 4.661152     5.392446         NaN        NaN         NaN 4.661152
-29 1581341279 4.984964     6.609969    6.354441   1.629767 0.000000000 4.945342
-30 1582912392 3.062833     3.646181    6.336261   1.283594 0.246636211 6.150588
-31 1583000220 3.848871     4.940123    7.633274   1.679792 0.282113660 5.959173
-32 1583938273 2.634420     3.275438    2.217477   1.338525 0.000000000 6.437218
-33 1579538423 4.886062     7.000000   10.084827   1.853057 0.489668211 5.947775
-34 1580137584 4.642617     5.850631    9.097312   1.477874 0.141743994 5.510219
-35 1580291298 3.182694     4.606170    6.844428   1.985086 0.422467226 5.734008
-36 1580373821 3.611551     4.077656    5.983574   1.984656 0.189190296 5.609887
-37 1580544266 3.989753     6.367106    9.368393   2.084873 0.830262067 5.055214
-38 1580571986 4.694184     9.434106    4.461701   1.693785 0.126339686 5.114734
-39 1580715005 4.212352     4.988016    6.755251   2.187387 0.421468157 5.129102
-40 1579612968 3.773264     5.545910    4.619530   1.477611 0.477611450 6.103830
-41 1580836503 4.000000     6.399287    4.702839   2.246963 0.000000000 5.064723
-42 1581062545 3.882397     5.762492    8.732053   1.709282 0.363972171 5.889121
-43 1581091239 3.152021     6.834814    5.000000   3.000000 0.000000000 5.076102
-44 1581232541 4.819183     8.170048    6.567596   1.855079 0.318533492 5.055913
-45 1581262182 4.525836     7.086960    3.188279   1.556084 0.000000000 5.181024
-46 1579767701 3.043304     8.727071    5.149226   2.578913 0.000000000 5.952430
-47 1579852840 5.000000     7.407662    6.809698   1.701839 0.167492006 5.649273
-48 1579941617 4.882279     8.236228    4.796593   1.838151 0.451259503 4.864896
-49 1579968026 4.895222     9.708907    4.833667   1.642630 0.170370192 5.026551
-50 1580112864 4.661570     6.422097    5.616595   2.275634 0.000000000 5.711704
-51 1582303667 5.309142     6.225222   10.503905   1.749561 0.420841258 4.827602
-52 1582392795 4.419995     6.863498    5.646419   2.155154 0.136502170 5.136502
-53 1582538313 4.492900     5.308411    8.190381   1.286301 0.078544037 5.587378
-54 1582636752 4.690722     5.930044    7.789109   1.834519 0.490520372 5.565201
-55 1582809807 5.150536     7.649064    5.555537   1.045965 0.000000000 5.163195
-56 1583829625 4.924334     4.857467    4.584329   1.414874 0.184908431 6.000259
-57 1583852630 2.734279     4.922333    3.393594   1.017305 0.008652364 6.000000
-58 1583226299 5.537977     8.963847    8.924995   1.415656 0.597126543 5.204848
-59 1583252396 6.000000     9.937443    4.576505   1.767917 0.000000000 4.057354
-60 1583341512 5.338520     6.422540    9.573000   1.876897 0.410951830 4.960688
-61 1583430365 5.097312     5.983217    9.738967   1.974344 0.565257371 5.443199
-62 1583675775 5.561021     7.410153    8.291528   1.540274 0.384855106 5.229441
-   avgCourse  avgSpdKt
-1        NaN       NaN
-2  194.55192  7.709562
-3  203.84112  8.446307
-4  299.02269  8.208691
-5  180.53558  7.634308
-6  155.06208  7.184731
-7  145.97905  9.521554
-8  101.79133  7.513526
-9  125.94909  8.155691
-10 132.46935  8.525247
-11 153.36457  4.681607
-12 139.81125  7.196281
-13 194.85132  9.557688
-14 274.55391  9.662940
-15 284.45524  9.624089
-16 286.28803  9.624374
-17 285.18629  9.888097
-18 113.73998  9.596219
-19 148.11257  8.599527
-20 200.29541  7.500685
-21 228.06092  8.710984
-22 236.00468  9.066602
-23 152.87788  8.505417
-24 172.99904  9.115407
-25 141.67293  8.040222
-26 244.18631  9.538651
-27 196.90959 10.100242
-28  63.34059  9.370393
-29 149.24496  9.374871
-30 153.24485  9.616660
-31 147.26786  9.306176
-32 176.41172  9.793078
-33 242.72350  9.900679
-34 285.58399  9.661279
-35 109.68594  9.421157
-36 142.34723  9.430886
-37 172.35968  9.097397
-38 104.26843  8.519835
-39 102.62332  9.327991
-40 103.17709  9.987417
-41 177.88442  9.713084
-42 178.88062  9.451000
-43 107.06494  8.682113
-44 192.61294  9.249831
-45 114.09609  9.673976
-46 229.43209  9.878247
-47 195.55715  9.527608
-48 103.92613  9.123261
-49 104.86979  9.089860
-50 209.23402  9.663045
-51 249.95890  9.876131
-52 105.67999  8.326220
-53 264.45975  9.475117
-54 220.45518  9.058134
-55 216.06000  9.188690
-56 102.65765  8.779436
-57 105.81961  9.561930
-58 180.45547  8.739032
-59 152.38277  8.119670
-60 283.92925 10.093604
-61 285.28456 10.085211
-62 217.03890  9.396838</code></pre>
+<p><img src="figures/unnamed-chunk-426-1.png" width="672" /></p>
 </div>
 </div>
 <div id="contiguous-vs.-non-contiguous-effort" class="section level2 unnumbered hasAnchor">
 <h2>Contiguous vs. non-contiguous effort<a href="segmentizing.html#contiguous-vs.-non-contiguous-effort" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The default example at the top allows for non-contiguous effort; a segment is allowed to contain effort separated by gaps as large as 24 hours (<code>settings$segment_max_interval</code>). To coerce segments to represent only contiguous effort, make that setting very small:</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="segmentizing.html#cb334-1" tabindex="-1"></a>cruz_demo <span class="ot">&lt;-</span> <span class="fu">segmentize</span>(cruz,</span>
-<span id="cb334-2"><a href="segmentizing.html#cb334-2" tabindex="-1"></a>                        <span class="at">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
-<span id="cb334-3"><a href="segmentizing.html#cb334-3" tabindex="-1"></a>                        <span class="at">segment_target_km =</span> <span class="dv">30</span>,</span>
-<span id="cb334-4"><a href="segmentizing.html#cb334-4" tabindex="-1"></a>                        <span class="at">segment_max_interval =</span> .<span class="dv">1</span>,</span>
-<span id="cb334-5"><a href="segmentizing.html#cb334-5" tabindex="-1"></a>                        <span class="at">verbose=</span><span class="cn">FALSE</span>,</span>
-<span id="cb334-6"><a href="segmentizing.html#cb334-6" tabindex="-1"></a>                        <span class="at">to_plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-426-1.png" width="672" /></p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="segmentizing.html#cb333-1" tabindex="-1"></a>cruz_demo <span class="ot">&lt;-</span> <span class="fu">segmentize</span>(cruz,</span>
+<span id="cb333-2"><a href="segmentizing.html#cb333-2" tabindex="-1"></a>                        <span class="at">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb333-3"><a href="segmentizing.html#cb333-3" tabindex="-1"></a>                        <span class="at">segment_target_km =</span> <span class="dv">30</span>,</span>
+<span id="cb333-4"><a href="segmentizing.html#cb333-4" tabindex="-1"></a>                        <span class="at">segment_max_interval =</span> .<span class="dv">1</span>,</span>
+<span id="cb333-5"><a href="segmentizing.html#cb333-5" tabindex="-1"></a>                        <span class="at">verbose=</span><span class="cn">FALSE</span>,</span>
+<span id="cb333-6"><a href="segmentizing.html#cb333-6" tabindex="-1"></a>                        <span class="at">to_plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-427-1.png" width="672" /></p>
 <p>You can see that many contiguous periods of effort were much shorter than the target length of 30 km. This is why allowing for non-contiguous effort can be advantageous for target segment lengths larger than 5 - 10 km.</p>
 </div>
 <div id="segment-remainder-handling" class="section level2 unnumbered hasAnchor">
 <h2>Segment remainder handling<a href="segmentizing.html#segment-remainder-handling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In the top example, the setting for <code>segment_remainder_handling</code>, <code>c('append','segment')</code>, means that remainders less than half the target length will be randomly appended to another segment, while remainders more than half will be treated as their own segment (and will be placed randomly along the trackline).</p>
-<p>If you don’t want that level of complexity, you can simply assign a single setting: <code>'append'</code> will append the remainder in all cases, regardless of remainder length relative to the target length. The same idea goes for <code>'segment'</code>.</p>
-<p>The other possible setting is <code>'disperse'</code>, which disperses the remainder evenly across all segments. To demonstrate, let’s use a target length of 10 km.</p>
+<p>If you don’t want that level of complexity, you can simply assign a single setting: <code>'append'</code> will append the remainder in all cases, regardless of remainder length relative to the target length. The same idea goes for <code>'segment'</code>. Here is a simple comparison of those two approaches:</p>
+<div id="append" class="section level3 unnumbered hasAnchor">
+<h3><code>"append"</code><a href="segmentizing.html#append" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="segmentizing.html#cb334-1" tabindex="-1"></a>cruz_demo <span class="ot">&lt;-</span> <span class="fu">segmentize</span>(cruz,</span>
+<span id="cb334-2"><a href="segmentizing.html#cb334-2" tabindex="-1"></a>                        <span class="at">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb334-3"><a href="segmentizing.html#cb334-3" tabindex="-1"></a>                        <span class="at">segment_target_km =</span> <span class="dv">10</span>,</span>
+<span id="cb334-4"><a href="segmentizing.html#cb334-4" tabindex="-1"></a>                        <span class="at">segment_max_interval =</span> <span class="dv">6</span>,</span>
+<span id="cb334-5"><a href="segmentizing.html#cb334-5" tabindex="-1"></a>                        <span class="at">segment_remainder_handling =</span> <span class="st">&#39;append&#39;</span>,</span>
+<span id="cb334-6"><a href="segmentizing.html#cb334-6" tabindex="-1"></a>                        <span class="at">verbose=</span><span class="cn">FALSE</span>,</span>
+<span id="cb334-7"><a href="segmentizing.html#cb334-7" tabindex="-1"></a>                        <span class="at">to_plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-428-1.png" width="672" /></p>
+</div>
+<div id="segment" class="section level3 unnumbered hasAnchor">
+<h3><code>"segment"</code><a href="segmentizing.html#segment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="segmentizing.html#cb335-1" tabindex="-1"></a>cruz_demo <span class="ot">&lt;-</span> <span class="fu">segmentize</span>(cruz,</span>
 <span id="cb335-2"><a href="segmentizing.html#cb335-2" tabindex="-1"></a>                        <span class="at">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
 <span id="cb335-3"><a href="segmentizing.html#cb335-3" tabindex="-1"></a>                        <span class="at">segment_target_km =</span> <span class="dv">10</span>,</span>
 <span id="cb335-4"><a href="segmentizing.html#cb335-4" tabindex="-1"></a>                        <span class="at">segment_max_interval =</span> <span class="dv">6</span>,</span>
-<span id="cb335-5"><a href="segmentizing.html#cb335-5" tabindex="-1"></a>                        <span class="at">segment_remainder_handling =</span> <span class="st">&#39;disperse&#39;</span>,</span>
+<span id="cb335-5"><a href="segmentizing.html#cb335-5" tabindex="-1"></a>                        <span class="at">segment_remainder_handling =</span> <span class="st">&#39;segment&#39;</span>,</span>
 <span id="cb335-6"><a href="segmentizing.html#cb335-6" tabindex="-1"></a>                        <span class="at">verbose=</span><span class="cn">FALSE</span>,</span>
 <span id="cb335-7"><a href="segmentizing.html#cb335-7" tabindex="-1"></a>                        <span class="at">to_plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-427-1.png" width="672" /></p>
-<p>Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:</p>
+<p><img src="figures/unnamed-chunk-429-1.png" width="672" /></p>
+</div>
+<div id="disperse" class="section level3 unnumbered hasAnchor">
+<h3><code>"disperse"</code><a href="segmentizing.html#disperse" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The other possible setting is <code>'disperse'</code>, which disperses the remainder evenly across all segments. To demonstrate, let’s use a target length of 10 km.</p>
 <div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="segmentizing.html#cb336-1" tabindex="-1"></a>cruz_demo <span class="ot">&lt;-</span> <span class="fu">segmentize</span>(cruz,</span>
 <span id="cb336-2"><a href="segmentizing.html#cb336-2" tabindex="-1"></a>                        <span class="at">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
-<span id="cb336-3"><a href="segmentizing.html#cb336-3" tabindex="-1"></a>                        <span class="at">segment_target_km =</span> <span class="fl">9.5</span>,</span>
+<span id="cb336-3"><a href="segmentizing.html#cb336-3" tabindex="-1"></a>                        <span class="at">segment_target_km =</span> <span class="dv">10</span>,</span>
 <span id="cb336-4"><a href="segmentizing.html#cb336-4" tabindex="-1"></a>                        <span class="at">segment_max_interval =</span> <span class="dv">6</span>,</span>
 <span id="cb336-5"><a href="segmentizing.html#cb336-5" tabindex="-1"></a>                        <span class="at">segment_remainder_handling =</span> <span class="st">&#39;disperse&#39;</span>,</span>
 <span id="cb336-6"><a href="segmentizing.html#cb336-6" tabindex="-1"></a>                        <span class="at">verbose=</span><span class="cn">FALSE</span>,</span>
 <span id="cb336-7"><a href="segmentizing.html#cb336-7" tabindex="-1"></a>                        <span class="at">to_plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-428-1.png" width="672" /></p>
+<p><img src="figures/unnamed-chunk-430-1.png" width="672" /></p>
+<p>Note that most segments are longer than the target length, due to the impact of dispersing the remainder. If you wanted, you could combat this by making the target length slightly smaller:</p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="segmentizing.html#cb337-1" tabindex="-1"></a>cruz_demo <span class="ot">&lt;-</span> <span class="fu">segmentize</span>(cruz,</span>
+<span id="cb337-2"><a href="segmentizing.html#cb337-2" tabindex="-1"></a>                        <span class="at">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb337-3"><a href="segmentizing.html#cb337-3" tabindex="-1"></a>                        <span class="at">segment_target_km =</span> <span class="fl">9.5</span>,</span>
+<span id="cb337-4"><a href="segmentizing.html#cb337-4" tabindex="-1"></a>                        <span class="at">segment_max_interval =</span> <span class="dv">6</span>,</span>
+<span id="cb337-5"><a href="segmentizing.html#cb337-5" tabindex="-1"></a>                        <span class="at">segment_remainder_handling =</span> <span class="st">&#39;disperse&#39;</span>,</span>
+<span id="cb337-6"><a href="segmentizing.html#cb337-6" tabindex="-1"></a>                        <span class="at">verbose=</span><span class="cn">FALSE</span>,</span>
+<span id="cb337-7"><a href="segmentizing.html#cb337-7" tabindex="-1"></a>                        <span class="at">to_plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-431-1.png" width="672" /></p>
 <p>But in general, the <code>disperse</code> option may be more appropriate for shorter segment lengths.</p>
+</div>
 </div>
 <div id="typical-settings" class="section level2 unnumbered hasAnchor">
 <h2>Typical settings<a href="segmentizing.html#typical-settings" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="design-based-line-transect-analysis" class="section level3 unnumbered hasAnchor">
 <h3>Design-based line transect analysis<a href="segmentizing.html#design-based-line-transect-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>To replicate methods used in density estimation analyses, use large segment lengths (100 km or more) or simply segmentize by day. (See the examples above.) Remember that long segment lengths won’t work well unless you allow for non-contiguous effort.</p>
+<p>To replicate methods used in density estimation analyses, use large segment lengths (100 km or more) or simply segmentize by day. <em>(See the examples above.)</em> Remember that long segment lengths won’t work well unless you allow for non-contiguous effort.</p>
 </div>
 <div id="habitat-modeling" class="section level3 unnumbered hasAnchor">
 <h3>Habitat modeling<a href="segmentizing.html#habitat-modeling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To replicate the methods used in typical habitat modeling studies, use smaller segment lengths of contiguous effort.</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="segmentizing.html#cb337-1" tabindex="-1"></a>cruz_demo <span class="ot">&lt;-</span> <span class="fu">segmentize</span>(cruz,</span>
-<span id="cb337-2"><a href="segmentizing.html#cb337-2" tabindex="-1"></a>                        <span class="at">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
-<span id="cb337-3"><a href="segmentizing.html#cb337-3" tabindex="-1"></a>                        <span class="at">segment_target_km =</span> <span class="dv">5</span>,</span>
-<span id="cb337-4"><a href="segmentizing.html#cb337-4" tabindex="-1"></a>                        <span class="at">segment_max_interval =</span> .<span class="dv">1</span>,</span>
-<span id="cb337-5"><a href="segmentizing.html#cb337-5" tabindex="-1"></a>                        <span class="at">verbose=</span><span class="cn">FALSE</span>,</span>
-<span id="cb337-6"><a href="segmentizing.html#cb337-6" tabindex="-1"></a>                        <span class="at">to_plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-429-1.png" width="672" /></p>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="segmentizing.html#cb338-1" tabindex="-1"></a>cruz_demo <span class="ot">&lt;-</span> <span class="fu">segmentize</span>(cruz,</span>
+<span id="cb338-2"><a href="segmentizing.html#cb338-2" tabindex="-1"></a>                        <span class="at">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb338-3"><a href="segmentizing.html#cb338-3" tabindex="-1"></a>                        <span class="at">segment_target_km =</span> <span class="dv">5</span>,</span>
+<span id="cb338-4"><a href="segmentizing.html#cb338-4" tabindex="-1"></a>                        <span class="at">segment_max_interval =</span> .<span class="dv">1</span>,</span>
+<span id="cb338-5"><a href="segmentizing.html#cb338-5" tabindex="-1"></a>                        <span class="at">verbose=</span><span class="cn">FALSE</span>,</span>
+<span id="cb338-6"><a href="segmentizing.html#cb338-6" tabindex="-1"></a>                        <span class="at">to_plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-432-1.png" width="672" /></p>
 
 </div>
 </div>

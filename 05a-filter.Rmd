@@ -55,7 +55,7 @@ cruz_hi <- filter_cruz(cruz,
                             verbose = FALSE)
 ```
 
-**Pelagic Hawaiian EEZ - only data:**
+**Outside Hawaiian EEZ-only data:**
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 cruz_other <- filter_cruz(cruz, 

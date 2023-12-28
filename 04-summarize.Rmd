@@ -139,7 +139,7 @@ sightings %>%  names()
 
 #### Simple species totals {-} 
 
-The slot `$simple_totals` includes all sightings, even if they will not be inluded in analysis: 
+The slot `$simple_totals` includes all sightings, even if they will not be included in analysis (i.e., even if the `include` column is `FALSE`): 
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE}
 sightings$simple_totals %>% 
