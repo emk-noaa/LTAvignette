@@ -51,17 +51,13 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.31.1/datatables.js"></script>
 <link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 <link href="libs/dt-ext-fixedcolumns-1.13.6/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
 <script src="libs/dt-ext-fixedcolumns-1.13.6/js/dataTables.fixedColumns.min.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
@@ -71,6 +67,10 @@
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-binding-2.2.0/leaflet.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -171,12 +171,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="das.html"><a href="das.html#reviewing-a-das-file"><i class="fa fa-check"></i>Reviewing a <code>DAS</code> file</a></li>
 <li class="chapter" data-level="" data-path="das.html"><a href="das.html#staging-edits"><i class="fa fa-check"></i>Staging edits</a></li>
+<li class="chapter" data-level="" data-path="das.html"><a href="das.html#applying-edits"><i class="fa fa-check"></i>Applying edits</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>3</b> Data processing</a>
 <ul>
 <li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#behind-the-scenes"><i class="fa fa-check"></i>Behind the scenes</a></li>
 <li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#review"><i class="fa fa-check"></i>Review</a></li>
-<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#validation"><i class="fa fa-check"></i>Validation</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>4</b> Summarize survey</a>
 <ul>
@@ -241,7 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#rg0-2"><i class="fa fa-check"></i>Rg0</a></li>
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#density-abundance"><i class="fa fa-check"></i>Density &amp; abundance</a></li>
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#results"><i class="fa fa-check"></i>Results</a></li>
-<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#validation-1"><i class="fa fa-check"></i>Validation</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#validation"><i class="fa fa-check"></i>Validation</a></li>
 </ul></li>
 <li class="part"><span><b>V Appendix</b></span></li>
 <li class="chapter" data-level="16" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>16</b> Strata gallery</a>
@@ -267,7 +267,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-on-effort-sightings"><i class="fa fa-check"></i>Differences in on-effort sightings</a></li>
 <li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-school-size-estimation"><i class="fa fa-check"></i>Differences in school size estimation</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>19</b> NOAA/NMFS species codes</a>
+<li class="chapter" data-level="19" data-path="validation-1.html"><a href="validation-1.html"><i class="fa fa-check"></i><b>19</b> Validation</a></li>
+<li class="chapter" data-level="20" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>20</b> NOAA/NMFS species codes</a>
 <ul>
 <li class="chapter" data-level="" data-path="spp_codes.html"><a href="spp_codes.html#table"><i class="fa fa-check"></i>Table</a></li>
 <li class="chapter" data-level="" data-path="spp_codes.html"><a href="spp_codes.html#species_translator"><i class="fa fa-check"></i><code>species_translator()</code></a></li>
@@ -295,11 +296,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="lta" class="section level1 hasAnchor" number="8">
 <h1><span class="header-section-number"> 8</span> Line-transect analysis<a href="lta.html#lta" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>We use line-transect analysis to produce estimates of animal density and/or abundance based upon surveys. The main <code>LTabundR</code> function for conducting line-transect analysis is <code>lta()</code>, which calls for four primary arguments in addition to your <code>cruz</code> object:</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="lta.html#cb172-1" tabindex="-1"></a><span class="fu">lta</span>(cruz,</span>
-<span id="cb172-2"><a href="lta.html#cb172-2" tabindex="-1"></a>    Rg0,</span>
-<span id="cb172-3"><a href="lta.html#cb172-3" tabindex="-1"></a>    fit_filters,</span>
-<span id="cb172-4"><a href="lta.html#cb172-4" tabindex="-1"></a>    df_settings,</span>
-<span id="cb172-5"><a href="lta.html#cb172-5" tabindex="-1"></a>    estimates)</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="lta.html#cb148-1" tabindex="-1"></a><span class="fu">lta</span>(cruz,</span>
+<span id="cb148-2"><a href="lta.html#cb148-2" tabindex="-1"></a>    Rg0,</span>
+<span id="cb148-3"><a href="lta.html#cb148-3" tabindex="-1"></a>    fit_filters,</span>
+<span id="cb148-4"><a href="lta.html#cb148-4" tabindex="-1"></a>    df_settings,</span>
+<span id="cb148-5"><a href="lta.html#cb148-5" tabindex="-1"></a>    estimates)</span></code></pre></div>
 <p>Below we explain each of these inputs, discuss other optional inputs, and explore the results produced by <code>lta()</code>.</p>
 <div id="key-inputs" class="section level2 unnumbered hasAnchor">
 <h2>Key inputs<a href="lta.html#key-inputs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -307,7 +308,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><code>cruz</code><a href="lta.html#cruz" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This is the <code>cruz</code> object you have generated with <code>process_surveys()</code>. Before running <code>lta()</code>, ensure that this <code>cruz</code> object is filtered only to the years, regions, and sighting conditions you would like to use for detection function fitting. Filter your cruz object with full flexibility using <code>LTabundR::filter_cruz()</code>. Note that filtering for detection function fitting is typically less stringent than filtering for downstream steps for abundance estimation, since as many sightings are included as possible to combat low sample sizes, as long as sightings were observed using standard methods in an unbiased search pattern, and as long as you do not expect detectability to vary across years and regions.</p>
 <p>Here we will work with a version of the 1986-2020 Central North Pacific survey data we processed a few pages back.</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="lta.html#cb173-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&#39;whiceas_cruz.RData&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="lta.html#cb149-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&#39;whiceas_cruz.RData&#39;</span>)</span></code></pre></div>
 <p>As it is provided, this dataset does not need any filtering for our purposes here.</p>
 <p>We will use these data to estimate the abundance of striped dolphins (<em>Stenella coeruleoalba</em>), Fraser’s dolphins (<em>Lagenodelphis hosei</em>), and melon-headed whales (<em>Preponocephala electra</em>) within the WHICEAS study area in 2017 and 2020. We will group these three species into a ‘species pool’ in order to gain a sufficient sample size for fitting a detection function. We will then use “Species” as a covariate within the detection function model, along with other variables including Beaufort Sea State, ship name, and log-transformed group size.</p>
 </div>
@@ -316,33 +317,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The result of <code>LTabundR::g0_model()</code>, which is a <code>data.frame</code> with relative trackline detection probabilities, <em>Rg(0)</em>, for each species in each Beaufort sea state. See <code>LTabundR</code> dataset <code>data("g0_results")</code>, used below, as an example.</p>
 <p>This is an <em>optional</em> input. If not provided, <em>g(0)</em> will be assumed to 1.0, and its CV will be assumed to be 0. Alternatively, you can manually specify values for <em>g(0)</em> and its CV in the <code>estimates</code> argument below.</p>
 <p>Here we will use a <code>data.frame</code> of <em>Rg(0)</em> estimates based on the same survey years, 1986 - 2020, which has been provided as a built-in dataset:</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="lta.html#cb174-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;g0_results&quot;</span>)</span>
-<span id="cb174-2"><a href="lta.html#cb174-2" tabindex="-1"></a>Rg0 <span class="ot">&lt;-</span> g0_results</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="lta.html#cb150-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;g0_results&quot;</span>)</span>
+<span id="cb150-2"><a href="lta.html#cb150-2" tabindex="-1"></a>Rg0 <span class="ot">&lt;-</span> g0_results</span></code></pre></div>
 <p>This dataset looks as follows. Each row is a <code>Rg(0)</code> estimate for a species group in a given Beaufort state, with details on the data used to generate that estimate and the CV of the estimate. For the <code>lta()</code> routine, the critical columns are <code>spp</code>, <code>bft</code>, <code>Rg0</code>, and <code>Rg0_CV</code>.</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="lta.html#cb175-1" tabindex="-1"></a>Rg0 <span class="sc">%&gt;%</span> head</span>
-<span id="cb175-2"><a href="lta.html#cb175-2" tabindex="-1"></a>          title         spp bft       Rg0      ESW  n     Rg0_SE     Rg0_CV</span>
-<span id="cb175-3"><a href="lta.html#cb175-3" tabindex="-1"></a><span class="dv">1</span> Delphinus spp <span class="dv">005-016-017</span>   <span class="dv">0</span> <span class="fl">1.0000000</span> <span class="fl">4.085421</span> <span class="dv">10</span> <span class="fl">0.00000000</span> <span class="fl">0.00000000</span></span>
-<span id="cb175-4"><a href="lta.html#cb175-4" tabindex="-1"></a><span class="dv">2</span> Delphinus spp <span class="dv">005-016-017</span>   <span class="dv">1</span> <span class="fl">0.7790195</span> <span class="fl">3.827873</span> <span class="dv">10</span> <span class="fl">0.02901978</span> <span class="fl">0.03725168</span></span>
-<span id="cb175-5"><a href="lta.html#cb175-5" tabindex="-1"></a><span class="dv">3</span> Delphinus spp <span class="dv">005-016-017</span>   <span class="dv">2</span> <span class="fl">0.6068839</span> <span class="fl">3.539560</span> <span class="dv">10</span> <span class="fl">0.04515935</span> <span class="fl">0.07441184</span></span>
-<span id="cb175-6"><a href="lta.html#cb175-6" tabindex="-1"></a><span class="dv">4</span> Delphinus spp <span class="dv">005-016-017</span>   <span class="dv">3</span> <span class="fl">0.4727958</span> <span class="fl">3.231096</span> <span class="dv">10</span> <span class="fl">0.05271389</span> <span class="fl">0.11149401</span></span>
-<span id="cb175-7"><a href="lta.html#cb175-7" tabindex="-1"></a><span class="dv">5</span> Delphinus spp <span class="dv">005-016-017</span>   <span class="dv">4</span> <span class="fl">0.3683443</span> <span class="fl">2.917720</span> <span class="dv">10</span> <span class="fl">0.05470342</span> <span class="fl">0.14851164</span></span>
-<span id="cb175-8"><a href="lta.html#cb175-8" tabindex="-1"></a><span class="dv">6</span> Delphinus spp <span class="dv">005-016-017</span>   <span class="dv">5</span> <span class="fl">0.2869780</span> <span class="fl">2.613723</span> <span class="dv">10</span> <span class="fl">0.05322816</span> <span class="fl">0.18547819</span></span>
-<span id="cb175-9"><a href="lta.html#cb175-9" tabindex="-1"></a>      ESW_SE sits     sits_p  segs      segs_p</span>
-<span id="cb175-10"><a href="lta.html#cb175-10" tabindex="-1"></a><span class="dv">1</span> <span class="fl">0.21020267</span>   <span class="dv">38</span> <span class="fl">0.01747126</span>   <span class="dv">193</span> <span class="fl">0.004131082</span></span>
-<span id="cb175-11"><a href="lta.html#cb175-11" tabindex="-1"></a><span class="dv">2</span> <span class="fl">0.16060474</span>  <span class="dv">188</span> <span class="fl">0.08643678</span>  <span class="dv">1441</span> <span class="fl">0.030843982</span></span>
-<span id="cb175-12"><a href="lta.html#cb175-12" tabindex="-1"></a><span class="dv">3</span> <span class="fl">0.09893266</span>  <span class="dv">483</span> <span class="fl">0.22206897</span>  <span class="dv">4434</span> <span class="fl">0.094907853</span></span>
-<span id="cb175-13"><a href="lta.html#cb175-13" tabindex="-1"></a><span class="dv">4</span> <span class="fl">0.05637934</span>  <span class="dv">574</span> <span class="fl">0.26390805</span>  <span class="dv">8899</span> <span class="fl">0.190479248</span></span>
-<span id="cb175-14"><a href="lta.html#cb175-14" tabindex="-1"></a><span class="dv">5</span> <span class="fl">0.10050755</span>  <span class="dv">606</span> <span class="fl">0.27862069</span> <span class="dv">17912</span> <span class="fl">0.383398617</span></span>
-<span id="cb175-15"><a href="lta.html#cb175-15" tabindex="-1"></a><span class="dv">6</span> <span class="fl">0.16828702</span>  <span class="dv">270</span> <span class="fl">0.12413793</span> <span class="dv">12473</span> <span class="fl">0.266979173</span></span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="lta.html#cb151-1" tabindex="-1"></a>Rg0 <span class="sc">%&gt;%</span> head</span>
+<span id="cb151-2"><a href="lta.html#cb151-2" tabindex="-1"></a>          title         spp bft       Rg0      ESW  n     Rg0_SE     Rg0_CV</span>
+<span id="cb151-3"><a href="lta.html#cb151-3" tabindex="-1"></a><span class="dv">1</span> Delphinus spp <span class="dv">005-016-017</span>   <span class="dv">0</span> <span class="fl">1.0000000</span> <span class="fl">4.085421</span> <span class="dv">10</span> <span class="fl">0.00000000</span> <span class="fl">0.00000000</span></span>
+<span id="cb151-4"><a href="lta.html#cb151-4" tabindex="-1"></a><span class="dv">2</span> Delphinus spp <span class="dv">005-016-017</span>   <span class="dv">1</span> <span class="fl">0.7790195</span> <span class="fl">3.827873</span> <span class="dv">10</span> <span class="fl">0.02901978</span> <span class="fl">0.03725168</span></span>
+<span id="cb151-5"><a href="lta.html#cb151-5" tabindex="-1"></a><span class="dv">3</span> Delphinus spp <span class="dv">005-016-017</span>   <span class="dv">2</span> <span class="fl">0.6068839</span> <span class="fl">3.539560</span> <span class="dv">10</span> <span class="fl">0.04515935</span> <span class="fl">0.07441184</span></span>
+<span id="cb151-6"><a href="lta.html#cb151-6" tabindex="-1"></a><span class="dv">4</span> Delphinus spp <span class="dv">005-016-017</span>   <span class="dv">3</span> <span class="fl">0.4727958</span> <span class="fl">3.231096</span> <span class="dv">10</span> <span class="fl">0.05271389</span> <span class="fl">0.11149401</span></span>
+<span id="cb151-7"><a href="lta.html#cb151-7" tabindex="-1"></a><span class="dv">5</span> Delphinus spp <span class="dv">005-016-017</span>   <span class="dv">4</span> <span class="fl">0.3683443</span> <span class="fl">2.917720</span> <span class="dv">10</span> <span class="fl">0.05470342</span> <span class="fl">0.14851164</span></span>
+<span id="cb151-8"><a href="lta.html#cb151-8" tabindex="-1"></a><span class="dv">6</span> Delphinus spp <span class="dv">005-016-017</span>   <span class="dv">5</span> <span class="fl">0.2869780</span> <span class="fl">2.613723</span> <span class="dv">10</span> <span class="fl">0.05322816</span> <span class="fl">0.18547819</span></span>
+<span id="cb151-9"><a href="lta.html#cb151-9" tabindex="-1"></a>      ESW_SE sits     sits_p  segs      segs_p</span>
+<span id="cb151-10"><a href="lta.html#cb151-10" tabindex="-1"></a><span class="dv">1</span> <span class="fl">0.21020267</span>   <span class="dv">38</span> <span class="fl">0.01747126</span>   <span class="dv">193</span> <span class="fl">0.004131082</span></span>
+<span id="cb151-11"><a href="lta.html#cb151-11" tabindex="-1"></a><span class="dv">2</span> <span class="fl">0.16060474</span>  <span class="dv">188</span> <span class="fl">0.08643678</span>  <span class="dv">1441</span> <span class="fl">0.030843982</span></span>
+<span id="cb151-12"><a href="lta.html#cb151-12" tabindex="-1"></a><span class="dv">3</span> <span class="fl">0.09893266</span>  <span class="dv">483</span> <span class="fl">0.22206897</span>  <span class="dv">4434</span> <span class="fl">0.094907853</span></span>
+<span id="cb151-13"><a href="lta.html#cb151-13" tabindex="-1"></a><span class="dv">4</span> <span class="fl">0.05637934</span>  <span class="dv">574</span> <span class="fl">0.26390805</span>  <span class="dv">8899</span> <span class="fl">0.190479248</span></span>
+<span id="cb151-14"><a href="lta.html#cb151-14" tabindex="-1"></a><span class="dv">5</span> <span class="fl">0.10050755</span>  <span class="dv">606</span> <span class="fl">0.27862069</span> <span class="dv">17912</span> <span class="fl">0.383398617</span></span>
+<span id="cb151-15"><a href="lta.html#cb151-15" tabindex="-1"></a><span class="dv">6</span> <span class="fl">0.16828702</span>  <span class="dv">270</span> <span class="fl">0.12413793</span> <span class="dv">12473</span> <span class="fl">0.266979173</span></span></code></pre></div>
 </div>
 <div id="fit_filters" class="section level3 unnumbered hasAnchor">
 <h3><code>fit_filters</code><a href="lta.html#fit_filters" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>fit_filters</code> input specifies how to filter the data before fitting the detection function. It accepts a named list, which in our example will look like this:</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="lta.html#cb176-1" tabindex="-1"></a>fit_filters <span class="ot">=</span> <span class="fu">list</span>(<span class="at">spp =</span> <span class="fu">c</span>(<span class="st">&#39;013&#39;</span>, <span class="st">&#39;026&#39;</span>, <span class="st">&#39;031&#39;</span>), </span>
-<span id="cb176-2"><a href="lta.html#cb176-2" tabindex="-1"></a>                   <span class="at">pool =</span> <span class="st">&#39;Multi-species pool 1&#39;</span>,</span>
-<span id="cb176-3"><a href="lta.html#cb176-3" tabindex="-1"></a>                   <span class="at">cohort =</span> <span class="st">&#39;all&#39;</span>,</span>
-<span id="cb176-4"><a href="lta.html#cb176-4" tabindex="-1"></a>                   <span class="at">truncation_distance =</span> <span class="dv">5</span>,</span>
-<span id="cb176-5"><a href="lta.html#cb176-5" tabindex="-1"></a>                   <span class="at">other_species =</span> <span class="st">&#39;remove&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="lta.html#cb152-1" tabindex="-1"></a>fit_filters <span class="ot">=</span> <span class="fu">list</span>(<span class="at">spp =</span> <span class="fu">c</span>(<span class="st">&#39;013&#39;</span>, <span class="st">&#39;026&#39;</span>, <span class="st">&#39;031&#39;</span>), </span>
+<span id="cb152-2"><a href="lta.html#cb152-2" tabindex="-1"></a>                   <span class="at">pool =</span> <span class="st">&#39;Multi-species pool 1&#39;</span>,</span>
+<span id="cb152-3"><a href="lta.html#cb152-3" tabindex="-1"></a>                   <span class="at">cohort =</span> <span class="st">&#39;all&#39;</span>,</span>
+<span id="cb152-4"><a href="lta.html#cb152-4" tabindex="-1"></a>                   <span class="at">truncation_distance =</span> <span class="dv">5</span>,</span>
+<span id="cb152-5"><a href="lta.html#cb152-5" tabindex="-1"></a>                   <span class="at">other_species =</span> <span class="st">&#39;remove&#39;</span>)</span></code></pre></div>
 <ul>
 <li><p><strong><code>spp</code></strong>: A character vector of species codes. Using multiple species codes may be useful when you have low sample sizes for a cohort of similar species.</p></li>
 <li><p><strong><code>cohort</code></strong>: The cohort containing these species, provided as a name or a number indicating which slot in <code>cruz$cohorts</code> should be referenced.</p></li>
@@ -364,13 +365,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="df_settings" class="section level3 unnumbered hasAnchor">
 <h3><code>df_settings</code><a href="lta.html#df_settings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>df_settings</code> input specifies how to fit a detection function to the filtered data. It accepts a named list, which in our example will look like this:</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="lta.html#cb177-1" tabindex="-1"></a>df_settings <span class="ot">=</span> <span class="fu">list</span>(<span class="at">covariates =</span> <span class="fu">c</span>(<span class="st">&#39;bft&#39;</span>,<span class="st">&#39;lnsstot&#39;</span>,<span class="st">&#39;cruise&#39;</span>,<span class="st">&#39;year&#39;</span>,<span class="st">&#39;ship&#39;</span>,<span class="st">&#39;species&#39;</span>),</span>
-<span id="cb177-2"><a href="lta.html#cb177-2" tabindex="-1"></a>                   <span class="at">covariates_factor =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>),</span>
-<span id="cb177-3"><a href="lta.html#cb177-3" tabindex="-1"></a>                   <span class="at">covariates_levels =</span> <span class="dv">2</span>,</span>
-<span id="cb177-4"><a href="lta.html#cb177-4" tabindex="-1"></a>                   <span class="at">covariates_n_per_level =</span> <span class="dv">10</span>,</span>
-<span id="cb177-5"><a href="lta.html#cb177-5" tabindex="-1"></a>                   <span class="at">detection_function_base =</span> <span class="st">&#39;hn&#39;</span>,</span>
-<span id="cb177-6"><a href="lta.html#cb177-6" tabindex="-1"></a>                   <span class="at">base_model =</span> <span class="st">&#39;~1&#39;</span>,</span>
-<span id="cb177-7"><a href="lta.html#cb177-7" tabindex="-1"></a>                   <span class="at">delta_aic =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="lta.html#cb153-1" tabindex="-1"></a>df_settings <span class="ot">=</span> <span class="fu">list</span>(<span class="at">covariates =</span> <span class="fu">c</span>(<span class="st">&#39;bft&#39;</span>,<span class="st">&#39;lnsstot&#39;</span>,<span class="st">&#39;cruise&#39;</span>,<span class="st">&#39;year&#39;</span>,<span class="st">&#39;ship&#39;</span>,<span class="st">&#39;species&#39;</span>),</span>
+<span id="cb153-2"><a href="lta.html#cb153-2" tabindex="-1"></a>                   <span class="at">covariates_factor =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>),</span>
+<span id="cb153-3"><a href="lta.html#cb153-3" tabindex="-1"></a>                   <span class="at">covariates_levels =</span> <span class="dv">2</span>,</span>
+<span id="cb153-4"><a href="lta.html#cb153-4" tabindex="-1"></a>                   <span class="at">covariates_n_per_level =</span> <span class="dv">10</span>,</span>
+<span id="cb153-5"><a href="lta.html#cb153-5" tabindex="-1"></a>                   <span class="at">detection_function_base =</span> <span class="st">&#39;hn&#39;</span>,</span>
+<span id="cb153-6"><a href="lta.html#cb153-6" tabindex="-1"></a>                   <span class="at">base_model =</span> <span class="st">&#39;~1&#39;</span>,</span>
+<span id="cb153-7"><a href="lta.html#cb153-7" tabindex="-1"></a>                   <span class="at">delta_aic =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><em>(Note that all of these inputs have defaults, and are therefore optional.)</em></p>
 <ul>
 <li><p><strong><code>covariates</code></strong> Covariates you wish to include as candidates in detection function models, provided as a character vector. The covariates must match columns existing within <code>cruz$cohorts$&lt;cohort_name&gt;$sightings</code>. Note that the function will ignore case, coercing all covariates to lowercase. Default: no covariates.</p></li>
@@ -385,10 +386,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="estimates" class="section level3 unnumbered hasAnchor">
 <h3><code>estimates</code><a href="lta.html#estimates" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>estimates</code> input specifies which estimates of density and abundance to produce based on the fitted detection function. This input accepts a list of sub-lists, which in our example will look something like this:</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="lta.html#cb178-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
-<span id="cb178-2"><a href="lta.html#cb178-2" tabindex="-1"></a>                       <span class="at">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
-<span id="cb178-3"><a href="lta.html#cb178-3" tabindex="-1"></a>                       <span class="at">years =</span> <span class="dv">2017</span>,</span>
-<span id="cb178-4"><a href="lta.html#cb178-4" tabindex="-1"></a>                       <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="lta.html#cb154-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
+<span id="cb154-2"><a href="lta.html#cb154-2" tabindex="-1"></a>                       <span class="at">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
+<span id="cb154-3"><a href="lta.html#cb154-3" tabindex="-1"></a>                       <span class="at">years =</span> <span class="dv">2017</span>,</span>
+<span id="cb154-4"><a href="lta.html#cb154-4" tabindex="-1"></a>                       <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>))</span></code></pre></div>
 <p>This example shows only a single sub-list, specifying how to generate a density/abundance estimate for striped dolphins (species code 013) within the “WHICEAS” geostratum for 2017.</p>
 <ul>
 <li><p><strong><code>spp</code></strong>: A character vector of species codes.</p></li>
@@ -411,56 +412,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong><code>remove_land</code></strong>: A Boolean, with default <code>TRUE</code>, indicating whether or not land area should be removed from the survey area before calculating its area for abundance estimation. This term is only referenced if area is not specified manually.</p></li>
 </ul>
 <p>Here is the full <code>estimates</code> list for all the species-year-geostratum combinations for which we want to estimate density/abundance:</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="lta.html#cb179-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb179-2"><a href="lta.html#cb179-2" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
-<span id="cb179-3"><a href="lta.html#cb179-3" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
-<span id="cb179-4"><a href="lta.html#cb179-4" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2017</span>,</span>
-<span id="cb179-5"><a href="lta.html#cb179-5" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>),</span>
-<span id="cb179-6"><a href="lta.html#cb179-6" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
-<span id="cb179-7"><a href="lta.html#cb179-7" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
-<span id="cb179-8"><a href="lta.html#cb179-8" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2020</span>,</span>
-<span id="cb179-9"><a href="lta.html#cb179-9" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>),</span>
-<span id="cb179-10"><a href="lta.html#cb179-10" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;026&#39;</span>,</span>
-<span id="cb179-11"><a href="lta.html#cb179-11" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Frasers dolphin&#39;</span>,</span>
-<span id="cb179-12"><a href="lta.html#cb179-12" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2017</span>,</span>
-<span id="cb179-13"><a href="lta.html#cb179-13" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>),</span>
-<span id="cb179-14"><a href="lta.html#cb179-14" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;026&#39;</span>,</span>
-<span id="cb179-15"><a href="lta.html#cb179-15" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Frasers dolphin&#39;</span>,</span>
-<span id="cb179-16"><a href="lta.html#cb179-16" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2020</span>,</span>
-<span id="cb179-17"><a href="lta.html#cb179-17" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>),</span>
-<span id="cb179-18"><a href="lta.html#cb179-18" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;031&#39;</span>,</span>
-<span id="cb179-19"><a href="lta.html#cb179-19" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Melon-headed whale&#39;</span>,</span>
-<span id="cb179-20"><a href="lta.html#cb179-20" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2017</span>,</span>
-<span id="cb179-21"><a href="lta.html#cb179-21" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>),</span>
-<span id="cb179-22"><a href="lta.html#cb179-22" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;031&#39;</span>,</span>
-<span id="cb179-23"><a href="lta.html#cb179-23" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Melon-headed whale&#39;</span>,</span>
-<span id="cb179-24"><a href="lta.html#cb179-24" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2020</span>,</span>
-<span id="cb179-25"><a href="lta.html#cb179-25" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="lta.html#cb155-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb155-2"><a href="lta.html#cb155-2" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
+<span id="cb155-3"><a href="lta.html#cb155-3" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
+<span id="cb155-4"><a href="lta.html#cb155-4" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2017</span>,</span>
+<span id="cb155-5"><a href="lta.html#cb155-5" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>),</span>
+<span id="cb155-6"><a href="lta.html#cb155-6" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
+<span id="cb155-7"><a href="lta.html#cb155-7" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
+<span id="cb155-8"><a href="lta.html#cb155-8" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2020</span>,</span>
+<span id="cb155-9"><a href="lta.html#cb155-9" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>),</span>
+<span id="cb155-10"><a href="lta.html#cb155-10" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;026&#39;</span>,</span>
+<span id="cb155-11"><a href="lta.html#cb155-11" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Frasers dolphin&#39;</span>,</span>
+<span id="cb155-12"><a href="lta.html#cb155-12" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2017</span>,</span>
+<span id="cb155-13"><a href="lta.html#cb155-13" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>),</span>
+<span id="cb155-14"><a href="lta.html#cb155-14" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;026&#39;</span>,</span>
+<span id="cb155-15"><a href="lta.html#cb155-15" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Frasers dolphin&#39;</span>,</span>
+<span id="cb155-16"><a href="lta.html#cb155-16" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2020</span>,</span>
+<span id="cb155-17"><a href="lta.html#cb155-17" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>),</span>
+<span id="cb155-18"><a href="lta.html#cb155-18" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;031&#39;</span>,</span>
+<span id="cb155-19"><a href="lta.html#cb155-19" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Melon-headed whale&#39;</span>,</span>
+<span id="cb155-20"><a href="lta.html#cb155-20" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2017</span>,</span>
+<span id="cb155-21"><a href="lta.html#cb155-21" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>),</span>
+<span id="cb155-22"><a href="lta.html#cb155-22" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;031&#39;</span>,</span>
+<span id="cb155-23"><a href="lta.html#cb155-23" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Melon-headed whale&#39;</span>,</span>
+<span id="cb155-24"><a href="lta.html#cb155-24" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2020</span>,</span>
+<span id="cb155-25"><a href="lta.html#cb155-25" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>))</span></code></pre></div>
 <p>Each of these sub-lists specifies the details for a single estimate of density/abundance, making it possible to produce multiple estimates from the same detection function model. Generally, there needs to be a sub-list for each species-region-year combination of interest.</p>
 <p>You can imagine that building up these sub-lists can get tedious. It can also introduce the possibility of error or inconsistencies across estimates of multiple species. To address that issue, <code>LTabundR</code> includes the function <code>lta_estimates()</code>, which makes your code for preparing an <code>estimates</code> object much more efficient. That function is demonstrated in the Case Studies chapters.</p>
 <p>After running <code>lta()</code>, quickly review results:</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="lta.html#cb180-1" tabindex="-1"></a>results<span class="sc">$</span>estimate</span>
-<span id="cb180-2"><a href="lta.html#cb180-2" tabindex="-1"></a>               title species    Region     Area year segments       km</span>
-<span id="cb180-3"><a href="lta.html#cb180-3" tabindex="-1"></a><span class="dv">1</span>    Striped dolphin     <span class="dv">013</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2017</span>       <span class="dv">29</span> <span class="fl">3040.009</span></span>
-<span id="cb180-4"><a href="lta.html#cb180-4" tabindex="-1"></a><span class="dv">2</span>    Striped dolphin     <span class="dv">013</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2020</span>       <span class="dv">34</span> <span class="fl">4585.386</span></span>
-<span id="cb180-5"><a href="lta.html#cb180-5" tabindex="-1"></a><span class="dv">3</span>    Frasers dolphin     <span class="dv">026</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2017</span>       <span class="dv">29</span> <span class="fl">3040.009</span></span>
-<span id="cb180-6"><a href="lta.html#cb180-6" tabindex="-1"></a><span class="dv">4</span>    Frasers dolphin     <span class="dv">026</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2020</span>       <span class="dv">34</span> <span class="fl">4585.386</span></span>
-<span id="cb180-7"><a href="lta.html#cb180-7" tabindex="-1"></a><span class="dv">5</span> Melon<span class="sc">-</span>headed whale     <span class="dv">031</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2017</span>       <span class="dv">29</span> <span class="fl">3040.009</span></span>
-<span id="cb180-8"><a href="lta.html#cb180-8" tabindex="-1"></a><span class="dv">6</span> Melon<span class="sc">-</span>headed whale     <span class="dv">031</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2020</span>       <span class="dv">34</span> <span class="fl">4585.386</span></span>
-<span id="cb180-9"><a href="lta.html#cb180-9" tabindex="-1"></a>  Area_covered ESW_mean n    g0_est  ER_clusters    D_clusters N_clusters</span>
-<span id="cb180-10"><a href="lta.html#cb180-10" tabindex="-1"></a><span class="dv">1</span>     <span class="fl">11425.53</span> <span class="fl">3.758386</span> <span class="dv">3</span> <span class="fl">0.2319146</span> <span class="fl">0.0009868393</span> <span class="fl">0.00056981695</span>  <span class="fl">229.60702</span></span>
-<span id="cb180-11"><a href="lta.html#cb180-11" tabindex="-1"></a><span class="dv">2</span>     <span class="fl">17620.38</span> <span class="fl">3.842726</span> <span class="dv">3</span> <span class="fl">0.2034128</span> <span class="fl">0.0006542525</span> <span class="fl">0.00042079040</span>  <span class="fl">169.55696</span></span>
-<span id="cb180-12"><a href="lta.html#cb180-12" tabindex="-1"></a><span class="dv">3</span>           <span class="cn">NA</span>       <span class="cn">NA</span> <span class="dv">0</span> <span class="fl">0.4766764</span> <span class="fl">0.0000000000</span> <span class="fl">0.00000000000</span>    <span class="fl">0.00000</span></span>
-<span id="cb180-13"><a href="lta.html#cb180-13" tabindex="-1"></a><span class="dv">4</span>     <span class="fl">18348.83</span> <span class="fl">4.001588</span> <span class="dv">1</span> <span class="fl">0.4469301</span> <span class="fl">0.0002180842</span> <span class="fl">0.00006097084</span>   <span class="fl">24.56812</span></span>
-<span id="cb180-14"><a href="lta.html#cb180-14" tabindex="-1"></a><span class="dv">5</span>     <span class="fl">10292.25</span> <span class="fl">3.385600</span> <span class="dv">2</span> <span class="fl">0.5250732</span> <span class="fl">0.0006578929</span> <span class="fl">0.00018588382</span>   <span class="fl">74.90165</span></span>
-<span id="cb180-15"><a href="lta.html#cb180-15" tabindex="-1"></a><span class="dv">6</span>     <span class="fl">16061.18</span> <span class="fl">3.502688</span> <span class="dv">2</span> <span class="fl">0.4966077</span> <span class="fl">0.0004361683</span> <span class="fl">0.00012572342</span>   <span class="fl">50.66009</span></span>
-<span id="cb180-16"><a href="lta.html#cb180-16" tabindex="-1"></a>  size_mean    size_sd         ER          D         N</span>
-<span id="cb180-17"><a href="lta.html#cb180-17" tabindex="-1"></a><span class="dv">1</span>  <span class="fl">31.95079</span>  <span class="fl">0.5780968</span> <span class="fl">0.03153029</span> <span class="fl">0.01822835</span>  <span class="fl">7345.092</span></span>
-<span id="cb180-18"><a href="lta.html#cb180-18" tabindex="-1"></a><span class="dv">2</span>  <span class="fl">53.95865</span>  <span class="fl">2.7402089</span> <span class="fl">0.03530258</span> <span class="fl">0.02269332</span>  <span class="fl">9144.245</span></span>
-<span id="cb180-19"><a href="lta.html#cb180-19" tabindex="-1"></a><span class="dv">3</span>        <span class="cn">NA</span>         <span class="cn">NA</span> <span class="fl">0.00000000</span> <span class="fl">0.00000000</span>     <span class="fl">0.000</span></span>
-<span id="cb180-20"><a href="lta.html#cb180-20" tabindex="-1"></a><span class="dv">4</span> <span class="fl">261.32841</span>         <span class="cn">NA</span> <span class="fl">0.05699159</span> <span class="fl">0.01593341</span>  <span class="fl">6420.348</span></span>
-<span id="cb180-21"><a href="lta.html#cb180-21" tabindex="-1"></a><span class="dv">5</span> <span class="fl">185.98103</span> <span class="fl">96.4369707</span> <span class="fl">0.12235559</span> <span class="fl">0.03371770</span> <span class="fl">13586.505</span></span>
-<span id="cb180-22"><a href="lta.html#cb180-22" tabindex="-1"></a><span class="dv">6</span> <span class="fl">324.68110</span> <span class="fl">58.0826568</span> <span class="fl">0.14161562</span> <span class="fl">0.04054800</span> <span class="fl">16338.766</span></span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="lta.html#cb156-1" tabindex="-1"></a>results<span class="sc">$</span>estimate</span>
+<span id="cb156-2"><a href="lta.html#cb156-2" tabindex="-1"></a>               title species    Region     Area year segments       km</span>
+<span id="cb156-3"><a href="lta.html#cb156-3" tabindex="-1"></a><span class="dv">1</span>    Striped dolphin     <span class="dv">013</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2017</span>       <span class="dv">29</span> <span class="fl">3040.009</span></span>
+<span id="cb156-4"><a href="lta.html#cb156-4" tabindex="-1"></a><span class="dv">2</span>    Striped dolphin     <span class="dv">013</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2020</span>       <span class="dv">34</span> <span class="fl">4585.386</span></span>
+<span id="cb156-5"><a href="lta.html#cb156-5" tabindex="-1"></a><span class="dv">3</span>    Frasers dolphin     <span class="dv">026</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2017</span>       <span class="dv">29</span> <span class="fl">3040.009</span></span>
+<span id="cb156-6"><a href="lta.html#cb156-6" tabindex="-1"></a><span class="dv">4</span>    Frasers dolphin     <span class="dv">026</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2020</span>       <span class="dv">34</span> <span class="fl">4585.386</span></span>
+<span id="cb156-7"><a href="lta.html#cb156-7" tabindex="-1"></a><span class="dv">5</span> Melon<span class="sc">-</span>headed whale     <span class="dv">031</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2017</span>       <span class="dv">29</span> <span class="fl">3040.009</span></span>
+<span id="cb156-8"><a href="lta.html#cb156-8" tabindex="-1"></a><span class="dv">6</span> Melon<span class="sc">-</span>headed whale     <span class="dv">031</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2020</span>       <span class="dv">34</span> <span class="fl">4585.386</span></span>
+<span id="cb156-9"><a href="lta.html#cb156-9" tabindex="-1"></a>  Area_covered ESW_mean n    g0_est  ER_clusters    D_clusters N_clusters</span>
+<span id="cb156-10"><a href="lta.html#cb156-10" tabindex="-1"></a><span class="dv">1</span>     <span class="fl">11425.53</span> <span class="fl">3.758386</span> <span class="dv">3</span> <span class="fl">0.2319146</span> <span class="fl">0.0009868393</span> <span class="fl">0.00056981695</span>  <span class="fl">229.60702</span></span>
+<span id="cb156-11"><a href="lta.html#cb156-11" tabindex="-1"></a><span class="dv">2</span>     <span class="fl">17620.38</span> <span class="fl">3.842726</span> <span class="dv">3</span> <span class="fl">0.2034128</span> <span class="fl">0.0006542525</span> <span class="fl">0.00042079040</span>  <span class="fl">169.55696</span></span>
+<span id="cb156-12"><a href="lta.html#cb156-12" tabindex="-1"></a><span class="dv">3</span>           <span class="cn">NA</span>       <span class="cn">NA</span> <span class="dv">0</span> <span class="fl">0.4766764</span> <span class="fl">0.0000000000</span> <span class="fl">0.00000000000</span>    <span class="fl">0.00000</span></span>
+<span id="cb156-13"><a href="lta.html#cb156-13" tabindex="-1"></a><span class="dv">4</span>     <span class="fl">18348.83</span> <span class="fl">4.001588</span> <span class="dv">1</span> <span class="fl">0.4469301</span> <span class="fl">0.0002180842</span> <span class="fl">0.00006097084</span>   <span class="fl">24.56812</span></span>
+<span id="cb156-14"><a href="lta.html#cb156-14" tabindex="-1"></a><span class="dv">5</span>     <span class="fl">10292.25</span> <span class="fl">3.385600</span> <span class="dv">2</span> <span class="fl">0.5250732</span> <span class="fl">0.0006578929</span> <span class="fl">0.00018588382</span>   <span class="fl">74.90165</span></span>
+<span id="cb156-15"><a href="lta.html#cb156-15" tabindex="-1"></a><span class="dv">6</span>     <span class="fl">16061.18</span> <span class="fl">3.502688</span> <span class="dv">2</span> <span class="fl">0.4966077</span> <span class="fl">0.0004361683</span> <span class="fl">0.00012572342</span>   <span class="fl">50.66009</span></span>
+<span id="cb156-16"><a href="lta.html#cb156-16" tabindex="-1"></a>  size_mean    size_sd         ER          D         N</span>
+<span id="cb156-17"><a href="lta.html#cb156-17" tabindex="-1"></a><span class="dv">1</span>  <span class="fl">31.95079</span>  <span class="fl">0.5780968</span> <span class="fl">0.03153029</span> <span class="fl">0.01822835</span>  <span class="fl">7345.092</span></span>
+<span id="cb156-18"><a href="lta.html#cb156-18" tabindex="-1"></a><span class="dv">2</span>  <span class="fl">53.95865</span>  <span class="fl">2.7402089</span> <span class="fl">0.03530258</span> <span class="fl">0.02269332</span>  <span class="fl">9144.245</span></span>
+<span id="cb156-19"><a href="lta.html#cb156-19" tabindex="-1"></a><span class="dv">3</span>        <span class="cn">NA</span>         <span class="cn">NA</span> <span class="fl">0.00000000</span> <span class="fl">0.00000000</span>     <span class="fl">0.000</span></span>
+<span id="cb156-20"><a href="lta.html#cb156-20" tabindex="-1"></a><span class="dv">4</span> <span class="fl">261.32841</span>         <span class="cn">NA</span> <span class="fl">0.05699159</span> <span class="fl">0.01593341</span>  <span class="fl">6420.348</span></span>
+<span id="cb156-21"><a href="lta.html#cb156-21" tabindex="-1"></a><span class="dv">5</span> <span class="fl">185.98103</span> <span class="fl">96.4369707</span> <span class="fl">0.12235559</span> <span class="fl">0.03371770</span> <span class="fl">13586.505</span></span>
+<span id="cb156-22"><a href="lta.html#cb156-22" tabindex="-1"></a><span class="dv">6</span> <span class="fl">324.68110</span> <span class="fl">58.0826568</span> <span class="fl">0.14161562</span> <span class="fl">0.04054800</span> <span class="fl">16338.766</span></span></code></pre></div>
 <p>More details on the <code>lta()</code> output are provided below.</p>
 </div>
 </div>
@@ -468,24 +469,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Variance estimation<a href="lta.html#variance-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>By default, the <code>lta()</code> function produces a single estimate of the detection function and a single estimate of density/abundance estimate for each sub-list within <code>estimates()</code>. However, you can obtain the coefficient of variation (CV) of those estimates by activating the function’s bootstrap variance estimation feature. To do this, add <code>bootstraps</code> as an input specifying a large number of iterations (1,000 iterations is standard, but we suggest first testing your code with 5 - 10 bootstraps before committing; the function typically requires ~1 hour per 100 bootstraps.).</p>
 <p>For the purposes of example only, we will just use 10 bootstrap iterations here:</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="lta.html#cb181-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">lta</span>(cruz, Rg0,</span>
-<span id="cb181-2"><a href="lta.html#cb181-2" tabindex="-1"></a>               fit_filters, df_settings, estimates,</span>
-<span id="cb181-3"><a href="lta.html#cb181-3" tabindex="-1"></a>               <span class="at">bootstraps =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="lta.html#cb157-1" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">lta</span>(cruz, Rg0,</span>
+<span id="cb157-2"><a href="lta.html#cb157-2" tabindex="-1"></a>               fit_filters, df_settings, estimates,</span>
+<span id="cb157-3"><a href="lta.html#cb157-3" tabindex="-1"></a>               <span class="at">bootstraps =</span> <span class="dv">10</span>)</span></code></pre></div>
 <p>This command will first produce official estimates of the detection function and density/abundance, then it will repeat the analysis for the number of iterations you have specified. In each iteration, survey segments are re-sampled according to standard bootstrap variance estimation methods (see more details below, in “Behind the Scenes”).</p>
 </div>
 <div id="other-inputs" class="section level2 unnumbered hasAnchor">
 <h2>Other inputs<a href="lta.html#other-inputs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are a few other optional input arguments that lend further control over the <code>lta()</code> procedure.</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="lta.html#cb182-1" tabindex="-1"></a><span class="fu">lta</span>(cruz,</span>
-<span id="cb182-2"><a href="lta.html#cb182-2" tabindex="-1"></a>    Rg0,</span>
-<span id="cb182-3"><a href="lta.html#cb182-3" tabindex="-1"></a>    fit_filters,</span>
-<span id="cb182-4"><a href="lta.html#cb182-4" tabindex="-1"></a>    df_settings,</span>
-<span id="cb182-5"><a href="lta.html#cb182-5" tabindex="-1"></a>    estimates,</span>
-<span id="cb182-6"><a href="lta.html#cb182-6" tabindex="-1"></a>    <span class="at">use_g0 =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb182-7"><a href="lta.html#cb182-7" tabindex="-1"></a>    <span class="at">ss_correction =</span> <span class="dv">1</span>,</span>
-<span id="cb182-8"><a href="lta.html#cb182-8" tabindex="-1"></a>    <span class="at">bootstraps =</span> <span class="dv">10</span></span>
-<span id="cb182-9"><a href="lta.html#cb182-9" tabindex="-1"></a>    <span class="at">toplot =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb182-10"><a href="lta.html#cb182-10" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">TRUE</span>,)</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="lta.html#cb158-1" tabindex="-1"></a><span class="fu">lta</span>(cruz,</span>
+<span id="cb158-2"><a href="lta.html#cb158-2" tabindex="-1"></a>    Rg0,</span>
+<span id="cb158-3"><a href="lta.html#cb158-3" tabindex="-1"></a>    fit_filters,</span>
+<span id="cb158-4"><a href="lta.html#cb158-4" tabindex="-1"></a>    df_settings,</span>
+<span id="cb158-5"><a href="lta.html#cb158-5" tabindex="-1"></a>    estimates,</span>
+<span id="cb158-6"><a href="lta.html#cb158-6" tabindex="-1"></a>    <span class="at">use_g0 =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb158-7"><a href="lta.html#cb158-7" tabindex="-1"></a>    <span class="at">ss_correction =</span> <span class="dv">1</span>,</span>
+<span id="cb158-8"><a href="lta.html#cb158-8" tabindex="-1"></a>    <span class="at">bootstraps =</span> <span class="dv">10</span></span>
+<span id="cb158-9"><a href="lta.html#cb158-9" tabindex="-1"></a>    <span class="at">toplot =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb158-10"><a href="lta.html#cb158-10" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">TRUE</span>,)</span></code></pre></div>
 <ul>
 <li><p><strong><code>use_g0</code></strong>: A Boolean, with default <code>TRUE</code>, indicating whether or not to use custom <code>g(0)</code> value(s). If <code>FALSE</code>, the assumed <code>g(0)</code> value will be 1. This is an easy way to toggle on-and-off automated <em>g(0)</em> estimation and/or ignore manually supplied <em>g(0)</em> values.</p></li>
 <li><p><strong><code>ss_correction</code></strong>: Should a correction be applied to school sizes? School sizes will be scaled by this number. The default, <code>1</code>, means no changes will occur.</p></li>
@@ -498,85 +499,85 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="during-processing" class="section level3 unnumbered hasAnchor">
 <h3>During processing<a href="lta.html#during-processing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>While <code>lta()</code> is running, it will print things to the Console (if <code>verbose</code> is <code>TRUE</code>), plot diagnostic plots of how the study area is being calculated (if <code>toplot</code> is <code>TRUE</code>), and plot detection function model candidates (if <code>toplot</code> is <code>TRUE</code>). To demonstrate this, we will run the estimate for striped dolphins in 2017 only, without variance bootstrapping. To expedite processing, we will manually supply <em>g(0)</em> values from <a href="https://repository.library.noaa.gov/view/noaa/47788">Bradford et al. (2022)</a> (this saves about 3 minutes per estimate):</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="lta.html#cb183-1" tabindex="-1"></a>new_estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb183-2"><a href="lta.html#cb183-2" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
-<span id="cb183-3"><a href="lta.html#cb183-3" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
-<span id="cb183-4"><a href="lta.html#cb183-4" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2017</span>,</span>
-<span id="cb183-5"><a href="lta.html#cb183-5" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>,</span>
-<span id="cb183-6"><a href="lta.html#cb183-6" tabindex="-1"></a>         <span class="at">g0 =</span> <span class="fl">0.35</span>, <span class="at">g0_cv =</span> <span class="fl">0.19</span>))</span>
-<span id="cb183-7"><a href="lta.html#cb183-7" tabindex="-1"></a></span>
-<span id="cb183-8"><a href="lta.html#cb183-8" tabindex="-1"></a><span class="co"># Run it:</span></span>
-<span id="cb183-9"><a href="lta.html#cb183-9" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">lta</span>(cruz, Rg0, fit_filters, df_settings, new_estimates, <span class="at">bootstraps =</span> <span class="dv">0</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-250-1.png" width="576" /><img src="figures/unnamed-chunk-250-2.png" width="576" /><img src="figures/unnamed-chunk-250-3.png" width="576" /><img src="figures/unnamed-chunk-250-4.png" width="576" /><img src="figures/unnamed-chunk-250-5.png" width="576" /><img src="figures/unnamed-chunk-250-6.png" width="576" /><img src="figures/unnamed-chunk-250-7.png" width="576" /><img src="figures/unnamed-chunk-250-8.png" width="576" /><img src="figures/unnamed-chunk-250-9.png" width="576" /><img src="figures/unnamed-chunk-250-10.png" width="576" /><img src="figures/unnamed-chunk-250-11.png" width="576" /><img src="figures/unnamed-chunk-250-12.png" width="576" /></p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="lta.html#cb159-1" tabindex="-1"></a>new_estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb159-2"><a href="lta.html#cb159-2" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
+<span id="cb159-3"><a href="lta.html#cb159-3" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
+<span id="cb159-4"><a href="lta.html#cb159-4" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2017</span>,</span>
+<span id="cb159-5"><a href="lta.html#cb159-5" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>,</span>
+<span id="cb159-6"><a href="lta.html#cb159-6" tabindex="-1"></a>         <span class="at">g0 =</span> <span class="fl">0.35</span>, <span class="at">g0_cv =</span> <span class="fl">0.19</span>))</span>
+<span id="cb159-7"><a href="lta.html#cb159-7" tabindex="-1"></a></span>
+<span id="cb159-8"><a href="lta.html#cb159-8" tabindex="-1"></a><span class="co"># Run it:</span></span>
+<span id="cb159-9"><a href="lta.html#cb159-9" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">lta</span>(cruz, Rg0, fit_filters, df_settings, new_estimates, <span class="at">bootstraps =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-225-1.png" width="576" /><img src="figures/unnamed-chunk-225-2.png" width="576" /><img src="figures/unnamed-chunk-225-3.png" width="576" /><img src="figures/unnamed-chunk-225-4.png" width="576" /><img src="figures/unnamed-chunk-225-5.png" width="576" /><img src="figures/unnamed-chunk-225-6.png" width="576" /><img src="figures/unnamed-chunk-225-7.png" width="576" /><img src="figures/unnamed-chunk-225-8.png" width="576" /><img src="figures/unnamed-chunk-225-9.png" width="576" /><img src="figures/unnamed-chunk-225-10.png" width="576" /><img src="figures/unnamed-chunk-225-11.png" width="576" /><img src="figures/unnamed-chunk-225-12.png" width="576" /></p>
 <p>Additionally, windows will appear showing details for the detection function models and details of the density/abundance estimate.</p>
 </div>
 <div id="outputs" class="section level3 unnumbered hasAnchor">
 <h3>Outputs<a href="lta.html#outputs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>lta()</code> function returns a list of objects. To demonstrate this output, we will pull back in the dataset representing the result of the analysis above, for all three species in both years (with 10 bootstrap iterations):</p>
 <p>This list of results has five slots:</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="lta.html#cb184-1" tabindex="-1"></a><span class="fu">names</span>(results)</span>
-<span id="cb184-2"><a href="lta.html#cb184-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;pool&quot;</span>      <span class="st">&quot;inputs&quot;</span>    <span class="st">&quot;estimate&quot;</span>  <span class="st">&quot;df&quot;</span>        <span class="st">&quot;bootstrap&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="lta.html#cb160-1" tabindex="-1"></a><span class="fu">names</span>(results)</span>
+<span id="cb160-2"><a href="lta.html#cb160-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;pool&quot;</span>      <span class="st">&quot;inputs&quot;</span>    <span class="st">&quot;estimate&quot;</span>  <span class="st">&quot;df&quot;</span>        <span class="st">&quot;bootstrap&quot;</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p><strong><code>pool</code></strong>: The species pool pertaining to these estimates.</p></li>
 <li><p><strong><code>inputs</code></strong>: A list of the inputs used to produce these estimates.</p></li>
 <li><p><strong><code>estimate</code></strong>: A table of density/abundance estimates for each species/region/year combination specified in the <code>estimates</code> input.</p></li>
 </ol>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="lta.html#cb185-1" tabindex="-1"></a>results<span class="sc">$</span>estimate</span>
-<span id="cb185-2"><a href="lta.html#cb185-2" tabindex="-1"></a>               title species    Region     Area year segments       km</span>
-<span id="cb185-3"><a href="lta.html#cb185-3" tabindex="-1"></a><span class="dv">1</span>    Striped dolphin     <span class="dv">013</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2017</span>       <span class="dv">29</span> <span class="fl">3040.009</span></span>
-<span id="cb185-4"><a href="lta.html#cb185-4" tabindex="-1"></a><span class="dv">2</span>    Striped dolphin     <span class="dv">013</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2020</span>       <span class="dv">34</span> <span class="fl">4585.386</span></span>
-<span id="cb185-5"><a href="lta.html#cb185-5" tabindex="-1"></a><span class="dv">3</span>    Frasers dolphin     <span class="dv">026</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2017</span>       <span class="dv">29</span> <span class="fl">3040.009</span></span>
-<span id="cb185-6"><a href="lta.html#cb185-6" tabindex="-1"></a><span class="dv">4</span>    Frasers dolphin     <span class="dv">026</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2020</span>       <span class="dv">34</span> <span class="fl">4585.386</span></span>
-<span id="cb185-7"><a href="lta.html#cb185-7" tabindex="-1"></a><span class="dv">5</span> Melon<span class="sc">-</span>headed whale     <span class="dv">031</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2017</span>       <span class="dv">29</span> <span class="fl">3040.009</span></span>
-<span id="cb185-8"><a href="lta.html#cb185-8" tabindex="-1"></a><span class="dv">6</span> Melon<span class="sc">-</span>headed whale     <span class="dv">031</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2020</span>       <span class="dv">34</span> <span class="fl">4585.386</span></span>
-<span id="cb185-9"><a href="lta.html#cb185-9" tabindex="-1"></a>  Area_covered ESW_mean n    g0_est  ER_clusters    D_clusters N_clusters</span>
-<span id="cb185-10"><a href="lta.html#cb185-10" tabindex="-1"></a><span class="dv">1</span>     <span class="fl">11425.53</span> <span class="fl">3.758386</span> <span class="dv">3</span> <span class="fl">0.2319146</span> <span class="fl">0.0009868393</span> <span class="fl">0.00056981695</span>  <span class="fl">229.60702</span></span>
-<span id="cb185-11"><a href="lta.html#cb185-11" tabindex="-1"></a><span class="dv">2</span>     <span class="fl">17620.38</span> <span class="fl">3.842726</span> <span class="dv">3</span> <span class="fl">0.2034128</span> <span class="fl">0.0006542525</span> <span class="fl">0.00042079040</span>  <span class="fl">169.55696</span></span>
-<span id="cb185-12"><a href="lta.html#cb185-12" tabindex="-1"></a><span class="dv">3</span>           <span class="cn">NA</span>       <span class="cn">NA</span> <span class="dv">0</span> <span class="fl">0.4766764</span> <span class="fl">0.0000000000</span> <span class="fl">0.00000000000</span>    <span class="fl">0.00000</span></span>
-<span id="cb185-13"><a href="lta.html#cb185-13" tabindex="-1"></a><span class="dv">4</span>     <span class="fl">18348.83</span> <span class="fl">4.001588</span> <span class="dv">1</span> <span class="fl">0.4469301</span> <span class="fl">0.0002180842</span> <span class="fl">0.00006097084</span>   <span class="fl">24.56812</span></span>
-<span id="cb185-14"><a href="lta.html#cb185-14" tabindex="-1"></a><span class="dv">5</span>     <span class="fl">10292.25</span> <span class="fl">3.385600</span> <span class="dv">2</span> <span class="fl">0.5250732</span> <span class="fl">0.0006578929</span> <span class="fl">0.00018588382</span>   <span class="fl">74.90165</span></span>
-<span id="cb185-15"><a href="lta.html#cb185-15" tabindex="-1"></a><span class="dv">6</span>     <span class="fl">16061.18</span> <span class="fl">3.502688</span> <span class="dv">2</span> <span class="fl">0.4966077</span> <span class="fl">0.0004361683</span> <span class="fl">0.00012572342</span>   <span class="fl">50.66009</span></span>
-<span id="cb185-16"><a href="lta.html#cb185-16" tabindex="-1"></a>  size_mean    size_sd         ER          D         N</span>
-<span id="cb185-17"><a href="lta.html#cb185-17" tabindex="-1"></a><span class="dv">1</span>  <span class="fl">31.95079</span>  <span class="fl">0.5780968</span> <span class="fl">0.03153029</span> <span class="fl">0.01822835</span>  <span class="fl">7345.092</span></span>
-<span id="cb185-18"><a href="lta.html#cb185-18" tabindex="-1"></a><span class="dv">2</span>  <span class="fl">53.95865</span>  <span class="fl">2.7402089</span> <span class="fl">0.03530258</span> <span class="fl">0.02269332</span>  <span class="fl">9144.245</span></span>
-<span id="cb185-19"><a href="lta.html#cb185-19" tabindex="-1"></a><span class="dv">3</span>        <span class="cn">NA</span>         <span class="cn">NA</span> <span class="fl">0.00000000</span> <span class="fl">0.00000000</span>     <span class="fl">0.000</span></span>
-<span id="cb185-20"><a href="lta.html#cb185-20" tabindex="-1"></a><span class="dv">4</span> <span class="fl">261.32841</span>         <span class="cn">NA</span> <span class="fl">0.05699159</span> <span class="fl">0.01593341</span>  <span class="fl">6420.348</span></span>
-<span id="cb185-21"><a href="lta.html#cb185-21" tabindex="-1"></a><span class="dv">5</span> <span class="fl">185.98103</span> <span class="fl">96.4369707</span> <span class="fl">0.12235559</span> <span class="fl">0.03371770</span> <span class="fl">13586.505</span></span>
-<span id="cb185-22"><a href="lta.html#cb185-22" tabindex="-1"></a><span class="dv">6</span> <span class="fl">324.68110</span> <span class="fl">58.0826568</span> <span class="fl">0.14161562</span> <span class="fl">0.04054800</span> <span class="fl">16338.766</span></span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="lta.html#cb161-1" tabindex="-1"></a>results<span class="sc">$</span>estimate</span>
+<span id="cb161-2"><a href="lta.html#cb161-2" tabindex="-1"></a>               title species    Region     Area year segments       km</span>
+<span id="cb161-3"><a href="lta.html#cb161-3" tabindex="-1"></a><span class="dv">1</span>    Striped dolphin     <span class="dv">013</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2017</span>       <span class="dv">29</span> <span class="fl">3040.009</span></span>
+<span id="cb161-4"><a href="lta.html#cb161-4" tabindex="-1"></a><span class="dv">2</span>    Striped dolphin     <span class="dv">013</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2020</span>       <span class="dv">34</span> <span class="fl">4585.386</span></span>
+<span id="cb161-5"><a href="lta.html#cb161-5" tabindex="-1"></a><span class="dv">3</span>    Frasers dolphin     <span class="dv">026</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2017</span>       <span class="dv">29</span> <span class="fl">3040.009</span></span>
+<span id="cb161-6"><a href="lta.html#cb161-6" tabindex="-1"></a><span class="dv">4</span>    Frasers dolphin     <span class="dv">026</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2020</span>       <span class="dv">34</span> <span class="fl">4585.386</span></span>
+<span id="cb161-7"><a href="lta.html#cb161-7" tabindex="-1"></a><span class="dv">5</span> Melon<span class="sc">-</span>headed whale     <span class="dv">031</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2017</span>       <span class="dv">29</span> <span class="fl">3040.009</span></span>
+<span id="cb161-8"><a href="lta.html#cb161-8" tabindex="-1"></a><span class="dv">6</span> Melon<span class="sc">-</span>headed whale     <span class="dv">031</span> (WHICEAS) <span class="fl">402948.7</span> <span class="dv">2020</span>       <span class="dv">34</span> <span class="fl">4585.386</span></span>
+<span id="cb161-9"><a href="lta.html#cb161-9" tabindex="-1"></a>  Area_covered ESW_mean n    g0_est  ER_clusters    D_clusters N_clusters</span>
+<span id="cb161-10"><a href="lta.html#cb161-10" tabindex="-1"></a><span class="dv">1</span>     <span class="fl">11425.53</span> <span class="fl">3.758386</span> <span class="dv">3</span> <span class="fl">0.2319146</span> <span class="fl">0.0009868393</span> <span class="fl">0.00056981695</span>  <span class="fl">229.60702</span></span>
+<span id="cb161-11"><a href="lta.html#cb161-11" tabindex="-1"></a><span class="dv">2</span>     <span class="fl">17620.38</span> <span class="fl">3.842726</span> <span class="dv">3</span> <span class="fl">0.2034128</span> <span class="fl">0.0006542525</span> <span class="fl">0.00042079040</span>  <span class="fl">169.55696</span></span>
+<span id="cb161-12"><a href="lta.html#cb161-12" tabindex="-1"></a><span class="dv">3</span>           <span class="cn">NA</span>       <span class="cn">NA</span> <span class="dv">0</span> <span class="fl">0.4766764</span> <span class="fl">0.0000000000</span> <span class="fl">0.00000000000</span>    <span class="fl">0.00000</span></span>
+<span id="cb161-13"><a href="lta.html#cb161-13" tabindex="-1"></a><span class="dv">4</span>     <span class="fl">18348.83</span> <span class="fl">4.001588</span> <span class="dv">1</span> <span class="fl">0.4469301</span> <span class="fl">0.0002180842</span> <span class="fl">0.00006097084</span>   <span class="fl">24.56812</span></span>
+<span id="cb161-14"><a href="lta.html#cb161-14" tabindex="-1"></a><span class="dv">5</span>     <span class="fl">10292.25</span> <span class="fl">3.385600</span> <span class="dv">2</span> <span class="fl">0.5250732</span> <span class="fl">0.0006578929</span> <span class="fl">0.00018588382</span>   <span class="fl">74.90165</span></span>
+<span id="cb161-15"><a href="lta.html#cb161-15" tabindex="-1"></a><span class="dv">6</span>     <span class="fl">16061.18</span> <span class="fl">3.502688</span> <span class="dv">2</span> <span class="fl">0.4966077</span> <span class="fl">0.0004361683</span> <span class="fl">0.00012572342</span>   <span class="fl">50.66009</span></span>
+<span id="cb161-16"><a href="lta.html#cb161-16" tabindex="-1"></a>  size_mean    size_sd         ER          D         N</span>
+<span id="cb161-17"><a href="lta.html#cb161-17" tabindex="-1"></a><span class="dv">1</span>  <span class="fl">31.95079</span>  <span class="fl">0.5780968</span> <span class="fl">0.03153029</span> <span class="fl">0.01822835</span>  <span class="fl">7345.092</span></span>
+<span id="cb161-18"><a href="lta.html#cb161-18" tabindex="-1"></a><span class="dv">2</span>  <span class="fl">53.95865</span>  <span class="fl">2.7402089</span> <span class="fl">0.03530258</span> <span class="fl">0.02269332</span>  <span class="fl">9144.245</span></span>
+<span id="cb161-19"><a href="lta.html#cb161-19" tabindex="-1"></a><span class="dv">3</span>        <span class="cn">NA</span>         <span class="cn">NA</span> <span class="fl">0.00000000</span> <span class="fl">0.00000000</span>     <span class="fl">0.000</span></span>
+<span id="cb161-20"><a href="lta.html#cb161-20" tabindex="-1"></a><span class="dv">4</span> <span class="fl">261.32841</span>         <span class="cn">NA</span> <span class="fl">0.05699159</span> <span class="fl">0.01593341</span>  <span class="fl">6420.348</span></span>
+<span id="cb161-21"><a href="lta.html#cb161-21" tabindex="-1"></a><span class="dv">5</span> <span class="fl">185.98103</span> <span class="fl">96.4369707</span> <span class="fl">0.12235559</span> <span class="fl">0.03371770</span> <span class="fl">13586.505</span></span>
+<span id="cb161-22"><a href="lta.html#cb161-22" tabindex="-1"></a><span class="dv">6</span> <span class="fl">324.68110</span> <span class="fl">58.0826568</span> <span class="fl">0.14161562</span> <span class="fl">0.04054800</span> <span class="fl">16338.766</span></span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li><strong><code>df</code></strong>: A named list with details for the detection function.</li>
 </ol>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="lta.html#cb186-1" tabindex="-1"></a>results<span class="sc">$</span>df <span class="sc">%&gt;%</span> names</span>
-<span id="cb186-2"><a href="lta.html#cb186-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;best_models&quot;</span>  <span class="st">&quot;all_models&quot;</span>   <span class="st">&quot;best_objects&quot;</span> <span class="st">&quot;sightings&quot;</span>    <span class="st">&quot;sample_size&quot;</span> </span>
-<span id="cb186-3"><a href="lta.html#cb186-3" tabindex="-1"></a>[<span class="dv">6</span>] <span class="st">&quot;curve&quot;</span>       </span>
-<span id="cb186-4"><a href="lta.html#cb186-4" tabindex="-1"></a></span>
-<span id="cb186-5"><a href="lta.html#cb186-5" tabindex="-1"></a>results<span class="sc">$</span>df<span class="sc">$</span>best_models</span>
-<span id="cb186-6"><a href="lta.html#cb186-6" tabindex="-1"></a>  Model Key_function                             Formula     Pmean     AIC</span>
-<span id="cb186-7"><a href="lta.html#cb186-7" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">9</span>           hn           <span class="sc">~</span><span class="dv">1</span> <span class="sc">+</span> ship <span class="sc">+</span> bft <span class="sc">+</span> lnsstot <span class="fl">0.5609598</span> <span class="fl">939.916</span></span>
-<span id="cb186-8"><a href="lta.html#cb186-8" tabindex="-1"></a><span class="dv">2</span>    <span class="dv">11</span>           hn <span class="sc">~</span><span class="dv">1</span> <span class="sc">+</span> ship <span class="sc">+</span> bft <span class="sc">+</span> lnsstot <span class="sc">+</span> species <span class="fl">0.5552113</span> <span class="fl">940.489</span></span>
-<span id="cb186-9"><a href="lta.html#cb186-9" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">6</span>           hn                     <span class="sc">~</span><span class="dv">1</span> <span class="sc">+</span> ship <span class="sc">+</span> bft <span class="fl">0.5658167</span> <span class="fl">941.858</span></span>
-<span id="cb186-10"><a href="lta.html#cb186-10" tabindex="-1"></a>  <span class="sc">$</span>\\Delta<span class="sc">$</span>AIC           Covariates tested                 pool</span>
-<span id="cb186-11"><a href="lta.html#cb186-11" tabindex="-1"></a><span class="dv">1</span>        <span class="fl">0.000</span> bft, lnsstot, ship, species Multi<span class="sc">-</span>species pool <span class="dv">1</span></span>
-<span id="cb186-12"><a href="lta.html#cb186-12" tabindex="-1"></a><span class="dv">2</span>        <span class="fl">0.573</span> bft, lnsstot, ship, species Multi<span class="sc">-</span>species pool <span class="dv">1</span></span>
-<span id="cb186-13"><a href="lta.html#cb186-13" tabindex="-1"></a><span class="dv">3</span>        <span class="fl">1.942</span> bft, lnsstot, ship, species Multi<span class="sc">-</span>species pool <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="lta.html#cb162-1" tabindex="-1"></a>results<span class="sc">$</span>df <span class="sc">%&gt;%</span> names</span>
+<span id="cb162-2"><a href="lta.html#cb162-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;best_models&quot;</span>  <span class="st">&quot;all_models&quot;</span>   <span class="st">&quot;best_objects&quot;</span> <span class="st">&quot;sightings&quot;</span>    <span class="st">&quot;sample_size&quot;</span> </span>
+<span id="cb162-3"><a href="lta.html#cb162-3" tabindex="-1"></a>[<span class="dv">6</span>] <span class="st">&quot;curve&quot;</span>       </span>
+<span id="cb162-4"><a href="lta.html#cb162-4" tabindex="-1"></a></span>
+<span id="cb162-5"><a href="lta.html#cb162-5" tabindex="-1"></a>results<span class="sc">$</span>df<span class="sc">$</span>best_models</span>
+<span id="cb162-6"><a href="lta.html#cb162-6" tabindex="-1"></a>  Model Key_function                             Formula     Pmean     AIC</span>
+<span id="cb162-7"><a href="lta.html#cb162-7" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">9</span>           hn           <span class="sc">~</span><span class="dv">1</span> <span class="sc">+</span> ship <span class="sc">+</span> bft <span class="sc">+</span> lnsstot <span class="fl">0.5609598</span> <span class="fl">939.916</span></span>
+<span id="cb162-8"><a href="lta.html#cb162-8" tabindex="-1"></a><span class="dv">2</span>    <span class="dv">11</span>           hn <span class="sc">~</span><span class="dv">1</span> <span class="sc">+</span> ship <span class="sc">+</span> bft <span class="sc">+</span> lnsstot <span class="sc">+</span> species <span class="fl">0.5552113</span> <span class="fl">940.489</span></span>
+<span id="cb162-9"><a href="lta.html#cb162-9" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">6</span>           hn                     <span class="sc">~</span><span class="dv">1</span> <span class="sc">+</span> ship <span class="sc">+</span> bft <span class="fl">0.5658167</span> <span class="fl">941.858</span></span>
+<span id="cb162-10"><a href="lta.html#cb162-10" tabindex="-1"></a>  <span class="sc">$</span>\\Delta<span class="sc">$</span>AIC           Covariates tested                 pool</span>
+<span id="cb162-11"><a href="lta.html#cb162-11" tabindex="-1"></a><span class="dv">1</span>        <span class="fl">0.000</span> bft, lnsstot, ship, species Multi<span class="sc">-</span>species pool <span class="dv">1</span></span>
+<span id="cb162-12"><a href="lta.html#cb162-12" tabindex="-1"></a><span class="dv">2</span>        <span class="fl">0.573</span> bft, lnsstot, ship, species Multi<span class="sc">-</span>species pool <span class="dv">1</span></span>
+<span id="cb162-13"><a href="lta.html#cb162-13" tabindex="-1"></a><span class="dv">3</span>        <span class="fl">1.942</span> bft, lnsstot, ship, species Multi<span class="sc">-</span>species pool <span class="dv">1</span></span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li><strong><code>bootstrap</code></strong>: If bootstrap variance estimation was carried out, the output would also include <code>bootstrap</code>, a named list with results from the bootstrap process, only returned if the bootstraps input is greater than 1.</li>
 </ol>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="lta.html#cb187-1" tabindex="-1"></a>results<span class="sc">$</span>bootstrap <span class="sc">%&gt;%</span> names</span>
-<span id="cb187-2"><a href="lta.html#cb187-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;summary&quot;</span> <span class="st">&quot;details&quot;</span> <span class="st">&quot;df&quot;</span>     </span></code></pre></div>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="lta.html#cb188-1" tabindex="-1"></a>results<span class="sc">$</span>bootstrap<span class="sc">$</span>summary <span class="sc">%&gt;%</span> head</span>
-<span id="cb188-2"><a href="lta.html#cb188-2" tabindex="-1"></a><span class="co"># A tibble: 6 × 18</span></span>
-<span id="cb188-3"><a href="lta.html#cb188-3" tabindex="-1"></a><span class="co"># Groups:   title, Region [3]</span></span>
-<span id="cb188-4"><a href="lta.html#cb188-4" tabindex="-1"></a>  title     Region year  species iterations ESW_mean g0_mean  g0_cv    km     ER</span>
-<span id="cb188-5"><a href="lta.html#cb188-5" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>     <span class="er">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>        <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb188-6"><a href="lta.html#cb188-6" tabindex="-1"></a><span class="dv">1</span> Frasers … (WHIC… <span class="dv">2017</span>  <span class="dv">026</span>             <span class="dv">10</span>   <span class="cn">NaN</span>      <span class="fl">0.527</span> <span class="fl">0.706</span>  <span class="fl">3025.</span> <span class="dv">0</span>     </span>
-<span id="cb188-7"><a href="lta.html#cb188-7" tabindex="-1"></a><span class="dv">2</span> Frasers … (WHIC… <span class="dv">2020</span>  <span class="dv">026</span>             <span class="dv">10</span>     <span class="fl">4.10</span>   <span class="fl">0.421</span> <span class="fl">0.878</span>  <span class="fl">4354.</span> <span class="fl">0.0562</span></span>
-<span id="cb188-8"><a href="lta.html#cb188-8" tabindex="-1"></a><span class="dv">3</span> Melon<span class="sc">-</span>he… (WHIC… <span class="dv">2017</span>  <span class="dv">031</span>             <span class="dv">10</span>     <span class="fl">3.30</span>   <span class="fl">0.546</span> <span class="fl">0.682</span>  <span class="fl">3025.</span> <span class="fl">0.165</span> </span>
-<span id="cb188-9"><a href="lta.html#cb188-9" tabindex="-1"></a><span class="dv">4</span> Melon<span class="sc">-</span>he… (WHIC… <span class="dv">2020</span>  <span class="dv">031</span>             <span class="dv">10</span>     <span class="fl">3.33</span>   <span class="fl">0.338</span> <span class="fl">0.747</span>  <span class="fl">4354.</span> <span class="fl">0.109</span> </span>
-<span id="cb188-10"><a href="lta.html#cb188-10" tabindex="-1"></a><span class="dv">5</span> Striped … (WHIC… <span class="dv">2017</span>  <span class="dv">013</span>             <span class="dv">10</span>     <span class="fl">3.78</span>   <span class="fl">0.238</span> <span class="fl">0.136</span>  <span class="fl">3025.</span> <span class="fl">0.0331</span></span>
-<span id="cb188-11"><a href="lta.html#cb188-11" tabindex="-1"></a><span class="dv">6</span> Striped … (WHIC… <span class="dv">2020</span>  <span class="dv">013</span>             <span class="dv">10</span>     <span class="fl">3.87</span>   <span class="fl">0.205</span> <span class="fl">0.0971</span> <span class="fl">4354.</span> <span class="fl">0.0362</span></span>
-<span id="cb188-12"><a href="lta.html#cb188-12" tabindex="-1"></a><span class="co"># ℹ 8 more variables: D &lt;dbl&gt;, size &lt;dbl&gt;, Nmean &lt;dbl&gt;, Nmedian &lt;dbl&gt;,</span></span>
-<span id="cb188-13"><a href="lta.html#cb188-13" tabindex="-1"></a><span class="co">#   Nsd &lt;dbl&gt;, CV &lt;dbl&gt;, L95 &lt;dbl&gt;, U95 &lt;dbl&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="lta.html#cb163-1" tabindex="-1"></a>results<span class="sc">$</span>bootstrap <span class="sc">%&gt;%</span> names</span>
+<span id="cb163-2"><a href="lta.html#cb163-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;summary&quot;</span> <span class="st">&quot;details&quot;</span> <span class="st">&quot;df&quot;</span>     </span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="lta.html#cb164-1" tabindex="-1"></a>results<span class="sc">$</span>bootstrap<span class="sc">$</span>summary <span class="sc">%&gt;%</span> head</span>
+<span id="cb164-2"><a href="lta.html#cb164-2" tabindex="-1"></a><span class="co"># A tibble: 6 × 18</span></span>
+<span id="cb164-3"><a href="lta.html#cb164-3" tabindex="-1"></a><span class="co"># Groups:   title, Region [3]</span></span>
+<span id="cb164-4"><a href="lta.html#cb164-4" tabindex="-1"></a>  title     Region year  species iterations ESW_mean g0_mean  g0_cv    km     ER</span>
+<span id="cb164-5"><a href="lta.html#cb164-5" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>     <span class="er">&lt;</span>chr<span class="sc">&gt;</span>  <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>        <span class="er">&lt;</span>int<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>   <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb164-6"><a href="lta.html#cb164-6" tabindex="-1"></a><span class="dv">1</span> Frasers … (WHIC… <span class="dv">2017</span>  <span class="dv">026</span>             <span class="dv">10</span>   <span class="cn">NaN</span>      <span class="fl">0.527</span> <span class="fl">0.706</span>  <span class="fl">3025.</span> <span class="dv">0</span>     </span>
+<span id="cb164-7"><a href="lta.html#cb164-7" tabindex="-1"></a><span class="dv">2</span> Frasers … (WHIC… <span class="dv">2020</span>  <span class="dv">026</span>             <span class="dv">10</span>     <span class="fl">4.10</span>   <span class="fl">0.421</span> <span class="fl">0.878</span>  <span class="fl">4354.</span> <span class="fl">0.0562</span></span>
+<span id="cb164-8"><a href="lta.html#cb164-8" tabindex="-1"></a><span class="dv">3</span> Melon<span class="sc">-</span>he… (WHIC… <span class="dv">2017</span>  <span class="dv">031</span>             <span class="dv">10</span>     <span class="fl">3.30</span>   <span class="fl">0.546</span> <span class="fl">0.682</span>  <span class="fl">3025.</span> <span class="fl">0.165</span> </span>
+<span id="cb164-9"><a href="lta.html#cb164-9" tabindex="-1"></a><span class="dv">4</span> Melon<span class="sc">-</span>he… (WHIC… <span class="dv">2020</span>  <span class="dv">031</span>             <span class="dv">10</span>     <span class="fl">3.33</span>   <span class="fl">0.338</span> <span class="fl">0.747</span>  <span class="fl">4354.</span> <span class="fl">0.109</span> </span>
+<span id="cb164-10"><a href="lta.html#cb164-10" tabindex="-1"></a><span class="dv">5</span> Striped … (WHIC… <span class="dv">2017</span>  <span class="dv">013</span>             <span class="dv">10</span>     <span class="fl">3.78</span>   <span class="fl">0.238</span> <span class="fl">0.136</span>  <span class="fl">3025.</span> <span class="fl">0.0331</span></span>
+<span id="cb164-11"><a href="lta.html#cb164-11" tabindex="-1"></a><span class="dv">6</span> Striped … (WHIC… <span class="dv">2020</span>  <span class="dv">013</span>             <span class="dv">10</span>     <span class="fl">3.87</span>   <span class="fl">0.205</span> <span class="fl">0.0971</span> <span class="fl">4354.</span> <span class="fl">0.0362</span></span>
+<span id="cb164-12"><a href="lta.html#cb164-12" tabindex="-1"></a><span class="co"># ℹ 8 more variables: D &lt;dbl&gt;, size &lt;dbl&gt;, Nmean &lt;dbl&gt;, Nmedian &lt;dbl&gt;,</span></span>
+<span id="cb164-13"><a href="lta.html#cb164-13" tabindex="-1"></a><span class="co">#   Nsd &lt;dbl&gt;, CV &lt;dbl&gt;, L95 &lt;dbl&gt;, U95 &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 </div>
 <div id="unusual-estimate-scenarios" class="section level2 unnumbered hasAnchor">
@@ -605,31 +606,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h4>Pooling similar species<a href="lta.html#pooling-similar-species" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Species that can be confused with one another may need to be pooled together for abundance estimation. For example, in the northeast Pacific, sei whales, Bryde’s whales, and fin whales can co-occur but they are difficult to distinguish in the field. They are also relatively uncommon, and may need to be pooled with other species in order to obtain a sound detection function model. However, we may also want to estimate the density/abundance in the WHICEAS study area of all detections of sei, Bryde’s, fin whales together.</p>
 <p>To handle this, we will follow all the steps taken for a multi-species pool, as discussed above. Additionally, in our <code>estimates</code> sub-list(s), we will specify (1) that multiple species should be included in the estimate, and (2) that the weighted <em>g(0)</em> estimates for each of the individual species should be averaged together:</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="lta.html#cb189-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb189-2"><a href="lta.html#cb189-2" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">spp =</span> <span class="fu">c</span>(<span class="st">&#39;072&#39;</span>, <span class="st">&#39;073&#39;</span>, <span class="st">&#39;099&#39;</span>, <span class="st">&#39;074&#39;</span>),</span>
-<span id="cb189-3"><a href="lta.html#cb189-3" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Sei/Bryde&#39;s/Fin whale&quot;</span>,</span>
-<span id="cb189-4"><a href="lta.html#cb189-4" tabindex="-1"></a>       <span class="at">years =</span> <span class="dv">2017</span>,</span>
-<span id="cb189-5"><a href="lta.html#cb189-5" tabindex="-1"></a>       <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>,</span>
-<span id="cb189-6"><a href="lta.html#cb189-6" tabindex="-1"></a>       <span class="at">combine_g0 =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="lta.html#cb165-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb165-2"><a href="lta.html#cb165-2" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">spp =</span> <span class="fu">c</span>(<span class="st">&#39;072&#39;</span>, <span class="st">&#39;073&#39;</span>, <span class="st">&#39;099&#39;</span>, <span class="st">&#39;074&#39;</span>),</span>
+<span id="cb165-3"><a href="lta.html#cb165-3" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Sei/Bryde&#39;s/Fin whale&quot;</span>,</span>
+<span id="cb165-4"><a href="lta.html#cb165-4" tabindex="-1"></a>       <span class="at">years =</span> <span class="dv">2017</span>,</span>
+<span id="cb165-5"><a href="lta.html#cb165-5" tabindex="-1"></a>       <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>,</span>
+<span id="cb165-6"><a href="lta.html#cb165-6" tabindex="-1"></a>       <span class="at">combine_g0 =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 </div>
 <div id="rare-unidentified-taxa" class="section level4 unnumbered hasAnchor">
 <h4>Rare unidentified taxa<a href="lta.html#rare-unidentified-taxa" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A similar problem occur when you have species codes for unidentified taxa that have been identified down to a family- or genus-level. For example, “Unidenfitied <em>Mesoplodon</em>” is a species code (the code is <code>"050"</code>) for any beaked whale that is definitely in the genus <em>Mesoplodon</em>. There are plenty of these sightings, which means <em>g(0)</em> and its CV can be estimated just fine without referring to other species codes.</p>
 <p>Other unidentified taxa, however, are less common. For example, in Hawaiian studies, density/abundance is estimated for “Unidentified rorquals”. In the field there is a species code for this group, <code>"070"</code>, but it is rarely used – there are enough sightings to model the detection function, but not nearly enough sightings to estimate <em>g(0)</em> or its CV. In this case, we need to combine <em>g(0)</em> from more common species codes in order to estimate the unidentified rorqual’s <em>g(0)</em>.</p>
 <p>To do this, we fit a detection function using species code <code>"070"</code> …</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="lta.html#cb190-1" tabindex="-1"></a>fit_filters <span class="ot">&lt;-</span></span>
-<span id="cb190-2"><a href="lta.html#cb190-2" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="fu">c</span>(<span class="st">&#39;070&#39;</span>),</span>
-<span id="cb190-3"><a href="lta.html#cb190-3" tabindex="-1"></a>         <span class="at">pool =</span> <span class="st">&#39;Unidentified rorqual&#39;</span>,</span>
-<span id="cb190-4"><a href="lta.html#cb190-4" tabindex="-1"></a>         <span class="at">cohort =</span> <span class="st">&#39;all&#39;</span>,</span>
-<span id="cb190-5"><a href="lta.html#cb190-5" tabindex="-1"></a>         <span class="at">truncation_distance =</span> <span class="fl">5.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="lta.html#cb166-1" tabindex="-1"></a>fit_filters <span class="ot">&lt;-</span></span>
+<span id="cb166-2"><a href="lta.html#cb166-2" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="fu">c</span>(<span class="st">&#39;070&#39;</span>),</span>
+<span id="cb166-3"><a href="lta.html#cb166-3" tabindex="-1"></a>         <span class="at">pool =</span> <span class="st">&#39;Unidentified rorqual&#39;</span>,</span>
+<span id="cb166-4"><a href="lta.html#cb166-4" tabindex="-1"></a>         <span class="at">cohort =</span> <span class="st">&#39;all&#39;</span>,</span>
+<span id="cb166-5"><a href="lta.html#cb166-5" tabindex="-1"></a>         <span class="at">truncation_distance =</span> <span class="fl">5.5</span>)</span></code></pre></div>
 <p>… then, in our <code>estimates</code> list, we specify some alternate <code>g(0)</code> species designations.</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="lta.html#cb191-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb191-2"><a href="lta.html#cb191-2" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;070&#39;</span>,</span>
-<span id="cb191-3"><a href="lta.html#cb191-3" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Unidentified rorqual&#39;</span>,</span>
-<span id="cb191-4"><a href="lta.html#cb191-4" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2017</span>,</span>
-<span id="cb191-5"><a href="lta.html#cb191-5" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>,</span>
-<span id="cb191-6"><a href="lta.html#cb191-6" tabindex="-1"></a>         <span class="at">alt_g0_spp =</span> <span class="fu">c</span>(<span class="st">&#39;071&#39;</span>,<span class="st">&#39;099&#39;</span>,<span class="st">&#39;074&#39;</span>,<span class="st">&#39;075&#39;</span>),</span>
-<span id="cb191-7"><a href="lta.html#cb191-7" tabindex="-1"></a>         <span class="at">combine_g0 =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="lta.html#cb167-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb167-2"><a href="lta.html#cb167-2" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;070&#39;</span>,</span>
+<span id="cb167-3"><a href="lta.html#cb167-3" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Unidentified rorqual&#39;</span>,</span>
+<span id="cb167-4"><a href="lta.html#cb167-4" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2017</span>,</span>
+<span id="cb167-5"><a href="lta.html#cb167-5" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>,</span>
+<span id="cb167-6"><a href="lta.html#cb167-6" tabindex="-1"></a>         <span class="at">alt_g0_spp =</span> <span class="fu">c</span>(<span class="st">&#39;071&#39;</span>,<span class="st">&#39;099&#39;</span>,<span class="st">&#39;074&#39;</span>,<span class="st">&#39;075&#39;</span>),</span>
+<span id="cb167-7"><a href="lta.html#cb167-7" tabindex="-1"></a>         <span class="at">combine_g0 =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 </div>
 </div>
 <div id="geostratum-combinations" class="section level3 unnumbered hasAnchor">
@@ -644,46 +645,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="combining-disparate-geostrata" class="section level4 unnumbered hasAnchor">
 <h4>Combining disparate geostrata<a href="lta.html#combining-disparate-geostrata" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>For example, in Hawaii bottlenose dolphins belong to a pelagic stock as well as several insular stocks. If you wished to estimate the abundance of all insular stocks together, you simply provide their respective geostratum names in the <code>regions</code> slot of your <code>estimates</code> sub-list:</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="lta.html#cb192-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;018&#39;</span>,</span>
-<span id="cb192-2"><a href="lta.html#cb192-2" tabindex="-1"></a>                       <span class="at">title =</span> <span class="st">&#39;Bottlenose dolphin&#39;</span>,</span>
-<span id="cb192-3"><a href="lta.html#cb192-3" tabindex="-1"></a>                       <span class="at">years =</span> <span class="dv">2017</span>,</span>
-<span id="cb192-4"><a href="lta.html#cb192-4" tabindex="-1"></a>                       <span class="at">regions =</span> <span class="fu">c</span>(<span class="st">&#39;Bottlenose_KaNi&#39;</span>,</span>
-<span id="cb192-5"><a href="lta.html#cb192-5" tabindex="-1"></a>                                   <span class="st">&#39;Bottlenose_OUFI&#39;</span>,</span>
-<span id="cb192-6"><a href="lta.html#cb192-6" tabindex="-1"></a>                                   <span class="st">&#39;Bottlenose_BI&#39;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="lta.html#cb168-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;018&#39;</span>,</span>
+<span id="cb168-2"><a href="lta.html#cb168-2" tabindex="-1"></a>                       <span class="at">title =</span> <span class="st">&#39;Bottlenose dolphin&#39;</span>,</span>
+<span id="cb168-3"><a href="lta.html#cb168-3" tabindex="-1"></a>                       <span class="at">years =</span> <span class="dv">2017</span>,</span>
+<span id="cb168-4"><a href="lta.html#cb168-4" tabindex="-1"></a>                       <span class="at">regions =</span> <span class="fu">c</span>(<span class="st">&#39;Bottlenose_KaNi&#39;</span>,</span>
+<span id="cb168-5"><a href="lta.html#cb168-5" tabindex="-1"></a>                                   <span class="st">&#39;Bottlenose_OUFI&#39;</span>,</span>
+<span id="cb168-6"><a href="lta.html#cb168-6" tabindex="-1"></a>                                   <span class="st">&#39;Bottlenose_BI&#39;</span>)))</span></code></pre></div>
 </div>
 <div id="removing-insular-geostrata" class="section level4 unnumbered hasAnchor">
 <h4>Removing insular geostrata<a href="lta.html#removing-insular-geostrata" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Conversely, you may wish to estimate density/abundance for <em>pelagic</em> bottlenose dolphins only, ignoring the insular stocks. You can subtract geostrata using the <code>regions_remove</code> slot:</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="lta.html#cb193-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;018&#39;</span>,</span>
-<span id="cb193-2"><a href="lta.html#cb193-2" tabindex="-1"></a>                       <span class="at">title =</span> <span class="st">&#39;Bottlenose dolphin&#39;</span>,</span>
-<span id="cb193-3"><a href="lta.html#cb193-3" tabindex="-1"></a>                       <span class="at">years =</span> <span class="dv">2017</span>,</span>
-<span id="cb193-4"><a href="lta.html#cb193-4" tabindex="-1"></a>                       <span class="at">regions =</span> <span class="st">&#39;HI_EEZ&#39;</span>,</span>
-<span id="cb193-5"><a href="lta.html#cb193-5" tabindex="-1"></a>                       <span class="at">regions_remove =</span> <span class="fu">c</span>(<span class="st">&#39;Bottlenose_KaNi&#39;</span>,</span>
-<span id="cb193-6"><a href="lta.html#cb193-6" tabindex="-1"></a>                                          <span class="st">&#39;Bottlenose_OUFI&#39;</span>,</span>
-<span id="cb193-7"><a href="lta.html#cb193-7" tabindex="-1"></a>                                          <span class="st">&#39;Bottlenose_BI&#39;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="lta.html#cb169-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;018&#39;</span>,</span>
+<span id="cb169-2"><a href="lta.html#cb169-2" tabindex="-1"></a>                       <span class="at">title =</span> <span class="st">&#39;Bottlenose dolphin&#39;</span>,</span>
+<span id="cb169-3"><a href="lta.html#cb169-3" tabindex="-1"></a>                       <span class="at">years =</span> <span class="dv">2017</span>,</span>
+<span id="cb169-4"><a href="lta.html#cb169-4" tabindex="-1"></a>                       <span class="at">regions =</span> <span class="st">&#39;HI_EEZ&#39;</span>,</span>
+<span id="cb169-5"><a href="lta.html#cb169-5" tabindex="-1"></a>                       <span class="at">regions_remove =</span> <span class="fu">c</span>(<span class="st">&#39;Bottlenose_KaNi&#39;</span>,</span>
+<span id="cb169-6"><a href="lta.html#cb169-6" tabindex="-1"></a>                                          <span class="st">&#39;Bottlenose_OUFI&#39;</span>,</span>
+<span id="cb169-7"><a href="lta.html#cb169-7" tabindex="-1"></a>                                          <span class="st">&#39;Bottlenose_BI&#39;</span>)))</span></code></pre></div>
 </div>
 <div id="combine-partially-overlapping-geostrata" class="section level4 unnumbered hasAnchor">
 <h4>Combine partially overlapping geostrata<a href="lta.html#combine-partially-overlapping-geostrata" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Say you want to estimate the density/abundance for a set of geostrata that partially overlap. An example of this is that the Northwestern Hawaiian Islands geostratum overlaps slightly with the Main Hawaiian Islands geostratum. This is not an issue; when study area is calculated within <code>lta()</code> (actually, that function calls another function, <code>strata_area()</code>, to do this. That function is demonstrated below), overlap among strata is accounted for.</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="lta.html#cb194-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;018&#39;</span>,</span>
-<span id="cb194-2"><a href="lta.html#cb194-2" tabindex="-1"></a>                       <span class="at">title =</span> <span class="st">&#39;Bottlenose dolphin&#39;</span>,</span>
-<span id="cb194-3"><a href="lta.html#cb194-3" tabindex="-1"></a>                       <span class="at">years =</span> <span class="dv">2017</span>,</span>
-<span id="cb194-4"><a href="lta.html#cb194-4" tabindex="-1"></a>                       <span class="at">regions =</span> <span class="fu">c</span>(<span class="st">&#39;MHI&#39;</span>,<span class="st">&#39;NWHI&#39;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="lta.html#cb170-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;018&#39;</span>,</span>
+<span id="cb170-2"><a href="lta.html#cb170-2" tabindex="-1"></a>                       <span class="at">title =</span> <span class="st">&#39;Bottlenose dolphin&#39;</span>,</span>
+<span id="cb170-3"><a href="lta.html#cb170-3" tabindex="-1"></a>                       <span class="at">years =</span> <span class="dv">2017</span>,</span>
+<span id="cb170-4"><a href="lta.html#cb170-4" tabindex="-1"></a>                       <span class="at">regions =</span> <span class="fu">c</span>(<span class="st">&#39;MHI&#39;</span>,<span class="st">&#39;NWHI&#39;</span>)))</span></code></pre></div>
 </div>
 <div id="regionally-stratified-analysis" class="section level4 unnumbered hasAnchor">
 <h4>Regionally stratified analysis<a href="lta.html#regionally-stratified-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Field surveys are sometimes stratified such that trackline design and/or density can differ substantially across regions. Also, analysts may sometimes wish to estimate density/abundance for individual regions separately, regardless of design stratification.</p>
 <p>In <code>lta()</code>, you can accommodate a stratified analysis by providing an <code>estimates</code> sub-list for each geostratum. For example, in 2002 the Hawaiian EEZ was surveyed with different effort intensity in the Main Hawaiian Islands region compared to pelagic waters. For that reason, density/abundance estimates ought to be stratified by region:</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="lta.html#cb195-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb195-2"><a href="lta.html#cb195-2" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
-<span id="cb195-3"><a href="lta.html#cb195-3" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
-<span id="cb195-4"><a href="lta.html#cb195-4" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2002</span>,</span>
-<span id="cb195-5"><a href="lta.html#cb195-5" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;MHI&#39;</span>),</span>
-<span id="cb195-6"><a href="lta.html#cb195-6" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
-<span id="cb195-7"><a href="lta.html#cb195-7" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
-<span id="cb195-8"><a href="lta.html#cb195-8" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2002</span>,</span>
-<span id="cb195-9"><a href="lta.html#cb195-9" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;HI_EEZ&#39;</span>,</span>
-<span id="cb195-10"><a href="lta.html#cb195-10" tabindex="-1"></a>         <span class="at">regions_remove =</span> <span class="st">&#39;MHI&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="lta.html#cb171-1" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb171-2"><a href="lta.html#cb171-2" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
+<span id="cb171-3"><a href="lta.html#cb171-3" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
+<span id="cb171-4"><a href="lta.html#cb171-4" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2002</span>,</span>
+<span id="cb171-5"><a href="lta.html#cb171-5" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;MHI&#39;</span>),</span>
+<span id="cb171-6"><a href="lta.html#cb171-6" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">spp =</span> <span class="st">&#39;013&#39;</span>,</span>
+<span id="cb171-7"><a href="lta.html#cb171-7" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">&#39;Striped dolphin&#39;</span>,</span>
+<span id="cb171-8"><a href="lta.html#cb171-8" tabindex="-1"></a>         <span class="at">years =</span> <span class="dv">2002</span>,</span>
+<span id="cb171-9"><a href="lta.html#cb171-9" tabindex="-1"></a>         <span class="at">regions =</span> <span class="st">&#39;HI_EEZ&#39;</span>,</span>
+<span id="cb171-10"><a href="lta.html#cb171-10" tabindex="-1"></a>         <span class="at">regions_remove =</span> <span class="st">&#39;MHI&#39;</span>))</span></code></pre></div>
 <p>Here we have one 2002 estimate for the Main Hawaiian Islands, and a second for the pelagic Hawiian EEZ, achieved by subtracting the <code>"MHI"</code> stratum from the <code>"HI_EEZ"</code> stratum.</p>
 <p>Once <code>lta()</code> processing is complete, you can summarize and plot the results for each study area separately. The next step is to combine the stratified estimates to generate a grand estimate for the entire EEZ. This is achieved using the <code>LTabundR</code> functions <code>lta_enlist()</code> and <code>lta_destratify()</code>. We discuss this further in the <a href="destratify.html#destratify">next chapter</a>.</p>
 </div>
@@ -765,38 +766,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Unless you manually specify the study area in your <code>estimates</code> list, <code>lta()</code> will calculate your study area for you based on the geostrata you provide. It does so by calling the <code>LTabundR</code> function <code>strata_area()</code>, which you can use on your own to explore geostratum combination options. This function was designed using the <code>sf</code> package to handle complex polygon combinations, and it uses Natural Earth datasets to remove land within your study area (this is a feature you can turn off, if you want).</p>
 <p>Here are some examples of how <code>strata_area()</code> handles complex scenarios.</p>
 <p>Say you want to estimate abundance in the ‘WHCEAS’ study area, but you want to make sure the study area estimate is accurately removing land:</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="lta.html#cb196-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">strata_area</span>(<span class="at">strata_all =</span> cruz<span class="sc">$</span>settings<span class="sc">$</span>strata,</span>
-<span id="cb196-2"><a href="lta.html#cb196-2" tabindex="-1"></a>                    <span class="at">strata_keep =</span> <span class="fu">c</span>(<span class="st">&#39;WHICEAS&#39;</span>),</span>
-<span id="cb196-3"><a href="lta.html#cb196-3" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-263-1.png" width="672" /></p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="lta.html#cb172-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">strata_area</span>(<span class="at">strata_all =</span> cruz<span class="sc">$</span>settings<span class="sc">$</span>strata,</span>
+<span id="cb172-2"><a href="lta.html#cb172-2" tabindex="-1"></a>                    <span class="at">strata_keep =</span> <span class="fu">c</span>(<span class="st">&#39;WHICEAS&#39;</span>),</span>
+<span id="cb172-3"><a href="lta.html#cb172-3" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-238-1.png" width="672" /></p>
 <p>Say you want to estimate abundance in the pelagic Hawaiian EEZ, ignoring effort and sightings within the Main Hawaiian Islands stratum and accurately removing the area of the small Northwestern Hawaaian Islands:</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="lta.html#cb197-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">strata_area</span>(<span class="at">strata_all =</span> cruz<span class="sc">$</span>settings<span class="sc">$</span>strata,</span>
-<span id="cb197-2"><a href="lta.html#cb197-2" tabindex="-1"></a>                    <span class="at">strata_keep =</span> <span class="fu">c</span>(<span class="st">&#39;HI_EEZ&#39;</span>),</span>
-<span id="cb197-3"><a href="lta.html#cb197-3" tabindex="-1"></a>                    <span class="at">strata_remove =</span> <span class="fu">c</span>(<span class="st">&#39;MHI&#39;</span>),</span>
-<span id="cb197-4"><a href="lta.html#cb197-4" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-264-1.png" width="672" /></p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="lta.html#cb173-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">strata_area</span>(<span class="at">strata_all =</span> cruz<span class="sc">$</span>settings<span class="sc">$</span>strata,</span>
+<span id="cb173-2"><a href="lta.html#cb173-2" tabindex="-1"></a>                    <span class="at">strata_keep =</span> <span class="fu">c</span>(<span class="st">&#39;HI_EEZ&#39;</span>),</span>
+<span id="cb173-3"><a href="lta.html#cb173-3" tabindex="-1"></a>                    <span class="at">strata_remove =</span> <span class="fu">c</span>(<span class="st">&#39;MHI&#39;</span>),</span>
+<span id="cb173-4"><a href="lta.html#cb173-4" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-239-1.png" width="672" /></p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="lta.html#cb174-1" tabindex="-1"></a></span>
+<span id="cb174-2"><a href="lta.html#cb174-2" tabindex="-1"></a>strata_all <span class="ot">=</span> cruz<span class="sc">$</span>settings<span class="sc">$</span>strata</span>
+<span id="cb174-3"><a href="lta.html#cb174-3" tabindex="-1"></a>strata_keep <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;HI_EEZ&#39;</span>)</span>
+<span id="cb174-4"><a href="lta.html#cb174-4" tabindex="-1"></a>strata_remove <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&#39;MHI&#39;</span>)</span>
+<span id="cb174-5"><a href="lta.html#cb174-5" tabindex="-1"></a>verbose <span class="ot">=</span> <span class="cn">FALSE</span></span></code></pre></div>
 <p>Say you want to estimate abundance of pelagic bottlenose dolphins within the WHICEAS study area, ignoring the insular stocks:</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="lta.html#cb198-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">strata_area</span>(<span class="at">strata_all =</span> cruz<span class="sc">$</span>settings<span class="sc">$</span>strata,</span>
-<span id="cb198-2"><a href="lta.html#cb198-2" tabindex="-1"></a>                    <span class="at">strata_keep =</span> <span class="fu">c</span>(<span class="st">&#39;WHICEAS&#39;</span>),</span>
-<span id="cb198-3"><a href="lta.html#cb198-3" tabindex="-1"></a>                    <span class="at">strata_remove =</span> <span class="fu">c</span>(<span class="st">&#39;Bottlenose_KaNi&#39;</span>,<span class="st">&#39;Bottlenose_OUFI&#39;</span>,<span class="st">&#39;Bottlenose_BI&#39;</span>),</span>
-<span id="cb198-4"><a href="lta.html#cb198-4" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-265-1.png" width="672" /></p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="lta.html#cb175-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">strata_area</span>(<span class="at">strata_all =</span> cruz<span class="sc">$</span>settings<span class="sc">$</span>strata,</span>
+<span id="cb175-2"><a href="lta.html#cb175-2" tabindex="-1"></a>                    <span class="at">strata_keep =</span> <span class="fu">c</span>(<span class="st">&#39;WHICEAS&#39;</span>),</span>
+<span id="cb175-3"><a href="lta.html#cb175-3" tabindex="-1"></a>                    <span class="at">strata_remove =</span> <span class="fu">c</span>(<span class="st">&#39;Bottlenose_KaNi&#39;</span>,<span class="st">&#39;Bottlenose_OUFI&#39;</span>,<span class="st">&#39;Bottlenose_BI&#39;</span>),</span>
+<span id="cb175-4"><a href="lta.html#cb175-4" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-240-1.png" width="672" /></p>
 <p>Say you want to estimate abundance for <em>only</em> the insular bottlenose stocks:</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="lta.html#cb199-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">strata_area</span>(<span class="at">strata_all =</span> cruz<span class="sc">$</span>settings<span class="sc">$</span>strata,</span>
-<span id="cb199-2"><a href="lta.html#cb199-2" tabindex="-1"></a>                    <span class="at">strata_keep =</span> <span class="fu">c</span>(<span class="st">&#39;Bottlenose_KaNi&#39;</span>,<span class="st">&#39;Bottlenose_OUFI&#39;</span>,<span class="st">&#39;Bottlenose_BI&#39;</span>),</span>
-<span id="cb199-3"><a href="lta.html#cb199-3" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-266-1.png" width="672" /></p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="lta.html#cb176-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">strata_area</span>(<span class="at">strata_all =</span> cruz<span class="sc">$</span>settings<span class="sc">$</span>strata,</span>
+<span id="cb176-2"><a href="lta.html#cb176-2" tabindex="-1"></a>                    <span class="at">strata_keep =</span> <span class="fu">c</span>(<span class="st">&#39;Bottlenose_KaNi&#39;</span>,<span class="st">&#39;Bottlenose_OUFI&#39;</span>,<span class="st">&#39;Bottlenose_BI&#39;</span>),</span>
+<span id="cb176-3"><a href="lta.html#cb176-3" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-241-1.png" width="672" /></p>
 <p>Say you want to estimate abundance for false killer whales within the Northwestern Hawaiian Islands and Main Hawaiian Islands study areas combined, but those geostrata partially overlap:</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="lta.html#cb200-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">strata_area</span>(<span class="at">strata_all =</span> cruz<span class="sc">$</span>settings<span class="sc">$</span>strata,</span>
-<span id="cb200-2"><a href="lta.html#cb200-2" tabindex="-1"></a>                    <span class="at">strata_keep =</span> <span class="fu">c</span>(<span class="st">&#39;MHI&#39;</span>,<span class="st">&#39;NWHI&#39;</span>),</span>
-<span id="cb200-3"><a href="lta.html#cb200-3" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-267-1.png" width="672" /></p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="lta.html#cb177-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">strata_area</span>(<span class="at">strata_all =</span> cruz<span class="sc">$</span>settings<span class="sc">$</span>strata,</span>
+<span id="cb177-2"><a href="lta.html#cb177-2" tabindex="-1"></a>                    <span class="at">strata_keep =</span> <span class="fu">c</span>(<span class="st">&#39;MHI&#39;</span>,<span class="st">&#39;NWHI&#39;</span>),</span>
+<span id="cb177-3"><a href="lta.html#cb177-3" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-242-1.png" width="672" /></p>
 <p>Say you want to estimate abundance for the Hawaiian EEZ <em>outside</em> of those partially overlapping geostrata:</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="lta.html#cb201-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">strata_area</span>(<span class="at">strata_all =</span> cruz<span class="sc">$</span>settings<span class="sc">$</span>strata,</span>
-<span id="cb201-2"><a href="lta.html#cb201-2" tabindex="-1"></a>                    <span class="at">strata_keep =</span> <span class="st">&#39;HI_EEZ&#39;</span>,</span>
-<span id="cb201-3"><a href="lta.html#cb201-3" tabindex="-1"></a>                    <span class="at">strata_remove =</span> <span class="fu">c</span>(<span class="st">&#39;MHI&#39;</span>,<span class="st">&#39;NWHI&#39;</span>),</span>
-<span id="cb201-4"><a href="lta.html#cb201-4" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-268-1.png" width="672" /></p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="lta.html#cb178-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">strata_area</span>(<span class="at">strata_all =</span> cruz<span class="sc">$</span>settings<span class="sc">$</span>strata,</span>
+<span id="cb178-2"><a href="lta.html#cb178-2" tabindex="-1"></a>                    <span class="at">strata_keep =</span> <span class="st">&#39;HI_EEZ&#39;</span>,</span>
+<span id="cb178-3"><a href="lta.html#cb178-3" tabindex="-1"></a>                    <span class="at">strata_remove =</span> <span class="fu">c</span>(<span class="st">&#39;MHI&#39;</span>,<span class="st">&#39;NWHI&#39;</span>),</span>
+<span id="cb178-4"><a href="lta.html#cb178-4" tabindex="-1"></a>                    <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-243-1.png" width="672" /></p>
 </div>
 <div id="g0-estimation" class="section level4 unnumbered hasAnchor">
 <h4><em>g(0)</em> estimation<a href="lta.html#g0-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h4>

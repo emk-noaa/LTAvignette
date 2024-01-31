@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 19 Validation | User’s guide for LTabundR</title>
+  <meta name="description" content="vignette" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 19 Validation | User’s guide for LTabundR" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="vignette" />
+  <meta name="github-repo" content="emk-noaa/emk-noaa.github.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 19 Validation | User’s guide for LTabundR" />
+  
+  <meta name="twitter:description" content="vignette" />
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="abund9_compare.html"/>
+<link rel="next" href="spp_codes.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.31.1/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/dt-ext-fixedcolumns-1.13.6/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<script src="libs/dt-ext-fixedcolumns-1.13.6/js/dataTables.fixedColumns.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.0/leaflet.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Users's guide for <kbd>LTabundR</kbd></a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="1" data-path="settings.html"><a href="settings.html"><i class="fa fa-check"></i><b>1</b> Settings</a>
+<ul>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#survey-strata"><i class="fa fa-check"></i>Survey strata</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#survey-wide-settings"><i class="fa fa-check"></i>Survey-wide settings</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#cohort-specific-settings"><i class="fa fa-check"></i>Cohort-specific settings</a></li>
+<li class="chapter" data-level="" data-path="settings.html"><a href="settings.html#example-code"><i class="fa fa-check"></i>Example code</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="das.html"><a href="das.html"><i class="fa fa-check"></i><b>2</b> DAS editing</a>
+<ul>
+<li class="chapter" data-level="" data-path="das.html"><a href="das.html#reviewing-a-das-file"><i class="fa fa-check"></i>Reviewing a <code>DAS</code> file</a></li>
+<li class="chapter" data-level="" data-path="das.html"><a href="das.html#staging-edits"><i class="fa fa-check"></i>Staging edits</a></li>
+<li class="chapter" data-level="" data-path="das.html"><a href="das.html#applying-edits"><i class="fa fa-check"></i>Applying edits</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>3</b> Data processing</a>
+<ul>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#behind-the-scenes"><i class="fa fa-check"></i>Behind the scenes</a></li>
+<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#review"><i class="fa fa-check"></i>Review</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>4</b> Summarize survey</a>
+<ul>
+<li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-effort"><i class="fa fa-check"></i>Summarize effort</a></li>
+<li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-by-beaufort"><i class="fa fa-check"></i>Summarize by Beaufort</a></li>
+<li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-sightings"><i class="fa fa-check"></i>Summarize sightings</a></li>
+<li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#summarize-certain-species"><i class="fa fa-check"></i>Summarize certain species</a></li>
+<li class="chapter" data-level="" data-path="summarize.html"><a href="summarize.html#cruz_explorer"><i class="fa fa-check"></i><code>cruz_explorer()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="filter.html"><a href="filter.html"><i class="fa fa-check"></i><b>5</b> Filter &amp; combine surveys</a>
+<ul>
+<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#filter-1"><i class="fa fa-check"></i>Filter</a></li>
+<li class="chapter" data-level="" data-path="filter.html"><a href="filter.html#combine"><i class="fa fa-check"></i>Combine</a></li>
+</ul></li>
+<li class="part"><span><b>I Data exploration</b></span></li>
+<li class="chapter" data-level="6" data-path="maps.html"><a href="maps.html"><i class="fa fa-check"></i><b>6</b> Maps</a>
+<ul>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#publishable-maps"><i class="fa fa-check"></i>Publishable maps</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-maps"><i class="fa fa-check"></i>Interactive maps</a></li>
+<li class="chapter" data-level="" data-path="maps.html"><a href="maps.html#interactive-dashboard"><i class="fa fa-check"></i>Interactive dashboard</a></li>
+</ul></li>
+<li class="part"><span><b>II Data analysis</b></span></li>
+<li class="chapter" data-level="7" data-path="g0.html"><a href="g0.html"><i class="fa fa-check"></i><b>7</b> Estimating <em>g(0)</em></a>
+<ul>
+<li class="chapter" data-level="" data-path="g0.html"><a href="g0.html#relative-g0"><i class="fa fa-check"></i>Relative <code>g(0)</code></a></li>
+<li class="chapter" data-level="" data-path="g0.html"><a href="g0.html#weighted-average-g0"><i class="fa fa-check"></i>Weighted average <code>g(0)</code></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="lta.html"><a href="lta.html"><i class="fa fa-check"></i><b>8</b> Line-transect analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#key-inputs"><i class="fa fa-check"></i>Key inputs</a></li>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#variance-estimation"><i class="fa fa-check"></i>Variance estimation</a></li>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#other-inputs"><i class="fa fa-check"></i>Other inputs</a></li>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#output"><i class="fa fa-check"></i>Output</a></li>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#unusual-estimate-scenarios"><i class="fa fa-check"></i>Unusual estimate scenarios</a></li>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#behind-the-scenes-1"><i class="fa fa-check"></i>Behind the scenes</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="destratify.html"><a href="destratify.html"><i class="fa fa-check"></i><b>9</b> Stratified analysis</a></li>
+<li class="chapter" data-level="10" data-path="trend-analysis.html"><a href="trend-analysis.html"><i class="fa fa-check"></i><b>10</b> Trend analysis</a></li>
+<li class="chapter" data-level="11" data-path="subgroups2.html"><a href="subgroups2.html"><i class="fa fa-check"></i><b>11</b> Subgroup-based analysis</a>
+<ul>
+<li class="chapter" data-level="" data-path="subgroups2.html"><a href="subgroups2.html#inputs-1"><i class="fa fa-check"></i>Inputs</a></li>
+<li class="chapter" data-level="" data-path="subgroups2.html"><a href="subgroups2.html#outputs-1"><i class="fa fa-check"></i>Outputs</a></li>
+<li class="chapter" data-level="" data-path="subgroups2.html"><a href="subgroups2.html#behind-the-scenes-2"><i class="fa fa-check"></i>Behind the scenes</a></li>
+</ul></li>
+<li class="part"><span><b>III Results</b></span></li>
+<li class="chapter" data-level="12" data-path="diagnostic-plots.html"><a href="diagnostic-plots.html"><i class="fa fa-check"></i><b>12</b> Diagnostic plots</a></li>
+<li class="chapter" data-level="13" data-path="tables.html"><a href="tables.html"><i class="fa fa-check"></i><b>13</b> Tables</a>
+<ul>
+<li class="chapter" data-level="" data-path="tables.html"><a href="tables.html#summary-tables"><i class="fa fa-check"></i>Summary tables</a></li>
+<li class="chapter" data-level="" data-path="tables.html"><a href="tables.html#appendix-tables"><i class="fa fa-check"></i>Appendix tables</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="plots.html"><a href="plots.html"><i class="fa fa-check"></i><b>14</b> Plots</a>
+<ul>
+<li class="chapter" data-level="" data-path="plots.html"><a href="plots.html#abundance-plots"><i class="fa fa-check"></i>Abundance plots</a></li>
+<li class="chapter" data-level="" data-path="plots.html"><a href="plots.html#detection-function-plots"><i class="fa fa-check"></i>Detection function plots</a></li>
+</ul></li>
+<li class="part"><span><b>IV Case studies</b></span></li>
+<li class="chapter" data-level="15" data-path="whiceas.html"><a href="whiceas.html"><i class="fa fa-check"></i><b>15</b> WHICEAS</a>
+<ul>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#data-processing"><i class="fa fa-check"></i>Data processing</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#data-exploration"><i class="fa fa-check"></i>Data exploration</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#rg0-2"><i class="fa fa-check"></i>Rg0</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#density-abundance"><i class="fa fa-check"></i>Density &amp; abundance</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#results"><i class="fa fa-check"></i>Results</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#validation"><i class="fa fa-check"></i>Validation</a></li>
+</ul></li>
+<li class="part"><span><b>V Appendix</b></span></li>
+<li class="chapter" data-level="16" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>16</b> Strata gallery</a>
+<ul>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#central-north-pacific"><i class="fa fa-check"></i>Central North Pacific</a></li>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#california-current"><i class="fa fa-check"></i>California Current</a></li>
+<li class="chapter" data-level="" data-path="stratagallery.html"><a href="stratagallery.html#etp"><i class="fa fa-check"></i>ETP</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="segmentizing.html"><a href="segmentizing.html"><i class="fa fa-check"></i><b>17</b> Segmentizing</a>
+<ul>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#approach"><i class="fa fa-check"></i>Approach</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#base-example"><i class="fa fa-check"></i>Base example</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#day-vs-equal-length"><i class="fa fa-check"></i>Day vs Equal Length</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#contiguous-vs.-non-contiguous-effort"><i class="fa fa-check"></i>Contiguous vs. non-contiguous effort</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#segment-remainder-handling"><i class="fa fa-check"></i>Segment remainder handling</a></li>
+<li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#typical-settings"><i class="fa fa-check"></i>Typical settings</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="abund9_compare.html"><a href="abund9_compare.html"><i class="fa fa-check"></i><b>18</b> <code>LTabundR</code> vs. <code>ABUND9</code></a>
+<ul>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-total-effort"><i class="fa fa-check"></i>Differences in total effort</a></li>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-on-effort-distance"><i class="fa fa-check"></i>Differences in on-effort distance</a></li>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-total-sightings"><i class="fa fa-check"></i>Differences in total sightings</a></li>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-on-effort-sightings"><i class="fa fa-check"></i>Differences in on-effort sightings</a></li>
+<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-school-size-estimation"><i class="fa fa-check"></i>Differences in school size estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="validation-1.html"><a href="validation-1.html"><i class="fa fa-check"></i><b>19</b> Validation</a></li>
+<li class="chapter" data-level="20" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>20</b> NOAA/NMFS species codes</a>
+<ul>
+<li class="chapter" data-level="" data-path="spp_codes.html"><a href="spp_codes.html#table"><i class="fa fa-check"></i>Table</a></li>
+<li class="chapter" data-level="" data-path="spp_codes.html"><a href="spp_codes.html#species_translator"><i class="fa fa-check"></i><code>species_translator()</code></a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/emk-noaa/emk-noaa.github.io" target="blank">Eric & Amanda</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">User’s guide for <code>LTabundR</code></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="validation-1" class="section level1 hasAnchor" number="19">
+<h1><span class="header-section-number"> 19</span> Validation<a href="validation-1.html#validation-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>To validate these <code>LTabundR</code> functions, we can compare its output to that of <code>ABUND9</code>, written by Jay Barlow (NOAA Fisheries). First, we bring in the <code>ABUND9</code> output files for the same <code>DAS</code> data:</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="validation-1.html#cb316-1" tabindex="-1"></a><span class="co"># Local paths to these files</span></span>
+<span id="cb316-2"><a href="validation-1.html#cb316-2" tabindex="-1"></a>SIGHTS <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;data/SIGHTS.csv&#39;</span>)</span>
+<span id="cb316-3"><a href="validation-1.html#cb316-3" tabindex="-1"></a>EFFORT <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;data/EFFORT.csv&#39;</span>)</span></code></pre></div>
+<p>You may download these files here: <a href="https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/SIGHTS.csv"><code>SIGHTS.csv</code></a> and <a href="https://raw.githubusercontent.com/emk-noaa/LTAvignette/main/data/EFFORT.csv"><code>EFFORT.csv</code></a>.</p>
+<div id="sightings" class="section level3 unnumbered hasAnchor">
+<h3>Sightings<a href="validation-1.html#sightings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pivot and format the <code>ABUND</code> <code>SIGHTS</code> data…</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="validation-1.html#cb317-1" tabindex="-1"></a>abund <span class="ot">&lt;-</span></span>
+<span id="cb317-2"><a href="validation-1.html#cb317-2" tabindex="-1"></a>  SIGHTS <span class="sc">%&gt;%</span></span>
+<span id="cb317-3"><a href="validation-1.html#cb317-3" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">31</span><span class="sc">:</span><span class="dv">101</span>,</span>
+<span id="cb317-4"><a href="validation-1.html#cb317-4" tabindex="-1"></a>                      <span class="at">names_to =</span> <span class="st">&#39;species&#39;</span>,</span>
+<span id="cb317-5"><a href="validation-1.html#cb317-5" tabindex="-1"></a>                      <span class="at">values_to =</span> <span class="st">&#39;best&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb317-6"><a href="validation-1.html#cb317-6" tabindex="-1"></a>  <span class="fu">filter</span>(best <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb317-7"><a href="validation-1.html#cb317-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Region =</span> <span class="fu">gsub</span>(<span class="st">&#39; &#39;</span>,<span class="st">&#39;&#39;</span>,Region)) <span class="sc">%&gt;%</span></span>
+<span id="cb317-8"><a href="validation-1.html#cb317-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">DateTime =</span> <span class="fu">paste0</span>(Yr,<span class="st">&#39;-&#39;</span>,Mo,<span class="st">&#39;-&#39;</span>,Da,<span class="st">&#39; &#39;</span>,Hr,<span class="st">&#39;:&#39;</span>,Min))</span></code></pre></div>
+<p>…then summarize counts of species within each cruise:</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="validation-1.html#cb318-1" tabindex="-1"></a>abund_summ <span class="ot">&lt;-</span></span>
+<span id="cb318-2"><a href="validation-1.html#cb318-2" tabindex="-1"></a>  abund <span class="sc">%&gt;%</span></span>
+<span id="cb318-3"><a href="validation-1.html#cb318-3" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">cruise =</span> CruzNo, species) <span class="sc">%&gt;%</span></span>
+<span id="cb318-4"><a href="validation-1.html#cb318-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">ntot_abund =</span> <span class="fu">n</span>(),</span>
+<span id="cb318-5"><a href="validation-1.html#cb318-5" tabindex="-1"></a>            <span class="at">nsys_abund =</span> <span class="fu">length</span>(<span class="fu">which</span>(<span class="sc">!</span> Region <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;NONE&#39;</span>, </span>
+<span id="cb318-6"><a href="validation-1.html#cb318-6" tabindex="-1"></a>                                                      <span class="st">&#39;Off-Transect&#39;</span>) <span class="sc">&amp;</span> </span>
+<span id="cb318-7"><a href="validation-1.html#cb318-7" tabindex="-1"></a>                                        EffortSeg <span class="sc">&gt;</span> <span class="dv">0</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb318-8"><a href="validation-1.html#cb318-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">species =</span> <span class="fu">gsub</span>(<span class="st">&#39;SP&#39;</span>,<span class="st">&#39;&#39;</span>,species))</span></code></pre></div>
+<p>Then do the same for <code>LTabundR</code> output:</p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="validation-1.html#cb319-1" tabindex="-1"></a>ltabundr <span class="ot">&lt;-</span> </span>
+<span id="cb319-2"><a href="validation-1.html#cb319-2" tabindex="-1"></a>  cruz<span class="sc">$</span>cohorts<span class="sc">$</span>all<span class="sc">$</span>sightings <span class="sc">%&gt;%</span> </span>
+<span id="cb319-3"><a href="validation-1.html#cb319-3" tabindex="-1"></a>  <span class="co"># Filter out species that ABUND ignored based on its INP file</span></span>
+<span id="cb319-4"><a href="validation-1.html#cb319-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;CU&#39;</span>, <span class="st">&#39;PU&#39;</span>))</span>
+<span id="cb319-5"><a href="validation-1.html#cb319-5" tabindex="-1"></a>  </span>
+<span id="cb319-6"><a href="validation-1.html#cb319-6" tabindex="-1"></a>ltabundr_summ <span class="ot">&lt;-</span></span>
+<span id="cb319-7"><a href="validation-1.html#cb319-7" tabindex="-1"></a>  ltabundr <span class="sc">%&gt;%</span></span>
+<span id="cb319-8"><a href="validation-1.html#cb319-8" tabindex="-1"></a>  <span class="fu">filter</span>(OnEffort <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb319-9"><a href="validation-1.html#cb319-9" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">cruise =</span> Cruise, species) <span class="sc">%&gt;%</span></span>
+<span id="cb319-10"><a href="validation-1.html#cb319-10" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">ntot_ltabundr =</span> <span class="fu">n</span>(),</span>
+<span id="cb319-11"><a href="validation-1.html#cb319-11" tabindex="-1"></a>            <span class="at">nsys_ltabundr =</span> <span class="fu">length</span>(<span class="fu">which</span>(included <span class="sc">==</span> <span class="cn">TRUE</span> <span class="sc">&amp;</span> </span>
+<span id="cb319-12"><a href="validation-1.html#cb319-12" tabindex="-1"></a>                                           EffType <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;S&#39;</span>,<span class="st">&#39;F&#39;</span>))))</span></code></pre></div>
+<p>Now join these two datasets by cruise and species code:</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="validation-1.html#cb320-1" tabindex="-1"></a>mr <span class="ot">&lt;-</span> <span class="fu">full_join</span>(abund_summ, ltabundr_summ, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&#39;cruise&#39;</span>, <span class="st">&#39;species&#39;</span>))</span>
+<span id="cb320-2"><a href="validation-1.html#cb320-2" tabindex="-1"></a></span>
+<span id="cb320-3"><a href="validation-1.html#cb320-3" tabindex="-1"></a>mr <span class="sc">%&gt;%</span> head</span>
+<span id="cb320-4"><a href="validation-1.html#cb320-4" tabindex="-1"></a><span class="co"># A tibble: 6 × 6</span></span>
+<span id="cb320-5"><a href="validation-1.html#cb320-5" tabindex="-1"></a><span class="co"># Groups:   cruise [1]</span></span>
+<span id="cb320-6"><a href="validation-1.html#cb320-6" tabindex="-1"></a>  cruise species ntot_abund nsys_abund ntot_ltabundr nsys_ltabundr</span>
+<span id="cb320-7"><a href="validation-1.html#cb320-7" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>        <span class="er">&lt;</span>int<span class="sc">&gt;</span>      <span class="er">&lt;</span>int<span class="sc">&gt;</span>         <span class="er">&lt;</span>int<span class="sc">&gt;</span>         <span class="er">&lt;</span>int<span class="sc">&gt;</span></span>
+<span id="cb320-8"><a href="validation-1.html#cb320-8" tabindex="-1"></a><span class="dv">1</span>    <span class="dv">901</span> <span class="dv">002</span>              <span class="dv">3</span>          <span class="dv">2</span>             <span class="dv">3</span>             <span class="dv">2</span></span>
+<span id="cb320-9"><a href="validation-1.html#cb320-9" tabindex="-1"></a><span class="dv">2</span>    <span class="dv">901</span> <span class="dv">013</span>              <span class="dv">4</span>          <span class="dv">4</span>             <span class="dv">4</span>             <span class="dv">4</span></span>
+<span id="cb320-10"><a href="validation-1.html#cb320-10" tabindex="-1"></a><span class="dv">3</span>    <span class="dv">901</span> <span class="dv">015</span>              <span class="dv">2</span>          <span class="dv">1</span>             <span class="dv">2</span>             <span class="dv">1</span></span>
+<span id="cb320-11"><a href="validation-1.html#cb320-11" tabindex="-1"></a><span class="dv">4</span>    <span class="dv">901</span> <span class="dv">018</span>              <span class="dv">2</span>          <span class="dv">1</span>             <span class="dv">2</span>             <span class="dv">1</span></span>
+<span id="cb320-12"><a href="validation-1.html#cb320-12" tabindex="-1"></a><span class="dv">5</span>    <span class="dv">901</span> <span class="dv">031</span>              <span class="dv">1</span>          <span class="dv">1</span>             <span class="dv">1</span>             <span class="dv">1</span></span>
+<span id="cb320-13"><a href="validation-1.html#cb320-13" tabindex="-1"></a><span class="dv">6</span>    <span class="dv">901</span> <span class="dv">032</span>              <span class="dv">2</span>          <span class="dv">0</span>             <span class="dv">2</span>             <span class="dv">0</span></span></code></pre></div>
+<p>Compare the total On-Effort sightings in both outputs:</p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="validation-1.html#cb321-1" tabindex="-1"></a>mr<span class="sc">$</span>ntot_abund <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb321-2"><a href="validation-1.html#cb321-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3223</span></span>
+<span id="cb321-3"><a href="validation-1.html#cb321-3" tabindex="-1"></a>mr<span class="sc">$</span>ntot_ltabundr <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb321-4"><a href="validation-1.html#cb321-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3227</span></span></code></pre></div>
+<p>Compare total sightings valid for use in density estimation (<code>EffType</code> <code>"S"</code> or <code>"F"</code> only, as well as other criteria such as Bft 0 - 6):</p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="validation-1.html#cb322-1" tabindex="-1"></a>mr<span class="sc">$</span>nsys_abund <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb322-2"><a href="validation-1.html#cb322-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2478</span></span>
+<span id="cb322-3"><a href="validation-1.html#cb322-3" tabindex="-1"></a>mr<span class="sc">$</span>nsys_ltabundr <span class="sc">%&gt;%</span> <span class="fu">sum</span>(<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb322-4"><a href="validation-1.html#cb322-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2478</span></span></code></pre></div>
+<p>Let’s find the rows with discrepancies in sighting counts:</p>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="validation-1.html#cb323-1" tabindex="-1"></a>bads <span class="ot">&lt;-</span> <span class="fu">which</span>(mr<span class="sc">$</span>nsys_abund <span class="sc">!=</span> mr<span class="sc">$</span>nsys_ltabundr <span class="sc">|</span> </span>
+<span id="cb323-2"><a href="validation-1.html#cb323-2" tabindex="-1"></a>              mr<span class="sc">$</span>ntot_abund <span class="sc">!=</span> mr<span class="sc">$</span>ntot_ltabundr <span class="sc">|</span> </span>
+<span id="cb323-3"><a href="validation-1.html#cb323-3" tabindex="-1"></a>              <span class="fu">is.na</span>(mr<span class="sc">$</span>ntot_abund) <span class="sc">|</span> </span>
+<span id="cb323-4"><a href="validation-1.html#cb323-4" tabindex="-1"></a>              <span class="fu">is.na</span>(mr<span class="sc">$</span>ntot_ltabundr) <span class="sc">|</span> </span>
+<span id="cb323-5"><a href="validation-1.html#cb323-5" tabindex="-1"></a>              <span class="fu">is.na</span>(mr<span class="sc">$</span>nsys_abund) <span class="sc">|</span> </span>
+<span id="cb323-6"><a href="validation-1.html#cb323-6" tabindex="-1"></a>              <span class="fu">is.na</span>(mr<span class="sc">$</span>nsys_ltabundr))</span>
+<span id="cb323-7"><a href="validation-1.html#cb323-7" tabindex="-1"></a>bads <span class="sc">%&gt;%</span> length</span>
+<span id="cb323-8"><a href="validation-1.html#cb323-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">5</span></span></code></pre></div>
+<p>Let’s look at those rows in the joined dataframe:</p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="validation-1.html#cb324-1" tabindex="-1"></a>mr[bads, ]</span>
+<span id="cb324-2"><a href="validation-1.html#cb324-2" tabindex="-1"></a><span class="co"># A tibble: 5 × 6</span></span>
+<span id="cb324-3"><a href="validation-1.html#cb324-3" tabindex="-1"></a><span class="co"># Groups:   cruise [4]</span></span>
+<span id="cb324-4"><a href="validation-1.html#cb324-4" tabindex="-1"></a>  cruise species ntot_abund nsys_abund ntot_ltabundr nsys_ltabundr</span>
+<span id="cb324-5"><a href="validation-1.html#cb324-5" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>        <span class="er">&lt;</span>int<span class="sc">&gt;</span>      <span class="er">&lt;</span>int<span class="sc">&gt;</span>         <span class="er">&lt;</span>int<span class="sc">&gt;</span>         <span class="er">&lt;</span>int<span class="sc">&gt;</span></span>
+<span id="cb324-6"><a href="validation-1.html#cb324-6" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">1203</span> <span class="dv">015</span>              <span class="dv">1</span>          <span class="dv">0</span>             <span class="dv">2</span>             <span class="dv">0</span></span>
+<span id="cb324-7"><a href="validation-1.html#cb324-7" tabindex="-1"></a><span class="dv">2</span>   <span class="dv">1203</span> <span class="dv">049</span>              <span class="dv">1</span>          <span class="dv">1</span>             <span class="dv">2</span>             <span class="dv">1</span></span>
+<span id="cb324-8"><a href="validation-1.html#cb324-8" tabindex="-1"></a><span class="dv">3</span>   <span class="dv">1621</span> <span class="dv">073</span>              <span class="dv">5</span>          <span class="dv">4</span>             <span class="dv">5</span>             <span class="dv">3</span></span>
+<span id="cb324-9"><a href="validation-1.html#cb324-9" tabindex="-1"></a><span class="dv">4</span>   <span class="dv">1165</span> <span class="dv">047</span>             <span class="cn">NA</span>         <span class="cn">NA</span>             <span class="dv">1</span>             <span class="dv">1</span></span>
+<span id="cb324-10"><a href="validation-1.html#cb324-10" tabindex="-1"></a><span class="dv">5</span>   <span class="dv">1631</span> <span class="dv">003</span>             <span class="cn">NA</span>         <span class="cn">NA</span>             <span class="dv">1</span>             <span class="dv">0</span></span></code></pre></div>
+<p>To investigate these 5 discrepancies, we will write a helper function that returns sightings details from both outputs for a given cruise-species:</p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="validation-1.html#cb325-1" tabindex="-1"></a>sight_compare <span class="ot">&lt;-</span> <span class="cf">function</span>(abund, ltabundr, cruise, spp){</span>
+<span id="cb325-2"><a href="validation-1.html#cb325-2" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&#39;ABUND:&#39;</span>)</span>
+<span id="cb325-3"><a href="validation-1.html#cb325-3" tabindex="-1"></a>  abund <span class="sc">%&gt;%</span></span>
+<span id="cb325-4"><a href="validation-1.html#cb325-4" tabindex="-1"></a>    <span class="fu">filter</span>(CruzNo <span class="sc">==</span> cruise, species <span class="sc">==</span> <span class="fu">paste0</span>(<span class="st">&#39;SP&#39;</span>,spp)) <span class="sc">%&gt;%</span></span>
+<span id="cb325-5"><a href="validation-1.html#cb325-5" tabindex="-1"></a>    <span class="fu">select</span>(<span class="dv">5</span>, <span class="dv">34</span>, <span class="dv">26</span>, <span class="dv">29</span>, <span class="dv">33</span>, <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb325-6"><a href="validation-1.html#cb325-6" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">use_sit =</span> EffortSeg <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb325-7"><a href="validation-1.html#cb325-7" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>EffortSeg) <span class="sc">%&gt;%</span></span>
+<span id="cb325-8"><a href="validation-1.html#cb325-8" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(use_sit)) <span class="sc">%&gt;%</span></span>
+<span id="cb325-9"><a href="validation-1.html#cb325-9" tabindex="-1"></a>    print</span>
+<span id="cb325-10"><a href="validation-1.html#cb325-10" tabindex="-1"></a></span>
+<span id="cb325-11"><a href="validation-1.html#cb325-11" tabindex="-1"></a>  abund <span class="sc">%&gt;%</span></span>
+<span id="cb325-12"><a href="validation-1.html#cb325-12" tabindex="-1"></a>    <span class="fu">filter</span>(CruzNo <span class="sc">==</span> <span class="dv">1631</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(species) <span class="sc">%&gt;%</span> table</span>
+<span id="cb325-13"><a href="validation-1.html#cb325-13" tabindex="-1"></a>  </span>
+<span id="cb325-14"><a href="validation-1.html#cb325-14" tabindex="-1"></a>  </span>
+<span id="cb325-15"><a href="validation-1.html#cb325-15" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&#39;</span><span class="sc">\n</span><span class="st">LTabundR:&#39;</span>)</span>
+<span id="cb325-16"><a href="validation-1.html#cb325-16" tabindex="-1"></a>  ltabundr <span class="sc">%&gt;%</span></span>
+<span id="cb325-17"><a href="validation-1.html#cb325-17" tabindex="-1"></a>    <span class="fu">filter</span>(Cruise <span class="sc">==</span> cruise, species <span class="sc">==</span> spp) <span class="sc">%&gt;%</span></span>
+<span id="cb325-18"><a href="validation-1.html#cb325-18" tabindex="-1"></a>    <span class="fu">select</span>(<span class="dv">6</span>, <span class="dv">2</span>, <span class="dv">13</span>, <span class="dv">74</span>, <span class="dv">70</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">40</span>, <span class="dv">87</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb325-19"><a href="validation-1.html#cb325-19" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">use_sit =</span> included, <span class="at">use_effort =</span> use) <span class="sc">%&gt;%</span></span>
+<span id="cb325-20"><a href="validation-1.html#cb325-20" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(use_effort)) <span class="sc">%&gt;%</span></span>
+<span id="cb325-21"><a href="validation-1.html#cb325-21" tabindex="-1"></a>    tibble <span class="sc">%&gt;%</span> print</span>
+<span id="cb325-22"><a href="validation-1.html#cb325-22" tabindex="-1"></a>}</span></code></pre></div>
+<div id="discrepancies" class="section level4 unnumbered hasAnchor">
+<h4>Discrepancies<a href="validation-1.html#discrepancies" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="cruise-1203-species-015" class="section level5 unnumbered hasAnchor">
+<h5>Cruise 1203, Species 015<a href="validation-1.html#cruise-1203-species-015" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>In this case, <code>LTabundR</code> has a non-systematic sighting that <code>ABUND</code> has ignored.</p>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="validation-1.html#cb326-1" tabindex="-1"></a><span class="fu">sight_compare</span>(abund, ltabundr, <span class="dv">1203</span>, <span class="st">&#39;015&#39;</span>)</span>
+<span id="cb326-2"><a href="validation-1.html#cb326-2" tabindex="-1"></a>ABUND<span class="sc">:</span></span>
+<span id="cb326-3"><a href="validation-1.html#cb326-3" tabindex="-1"></a><span class="co"># A tibble: 1 × 6</span></span>
+<span id="cb326-4"><a href="validation-1.html#cb326-4" tabindex="-1"></a>  CruzNo DateTime        Beauf Mixed  best use_sit</span>
+<span id="cb326-5"><a href="validation-1.html#cb326-5" tabindex="-1"></a>   <span class="sc">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>           <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>  </span>
+<span id="cb326-6"><a href="validation-1.html#cb326-6" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">1203</span> <span class="dv">2012-5-16</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">58</span>     <span class="dv">4</span> <span class="st">&quot; F&quot;</span>   <span class="fl">74.9</span> <span class="cn">TRUE</span>   </span>
+<span id="cb326-7"><a href="validation-1.html#cb326-7" tabindex="-1"></a></span>
+<span id="cb326-8"><a href="validation-1.html#cb326-8" tabindex="-1"></a>LTabundR<span class="sc">:</span></span>
+<span id="cb326-9"><a href="validation-1.html#cb326-9" tabindex="-1"></a><span class="co"># A tibble: 2 × 9</span></span>
+<span id="cb326-10"><a href="validation-1.html#cb326-10" tabindex="-1"></a>  Cruise DateTime              Bft mixed  best OnEffort EffType use_effort</span>
+<span id="cb326-11"><a href="validation-1.html#cb326-11" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dttm<span class="sc">&gt;</span>              <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>     </span>
+<span id="cb326-12"><a href="validation-1.html#cb326-12" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">1203</span> <span class="dv">2012-05-13</span> <span class="dv">13</span><span class="sc">:</span><span class="dv">19</span><span class="sc">:</span><span class="dv">44</span>     <span class="dv">5</span> <span class="cn">TRUE</span>    <span class="dv">1</span>   <span class="cn">TRUE</span>     N       <span class="cn">TRUE</span>      </span>
+<span id="cb326-13"><a href="validation-1.html#cb326-13" tabindex="-1"></a><span class="dv">2</span>   <span class="dv">1203</span> <span class="dv">2012-05-16</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">58</span><span class="sc">:</span><span class="dv">30</span>     <span class="dv">4</span> <span class="cn">FALSE</span>  <span class="fl">74.9</span> <span class="cn">TRUE</span>     N       <span class="cn">TRUE</span>      </span>
+<span id="cb326-14"><a href="validation-1.html#cb326-14" tabindex="-1"></a><span class="co"># ℹ 1 more variable: use_sit &lt;lgl&gt;</span></span></code></pre></div>
+<p>Looking at the sighting details from <code>LTabundR</code> …</p>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="validation-1.html#cb327-1" tabindex="-1"></a>(ltabundr <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Cruise <span class="sc">==</span> <span class="dv">1203</span>, species <span class="sc">==</span> <span class="st">&#39;015&#39;</span>))[<span class="dv">1</span>,]</span>
+<span id="cb327-2"><a href="validation-1.html#cb327-2" tabindex="-1"></a>          Event            DateTime      Lat       Lon OnEffort Cruise Mode</span>
+<span id="cb327-3"><a href="validation-1.html#cb327-3" tabindex="-1"></a>SpPerc260     S <span class="dv">2012-05-13</span> <span class="dv">13</span><span class="sc">:</span><span class="dv">19</span><span class="sc">:</span><span class="dv">44</span> <span class="fl">11.96733</span> <span class="sc">-</span><span class="fl">161.1727</span>     <span class="cn">TRUE</span>   <span class="dv">1203</span>    C</span>
+<span id="cb327-4"><a href="validation-1.html#cb327-4" tabindex="-1"></a>          OffsetGMT EffType ESWsides Course SpdKt Bft SwellHght WindSpdKt</span>
+<span id="cb327-5"><a href="validation-1.html#cb327-5" tabindex="-1"></a>SpPerc260       <span class="sc">-</span><span class="dv">10</span>       N        <span class="dv">2</span>     <span class="dv">18</span>   <span class="fl">9.2</span>   <span class="dv">5</span>         <span class="dv">6</span>        <span class="dv">21</span></span>
+<span id="cb327-6"><a href="validation-1.html#cb327-6" tabindex="-1"></a>          RainFog HorizSun VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot</span>
+<span id="cb327-7"><a href="validation-1.html#cb327-7" tabindex="-1"></a>SpPerc260       <span class="dv">5</span>       <span class="dv">12</span>      <span class="dv">12</span> <span class="cn">FALSE</span>   <span class="dv">6</span>  <span class="dv">073</span> <span class="dv">235</span>  <span class="dv">280</span>   <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>      <span class="cn">TRUE</span></span>
+<span id="cb327-8"><a href="validation-1.html#cb327-8" tabindex="-1"></a>          EventNum                             file_das line_num stratum_HI_EEZ</span>
+<span id="cb327-9"><a href="validation-1.html#cb327-9" tabindex="-1"></a>SpPerc260      <span class="dv">268</span> CenPac1986<span class="sc">-</span>2020_Final_alb_edited.das   <span class="dv">493027</span>          <span class="cn">FALSE</span></span>
+<span id="cb327-10"><a href="validation-1.html#cb327-10" tabindex="-1"></a>          stratum_OtherCNP stratum_WHICEAS year month day yday km_int   km_cum</span>
+<span id="cb327-11"><a href="validation-1.html#cb327-11" tabindex="-1"></a>SpPerc260             <span class="cn">TRUE</span>           <span class="cn">FALSE</span> <span class="dv">2012</span>     <span class="dv">5</span>  <span class="dv">13</span>  <span class="dv">134</span>      <span class="dv">0</span> <span class="fl">171168.7</span></span>
+<span id="cb327-12"><a href="validation-1.html#cb327-12" tabindex="-1"></a>          ship  stratum  use eff_bloc seg_id SightNo Subgroup SightNoDaily Obs</span>
+<span id="cb327-13"><a href="validation-1.html#cb327-13" tabindex="-1"></a>SpPerc260  OES OtherCNP <span class="cn">TRUE</span>     <span class="dv">34-0</span>    <span class="dv">981</span>     <span class="dv">069</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>  20120513_20 <span class="dv">235</span></span>
+<span id="cb327-14"><a href="validation-1.html#cb327-14" tabindex="-1"></a>          ObsStd Bearing Reticle DistNm Cue Method Photos Birds CalibSchool</span>
+<span id="cb327-15"><a href="validation-1.html#cb327-15" tabindex="-1"></a>SpPerc260   <span class="cn">TRUE</span>      <span class="dv">90</span>      <span class="cn">NA</span>    <span class="fl">0.1</span>   <span class="dv">3</span>      <span class="dv">1</span>      Y     Y           N</span>
+<span id="cb327-16"><a href="validation-1.html#cb327-16" tabindex="-1"></a>          PhotosAerial Biopsy CourseSchool TurtleSp TurtleGs TurtleJFR</span>
+<span id="cb327-17"><a href="validation-1.html#cb327-17" tabindex="-1"></a>SpPerc260            N      N           <span class="cn">NA</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="cn">NA</span>      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb327-18"><a href="validation-1.html#cb327-18" tabindex="-1"></a>          TurtleAge TurtleCapt PinnipedSp PinnipedGs BoatType BoatGs PerpDistKm</span>
+<span id="cb327-19"><a href="validation-1.html#cb327-19" tabindex="-1"></a>SpPerc260      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>         <span class="cn">NA</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>     <span class="cn">NA</span>     <span class="fl">0.1852</span></span>
+<span id="cb327-20"><a href="validation-1.html#cb327-20" tabindex="-1"></a>          species best low high  prob mixed   ss_tot lnsstot ss_percent n_sp</span>
+<span id="cb327-21"><a href="validation-1.html#cb327-21" tabindex="-1"></a>SpPerc260     <span class="dv">015</span>    <span class="dv">1</span> <span class="cn">NaN</span>  <span class="cn">NaN</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span> <span class="fl">6.956522</span> <span class="fl">1.93968</span>        <span class="cn">NaN</span>    <span class="dv">2</span></span>
+<span id="cb327-22"><a href="validation-1.html#cb327-22" tabindex="-1"></a>          n_obs n_best n_low n_high calibr ss_valid mixed_max spp_max included</span>
+<span id="cb327-23"><a href="validation-1.html#cb327-23" tabindex="-1"></a>SpPerc260     <span class="dv">1</span>      <span class="dv">1</span>     <span class="dv">1</span>      <span class="dv">1</span>   <span class="cn">TRUE</span>    <span class="cn">FALSE</span>     <span class="cn">FALSE</span>    <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>     <span class="cn">TRUE</span></span></code></pre></div>
+<p>According to <code>ABUND</code>, this sighting is not mixed-species, but <code>LTabundR</code> says it is. Looking at the raw <code>DAS</code>…</p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="validation-1.html#cb328-1" tabindex="-1"></a>das_file <span class="ot">&lt;-</span> <span class="st">&#39;data/surveys/CenPac1986-2020_Final_alb.das&#39;</span></span>
+<span id="cb328-2"><a href="validation-1.html#cb328-2" tabindex="-1"></a>das <span class="ot">&lt;-</span> <span class="fu">das_readtext</span>(das_file)</span>
+<span id="cb328-3"><a href="validation-1.html#cb328-3" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">substr</span>(das<span class="sc">$</span>das, <span class="dv">6</span>, <span class="dv">18</span>) <span class="sc">==</span> <span class="st">&#39;131944 051312&#39;</span>)</span>
+<span id="cb328-4"><a href="validation-1.html#cb328-4" tabindex="-1"></a>das<span class="sc">$</span>das[i]</span>
+<span id="cb328-5"><a href="validation-1.html#cb328-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;268S.131944 051312 N11:58.04 W161:10.36  069  235    3    1  090      0.10              N    N    N&quot;</span>                                             </span>
+<span id="cb328-6"><a href="validation-1.html#cb328-6" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">&quot;269A.131944 051312 N11:58.04 W161:10.36  069         Y    Y  033  015    &quot;</span>                                                                       </span>
+<span id="cb328-7"><a href="validation-1.html#cb328-7" tabindex="-1"></a>[<span class="dv">3</span>] <span class="st">&quot;269C.131944 051312 N11:58.04 W161:10.36  Overall estimate for full group- never saw all at once.  -EMO&quot;</span>                                          </span>
+<span id="cb328-8"><a href="validation-1.html#cb328-8" tabindex="-1"></a>[<span class="dv">4</span>] <span class="st">&quot;268G.131944 051312 N11:58.04 W161:10.36  069    A  235    1  090      0.10 &quot;</span>                                                                     </span>
+<span id="cb328-9"><a href="validation-1.html#cb328-9" tabindex="-1"></a>[<span class="dv">5</span>] <span class="st">&quot;269A.131944 051312 N11:58.04 W161:10.36  069         Y    Y  033  015&quot;</span>                                                                           </span>
+<span id="cb328-10"><a href="validation-1.html#cb328-10" tabindex="-1"></a>[<span class="dv">6</span>] <span class="st">&quot;269C.131944 051312 N11:58.04 W161:10.36  begin PC protool, first sighting is subgroup &#39;A&#39;, acoustics already tracking        &quot;</span>                   </span>
+<span id="cb328-11"><a href="validation-1.html#cb328-11" tabindex="-1"></a>[<span class="dv">7</span>] <span class="st">&quot;269C.131944 051312 N11:58.04 W161:10.36  photos taken during sighting indicate Steno (015) present. Not seen or estimated during sighting.  -EMO&quot;</span></span></code></pre></div>
+<p>We see that this was a sighting of false killer whales during which species <code>015</code> was picked up during photo-ID. In the absence of a percent composition estimate for this sighting, it was ignored by <code>ABUND</code>.</p>
+</div>
+<div id="cruise-1203-species-049" class="section level5 unnumbered hasAnchor">
+<h5>Cruise 1203, Species 049<a href="validation-1.html#cruise-1203-species-049" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>In this case, <code>LTabundR</code> has a non-systematic sighting that <code>ABUND</code> has ignored.</p>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="validation-1.html#cb329-1" tabindex="-1"></a><span class="fu">sight_compare</span>(abund, ltabundr, <span class="dv">1203</span>, <span class="st">&#39;049&#39;</span>)</span>
+<span id="cb329-2"><a href="validation-1.html#cb329-2" tabindex="-1"></a>ABUND<span class="sc">:</span></span>
+<span id="cb329-3"><a href="validation-1.html#cb329-3" tabindex="-1"></a><span class="co"># A tibble: 1 × 6</span></span>
+<span id="cb329-4"><a href="validation-1.html#cb329-4" tabindex="-1"></a>  CruzNo DateTime       Beauf Mixed  best use_sit</span>
+<span id="cb329-5"><a href="validation-1.html#cb329-5" tabindex="-1"></a>   <span class="sc">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>          <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>  </span>
+<span id="cb329-6"><a href="validation-1.html#cb329-6" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">1203</span> <span class="dv">2012-5-3</span> <span class="dv">14</span><span class="sc">:</span><span class="dv">21</span>     <span class="dv">6</span> <span class="st">&quot; F&quot;</span>   <span class="fl">1.16</span> <span class="cn">TRUE</span>   </span>
+<span id="cb329-7"><a href="validation-1.html#cb329-7" tabindex="-1"></a></span>
+<span id="cb329-8"><a href="validation-1.html#cb329-8" tabindex="-1"></a>LTabundR<span class="sc">:</span></span>
+<span id="cb329-9"><a href="validation-1.html#cb329-9" tabindex="-1"></a><span class="co"># A tibble: 2 × 9</span></span>
+<span id="cb329-10"><a href="validation-1.html#cb329-10" tabindex="-1"></a>  Cruise DateTime              Bft mixed  best OnEffort EffType use_effort</span>
+<span id="cb329-11"><a href="validation-1.html#cb329-11" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dttm<span class="sc">&gt;</span>              <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>     </span>
+<span id="cb329-12"><a href="validation-1.html#cb329-12" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">1203</span> <span class="dv">2012-05-03</span> <span class="dv">14</span><span class="sc">:</span><span class="dv">21</span><span class="sc">:</span><span class="dv">40</span>     <span class="dv">6</span> <span class="cn">FALSE</span>  <span class="fl">1.16</span> <span class="cn">TRUE</span>     S       <span class="cn">TRUE</span>      </span>
+<span id="cb329-13"><a href="validation-1.html#cb329-13" tabindex="-1"></a><span class="dv">2</span>   <span class="dv">1203</span> <span class="dv">2012-05-07</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">54</span><span class="sc">:</span><span class="dv">09</span>     <span class="dv">7</span> <span class="cn">FALSE</span>  <span class="dv">1</span>    <span class="cn">TRUE</span>     N       <span class="cn">TRUE</span>      </span>
+<span id="cb329-14"><a href="validation-1.html#cb329-14" tabindex="-1"></a><span class="co"># ℹ 1 more variable: use_sit &lt;lgl&gt;</span></span></code></pre></div>
+<p>Looking at the sighting details from <code>LTabundR</code> …</p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="validation-1.html#cb330-1" tabindex="-1"></a>(ltabundr <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Cruise <span class="sc">==</span> <span class="dv">1203</span>, species <span class="sc">==</span> <span class="st">&#39;049&#39;</span>))[<span class="dv">2</span>,]</span>
+<span id="cb330-2"><a href="validation-1.html#cb330-2" tabindex="-1"></a>           Event            DateTime      Lat       Lon OnEffort Cruise Mode</span>
+<span id="cb330-3"><a href="validation-1.html#cb330-3" tabindex="-1"></a>SpPerc1614     S <span class="dv">2012-05-07</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">54</span><span class="sc">:</span><span class="dv">09</span> <span class="fl">5.960333</span> <span class="sc">-</span><span class="fl">162.1255</span>     <span class="cn">TRUE</span>   <span class="dv">1203</span>    C</span>
+<span id="cb330-4"><a href="validation-1.html#cb330-4" tabindex="-1"></a>           OffsetGMT EffType ESWsides Course SpdKt Bft SwellHght WindSpdKt</span>
+<span id="cb330-5"><a href="validation-1.html#cb330-5" tabindex="-1"></a>SpPerc1614       <span class="sc">-</span><span class="dv">10</span>       N        <span class="dv">2</span>    <span class="dv">269</span>   <span class="fl">8.8</span>   <span class="dv">7</span>         <span class="dv">9</span>        <span class="dv">30</span></span>
+<span id="cb330-6"><a href="validation-1.html#cb330-6" tabindex="-1"></a>           RainFog HorizSun VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot</span>
+<span id="cb330-7"><a href="validation-1.html#cb330-7" tabindex="-1"></a>SpPerc1614       <span class="dv">5</span>        <span class="dv">5</span>       <span class="dv">1</span> <span class="cn">FALSE</span> <span class="fl">4.5</span>  <span class="dv">238</span> <span class="dv">328</span>  <span class="dv">073</span>   <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>      <span class="cn">TRUE</span></span>
+<span id="cb330-8"><a href="validation-1.html#cb330-8" tabindex="-1"></a>           EventNum                             file_das line_num</span>
+<span id="cb330-9"><a href="validation-1.html#cb330-9" tabindex="-1"></a>SpPerc1614      <span class="dv">145</span> CenPac1986<span class="sc">-</span>2020_Final_alb_edited.das   <span class="dv">489960</span></span>
+<span id="cb330-10"><a href="validation-1.html#cb330-10" tabindex="-1"></a>           stratum_HI_EEZ stratum_OtherCNP stratum_WHICEAS year month day yday</span>
+<span id="cb330-11"><a href="validation-1.html#cb330-11" tabindex="-1"></a>SpPerc1614          <span class="cn">FALSE</span>             <span class="cn">TRUE</span>           <span class="cn">FALSE</span> <span class="dv">2012</span>     <span class="dv">5</span>   <span class="dv">7</span>  <span class="dv">128</span></span>
+<span id="cb330-12"><a href="validation-1.html#cb330-12" tabindex="-1"></a>           km_int   km_cum ship  stratum  use eff_bloc seg_id SightNo Subgroup</span>
+<span id="cb330-13"><a href="validation-1.html#cb330-13" tabindex="-1"></a>SpPerc1614      <span class="dv">0</span> <span class="fl">170067.7</span>  OES OtherCNP <span class="cn">TRUE</span>     <span class="dv">33-0</span>    <span class="dv">972</span>     <span class="dv">052</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb330-14"><a href="validation-1.html#cb330-14" tabindex="-1"></a>           SightNoDaily Obs ObsStd Bearing Reticle DistNm Cue Method Photos</span>
+<span id="cb330-15"><a href="validation-1.html#cb330-15" tabindex="-1"></a>SpPerc1614   20120507_9 <span class="dv">238</span>   <span class="cn">TRUE</span>     <span class="dv">310</span>      <span class="dv">10</span>   <span class="fl">0.52</span>   <span class="dv">3</span>      <span class="dv">4</span>      N</span>
+<span id="cb330-16"><a href="validation-1.html#cb330-16" tabindex="-1"></a>           Birds CalibSchool PhotosAerial Biopsy CourseSchool TurtleSp TurtleGs</span>
+<span id="cb330-17"><a href="validation-1.html#cb330-17" tabindex="-1"></a>SpPerc1614     N           N            N      N           <span class="cn">NA</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="cn">NA</span></span>
+<span id="cb330-18"><a href="validation-1.html#cb330-18" tabindex="-1"></a>           TurtleJFR TurtleAge TurtleCapt PinnipedSp PinnipedGs BoatType BoatGs</span>
+<span id="cb330-19"><a href="validation-1.html#cb330-19" tabindex="-1"></a>SpPerc1614      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>      <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>         <span class="cn">NA</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>     <span class="cn">NA</span></span>
+<span id="cb330-20"><a href="validation-1.html#cb330-20" tabindex="-1"></a>           PerpDistKm species best low high  prob mixed ss_tot lnsstot</span>
+<span id="cb330-21"><a href="validation-1.html#cb330-21" tabindex="-1"></a>SpPerc1614  <span class="fl">0.7377314</span>     <span class="dv">049</span>    <span class="dv">1</span>   <span class="dv">1</span>    <span class="dv">1</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span>      <span class="dv">1</span>       <span class="dv">0</span></span>
+<span id="cb330-22"><a href="validation-1.html#cb330-22" tabindex="-1"></a>           ss_percent n_sp n_obs n_best n_low n_high calibr ss_valid mixed_max</span>
+<span id="cb330-23"><a href="validation-1.html#cb330-23" tabindex="-1"></a>SpPerc1614          <span class="dv">1</span>    <span class="dv">1</span>     <span class="dv">1</span>      <span class="dv">1</span>     <span class="dv">1</span>      <span class="dv">1</span>   <span class="cn">TRUE</span>     <span class="cn">TRUE</span>      <span class="cn">TRUE</span></span>
+<span id="cb330-24"><a href="validation-1.html#cb330-24" tabindex="-1"></a>           spp_max included</span>
+<span id="cb330-25"><a href="validation-1.html#cb330-25" tabindex="-1"></a>SpPerc1614     <span class="dv">049</span>     <span class="cn">TRUE</span></span></code></pre></div>
+<p>This is a sighting of a single Ziphiid whale. It appears to be within the geostratum:</p>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="validation-1.html#cb331-1" tabindex="-1"></a>cruzi <span class="ot">&lt;-</span> <span class="fu">filter_cruz</span>(cruz, <span class="at">spp=</span><span class="st">&#39;049&#39;</span>, <span class="at">years =</span> <span class="dv">1988</span>)</span>
+<span id="cb331-2"><a href="validation-1.html#cb331-2" tabindex="-1"></a><span class="fu">map_cruz</span>(cruzi)</span></code></pre></div>
+<p>Loooking at the raw <code>DAS</code> data …</p>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="validation-1.html#cb332-1" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">substr</span>(das<span class="sc">$</span>das, <span class="dv">6</span>, <span class="dv">18</span>) <span class="sc">==</span> <span class="st">&#39;105409 050712&#39;</span>)</span>
+<span id="cb332-2"><a href="validation-1.html#cb332-2" tabindex="-1"></a>das<span class="sc">$</span>das[(i[<span class="dv">1</span>] <span class="sc">-</span> <span class="dv">10</span>)<span class="sc">:</span>(i[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">3</span>)]</span>
+<span id="cb332-3"><a href="validation-1.html#cb332-3" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;135V.104143 050712 N05:57.61 W162:05.66    7   09  070      30.0&quot;</span>                                   </span>
+<span id="cb332-4"><a href="validation-1.html#cb332-4" tabindex="-1"></a> [<span class="dv">2</span>] <span class="st">&quot;136N.104143 050712 N05:57.61 W162:05.66  272 09.3&quot;</span>                                                  </span>
+<span id="cb332-5"><a href="validation-1.html#cb332-5" tabindex="-1"></a> [<span class="dv">3</span>] <span class="st">&quot;137W.104143 050712 N05:57.61 W162:05.66    5   05   01  050  4.5&quot;</span>                                   </span>
+<span id="cb332-6"><a href="validation-1.html#cb332-6" tabindex="-1"></a> [<span class="dv">4</span>] <span class="st">&quot;138*.104234 050712 N05:57.62 W162:05.79&quot;</span>                                                            </span>
+<span id="cb332-7"><a href="validation-1.html#cb332-7" tabindex="-1"></a> [<span class="dv">5</span>] <span class="st">&quot;139*.104434 050712 N05:57.62 W162:06.09&quot;</span>                                                            </span>
+<span id="cb332-8"><a href="validation-1.html#cb332-8" tabindex="-1"></a> [<span class="dv">6</span>] <span class="st">&quot;140*.104634 050712 N05:57.63 W162:06.39&quot;</span>                                                            </span>
+<span id="cb332-9"><a href="validation-1.html#cb332-9" tabindex="-1"></a> [<span class="dv">7</span>] <span class="st">&quot;141N.104713 050712 N05:57.63 W162:06.49  269 08.8&quot;</span>                                                  </span>
+<span id="cb332-10"><a href="validation-1.html#cb332-10" tabindex="-1"></a> [<span class="dv">8</span>] <span class="st">&quot;142*.104834 050712 N05:57.63 W162:06.69&quot;</span>                                                            </span>
+<span id="cb332-11"><a href="validation-1.html#cb332-11" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">&quot;143*.105034 050712 N05:57.63 W162:06.99&quot;</span>                                                            </span>
+<span id="cb332-12"><a href="validation-1.html#cb332-12" tabindex="-1"></a>[<span class="dv">10</span>] <span class="st">&quot;144*.105234 050712 N05:57.63 W162:07.29&quot;</span>                                                            </span>
+<span id="cb332-13"><a href="validation-1.html#cb332-13" tabindex="-1"></a>[<span class="dv">11</span>] <span class="st">&quot;145S.105409 050712 N05:57.62 W162:07.53  052  238    3    4  310 10.0 0.52              N    N    N&quot;</span></span>
+<span id="cb332-14"><a href="validation-1.html#cb332-14" tabindex="-1"></a>[<span class="dv">12</span>] <span class="st">&quot;146A.105409 050712 N05:57.62 W162:07.53  052         N    N  049               &quot;</span>                    </span>
+<span id="cb332-15"><a href="validation-1.html#cb332-15" tabindex="-1"></a>[<span class="dv">13</span>] <span class="st">&quot;   1                                     238    1    1    1  100&quot;</span>                                   </span>
+<span id="cb332-16"><a href="validation-1.html#cb332-16" tabindex="-1"></a>[<span class="dv">14</span>] <span class="st">&quot;147*.105434 050712 N05:57.62 W162:07.59&quot;</span>                                                            </span></code></pre></div>
+<p>It is not clear why <code>ABUND</code> did not include this sighting as non-systematic. Perhaps the <code>ABUND</code> geostratum calculations placed this sighting outside of the study area.</p>
+</div>
+<div id="cruise-1165-species-047" class="section level5 unnumbered hasAnchor">
+<h5>Cruise 1165, Species 047<a href="validation-1.html#cruise-1165-species-047" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>In this case, <code>LTabundR</code> has a <em>systematic</em> sighting of a pygmy sperm whale that <code>ABUND</code> has ignored.</p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="validation-1.html#cb333-1" tabindex="-1"></a><span class="fu">sight_compare</span>(abund, ltabundr, <span class="dv">1165</span>, <span class="st">&#39;047&#39;</span>)</span>
+<span id="cb333-2"><a href="validation-1.html#cb333-2" tabindex="-1"></a>ABUND<span class="sc">:</span></span>
+<span id="cb333-3"><a href="validation-1.html#cb333-3" tabindex="-1"></a><span class="co"># A tibble: 0 × 6</span></span>
+<span id="cb333-4"><a href="validation-1.html#cb333-4" tabindex="-1"></a><span class="co"># ℹ 6 variables: CruzNo &lt;int&gt;, DateTime &lt;chr&gt;, Beauf &lt;int&gt;, Mixed &lt;chr&gt;,</span></span>
+<span id="cb333-5"><a href="validation-1.html#cb333-5" tabindex="-1"></a><span class="co">#   best &lt;dbl&gt;, use_sit &lt;lgl&gt;</span></span>
+<span id="cb333-6"><a href="validation-1.html#cb333-6" tabindex="-1"></a></span>
+<span id="cb333-7"><a href="validation-1.html#cb333-7" tabindex="-1"></a>LTabundR<span class="sc">:</span></span>
+<span id="cb333-8"><a href="validation-1.html#cb333-8" tabindex="-1"></a><span class="co"># A tibble: 1 × 9</span></span>
+<span id="cb333-9"><a href="validation-1.html#cb333-9" tabindex="-1"></a>  Cruise DateTime              Bft mixed  best OnEffort EffType use_effort</span>
+<span id="cb333-10"><a href="validation-1.html#cb333-10" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dttm<span class="sc">&gt;</span>              <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>     </span>
+<span id="cb333-11"><a href="validation-1.html#cb333-11" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">1165</span> <span class="dv">1988-07-30</span> <span class="dv">19</span><span class="sc">:</span><span class="dv">28</span><span class="sc">:</span><span class="dv">00</span>     <span class="dv">0</span> <span class="cn">FALSE</span>  <span class="fl">1.16</span> <span class="cn">TRUE</span>     S       <span class="cn">TRUE</span>      </span>
+<span id="cb333-12"><a href="validation-1.html#cb333-12" tabindex="-1"></a><span class="co"># ℹ 1 more variable: use_sit &lt;lgl&gt;</span></span>
+<span id="cb333-13"><a href="validation-1.html#cb333-13" tabindex="-1"></a>(ltabundr <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Cruise <span class="sc">==</span> <span class="dv">1165</span>, species <span class="sc">==</span> <span class="st">&#39;047&#39;</span>))[<span class="dv">1</span>,]</span>
+<span id="cb333-14"><a href="validation-1.html#cb333-14" tabindex="-1"></a>           Event            DateTime  Lat       Lon OnEffort Cruise Mode</span>
+<span id="cb333-15"><a href="validation-1.html#cb333-15" tabindex="-1"></a>SpPerc1460     S <span class="dv">1988-07-30</span> <span class="dv">19</span><span class="sc">:</span><span class="dv">28</span><span class="sc">:</span><span class="dv">00</span> <span class="fl">26.3</span> <span class="sc">-</span><span class="fl">121.1167</span>     <span class="cn">TRUE</span>   <span class="dv">1165</span>    C</span>
+<span id="cb333-16"><a href="validation-1.html#cb333-16" tabindex="-1"></a>           OffsetGMT EffType ESWsides Course SpdKt Bft SwellHght WindSpdKt</span>
+<span id="cb333-17"><a href="validation-1.html#cb333-17" tabindex="-1"></a>SpPerc1460        <span class="cn">NA</span>       S        <span class="dv">2</span>    <span class="dv">163</span>  <span class="fl">10.5</span>   <span class="dv">0</span>        <span class="cn">NA</span>        <span class="cn">NA</span></span>
+<span id="cb333-18"><a href="validation-1.html#cb333-18" tabindex="-1"></a>           RainFog HorizSun VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot</span>
+<span id="cb333-19"><a href="validation-1.html#cb333-19" tabindex="-1"></a>SpPerc1460       <span class="dv">1</span>       <span class="cn">NA</span>      <span class="cn">NA</span>    <span class="cn">NA</span>  <span class="cn">NA</span>  <span class="dv">038</span> <span class="dv">068</span>  <span class="dv">051</span>   <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>      <span class="cn">TRUE</span></span>
+<span id="cb333-20"><a href="validation-1.html#cb333-20" tabindex="-1"></a>           EventNum                             file_das line_num</span>
+<span id="cb333-21"><a href="validation-1.html#cb333-21" tabindex="-1"></a>SpPerc1460       <span class="dv">92</span> CenPac1986<span class="sc">-</span>2020_Final_alb_edited.das    <span class="dv">50173</span></span>
+<span id="cb333-22"><a href="validation-1.html#cb333-22" tabindex="-1"></a>           stratum_HI_EEZ stratum_OtherCNP stratum_WHICEAS year month day yday</span>
+<span id="cb333-23"><a href="validation-1.html#cb333-23" tabindex="-1"></a>SpPerc1460          <span class="cn">FALSE</span>             <span class="cn">TRUE</span>           <span class="cn">FALSE</span> <span class="dv">1988</span>     <span class="dv">7</span>  <span class="dv">30</span>  <span class="dv">212</span></span>
+<span id="cb333-24"><a href="validation-1.html#cb333-24" tabindex="-1"></a>           km_int   km_cum ship  stratum  use eff_bloc seg_id SightNo Subgroup</span>
+<span id="cb333-25"><a href="validation-1.html#cb333-25" tabindex="-1"></a>SpPerc1460      <span class="dv">0</span> <span class="fl">13618.39</span>  MAC OtherCNP <span class="cn">TRUE</span>     <span class="dv">30-0</span>    <span class="dv">938</span>      <span class="dv">07</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb333-26"><a href="validation-1.html#cb333-26" tabindex="-1"></a>           SightNoDaily Obs ObsStd Bearing Reticle DistNm Cue Method Photos</span>
+<span id="cb333-27"><a href="validation-1.html#cb333-27" tabindex="-1"></a>SpPerc1460  19880730_13 <span class="dv">051</span>   <span class="cn">TRUE</span>      <span class="dv">45</span>    <span class="fl">3.38</span>    <span class="fl">0.9</span>   <span class="dv">3</span>      <span class="dv">4</span>   <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb333-28"><a href="validation-1.html#cb333-28" tabindex="-1"></a>           Birds CalibSchool PhotosAerial Biopsy CourseSchool TurtleSp TurtleGs</span>
+<span id="cb333-29"><a href="validation-1.html#cb333-29" tabindex="-1"></a>SpPerc1460     N        <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>         <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>   <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>           <span class="cn">NA</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="cn">NA</span></span>
+<span id="cb333-30"><a href="validation-1.html#cb333-30" tabindex="-1"></a>           TurtleJFR TurtleAge TurtleCapt PinnipedSp PinnipedGs BoatType BoatGs</span>
+<span id="cb333-31"><a href="validation-1.html#cb333-31" tabindex="-1"></a>SpPerc1460      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>      <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>         <span class="cn">NA</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>     <span class="cn">NA</span></span>
+<span id="cb333-32"><a href="validation-1.html#cb333-32" tabindex="-1"></a>           PerpDistKm species    best low     high  prob mixed  ss_tot</span>
+<span id="cb333-33"><a href="validation-1.html#cb333-33" tabindex="-1"></a>SpPerc1460   <span class="fl">1.178606</span>     <span class="dv">047</span> <span class="fl">1.15942</span>   <span class="dv">1</span> <span class="fl">1.259921</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span> <span class="fl">1.15942</span></span>
+<span id="cb333-34"><a href="validation-1.html#cb333-34" tabindex="-1"></a>             lnsstot ss_percent n_sp n_obs n_best n_low n_high calibr ss_valid</span>
+<span id="cb333-35"><a href="validation-1.html#cb333-35" tabindex="-1"></a>SpPerc1460 <span class="fl">0.1479201</span>          <span class="dv">1</span>    <span class="dv">1</span>     <span class="dv">3</span>      <span class="dv">3</span>     <span class="dv">3</span>      <span class="dv">3</span>   <span class="cn">TRUE</span>     <span class="cn">TRUE</span></span>
+<span id="cb333-36"><a href="validation-1.html#cb333-36" tabindex="-1"></a>           mixed_max spp_max included</span>
+<span id="cb333-37"><a href="validation-1.html#cb333-37" tabindex="-1"></a>SpPerc1460      <span class="cn">TRUE</span>     <span class="dv">047</span>     <span class="cn">TRUE</span></span></code></pre></div>
+<p>To investigate this sighting, we can filter our <code>cruz</code> object and take a look at a map of this sighting:</p>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="validation-1.html#cb334-1" tabindex="-1"></a>cruzi <span class="ot">&lt;-</span> <span class="fu">filter_cruz</span>(cruz, <span class="at">spp=</span><span class="st">&#39;047&#39;</span>, <span class="at">years =</span> <span class="dv">2012</span>)</span>
+<span id="cb334-2"><a href="validation-1.html#cb334-2" tabindex="-1"></a><span class="fu">map_cruz</span>(cruzi)</span></code></pre></div>
+<p>Using that map we see that this sighting occurred <em>just inside</em> of the <code>OtherCNP</code> geostratum. It is likely that the point-in-polygon subroutines inside <code>ABUND9</code> decided that this sighting was out of the study area, and therefore excluded it. The subroutines used by <code>LTabundR</code>, which are based in the <code>R</code> package <code>sf</code>, should not be wrong in this case.</p>
+</div>
+<div id="cruise-1621-073" class="section level5 unnumbered hasAnchor">
+<h5>Cruise 1621-073<a href="validation-1.html#cruise-1621-073" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>In this case, both <code>LTabundR</code> and <code>ABUND</code> logged the same total number of sightings, but <code>ABUND</code> determined that that one was not valid for for density estimation, whereas <code>LTabundR</code> determined that two of them were not valid.</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="validation-1.html#cb335-1" tabindex="-1"></a><span class="fu">sight_compare</span>(abund, ltabundr, <span class="dv">1621</span>, <span class="st">&#39;073&#39;</span>)</span>
+<span id="cb335-2"><a href="validation-1.html#cb335-2" tabindex="-1"></a>ABUND<span class="sc">:</span></span>
+<span id="cb335-3"><a href="validation-1.html#cb335-3" tabindex="-1"></a><span class="co"># A tibble: 5 × 6</span></span>
+<span id="cb335-4"><a href="validation-1.html#cb335-4" tabindex="-1"></a>  CruzNo DateTime         Beauf Mixed  best use_sit</span>
+<span id="cb335-5"><a href="validation-1.html#cb335-5" tabindex="-1"></a>   <span class="sc">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span>            <span class="er">&lt;</span>int<span class="sc">&gt;</span> <span class="er">&lt;</span>chr<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>  </span>
+<span id="cb335-6"><a href="validation-1.html#cb335-6" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">1621</span> <span class="dv">2002-11-8</span> <span class="dv">14</span><span class="sc">:</span><span class="dv">19</span>      <span class="dv">3</span> <span class="st">&quot; F&quot;</span>   <span class="fl">3.48</span> <span class="cn">TRUE</span>   </span>
+<span id="cb335-7"><a href="validation-1.html#cb335-7" tabindex="-1"></a><span class="dv">2</span>   <span class="dv">1621</span> <span class="dv">2002-11-20</span> <span class="dv">16</span><span class="sc">:</span><span class="dv">2</span>      <span class="dv">4</span> <span class="st">&quot; F&quot;</span>   <span class="fl">3.97</span> <span class="cn">TRUE</span>   </span>
+<span id="cb335-8"><a href="validation-1.html#cb335-8" tabindex="-1"></a><span class="dv">3</span>   <span class="dv">1621</span> <span class="dv">2002-11-22</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">27</span>     <span class="dv">4</span> <span class="st">&quot; F&quot;</span>   <span class="fl">4.96</span> <span class="cn">TRUE</span>   </span>
+<span id="cb335-9"><a href="validation-1.html#cb335-9" tabindex="-1"></a><span class="dv">4</span>   <span class="dv">1621</span> <span class="dv">2002-11-22</span> <span class="dv">12</span><span class="sc">:</span><span class="dv">20</span>     <span class="dv">4</span> <span class="st">&quot; F&quot;</span>   <span class="fl">1.16</span> <span class="cn">TRUE</span>   </span>
+<span id="cb335-10"><a href="validation-1.html#cb335-10" tabindex="-1"></a><span class="dv">5</span>   <span class="dv">1621</span> <span class="dv">2002-11-29</span> <span class="dv">13</span><span class="sc">:</span><span class="dv">48</span>     <span class="dv">5</span> <span class="st">&quot; F&quot;</span>   <span class="fl">2.32</span> <span class="cn">TRUE</span>   </span>
+<span id="cb335-11"><a href="validation-1.html#cb335-11" tabindex="-1"></a></span>
+<span id="cb335-12"><a href="validation-1.html#cb335-12" tabindex="-1"></a>LTabundR<span class="sc">:</span></span>
+<span id="cb335-13"><a href="validation-1.html#cb335-13" tabindex="-1"></a><span class="co"># A tibble: 7 × 9</span></span>
+<span id="cb335-14"><a href="validation-1.html#cb335-14" tabindex="-1"></a>  Cruise DateTime              Bft mixed  best OnEffort EffType use_effort</span>
+<span id="cb335-15"><a href="validation-1.html#cb335-15" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dttm<span class="sc">&gt;</span>              <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>     </span>
+<span id="cb335-16"><a href="validation-1.html#cb335-16" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">1621</span> <span class="dv">2002-11-08</span> <span class="dv">14</span><span class="sc">:</span><span class="dv">19</span><span class="sc">:</span><span class="dv">04</span>     <span class="dv">3</span> <span class="cn">FALSE</span>  <span class="fl">3.48</span> <span class="cn">TRUE</span>     S       <span class="cn">TRUE</span>      </span>
+<span id="cb335-17"><a href="validation-1.html#cb335-17" tabindex="-1"></a><span class="dv">2</span>   <span class="dv">1621</span> <span class="dv">2002-11-20</span> <span class="dv">16</span><span class="sc">:</span><span class="dv">02</span><span class="sc">:</span><span class="dv">58</span>     <span class="dv">4</span> <span class="cn">FALSE</span>  <span class="fl">3.97</span> <span class="cn">TRUE</span>     S       <span class="cn">TRUE</span>      </span>
+<span id="cb335-18"><a href="validation-1.html#cb335-18" tabindex="-1"></a><span class="dv">3</span>   <span class="dv">1621</span> <span class="dv">2002-11-22</span> <span class="dv">10</span><span class="sc">:</span><span class="dv">27</span><span class="sc">:</span><span class="dv">28</span>     <span class="dv">4</span> <span class="cn">FALSE</span>  <span class="fl">4.96</span> <span class="cn">TRUE</span>     S       <span class="cn">TRUE</span>      </span>
+<span id="cb335-19"><a href="validation-1.html#cb335-19" tabindex="-1"></a><span class="dv">4</span>   <span class="dv">1621</span> <span class="dv">2002-11-22</span> <span class="dv">12</span><span class="sc">:</span><span class="dv">20</span><span class="sc">:</span><span class="dv">33</span>     <span class="dv">4</span> <span class="cn">FALSE</span>  <span class="fl">1.16</span> <span class="cn">TRUE</span>     S       <span class="cn">TRUE</span>      </span>
+<span id="cb335-20"><a href="validation-1.html#cb335-20" tabindex="-1"></a><span class="dv">5</span>   <span class="dv">1621</span> <span class="dv">2002-11-29</span> <span class="dv">13</span><span class="sc">:</span><span class="dv">48</span><span class="sc">:</span><span class="dv">49</span>     <span class="dv">5</span> <span class="cn">FALSE</span>  <span class="fl">2.32</span> <span class="cn">TRUE</span>     N       <span class="cn">TRUE</span>      </span>
+<span id="cb335-21"><a href="validation-1.html#cb335-21" tabindex="-1"></a><span class="dv">6</span>   <span class="dv">1621</span> <span class="dv">2002-11-20</span> <span class="dv">12</span><span class="sc">:</span><span class="dv">59</span><span class="sc">:</span><span class="dv">22</span>     <span class="dv">4</span> <span class="cn">FALSE</span>  <span class="fl">1.16</span> <span class="cn">FALSE</span>    S       <span class="cn">FALSE</span>     </span>
+<span id="cb335-22"><a href="validation-1.html#cb335-22" tabindex="-1"></a><span class="dv">7</span>   <span class="dv">1621</span> <span class="dv">2002-11-21</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">57</span><span class="sc">:</span><span class="dv">55</span>     <span class="dv">4</span> <span class="cn">FALSE</span>  <span class="fl">1.16</span> <span class="cn">FALSE</span>    S       <span class="cn">FALSE</span>     </span>
+<span id="cb335-23"><a href="validation-1.html#cb335-23" tabindex="-1"></a><span class="co"># ℹ 1 more variable: use_sit &lt;lgl&gt;</span></span></code></pre></div>
+<p>The discrepancy is in the November 8, 2002 sighting at 14:19:04. Looking at the sighting details from <code>LTabundR</code>…</p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="validation-1.html#cb336-1" tabindex="-1"></a>(ltabundr <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Cruise <span class="sc">==</span> <span class="dv">1621</span>, species <span class="sc">==</span> <span class="st">&#39;073&#39;</span>))[<span class="dv">1</span>,]</span>
+<span id="cb336-2"><a href="validation-1.html#cb336-2" tabindex="-1"></a>            Event            DateTime    Lat       Lon OnEffort Cruise Mode</span>
+<span id="cb336-3"><a href="validation-1.html#cb336-3" tabindex="-1"></a>SpPerc11806     S <span class="dv">2002-11-08</span> <span class="dv">14</span><span class="sc">:</span><span class="dv">19</span><span class="sc">:</span><span class="dv">04</span> <span class="fl">22.539</span> <span class="sc">-</span><span class="fl">171.7638</span>     <span class="cn">TRUE</span>   <span class="dv">1621</span>    C</span>
+<span id="cb336-4"><a href="validation-1.html#cb336-4" tabindex="-1"></a>            OffsetGMT EffType ESWsides Course SpdKt Bft SwellHght WindSpdKt</span>
+<span id="cb336-5"><a href="validation-1.html#cb336-5" tabindex="-1"></a>SpPerc11806        <span class="dv">10</span>       S        <span class="dv">2</span>    <span class="dv">108</span>   <span class="fl">9.4</span>   <span class="dv">3</span>         <span class="dv">5</span>        <span class="dv">10</span></span>
+<span id="cb336-6"><a href="validation-1.html#cb336-6" tabindex="-1"></a>            RainFog HorizSun VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot</span>
+<span id="cb336-7"><a href="validation-1.html#cb336-7" tabindex="-1"></a>SpPerc11806       <span class="dv">1</span>        <span class="dv">3</span>       <span class="dv">2</span> <span class="cn">FALSE</span>   <span class="dv">6</span>  <span class="dv">200</span> <span class="dv">073</span>  <span class="dv">208</span>   <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>      <span class="cn">TRUE</span></span>
+<span id="cb336-8"><a href="validation-1.html#cb336-8" tabindex="-1"></a>            EventNum                             file_das line_num</span>
+<span id="cb336-9"><a href="validation-1.html#cb336-9" tabindex="-1"></a>SpPerc11806      <span class="dv">129</span> CenPac1986<span class="sc">-</span>2020_Final_alb_edited.das   <span class="dv">273857</span></span>
+<span id="cb336-10"><a href="validation-1.html#cb336-10" tabindex="-1"></a>            stratum_HI_EEZ stratum_OtherCNP stratum_WHICEAS year month day yday</span>
+<span id="cb336-11"><a href="validation-1.html#cb336-11" tabindex="-1"></a>SpPerc11806           <span class="cn">TRUE</span>             <span class="cn">TRUE</span>           <span class="cn">FALSE</span> <span class="dv">2002</span>    <span class="dv">11</span>   <span class="dv">8</span>  <span class="dv">312</span></span>
+<span id="cb336-12"><a href="validation-1.html#cb336-12" tabindex="-1"></a>            km_int   km_cum ship stratum  use eff_bloc seg_id SightNo Subgroup</span>
+<span id="cb336-13"><a href="validation-1.html#cb336-13" tabindex="-1"></a>SpPerc11806      <span class="dv">0</span> <span class="fl">80534.72</span>  DSJ  HI_EEZ <span class="cn">TRUE</span>     <span class="dv">90-7</span>   <span class="dv">1471</span>     <span class="dv">275</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb336-14"><a href="validation-1.html#cb336-14" tabindex="-1"></a>            SightNoDaily Obs ObsStd Bearing Reticle DistNm Cue Method Photos</span>
+<span id="cb336-15"><a href="validation-1.html#cb336-15" tabindex="-1"></a>SpPerc11806  20021108_57 <span class="dv">208</span>   <span class="cn">TRUE</span>      <span class="dv">93</span>     <span class="fl">0.5</span>   <span class="fl">2.75</span>   <span class="dv">6</span>      <span class="dv">4</span>      Y</span>
+<span id="cb336-16"><a href="validation-1.html#cb336-16" tabindex="-1"></a>            Birds CalibSchool PhotosAerial Biopsy CourseSchool TurtleSp</span>
+<span id="cb336-17"><a href="validation-1.html#cb336-17" tabindex="-1"></a>SpPerc11806     N        <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>         <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>   <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>           <span class="cn">NA</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb336-18"><a href="validation-1.html#cb336-18" tabindex="-1"></a>            TurtleGs TurtleJFR TurtleAge TurtleCapt PinnipedSp PinnipedGs</span>
+<span id="cb336-19"><a href="validation-1.html#cb336-19" tabindex="-1"></a>SpPerc11806       <span class="cn">NA</span>      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>      <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>         <span class="cn">NA</span></span>
+<span id="cb336-20"><a href="validation-1.html#cb336-20" tabindex="-1"></a>            BoatType BoatGs PerpDistKm species     best low high  prob mixed</span>
+<span id="cb336-21"><a href="validation-1.html#cb336-21" tabindex="-1"></a>SpPerc11806     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>     <span class="cn">NA</span>    <span class="fl">5.08602</span>     <span class="dv">073</span> <span class="fl">3.478261</span>   <span class="dv">3</span>    <span class="dv">3</span> <span class="cn">FALSE</span> <span class="cn">FALSE</span></span>
+<span id="cb336-22"><a href="validation-1.html#cb336-22" tabindex="-1"></a>              ss_tot  lnsstot ss_percent n_sp n_obs n_best n_low n_high calibr</span>
+<span id="cb336-23"><a href="validation-1.html#cb336-23" tabindex="-1"></a>SpPerc11806 <span class="fl">3.478261</span> <span class="fl">1.246532</span>          <span class="dv">1</span>    <span class="dv">1</span>     <span class="dv">6</span>      <span class="dv">6</span>     <span class="dv">6</span>      <span class="dv">6</span>   <span class="cn">TRUE</span></span>
+<span id="cb336-24"><a href="validation-1.html#cb336-24" tabindex="-1"></a>            ss_valid mixed_max spp_max included</span>
+<span id="cb336-25"><a href="validation-1.html#cb336-25" tabindex="-1"></a>SpPerc11806     <span class="cn">TRUE</span>      <span class="cn">TRUE</span>     <span class="dv">073</span>    <span class="cn">FALSE</span></span></code></pre></div>
+<p><code>LTabundR</code> was correct to exclude this sighting because the bearing was past the beam (93 degrees). The bearing of 93 is also given in the raw <code>DAS</code> data…</p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="validation-1.html#cb337-1" tabindex="-1"></a>das_file <span class="ot">&lt;-</span> <span class="st">&#39;data/surveys/CenPac1986-2020_Final_alb.das&#39;</span></span>
+<span id="cb337-2"><a href="validation-1.html#cb337-2" tabindex="-1"></a>das <span class="ot">&lt;-</span> <span class="fu">das_readtext</span>(das_file)</span>
+<span id="cb337-3"><a href="validation-1.html#cb337-3" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">substr</span>(das<span class="sc">$</span>das, <span class="dv">6</span>, <span class="dv">18</span>) <span class="sc">==</span> <span class="st">&#39;141904 110802&#39;</span>)</span>
+<span id="cb337-4"><a href="validation-1.html#cb337-4" tabindex="-1"></a>das<span class="sc">$</span>das[i]</span>
+<span id="cb337-5"><a href="validation-1.html#cb337-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;129S.141904 110802 N22:32.34 W171:45.83  275  208    6    4  093  0.5 2.75&quot;</span></span>
+<span id="cb337-6"><a href="validation-1.html#cb337-6" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">&quot;130A.141904 110802 N22:32.34 W171:45.83  275         Y    N  073&quot;</span>          </span></code></pre></div>
+<p>… so it is not clear why <code>ABUND</code> did not exclude this sighting as invalid as well. It may be that <code>ABUND</code> was not expecting bearings above 90 degrees in the on-effort data.</p>
+</div>
+<div id="cruise-1631-species-003" class="section level5 unnumbered hasAnchor">
+<h5>Cruise 1631, Species 003<a href="validation-1.html#cruise-1631-species-003" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>In this case, there was a non-systematic sighting of species 003 that was found by <code>LTabundR</code> but not by <code>ABUND</code>.</p>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="validation-1.html#cb338-1" tabindex="-1"></a><span class="fu">sight_compare</span>(abund, ltabundr, <span class="dv">1631</span>, <span class="st">&#39;003&#39;</span>)</span>
+<span id="cb338-2"><a href="validation-1.html#cb338-2" tabindex="-1"></a>ABUND<span class="sc">:</span></span>
+<span id="cb338-3"><a href="validation-1.html#cb338-3" tabindex="-1"></a><span class="co"># A tibble: 0 × 6</span></span>
+<span id="cb338-4"><a href="validation-1.html#cb338-4" tabindex="-1"></a><span class="co"># ℹ 6 variables: CruzNo &lt;int&gt;, DateTime &lt;chr&gt;, Beauf &lt;int&gt;, Mixed &lt;chr&gt;,</span></span>
+<span id="cb338-5"><a href="validation-1.html#cb338-5" tabindex="-1"></a><span class="co">#   best &lt;dbl&gt;, use_sit &lt;lgl&gt;</span></span>
+<span id="cb338-6"><a href="validation-1.html#cb338-6" tabindex="-1"></a></span>
+<span id="cb338-7"><a href="validation-1.html#cb338-7" tabindex="-1"></a>LTabundR<span class="sc">:</span></span>
+<span id="cb338-8"><a href="validation-1.html#cb338-8" tabindex="-1"></a><span class="co"># A tibble: 1 × 9</span></span>
+<span id="cb338-9"><a href="validation-1.html#cb338-9" tabindex="-1"></a>  Cruise DateTime              Bft mixed  best OnEffort EffType use_effort</span>
+<span id="cb338-10"><a href="validation-1.html#cb338-10" tabindex="-1"></a>   <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>dttm<span class="sc">&gt;</span>              <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span> <span class="er">&lt;</span>dbl<span class="sc">&gt;</span> <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>    <span class="er">&lt;</span>chr<span class="sc">&gt;</span>   <span class="er">&lt;</span>lgl<span class="sc">&gt;</span>     </span>
+<span id="cb338-11"><a href="validation-1.html#cb338-11" tabindex="-1"></a><span class="dv">1</span>   <span class="dv">1631</span> <span class="dv">2006-09-02</span> <span class="dv">07</span><span class="sc">:</span><span class="dv">35</span><span class="sc">:</span><span class="dv">14</span>     <span class="dv">5</span> <span class="cn">TRUE</span>      <span class="dv">1</span> <span class="cn">TRUE</span>     N       <span class="cn">TRUE</span>      </span>
+<span id="cb338-12"><a href="validation-1.html#cb338-12" tabindex="-1"></a><span class="co"># ℹ 1 more variable: use_sit &lt;lgl&gt;</span></span>
+<span id="cb338-13"><a href="validation-1.html#cb338-13" tabindex="-1"></a>(ltabundr <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Cruise <span class="sc">==</span> <span class="dv">1631</span>, species <span class="sc">==</span> <span class="st">&#39;003&#39;</span>))</span>
+<span id="cb338-14"><a href="validation-1.html#cb338-14" tabindex="-1"></a>           Event            DateTime      Lat       Lon OnEffort Cruise Mode</span>
+<span id="cb338-15"><a href="validation-1.html#cb338-15" tabindex="-1"></a>SpPerc2279     S <span class="dv">2006-09-02</span> <span class="dv">07</span><span class="sc">:</span><span class="dv">35</span><span class="sc">:</span><span class="dv">14</span> <span class="fl">19.28883</span> <span class="sc">-</span><span class="fl">156.8227</span>     <span class="cn">TRUE</span>   <span class="dv">1631</span>    P</span>
+<span id="cb338-16"><a href="validation-1.html#cb338-16" tabindex="-1"></a>           OffsetGMT EffType ESWsides Course SpdKt Bft SwellHght WindSpdKt</span>
+<span id="cb338-17"><a href="validation-1.html#cb338-17" tabindex="-1"></a>SpPerc2279        <span class="dv">10</span>       N        <span class="dv">2</span>    <span class="dv">155</span>    <span class="dv">10</span>   <span class="dv">5</span>         <span class="dv">4</span>        <span class="dv">18</span></span>
+<span id="cb338-18"><a href="validation-1.html#cb338-18" tabindex="-1"></a>           RainFog HorizSun VertSun Glare Vis ObsL Rec ObsR ObsInd EffortDot</span>
+<span id="cb338-19"><a href="validation-1.html#cb338-19" tabindex="-1"></a>SpPerc2279       <span class="dv">1</span>       <span class="dv">10</span>       <span class="dv">2</span> <span class="cn">FALSE</span>   <span class="dv">7</span>  <span class="dv">073</span> <span class="dv">196</span>  <span class="dv">197</span>   <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>      <span class="cn">TRUE</span></span>
+<span id="cb338-20"><a href="validation-1.html#cb338-20" tabindex="-1"></a>           EventNum                             file_das line_num</span>
+<span id="cb338-21"><a href="validation-1.html#cb338-21" tabindex="-1"></a>SpPerc2279      <span class="dv">026</span> CenPac1986<span class="sc">-</span>2020_Final_alb_edited.das   <span class="dv">405222</span></span>
+<span id="cb338-22"><a href="validation-1.html#cb338-22" tabindex="-1"></a>           stratum_HI_EEZ stratum_OtherCNP stratum_WHICEAS year month day yday</span>
+<span id="cb338-23"><a href="validation-1.html#cb338-23" tabindex="-1"></a>SpPerc2279           <span class="cn">TRUE</span>             <span class="cn">TRUE</span>            <span class="cn">TRUE</span> <span class="dv">2006</span>     <span class="dv">9</span>   <span class="dv">2</span>  <span class="dv">245</span></span>
+<span id="cb338-24"><a href="validation-1.html#cb338-24" tabindex="-1"></a>           km_int   km_cum ship stratum  use eff_bloc seg_id SightNo Subgroup</span>
+<span id="cb338-25"><a href="validation-1.html#cb338-25" tabindex="-1"></a>SpPerc2279      <span class="dv">0</span> <span class="fl">124035.2</span>  Mc2 WHICEAS <span class="cn">TRUE</span>    <span class="dv">121-1</span>    <span class="dv">261</span>     <span class="dv">090</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span></span>
+<span id="cb338-26"><a href="validation-1.html#cb338-26" tabindex="-1"></a>           SightNoDaily Obs ObsStd Bearing Reticle DistNm Cue Method Photos</span>
+<span id="cb338-27"><a href="validation-1.html#cb338-27" tabindex="-1"></a>SpPerc2279  20060902_51 <span class="dv">197</span>   <span class="cn">TRUE</span>      <span class="dv">59</span>     <span class="fl">0.3</span>   <span class="fl">4.12</span>   <span class="dv">2</span>      <span class="dv">4</span>      N</span>
+<span id="cb338-28"><a href="validation-1.html#cb338-28" tabindex="-1"></a>           Birds CalibSchool PhotosAerial Biopsy CourseSchool TurtleSp TurtleGs</span>
+<span id="cb338-29"><a href="validation-1.html#cb338-29" tabindex="-1"></a>SpPerc2279     N        <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>         <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>   <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>           <span class="cn">NA</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="cn">NA</span></span>
+<span id="cb338-30"><a href="validation-1.html#cb338-30" tabindex="-1"></a>           TurtleJFR TurtleAge TurtleCapt PinnipedSp PinnipedGs BoatType BoatGs</span>
+<span id="cb338-31"><a href="validation-1.html#cb338-31" tabindex="-1"></a>SpPerc2279      <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>      <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>       <span class="er">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>         <span class="cn">NA</span>     <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>     <span class="cn">NA</span></span>
+<span id="cb338-32"><a href="validation-1.html#cb338-32" tabindex="-1"></a>           PerpDistKm species best low high  prob mixed   ss_tot  lnsstot</span>
+<span id="cb338-33"><a href="validation-1.html#cb338-33" tabindex="-1"></a>SpPerc2279   <span class="fl">6.540392</span>     <span class="dv">003</span>    <span class="dv">1</span> <span class="cn">NaN</span>   <span class="cn">NA</span> <span class="cn">FALSE</span>  <span class="cn">TRUE</span> <span class="fl">3.478261</span> <span class="fl">1.246532</span></span>
+<span id="cb338-34"><a href="validation-1.html#cb338-34" tabindex="-1"></a>           ss_percent n_sp n_obs n_best n_low n_high calibr ss_valid mixed_max</span>
+<span id="cb338-35"><a href="validation-1.html#cb338-35" tabindex="-1"></a>SpPerc2279        <span class="cn">NaN</span>    <span class="dv">2</span>     <span class="dv">1</span>      <span class="dv">0</span>     <span class="dv">1</span>      <span class="dv">0</span>   <span class="cn">TRUE</span>    <span class="cn">FALSE</span>     <span class="cn">FALSE</span></span>
+<span id="cb338-36"><a href="validation-1.html#cb338-36" tabindex="-1"></a>           spp_max included</span>
+<span id="cb338-37"><a href="validation-1.html#cb338-37" tabindex="-1"></a>SpPerc2279    <span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>     <span class="cn">TRUE</span></span></code></pre></div>
+<p>The map indicates that this is not a geostratum boundary issue:</p>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="validation-1.html#cb339-1" tabindex="-1"></a>cruzi <span class="ot">&lt;-</span> <span class="fu">filter_cruz</span>(cruz, <span class="at">spp=</span><span class="st">&#39;003&#39;</span>, <span class="at">years =</span> <span class="dv">2006</span>)</span>
+<span id="cb339-2"><a href="validation-1.html#cb339-2" tabindex="-1"></a><span class="fu">map_cruz</span>(cruzi)</span></code></pre></div>
+<p>Looking at the raw <code>DAS</code> data …</p>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="validation-1.html#cb340-1" tabindex="-1"></a>das<span class="sc">$</span>das[<span class="dv">405190</span><span class="sc">:</span><span class="dv">405220</span>]</span>
+<span id="cb340-2"><a href="validation-1.html#cb340-2" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;   C 120000 090106                      In transit to study area Sep 1. A.J. 10/18/06.&quot;</span></span>
+<span id="cb340-3"><a href="validation-1.html#cb340-3" tabindex="-1"></a> [<span class="dv">2</span>] <span class="st">&quot;001B.061813 090206 N19:28.97 W156:55.51 1631    p   10    Y&quot;</span>                           </span>
+<span id="cb340-4"><a href="validation-1.html#cb340-4" tabindex="-1"></a> [<span class="dv">3</span>] <span class="st">&quot;002R.061813 090206 N19:28.97 W156:55.51    N&quot;</span>                                          </span>
+<span id="cb340-5"><a href="validation-1.html#cb340-5" tabindex="-1"></a> [<span class="dv">4</span>] <span class="st">&quot;003P.061813 090206 N19:28.97 W156:55.51  197  007  277&quot;</span>                                </span>
+<span id="cb340-6"><a href="validation-1.html#cb340-6" tabindex="-1"></a> [<span class="dv">5</span>] <span class="st">&quot;004V.061813 090206 N19:28.97 W156:55.51    5   04  150      18.0&quot;</span>                      </span>
+<span id="cb340-7"><a href="validation-1.html#cb340-7" tabindex="-1"></a> [<span class="dv">6</span>] <span class="st">&quot;005N.061813 090206 N19:28.97 W156:55.51  154 10.4&quot;</span>                                     </span>
+<span id="cb340-8"><a href="validation-1.html#cb340-8" tabindex="-1"></a> [<span class="dv">7</span>] <span class="st">&quot;006W.061813 090206 N19:28.97 W156:55.51    1   10   03  032  7.0&quot;</span>                      </span>
+<span id="cb340-9"><a href="validation-1.html#cb340-9" tabindex="-1"></a> [<span class="dv">8</span>] <span class="st">&quot;007C.061823 090206 N19:28.94 W156:55.50&quot;</span>                                               </span>
+<span id="cb340-10"><a href="validation-1.html#cb340-10" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">&quot;008*.062019 090206 N19:28.63 W156:55.33&quot;</span>                                               </span>
+<span id="cb340-11"><a href="validation-1.html#cb340-11" tabindex="-1"></a>[<span class="dv">10</span>] <span class="st">&quot;009*.063019 090206 N19:27.12 W156:54.53&quot;</span>                                               </span>
+<span id="cb340-12"><a href="validation-1.html#cb340-12" tabindex="-1"></a>[<span class="dv">11</span>] <span class="st">&quot;010P.063950 090206 N19:25.68 W156:53.75  196  197  007&quot;</span>                                </span>
+<span id="cb340-13"><a href="validation-1.html#cb340-13" tabindex="-1"></a>[<span class="dv">12</span>] <span class="st">&quot;011C.063950 090206 N19:25.68 W156:53.75&quot;</span>                                               </span>
+<span id="cb340-14"><a href="validation-1.html#cb340-14" tabindex="-1"></a>[<span class="dv">13</span>] <span class="st">&quot;012V.063950 090206 N19:25.68 W156:53.75    5   04  150      18.0&quot;</span>                      </span>
+<span id="cb340-15"><a href="validation-1.html#cb340-15" tabindex="-1"></a>[<span class="dv">14</span>] <span class="st">&quot;013N.063950 090206 N19:25.68 W156:53.75  151 10.1&quot;</span>                                     </span>
+<span id="cb340-16"><a href="validation-1.html#cb340-16" tabindex="-1"></a>[<span class="dv">15</span>] <span class="st">&quot;014W.063950 090206 N19:25.68 W156:53.75    1   10   03  032  7.0&quot;</span>                      </span>
+<span id="cb340-17"><a href="validation-1.html#cb340-17" tabindex="-1"></a>[<span class="dv">16</span>] <span class="st">&quot;015*.064019 090206 N19:25.61 W156:53.71&quot;</span>                                               </span>
+<span id="cb340-18"><a href="validation-1.html#cb340-18" tabindex="-1"></a>[<span class="dv">17</span>] <span class="st">&quot;016N.064253 090206 N19:25.22 W156:53.50  153 10.3&quot;</span>                                     </span>
+<span id="cb340-19"><a href="validation-1.html#cb340-19" tabindex="-1"></a>[<span class="dv">18</span>] <span class="st">&quot;017*.065019 090206 N19:24.11 W156:52.90&quot;</span>                                               </span>
+<span id="cb340-20"><a href="validation-1.html#cb340-20" tabindex="-1"></a>[<span class="dv">19</span>] <span class="st">&quot;018*.070019 090206 N19:22.62 W156:52.11&quot;</span>                                               </span>
+<span id="cb340-21"><a href="validation-1.html#cb340-21" tabindex="-1"></a>[<span class="dv">20</span>] <span class="st">&quot;019*.071019 090206 N19:21.10 W156:51.30&quot;</span>                                               </span>
+<span id="cb340-22"><a href="validation-1.html#cb340-22" tabindex="-1"></a>[<span class="dv">21</span>] <span class="st">&quot;020*.072019 090206 N19:19.59 W156:50.53&quot;</span>                                               </span>
+<span id="cb340-23"><a href="validation-1.html#cb340-23" tabindex="-1"></a>[<span class="dv">22</span>] <span class="st">&quot;021P.072113 090206 N19:19.46 W156:50.45  073  196  197&quot;</span>                                </span>
+<span id="cb340-24"><a href="validation-1.html#cb340-24" tabindex="-1"></a>[<span class="dv">23</span>] <span class="st">&quot;022V.072113 090206 N19:19.46 W156:50.45    5   04  150      18.0&quot;</span>                      </span>
+<span id="cb340-25"><a href="validation-1.html#cb340-25" tabindex="-1"></a>[<span class="dv">24</span>] <span class="st">&quot;023N.072113 090206 N19:19.46 W156:50.45  155 10.0&quot;</span>                                     </span>
+<span id="cb340-26"><a href="validation-1.html#cb340-26" tabindex="-1"></a>[<span class="dv">25</span>] <span class="st">&quot;024W.072113 090206 N19:19.46 W156:50.45    1   10   02  032  7.0&quot;</span>                      </span>
+<span id="cb340-27"><a href="validation-1.html#cb340-27" tabindex="-1"></a>[<span class="dv">26</span>] <span class="st">&quot;025*.073019 090206 N19:18.09 W156:49.75&quot;</span>                                               </span>
+<span id="cb340-28"><a href="validation-1.html#cb340-28" tabindex="-1"></a>[<span class="dv">27</span>] <span class="st">&quot;026S.073514 090206 N19:17.33 W156:49.36  090  197    2    4  059  0.3 4.12  013&quot;</span>       </span>
+<span id="cb340-29"><a href="validation-1.html#cb340-29" tabindex="-1"></a>[<span class="dv">28</span>] <span class="st">&quot;027A.073514 090206 N19:17.33 W156:49.36  090         N    N  177  003&quot;</span>                 </span>
+<span id="cb340-30"><a href="validation-1.html#cb340-30" tabindex="-1"></a>[<span class="dv">29</span>] <span class="st">&quot;   1                                     197              3&quot;</span>                           </span>
+<span id="cb340-31"><a href="validation-1.html#cb340-31" tabindex="-1"></a>[<span class="dv">30</span>] <span class="st">&quot;028*.074019 090206 N19:16.53 W156:48.94&quot;</span>                                               </span>
+<span id="cb340-32"><a href="validation-1.html#cb340-32" tabindex="-1"></a>[<span class="dv">31</span>] <span class="st">&quot;029V.074337 090206 N19:16.01 W156:48.67    4   04  150      12.0&quot;</span>                      </span></code></pre></div>
+<p>It appears that this was a multi-species sighting, but no species percentages were provided. In the absence of a percent composition estimate for this sighting, it was ignored by <code>ABUND</code>.</p>
+</div>
+</div>
+</div>
+<div id="group-sizes" class="section level3 unnumbered hasAnchor">
+<h3>Group sizes<a href="validation-1.html#group-sizes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="validation-1.html#cb341-1" tabindex="-1"></a><span class="co"># Format ABUND</span></span>
+<span id="cb341-2"><a href="validation-1.html#cb341-2" tabindex="-1"></a>abund <span class="ot">&lt;-</span> </span>
+<span id="cb341-3"><a href="validation-1.html#cb341-3" tabindex="-1"></a>  SIGHTS <span class="sc">%&gt;%</span> </span>
+<span id="cb341-4"><a href="validation-1.html#cb341-4" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">31</span><span class="sc">:</span><span class="dv">101</span>,</span>
+<span id="cb341-5"><a href="validation-1.html#cb341-5" tabindex="-1"></a>                      <span class="at">names_to =</span> <span class="st">&#39;species&#39;</span>,</span>
+<span id="cb341-6"><a href="validation-1.html#cb341-6" tabindex="-1"></a>                      <span class="at">values_to =</span> <span class="st">&#39;best&#39;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb341-7"><a href="validation-1.html#cb341-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Region =</span> <span class="fu">gsub</span>(<span class="st">&#39; &#39;</span>,<span class="st">&#39;&#39;</span>,Region)) <span class="sc">%&gt;%</span></span>
+<span id="cb341-8"><a href="validation-1.html#cb341-8" tabindex="-1"></a>  <span class="fu">filter</span>(best <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb341-9"><a href="validation-1.html#cb341-9" tabindex="-1"></a>         <span class="sc">!</span> Region <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;NONE&#39;</span>, <span class="st">&#39;Off-Transect&#39;</span>),</span>
+<span id="cb341-10"><a href="validation-1.html#cb341-10" tabindex="-1"></a>         EffortSeg <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-11"><a href="validation-1.html#cb341-11" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Cruise =</span> CruzNo, TotSS, LnTotSS, species, best) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-12"><a href="validation-1.html#cb341-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Software=</span><span class="st">&#39;ABUND9&#39;</span>)</span>
+<span id="cb341-13"><a href="validation-1.html#cb341-13" tabindex="-1"></a></span>
+<span id="cb341-14"><a href="validation-1.html#cb341-14" tabindex="-1"></a><span class="co"># Format LTabundR</span></span>
+<span id="cb341-15"><a href="validation-1.html#cb341-15" tabindex="-1"></a>ltabundr <span class="ot">&lt;-</span> </span>
+<span id="cb341-16"><a href="validation-1.html#cb341-16" tabindex="-1"></a>  cruz<span class="sc">$</span>cohorts<span class="sc">$</span>all<span class="sc">$</span>sightings <span class="sc">%&gt;%</span> </span>
+<span id="cb341-17"><a href="validation-1.html#cb341-17" tabindex="-1"></a>  <span class="fu">filter</span>(OnEffort <span class="sc">==</span> <span class="cn">TRUE</span>, </span>
+<span id="cb341-18"><a href="validation-1.html#cb341-18" tabindex="-1"></a>         included <span class="sc">==</span> <span class="cn">TRUE</span>, </span>
+<span id="cb341-19"><a href="validation-1.html#cb341-19" tabindex="-1"></a>         EffType <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;S&#39;</span>, <span class="st">&#39;F&#39;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-20"><a href="validation-1.html#cb341-20" tabindex="-1"></a>  <span class="fu">select</span>(Cruise, <span class="at">TotSS =</span> ss_tot, <span class="at">LnTotSS =</span> lnsstot, species, best) <span class="sc">%&gt;%</span> </span>
+<span id="cb341-21"><a href="validation-1.html#cb341-21" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Software=</span><span class="st">&#39;LTabundR&#39;</span>)</span>
+<span id="cb341-22"><a href="validation-1.html#cb341-22" tabindex="-1"></a></span>
+<span id="cb341-23"><a href="validation-1.html#cb341-23" tabindex="-1"></a><span class="co"># Combine the datasets</span></span>
+<span id="cb341-24"><a href="validation-1.html#cb341-24" tabindex="-1"></a>ss <span class="ot">&lt;-</span> <span class="fu">rbind</span>(abund, ltabundr)</span>
+<span id="cb341-25"><a href="validation-1.html#cb341-25" tabindex="-1"></a></span>
+<span id="cb341-26"><a href="validation-1.html#cb341-26" tabindex="-1"></a><span class="co"># Plot the datasets</span></span>
+<span id="cb341-27"><a href="validation-1.html#cb341-27" tabindex="-1"></a><span class="fu">ggplot</span>(ss,</span>
+<span id="cb341-28"><a href="validation-1.html#cb341-28" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>best, </span>
+<span id="cb341-29"><a href="validation-1.html#cb341-29" tabindex="-1"></a>           <span class="at">y=</span><span class="fu">factor</span>(Cruise), </span>
+<span id="cb341-30"><a href="validation-1.html#cb341-30" tabindex="-1"></a>           <span class="at">col=</span>Software, </span>
+<span id="cb341-31"><a href="validation-1.html#cb341-31" tabindex="-1"></a>           <span class="at">pch=</span>Software)) <span class="sc">+</span> </span>
+<span id="cb341-32"><a href="validation-1.html#cb341-32" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="at">position=</span>ggstance<span class="sc">::</span><span class="fu">position_dodgev</span>(<span class="at">height=</span><span class="fl">0.5</span>),</span>
+<span id="cb341-33"><a href="validation-1.html#cb341-33" tabindex="-1"></a>                 <span class="at">alpha=</span>.<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb341-34"><a href="validation-1.html#cb341-34" tabindex="-1"></a>      <span class="fu">scale_x_continuous</span>(<span class="at">trans=</span><span class="st">&#39;log&#39;</span>, <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>, <span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">25</span>,<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">500</span>,<span class="dv">1000</span>,<span class="dv">2500</span>,<span class="dv">5000</span>)) <span class="sc">+</span></span>
+<span id="cb341-35"><a href="validation-1.html#cb341-35" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">&#39;log Estimated School Size&#39;</span>) <span class="sc">+</span></span>
+<span id="cb341-36"><a href="validation-1.html#cb341-36" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">&#39;Cruise&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb341-37"><a href="validation-1.html#cb341-37" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-435-1.png" width="925.44" /></p>
+</div>
+<div id="effort" class="section level3 unnumbered hasAnchor">
+<h3>Effort<a href="validation-1.html#effort" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="validation-1.html#cb342-1" tabindex="-1"></a><span class="co"># Format ABUND</span></span>
+<span id="cb342-2"><a href="validation-1.html#cb342-2" tabindex="-1"></a>abund <span class="ot">&lt;-</span> </span>
+<span id="cb342-3"><a href="validation-1.html#cb342-3" tabindex="-1"></a>  EFFORT <span class="sc">%&gt;%</span> </span>
+<span id="cb342-4"><a href="validation-1.html#cb342-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Region =</span> <span class="fu">gsub</span>(<span class="st">&#39; &#39;</span>,<span class="st">&#39;&#39;</span>,Region)) <span class="sc">%&gt;%</span></span>
+<span id="cb342-5"><a href="validation-1.html#cb342-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dt =</span> <span class="fu">paste0</span>(Yr,</span>
+<span id="cb342-6"><a href="validation-1.html#cb342-6" tabindex="-1"></a>                     stringr<span class="sc">::</span><span class="fu">str_pad</span>(Mo, <span class="at">width=</span><span class="dv">2</span>, <span class="at">pad=</span><span class="st">&#39;0&#39;</span>, <span class="at">side=</span><span class="st">&#39;left&#39;</span>),</span>
+<span id="cb342-7"><a href="validation-1.html#cb342-7" tabindex="-1"></a>                     stringr<span class="sc">::</span><span class="fu">str_pad</span>(Da, <span class="at">width=</span><span class="dv">2</span>, <span class="at">pad=</span><span class="st">&#39;0&#39;</span>, <span class="at">side=</span><span class="st">&#39;left&#39;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb342-8"><a href="validation-1.html#cb342-8" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span> Region <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;NONE&#39;</span>, <span class="st">&#39;Off-Transect&#39;</span>),</span>
+<span id="cb342-9"><a href="validation-1.html#cb342-9" tabindex="-1"></a>         EffortSeg <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb342-10"><a href="validation-1.html#cb342-10" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Cruise =</span> CruzNo, <span class="at">Date =</span> dt, <span class="at">km =</span> length) <span class="sc">%&gt;%</span> </span>
+<span id="cb342-11"><a href="validation-1.html#cb342-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">software =</span> <span class="st">&#39;ABUND9&#39;</span>)</span>
+<span id="cb342-12"><a href="validation-1.html#cb342-12" tabindex="-1"></a>  </span>
+<span id="cb342-13"><a href="validation-1.html#cb342-13" tabindex="-1"></a><span class="co"># Format LTabundR</span></span>
+<span id="cb342-14"><a href="validation-1.html#cb342-14" tabindex="-1"></a>ltabundr <span class="ot">&lt;-</span> </span>
+<span id="cb342-15"><a href="validation-1.html#cb342-15" tabindex="-1"></a>  cruz<span class="sc">$</span>cohorts<span class="sc">$</span>all<span class="sc">$</span>segments <span class="sc">%&gt;%</span> </span>
+<span id="cb342-16"><a href="validation-1.html#cb342-16" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dt =</span> <span class="fu">gsub</span>(<span class="st">&#39;-&#39;</span>,<span class="st">&#39;&#39;</span>,<span class="fu">substr</span>(DateTime1, <span class="dv">1</span>,<span class="dv">10</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb342-17"><a href="validation-1.html#cb342-17" tabindex="-1"></a>  <span class="fu">filter</span>(OnEffort <span class="sc">==</span> <span class="cn">TRUE</span>, </span>
+<span id="cb342-18"><a href="validation-1.html#cb342-18" tabindex="-1"></a>         use <span class="sc">==</span> <span class="cn">TRUE</span>, </span>
+<span id="cb342-19"><a href="validation-1.html#cb342-19" tabindex="-1"></a>         EffType <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&#39;S&#39;</span>, <span class="st">&#39;F&#39;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb342-20"><a href="validation-1.html#cb342-20" tabindex="-1"></a>  <span class="fu">select</span>(Cruise, <span class="at">Date =</span> dt, <span class="at">km =</span> dist) <span class="sc">%&gt;%</span> </span>
+<span id="cb342-21"><a href="validation-1.html#cb342-21" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">software =</span> <span class="st">&#39;LTabundR&#39;</span>)</span>
+<span id="cb342-22"><a href="validation-1.html#cb342-22" tabindex="-1"></a>  </span>
+<span id="cb342-23"><a href="validation-1.html#cb342-23" tabindex="-1"></a><span class="co"># Join the datasets</span></span>
+<span id="cb342-24"><a href="validation-1.html#cb342-24" tabindex="-1"></a>eff <span class="ot">&lt;-</span> </span>
+<span id="cb342-25"><a href="validation-1.html#cb342-25" tabindex="-1"></a>  <span class="fu">rbind</span>(abund, ltabundr) <span class="sc">%&gt;%</span> </span>
+<span id="cb342-26"><a href="validation-1.html#cb342-26" tabindex="-1"></a>  <span class="fu">group_by</span>(Cruise) <span class="sc">%&gt;%</span> </span>
+<span id="cb342-27"><a href="validation-1.html#cb342-27" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">km =</span> <span class="fu">round</span>(km)) <span class="sc">%&gt;%</span> </span>
+<span id="cb342-28"><a href="validation-1.html#cb342-28" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">km_abund =</span> <span class="fu">sum</span>(km[software <span class="sc">==</span> <span class="st">&#39;ABUND9&#39;</span>]),</span>
+<span id="cb342-29"><a href="validation-1.html#cb342-29" tabindex="-1"></a>            <span class="at">km_ltabundr =</span> <span class="fu">sum</span>(km[software <span class="sc">==</span> <span class="st">&#39;LTabundR&#39;</span>]))</span>
+<span id="cb342-30"><a href="validation-1.html#cb342-30" tabindex="-1"></a></span>
+<span id="cb342-31"><a href="validation-1.html#cb342-31" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb342-32"><a href="validation-1.html#cb342-32" tabindex="-1"></a>p <span class="ot">&lt;-</span> </span>
+<span id="cb342-33"><a href="validation-1.html#cb342-33" tabindex="-1"></a>  <span class="fu">ggplot</span>(eff, <span class="fu">aes</span>(<span class="at">x =</span> km_abund, <span class="at">y =</span> km_ltabundr, <span class="at">col=</span><span class="fu">factor</span>(Cruise))) <span class="sc">+</span></span>
+<span id="cb342-34"><a href="validation-1.html#cb342-34" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope=</span><span class="dv">1</span>, <span class="at">intercept=</span><span class="dv">0</span>, <span class="at">lty=</span><span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb342-35"><a href="validation-1.html#cb342-35" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">6</span>) <span class="sc">+</span> </span>
+<span id="cb342-36"><a href="validation-1.html#cb342-36" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&#39;LTabundR&#39;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&#39;ABUND9&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb342-37"><a href="validation-1.html#cb342-37" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">15000</span>, <span class="at">by=</span><span class="dv">2500</span>)) <span class="sc">+</span> </span>
+<span id="cb342-38"><a href="validation-1.html#cb342-38" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">15000</span>, <span class="at">by=</span><span class="dv">2500</span>)) <span class="sc">+</span> </span>
+<span id="cb342-39"><a href="validation-1.html#cb342-39" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&#39;Systematic effort per cruise&#39;</span>, <span class="at">col=</span><span class="st">&#39;Cruise&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb342-40"><a href="validation-1.html#cb342-40" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span>
+<span id="cb342-41"><a href="validation-1.html#cb342-41" tabindex="-1"></a></span>
+<span id="cb342-42"><a href="validation-1.html#cb342-42" tabindex="-1"></a><span class="co"># Make it interactive</span></span>
+<span id="cb342-43"><a href="validation-1.html#cb342-43" tabindex="-1"></a><span class="fu">ggplotly</span>(p)</span></code></pre></div>
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f3385bff047af898e695" style="width:925.44px;height:566.4px;"></div>
+<script type="application/json" data-for="htmlwidget-f3385bff047af898e695">{"x":{"data":[{"x":[-620.80000000000007,13058.799999999999],"y":[-620.80000000000007,13058.799999999999],"text":"intercept: 0<br />slope: 1","type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(0,0,0,1)","dash":"dot"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2002],"y":[939],"text":"km_abund:  2002<br />km_ltabundr:   939<br />factor(Cruise): 901","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"901","legendgroup":"901","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[747],"y":[704],"text":"km_abund:   747<br />km_ltabundr:   704<br />factor(Cruise): 989","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(241,125,80,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(241,125,80,1)"}},"hoveron":"points","name":"989","legendgroup":"989","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[3794],"y":[3609],"text":"km_abund:  3794<br />km_ltabundr:  3609<br />factor(Cruise): 990","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(232,133,38,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(232,133,38,1)"}},"hoveron":"points","name":"990","legendgroup":"990","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1135],"y":[1134],"text":"km_abund:  1135<br />km_ltabundr:  1134<br />factor(Cruise): 1001","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(222,140,0,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(222,140,0,1)"}},"hoveron":"points","name":"1001","legendgroup":"1001","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1122],"y":[1144],"text":"km_abund:  1122<br />km_ltabundr:  1144<br />factor(Cruise): 1004","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(211,146,0,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(211,146,0,1)"}},"hoveron":"points","name":"1004","legendgroup":"1004","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4366],"y":[4362],"text":"km_abund:  4366<br />km_ltabundr:  4362<br />factor(Cruise): 1080","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(198,153,0,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(198,153,0,1)"}},"hoveron":"points","name":"1080","legendgroup":"1080","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[50],"y":[41],"text":"km_abund:    50<br />km_ltabundr:    41<br />factor(Cruise): 1081","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(183,159,0,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(183,159,0,1)"}},"hoveron":"points","name":"1081","legendgroup":"1081","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2491],"y":[1969],"text":"km_abund:  2491<br />km_ltabundr:  1969<br />factor(Cruise): 1108","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(166,164,0,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(166,164,0,1)"}},"hoveron":"points","name":"1108","legendgroup":"1108","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[804],"y":[805],"text":"km_abund:   804<br />km_ltabundr:   805<br />factor(Cruise): 1164","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(147,170,0,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(147,170,0,1)"}},"hoveron":"points","name":"1164","legendgroup":"1164","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[3432],"y":[3226],"text":"km_abund:  3432<br />km_ltabundr:  3226<br />factor(Cruise): 1165","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(124,174,0,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(124,174,0,1)"}},"hoveron":"points","name":"1165","legendgroup":"1165","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1491],"y":[1231],"text":"km_abund:  1491<br />km_ltabundr:  1231<br />factor(Cruise): 1203","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(94,179,0,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(94,179,0,1)"}},"hoveron":"points","name":"1203","legendgroup":"1203","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[3751],"y":[3757],"text":"km_abund:  3751<br />km_ltabundr:  3757<br />factor(Cruise): 1268","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(43,182,0,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(43,182,0,1)"}},"hoveron":"points","name":"1268","legendgroup":"1268","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[3811],"y":[2772],"text":"km_abund:  3811<br />km_ltabundr:  2772<br />factor(Cruise): 1303","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,186,56,1)"}},"hoveron":"points","name":"1303","legendgroup":"1303","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[921],"y":[924],"text":"km_abund:   921<br />km_ltabundr:   924<br />factor(Cruise): 1369","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,188,90,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,188,90,1)"}},"hoveron":"points","name":"1369","legendgroup":"1369","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5424],"y":[5350],"text":"km_abund:  5424<br />km_ltabundr:  5350<br />factor(Cruise): 1370","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,191,116,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,191,116,1)"}},"hoveron":"points","name":"1370","legendgroup":"1370","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[11],"y":[11],"text":"km_abund:    11<br />km_ltabundr:    11<br />factor(Cruise): 1426","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,192,139,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,192,139,1)"}},"hoveron":"points","name":"1426","legendgroup":"1426","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[3],"y":[0],"text":"km_abund:     3<br />km_ltabundr:     0<br />factor(Cruise): 1508","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,193,159,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,193,159,1)"}},"hoveron":"points","name":"1508","legendgroup":"1508","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1556],"y":[1050],"text":"km_abund:  1556<br />km_ltabundr:  1050<br />factor(Cruise): 1604","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,192,179,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,192,179,1)"}},"hoveron":"points","name":"1604","legendgroup":"1604","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[6670],"y":[6618],"text":"km_abund:  6670<br />km_ltabundr:  6618<br />factor(Cruise): 1607","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,191,196,1)"}},"hoveron":"points","name":"1607","legendgroup":"1607","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[3164],"y":[2316],"text":"km_abund:  3164<br />km_ltabundr:  2316<br />factor(Cruise): 1610","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,189,213,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,189,213,1)"}},"hoveron":"points","name":"1610","legendgroup":"1610","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4055],"y":[3320],"text":"km_abund:  4055<br />km_ltabundr:  3320<br />factor(Cruise): 1611","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,185,227,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,185,227,1)"}},"hoveron":"points","name":"1611","legendgroup":"1611","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[5883],"y":[4262],"text":"km_abund:  5883<br />km_ltabundr:  4262<br />factor(Cruise): 1614","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,180,240,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,180,240,1)"}},"hoveron":"points","name":"1614","legendgroup":"1614","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4959],"y":[4131],"text":"km_abund:  4959<br />km_ltabundr:  4131<br />factor(Cruise): 1616","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,173,250,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,173,250,1)"}},"hoveron":"points","name":"1616","legendgroup":"1616","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0],"text":"km_abund:     1<br />km_ltabundr:     0<br />factor(Cruise): 1617","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,165,255,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,165,255,1)"}},"hoveron":"points","name":"1617","legendgroup":"1617","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[12437],"y":[12214],"text":"km_abund: 12437<br />km_ltabundr: 12214<br />factor(Cruise): 1621","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(97,156,255,1)"}},"hoveron":"points","name":"1621","legendgroup":"1621","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4599],"y":[4306],"text":"km_abund:  4599<br />km_ltabundr:  4306<br />factor(Cruise): 1622","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(142,146,255,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(142,146,255,1)"}},"hoveron":"points","name":"1622","legendgroup":"1622","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4965],"y":[4052],"text":"km_abund:  4965<br />km_ltabundr:  4052<br />factor(Cruise): 1623","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(174,135,255,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(174,135,255,1)"}},"hoveron":"points","name":"1623","legendgroup":"1623","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[763],"y":[655],"text":"km_abund:   763<br />km_ltabundr:   655<br />factor(Cruise): 1624","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(199,124,255,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(199,124,255,1)"}},"hoveron":"points","name":"1624","legendgroup":"1624","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2],"y":[0],"text":"km_abund:     2<br />km_ltabundr:     0<br />factor(Cruise): 1628","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(219,114,251,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(219,114,251,1)"}},"hoveron":"points","name":"1628","legendgroup":"1628","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[11074],"y":[10131],"text":"km_abund: 11074<br />km_ltabundr: 10131<br />factor(Cruise): 1629","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(234,106,241,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(234,106,241,1)"}},"hoveron":"points","name":"1629","legendgroup":"1629","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4041],"y":[3307],"text":"km_abund:  4041<br />km_ltabundr:  3307<br />factor(Cruise): 1631","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(245,100,227,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(245,100,227,1)"}},"hoveron":"points","name":"1631","legendgroup":"1631","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[11719],"y":[11478],"text":"km_abund: 11719<br />km_ltabundr: 11478<br />factor(Cruise): 1641","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(252,97,212,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(252,97,212,1)"}},"hoveron":"points","name":"1641","legendgroup":"1641","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[6346],"y":[4833],"text":"km_abund:  6346<br />km_ltabundr:  4833<br />factor(Cruise): 1642","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,97,195,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(255,97,195,1)"}},"hoveron":"points","name":"1642","legendgroup":"1642","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[7341],"y":[5673],"text":"km_abund:  7341<br />km_ltabundr:  5673<br />factor(Cruise): 1705","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,100,176,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(255,100,176,1)"}},"hoveron":"points","name":"1705","legendgroup":"1705","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[8962],"y":[7369],"text":"km_abund:  8962<br />km_ltabundr:  7369<br />factor(Cruise): 1706","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,105,156,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(255,105,156,1)"}},"hoveron":"points","name":"1706","legendgroup":"1706","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4414],"y":[3087],"text":"km_abund:  4414<br />km_ltabundr:  3087<br />factor(Cruise): 2001","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(253,111,134,1)","opacity":0.59999999999999998,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(253,111,134,1)"}},"hoveron":"points","name":"2001","legendgroup":"2001","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":45.47140314217166,"r":7.3059360730593621,"b":41.891494466372578,"l":54.794520547945211},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Systematic effort per cruise","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-620.80000000000007,13058.799999999999],"tickmode":"array","ticktext":["0","2500","5000","7500","10000","12500"],"tickvals":[0,2500,5000,7500.0000000000009,10000,12500],"categoryorder":"array","categoryarray":["0","2500","5000","7500","10000","12500"],"nticks":null,"ticks":"outside","tickcolor":"rgba(179,179,179,1)","ticklen":3.6529680365296811,"tickwidth":0.33208800332088001,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(222,222,222,1)","gridwidth":0.33208800332088001,"zeroline":false,"anchor":"y","title":{"text":"ABUND9","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-610.70000000000005,12824.700000000001],"tickmode":"array","ticktext":["0","2500","5000","7500","10000","12500"],"tickvals":[0,2500,5000,7500,10000,12500],"categoryorder":"array","categoryarray":["0","2500","5000","7500","10000","12500"],"nticks":null,"ticks":"outside","tickcolor":"rgba(179,179,179,1)","ticklen":3.6529680365296811,"tickwidth":0.33208800332088001,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(222,222,222,1)","gridwidth":0.33208800332088001,"zeroline":false,"anchor":"x","title":{"text":"LTabundR","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(179,179,179,1)","width":0.66417600664176002,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Cruise","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"771b6f0fe151":{"intercept":{},"slope":{},"type":"scatter"},"771b7b91c5cd":{"x":{},"y":{},"colour":{}}},"cur_data":"771b6f0fe151","visdat":{"771b6f0fe151":["function (y) ","x"],"771b7b91c5cd":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="abund9_compare.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="spp_codes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/emk-noaa/emk-noaa.github.io93a-appendix-validation.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["vignette.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

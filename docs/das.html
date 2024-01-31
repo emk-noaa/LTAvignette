@@ -51,17 +51,13 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
-<script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.31.1/datatables.js"></script>
 <link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
 <script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 <link href="libs/dt-ext-fixedcolumns-1.13.6/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
 <script src="libs/dt-ext-fixedcolumns-1.13.6/js/dataTables.fixedColumns.min.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
@@ -71,6 +67,10 @@
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-binding-2.2.0/leaflet.js"></script>
+<script src="libs/plotly-binding-4.10.2/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -171,12 +171,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="das.html"><a href="das.html#reviewing-a-das-file"><i class="fa fa-check"></i>Reviewing a <code>DAS</code> file</a></li>
 <li class="chapter" data-level="" data-path="das.html"><a href="das.html#staging-edits"><i class="fa fa-check"></i>Staging edits</a></li>
+<li class="chapter" data-level="" data-path="das.html"><a href="das.html#applying-edits"><i class="fa fa-check"></i>Applying edits</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="processing.html"><a href="processing.html"><i class="fa fa-check"></i><b>3</b> Data processing</a>
 <ul>
 <li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#behind-the-scenes"><i class="fa fa-check"></i>Behind the scenes</a></li>
 <li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#review"><i class="fa fa-check"></i>Review</a></li>
-<li class="chapter" data-level="" data-path="processing.html"><a href="processing.html#validation"><i class="fa fa-check"></i>Validation</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="summarize.html"><a href="summarize.html"><i class="fa fa-check"></i><b>4</b> Summarize survey</a>
 <ul>
@@ -241,7 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#rg0-2"><i class="fa fa-check"></i>Rg0</a></li>
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#density-abundance"><i class="fa fa-check"></i>Density &amp; abundance</a></li>
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#results"><i class="fa fa-check"></i>Results</a></li>
-<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#validation-1"><i class="fa fa-check"></i>Validation</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#validation"><i class="fa fa-check"></i>Validation</a></li>
 </ul></li>
 <li class="part"><span><b>V Appendix</b></span></li>
 <li class="chapter" data-level="16" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>16</b> Strata gallery</a>
@@ -267,7 +267,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-on-effort-sightings"><i class="fa fa-check"></i>Differences in on-effort sightings</a></li>
 <li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-school-size-estimation"><i class="fa fa-check"></i>Differences in school size estimation</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>19</b> NOAA/NMFS species codes</a>
+<li class="chapter" data-level="19" data-path="validation-1.html"><a href="validation-1.html"><i class="fa fa-check"></i><b>19</b> Validation</a></li>
+<li class="chapter" data-level="20" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>20</b> NOAA/NMFS species codes</a>
 <ul>
 <li class="chapter" data-level="" data-path="spp_codes.html"><a href="spp_codes.html#table"><i class="fa fa-check"></i>Table</a></li>
 <li class="chapter" data-level="" data-path="spp_codes.html"><a href="spp_codes.html#species_translator"><i class="fa fa-check"></i><code>species_translator()</code></a></li>
@@ -334,18 +335,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this app, you specify the rows and ‘columns’ (i.e., character indices) that will be affected by your edit, the edit you want to apply, and the type of edit it will be (see next subsection).</p>
 <p><em>A screenshot of the <code>das_inspector()</code> app:</em>
 <img src="img/das_inspector_app.png" style="width:95.0%" />.</p>
-<p>Once you have an edit prepared and previewed within the app, you can then “save” that edit with the click of a button, and when you close the app your log of staged edits will be returned as a <code>list</code>.</p>
-<p><em>The list produced from the edit staged in the screenshot above:</em></p>
-<p><img src="img/das_inspector_output.png" style="width:30.0%" />.</p>
-<p>For this reason, it can be useful to type the above command such that the output is saved into an object; in the example above we saved the output into an object named <code>dasi</code>.</p>
-<p>You can then pass this list of edits to <code>das_editor()</code> (next subsection on this page), or as an argument within <code>process_surveys()</code> (next page). However, for the sake of full code reproducibility, it may be most useful to use this output to write coded edits for us with <code>process_surveys()</code> (or <code>das_editor()</code>) as demonstrated below.</p>
 </div>
 </div>
 <div id="staging-edits" class="section level2 unnumbered hasAnchor">
 <h2>Staging edits<a href="das.html#staging-edits" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The <code>das_editor()</code> function allows you to apply edits to a <code>DAS</code> file without modifiyng the original data. You supply edits to this function as a set of instructions saved within a <code>list</code> object. You can prepare these instructions manually or use the <code>das_inspector()</code> function above to get help. The <code>das_editor()</code> function then loops through each edit, applies them to a local version of the data, and returns that modified data to the user. This allows survey data to be modified reproducibly before being processed with <code>LTabundR::process_surveys()</code> without touching the original <code>DAS</code> data files or requiring analysts to duplicate files and make one-off modifications manually.</p>
-<p>We expect it would be rare for a user to call <code>das_editor()</code> directly; instead, they would supply their edits as an argument in <code>process_surveys()</code>, and that function will call <code>das_editor()</code> internally to amend the survey data before it is processed (this is discussed on the next page).</p>
-<p>Note that there is no limit to the number of edits that can be provided in a single <code>list</code>, and they can be provided in any order. The <code>das_editor()</code> function will sort the edits by <code>DAS</code> file and by edit type, and then apply edits in increasing order of “disruption”, i.e., text replacements first, then moving rows of data (no net change in number of rows), then copying-pasting, inserting, and deleting.</p>
+<p>The interactive app launched by the <code>das_inspector()</code> function, introduced above, allows you to prepare and preview edits to your <code>DAS</code> data. Once you have an edit prepared and previewed within the app, you can then “save” that edit with the click of a button, and when you close the app your log of staged edits will be returned as a <code>list</code>.</p>
+<p><em>Here is the list produced from the edit staged in the screenshot above:</em></p>
+<p><img src="img/das_inspector_output.png" style="width:30.0%" />.</p>
+<p>For this reason, it can be useful to type the above command such that the output is saved into an object; in the example above we saved the output into an object named <code>dasi</code>. You can then pass this list of edits to <code>das_editor()</code> (next subsection on this page), or as an argument within <code>process_surveys()</code> (next page).</p>
+<p><strong>However,</strong> for the sake of full code reproducibility, it may be most useful to use this output to manually write coded edits into an <code>R</code> script, as demonstrated in the remainder of this section, which you can then use for the next stages of data processing.</p>
+<p>Below we step through various types of edits that can be applied to a <code>DAS</code> file. We show you how to format the staged edit, then we use the <code>LTabundR</code> function <code>das_editor()</code> to show the result of applying the edit. We discuss <code>das_editor()</code> in detail in the next section of this chapter.</p>
 <p>The <code>das_editor()</code> function can currently handle 6 types of edits, which we shall demonstrate below.</p>
 <div id="types-of-editing" class="section level3 unnumbered hasAnchor">
 <h3>Types of editing<a href="das.html#types-of-editing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -392,9 +391,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb29-11"><a href="das.html#cb29-11" tabindex="-1"></a></span>
 <span id="cb29-12"><a href="das.html#cb29-12" tabindex="-1"></a><span class="co"># After</span></span>
 <span id="cb29-13"><a href="das.html#cb29-13" tabindex="-1"></a>dase <span class="ot">&lt;-</span> <span class="fu">das_editor</span>(edits)</span>
-<span id="cb29-14"><a href="das.html#cb29-14" tabindex="-1"></a>Applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
-<span id="cb29-15"><a href="das.html#cb29-15" tabindex="-1"></a><span class="sc">---</span> verbatim<span class="sc">/</span><span class="cf">function</span> text replacements ...</span>
-<span id="cb29-16"><a href="das.html#cb29-16" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
+<span id="cb29-14"><a href="das.html#cb29-14" tabindex="-1"></a><span class="sc">---</span> applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
+<span id="cb29-15"><a href="das.html#cb29-15" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> verbatim<span class="sc">/</span><span class="cf">function</span> text replacements ...</span>
+<span id="cb29-16"><a href="das.html#cb29-16" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
 <span id="cb29-17"><a href="das.html#cb29-17" tabindex="-1"></a>dase<span class="sc">$</span>das[[<span class="dv">1</span>]]<span class="sc">$</span>das<span class="sc">$</span>das[<span class="dv">9</span><span class="sc">:</span><span class="dv">16</span>]</span>
 <span id="cb29-18"><a href="das.html#cb29-18" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
 <span id="cb29-19"><a href="das.html#cb29-19" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 lat, lon&quot;</span>                                     </span>
@@ -427,9 +426,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb30-17"><a href="das.html#cb30-17" tabindex="-1"></a></span>
 <span id="cb30-18"><a href="das.html#cb30-18" tabindex="-1"></a><span class="co"># After</span></span>
 <span id="cb30-19"><a href="das.html#cb30-19" tabindex="-1"></a>dase <span class="ot">&lt;-</span> <span class="fu">das_editor</span>(edits)</span>
-<span id="cb30-20"><a href="das.html#cb30-20" tabindex="-1"></a>Applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
-<span id="cb30-21"><a href="das.html#cb30-21" tabindex="-1"></a><span class="sc">---</span> verbatim<span class="sc">/</span><span class="cf">function</span> text replacements ...</span>
-<span id="cb30-22"><a href="das.html#cb30-22" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
+<span id="cb30-20"><a href="das.html#cb30-20" tabindex="-1"></a><span class="sc">---</span> applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
+<span id="cb30-21"><a href="das.html#cb30-21" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> verbatim<span class="sc">/</span><span class="cf">function</span> text replacements ...</span>
+<span id="cb30-22"><a href="das.html#cb30-22" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
 <span id="cb30-23"><a href="das.html#cb30-23" tabindex="-1"></a>dase<span class="sc">$</span>das[[<span class="dv">1</span>]]<span class="sc">$</span>das<span class="sc">$</span>das[<span class="dv">9</span><span class="sc">:</span><span class="dv">16</span>]</span>
 <span id="cb30-24"><a href="das.html#cb30-24" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
 <span id="cb30-25"><a href="das.html#cb30-25" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 n21:50.91 w159:46.33&quot;</span>                         </span>
@@ -457,9 +456,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb31-15"><a href="das.html#cb31-15" tabindex="-1"></a></span>
 <span id="cb31-16"><a href="das.html#cb31-16" tabindex="-1"></a><span class="co"># After</span></span>
 <span id="cb31-17"><a href="das.html#cb31-17" tabindex="-1"></a>dase <span class="ot">&lt;-</span> <span class="fu">das_editor</span>(edits)</span>
-<span id="cb31-18"><a href="das.html#cb31-18" tabindex="-1"></a>Applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
-<span id="cb31-19"><a href="das.html#cb31-19" tabindex="-1"></a><span class="sc">---</span> verbatim<span class="sc">/</span><span class="cf">function</span> text replacements ...</span>
-<span id="cb31-20"><a href="das.html#cb31-20" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
+<span id="cb31-18"><a href="das.html#cb31-18" tabindex="-1"></a><span class="sc">---</span> applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
+<span id="cb31-19"><a href="das.html#cb31-19" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> verbatim<span class="sc">/</span><span class="cf">function</span> text replacements ...</span>
+<span id="cb31-20"><a href="das.html#cb31-20" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
 <span id="cb31-21"><a href="das.html#cb31-21" tabindex="-1"></a>dase<span class="sc">$</span>das[[<span class="dv">1</span>]]<span class="sc">$</span>das<span class="sc">$</span>das[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span>
 <span id="cb31-22"><a href="das.html#cb31-22" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;001* 061152 011920 N21:47.99 W159:45.91&quot;</span></span>
 <span id="cb31-23"><a href="das.html#cb31-23" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">&quot;002* 061352 011920 N21:48.31 W159:45.94&quot;</span></span>
@@ -485,9 +484,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb32-15"><a href="das.html#cb32-15" tabindex="-1"></a></span>
 <span id="cb32-16"><a href="das.html#cb32-16" tabindex="-1"></a><span class="co"># After</span></span>
 <span id="cb32-17"><a href="das.html#cb32-17" tabindex="-1"></a>dase <span class="ot">&lt;-</span> <span class="fu">das_editor</span>(edits)</span>
-<span id="cb32-18"><a href="das.html#cb32-18" tabindex="-1"></a>Applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
-<span id="cb32-19"><a href="das.html#cb32-19" tabindex="-1"></a><span class="sc">---</span> verbatim<span class="sc">/</span><span class="cf">function</span> text replacements ...</span>
-<span id="cb32-20"><a href="das.html#cb32-20" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
+<span id="cb32-18"><a href="das.html#cb32-18" tabindex="-1"></a><span class="sc">---</span> applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
+<span id="cb32-19"><a href="das.html#cb32-19" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> verbatim<span class="sc">/</span><span class="cf">function</span> text replacements ...</span>
+<span id="cb32-20"><a href="das.html#cb32-20" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
 <span id="cb32-21"><a href="das.html#cb32-21" tabindex="-1"></a>dase<span class="sc">$</span>das[[<span class="dv">1</span>]]<span class="sc">$</span>das<span class="sc">$</span>das[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span>
 <span id="cb32-22"><a href="das.html#cb32-22" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;001* 201152 011820 N21:47.99 W159:45.91&quot;</span></span>
 <span id="cb32-23"><a href="das.html#cb32-23" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">&quot;002* 201352 011820 N21:48.31 W159:45.94&quot;</span></span>
@@ -518,9 +517,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb33-17"><a href="das.html#cb33-17" tabindex="-1"></a></span>
 <span id="cb33-18"><a href="das.html#cb33-18" tabindex="-1"></a><span class="co"># After</span></span>
 <span id="cb33-19"><a href="das.html#cb33-19" tabindex="-1"></a>dase <span class="ot">&lt;-</span> <span class="fu">das_editor</span>(edits)</span>
-<span id="cb33-20"><a href="das.html#cb33-20" tabindex="-1"></a>Applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
-<span id="cb33-21"><a href="das.html#cb33-21" tabindex="-1"></a><span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
-<span id="cb33-22"><a href="das.html#cb33-22" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
+<span id="cb33-20"><a href="das.html#cb33-20" tabindex="-1"></a><span class="sc">---</span> applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
+<span id="cb33-21"><a href="das.html#cb33-21" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
+<span id="cb33-22"><a href="das.html#cb33-22" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
 <span id="cb33-23"><a href="das.html#cb33-23" tabindex="-1"></a>dase<span class="sc">$</span>das[[<span class="dv">1</span>]]<span class="sc">$</span>das<span class="sc">$</span>das[<span class="dv">9</span><span class="sc">:</span><span class="dv">16</span>]</span>
 <span id="cb33-24"><a href="das.html#cb33-24" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
 <span id="cb33-25"><a href="das.html#cb33-25" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
@@ -553,9 +552,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb34-17"><a href="das.html#cb34-17" tabindex="-1"></a></span>
 <span id="cb34-18"><a href="das.html#cb34-18" tabindex="-1"></a><span class="co"># After</span></span>
 <span id="cb34-19"><a href="das.html#cb34-19" tabindex="-1"></a>dase <span class="ot">&lt;-</span> <span class="fu">das_editor</span>(edits)</span>
-<span id="cb34-20"><a href="das.html#cb34-20" tabindex="-1"></a>Applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
-<span id="cb34-21"><a href="das.html#cb34-21" tabindex="-1"></a><span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
-<span id="cb34-22"><a href="das.html#cb34-22" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
+<span id="cb34-20"><a href="das.html#cb34-20" tabindex="-1"></a><span class="sc">---</span> applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
+<span id="cb34-21"><a href="das.html#cb34-21" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
+<span id="cb34-22"><a href="das.html#cb34-22" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
 <span id="cb34-23"><a href="das.html#cb34-23" tabindex="-1"></a>dase<span class="sc">$</span>das[[<span class="dv">1</span>]]<span class="sc">$</span>das<span class="sc">$</span>das[<span class="dv">9</span><span class="sc">:</span><span class="dv">17</span>]</span>
 <span id="cb34-24"><a href="das.html#cb34-24" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
 <span id="cb34-25"><a href="das.html#cb34-25" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
@@ -587,9 +586,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb35-15"><a href="das.html#cb35-15" tabindex="-1"></a></span>
 <span id="cb35-16"><a href="das.html#cb35-16" tabindex="-1"></a><span class="co"># After</span></span>
 <span id="cb35-17"><a href="das.html#cb35-17" tabindex="-1"></a>dase <span class="ot">&lt;-</span> <span class="fu">das_editor</span>(edits)</span>
-<span id="cb35-18"><a href="das.html#cb35-18" tabindex="-1"></a>Applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
-<span id="cb35-19"><a href="das.html#cb35-19" tabindex="-1"></a><span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
-<span id="cb35-20"><a href="das.html#cb35-20" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
+<span id="cb35-18"><a href="das.html#cb35-18" tabindex="-1"></a><span class="sc">---</span> applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
+<span id="cb35-19"><a href="das.html#cb35-19" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
+<span id="cb35-20"><a href="das.html#cb35-20" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
 <span id="cb35-21"><a href="das.html#cb35-21" tabindex="-1"></a>dase<span class="sc">$</span>das[[<span class="dv">1</span>]]<span class="sc">$</span>das<span class="sc">$</span>das[<span class="dv">9</span><span class="sc">:</span><span class="dv">16</span>]</span>
 <span id="cb35-22"><a href="das.html#cb35-22" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
 <span id="cb35-23"><a href="das.html#cb35-23" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">&quot;010* 072952 011920 N21:50.91 W159:46.33&quot;</span>                         </span>
@@ -620,9 +619,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb36-15"><a href="das.html#cb36-15" tabindex="-1"></a></span>
 <span id="cb36-16"><a href="das.html#cb36-16" tabindex="-1"></a><span class="co"># After</span></span>
 <span id="cb36-17"><a href="das.html#cb36-17" tabindex="-1"></a>dase <span class="ot">&lt;-</span> <span class="fu">das_editor</span>(edits)</span>
-<span id="cb36-18"><a href="das.html#cb36-18" tabindex="-1"></a>Applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
-<span id="cb36-19"><a href="das.html#cb36-19" tabindex="-1"></a><span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
-<span id="cb36-20"><a href="das.html#cb36-20" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
+<span id="cb36-18"><a href="das.html#cb36-18" tabindex="-1"></a><span class="sc">---</span> applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>HICEASwinter2020.das</span>
+<span id="cb36-19"><a href="das.html#cb36-19" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
+<span id="cb36-20"><a href="das.html#cb36-20" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
 <span id="cb36-21"><a href="das.html#cb36-21" tabindex="-1"></a>dase<span class="sc">$</span>das[[<span class="dv">1</span>]]<span class="sc">$</span>das<span class="sc">$</span>das[<span class="dv">9</span><span class="sc">:</span><span class="dv">16</span>]</span>
 <span id="cb36-22"><a href="das.html#cb36-22" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;009* 072752 011920 N21:50.58 W159:46.26&quot;</span>                         </span>
 <span id="cb36-23"><a href="das.html#cb36-23" tabindex="-1"></a>[<span class="dv">2</span>] <span class="st">&quot;011B.073111 011920 N21:51.12 W159:46.36 2001    C  -10    N&quot;</span>     </span>
@@ -670,9 +669,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb39-6"><a href="das.html#cb39-6" tabindex="-1"></a>       <span class="at">edit =</span> <span class="dv">128118</span>)</span></code></pre></div>
 <p>Here is what this change will look like:</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="das.html#cb40-1" tabindex="-1"></a>dase <span class="ot">&lt;-</span> <span class="fu">das_editor</span>(<span class="fu">list</span>(edit_1607_55))</span>
-<span id="cb40-2"><a href="das.html#cb40-2" tabindex="-1"></a>Applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>CenPac1986<span class="sc">-</span>2020_Final_alb.das</span>
-<span id="cb40-3"><a href="das.html#cb40-3" tabindex="-1"></a><span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
-<span id="cb40-4"><a href="das.html#cb40-4" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
+<span id="cb40-2"><a href="das.html#cb40-2" tabindex="-1"></a><span class="sc">---</span> applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>CenPac1986<span class="sc">-</span>2020_Final_alb.das</span>
+<span id="cb40-3"><a href="das.html#cb40-3" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
+<span id="cb40-4"><a href="das.html#cb40-4" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
 <span id="cb40-5"><a href="das.html#cb40-5" tabindex="-1"></a>dase<span class="sc">$</span>das[[<span class="dv">1</span>]]<span class="sc">$</span>das<span class="sc">$</span>das[<span class="dv">128111</span><span class="sc">:</span><span class="dv">128123</span>]</span>
 <span id="cb40-6"><a href="das.html#cb40-6" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;022P 120643 041597 N37:00.08 W151:55.47  143  091  005&quot;</span>                                   </span>
 <span id="cb40-7"><a href="das.html#cb40-7" tabindex="-1"></a> [<span class="dv">2</span>] <span class="st">&quot;023C 120643 041597 N37:00.08 W151:55.47 both right and left on 7x and naked eye&quot;</span>          </span>
@@ -715,9 +714,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb42-6"><a href="das.html#cb42-6" tabindex="-1"></a>       <span class="at">edit =</span> <span class="dv">129987</span>)</span></code></pre></div>
 <p>Preview of change:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="das.html#cb43-1" tabindex="-1"></a>dase <span class="ot">&lt;-</span> <span class="fu">das_editor</span>(<span class="fu">list</span>(edit_1607_68))</span>
-<span id="cb43-2"><a href="das.html#cb43-2" tabindex="-1"></a>Applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>CenPac1986<span class="sc">-</span>2020_Final_alb.das</span>
-<span id="cb43-3"><a href="das.html#cb43-3" tabindex="-1"></a><span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
-<span id="cb43-4"><a href="das.html#cb43-4" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
+<span id="cb43-2"><a href="das.html#cb43-2" tabindex="-1"></a><span class="sc">---</span> applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>CenPac1986<span class="sc">-</span>2020_Final_alb.das</span>
+<span id="cb43-3"><a href="das.html#cb43-3" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
+<span id="cb43-4"><a href="das.html#cb43-4" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
 <span id="cb43-5"><a href="das.html#cb43-5" tabindex="-1"></a>dase<span class="sc">$</span>das[[<span class="dv">1</span>]]<span class="sc">$</span>das<span class="sc">$</span>das[<span class="dv">129982</span><span class="sc">:</span><span class="dv">129995</span>]</span>
 <span id="cb43-6"><a href="das.html#cb43-6" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;014P 070118 042797 N31:04.43 W136:03.51  091  005  148&quot;</span>                    </span>
 <span id="cb43-7"><a href="das.html#cb43-7" tabindex="-1"></a> [<span class="dv">2</span>] <span class="st">&quot;015V 070118 042797 N31:04.43 W136:03.51    5   06  320      20.0&quot;</span>          </span>
@@ -757,9 +756,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb45-6"><a href="das.html#cb45-6" tabindex="-1"></a>       <span class="at">edit =</span> <span class="dv">271937</span>)</span></code></pre></div>
 <p>Preview of change:</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="das.html#cb46-1" tabindex="-1"></a>dase <span class="ot">&lt;-</span> <span class="fu">das_editor</span>(<span class="fu">list</span>(edit_1621_245))</span>
-<span id="cb46-2"><a href="das.html#cb46-2" tabindex="-1"></a>Applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>CenPac1986<span class="sc">-</span>2020_Final_alb.das</span>
-<span id="cb46-3"><a href="das.html#cb46-3" tabindex="-1"></a><span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
-<span id="cb46-4"><a href="das.html#cb46-4" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
+<span id="cb46-2"><a href="das.html#cb46-2" tabindex="-1"></a><span class="sc">---</span> applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>CenPac1986<span class="sc">-</span>2020_Final_alb.das</span>
+<span id="cb46-3"><a href="das.html#cb46-3" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> move, copy<span class="sc">/</span>paste, insertion, and deletion events ...</span>
+<span id="cb46-4"><a href="das.html#cb46-4" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
 <span id="cb46-5"><a href="das.html#cb46-5" tabindex="-1"></a>dase<span class="sc">$</span>das[[<span class="dv">1</span>]]<span class="sc">$</span>das<span class="sc">$</span>das[<span class="dv">271930</span><span class="sc">:</span><span class="dv">271941</span>]</span>
 <span id="cb46-6"><a href="das.html#cb46-6" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">&quot;036E 085345 103002 N20:22.56 W160:02.21    U&quot;</span>                                        </span>
 <span id="cb46-7"><a href="das.html#cb46-7" tabindex="-1"></a> [<span class="dv">2</span>] <span class="st">&quot;037R.085346 103002 N20:22.56 W160:02.21    S&quot;</span>                                        </span>
@@ -818,9 +817,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb51-6"><a href="das.html#cb51-6" tabindex="-1"></a>       <span class="at">edit =</span> <span class="st">&#39;function(x){das_time(x, tz_adjust = 10)$dt}&#39;</span>)</span>
 <span id="cb51-7"><a href="das.html#cb51-7" tabindex="-1"></a></span>
 <span id="cb51-8"><a href="das.html#cb51-8" tabindex="-1"></a>dase <span class="ot">&lt;-</span> <span class="fu">das_editor</span>(<span class="fu">list</span>(edit_1004_gmt10))</span>
-<span id="cb51-9"><a href="das.html#cb51-9" tabindex="-1"></a>Applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>CenPac1986<span class="sc">-</span>2020_Final_alb.das</span>
-<span id="cb51-10"><a href="das.html#cb51-10" tabindex="-1"></a><span class="sc">---</span> verbatim<span class="sc">/</span><span class="cf">function</span> text replacements ...</span>
-<span id="cb51-11"><a href="das.html#cb51-11" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
+<span id="cb51-9"><a href="das.html#cb51-9" tabindex="-1"></a><span class="sc">---</span> applying edits to DAS file<span class="sc">:</span> data<span class="sc">/</span>surveys<span class="sc">/</span>CenPac1986<span class="sc">-</span>2020_Final_alb.das</span>
+<span id="cb51-10"><a href="das.html#cb51-10" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> verbatim<span class="sc">/</span><span class="cf">function</span> text replacements ...</span>
+<span id="cb51-11"><a href="das.html#cb51-11" tabindex="-1"></a><span class="sc">---</span> <span class="sc">---</span> <span class="sc">---</span> working on edit <span class="dv">1</span> ...</span>
 <span id="cb51-12"><a href="das.html#cb51-12" tabindex="-1"></a></span>
 <span id="cb51-13"><a href="das.html#cb51-13" tabindex="-1"></a>dase<span class="sc">$</span>das[[<span class="dv">1</span>]]<span class="sc">$</span>das<span class="sc">$</span>das[<span class="dv">433326</span><span class="sc">:</span><span class="dv">433330</span>]</span>
 <span id="cb51-14"><a href="das.html#cb51-14" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;229* 181728 020510 N13:14.49 E145:00.34&quot;</span></span>
@@ -846,9 +845,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb52-7"><a href="das.html#cb52-7" tabindex="-1"></a></span>
 <span id="cb52-8"><a href="das.html#cb52-8" tabindex="-1"></a><span class="co"># Save</span></span>
 <span id="cb52-9"><a href="das.html#cb52-9" tabindex="-1"></a><span class="fu">saveRDS</span>(edits,<span class="at">file=</span><span class="st">&#39;cnp_1986_2020_edits.RData&#39;</span>)</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="applying-edits" class="section level2 unnumbered hasAnchor">
+<h2>Applying edits<a href="das.html#applying-edits" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <code>das_editor()</code> function allows you to apply edits to a <code>DAS</code> file without modifiyng the original data. You supply edits to this function as a set of instructions saved within a <code>list</code> object. As explained in the previous section, you can prepare these instructions manually or use the <code>das_inspector()</code> function above to get help. For the sake of reproducibility we recommend documenting your edits as code in a script, then saving all the edits into a single list (see the previous <code>R</code> chunk above). Note that there is no limit to the number of edits that can be provided in a single <code>list</code>, and they can be provided in any order. When the edits are applied, the <code>LTabundR</code> function will sort the edits by <code>DAS</code> file and by edit type, and then apply edits in increasing order of “disruption”, i.e., text replacements first, then moving rows of data (no net change in number of rows), then copying-pasting, inserting, and deleting.</p>
+<p><code>LTabundR</code> provides two functions for applying these staged edits: <strong><code>das_editor()</code></strong> and <strong><code>das_editor_tofile()</code></strong>. The former is a simple function that applies edits then returns the modified <code>DAS</code> data directly to the <code>R</code> console. It is a handy function for testing that a specific edit makes the intended changes successfully. The latter function, <code>das_editor_tofile()</code>, applies the edits then saves new versions of the <code>DAS</code> file. Those new files can then be passed to the data processing functions described in the next chapter. (See the next chapter for examples of how to use <code>das_editor_tofile()</code>.</p>
+<p>In summary, we recommend <code>das_editor()</code> for preparing each individual edit, and <code>das_editor_tofile()</code> when you are ready to apply all edits and move on to data processing.</p>
+<p>Note that the original <code>DAS</code> file is <em>never</em> modified or replaced. The edited <code>DAS</code> filename will have a suffix to indicate that it is an edited version of the data. This allows survey data to be modified reproducibly before being processed with <code>LTabundR::process_surveys()</code> without touching the original <code>DAS</code> data files or requiring analysts to duplicate files and make one-off modifications manually.</p>
 
-</div>
-</div>
 </div>
 </div>
             </section>

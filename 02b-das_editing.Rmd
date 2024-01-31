@@ -40,30 +40,25 @@ In this app, you specify the rows and 'columns' (i.e., character indices) that w
 *A screenshot of the `das_inspector()` app:* 
 ![](img/das_inspector_app.png){width=95%}. 
 
+## Staging edits {-}  
 
-Once you have an edit prepared and previewed within the app, you can then "save" that edit with the click of a button, and when you close the app your log of staged edits will be returned as a `list`.  
-
-
-*The list produced from the edit staged in the screenshot above:*  
+The interactive app launched by the `das_inspector()` function, introduced above, allows you to prepare and preview edits to your `DAS` data. Once you have an edit prepared and previewed within the app, you can then "save" that edit with the click of a button, and when you close the app your log of staged edits will be returned as a `list`.  
+ 
+  
+*Here is the list produced from the edit staged in the screenshot above:*  
 
 ![](img/das_inspector_output.png){width=30%}. 
 
 
 
-For this reason, it can be useful to type the above command such that the output is saved into an object; in the example above we saved the output into an object named `dasi`. 
+For this reason, it can be useful to type the above command such that the output is saved into an object; in the example above we saved the output into an object named `dasi`. You can then pass this list of edits to `das_editor()` (next subsection on this page), or as an argument within `process_surveys()` (next page).  
 
-You can then pass this list of edits to `das_editor()` (next subsection on this page), or as an argument within `process_surveys()` (next page).  However, for the sake of full code reproducibility, it may be most useful to use this output to write coded edits for us with `process_surveys()` (or `das_editor()`) as demonstrated below.   
+**However,** for the sake of full code reproducibility, it may be most useful to use this output to manually write coded edits into an `R` script, as demonstrated in the remainder of this section, which you can then use for the next stages of data processing. 
 
-
-## Staging edits {-}  
-
-The `das_editor()` function allows you to apply edits to a `DAS` file without modifiyng the original data. You supply edits to this function as a set of instructions saved within a `list` object. You can prepare these instructions manually or use the `das_inspector()` function above to get help. The `das_editor()` function then loops through each edit, applies them to a local version of the data, and returns that modified data to the user. This allows survey data to be modified reproducibly before being processed with `LTabundR::process_surveys()` without touching the original `DAS` data files or requiring analysts to duplicate files and make one-off modifications manually.
-
-We expect it would be rare for a user to call `das_editor()` directly; instead, they would supply their edits as an argument in `process_surveys()`, and that function will call `das_editor()` internally to amend the survey data before it is processed (this is discussed on the next page). 
-
-Note that there is no limit to the number of edits that can be provided in a single `list`, and they can be provided in any order. The `das_editor()` function will sort the edits by `DAS` file and by edit type, and then apply edits in increasing order of "disruption", i.e., text replacements first, then moving rows of data (no net change in number of rows), then copying-pasting, inserting, and deleting. 
+Below we step through various types of edits that can be applied to a `DAS` file. We show you how to format the staged edit, then we use the `LTabundR` function `das_editor()` to show the result of applying the edit. We discuss `das_editor()` in detail in the next section of this chapter. 
 
 The `das_editor()` function can currently handle 6 types of edits, which we shall demonstrate below. 
+
 
 ### Types of editing {-} 
 
@@ -396,4 +391,17 @@ edits <- list(edit_1607_55,
 # Save
 saveRDS(edits,file='cnp_1986_2020_edits.RData')
 ```
+
+
+## Applying edits {-}
+
+The `das_editor()` function allows you to apply edits to a `DAS` file without modifiyng the original data. You supply edits to this function as a set of instructions saved within a `list` object. As explained in the previous section, you can prepare these instructions manually or use the `das_inspector()` function above to get help. For the sake of reproducibility we recommend documenting your edits as code in a script, then saving all the edits into a single list (see the previous `R` chunk above). Note that there is no limit to the number of edits that can be provided in a single `list`, and they can be provided in any order. When the edits are applied, the `LTabundR` function will sort the edits by `DAS` file and by edit type, and then apply edits in increasing order of "disruption", i.e., text replacements first, then moving rows of data (no net change in number of rows), then copying-pasting, inserting, and deleting.   
+
+`LTabundR` provides two functions for applying these staged edits: **`das_editor()`** and **`das_editor_tofile()`**. The former is a simple function that applies edits then returns the modified `DAS` data directly to the `R` console. It is a handy function for testing that a specific edit makes the intended changes successfully. The latter function, `das_editor_tofile()`, applies the edits then saves new versions of the `DAS` file. Those new files can then be passed to the data processing functions described in the next chapter. (See the next chapter for examples of how to use `das_editor_tofile()`.  
+
+In summary, we recommend `das_editor()` for preparing each individual edit, and `das_editor_tofile()` when you are ready to apply all edits and move on to data processing.  
+
+Note that the original `DAS` file is *never* modified or replaced. The edited `DAS` filename will have a suffix to indicate that it is an edited version of the data. This allows survey data to be modified reproducibly before being processed with `LTabundR::process_surveys()` without touching the original `DAS` data files or requiring analysts to duplicate files and make one-off modifications manually.
+
+
 

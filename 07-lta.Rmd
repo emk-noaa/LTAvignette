@@ -603,6 +603,11 @@ demo <- strata_area(strata_all = cruz$settings$strata,
                     strata_keep = c('HI_EEZ'),
                     strata_remove = c('MHI'),
                     verbose = FALSE)
+
+strata_all = cruz$settings$strata
+strata_keep = c('HI_EEZ')
+strata_remove = c('MHI')
+verbose = FALSE
 ```
 
 Say you want to estimate abundance of pelagic bottlenose dolphins within the WHICEAS study area, ignoring the insular stocks: 
