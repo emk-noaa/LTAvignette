@@ -206,6 +206,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="lta.html"><a href="lta.html"><i class="fa fa-check"></i><b>8</b> Line-transect analysis</a>
 <ul>
+<li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#overview-2"><i class="fa fa-check"></i>Overview</a></li>
 <li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#key-inputs"><i class="fa fa-check"></i>Key inputs</a></li>
 <li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#variance-estimation"><i class="fa fa-check"></i>Variance estimation</a></li>
 <li class="chapter" data-level="" data-path="lta.html"><a href="lta.html#other-inputs"><i class="fa fa-check"></i>Other inputs</a></li>
@@ -301,31 +302,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You will find full analytical details in the Appendix to Bradford et al. (2020) for analytical details, but briefly: in each bootstrap iteration, survey segments are resampled in a way that preserves the proportion of effort occurring within each geostratum in the data. The resampled data are used to calculate the overall ER across all survey years, since the null hypothesis is that the ER does not change across years. This overall ER is used to predict the number of sightings in each year, based on the distance covered by the resampled segments in each year. This process is repeated (typically hundreds to thousands of times) to produce a distribution of predicted sighting counts in each year. This distribution reflects the range of ERs that could be possible due simply to random variation and <em>not</em> to underlying changes in abundance. These distributions are compared to the actual number of sightings observed in their respective year. The fraction of simulated sightings counts that are more extreme than the observed count reflects the probability that the observed count is due to random sample variation alone.</p>
 <p>For example, Bradford et al. (2021) found non-overlapping confidence intervals in their estimates of Bryde’s whale abundance in 2002, 2010, and 2017. To test for the significance of these trends, they carried out the “ER simulator” routine described above. In <code>LTabundR</code>, we would carry out the same analysis as follows:</p>
 <p>Take your processed data:</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="trend-analysis.html#cb186-1" tabindex="-1"></a><span class="fu">data</span>(cnp_150km_1986_2020)</span>
-<span id="cb186-2"><a href="trend-analysis.html#cb186-2" tabindex="-1"></a>cruz <span class="ot">&lt;-</span> cnp_150km_1986_2020</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="trend-analysis.html#cb187-1" tabindex="-1"></a><span class="fu">data</span>(cnp_150km_1986_2020)</span>
+<span id="cb187-2"><a href="trend-analysis.html#cb187-2" tabindex="-1"></a>cruz <span class="ot">&lt;-</span> cnp_150km_1986_2020</span></code></pre></div>
 <p>Filter it to systematic effort in the years of interest:</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="trend-analysis.html#cb187-1" tabindex="-1"></a>cruzi <span class="ot">&lt;-</span> </span>
-<span id="cb187-2"><a href="trend-analysis.html#cb187-2" tabindex="-1"></a>  <span class="fu">filter_cruz</span>(cruz,</span>
-<span id="cb187-3"><a href="trend-analysis.html#cb187-3" tabindex="-1"></a>              <span class="at">analysis_only =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb187-4"><a href="trend-analysis.html#cb187-4" tabindex="-1"></a>              <span class="at">years =</span> <span class="fu">c</span>(<span class="dv">2002</span>, <span class="dv">2010</span>, <span class="dv">2017</span>),</span>
-<span id="cb187-5"><a href="trend-analysis.html#cb187-5" tabindex="-1"></a>              <span class="at">regions =</span> <span class="st">&#39;HI_EEZ&#39;</span>,</span>
-<span id="cb187-6"><a href="trend-analysis.html#cb187-6" tabindex="-1"></a>              <span class="at">eff_types =</span> <span class="st">&#39;S&#39;</span>,</span>
-<span id="cb187-7"><a href="trend-analysis.html#cb187-7" tabindex="-1"></a>              <span class="at">bft_range =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="trend-analysis.html#cb188-1" tabindex="-1"></a>cruzi <span class="ot">&lt;-</span> </span>
+<span id="cb188-2"><a href="trend-analysis.html#cb188-2" tabindex="-1"></a>  <span class="fu">filter_cruz</span>(cruz,</span>
+<span id="cb188-3"><a href="trend-analysis.html#cb188-3" tabindex="-1"></a>              <span class="at">analysis_only =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb188-4"><a href="trend-analysis.html#cb188-4" tabindex="-1"></a>              <span class="at">years =</span> <span class="fu">c</span>(<span class="dv">2002</span>, <span class="dv">2010</span>, <span class="dv">2017</span>),</span>
+<span id="cb188-5"><a href="trend-analysis.html#cb188-5" tabindex="-1"></a>              <span class="at">regions =</span> <span class="st">&#39;HI_EEZ&#39;</span>,</span>
+<span id="cb188-6"><a href="trend-analysis.html#cb188-6" tabindex="-1"></a>              <span class="at">eff_types =</span> <span class="st">&#39;S&#39;</span>,</span>
+<span id="cb188-7"><a href="trend-analysis.html#cb188-7" tabindex="-1"></a>              <span class="at">bft_range =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
 <p>Conduct the ER simulation, passing the species code for the Bryde’s whale (<code>"072"</code>). For the purposes of this example, we will only use 100 iterations.</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="trend-analysis.html#cb188-1" tabindex="-1"></a>er_results <span class="ot">&lt;-</span> </span>
-<span id="cb188-2"><a href="trend-analysis.html#cb188-2" tabindex="-1"></a>  <span class="fu">er_simulator</span>(<span class="at">spp =</span> <span class="st">&#39;072&#39;</span>, <span class="at">cruz =</span> cruzi, <span class="at">iterations =</span> <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="trend-analysis.html#cb189-1" tabindex="-1"></a>er_results <span class="ot">&lt;-</span> </span>
+<span id="cb189-2"><a href="trend-analysis.html#cb189-2" tabindex="-1"></a>  <span class="fu">er_simulator</span>(<span class="at">spp =</span> <span class="st">&#39;072&#39;</span>, <span class="at">cruz =</span> cruzi, <span class="at">iterations =</span> <span class="dv">100</span>)</span></code></pre></div>
 <p>This routine provides a list with two slots:</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="trend-analysis.html#cb189-1" tabindex="-1"></a>er_results <span class="sc">%&gt;%</span> names</span>
-<span id="cb189-2"><a href="trend-analysis.html#cb189-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;summary&quot;</span> <span class="st">&quot;details&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="trend-analysis.html#cb190-1" tabindex="-1"></a>er_results <span class="sc">%&gt;%</span> names</span>
+<span id="cb190-2"><a href="trend-analysis.html#cb190-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;summary&quot;</span> <span class="st">&quot;details&quot;</span></span></code></pre></div>
 <p>The <code>summary</code> slot returns the p-value for each year, i.e., the chances that the observed number of sightings was due purely to random variation in the encounter rate.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="trend-analysis.html#cb190-1" tabindex="-1"></a>er_results<span class="sc">$</span>summary</span>
-<span id="cb190-2"><a href="trend-analysis.html#cb190-2" tabindex="-1"></a>  years observed    p</span>
-<span id="cb190-3"><a href="trend-analysis.html#cb190-3" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">2002</span>      <span class="dv">158</span> <span class="fl">0.96</span></span>
-<span id="cb190-4"><a href="trend-analysis.html#cb190-4" tabindex="-1"></a><span class="dv">2</span>  <span class="dv">2010</span>      <span class="dv">210</span> <span class="fl">0.00</span></span>
-<span id="cb190-5"><a href="trend-analysis.html#cb190-5" tabindex="-1"></a><span class="dv">3</span>  <span class="dv">2017</span>      <span class="dv">146</span> <span class="fl">0.97</span></span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="trend-analysis.html#cb191-1" tabindex="-1"></a>er_results<span class="sc">$</span>summary</span>
+<span id="cb191-2"><a href="trend-analysis.html#cb191-2" tabindex="-1"></a>  years observed    p</span>
+<span id="cb191-3"><a href="trend-analysis.html#cb191-3" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">2002</span>      <span class="dv">158</span> <span class="fl">0.96</span></span>
+<span id="cb191-4"><a href="trend-analysis.html#cb191-4" tabindex="-1"></a><span class="dv">2</span>  <span class="dv">2010</span>      <span class="dv">210</span> <span class="fl">0.00</span></span>
+<span id="cb191-5"><a href="trend-analysis.html#cb191-5" tabindex="-1"></a><span class="dv">3</span>  <span class="dv">2017</span>      <span class="dv">146</span> <span class="fl">0.97</span></span></code></pre></div>
 <p>In this example, the encounter rates observed in 2002 and 2010 are very likely due to some process <em>other</em> than random variation in the encounter rate, such as range shifts, seasonal movement timing shifts, and/or changes in abundance. However, the observed encounter rate in 2017 could easily be explained by random variation in the ER.</p>
 <p>The <code>details</code> slot returns the simulation predictions for each year, which can be used to replicate the histograms that are printed when the function is run.</p>
-<p><img src="figures/unnamed-chunk-260-1.png" width="672" /></p>
+<p><img src="figures/unnamed-chunk-261-1.png" width="672" /></p>
 <p>A dataframe with a row for each year. Columns provide the number of observations of the species of interest during systematic effort, and the p-value of the test. The p-value represents the fraction of simulated encounter rates that exceed the observed encounter rate.</p>
 
 </div>

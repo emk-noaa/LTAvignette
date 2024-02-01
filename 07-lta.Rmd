@@ -11,7 +11,23 @@ rerun_from_scratch <- FALSE
 # (it will use saved R objects instead of producing them anew)
 ```
 
-We use line-transect analysis to produce estimates of animal density and/or abundance based upon surveys. The main `LTabundR` function for conducting line-transect analysis is `lta()`, which calls for four primary arguments in addition to your `cruz` object:
+## Overview {-}  
+
+Line-transect analysis is used to produce estimates of animal density and/or abundance based upon survey data. The main `LTabundR` function for conducting line-transect analysis is `lta()`. This is a complex function with many steps, but the function's three most important jobs are these:  
+
+(1) to **estimate a detection function** for a species or pool of similar species. A "detection function" is a statistical model of how the species' detectability declines the farther individuals occur from the survey trackline. The model allows the user to estimate the width of their survey strip, which thus allows the user to estimate the total area that was effectively surveyed during the transect. To avoid biases and other statistical pitfalls, detection functions have to be estimated using data from formal transect effort during which observer effort adheres to standard protocols. Typically that means `OnEffort` is `TRUE`, `EffType` is `"S"` or `"N"` (and in some cases `"F"`), and `Bft` is `6` or lower --- but you can specify those conditions yourself when you create your list of [settings](#settings). Detection function performance hinges upon an adequate sample size of sightings, so it is typical for the dataset used in this stage to span as many years and regions as are available and appropriate. 
+
+(2) to **estimate animal density** based on the detection function's survey strip estimate and the encounter rate for the species during periods of systematic effort, in which transects are placed in a systematic, design-based way throughout the study area. It is essential -- at least in the vast majority of cases -- that only systematic effort is used here (i.e., `EffType` is `"S"`) in order to avoid bias. This means that only a subset of the survey data used to estimate the detection function may be used for estimating abundance, but that is acceptable as long as observer protocols do not differ between the two subsets of the data. Furthermore, density is typically estimated for a single year and region at a time, which means the data used in this stage of the analysis will be reduced even further. Once density is estimated, it is straightforward to then estimate animal **abundance** within a given area, such as a geostratum. 
+
+(3) to **describe the uncertainty in these estimates**, usually in the form of a Coefficient of Variation (CV) and/or 95% confidence intervals (95% CI). To estimate uncertainty, an iterative bootstrapping routine occurs in which segments of survey data are resampled with replacement and the entire estimation processes is repeated a large number of times (typically 1,000 to 10,000 times).  This is the major time-consuming aspect of the `lta()` process. 
+
+To prepare survey data for this kind of analysis, the data need to be processed in a few specific ways: (1) the data need to adhere to a common structure, (2) the data need columns indicating which sections of the survey should be used for estimating the detection function, (3) the sightings need columns confirming that they are also valid to include when estimating the detection function, and (4) the survey needs to be split into segments of similar effort and common length for resampling during bootstrap process for estimating uncertainty.  
+
+This is precisely what [`process_surveys()`](#processing) does based on the [settings](#settings) you feed to it. The `process_surveys()` function (1) formats the data into an `R` object of a specific structure (we refer to it as a `cruz` object); (2) adds a column named `use` to every row indicating whether or not it should be used in detection function estimation (`TRUE` means use, `FALSE` means don't); (3) adds a column named `included` to every sighting indicating whether or not it should be used in detection function estimation (`TRUE` means include, `FALSE` means don't); and (4) adds a column named `seg_id` to every row indicating the numeric ID of the effort segment it falls within. 
+
+That brings us to this chapter, in which we feed the `cruz` object returned by `process_surveys()` to the `lta()` function. This function will produce detection functions using the data where `use` is `TRUE` and the sightings where `included` is `TRUE`, then filter those data further -- to systematic effort only (typically, `EffType` = `"S"` and `Bft` is `6` or less) for a single year and/or region -- in order to estimate density/abundance. To emphasize that final point: all segments used in abundance estimation are also used for modeling the detection function, but not necessarily vice versa; the data used in abundance estimation will usually be a subset of those used for detection function modeling.  
+
+At minimum, the `lta()` function calls for four primary arguments in addition to your `cruz` object:
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
 lta(cruz,
@@ -21,15 +37,35 @@ lta(cruz,
     estimates)
 ```
 
-Below we explain each of these inputs, discuss other optional inputs, and explore the results produced by `lta()`. 
+For context, the full set of input options for the `lta()` function is as follows: 
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
+lta(cruz,
+    Rg0,
+    fit_filters,
+    df_settings,
+    estimates,
+    use_g0 = TRUE,
+    ss_correction = 1,
+    abund_eff_types = c("S"),
+    abund_bft_range = 0:6,
+    bootstraps = 0,
+    results_file = NULL,
+    toplot = TRUE,
+    verbose = TRUE
+)
+```
+
+Below we explain each of the key required inputs, discuss other optional inputs, and explore the results produced by `lta()`. 
+
 
 ## Key inputs {-} 
 
 ### `cruz` {-}
 
-This is the `cruz` object you have generated with `process_surveys()`. Before running `lta()`, ensure that this `cruz` object is filtered only to the years, regions, and sighting conditions you would like to use for detection function fitting. Filter your cruz object with full flexibility using `LTabundR::filter_cruz()`. Note that filtering for detection function fitting is typically less stringent than filtering for downstream steps for abundance estimation, since as many sightings are included as possible to combat low sample sizes, as long as sightings were observed using standard methods in an unbiased search pattern, and as long as you do not expect detectability to vary across years and regions.
+This is the `cruz` object you have generated with [`process_surveys()`](#processing). Before running `lta()`, ensure that this `cruz` object is filtered only to the years, regions, and sighting conditions you would like to use for detection function fitting. Filter your cruz object with full flexibility using [`LTabundR::filter_cruz()`](#filter). Note that filtering for detection function fitting is typically less stringent than filtering for downstream steps for abundance estimation, since as many sightings are included as possible to combat low sample sizes, as long as sightings were observed using standard methods in an unbiased search pattern, and as long as you do not expect detectability to vary across years and regions.
 
-Here we will work with a version of the 1986-2020 Central North Pacific survey data we processed a few pages back. 
+Here we will work with a version of the 1986-2020 Central North Pacific survey data we processed [a few pages back](#processing). 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 load('whiceas_cruz.RData')
@@ -42,7 +78,7 @@ We will use these data to estimate the abundance of striped dolphins (*Stenella 
 
 ### `Rg0` {-}  
 
-The result of `LTabundR::g0_model()`, which is a `data.frame` with relative trackline detection probabilities, *Rg(0)*, for each species in each Beaufort sea state. See `LTabundR` dataset `data("g0_results")`, used below, as an example.  
+This input is the result of `LTabundR::g0_model()`, which is a `data.frame` with relative trackline detection probabilities, *Rg(0)*, for each species in each Beaufort sea state. See `LTabundR` dataset `data("g0_results")`, used below, as an example, or see the vignette chapter [here](#g0).  
 
 This is an *optional* input. If not provided, *g(0)* will be assumed to 1.0, and its CV will be assumed to be 0. Alternatively, you can manually specify values for *g(0)* and its CV in the `estimates` argument below. 
 
@@ -62,7 +98,10 @@ Rg0 %>% head
 
 ### `fit_filters` {-}  
 
-The `fit_filters` input specifies how to filter the data before fitting the detection function. It accepts a named list, which in our example will look like this: 
+The `fit_filters` input specifies how to filter the data before fitting the detection function. The filtering here is focused on species and truncation distances, not the regions or years included in the data. To filter by region, year or cruise number, use the function [`filter_cruz()`](#filter) before beginning the `lta()` process.  
+
+The `fit_filters` input accepts a named list, which in our example will look like this:  
+
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 fit_filters = list(spp = c('013', '026', '031'), 
@@ -253,7 +292,7 @@ This command will first produce official estimates of the detection function and
 
 ## Other inputs {-} 
 
-There are a few other optional input arguments that lend further control over the `lta()` procedure.  
+As mentioned near the top, there are several *optional* input arguments that lend further control over the `lta()` procedure.  
 
 ```{r, echo=TRUE, eval=FALSE, collapse=TRUE, include=TRUE}
 lta(cruz,
@@ -263,6 +302,8 @@ lta(cruz,
     estimates,
     use_g0 = TRUE,
     ss_correction = 1,
+    abund_eff_types = c("S"),
+    abund_bft_range = 0:6,
     bootstraps = 10
     toplot = TRUE,
     verbose = TRUE,)
@@ -271,6 +312,10 @@ lta(cruz,
 - **`use_g0`**: A Boolean, with default `TRUE`, indicating whether or not to use custom `g(0)` value(s). If `FALSE`, the assumed `g(0)` value will be 1. This is an easy way to toggle on-and-off automated *g(0)* estimation and/or ignore manually supplied *g(0)* values.  
 
 - **`ss_correction`**: Should a correction be applied to school sizes? School sizes will be scaled by this number. The default, `1`, means no changes will occur.  
+
+- **`abund_eff_types`**:  The `EffType` values that are acceptable as systematic effort when estimating density/abundance. The default is just `"S"` (systematic effort), but in some surveys/cases you may wish to use fine-scale effort (`"F"`) too.
+
+- **`abund_bft_range`**:  The Beaufort sea state values that are acceptable during systematic effort for estimating density/abundance. The default is sea states 0 - 6. 
 
 - **`toplot`**: A Boolean, with default `TRUE`, indicating whether detection function plots (`Distance::plot.ds()`) should be displayed as the candidate models are tested.  
 
@@ -417,7 +462,7 @@ In your `estimates` sub-lists, the `regions` and `regions_remove` slots give you
 
 Recall that, when processing your survey data to create a `cruz` object, you provide a list of geostrata as an argument in your `process_surveys()` call. You also have the option to specify a subset of those geostrata for each species cohort (see `load_cohort_settings()`), which is an option that you should almost always use. Selecting a subset of geostrata is important because that subset is used to "segmentize" your survey data -- i.e., break effort into discrete sections that can be bootstrap-sampling during the `lta()` variance estimation routine -- and the segmentizing procedure always breaks segments when a survey passes from one geostratum to another. 
 
-This matters because the `lta()` bootstrapping routine will re-sample survey segments in a way that preserves the proportion of segments occurring in each geostratum, to ensure that all geostrata are represented in the same proportion as the original estimate. When segments are unncessarily broken into small segments by irrelevant geostrata that have been included in the analysis, the bootstrap estimate of the CV is likely to be too large.  
+This matters because the `lta()` bootstrapping routine will re-sample survey segments in a way that preserves the proportion of segments occurring in each geostratum, to ensure that all geostrata are represented in the same proportion as the original estimate. When segments are unncessarily broken into small segments by irrelevant geostrata that have been included in the analysis, the bootstrap estimate of the CV is likely to be artificially enlarged.  
 
 For example: in the Central North Pacific, there are about 11 geostrata commonly used. These include the Hawaiian EEZ geostratum, the Main Hawaiian Islands geostratum, and the larger CNP geostratum that represents the maximum range of the study area. These three geostrata are typically all you need for most density estimates for most species. However, a few species -- e.g., bottlenose dolphin, pantropical spotted dolphin, and false killer whale -- have special geostrata that represent insular stock boundaries and/or pelagic stock boundaries.  If those insular geostrata are used in density estimates for which they do not apply, they will confound the bootstrap estimate of density/abundance CV.  **Punchline: be sure to specify only the relevant geostrata in each cohort's settings.**
 
@@ -672,7 +717,7 @@ All models within `delta_aic` of the model with the lowest AIC qualify as best-f
 
 If multiple best-fitting models occur, we will find the average ESW for each sighting across all models, using a weighted mean approach in which we weight according to model AIC. To turn off this model averaging step, set `delta_aic` to `0` to avoid passing multiple models to the abundance estimation stage.  
 
-Note that if `lnsstot` is included as a covariate, the function will (1) check to see if the `sightings` dataframe has a column named `ss_valid` (all `cruz` objects do), then, if so, (2) filter `sightings` only to rows where `ss_valid` is `TRUE`, meaning the group size estimate for that sighting is a valid estimate.  
+Note that if `lnsstot` is included as a covariate, the function will (1) check to see if the `sightings` dataframe has a column named `ss_valid` (all `cruz` objects do), then, if so, (2) filter `sightings` only to rows where `ss_valid` is `TRUE`, meaning the group size estimate for that sighting is a valid estimate.  This means that the sample size used for fitting a detection function could be reduced if there are sightings with `ss_valid = FALSE` and `lnsstot` is used as a covariate in the fitting routine. However, this will not affect the sample size used for abundance estimation in the subsequent step (*see details below*).    
 
 This stage of the `lta()` command is executed within a backend function, `LTabundR::fit_df()`, which has its own documentation for your reference.
 
@@ -680,7 +725,7 @@ This stage of the `lta()` command is executed within a backend function, `LTabun
 
 Estimates are produced for various combinations of species, regions, and years, according to the arguments specified in your `estimates` list(s). Before these estimates are produced, we filter the data used to fit the detection function to strictly systematic (design-based) effort (i.e., `EffType = "S"`), in which standard protocols are in use (i.e., `OnEffort = TRUE`) and the Beaufort sea state is less than 7 (though these controls can be modified using the `lta()` inputs `abund_eff_types` and `abund_bft_range` (see above).  
 
-Note that if `sightings` has a column named `ss_valid` (all standard `cruz` objects do) and if any of the rows in that column are `FALSE`, those rows will have their `best` group size estimate (which will be `NA` or `1`, since they are invalid) replaced by the mean best estimate for their respective species.  
+Note that if `sightings` has a column named `ss_valid` (all standard `cruz` objects do) and if any of the rows in that column are `FALSE`, those rows will have their `best` group size estimate (which will be `NA` or `1`, since they are invalid) replaced by the mean best estimate for their respective species in the year for which abundance is being estimated. Currently the data used for that mean estimate are not specific to a given region, just the year of the abundance estimate.
 
 This stage of the `lta()` command is executed within a back-end function, `LTabundR::abundance()`, which has its own documentation for your reference.
 

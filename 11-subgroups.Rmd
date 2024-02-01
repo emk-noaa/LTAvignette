@@ -143,7 +143,7 @@ truncation_distance <- 4.5
 
 ### `ss` {-}  
 
-This is a numeric vector of subgroup school sizes. The function will find this vector's geometric mean and bootstrapped CV. In [Bradford et al. (2020)](https://repository.library.noaa.gov/view/noaa/24756), school size data come from all Phase 1 and Phase 2 estimates of subgroup sizes from 2011 onwards. In the processed `cruz` object, each of those estimates is the geometric mean of repeat estimates from separate observers.  
+This is a numeric vector of subgroup school sizes. The function will find this vector's arithmetic mean and bootstrapped CV. In [Bradford et al. (2020)](https://repository.library.noaa.gov/view/noaa/24756), school size data come from all Phase 1 and Phase 2 estimates of subgroup sizes from 2011 onwards. In the processed `cruz` object, each of those estimates is the geometric mean of repeat estimates from separate observers.  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 ss  <-
@@ -405,7 +405,7 @@ This function performs the following operations:
 
 2. Conducts bootstrap re-sampling of the detection function fitting routine in order to estimate the CV of ESW.  
 
-3. Estimates the geometric mean subgroup size based on the `ss` input.  
+3. Estimates the arithmetic mean subgroup size based on the `ss` input.  
 
 4. Creates a bootstrap-resampled distribution of subgroup sizes, with which CV is estimated.  
 
@@ -415,7 +415,7 @@ This function performs the following operations:
 
 7. Creates a bootstrap-resampled distribution of encounter rate estimates.  
 
-8. Calculates a weighted *g(0)* estimate according to the proportion of effort occurring in each Beaufort sea state, then uses an automated parameter optimization routine (see details in `LTabundR` function `g0_weighted()`) to estimate the CV of the weighted *g(0)* estimate.  
+8. Calculates an empirical weighted *g(0)* estimate according to the proportion of effort occurring in each Beaufort sea state, then uses an automated parameter MCMC optimization routine (see details in `LTabundR` function `g0_weighted()`) to estimate the CV of the weighted *g(0)* estimate.  
 
 9. Creates a bootstrap-resampled distribution of the weighted *g(0)* estimate.  
 
