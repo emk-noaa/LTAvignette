@@ -3,6 +3,7 @@
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
 library(dplyr)
 library(magrittr)
+library(ggplot2)
 library(LTabundR)
 
 rerun_from_scratch <- FALSE
@@ -111,28 +112,26 @@ df_sits %>% nrow
 
 The truncation distance, in km, will be applied during detection function model fitting. Typically the farthest 5 - 10% of sightings are truncated, but this needs to be balanced by sample size considerations.  
 
-Get candidate distances:  
+Tabulate detection distances using a `LTabundR` function:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.height=4, fig.width=7}
-truncation_options <- quantile(df_sits$PerpDistKm, 
-                               c(0.90,0.91,0.92,0.93,0.94,0.95))
+dists <- 
+  summarize_distances(df_sits$PerpDistKm) %>% 
+  select(-total_within)
 
-truncation_options
+dists
 ```
 
 Plot these options:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.height=4, fig.width=7}
-hist(df_sits$PerpDistKm, main='Detection distances')
-abline(v=truncation_options, col='red', lty=3)
-```
-
-Get sample size remaining for each candidate distance:  
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.height=4, fig.width=7}
-data.frame(km = truncation_options, 
-           n = sapply(truncation_options, 
-                      function(x){length(which(df_sits$PerpDistKm <= x))}))
+ggplot(dists, aes(x=km_max_excl, y=percent_beyond)) + 
+  geom_point() + geom_path() + 
+  geom_hline(yintercept = 10, lty=2, color='firebrick') + 
+  ylab('Percent of sightings beyond this distance') +
+  xlab('Perpendicular distance (km)') + 
+  scale_x_continuous(n.breaks = 10) + 
+  scale_y_continuous(limits = c(0, 100), n.breaks = 10) 
 ```
 
 Based on these results, we will choose a truncation distance of 4.5 km. 
@@ -165,7 +164,7 @@ This is a `data.frame` with estimates of Relative *g(0)* and its CV at each Beau
 
 When you do supply this `Rg0` input, the `data.frame` has three required columns: `bft` (Beaufort sea state, numbers between 0 and 6), `Rg0` (*Rg(0)* estimates for each Beaufort state), `Rg0_CV` (the CV of the *Rg(0)* estimate in each Beaufort state). Other columns are allowed but will be ignored. 
 
-Here is an example of a valid `Rg0` input based on the values reported for false killer whales in [Bradford et al. (2020)](https://www.fisheries.noaa.gov/inport/item/59592).  
+Here is an example of a valid `Rg0` input based on the values reported for false killer whales in [Bradford et al. (2020)](https://www.fisheries.noaa.gov/inport/item/59592).  (These numbers are also available in the built-in dataset `barlow_2015`.). 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 Rg0 <- data.frame(bft = 0:6,
@@ -362,7 +361,7 @@ results_subgroup %>% names
 Most of these slots hold best-estimates of parameters or sample size details:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-results_subgroup[c(1:15, 19:20)]
+results_subgroup[c(1:17, 21:22)]
 ```
 
 The `g0_details` slot includes the results from the `g0_model()` and `g0_weighted()` functions called internally by `lta_subgroup()`. See those functions' documentation pages for details.  

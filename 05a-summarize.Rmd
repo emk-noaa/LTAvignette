@@ -1,11 +1,13 @@
+# (PART) Data exploration {-}
+
 # Summarize survey {#summarize}
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
 library(dplyr)
 library(magrittr)
+#library(swfscDAS)
+#library(tmap)
 library(LTabundR)
-library(swfscDAS)
-library(tmap)
 ```
 
 Here we will summarize the 2017 & 2020 survey data we prepared on the previous page. 
@@ -119,6 +121,14 @@ bft$details %>%
   DT::datatable(options=list(initComplete = htmlwidgets::JS(
           "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
        )) 
+```
+
+### Default filtering
+
+By default, this function only summarizes effort that can be used for detection function model fitting, (i.e., where the column `use` is `TRUE`). To turn off this filter, you can change the input `use_only` to `FALSE`:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
+summarize_bft(cruz_1720, use_only = FALSE)$overall
 ```
 
 

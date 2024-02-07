@@ -1,5 +1,3 @@
-# (PART) Data exploration {-}
-
 # Maps {#maps}
 
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}

@@ -91,7 +91,7 @@ devtools::install_github('PIFSC-Protected-Species-Division/LTabundR')
 # Install support packages, if needed
 if (!require('devtools')) install.packages('devtools')
 
-# Increase timeout for download, since there are datasets
+# Increase timeout for download, since there are large datasets:
 options(timeout=9999999)
 
 # Install LTabundR remotely from GitHub

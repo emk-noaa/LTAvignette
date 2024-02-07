@@ -11,7 +11,7 @@ load('whiceas_settings.RData')
 load('whiceas_cruz.RData')
 ```
 
-You may soon encounter the need to filter a processed `cruz` object to only certain years, regions, or cruise numbers. You may also need to combine one processed `cruz` object with another.  
+You may soon encounter the need to filter a processed `cruz` object to only certain years, regions, or cruise numbers. You may also need to combine one processed `cruz` object with another. The function below assist with these tasks.   
 
 Here we will continue with the `cruz` object we created on the previous page. As a reminder, here is the data structure of that object: 
 
