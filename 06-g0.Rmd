@@ -90,10 +90,16 @@ You can then estimate `Rg(0)` for each Beaufort sea state using the function `g0
 rg0 <- g0_model(spp = '013',
                 truncation_distance = 5.5,
                 cruz = cruzi,
+                constrain_shape = TRUE,
                 jackknife_fraction = .1)
 ```
 
 ```{r, echo=FALSE, eval=rerun_from_scratch, collapse=TRUE}
+rg0$jackknife <- 1
+rg0$segments <- 1
+rg0$sightings <- 1
+rg0$gam <- 1
+rg0
 save(rg0, file='Rg0_sc.RData')
 ```
 
@@ -143,9 +149,11 @@ species <- list(
        truncation = 5.5),
   list(spp = c('047', '048', '080'),
        title = 'Kogia spp',
-       truncation = 4.0),
+       truncation = 4.0,
+       constrain_shape = FALSE),
   list(spp = '061',
        title = "Cuvier's beaked whale",
+       constrain_shape = TRUE,
        truncation = 4.0),
   list(spp = '074',
        title = 'Fin whale',
