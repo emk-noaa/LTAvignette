@@ -71,7 +71,11 @@ In this example, the encounter rates observed in 2002 and 2010 are very likely d
 
 The `details` slot returns the simulation predictions for each year, which can be used to replicate the histograms that are printed when the function is run.
 
-```{r, echo=FALSE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.height=9, fig.width=7}
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.height=9, fig.width=7}
+er_results$details[, 1:6]
+```
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.height=9, fig.width=7}
 spp <- '072'
 years <- er_results$summary$years
 obsi <- er_results$summary$observed
@@ -97,7 +101,8 @@ for(i in 1:length(years)){
 par(mfrow=c(1,1))
 ```
 
-A dataframe with a row for each year. Columns provide the number of observations of the species of interest during systematic effort, and the p-value of the test. The p-value represents the fraction of simulated encounter rates that exceed the observed encounter rate.
+
+
 
 
 

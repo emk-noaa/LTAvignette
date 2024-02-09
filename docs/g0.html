@@ -487,17 +487,15 @@ So <em>g(0)</em> matters, and the assumption of detection functions that <em>g(0
 <span id="cb146-3"><a href="g0.html#cb146-3" tabindex="-1"></a></span>
 <span id="cb146-4"><a href="g0.html#cb146-4" tabindex="-1"></a><span class="co"># Summarize Bft effort</span></span>
 <span id="cb146-5"><a href="g0.html#cb146-5" tabindex="-1"></a><span class="fu">summarize_bft</span>(cruz_20)<span class="sc">$</span>overall</span>
-<span id="cb146-6"><a href="g0.html#cb146-6" tabindex="-1"></a><span class="co"># A tibble: 8 × 3</span></span>
-<span id="cb146-7"><a href="g0.html#cb146-7" tabindex="-1"></a>   bftr       km      prop</span>
-<span id="cb146-8"><a href="g0.html#cb146-8" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span>    <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>     <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
-<span id="cb146-9"><a href="g0.html#cb146-9" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>   <span class="fl">88.2</span>   <span class="fl">0.0165</span>   </span>
-<span id="cb146-10"><a href="g0.html#cb146-10" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">2</span>  <span class="fl">262.</span>    <span class="fl">0.0490</span>   </span>
-<span id="cb146-11"><a href="g0.html#cb146-11" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">3</span>  <span class="fl">434.</span>    <span class="fl">0.0813</span>   </span>
-<span id="cb146-12"><a href="g0.html#cb146-12" tabindex="-1"></a><span class="dv">4</span>     <span class="dv">4</span> <span class="fl">1482.</span>    <span class="fl">0.278</span>    </span>
-<span id="cb146-13"><a href="g0.html#cb146-13" tabindex="-1"></a><span class="dv">5</span>     <span class="dv">5</span> <span class="fl">2004.</span>    <span class="fl">0.375</span>    </span>
-<span id="cb146-14"><a href="g0.html#cb146-14" tabindex="-1"></a><span class="dv">6</span>     <span class="dv">6</span> <span class="fl">1067.</span>    <span class="fl">0.200</span>    </span>
-<span id="cb146-15"><a href="g0.html#cb146-15" tabindex="-1"></a><span class="dv">7</span>     <span class="dv">7</span>    <span class="fl">0.220</span> <span class="fl">0.0000412</span></span>
-<span id="cb146-16"><a href="g0.html#cb146-16" tabindex="-1"></a><span class="dv">8</span>    <span class="cn">NA</span>    <span class="dv">0</span>     <span class="dv">0</span>        </span></code></pre></div>
+<span id="cb146-6"><a href="g0.html#cb146-6" tabindex="-1"></a><span class="co"># A tibble: 6 × 3</span></span>
+<span id="cb146-7"><a href="g0.html#cb146-7" tabindex="-1"></a>   bftr     km   prop</span>
+<span id="cb146-8"><a href="g0.html#cb146-8" tabindex="-1"></a>  <span class="sc">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span>  <span class="er">&lt;</span>dbl<span class="sc">&gt;</span></span>
+<span id="cb146-9"><a href="g0.html#cb146-9" tabindex="-1"></a><span class="dv">1</span>     <span class="dv">1</span>   <span class="fl">88.2</span> <span class="fl">0.0165</span></span>
+<span id="cb146-10"><a href="g0.html#cb146-10" tabindex="-1"></a><span class="dv">2</span>     <span class="dv">2</span>  <span class="fl">262.</span>  <span class="fl">0.0490</span></span>
+<span id="cb146-11"><a href="g0.html#cb146-11" tabindex="-1"></a><span class="dv">3</span>     <span class="dv">3</span>  <span class="fl">434.</span>  <span class="fl">0.0813</span></span>
+<span id="cb146-12"><a href="g0.html#cb146-12" tabindex="-1"></a><span class="dv">4</span>     <span class="dv">4</span> <span class="fl">1482.</span>  <span class="fl">0.278</span> </span>
+<span id="cb146-13"><a href="g0.html#cb146-13" tabindex="-1"></a><span class="dv">5</span>     <span class="dv">5</span> <span class="fl">2004.</span>  <span class="fl">0.376</span> </span>
+<span id="cb146-14"><a href="g0.html#cb146-14" tabindex="-1"></a><span class="dv">6</span>     <span class="dv">6</span> <span class="fl">1067.</span>  <span class="fl">0.200</span> </span></code></pre></div>
 <p>Note that conditions were a bit worse in 2020 compared to 2017. We therefore expect the weighted <em>g(0)</em> estimate to be lower:</p>
 <div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="g0.html#cb147-1" tabindex="-1"></a>weighted_g0_2020 <span class="ot">&lt;-</span> </span>
 <span id="cb147-2"><a href="g0.html#cb147-2" tabindex="-1"></a>  <span class="fu">g0_weighted</span>(<span class="at">Rg0 =</span> rg0<span class="sc">$</span>summary<span class="sc">$</span>Rg0,</span>
