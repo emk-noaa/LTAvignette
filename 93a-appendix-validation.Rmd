@@ -1,23 +1,17 @@
 # Validation
 
-```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=FALSE}
+As explained in the Overview, `LTabundR` was developed , among other reasons, to replace and build upon the `FORTRAN` software `ABUND`.  To demonstrate that this purpose has been achieved, and to validate the results that are generated with `LTabundR`, this chapter is dedicated to comparing and contrasting the results of the two software packages.  
+
+We have tried to develop `LTabundR` with the flexibility either to replicate `ABUND` results or to produce customizable results that could potentially vary from `ABUND` quite significantly (e.g., formatted for habitat modeling). However, even when we use `LTabundR` settings intended to replicate `ABUND` results, there are some intentional updates the processing routine that will lead to some small differences.  
+
+This chapter requires the following packages:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
+library(LTabundR)
 library(dplyr)
+library(tidyr)
 library(ggplot2)
 library(plotly)
-library(magrittr)
-library(LTabundR)
-library(swfscDAS)
-
-load('whiceas_settings.RData')
-
-rerun_from_scratch <- FALSE
-# If you want to confirm the package works, change to TRUE.
-# If you already know it does, change to FALSE so that knitting is quick
-# (it will use saved R objects instead of producing them anew)
-```
-
-```{r, echo=FALSE, eval=TRUE, collapse=TRUE}
-load('whiceas_cruz.RData')
 ```
 
 ## Data processing {-}
@@ -40,7 +34,7 @@ Pivot and format the `ABUND` `SIGHTS` data...
 ```{r, echo=TRUE, eval=TRUE, message=FALSE, collapse=TRUE}
 abund <-
   SIGHTS %>%
-  tidyr::pivot_longer(cols = 31:101,
+  pivot_longer(cols = 31:101,
                       names_to = 'species',
                       values_to = 'best') %>%
   filter(best > 0) %>%
@@ -61,7 +55,14 @@ abund_summ <-
   mutate(species = gsub('SP','',species))
 ```
 
-Then do the same for `LTabundR` output: 
+Then do the same for `LTabundR` output:  
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+load('whiceas_cruz.RData')
+```
+
+(This `cruz` object was produced in the Data Processing chapter.)  
+
 
 ```{r, echo=TRUE, eval=TRUE, message=FALSE, collapse=TRUE}
 ltabundr <- 
@@ -138,7 +139,7 @@ sight_compare <- function(abund, ltabundr, cruise, spp){
   message('\nLTabundR:')
   ltabundr %>%
     filter(Cruise == cruise, species == spp) %>%
-    select(6, 2, 13, 74, 70, 5, 9, 40, 87) %>%
+    select(Cruise, DateTime, Bft, mixed, best, OnEffort, EffType, use, included) %>%
     rename(use_sit = included, use_effort = use) %>%
     arrange(desc(use_effort)) %>%
     tibble %>% print
@@ -146,6 +147,17 @@ sight_compare <- function(abund, ltabundr, cruise, spp){
 ```
 
 #### Discrepancies {-} 
+
+Below we investigate each discrepancy identified above. Note that there are a few intentional design features that may produce differences in the sightings counts between `ABUND9` and `LTabundR`. Here are a few:  
+
+**(1)** In `ABUND9`, only sightings that occur while `OnEffort == TRUE` are returned; in contrast, `LTabundR` does not remove any sightings (it just flags them differently, using the `included` column variable). This will be evident in one of the discrepancies below, in which a sighting that occurred during a Beaufort Sea State of 7 is not returned by `ABUND9`, since the `INP` file for the `ABUND` routine specified that only sightings within Bft 0-6 should be used in analysis.  Note, however, that one can readily filter `LTabundR` sightings to emulate `ABUND9` output if needed. 
+
+
+**(2)** `LTabundR` includes one additional criterion for inclusion in analysis: the sighting must occur at or forward of the beam (note that this restriction can be deactivated in `load_cohort_settings()`.  
+
+
+**(3)**  Since point-in-polygon calculations are very different in the two programs, it is possible that sightings occurring very near geostratum margins may be included/excluded differently.  
+
 
 ##### Cruise 1203, Species 015 {-} 
 
@@ -274,6 +286,8 @@ It appears that this was a multi-species sighting, but no species percentages we
 
 ### Group sizes {-}   
 
+This plot compares the group size estimates returned by `ABUND9` and `LTabundR`. The results should be identical:  
+
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 # Format ABUND
 abund <- 
@@ -314,7 +328,16 @@ ggplot(ss,
   theme_light()
 ```
 
+**Note two important differences in how the two programs calibrate group size:** 
+
+**(1)** If an observer is not included in the Group Size Calibration Coefficients `.DAT` file, `ABUND` applies a default coefficient (`0.8625`) to scale group size estimates; however, it applies this calibration to groups of *all** sizes, including solo animals or small groups of 2-3. In `LTabundR`, this is also the default, but users can choose to restrict calibrations for unknown observers to group size estimates of any size (see `load_cohort_settings()`).   
+
+**(2)** Note that `ABUND9` calibrates school sizes slightly differently than earlier versions of the software. The `ABUND9` release notes mention a bug in previous versions that incorrectly calibrated school size. `LTabundR` corresponds perfectly with `ABUND9` school size calibrations, but not with `ABUND8` or earlier.   
+
+
 ### Effort {-} 
+
+Perform basic formatting before doing any filtering , first for `ABUND` data...
 
 ```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE, collapse=TRUE}
 # Format ABUND
@@ -324,41 +347,313 @@ abund <-
   mutate(dt = paste0(Yr,
                      stringr::str_pad(Mo, width=2, pad='0', side='left'),
                      stringr::str_pad(Da, width=2, pad='0', side='left'))) %>% 
-  filter(! Region %in% c('NONE', 'Off-Transect'),
-         EffortSeg > 0) %>% 
-  select(Cruise = CruzNo, Date = dt, km = length) %>% 
-  mutate(software = 'ABUND9')
-  
-# Format LTabundR
-ltabundr <- 
-  cruz$cohorts$all$segments %>% 
-  mutate(dt = gsub('-','',substr(DateTime1, 1,10))) %>% 
-  filter(OnEffort == TRUE, 
-         use == TRUE, 
-         EffType %in% c('S', 'F')) %>% 
-  select(Cruise, Date = dt, km = dist) %>% 
-  mutate(software = 'LTabundR')
-  
-# Join the datasets
-eff <- 
-  rbind(abund, ltabundr) %>% 
-  group_by(Cruise) %>% 
-  mutate(km = round(km)) %>% 
-  summarize(km_abund = sum(km[software == 'ABUND9']),
-            km_ltabundr = sum(km[software == 'LTabundR']))
-
-# Plot
-p <- 
-  ggplot(eff, aes(x = km_abund, y = km_ltabundr, col=factor(Cruise))) +
-  geom_abline(slope=1, intercept=0, lty=3) + 
-  geom_point(alpha=.6) + 
-  ylab('LTabundR') + xlab('ABUND9') + 
-  scale_x_continuous(breaks = seq(0, 15000, by=2500)) + 
-  scale_y_continuous(breaks = seq(0, 15000, by=2500)) + 
-  labs(title='Systematic effort per cruise', col='Cruise') + 
-  theme_light()
-
-# Make it interactive
-ggplotly(p)
+  rename(Cruise = CruzNo, Date = dt, km = length) %>% 
+  mutate(effort = ifelse(Region == 'Off-Transect', 'N or F', 'S')) %>% 
+  mutate(OnEffort = 'TRUE') %>% 
+  mutate(software = 'ABUND 9') %>% 
+  select(Region:Cruise, Date, effort, software)
 ```
+
+...then for `LTabundR` data. This helper function will be used below to format our `cruz` object:  
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE, collapse=TRUE}
+ltabundr_prep <- function(cruz){
+  cruz$cohorts$all$das %>% 
+    mutate(dt = gsub('-','',substr(DateTime, 1,10))) %>% 
+    rename(Cruise = Cruise, Date = dt, km = km_int) %>% 
+  mutate(effort = ifelse(EffType == 'S', 'S', 'N or F')) %>%
+  mutate(software = 'LTabundR') %>% 
+  filter(OnEffort == TRUE) %>%
+  filter(!is.na(effort)==TRUE) %>% 
+  group_by(software, Cruise, Date, effort) %>% 
+  summarize(km = sum(km))
+}
+```
+
+Here is one more helper function to generate an interactive plot that compares systematic effort for each cruise in `ABUND` vs `LTabundR`:  
+
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE, collapse=TRUE}
+eff_plot <- function(abund, ltabundr){
+  # Join datasets
+  eff <- 
+    rbind(abund %>% select(Cruise, Date, km, effort, software), 
+          ltabundr %>% select(Cruise, Date, km, effort, software)) %>% 
+    filter(effort == 'S') %>% 
+    group_by(Cruise) %>% 
+    summarize(km_abund = sum(km[software == 'ABUND 9']) %>% round,
+              km_ltabundr = sum(km[software == 'LTabundR']) %>% round)
+  
+  # Prepare plot
+  p <- 
+    ggplot(eff, aes(x = km_abund, y = km_ltabundr, col=factor(Cruise))) +
+    geom_abline(slope=1, intercept=0, lty=3) + 
+    geom_point(alpha=.6) + 
+    ylab('LTabundR') + xlab('ABUND9') + 
+    scale_x_continuous(breaks = seq(0, 15000, by=2500)) + 
+    scale_y_continuous(breaks = seq(0, 15000, by=2500)) + 
+    labs(title='Effort per cruise', col='Cruise') + 
+    theme_light()
+  
+  # Make it interactive
+  ggplotly(p)
+}
+```
+
+This helper function is a tabular version of the comparison plot:  
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE, collapse=TRUE}
+error_table <- function(df){
+  dfi <- 
+    df %>% 
+  filter(effort == 'S') %>% 
+  group_by(Cruise) %>% 
+  summarize(year = lubridate::year(lubridate::ymd(Date))[1],
+            km_abund = sum(km[software == 'ABUND 9']) %>% round,
+            km_ltabundr = sum(km[software == 'LTabundR']) %>% round) %>% 
+  mutate(diff = km_abund - km_ltabundr) %>% 
+  mutate(prop = ((abs(diff) / km_abund)) %>% round(5)) %>% 
+  arrange(desc(prop)) %>% 
+  as.data.frame()
+  
+  lm(km_ltabundr ~ km_abund, data=dfi) %>% summary %>% print
+  
+  return(dfi)
+}
+```
+
+Now we format the `LTabundR` data and produce the comparison plot: 
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE, collapse=TRUE, fig.height = 5, fig.width = 7}
+# Format LTabundR data for comparison
+ltabundr <- ltabundr_prep(cruz)
+
+# Interactive plot
+eff_plot(abund, ltabundr)
+```
+
+And here is the tabular version of that plot, sorted by the difference in KM, relative to total length of the Cruise (according to `ABUND 9`). The statistical summary of a linear regression is also returned:  
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE, collapse=FALSE}
+# Combine software data
+df <- rbind(abund %>% select(software, Cruise, Date, effort, km), 
+            ltabundr %>% select(software, Cruise, Date, effort, km))
+
+# Produce comparison table
+error_table(df)
+```
+
+
+Note that there are a few intentional design features that may produce differences in effort calculation and segment divisions between the `ABUND9` and `LTabundR` programs. Here are a few:  
+
+
+**(1)** `LTabundR` works with `DAS` data that are loaded and formatted using `swfscDAS:das_read()` and `das_process()`. It is possible that these functions categorize events as On- or Off-Effort slightly differently than `ABUND`, or apply other differences that would be difficult for us to know or track.   
+
+
+**(2)**  After loading the data, `LTabundR` removes rows with invalid Cruise numbers, invalid times, and invalid coordinates. As far as we can tell, `ABUND` does not remove such missing data. This is a relatively minor point; in processing the 1986-2020 data (623,640 rows), 287 rows are missing Cruise info; 1,430 are missing valid times; and 556 are missing valid coordinates, for a total of 2,273 rows removed out of more than 625,000 (0.3% of rows). Many of these rows with missing data have the exact same coordinates and timestamps as complete rows nearby, since *WinCruz* can sometimes produce multiple lines at the same time when setting up metadata for the research day, which means that this row removal will rarely, if ever, effect total effort calculated.   
+
+**(3)**  In `ABUND`, custom functions are used to calculate whether DAS coordinates occur within geostrata are difficult to validate, and it is possible that they differ from the functions used in R for the same purpose. `LTabundR` uses functions within the well-established `sf` package to do these same calculations.  
+
+
+**(4)**  Both `ABUND` and `LTabundR` calculate the distance surveyed based on the sum of distances between adjacent rows in the `DAS` file. They do this differently, which may yield minor differences in total effort segment track lengths, but the default inputs for the `load_survey_settings()` function were selected to come as close to replicating the `ABUND9` routine as possible. The `ABUND9` routine (and therefore the `LTabundR` defaults) allow for large gaps (as much as 100 km) between subsequent rows within a single day of effort. The `ABUND9` subroutine prints a warning message when the gap is greater than 30 km, but does not modify its estimate of distance traveled. This allows for the possibility that, in rare cases, estimates of distance surveyed will be spuriously large.  
+
+
+**(5)**  While `ABUND` uses a minimum length threshold to create segments, such that full-length segments are never less than that threshold and small remainder segments always occur at the end of a continuous period of effort, `LTabundR` uses an approach more similar to the effort-chopping functions in `swfscDAS`: it looks at continuous blocs of effort, determines how many full-length segments can be defined in each bloc, then randomly places the remainder within that bloc according to a set of user-defined settings (see `load_survey_settings()`. This process produces full-length segments whose distribution of exact lengths is centered about the target length, rather than always being greater than the target length.  
+
+
+**(6)**  To control the particularities of segmentizing, `LTabundR` uses settings such as `segment_max_interval`, which controls how discontinuous effort is allowed to be pooled into the same segment. These rules may produce slight differences in segment lengths.  
+
+
+**(7)**  Note that, since `ABUND` is a loop-based routine while `LTabundR` is modular, segments identified by the two program will never be exactly identical, and a 1:1 comparison of segments produced by the two programs is not possible.   
+
+
+
+```{r, echo=FALSE, eval=FALSE, message=FALSE, warning=FALSE, collapse=TRUE}
+# Re-process `LTabundR` data:
+survey <- load_survey_settings()
+
+# Check it out
+survey[3:7] 
+
+# Abbreviate analysis since our only focus is systematic effort
+settings <- load_settings(strata = strata_cnp[2],
+                          survey = survey,
+                          cohorts = list(load_cohort_settings(id='all')))
+
+cruz <- process_surveys(das_file = 'data/surveys/CenPac1986-2020_Final_alb.das', 
+                        settings = settings,
+                        process_sightings = FALSE,
+                        process_subgroups = FALSE)
+
+```
+
+
+```{r, echo=FALSE, eval=FALSE, message=FALSE, warning=FALSE, collapse=TRUE}
+# Generate a series of diagnostic plots to investigate large discrepancies between `ABUND` and `LTabundR`:  
+# dont show in vignette
+ltabundr_prep <- function(cruz){
+  cruz$cohorts$all$das %>% 
+    mutate(dt = gsub('-','',substr(DateTime, 1,10))) %>% 
+    rename(Cruise = Cruise, Date = dt, km = km_int) %>% 
+  mutate(effort = ifelse(EffType == 'S', 'S', 'N or F')) %>%
+  mutate(software = 'LTabundR') %>% 
+  filter(OnEffort == TRUE) %>%
+  filter(!is.na(effort)==TRUE) %>% 
+  group_by(software, Cruise, Date, effort) %>% 
+  summarize(km = sum(km))
+}
+error_table <- function(df){
+  df %>% 
+  filter(effort == 'S') %>% 
+  group_by(Cruise) %>% 
+  summarize(year = lubridate::year(lubridate::ymd(Date))[1],
+            km_abund = sum(km[software == 'ABUND 9']) %>% round,
+            km_ltabundr = sum(km[software == 'LTabundR']) %>% round) %>% 
+  mutate(diff = km_abund - km_ltabundr) %>% 
+  mutate(prop = ((abs(diff) / km_abund)) %>% round(5)) %>% 
+  arrange(desc(prop)) %>% 
+  as.data.frame()
+}
+
+cruise_compare <- function(df, cruise){
+  dff <- 
+    df %>% 
+    filter(effort == 'S') %>% 
+    filter(Cruise == cruise) %>% 
+    mutate(Date = lubridate::ymd(Date)) %>% 
+    group_by(software, effort) %>% 
+    #group_by(effort, software) %>% 
+    arrange(Date) %>% 
+    mutate(cumkm = cumsum(km)) %>% 
+    ungroup()
+    
+  dff
+  
+  dff <- 
+    dff %>% 
+    group_by(Cruise, effort) %>% 
+    arrange(Date) %>% 
+    mutate(is_abund = ifelse(software == 'ABUND 9', 1, 0)) %>% 
+    mutate(km_abund = is_abund * km) %>% 
+    mutate(cum_abund = cumsum(km_abund)) %>% 
+    mutate(is_ltabundr = ifelse(software == 'LTabundR', 1, 0)) %>% 
+    mutate(km_ltabundr = is_ltabundr * km) %>% 
+    mutate(cum_ltabundr = cumsum(km_ltabundr)) %>% 
+    ungroup() %>% 
+    mutate(diffs = cum_abund - cum_ltabundr)
+  
+  dff
+  (diffi <- round((dff$km_abund %>% sum) - (dff$km_ltabundr %>% sum)))
+  
+  p1 <- ggplot(dff,
+               aes(x=Date,
+                   y=cumkm,
+                   color=software)) + 
+    geom_path() +
+    geom_point() + 
+    facet_wrap(~effort, nrow=1, scales='free') + 
+    labs(title = paste0('Cumulative effort on Cruise ', cruise))+ 
+    xlab(NULL) + ylab(NULL)
+  
+  p2 <- ggplot(dff %>% 
+                 group_by(effort, Date) %>% 
+                 summarize(diffs = diffs[n()]) %>% 
+                 mutate(software = 'ABu - LTa'),
+               aes(x=Date,
+                   y=diffs,
+                   color = software)) + 
+    geom_path() + 
+    geom_point() + 
+    geom_hline(yintercept = 0, lty=2, alpha=.5) + 
+    facet_wrap(~effort, nrow=1, scales='free') + 
+    labs(title = 'Cumulative differences')+ 
+    xlab(NULL) + ylab(NULL)
+  
+  p3 <- 
+    ggplot(dff,
+           aes(x=Date, y=km, fill=software)) +   
+    geom_bar(stat='identity', position='dodge') + 
+    labs(title = paste0('Daily systematic effort on Cruise ', cruise),
+         caption = paste0('Overall discrepancy (ABUND - LTabundR) = ', diffi,' km')) + 
+    xlab(NULL) + ylab(NULL)
+    
+  ggpubr::ggarrange(p1, p2, p3, nrow=3)
+  #p3
+}
+```
+
+```{r, echo=FALSE, eval=FALSE, message=FALSE, warning=FALSE, collapse=FALSE}
+# Scratchpad
+
+#### Investigating discrepancies {-} 
+# To choose which discrepancies to investigate, we will use a cutoff of 2% proportional error in cruises with at least 100km of effort (according to `ABUND 9`: 
+
+# Now loop through each problematic cruise:  
+
+filtered_table <- error_table(df) %>% filter(km_abund > 100 & prop >= 0.02)
+
+filtered_table
+
+for(i in 1:nrow(filtered_table)){
+  cruise_compare(df, cruise=filtered_table$Cruise[i]) %>% print
+  message('')
+}
+```
+
+
+```{r, echo=FALSE, eval=FALSE, message=FALSE, warning=FALSE, collapse=TRUE}
+# Scratchpad
+
+# Revise settings
+survey <- load_survey_settings(#min_row_interval = 0,
+                               min_row_interval = 5,
+                               
+                               #max_row_interval = Inf, # extreme over-estimates
+                               #max_row_interval = 3600*2, # much better, still no under-estimates
+                               max_row_interval = 3600, # still no overestimates
+                               #max_row_interval = 1800, # starting to get underestimates
+                               
+                               #max_row_km = Inf,
+                               max_row_km = 100,
+                               speed_filler = 10*1.582,
+                               km_filler = 1)
+
+settings <- load_settings(strata = strata_cnp[2],
+                          survey = survey,
+                          cohorts = list(load_cohort_settings(id='all')))
+
+# Re-process data
+cruz <- process_surveys(das_file = 'data/surveys/CenPac1986-2020_Final_alb.das', 
+                        settings = settings,
+                        process_sightings = FALSE,
+                        process_subgroups = FALSE)
+
+# Prep & plot
+ltabundr <- ltabundr_prep(cruz)
+eff_plot(abund, ltabundr)
+
+# More scratch
+das <- 
+  cruz$cohorts$all$das %>% 
+  filter(Cruise == 1614)
+das %>% head
+das$km_int %>% hist(breaks=50)
+das$km_int %>% table %>% sort
+
+das %>% 
+  mutate(this_dt = as.numeric(lubridate::as_datetime(DateTime)),
+         next_dt = lead(this_dt)) %>% 
+  mutate(sec_int = difftime(next_dt, this_dt, units='secs') %>% as.numeric) %>% 
+  pull(sec_int) %>% 
+  hist
+
+cruz$settings$survey %>% names
+cruz$settings$survey$max_row_interval
+cruz$settings$survey$segment_max_interval
+
+sum(abund$km[abund$effort == 'S']) - sum(ltabundr$km[ltabundr$effort == 'S'])
+```
+
+
+
 

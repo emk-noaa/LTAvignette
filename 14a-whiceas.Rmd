@@ -33,7 +33,11 @@ edits <- readRDS('cnp_1986_2020_edits.RData')
 
 survey <- load_survey_settings(
   out_handling = 'remove',
-  max_row_interval = Inf,
+  min_row_interval = 2,
+  max_row_interval = 3600,
+  max_row_km = 100,
+  km_filler = 1,
+  speed_filler = 10 * 1.852,
   segment_method = "equallength",
   segment_target_km = 150,
   segment_max_interval = 24,

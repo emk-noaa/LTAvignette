@@ -140,9 +140,17 @@ The `survey_settings` input accepts a list with any of the following named slots
 
 - **`out_handling:`** the first slot allows you to specify how data occurring outside of geo-strata should be handled. If this is set to `"remove"`, those rows will be filtered out of the data early in the process. This reduces memory usage, speeds up processing, and gives you geographic control of how effort and sightings will be summarize.  If this is set to `"stratum"`, those data will be assigned to a fake geo-stratum, named `"out"`. Effort in the `"out"` stratum will not be segmentized, but `"out"` sightings will be processed and retained in the final datasets. This setting might be useful if you want to use `"out"` data for survey summaries and/or detection function estimation.  The default is `"remove"`, since that saves the most time and memory.  
 
-- **`interpolate:`** This argument allows you to interpolate the `DAS` data at the onset of processing if your position updates are separated by large time intervals, which would make spatial effort and stratum assignments less exact. If this argument is `NULL`, then no interpolation will occur. If it is a number, e.g., 30, `LTabundR` will interpolate the data using simple-linear methods (i.e., no great-sphere calculations), such that position updates occur every 30 seconds or less. If adjacent `DAS` rows are from different dates or cruises, the interpolation routine will skip to the next pair of related rows.  Interpolation will only occur for On-Effort rows.  
+- **`interpolate:`** This argument allows you to interpolate the `DAS` data at the onset of processing if your position updates are separated by large time intervals, which would make spatial effort and stratum assignments less exact. If this argument is `NULL`, then no interpolation will occur. If it is a number, e.g., 30, `LTabundR` will interpolate the data using simple-linear methods (i.e., no great-sphere calculations), such that position updates occur every 30 seconds or less. If adjacent `DAS` rows are from different dates or cruises, the interpolation routine will skip to the next pair of related rows.  Interpolation will only occur for On-Effort rows (i.e., column `OnEffort` is `TRUE`).  
 
-- **`max_row_interval`:** The maximum alloweable time interval, in seconds, between rows before `LTabundR` assumes that there has been a break in survey data logging. The default is 900 seconds, or 15 minutes.  
+- **`min_row_interval`:** The minimum time interval, in seconds, between rows in order for the Great Circle distance between rows to be calculated. Intervals less than this number will be assigned a distance of 0 km.  
+
+- **`max_row_interval`:** The maximum alloweable time interval, in seconds, between rows before `LTabundR` assumes that there has been a break in survey data logging. 
+
+- **`max_row_km`:** The maximum alloweable distance interval, in km, between rows before the function assumes that there has been a break in survey data logging. 
+
+- **`km_filler`:** When valid speed and position information is not available (e.g., the given distance exceeds max_km_gap), this value (in km) will be used as an estimate of the distance in between consecutive rows of data.  
+
+- **`speed_filler`:**  When speed is not available in the data, this value (in kph) will be used as a filler in order to estimate the distance between consecutive rows of data based on timestamp differences (when lat/long coordinates are not available).  
 
 - **`segment_method:`** This and the next few slots are devoted to controlling how effort will be "segmentized", or chopped into discrete sections for the purposes of estimating the variance of the density/abundance estimates. The two method options are `"day"` -- all effort within the same Cruise-StudyArea-Stratum-Year-Effort scenario will be binned into segments by calendar date -- and `"equallength"` -- effort within each unique effort scenario (Cruise-StudyArea-etc.) will be divided into segments of approximately equal length. See the [Appendix on segmentizing](#segmentizing) for details. 
 
@@ -272,7 +280,11 @@ data(species_codes)
 # Survey settings
 survey <- 
   load_survey_settings(out_handling = 'stratum',
-                       max_row_interval = 700,
+                       min_row_interval = 5,
+                       max_row_interval = 1800,
+                       max_row_km = 10,
+                       km_filler = 1,
+                       speed_filler = 10 * 1.852,
                        segment_method = 'equallength',
                        segment_target_km = 5,
                        segment_max_interval = .3,
@@ -303,7 +315,11 @@ data(group_size_coefficients)
 
 survey <- load_survey_settings(
   out_handling = 'remove',
-  max_row_interval = Inf,
+  min_row_interval = 2,
+  max_row_interval = 3600,
+  max_row_km = 100,
+  km_filler = 1,
+  speed_filler = 10 * 1.852,
   segment_method = "equallength",
   segment_target_km = 150,
   segment_max_interval = 24,

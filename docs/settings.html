@@ -261,19 +261,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#segment-remainder-handling"><i class="fa fa-check"></i>Segment remainder handling</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#typical-settings"><i class="fa fa-check"></i>Typical settings</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="abund9_compare.html"><a href="abund9_compare.html"><i class="fa fa-check"></i><b>18</b> <code>LTabundR</code> vs. <code>ABUND9</code></a>
-<ul>
-<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-total-effort"><i class="fa fa-check"></i>Differences in total effort</a></li>
-<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-on-effort-distance"><i class="fa fa-check"></i>Differences in on-effort distance</a></li>
-<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-total-sightings"><i class="fa fa-check"></i>Differences in total sightings</a></li>
-<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-on-effort-sightings"><i class="fa fa-check"></i>Differences in on-effort sightings</a></li>
-<li class="chapter" data-level="" data-path="abund9_compare.html"><a href="abund9_compare.html#differences-in-school-size-estimation"><i class="fa fa-check"></i>Differences in school size estimation</a></li>
-</ul></li>
-<li class="chapter" data-level="19" data-path="validation-1.html"><a href="validation-1.html"><i class="fa fa-check"></i><b>19</b> Validation</a>
+<li class="chapter" data-level="18" data-path="validation-1.html"><a href="validation-1.html"><i class="fa fa-check"></i><b>18</b> Validation</a>
 <ul>
 <li class="chapter" data-level="" data-path="validation-1.html"><a href="validation-1.html#data-processing-1"><i class="fa fa-check"></i>Data processing</a></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>20</b> NOAA/NMFS species codes</a>
+<li class="chapter" data-level="19" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>19</b> NOAA/NMFS species codes</a>
 <ul>
 <li class="chapter" data-level="" data-path="spp_codes.html"><a href="spp_codes.html#table"><i class="fa fa-check"></i>Table</a></li>
 <li class="chapter" data-level="" data-path="spp_codes.html"><a href="spp_codes.html#species_translator"><i class="fa fa-check"></i><code>species_translator()</code></a></li>
@@ -455,32 +447,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-5"><a href="settings.html#cb11-5" tabindex="-1"></a><span class="sc">$</span>interpolate</span>
 <span id="cb11-6"><a href="settings.html#cb11-6" tabindex="-1"></a><span class="cn">NULL</span></span>
 <span id="cb11-7"><a href="settings.html#cb11-7" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="settings.html#cb11-8" tabindex="-1"></a><span class="sc">$</span>max_row_interval</span>
-<span id="cb11-9"><a href="settings.html#cb11-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">900</span></span>
+<span id="cb11-8"><a href="settings.html#cb11-8" tabindex="-1"></a><span class="sc">$</span>min_row_interval</span>
+<span id="cb11-9"><a href="settings.html#cb11-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span></span>
 <span id="cb11-10"><a href="settings.html#cb11-10" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="settings.html#cb11-11" tabindex="-1"></a><span class="sc">$</span>segment_method</span>
-<span id="cb11-12"><a href="settings.html#cb11-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;day&quot;</span></span>
+<span id="cb11-11"><a href="settings.html#cb11-11" tabindex="-1"></a><span class="sc">$</span>max_row_interval</span>
+<span id="cb11-12"><a href="settings.html#cb11-12" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">3600</span></span>
 <span id="cb11-13"><a href="settings.html#cb11-13" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="settings.html#cb11-14" tabindex="-1"></a><span class="sc">$</span>segment_target_km</span>
-<span id="cb11-15"><a href="settings.html#cb11-15" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">150</span></span>
+<span id="cb11-14"><a href="settings.html#cb11-14" tabindex="-1"></a><span class="sc">$</span>max_row_km</span>
+<span id="cb11-15"><a href="settings.html#cb11-15" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">100</span></span>
 <span id="cb11-16"><a href="settings.html#cb11-16" tabindex="-1"></a></span>
-<span id="cb11-17"><a href="settings.html#cb11-17" tabindex="-1"></a><span class="sc">$</span>segment_max_interval</span>
-<span id="cb11-18"><a href="settings.html#cb11-18" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">48</span></span>
+<span id="cb11-17"><a href="settings.html#cb11-17" tabindex="-1"></a><span class="sc">$</span>km_filler</span>
+<span id="cb11-18"><a href="settings.html#cb11-18" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">1</span></span>
 <span id="cb11-19"><a href="settings.html#cb11-19" tabindex="-1"></a></span>
-<span id="cb11-20"><a href="settings.html#cb11-20" tabindex="-1"></a><span class="sc">$</span>segment_remainder_handling</span>
-<span id="cb11-21"><a href="settings.html#cb11-21" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;segment&quot;</span></span>
+<span id="cb11-20"><a href="settings.html#cb11-20" tabindex="-1"></a><span class="sc">$</span>speed_filler</span>
+<span id="cb11-21"><a href="settings.html#cb11-21" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">18.52</span></span>
 <span id="cb11-22"><a href="settings.html#cb11-22" tabindex="-1"></a></span>
-<span id="cb11-23"><a href="settings.html#cb11-23" tabindex="-1"></a><span class="sc">$</span>ship_list</span>
-<span id="cb11-24"><a href="settings.html#cb11-24" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb11-23"><a href="settings.html#cb11-23" tabindex="-1"></a><span class="sc">$</span>segment_method</span>
+<span id="cb11-24"><a href="settings.html#cb11-24" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;day&quot;</span></span>
 <span id="cb11-25"><a href="settings.html#cb11-25" tabindex="-1"></a></span>
-<span id="cb11-26"><a href="settings.html#cb11-26" tabindex="-1"></a><span class="sc">$</span>species_codes</span>
-<span id="cb11-27"><a href="settings.html#cb11-27" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb11-26"><a href="settings.html#cb11-26" tabindex="-1"></a><span class="sc">$</span>segment_target_km</span>
+<span id="cb11-27"><a href="settings.html#cb11-27" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">150</span></span>
 <span id="cb11-28"><a href="settings.html#cb11-28" tabindex="-1"></a></span>
-<span id="cb11-29"><a href="settings.html#cb11-29" tabindex="-1"></a><span class="sc">$</span>group_size_coefficients</span>
-<span id="cb11-30"><a href="settings.html#cb11-30" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb11-29"><a href="settings.html#cb11-29" tabindex="-1"></a><span class="sc">$</span>segment_max_interval</span>
+<span id="cb11-30"><a href="settings.html#cb11-30" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">48</span></span>
 <span id="cb11-31"><a href="settings.html#cb11-31" tabindex="-1"></a></span>
-<span id="cb11-32"><a href="settings.html#cb11-32" tabindex="-1"></a><span class="sc">$</span>smear_angles</span>
-<span id="cb11-33"><a href="settings.html#cb11-33" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span></span></code></pre></div>
+<span id="cb11-32"><a href="settings.html#cb11-32" tabindex="-1"></a><span class="sc">$</span>segment_remainder_handling</span>
+<span id="cb11-33"><a href="settings.html#cb11-33" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;segment&quot;</span></span>
+<span id="cb11-34"><a href="settings.html#cb11-34" tabindex="-1"></a></span>
+<span id="cb11-35"><a href="settings.html#cb11-35" tabindex="-1"></a><span class="sc">$</span>ship_list</span>
+<span id="cb11-36"><a href="settings.html#cb11-36" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb11-37"><a href="settings.html#cb11-37" tabindex="-1"></a></span>
+<span id="cb11-38"><a href="settings.html#cb11-38" tabindex="-1"></a><span class="sc">$</span>species_codes</span>
+<span id="cb11-39"><a href="settings.html#cb11-39" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb11-40"><a href="settings.html#cb11-40" tabindex="-1"></a></span>
+<span id="cb11-41"><a href="settings.html#cb11-41" tabindex="-1"></a><span class="sc">$</span>group_size_coefficients</span>
+<span id="cb11-42"><a href="settings.html#cb11-42" tabindex="-1"></a><span class="cn">NULL</span></span>
+<span id="cb11-43"><a href="settings.html#cb11-43" tabindex="-1"></a></span>
+<span id="cb11-44"><a href="settings.html#cb11-44" tabindex="-1"></a><span class="sc">$</span>smear_angles</span>
+<span id="cb11-45"><a href="settings.html#cb11-45" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">FALSE</span></span></code></pre></div>
 <p>Defaults for the <code>survey</code> argument list are built up efficiently using the function <code>load_survey_settings()</code> (see example code at bottom).</p>
 </div>
 <div id="details" class="section level3 unnumbered hasAnchor">
@@ -488,8 +492,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The <code>survey_settings</code> input accepts a list with any of the following named slots:</p>
 <ul>
 <li><p><strong><code>out_handling:</code></strong> the first slot allows you to specify how data occurring outside of geo-strata should be handled. If this is set to <code>"remove"</code>, those rows will be filtered out of the data early in the process. This reduces memory usage, speeds up processing, and gives you geographic control of how effort and sightings will be summarize. If this is set to <code>"stratum"</code>, those data will be assigned to a fake geo-stratum, named <code>"out"</code>. Effort in the <code>"out"</code> stratum will not be segmentized, but <code>"out"</code> sightings will be processed and retained in the final datasets. This setting might be useful if you want to use <code>"out"</code> data for survey summaries and/or detection function estimation. The default is <code>"remove"</code>, since that saves the most time and memory.</p></li>
-<li><p><strong><code>interpolate:</code></strong> This argument allows you to interpolate the <code>DAS</code> data at the onset of processing if your position updates are separated by large time intervals, which would make spatial effort and stratum assignments less exact. If this argument is <code>NULL</code>, then no interpolation will occur. If it is a number, e.g., 30, <code>LTabundR</code> will interpolate the data using simple-linear methods (i.e., no great-sphere calculations), such that position updates occur every 30 seconds or less. If adjacent <code>DAS</code> rows are from different dates or cruises, the interpolation routine will skip to the next pair of related rows. Interpolation will only occur for On-Effort rows.</p></li>
-<li><p><strong><code>max_row_interval</code>:</strong> The maximum alloweable time interval, in seconds, between rows before <code>LTabundR</code> assumes that there has been a break in survey data logging. The default is 900 seconds, or 15 minutes.</p></li>
+<li><p><strong><code>interpolate:</code></strong> This argument allows you to interpolate the <code>DAS</code> data at the onset of processing if your position updates are separated by large time intervals, which would make spatial effort and stratum assignments less exact. If this argument is <code>NULL</code>, then no interpolation will occur. If it is a number, e.g., 30, <code>LTabundR</code> will interpolate the data using simple-linear methods (i.e., no great-sphere calculations), such that position updates occur every 30 seconds or less. If adjacent <code>DAS</code> rows are from different dates or cruises, the interpolation routine will skip to the next pair of related rows. Interpolation will only occur for On-Effort rows (i.e., column <code>OnEffort</code> is <code>TRUE</code>).</p></li>
+<li><p><strong><code>min_row_interval</code>:</strong> The minimum time interval, in seconds, between rows in order for the Great Circle distance between rows to be calculated. Intervals less than this number will be assigned a distance of 0 km.</p></li>
+<li><p><strong><code>max_row_interval</code>:</strong> The maximum alloweable time interval, in seconds, between rows before <code>LTabundR</code> assumes that there has been a break in survey data logging.</p></li>
+<li><p><strong><code>max_row_km</code>:</strong> The maximum alloweable distance interval, in km, between rows before the function assumes that there has been a break in survey data logging.</p></li>
+<li><p><strong><code>km_filler</code>:</strong> When valid speed and position information is not available (e.g., the given distance exceeds max_km_gap), this value (in km) will be used as an estimate of the distance in between consecutive rows of data.</p></li>
+<li><p><strong><code>speed_filler</code>:</strong> When speed is not available in the data, this value (in kph) will be used as a filler in order to estimate the distance between consecutive rows of data based on timestamp differences (when lat/long coordinates are not available).</p></li>
 <li><p><strong><code>segment_method:</code></strong> This and the next few slots are devoted to controlling how effort will be “segmentized”, or chopped into discrete sections for the purposes of estimating the variance of the density/abundance estimates. The two method options are <code>"day"</code> – all effort within the same Cruise-StudyArea-Stratum-Year-Effort scenario will be binned into segments by calendar date – and <code>"equallength"</code> – effort within each unique effort scenario (Cruise-StudyArea-etc.) will be divided into segments of approximately equal length. See the <a href="segmentizing.html#segmentizing">Appendix on segmentizing</a> for details.</p></li>
 <li><p><strong><code>segment_target_km:</code></strong> if segmentizing by <code>"equallength"</code>, this field allows you to specify what that target length is, in km. The default is 150 km, the distance generally surveyed in one day on NOAA Fisheries surveys.</p></li>
 <li><p><strong><code>segment_max_interval:</code></strong> if segmentizing by <code>"equallength"</code>, this setting allows you to specify the time gaps in effort that are allowed to be contained within a single segment. For example, if your goal is a few large segments of equal length (e.g., 150-km segments, for bootstrap estimation of density variance), you are probably willing for discrete periods of effort to be concatenated into a single segment, even if the gaps between effort are as large as 1 or 2 days, in which case you would set <code>segment_max_interval</code> to 24 or 48 (hours), respectively. However, if your goal is many smaller segments (e.g., 5-km segments, for habitat modeling), you want to ensure that effort is contiguous so that segment locations can be accurately related to environmental variables, in which case you would set <code>segment_max_interval</code> to be very small (e.g., .2 hours, or 12 minutes). Setting this interval to a small number, such as 0.2, also allows the segmentizing function to overlook momentary breaks in effort.</p></li>
@@ -631,19 +639,23 @@ listed in the <code>strata</code> slot of your survey settings (see documentatio
 <span id="cb16-7"><a href="settings.html#cb16-7" tabindex="-1"></a><span class="co"># Survey settings</span></span>
 <span id="cb16-8"><a href="settings.html#cb16-8" tabindex="-1"></a>survey <span class="ot">&lt;-</span> </span>
 <span id="cb16-9"><a href="settings.html#cb16-9" tabindex="-1"></a>  <span class="fu">load_survey_settings</span>(<span class="at">out_handling =</span> <span class="st">&#39;stratum&#39;</span>,</span>
-<span id="cb16-10"><a href="settings.html#cb16-10" tabindex="-1"></a>                       <span class="at">max_row_interval =</span> <span class="dv">700</span>,</span>
-<span id="cb16-11"><a href="settings.html#cb16-11" tabindex="-1"></a>                       <span class="at">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
-<span id="cb16-12"><a href="settings.html#cb16-12" tabindex="-1"></a>                       <span class="at">segment_target_km =</span> <span class="dv">5</span>,</span>
-<span id="cb16-13"><a href="settings.html#cb16-13" tabindex="-1"></a>                       <span class="at">segment_max_interval =</span> .<span class="dv">3</span>,</span>
-<span id="cb16-14"><a href="settings.html#cb16-14" tabindex="-1"></a>                       <span class="at">segment_remainder_handling =</span> <span class="fu">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
-<span id="cb16-15"><a href="settings.html#cb16-15" tabindex="-1"></a>                       <span class="at">ship_list =</span> ships,</span>
-<span id="cb16-16"><a href="settings.html#cb16-16" tabindex="-1"></a>                       <span class="at">species_codes =</span> species_codes,</span>
-<span id="cb16-17"><a href="settings.html#cb16-17" tabindex="-1"></a>                       <span class="at">group_size_coefficients =</span> group_size_coefficients,</span>
-<span id="cb16-18"><a href="settings.html#cb16-18" tabindex="-1"></a>                       <span class="at">smear_angles =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb16-19"><a href="settings.html#cb16-19" tabindex="-1"></a></span>
-<span id="cb16-20"><a href="settings.html#cb16-20" tabindex="-1"></a><span class="co"># Load settings</span></span>
-<span id="cb16-21"><a href="settings.html#cb16-21" tabindex="-1"></a>settings <span class="ot">&lt;-</span> <span class="fu">load_settings</span>(<span class="at">strata =</span> strata_cnp,</span>
-<span id="cb16-22"><a href="settings.html#cb16-22" tabindex="-1"></a>                          survey)</span></code></pre></div>
+<span id="cb16-10"><a href="settings.html#cb16-10" tabindex="-1"></a>                       <span class="at">min_row_interval =</span> <span class="dv">5</span>,</span>
+<span id="cb16-11"><a href="settings.html#cb16-11" tabindex="-1"></a>                       <span class="at">max_row_interval =</span> <span class="dv">1800</span>,</span>
+<span id="cb16-12"><a href="settings.html#cb16-12" tabindex="-1"></a>                       <span class="at">max_row_km =</span> <span class="dv">10</span>,</span>
+<span id="cb16-13"><a href="settings.html#cb16-13" tabindex="-1"></a>                       <span class="at">km_filler =</span> <span class="dv">1</span>,</span>
+<span id="cb16-14"><a href="settings.html#cb16-14" tabindex="-1"></a>                       <span class="at">speed_filler =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fl">1.852</span>,</span>
+<span id="cb16-15"><a href="settings.html#cb16-15" tabindex="-1"></a>                       <span class="at">segment_method =</span> <span class="st">&#39;equallength&#39;</span>,</span>
+<span id="cb16-16"><a href="settings.html#cb16-16" tabindex="-1"></a>                       <span class="at">segment_target_km =</span> <span class="dv">5</span>,</span>
+<span id="cb16-17"><a href="settings.html#cb16-17" tabindex="-1"></a>                       <span class="at">segment_max_interval =</span> .<span class="dv">3</span>,</span>
+<span id="cb16-18"><a href="settings.html#cb16-18" tabindex="-1"></a>                       <span class="at">segment_remainder_handling =</span> <span class="fu">c</span>(<span class="st">&#39;append&#39;</span>,<span class="st">&#39;segment&#39;</span>),</span>
+<span id="cb16-19"><a href="settings.html#cb16-19" tabindex="-1"></a>                       <span class="at">ship_list =</span> ships,</span>
+<span id="cb16-20"><a href="settings.html#cb16-20" tabindex="-1"></a>                       <span class="at">species_codes =</span> species_codes,</span>
+<span id="cb16-21"><a href="settings.html#cb16-21" tabindex="-1"></a>                       <span class="at">group_size_coefficients =</span> group_size_coefficients,</span>
+<span id="cb16-22"><a href="settings.html#cb16-22" tabindex="-1"></a>                       <span class="at">smear_angles =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-23"><a href="settings.html#cb16-23" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="settings.html#cb16-24" tabindex="-1"></a><span class="co"># Load settings</span></span>
+<span id="cb16-25"><a href="settings.html#cb16-25" tabindex="-1"></a>settings <span class="ot">&lt;-</span> <span class="fu">load_settings</span>(<span class="at">strata =</span> strata_cnp,</span>
+<span id="cb16-26"><a href="settings.html#cb16-26" tabindex="-1"></a>                          survey)</span></code></pre></div>
 </div>
 <div id="fully-custom-whiceas-case-study" class="section level3 unnumbered hasAnchor">
 <h3>Fully custom: WHICEAS case study<a href="settings.html#fully-custom-whiceas-case-study" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -657,16 +669,20 @@ listed in the <code>strata</code> slot of your survey settings (see documentatio
 <span id="cb17-4"><a href="settings.html#cb17-4" tabindex="-1"></a></span>
 <span id="cb17-5"><a href="settings.html#cb17-5" tabindex="-1"></a>survey <span class="ot">&lt;-</span> <span class="fu">load_survey_settings</span>(</span>
 <span id="cb17-6"><a href="settings.html#cb17-6" tabindex="-1"></a>  <span class="at">out_handling =</span> <span class="st">&#39;remove&#39;</span>,</span>
-<span id="cb17-7"><a href="settings.html#cb17-7" tabindex="-1"></a>  <span class="at">max_row_interval =</span> <span class="cn">Inf</span>,</span>
-<span id="cb17-8"><a href="settings.html#cb17-8" tabindex="-1"></a>  <span class="at">segment_method =</span> <span class="st">&quot;equallength&quot;</span>,</span>
-<span id="cb17-9"><a href="settings.html#cb17-9" tabindex="-1"></a>  <span class="at">segment_target_km =</span> <span class="dv">150</span>,</span>
-<span id="cb17-10"><a href="settings.html#cb17-10" tabindex="-1"></a>  <span class="at">segment_max_interval =</span> <span class="dv">24</span>,</span>
-<span id="cb17-11"><a href="settings.html#cb17-11" tabindex="-1"></a>  <span class="at">segment_remainder_handling =</span> <span class="fu">c</span>(<span class="st">&quot;segment&quot;</span>),</span>
-<span id="cb17-12"><a href="settings.html#cb17-12" tabindex="-1"></a>  <span class="at">ship_list =</span> ships,</span>
-<span id="cb17-13"><a href="settings.html#cb17-13" tabindex="-1"></a>  <span class="at">species_codes =</span> species_codes,</span>
-<span id="cb17-14"><a href="settings.html#cb17-14" tabindex="-1"></a>  <span class="at">group_size_coefficients =</span> group_size_coefficients,</span>
-<span id="cb17-15"><a href="settings.html#cb17-15" tabindex="-1"></a>  <span class="at">smear_angles =</span> <span class="cn">FALSE</span></span>
-<span id="cb17-16"><a href="settings.html#cb17-16" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb17-7"><a href="settings.html#cb17-7" tabindex="-1"></a>  <span class="at">min_row_interval =</span> <span class="dv">2</span>,</span>
+<span id="cb17-8"><a href="settings.html#cb17-8" tabindex="-1"></a>  <span class="at">max_row_interval =</span> <span class="dv">3600</span>,</span>
+<span id="cb17-9"><a href="settings.html#cb17-9" tabindex="-1"></a>  <span class="at">max_row_km =</span> <span class="dv">100</span>,</span>
+<span id="cb17-10"><a href="settings.html#cb17-10" tabindex="-1"></a>  <span class="at">km_filler =</span> <span class="dv">1</span>,</span>
+<span id="cb17-11"><a href="settings.html#cb17-11" tabindex="-1"></a>  <span class="at">speed_filler =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fl">1.852</span>,</span>
+<span id="cb17-12"><a href="settings.html#cb17-12" tabindex="-1"></a>  <span class="at">segment_method =</span> <span class="st">&quot;equallength&quot;</span>,</span>
+<span id="cb17-13"><a href="settings.html#cb17-13" tabindex="-1"></a>  <span class="at">segment_target_km =</span> <span class="dv">150</span>,</span>
+<span id="cb17-14"><a href="settings.html#cb17-14" tabindex="-1"></a>  <span class="at">segment_max_interval =</span> <span class="dv">24</span>,</span>
+<span id="cb17-15"><a href="settings.html#cb17-15" tabindex="-1"></a>  <span class="at">segment_remainder_handling =</span> <span class="fu">c</span>(<span class="st">&quot;segment&quot;</span>),</span>
+<span id="cb17-16"><a href="settings.html#cb17-16" tabindex="-1"></a>  <span class="at">ship_list =</span> ships,</span>
+<span id="cb17-17"><a href="settings.html#cb17-17" tabindex="-1"></a>  <span class="at">species_codes =</span> species_codes,</span>
+<span id="cb17-18"><a href="settings.html#cb17-18" tabindex="-1"></a>  <span class="at">group_size_coefficients =</span> group_size_coefficients,</span>
+<span id="cb17-19"><a href="settings.html#cb17-19" tabindex="-1"></a>  <span class="at">smear_angles =</span> <span class="cn">FALSE</span></span>
+<span id="cb17-20"><a href="settings.html#cb17-20" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="geostrata" class="section level4 unnumbered hasAnchor">
 <h4>Geostrata<a href="settings.html#geostrata" class="anchor-section" aria-label="Anchor link to header"></a></h4>
