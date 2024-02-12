@@ -411,19 +411,20 @@ We took all of these steps in the example above with striped dolphins, Fraser's 
 
 #### Pooling similar species {-}  
 
-Species that can be confused with one another may need to be pooled together for abundance estimation. For example, in the northeast Pacific, sei whales, Bryde's whales, and fin whales can co-occur but they are difficult to distinguish in the field. They are also relatively uncommon, and may need to be pooled with other species in order to obtain a sound detection function model. However, we may also want to estimate the density/abundance in the WHICEAS study area of all detections of sei, Bryde's, fin whales together.    
+Species that can be confused with one another may need to be pooled together for abundance estimation. For example, in the northeast Pacific, sei whales, Bryde's whales, and fin whales can co-occur but they are difficult to distinguish in the field. They are also relatively uncommon, and may need to be pooled with other species in order to obtain a sound detection function model. There is also a species code, `"199"`, to indicate sightings that could be any of these species. That species code could be used to estimate the "abundance" of this ambiguous species code, but it does not have a sample size sufficient for estimating Relative *g(0)*.  
 
-To handle this, we will follow all the steps taken for a multi-species pool, as discussed above. Additionally, in our `estimates` sub-list(s), we will specify (1) that multiple species should be included in the estimate, and (2) that the weighted *g(0)* estimates for each of the individual species should be averaged together:
+To handle this special case, we will follow all the steps taken for a multi-species pool, as discussed above. Additionally, in our `estimates` sub-list(s), we will specify (1) that the ambiguous species code should be used for the abundance estimate, and (2) that the *g(0)* should represent the average of the weighted *g(0)* estimates for each of the candidate species:  
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 estimates <- list(
-  list(spp = c('072', '073', '099', '074'),
+  list(spp = '199',
        title = "Sei/Bryde's/Fin whale",
-       years = 2017,
-       regions = 'WHICEAS',
+       alt_g0_spp = c('072', '073', '099', '074'),
        combine_g0 = TRUE))
-
 ```
+
+You can also multiple species within the `spp` input, which would indicate that you want to estimate the pooled abundance of those species together.    
+
 
 #### Rare unidentified taxa {-}  
 

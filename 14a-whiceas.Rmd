@@ -678,15 +678,16 @@ if(TRUE){ # toggle
          not_regions = fit_not_regions)
 
   # Density / abundance estimation plan
-   estimates <-
-      c(estimator(spp = '072', title = "Bryde's whale"),
-        estimator(spp = '073', title = "Sei whale"),
-        estimator(spp = '074', title = "Fin whale"),
-        estimator(spp = '075', title = "Blue whale"),
-        estimator(spp = '099', title = "Sei/Bryde's whale"),
-        estimator(spp = c('072', '073', '099', '074'), 
-                  title = "Sei/Bryde's/Fin whale",
-                  combine_g0 = TRUE))
+  estimates <-
+    c(estimator(spp = '072', title = "Bryde's whale"),
+      estimator(spp = '073', title = "Sei whale"),
+      estimator(spp = '074', title = "Fin whale"),
+      estimator(spp = '075', title = "Blue whale"),
+      estimator(spp = '099', title = "Sei/Bryde's whale"),
+      estimator(spp = '199',
+                title = "Sei/Bryde's/Fin whale",
+                alt_g0_spp = c('072', '073', '099', '074'),
+                combine_g0 = TRUE))
   
    if(g0_scenario==1){
     # Brydes (no ALB sightings -- using sei values)
