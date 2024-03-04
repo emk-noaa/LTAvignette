@@ -16,5 +16,5 @@ plots
 whiceas
 stratagallery
 segmentizing
-validation-1
+validation
 spp_codes

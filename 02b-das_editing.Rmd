@@ -235,6 +235,35 @@ das_file <- 'data/surveys/CenPac1986-2020_Final_alb.das'
 das <- das_readtext(das_file)
 ```
 
+#### Acoustic update to a 2020 beaked whale sighting {-} 
+
+During the 2020 WHICEAS study, a sighting was assigned the species code, `"051`" or Unidentified *Mesoplodon* in the field:   
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, collapse=TRUE}
+das[606393,]
+```
+
+(Note that we used `das_inspector()` to get the row numbers for this region of the data.)   
+
+Later the acoustics team used click detections to re-classify this species to Blainsville's beaked whale (species code `"059"`). To update the `DAS` file accordingly, we can edit the species code directly within the appropriate line:  
+
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+edit_acoustic <-
+        list(das_file = das_file,
+             type = 'text',
+             rows = 606393,
+             chars = 62:64,
+             edit = '059')
+```
+
+Here is what this change will look like: 
+
+```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
+dase <- das_editor(list(edit_acoustic))
+dase$das[[1]]$das$das[606393]
+```
+
+
 #### Cruise 1607 sighting 55 {-}
 
 This sighting, at sequence ID `032` below, currently triggers errors in `swfscDAS` due to a manually entered `R` event a few lines above that does not have the `P` (observer positions) event that typically follows it. Without tht `P` entry, the observer positions of the sighting are unknown.  
@@ -382,7 +411,8 @@ Finally, we will collect these edits into a single `list` and save them for use 
 
 ```{r, echo=TRUE, eval=TRUE, message=TRUE, collapse=TRUE}
 # Combine
-edits <- list(edit_1607_55,
+edits <- list(edit_acoustic,
+              edit_1607_55,
               edit_1607_68,
               edit_1621_245,
               #edit_1004_utc,

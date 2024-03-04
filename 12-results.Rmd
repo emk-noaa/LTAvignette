@@ -92,7 +92,6 @@ lta_diagnostics(lta_result, options = 7)
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, include=TRUE}
 lta_diagnostics(lta_result, options = 8)
-
 ```
 
 

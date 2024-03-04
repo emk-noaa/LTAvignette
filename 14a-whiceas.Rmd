@@ -13,13 +13,111 @@ library(ggplot2)
 ```{r, echo=FALSE, eval=TRUE, collapse=TRUE, include=TRUE, warning=FALSE, message=FALSE}
 reproc_from_scratch <- FALSE
 rerun_from_scratch <- FALSE
-g0_scenario <- 2
+g0_scenario <- 3
 # If you want to confirm the package works, change to TRUE.
 # If you already know it does, change to FALSE so that knitting is quick
 # (it will use saved R objects instead of producing them anew)
 ```
 
 ## Data processing {-}  
+
+We will use the same settings and edits presented earlier in this manual, provided here for convenience.  
+
+### Edits {-}
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+das_file = 'data/surveys/CenPac1986-2020_Final_alb.das'
+```
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+edits_file <- 'cnp_1986_2020_edits.RData'
+
+#### Acoustic ID update ========================================================
+# During the 2020 WHICEAS study, a sighting was assigned the species code 051 
+# for Unidentified *Mesoplodon* in the field.
+# Later the acoustics team used click detections to re-classify this species 
+# to Blainsville's beaked whale (species code `"059"`). 
+# To update the `DAS` file accordingly, we can edit the species code directly 
+# within the appropriate line:  
+
+edit_acoustic <-
+  list(das_file = das_file,
+       type = 'text',
+       rows = 606393,
+       chars = 62:64,
+       edit = '059')
+
+#### Cruise 1607 sighting 55 ===================================================
+# This sighting, at sequence ID `032` below,
+# currently triggers errors in `swfscDAS` due to a manually entered `R` event
+# a few lines above that does not have the `P` (observer positions) event that
+# typically follows it. Without tht `P` entry, the observer positions of the
+# sighting are unknown.
+# To fix this, we can stage an edit that copies the "P" line that occurs minutes
+# earlier and pastes that line just below the rogue "R" line.
+
+edit_1607_55 <-
+  list(das_file = das_file,
+       type = 'copy',
+       rows = 128111,
+       chars = NULL,
+       edit = 128118)
+
+#### Cruise 1607 sighting 68  ==================================================
+# This sighting faces a similar issue:
+# a rogue `R` event without the follow-up `P` event.
+# This case is also missing the follow-up `V` event (viewing conditions).
+# To fix this we will stage a similar edit,
+#this time copying and pasting two rows (`P` and `V` events)
+# below the rogue `R` event:
+
+edit_1607_68 <-
+  list(das_file = das_file,
+       type = 'copy',
+       rows = c(129982, 129983 , 129985),
+       chars = NULL,
+       edit = 129987)
+
+#### Cruise 1621 sighting 245  =================================================
+# This is another case of a rogue `R` event,
+# again missing both the requisite `P` and the `V` post-`R` events.
+
+edit_1621_245 <-
+  list(das_file = das_file,
+       type = 'copy',
+       rows = 271932:271933,
+       chars = NULL,
+       edit = 271937)
+
+#### Timestamp issues with Cruise 1004  ========================================
+# This edit will correct for the fact that all of Cruise 1004
+# was conducted using UTC timestamps instead of local timestamps.
+# A safe approximation of this edit would be to simply adjust the timezone
+# by the GMT offset for Guam (UTC + 10 hours).
+
+edit_1004_gmt10 <-
+  list(das_file = das_file,
+       type = 'function',
+       rows = 433327:437665,
+       chars = 6:39,
+       edit = 'function(x){das_time(x, tz_adjust = 10)$dt}')
+
+# Combining and saving edits  ==================================================
+# Finally, we will collect these edits into a single `list`
+# and save them for use during survey processing (next page).
+
+edits <- list(edit_acoustic,
+              edit_1607_55,
+              edit_1607_68,
+              edit_1621_245,
+              edit_1004_gmt10)
+
+# Save to file
+saveRDS(edits,file=edits_file)
+
+# Load them in
+edits <- readRDS('cnp_1986_2020_edits.RData')
+```
 
 ### Settings {-}  
 
@@ -29,7 +127,6 @@ g0_scenario <- 2
 data(species_codes)
 data(ships)
 data(group_size_coefficients)
-edits <- readRDS('cnp_1986_2020_edits.RData')
 
 survey <- load_survey_settings(
   out_handling = 'remove',
@@ -119,7 +216,7 @@ cruz <-
                   settings = settings,
                   edits = edits) 
 
-
+# Save cruz object to file
 save(cruz, file='whiceas/whiceas_cruz.RData')
 ```
 
@@ -141,10 +238,7 @@ cruz$cohorts$all$sightings %>%
   table
 
 cruz$cohorts$all$sightings %>% filter(Cruise == '1004')
-
 ```
-
-## Data exploration {-}  
 
 ### Processed data structure {-}  
 
@@ -152,142 +246,140 @@ cruz$cohorts$all$sightings %>% filter(Cruise == '1004')
 cruz_structure(cruz)
 ```
 
-### Map of sightings {-}  
-
-For the entire `cruz` object:  
-
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE, fig.height=7, fig.width=7}
-map_cruz(cruz, sightings_color = 'firebrick')
-```
-
-For just the surveys of interest:  
-
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE, fig.height=7, fig.width=7}
-# Filter
-cruz1720 <- filter_cruz(cruz, 
-                        years = c(2017, 2020), 
-                        regions = 'WHICEAS',
-                        eff_types = 'S',
-                        bft_range = 0:6)
-
-# Map, including survey tracks
-map_cruz(cruz1720,
-         sightings_color = 'firebrick', 
-         effort_show = TRUE, 
-         effort_resolution = 3,
-         effort_weight = 4,
-         effort_opacity = .4)
-```
-
-```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
-# scratchpad
-
-# Map ==========================================================================
-
-data(coastline)
-coast <- coastline
-st_crs(coast) <- 4326
-
-data(land)
-landnew <- st_transform(land, crs= 4326)
-
-data(eez_hawaii)
-st_crs(eez_hawaii) <- 4326
-
-data(strata_cnp)
-whiceas_poly <- process_polygon(strata_cnp$WHICEAS)$sf
-st_crs(whiceas_poly) <- 4326
-
-bottlenose1 <- process_polygon(strata_cnp$Bottlenose_KaNi)$sf
-st_crs(bottlenose1) <- 4326
-bottlenose2 <- process_polygon(strata_cnp$Bottlenose_OUFI)$sf
-st_crs(bottlenose2) <- 4326
-bottlenose3 <- process_polygon(strata_cnp$Bottlenose_BI)$sf
-st_crs(bottlenose3) <- 4326
-
-spotted1 <- process_polygon(strata_cnp$Spotted_OU)$sf
-st_crs(spotted1) <- 4326
-spotted2 <- process_polygon(strata_cnp$Spotted_FI)$sf
-st_crs(spotted2) <- 4326
-spotted3 <- process_polygon(strata_cnp$Spotted_BI)$sf
-st_crs(spotted3) <- 4326
-
-# https://r-spatial.org/r/2018/10/25/ggplot2-sf.html
-
-library(ggplot2)
-library(ggspatial)
-library("rnaturalearth")
-library("rnaturalearthdata")
-world <- ne_countries(scale = "medium", returnclass = "sf")
-
-ggplot(data = land) +
-    geom_sf(fill='darkslategrey', color=NA, alpha=.6)  +
-    geom_sf(data=eez_hawaii, color='grey70', size=.2) + 
-    geom_sf(data=bottlenose1, size=.5, alpha=0, color=adjustcolor('firebrick', alpha=.5)) + 
-    geom_sf(data=bottlenose2, size=.5, alpha=0, color=adjustcolor('firebrick', alpha=.5)) + 
-    geom_sf(data=bottlenose3, size=.5, alpha=0, color=adjustcolor('firebrick', alpha=.5)) + 
-    geom_sf(data=spotted1, size=.5, alpha=0, color=adjustcolor('forestgreen', alpha=.5)) + 
-    geom_sf(data=spotted2, size=.5, alpha=0, color=adjustcolor('forestgreen', alpha=.5)) + 
-    geom_sf(data=spotted3, size=.5, alpha=0, color=adjustcolor('forestgreen', alpha=.5)) + 
-    geom_sf(data=whiceas_poly, size=.8, alpha=0, color=adjustcolor('steelblue4', alpha=.5)) + 
-    coord_sf(crs=4326, xlim=c(-162, -153), ylim=c(17, 24.2)) + 
-    annotation_north_arrow(location = "bl", 
-                         which_north = "true", 
-                         height = unit(1, 'cm'),
-                         width = unit(1, 'cm'),
-                         #pad_x = unit(0.5, "in"), pad_y = unit(0.5, "in"),
-                         style = north_arrow_fancy_orienteering) +
-   xlab(NULL) + ylab(NULL) + 
-   theme_light() + 
-   theme(strip.background = element_rect(fill = "grey45"),
-         panel.grid.major = element_blank(), 
-         panel.grid.minor = element_blank()) + 
-  # Effort
-  geom_point(data=cruz1720$cohorts$all$das %>% filter(Bft <= 6,
-                                                      EffType == 'S',
-                                                      OnEffort == TRUE, 
-                                                      use == TRUE),
-             mapping=aes(x=Lon,
-                         y=Lat),
-             cex=.01,
-             alpha=.1) + 
-  # Sightings
-  geom_point(data=cruz1720$cohorts$all$sightings %>% filter(included == TRUE),
-             mapping=aes(x=Lon,
-                         y=Lat)) + 
-  facet_wrap(~year, ncol=2)
-
-ggsave(filename = 'whiceas/map.pdf', width=9, height=4.5)
-
-
-# Sperm whale encounter rate analysis ==========================================
-er_results <- 
-  er_simulator(spp = '046', cohort = 1, cruz = cruz1720, iterations = 1000)
-er_results$summary
-
-# Short-finned pilot whale encounter rate analysis ==========================================
-er_results <- 
-  er_simulator(spp = '036', cohort = 1, cruz = cruz1720, iterations = 1000)
-er_results$summary
-
-```
-
-
-### Interactive dashboard {-}  
-
-Use this to determine truncation distances.  Note them in your `lta()` code below: 
-
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
-cruz_explorer(cruz)
-```
-
 ## Rg0 {-}  
 
-We can use the built-in dataset, `data(g0_results)`, which has Beaufort-specific *Relative g(0)* estimates for most species based on 1986-2020 surveys.  
+To estimate Relative *g(0)* for our species of interest, we use the routine below, based on data from the same time period: 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 data("g0_results")
 Rg0 <- g0_results
+```
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+# Bring in 10km-segment data from all NOAA/NMFS surveys, 1986 - 2020
+data("noaa_10km_1986_2020")
+
+# Filter to analysis only
+cruzi <- filter_cruz(noaa_10km_1986_2020,
+                     analysis_only = TRUE,
+                     eff_types = 'S',
+                     bft_range = 0:6,
+                     on_off = TRUE)
+
+#### Prepare settings list for each species ====================================
+
+species <- list(
+  list(spp = c('005', '016', '017'),
+       title = 'Delphinus spp',
+       truncation = 5.5,
+       constrain_shape=TRUE),
+  list(spp = c('002','006','089','090'),
+       title = 'Stenella attenuata spp',
+       truncation = 5.5),
+  list(spp = c('003','010','011','088','100','101','102','103','107'),
+       title = 'Stenella longirostris spp',
+       truncation = 5.5),
+  list(spp = '013',
+       title = 'Striped dolphin',
+       truncation = 5.5,
+       constrain_shape=TRUE),
+  list(spp = '015',
+       title = 'Rough-toothed dolphin',
+       truncation = 5.5),
+  list(spp = '018',
+       title = 'Bottlenose dolphin',
+       truncation = 5.5,
+       constrain_shape=TRUE),
+       #pool_bft = '12'),
+  list(spp = '021',
+       title = "Risso's dolphin",
+       truncation = 5.5,
+       constrain_shape=TRUE),
+       #pool_bft = '12'),
+  list(spp = '026',
+       title = "Fraser's dolphin",
+       truncation = 5.5),
+  list(spp = '031',
+       title = 'Melon-headed whale',
+       truncation = 5.5),
+  list(spp = '032',
+       title = 'Pygmy killer whale',
+       truncation = 5.5),
+  list(spp = '036',
+       title = 'Short-finned pilot whale',
+       truncation = 5.5,
+       constrain_shape=TRUE),
+       #pool_bft = '12'),
+  list(spp = '037',
+       title = 'Killer whale',
+       truncation = 5.5,
+       constrain_shape=TRUE),
+       #pool_bft = '12'),
+  list(spp = '046',
+       title = 'Sperm whale',
+       truncation = 5.5),
+  list(spp = c('047', '048', '080'),
+       title = 'Kogia spp',
+       truncation = 4.0,
+       constrain_shape = FALSE),
+  list(spp = '061',
+       title = "Cuvier's beaked whale",
+       truncation = 4.0,
+       constrain_shape=TRUE),
+  list(spp = '049',
+       title = 'Unid. beaked whale',
+       truncation = 5.5,
+       constrain_shape=TRUE),
+  list(spp = c('001','051','052','053','054','055',
+               '056','057','058','059','060','081',
+               '082','083','106','109'),
+       title = 'Mesoplodon spp',
+       truncation = 4.0,
+       constrain_shape=TRUE),
+  list(spp = '044',
+       title = "Dall's porpoise",
+       truncation = 5.5,
+       regions = 'CCS',
+       constrain_shape=TRUE),
+  list(spp = '071',
+       title = 'Minke whale',
+       truncation = 4.0,
+       regions='CCS',
+       constrain_shape = TRUE),
+  list(spp = c('072','073','099'),
+       title = "Sei/Bryde's",
+       truncation = 5.5),
+  list(spp = '074',
+       title = 'Fin whale',
+       truncation = 5.5,
+       regions = 'CCS'),
+  list(spp = '075',
+       title = 'Blue whale',
+       truncation = 5.5,
+       regions = 'CCS'),
+  list(spp = '076',
+       title = 'Humpback whale',
+       truncation = 5.5,
+       regions = 'CCS'),
+  list(spp = c('177','277','377','077'),
+       title = 'Unid. dolphin',
+       truncation = 5.5,
+       constrain_shape=TRUE),
+  list(spp = c('078','079','098','096'),
+       title = 'Unid. cetacean',
+       truncation = 5.5,
+       constrain_shape=TRUE))
+
+#### Run Rg0 estimation analysis ===============================================
+
+Rg0 <-
+  g0_table(cruzi,
+           species,
+           eff_types = 'S',
+           jackknife_fraction = 0.1)
+
+# Save result to file
+save(Rg0, file='whiceas/Rg0.RData')
 ```
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=7, fig.height=9}
@@ -295,54 +387,13 @@ Rg0 <- g0_results
 g0_plot(Rg0, panes = 3)
 ```
 
-```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
-# scratchpad
-#pdf(file='whiceas/df.pdf', width=6, height=6)
-g0_plot(Rg0, panes = 3)
-ggsave(filename='whiceas/Rg0.pdf',width=6,height=8)
-#dev.off()
-
-Rg0 %>% 
-  group_by(title) %>% 
-  summarize(n = sum(sits)) %>% 
-  as.data.frame
-
-
-```
-
-To explore the effects of `LTabundR`'s *g(0)* estimation routines on our abundance estimates, we will be running the analyses below with three different *g(0)* scenarios. In scenario 1, we will manually specify the weighted `g(0)` and its CV for each species in 2020; these results should be nearly exact replicates of those from Bradford et al. (2021), and we can be sure that any discrepancy between the two sets of results are not attributable the *g(0)* aspect of the analysis. Second, we will allow `LTabundR` to calculate the weighted `g(0)` and its CV using the same *Relative g(0)* values that were used in Bradford et al. (2021) (i.e., the results of Barlow (2015), which used surveys from 1986 to 2010 and is provided in `LTabundR` as a built-in dataset), such that any difference between scenarios 1 and 2 are likely due to the weighted *g(0)* subroutines. Finally, in scenario 3, we will use the *Relative g(0)* esitmates produced by `LTabundR` using a more extensive survey dataset (1986-2020). 
-
-For each *g(0)* scenario, our `Rg0` object and `results_path` will differ:
-
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
-# Specify scenario number here
-g0_scenario <- 2
-```
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-# Set Rg0 source and results path
-if(g0_scenario == 1){ # Using manually-specified g0 and its CV
-  Rg0 <- NULL
-  results_path <- 'whiceas/lta_manual/'
-}
-if(g0_scenario == 2){ # Using Rg0 estimates from Barlow 2015
-  data(barlow_2015)
-  Rg0 <- barlow_2015
-  results_path <- 'whiceas/lta_barlow/'
-}
-if(g0_scenario == 3){ # New LTabundR estimates of Rg0
-  data(g0_results)
-  Rg0 <- g0_results
-  results_path <- 'whiceas/lta/'
-}
-```
-
 ## Density & abundance {-}  
 
 First we can define common values that will be constant across all estimates we produce: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-bootstraps <- 200
+results_path <- 'whiceas/lta/'
+bootstraps <- 200 # use a low number for this demo
 years <- 1986:2020
 fit_regions <- NULL
 fit_not_regions <- NULL
@@ -417,22 +468,6 @@ if(TRUE){ # toggle
       estimator(spp = '026', title = "Fraser's dolphin", alt_g0_spp = '013'),
       estimator(spp = '031', title = "Melon-headed whale", alt_g0_spp = '013'))
   
-  estimates
-  
-  # Manually specify g0 and its CV -- only for g0_scenario 1
-  # Two specifications per species, one for 2017 and one for 2020
-  if(g0_scenario==1){
-    # Striped 
-    estimates[[1]]$g0 <- 0.35; estimates[[1]]$g0_cv <- 0.19
-    estimates[[2]]$g0 <- 0.31; estimates[[2]]$g0_cv <- 0.22
-    # Fraser's
-    estimates[[3]]$g0 <- 0.35; estimates[[3]]$g0_cv <- 0.10
-    estimates[[4]]$g0 <- 0.31; estimates[[4]]$g0_cv <- 0.22
-    # Melon-headed
-    estimates[[5]]$g0 <- 0.35; estimates[[5]]$g0_cv <- 0.19
-    estimates[[6]]$g0 <- 0.31; estimates[[6]]$g0_cv <- 0.22
-  }
-  
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,
                  bootstraps = bootstraps,
@@ -471,18 +506,6 @@ if(TRUE){ # toggle
         estimator(spp = '021', title = "Risso's dolphin"),
         estimator(spp = '032', title = "Pygmy killer whale"))
 
-  if(g0_scenario==1){
-    # Rough-toothed 
-    estimates[[1]]$g0 <- 0.09; estimates[[1]]$g0_cv <- 0.45
-    estimates[[2]]$g0 <- 0.07; estimates[[2]]$g0_cv <- 0.51
-    # Risso's
-    estimates[[3]]$g0 <- 0.57; estimates[[3]]$g0_cv <- 0.18
-    estimates[[4]]$g0 <- 0.52; estimates[[4]]$g0_cv <- 021
-    # Pygmy killer
-    estimates[[5]]$g0 <- 0.14; estimates[[5]]$g0_cv <- 0.25
-    estimates[[6]]$g0 <- 0.11; estimates[[6]]$g0_cv <- 0.28
-  }
-  
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,
                  use_g0 = TRUE,
@@ -519,15 +542,6 @@ if(TRUE){ # toggle
     c(estimator(spp = '036', title = "Short-finned pilot whale"),
       estimator(spp = '065', title = "Longman's beaked whale", 
                 alt_g0_spp = '036'))
-
-  if(g0_scenario==1){
-    # Short-finned 
-    estimates[[1]]$g0 <- 0.58; estimates[[1]]$g0_cv <- 0.15
-    estimates[[2]]$g0 <- 0.52; estimates[[2]]$g0_cv <- 0.19
-    # Longman's
-    estimates[[3]]$g0 <- 0.58; estimates[[3]]$g0_cv <- 0.15
-    estimates[[4]]$g0 <- 0.52; estimates[[4]]$g0_cv <- 0.19
-  }
   
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,
@@ -563,15 +577,6 @@ if(TRUE){ # toggle
   estimates <-
       c(estimator(spp = '037', title = "Killer whale"),
         estimator(spp = '046', title = "Sperm whale"))
-
-  if(g0_scenario==1){
-    # Killer (no sightings in ALB et al 2021)
-    estimates[[1]]$g0 <- 1; estimates[[1]]$g0_cv <- 0
-    estimates[[2]]$g0 <- 1; estimates[[2]]$g0_cv <- 0
-    # Sperm
-    estimates[[3]]$g0 <- 0.63; estimates[[3]]$g0_cv <- 0.34
-    estimates[[4]]$g0 <- 0.61; estimates[[4]]$g0_cv <- 0.37
-  }
   
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,
@@ -618,31 +623,24 @@ if(TRUE){ # toggle
                   combine_g0 = TRUE),
         estimator(spp = '071', title = "Minke whale"))
 
-  # Note Barlow2015 provides absolute estimates for Cuviers and UNID Mesop
-  
-  if(g0_scenario==1){
-    # Pygmy sperm (no sightings in ALB, using other kogia values)
-    estimates[[1]]$g0 <- 0.005; estimates[[1]]$g0_cv <- 0.15
-    estimates[[2]]$g0 <- 0.004; estimates[[2]]$g0_cv <- 0.15
-    # Dwarf sperm (no ALB sightings in 2017, using 2020 g0)
-    estimates[[3]]$g0 <- 0.005; estimates[[3]]$g0_cv <- 0.15
-    estimates[[4]]$g0 <- 0.004; estimates[[4]]$g0_cv <- 0.15
-    # UNID Kogia (no ALB sightings 2020, using 2017 g0)
-    estimates[[5]]$g0 <- 0.005; estimates[[5]]$g0_cv <- 0.15
-    estimates[[6]]$g0 <- 0.004; estimates[[6]]$g0_cv <- 0.15
-    # Blainville's (no ALB sightings 2017, using 2020 g0)
-    estimates[[7]]$g0 <- 0.11; estimates[[7]]$g0_cv <- 0.30
-    estimates[[8]]$g0 <- 0.11; estimates[[6]]$g0_cv <- 0.30
-    # Cuvier's (no sightings in ALB -- using unid beaked g0)
-    estimates[[9]]$g0 <- 0.13; estimates[[9]]$g0_cv <- 0.20
-    estimates[[10]]$g0 <- 0.11; estimates[[10]]$g0_cv <- 0.21
-    # UNID Mesop (no ALB sightings 2017, using 2020 g0)
-    estimates[[11]]$g0 <- 0.11; estimates[[11]]$g0_cv <- 0.30
-    estimates[[12]]$g0 <- 0.11; estimates[[12]]$g0_cv <- 0.30
-    # UNID beaked
-    estimates[[13]]$g0 <- 0.13; estimates[[13]]$g0_cv <- 0.20
-    estimates[[14]]$g0 <- 0.11; estimates[[14]]$g0_cv <- 0.21
-  }
+  # Note Barlow2015 provides absolute estimates 
+  # for Cuviers, Kogia spp. and UNID Mesoplodon
+  # Specify those absolute estimates here, drawn from Bradford et al. (2022):
+  # Pygmy sperm 
+  estimates[[1]]$g0 <- 0.005; estimates[[1]]$g0_cv <- 0.15
+  estimates[[2]]$g0 <- 0.004; estimates[[2]]$g0_cv <- 0.15
+  # Dwarf sperm 
+  estimates[[3]]$g0 <- 0.005; estimates[[3]]$g0_cv <- 0.15
+  estimates[[4]]$g0 <- 0.004; estimates[[4]]$g0_cv <- 0.15
+  # UNID Kogia
+  estimates[[5]]$g0 <- 0.005; estimates[[5]]$g0_cv <- 0.15
+  estimates[[6]]$g0 <- 0.004; estimates[[6]]$g0_cv <- 0.15
+  # Cuvier's 
+  estimates[[9]]$g0 <- 0.13; estimates[[9]]$g0_cv <- 0.20
+  estimates[[10]]$g0 <- 0.11; estimates[[10]]$g0_cv <- 0.21
+  # UNID Mesoplodon
+  estimates[[11]]$g0 <- 0.11; estimates[[11]]$g0_cv <- 0.30
+  estimates[[12]]$g0 <- 0.11; estimates[[12]]$g0_cv <- 0.30
   
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,
@@ -669,7 +667,7 @@ if(TRUE){ # toggle
 
   # Detection function specifications
   fit_filters <-
-    list(spp = c('072', '073', '074','075','099'),
+    list(spp = c('072', '073', '074','075','099', '199'),
          pool = 'Multi-species pool 6',
          cohort = 'all',
          truncation_distance = 5.0,
@@ -688,27 +686,6 @@ if(TRUE){ # toggle
                 title = "Sei/Bryde's/Fin whale",
                 alt_g0_spp = c('072', '073', '099', '074'),
                 combine_g0 = TRUE))
-  
-   if(g0_scenario==1){
-    # Brydes (no ALB sightings -- using sei values)
-    estimates[[1]]$g0 <- 0.38; estimates[[1]]$g0_cv <- 0.21
-    estimates[[2]]$g0 <- 0.38; estimates[[2]]$g0_cv <- 0.21
-    # Sei (no ALB sightings in 2017, using 2020 g0)
-    estimates[[3]]$g0 <- 0.38; estimates[[3]]$g0_cv <- 0.21
-    estimates[[4]]$g0 <- 0.38; estimates[[4]]$g0_cv <- 0.21
-    # Fin (no ALB sightings in 2017, using 2020 g0)
-    estimates[[5]]$g0 <- 0.30; estimates[[5]]$g0_cv <- 0.29
-    estimates[[6]]$g0 <- 0.30; estimates[[6]]$g0_cv <- 0.29
-    # Blue (no ALB sightings, using fin values)
-    estimates[[7]]$g0 <- 0.30; estimates[[7]]$g0_cv <- 0.29
-    estimates[[8]]$g0 <- 0.30; estimates[[8]]$g0_cv <- 0.29
-    # Sei / Bryde's (no ALB sightings in 2017, using 2020 g0)
-    estimates[[9]]$g0 <- 0.38; estimates[[9]]$g0_cv <- 0.21
-    estimates[[10]]$g0 <- 0.38; estimates[[10]]$g0_cv <- 0.21
-    # Sei / Bryde's / Fin (no ALB sightings in 2017, using 2020 g0)
-    estimates[[11]]$g0 <- 0.34; estimates[[11]]$g0_cv <- 0.17
-    estimates[[12]]$g0 <- 0.34; estimates[[12]]$g0_cv <- 0.17
-  }
   
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,
@@ -739,12 +716,6 @@ if(TRUE){ # toggle
 
   # Density / abundance estimation plan
    estimates <-c(estimator(spp = '076', title = "Humpback whale"))
-   
-   if(g0_scenario==1){
-    # No ALB sightings in 2017, using 2020 g0
-    estimates[[1]]$g0 <- 0.68; estimates[[1]]$g0_cv <- 0.36
-    estimates[[2]]$g0 <- 0.68; estimates[[2]]$g0_cv <- 0.36
-   }
   
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,
@@ -771,6 +742,7 @@ if(TRUE){ # toggle
          pool = 'Unidentified rorqual',
          cohort = 'all',
          truncation_distance = 5.5,
+         other_species = 'coerce',
          years = years,
          regions = fit_regions,
          not_regions = fit_not_regions)
@@ -782,19 +754,12 @@ if(TRUE){ # toggle
                   alt_g0_spp = c('071','099','074','075'),
                   combine_g0 = TRUE))
   
-  if(g0_scenario==1){
-    estimates[[1]]$g0 <- 0.35; estimates[[1]]$g0_cv <- 0.18
-    estimates[[2]]$g0 <- 0.32; estimates[[2]]$g0_cv <- 0.20
-  }
-  
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,
                  use_g0 = TRUE,
                  bootstraps = bootstraps,
                  toplot=toplot, verbose=verbose)
 
-  results$bootstrap$summary %>% as.data.frame
-  
   # Save result
   (results_file <- paste0(results_path, fit_filters$pool, '.RData'))
   saveRDS(results, file=results_file)
@@ -827,11 +792,6 @@ if(TRUE){ # toggle
                          title = pool_title,
                          alt_g0_spp = c('002','013','018','015', '036', '021'),
                          combine_g0 = TRUE)
-  
-  if(g0_scenario==1){
-    estimates[[1]]$g0 <- 0.33; estimates[[1]]$g0_cv <- 0.08
-    estimates[[2]]$g0 <- 0.29; estimates[[2]]$g0_cv <- 0.10
-  }
   
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,
@@ -871,11 +831,6 @@ if(TRUE){ # toggle
                          title = pool_title, 
                          g0=1.0, 
                          g0_cv = 0.0)
-
-  if(g0_scenario==1){
-    estimates[[1]]$g0 <- 1.0; estimates[[1]]$g0_cv <- 0.0
-    estimates[[2]]$g0 <- 1.0; estimates[[2]]$g0_cv <- 0.0
-  }
   
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,
@@ -909,22 +864,16 @@ if(TRUE){ # toggle
   # Density / abundance estimation plan
   scenarios <- list(
     list(years = 2017,
-       regions = 'WHICEAS',
-       regions_remove = c('Bottlenose_KaNi', 'Bottlenose_OUFI', 'Bottlenose_BI'),
-       region_title = '(WHICEAS)'),
+         regions = 'WHICEAS',
+         regions_remove = c('Bottlenose_KaNi', 'Bottlenose_OUFI', 'Bottlenose_BI'),
+         region_title = '(WHICEAS)'),
     list(years = 2020,
-       regions = 'WHICEAS',
-       regions_remove = c('Bottlenose_KaNi', 'Bottlenose_OUFI', 'Bottlenose_BI'),
-       region_title = '(WHICEAS)'))
+         regions = 'WHICEAS',
+         regions_remove = c('Bottlenose_KaNi', 'Bottlenose_OUFI', 'Bottlenose_BI'),
+         region_title = '(WHICEAS)'))
   
   estimator <- lta_estimates(scenarios)
   estimates <- estimator(spp = '018', title = 'Bottlenose dolphin')
-  
-  if(g0_scenario==1){
-    # No ALB sightings in 2017, using 2020 g0
-    estimates[[1]]$g0 <- 0.24; estimates[[1]]$g0_cv <- 0.38
-    estimates[[2]]$g0 <- 0.24; estimates[[2]]$g0_cv <- 0.38
-  }
   
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,
@@ -954,25 +903,20 @@ if(TRUE){ # toggle
          years = years,
          regions = fit_regions,
          not_regions = fit_not_regions)
-
+  
   # Density / abundance estimation plan
   scenarios <- list(
     list(years = 2017,
-       regions = 'WHICEAS',
-       regions_remove = c('Spotted_OU', 'Spotted_FI', 'Spotted_BI'),
-       region_title = '(WHICEAS)'),
+         regions = 'WHICEAS',
+         regions_remove = c('Spotted_OU', 'Spotted_FI', 'Spotted_BI'),
+         region_title = '(WHICEAS)'),
     list(years = 2020,
-       regions = 'WHICEAS',
-       regions_remove = c('Spotted_OU', 'Spotted_FI', 'Spotted_BI'),
-       region_title = '(WHICEAS)'))
+         regions = 'WHICEAS',
+         regions_remove = c('Spotted_OU', 'Spotted_FI', 'Spotted_BI'),
+         region_title = '(WHICEAS)'))
   
   estimator <- lta_estimates(scenarios)
   estimates <- estimator(spp = '002', title = 'Pantropical spotted dolphin')
-  
-  if(g0_scenario==1){
-    estimates[[1]]$g0 <- 0.28; estimates[[1]]$g0_cv <- 0.11
-    estimates[[2]]$g0 <- 0.25; estimates[[2]]$g0_cv <- 0.13
-  }
   
   # Run analysis
   results <- lta(cruz, Rg0, fit_filters, df_settings, estimates,
@@ -986,279 +930,24 @@ if(TRUE){ # toggle
 }
 ```
 
-## Results {-}
+## Results tables {-}
 
-To review results, we will use *g(0)* scenario 3 (new auto-generated estimates of *Relative g(0)* from `LTabundR`). 
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-# Load results
-ltas <- lta_enlist('whiceas/lta/')
-```
-
-```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
-# scratchpad
-
-# ==============================================================================
-# Fix confidence intervals -- run this once -- 
-# It will read in each result, correct CIs, then re-save the RData object
-if(FALSE){
-  result_paths <- c('whiceas/lta_manual/',
-                    'whiceas/lta_barlow/',
-                    'whiceas/lta/')
-  p <- i <- 1
-  for(p in 1:length(result_paths)){
-    
-    (resulti <- result_paths[p])
-    message(resulti)
-    (diri <- paste0(resulti,dir(resulti)))
-    for(i in 1:length(diri)){
-      (lti_fn <- diri[i])
-      message('--- ',lti_fn)
-      lti <- readRDS(lti_fn)
-      lti %>% names
-      
-      # Harvst parts of results
-      (esti <- lti$estimate)
-      (summi_old <- lti$bootstrap$summary)
-      booti <- lti$bootstrap$details
-      booti <- left_join(booti,
-                         esti %>% select(title, Region, year, Nmean=N))
-      
-      # Replace confidence intervals
-      summi <- 
-        booti %>% 
-        group_by(title, year) %>% 
-        summarize(Nmeani = round(Nmean[1]),
-                  LCI = round(lta_ci(Nmeani, N)$bca_lognormal[1]),
-                  UCI = round(lta_ci(Nmeani, N)$bca_lognormal[2])) %>% 
-        rename(N = Nmeani)
-      summi
-      
-      # Make new summary object
-      summi_new <- left_join(summi_old %>% select(title:CV),
-                             summi %>% select(title, year, L95=LCI, U95=UCI))
-      summi_new %>% as.data.frame
-      
-      # Replace summary in lti
-      lti$bootstrap$summary <- summi_new
-      
-      # Resave RData object
-      saveRDS(lti, file=lti_fn)
-      
-    }
-  }
-} # end of FALSE
-# ==============================================================================
-
-# g0 table =====================================================================
-
-# ALB
-ltas <- lta_enlist('whiceas/lta_manual/')
-ltas[[1]]$bootstrap$summary # confirm 1000 iterations
-reporti <- lta_report(ltas, cruz)
-reporti$table3[,c(1,4,5, 8,9)]
-reporti$table4 %>% head
-reporti$table4[,c(1,2,4,6,8)]
-
-# Barlow
-ltas <- lta_enlist('whiceas/lta_barlow/')
-ltas[[1]]$bootstrap$summary # confirm 1000 iterations
-reporti <- lta_report(ltas, cruz)
-reporti$table3[,c(1,4,5, 8,9)]
-reporti$table4[,c(1,2,4,6,8)]
-
-# LTabundR
-ltas <- lta_enlist('whiceas/lta/')
-ltas[[1]]$bootstrap$summary %>% as.data.frame() # confirm 1000 iterations
-reporti <- lta_report(ltas, cruz)
-reporti$table3[,c(1,4,5, 8,9)]
-reporti$table4[,c(1,2,4,6,8)]
-reporti$table4[,c(1,3,5)] # 2017
-reporti$table4[,c(1,7,9)] # 2020
-
-# Bootstrap histograms
-mri <- ltas[[3]]$bootstrap$details
-ggplot(mri %>% filter(year==2020), 
-       aes(x=N)) + 
-  geom_histogram() + 
-  facet_wrap(~title, scales='free_x')
-
-# Detection function example ===================================================
-#pdf(file='whiceas/df.pdf', width=6, height=6)
-df_plot(ltas[[7]], 
-        bootstrap_alpha = 0.05)
-#dev.off()
-
-
-# Abundance plots ==============================================================
-ests <- data.frame()
-i=3
-for(i in 1:length(ltas)){
-  lti <- ltas[[i]]
-  lti$estimate %>% head
-  lte <- lti$estimate %>% select(title, species, Region, year, D, N)
-  ltb <- lti$bootstrap$summary %>% select(title, Region, year, L95, U95) 
-  
-  ltb95 <- left_join(lte, ltb)
-  ltb95
-  # ltb95 <- 
-  #   ltb %>% 
-  #   #filter(N < 300000) %>% 
-  #   group_by(title, year) %>% 
-  #   summarize(L95 = lta_ci(Nmean, N)
-  #               coxed::bca(N)[1],
-  #             U95 = coxed::bca(N)[2])
-  # ltb95
-  # lte <- left_join(lte, ltb95) #, by=c('title','year'))
-  ests <- rbind(ests, ltb95)
-}
-nrow(ests)
-ests %>% head
-
-ggplot(ests %>% 
-         mutate(title = gsub('Unidentified','Unid.',title)) %>% 
-         mutate(title = gsub('Pantropical','',title)) %>% 
-         mutate(title = gsub('spotted','Spotted',title)) %>% 
-         group_by(title) %>% 
-         mutate(both = all(N > 1)) %>% 
-         ungroup() %>% 
-         filter(both == TRUE) %>% 
-         filter(!grepl('Unid.', title))
-       ) +
-  geom_point(mapping = aes(x=year, y=N)) + 
-  geom_segment(mapping = aes(x=year, xend = year, y=L95, yend=U95)) + 
-  scale_y_continuous(labels=scales::comma) + 
-  facet_wrap(~title, scales='free_y', ncol=3) + 
-  theme_light() + 
-   theme(strip.background = element_rect(fill = "grey45"),
-        #panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank()) + 
-  ylab('Abundance') + 
-  xlab(NULL)
-
-ggsave(filename='whiceas/abundance.pdf',width=8, height=6)
-
-```
-
-
-### Tables {-}  
-
-Generate report: 
+Collate results and generate report: 
 
 ```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
+ltas <- lta_enlist('./whiceas/lta/')
 reporti <- lta_report(ltas, cruz)
 ```
 
-**Table 1.** *Sample sizes.* 
+**Table 1.** *Sample sizes: total and detection functions.* 
 
-The `lta_report()` function above attempts to generate sample size tables based on the `cruz` object and `ltas` results (see `$table1a` and `$table1b` outputs of `lta_report()`), but this is difficult to generalize into an automatic function, especially when cohort-specific geostrata are involved. To determine sample sizes with more control, we can write a quick helper function: 
+The `lta_report()` function above attempts to generate sample size tables based on the `cruz` object and `ltas` results (see `$table1a` and `$table1b` outputs of `lta_report()`), but this is difficult to generalize into an automatic function, especially when cohort-specific geostrata are involved. For this reason the sample size estimates are split into two tables: `reporti$table1a` presents sample sizes of total sightings and total sightings used in detection function fitting, and `reporti$table1b` presents sampel sizes used in density estimation. 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-sample_size <- function(cruz, spp, cohort, years, td, in_region=NULL, region_remove = NULL){
-  suppressMessages({
-    sits <- 
-    cruz$cohorts[[cohort]]$sightings %>% 
-    filter(species %in% spp) %>% 
-    filter(year %in% years) %>% 
-    filter(stratum %in% in_region) %>% 
-    filter(! stratum %in% region_remove) %>% 
-    mutate(species = paste(spp, collapse='/')) %>% 
-    group_by(species, year) %>% 
-    summarize(ntot = n(),
-              nsys = length(which(use == TRUE & 
-                                    Bft <= 6 & 
-                                    EffType == 'S')),
-              nest = length(which(use == TRUE &
-                                    included == TRUE & 
-                                    Bft <= 6 & 
-                                    EffType == 'S' & 
-                                    PerpDistKm <= td))) %>% 
-    tidyr::pivot_longer(cols = ntot:nest) %>% 
-    tidyr::pivot_wider(id_cols = species,
-                names_from = year:name,
-                values_from = value)
-  })
-  return(sits)
-}
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+reporti$table1a 
 ```
 
-Now we can use this function to generate sample size totals for each species/stock of interest: 
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-# Save years to re-use in the lines below
-years <- c(2017, 2020)
-
-# Spotted dolphin
-sample_size(cruz, 
-            spp = '002', 
-            cohort = 3, 
-            years, 
-            td = 5, 
-            in_region = 'WHICEAS',
-            region_remove = c('Spotted_OU','Spotted_FI','Spotted_BI'))
-
-# More efficient code for remaining species: 
-sample_size(cruz, '013', 1, years, 5, 'WHICEAS') # striped dolphin
-
-sample_size(cruz, '015', 1, years, 5, 'WHICEAS') # rough-toothed dolphin
-
-sample_size(cruz, '018', 2, years, 5, 'WHICEAS', # bottlenose dolphin
-            c('Bottlenose_KaNi','Bottlenose_OUFI','Bottlenose_BI'))
-
-sample_size(cruz, '021', 1, years, 5, 'WHICEAS') # risso's dolphin
-
-sample_size(cruz, '026', 1, years, 5, 'WHICEAS') # fraser's dolphin
-
-sample_size(cruz, '031', 1, years, 5, 'WHICEAS') # melon-headed whale
-
-sample_size(cruz, '032', 1, years, 5, 'WHICEAS') # pygmy killer whale
-
-sample_size(cruz, '036', 1, years, 5, 'WHICEAS') # short-finned pilot whale
-
-sample_size(cruz, '037', 1, years, 5.5, 'WHICEAS') # killer whale
-
-sample_size(cruz, '046', 1, years, 5.5, 'WHICEAS') # sperm whale
-
-sample_size(cruz, '047', 1, years, 4.5, 'WHICEAS') # pygmy sperm whale
-
-sample_size(cruz, '048', 1, years, 4.5, 'WHICEAS') # dwarf sperm whale
-
-sample_size(cruz, '080', 1, years, 4.5, 'WHICEAS') # UNID Kogia
-
-sample_size(cruz, '049', 1, years, 4.5, 'WHICEAS') # UNID beaked whale
-
-sample_size(cruz, '051', 1, years, 4.5, 'WHICEAS') # UNID Mesoplodon
-
-sample_size(cruz, '059', 1, years, 4.5, 'WHICEAS') # Blainville's beaked whale
-
-sample_size(cruz, '061', 1, years, 4.5, 'WHICEAS') # Cuvier's beaked whale
-
-sample_size(cruz, '065', 1, years, 4.5, 'WHICEAS') # Longman's beaked whale
-
-sample_size(cruz, '070', 1, years, 4.5, 'WHICEAS') # UNID rorqual
-
-sample_size(cruz, '071', 1, years, 4.5, 'WHICEAS') # Minke whale
-
-sample_size(cruz, c('199'), 
-            1, years, 5, 'WHICEAS') # Sei/Bryde's/Fin
-
-sample_size(cruz, '073', 1, years, 5, 'WHICEAS') # Sei whale
-
-sample_size(cruz, '074', 1, years, 5, 'WHICEAS') # Fin whale
-
-sample_size(cruz, '076', 1, years, 5.5, 'WHICEAS') # Humpback whale
-
-sample_size(cruz, '099', 1, years, 5, 'WHICEAS') # Sei/Brydes
-
-sample_size(cruz, c('177','277','377','077'), 
-            1, years, 5.5, 'WHICEAS') # UNID dolphin
-
-sample_size(cruz, c('078','079','098','096'), 
-            1, years, 5.5, 'WHICEAS') # UNID cetacean
-
-```
-
-```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 reporti$table1a %>% 
   DT::datatable(extensions = "FixedColumns",
               options=list(scrollX=TRUE,
@@ -1270,15 +959,17 @@ reporti$table1a %>%
   ))
 ```
 
+&nbsp;  
+
 To expedite building up this sample size table, consider copying and pasting the table produced by `lta_report()$table1b`, then filling in the blanks with values from above:  
 
-**Table 1b.** *Sample sizes of sightings used in density esitmation.*  
+**Table 1b.** *Sample sizes: density estimation.*  
 
-```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
 reporti$table1b 
 ```
 
-```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
 reporti$table1b %>% 
 DT::datatable(extensions = "FixedColumns",
               options=list(scrollX=TRUE,
@@ -1378,340 +1069,3 @@ reporti$tableA2
 ```
 
 
-### Plots {-}  
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.width=7, fig.height=21}
-lta_plot(species = NULL, 
-         lta_result = ltas, 
-         years = c(2017, 2020))
-```
-
-
-## Validation {-} 
-
-To validate our results and the routines within `LTabundR`, we will compare the `LTabundR` WHICEAS results to those from A.L. Bradford et al. (2022). To do so, we first bring in their results, which we've staged in a GoogleSheet provided in the code chunk below: 
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-library(gsheet)
-url <- 'https://docs.google.com/spreadsheets/d/1S94I9I0R589Z8PFP41lYOF8hM6yetap7RFlPdBeet1M/edit?usp=sharing'
-alb <- gsheet2tbl(url)
-```
-
-Next we format these data to facilitate joining and analyzing alongside our new WHICEAS results within a `tidyverse` framework: 
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-library(dplyr)
-library(tidyr)
-alb <-
-    alb %>%
-    mutate(title=gsub("'","",species)) %>%
-    tidyr::pivot_longer(3:ncol(alb),
-                        names_to='column',
-                        values_to='value',
-                        values_transform = as.character) %>%
-    mutate(source='ALB et al. (2022)',
-           title = species,
-           code = stringr::str_pad(code,width=3, side='left', pad='0'),
-           year = ifelse(grepl('17', column), 2017, 2020) %>% as.numeric) %>%
-    select(-species) %>%
-    rename(species = code) %>%
-    mutate(column = gsub('17','',column)) %>%
-    mutate(column = gsub('20','',column)) %>%
-    group_by(title, species, year) %>%
-    summarize(g0 = value[column == 'g0'][1] %>% as.numeric,
-              g0_cv = value[column == 'gcv'][1] %>% as.numeric,
-              ESW = value[column == 'esw'] %>% as.numeric,
-              ss = value[column == 'ss'] %>% as.numeric,
-              D = value[column == 'd'] %>% as.numeric,
-              N = gsub(',','', value[column == 'n']) %>% as.numeric,
-              CV = value[column == 'cv'] %>% as.numeric,
-              L95 = gsub(',','', value[column == 'lci']) %>% as.numeric,
-              U95 = gsub(',','', value[column == 'uci']) %>% as.numeric) %>%
-    filter(!is.na(D)) %>%
-    mutate(N = round(N))
-
-# Modify names
-names(alb)[4:ncol(alb)] <- paste0('alb_',names(alb)[4:ncol(alb)] )
-```
-
-Review these results: 
-
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE}
-alb
-```
-
-```{r, echo=FALSE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE}
-alb %>% 
-  DT::datatable(extensions = "FixedColumns",
-                options=list(scrollX=TRUE,
-                             scrollY='450px',
-                             paging = FALSE,
-                             initComplete = htmlwidgets::JS(
-    "function(settings, json) {$(this.api().table().container()).css({'font-size': '9pt'});}")
-  ))
-```
-
-### `LTabundR` results {-} 
-
-We will compare the ALB et al. (2022) results to all three versions of the WHICEAS analysis we have produced: (1) manually specified g(0) parameters, (2) Rg(0) estimates from Barlow et al. (2015), and (3) new Rg(0) estimates produced by `LTabundR` automatically. We will bring those results back in and join each to the results from ALB et al. (2022), using a custom helper function, `whiceas_join()`: 
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=8, fig.width=8}
-whiceas_join <- function(alb, ltas){
-  # Combine core info from each LTA list into a dataframe
-  ltabundr <- data.frame()
-  for(i in 1:length(ltas)){
-    lti <- ltas[[i]]
-    ltabundi <-
-      left_join(lti$estimate,
-                lti$bootstrap$summary %>% 
-                  select(title, Region, year, species, iterations, 
-                         g0_cv, CV, L95, U95),
-                by=c('title', 'Region', 'year', 'species'))
-    ltabundr <- rbind(ltabundr, ltabundi)
-  }
-
-  # Format ltabundr data
-  ltabundr <- ltabundr %>%
-    mutate(year = as.numeric(year),
-           D = D*1000,
-           N = round(N)) %>%
-    select(title, species, year, g0=g0_est, g0_cv, 
-           ESW = ESW_mean, ss = size_mean, D, N, CV, L95, U95)
-
-  # Join ALB to LTabundR
-  mr <- left_join(ltabundr, alb, by=c('title', 'year'))
-  return(mr)
-}
-```
-
-Read in, format, and join the results: 
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=8, fig.width=8}
-# Manually-specified g0
-ltas <- lta_enlist('whiceas/lta_manual/')
-mr1 <- whiceas_join(alb, ltas) %>% mutate(scenario = 'ALB et al. (2022)')
-
-# Barlow (2015) Rg0
-ltas <- lta_enlist('whiceas/lta_barlow/')
-mr2 <- whiceas_join(alb, ltas) %>% mutate(scenario = 'Barlow (2015)')
-
-# New auto-generated Rg(0)
-ltas <- lta_enlist('whiceas/lta/')
-mr3 <- whiceas_join(alb, ltas) %>% mutate(scenario = 'LTabundR')
-
-# Join them together
-mr <- rbind(mr1, mr2, mr3) %>% 
-  mutate(scenario = factor(scenario, levels = c('ALB et al. (2022)',
-                                                'Barlow (2015)',
-                                                'LTabundR')))
-```
-
-Now we can compare `LTabundR` estimates to those from ALB et al. (2021): 
-
-```{r, echo=FALSE, eval=FALSE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
-# scratchpad
-
-mr %>% head
-library(ggplot2)
-library(ggrepel)
-
-
-################################################################################
-# Comparison plots
-################################################################################
-
-# Common values ================================================================
-
-mr_plot <- 
-  mr %>% 
-  mutate(title_short = gsub('Unidentified','Unid.', title)) %>% 
-  mutate(title_short = gsub('dolphin','d.', title_short)) %>% 
-  mutate(title_short = gsub('Pantropical','', title_short)) %>% 
-  mutate(title_short = gsub('spotted','Spotted', title_short)) %>% 
-  mutate(title_short = gsub('whale','w.', title_short))
-
-pdf_height = 9
-pdf_width = 9
-
-# Density ======================================================================
-
-ggplot(mr_plot,
-       aes(x=alb_D, y=D, 
-           color=factor(year))) + 
-  geom_point(size=2) +
-  ggrepel::geom_text_repel(mapping=aes(label = title_short),
-                           size=2.5,
-                           min.segment.length=.25,
-                           max.overlaps=Inf,
-                           segment.size=.1,
-                           force=2) + 
-  scale_x_continuous(trans='log', limits=c(0.1, 50), 
-                     breaks = c(0.01, 0.1, 0.25, 0.5, 1.0, 2.5, 5, 10, 25, 50),
-                     labels = function(x)round(x, 2)) +
-  scale_y_continuous(trans='log', limits=c(0.1, 50), 
-                     breaks = c(0.01, 0.1, 0.25, 0.5, 1.0, 2.5, 5, 10, 25, 50),
-                     labels = function(x)round(x, 2)) +
-  geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
-  ylab('LTabundR') + xlab('ALB et al. (2022)') +
-  facet_wrap(~scenario, nrow=3) + 
-  labs(title='Density (cetaceans per 1,000 square km)', 
-       shape='Year', 
-       color = 'Year') + 
-  scale_color_manual(values=c("grey50", "black")) +
-  theme_light() + 
-  theme(strip.background = element_rect(fill = "grey45"),
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
-
-ggsave(filename='whiceas/compare_density.pdf', 
-       width= pdf_width, 
-       height=pdf_height)
-
-
-# Abundance ====================================================================
-
-ggplot(mr_plot,
-       aes(x=alb_N, y=N, 
-           color=factor(year))) + 
-  geom_point(size=2) +
-  ggrepel::geom_text_repel(mapping=aes(label = title_short),
-                           size=2.5,
-                           min.segment.length=.25,
-                           max.overlaps=Inf,
-                           segment.size=.1,
-                           force=1.5) + 
-  scale_x_continuous(trans='log', 
-                       limits=c(10, 50000), 
-                       breaks = c(10, 25, 100, 250, 1000, 2500, 10000, 50000),
-                       labels = function(x)round(x)) +
-    scale_y_continuous(trans='log', 
-                       limits=c(10, 50000), 
-                       breaks = c(10, 25, 100, 250, 1000, 2500, 10000, 50000),
-                       labels = function(x)round(x)) +
-  geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
-  ylab('LTabundR') + xlab('ALB et al. (2022)') +
-  facet_wrap(~scenario, nrow=3) + 
-  labs(title='Abundance in WHICEAS study area', 
-       shape='Year', 
-       color = 'Year') + 
-  scale_color_manual(values=c("grey50", "black")) +
-  theme_light() + 
-  theme(strip.background = element_rect(fill = "grey45"),
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
-
-ggsave(filename='whiceas/compare_abundance.pdf', 
-       width= pdf_width, 
-       height=pdf_height)
-
-
-# g(0) ====================================================================
-
-ggplot(mr_plot,
-       aes(x=alb_g0, y=g0, 
-           color=factor(year))) + 
-  geom_point(size=2) +
-  ggrepel::geom_text_repel(mapping=aes(label = title_short),
-                           size=2.5,
-                           min.segment.length=.25,
-                           max.overlaps=Inf,
-                           segment.size=.1,
-                           force=3) + 
-  geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
-  ylab('LTabundR') + xlab('ALB et al. (2022)') +
-  facet_wrap(~scenario, nrow=3) + 
-  labs(title='Estimates of g(0)', 
-       shape='Year', 
-       color = 'Year') + 
-  scale_color_manual(values=c("grey50", "black")) +
-  theme_light() + 
-  scale_x_continuous(limits=c(-.1,1.1), breaks=seq(0, 1, by=.1)) + 
-  scale_y_continuous(limits=c(-.1,1.1), breaks=seq(0, 1, by=.1)) + 
-  theme(strip.background = element_rect(fill = "grey45"),
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
-
-ggsave(filename='whiceas/compare_g0.pdf', 
-       width= pdf_width, 
-       height=pdf_height)
-
-
-```
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
-library(ggplot2)
-library(plotly)
-
-# Density
-ggplot(mr,
-       aes(x=alb_D, y=D, color=title, shape=factor(year))) +
-    geom_point() +
-    scale_x_continuous(trans='log', limits=c(0.1, 50), 
-                       breaks = c(0.01, 0.1, 0.25, 0.5, 1.0, 2.5, 5, 10, 25, 50),
-                       labels = function(x)round(x, 2)) +
-    scale_y_continuous(trans='log', limits=c(0.1, 50), 
-                       breaks = c(0.01, 0.1, 0.25, 0.5, 1.0, 2.5, 5, 10, 25, 50),
-                       labels = function(x)round(x, 2)) +
-    geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
-    ylab('LTabundR') + xlab('ALB et al. (2022)') +
-  facet_wrap(~scenario, nrow=3) + 
-  labs(title='Density (cetaceans per 1,000 km2)', 
-       shape='Year', color = 'Species') + 
-  theme_light()
-```
-
-&nbsp; 
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
-# Abundance
-ggplot(mr,
-       aes(x=alb_N, y=N, 
-           color=title, shape=factor(year))) +
-    geom_point() +
-    scale_x_continuous(trans='log', 
-                       limits=c(10, 30000), 
-                       breaks = c(10, 25, 100, 250, 1000, 2500, 10000, 30000),
-                       labels = function(x)round(x)) +
-    scale_y_continuous(trans='log', 
-                       limits=c(10, 30000), 
-                       breaks = c(10, 25, 100, 250, 1000, 2500, 10000, 30000),
-                       labels = function(x)round(x)) +
-    geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
-    ylab('LTabundR') + xlab('ALB et al. (2022)') +
-  facet_wrap(~scenario, nrow=3) + 
-  labs(title='WHICEAS abundance', 
-       shape='Year', color = 'Species') + 
-  theme_light()
-```
-
-&nbsp; 
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
-# g(0) estimate
-ggplot(mr,
-       aes(x=alb_g0, y=g0, 
-           color=title, shape=factor(year))) +
-    geom_point() +
-    geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
-    ylab('LTabundR') + xlab('ALB et al. (2022)') +
-  facet_wrap(~scenario, nrow=3) + 
-  labs(title='Estimates of g(0)', 
-       shape='Year', color = 'Species') + 
-  theme_light()
-```
-
-&nbsp; 
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE, message=FALSE, warning=FALSE, fig.heigh=9, fig.width=8}
-# g(0) CV estimate
-ggplot(mr,
-       aes(x=alb_g0_cv, y=g0_cv, 
-           color=title, shape=factor(year))) +
-    geom_point() +
-    geom_abline(slope = 1, intercept = 0, lty=3, alpha=.6) +
-    ylab('LTabundR') + xlab('ALB et al. (2022)') +
-  facet_wrap(~scenario, nrow=3) + 
-  labs(title='Estimates of CV of g(0)', 
-       shape='Year', color = 'Species') + 
-  theme_light()
-```

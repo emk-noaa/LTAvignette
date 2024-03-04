@@ -239,11 +239,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15" data-path="whiceas.html"><a href="whiceas.html"><i class="fa fa-check"></i><b>15</b> WHICEAS</a>
 <ul>
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#data-processing"><i class="fa fa-check"></i>Data processing</a></li>
-<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#data-exploration"><i class="fa fa-check"></i>Data exploration</a></li>
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#rg0-2"><i class="fa fa-check"></i>Rg0</a></li>
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#density-abundance"><i class="fa fa-check"></i>Density &amp; abundance</a></li>
-<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#results"><i class="fa fa-check"></i>Results</a></li>
-<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#validation"><i class="fa fa-check"></i>Validation</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#results-tables"><i class="fa fa-check"></i>Results tables</a></li>
 </ul></li>
 <li class="part"><span><b>VI Appendix</b></span></li>
 <li class="chapter" data-level="16" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>16</b> Strata gallery</a>
@@ -261,9 +259,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#segment-remainder-handling"><i class="fa fa-check"></i>Segment remainder handling</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#typical-settings"><i class="fa fa-check"></i>Typical settings</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="validation-1.html"><a href="validation-1.html"><i class="fa fa-check"></i><b>18</b> Validation</a>
+<li class="chapter" data-level="18" data-path="validation.html"><a href="validation.html"><i class="fa fa-check"></i><b>18</b> Validation</a>
 <ul>
-<li class="chapter" data-level="" data-path="validation-1.html"><a href="validation-1.html#data-processing-1"><i class="fa fa-check"></i>Data processing</a></li>
+<li class="chapter" data-level="" data-path="validation.html"><a href="validation.html#data-processing-1"><i class="fa fa-check"></i>Data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>19</b> NOAA/NMFS species codes</a>
 <ul>
@@ -295,25 +293,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="abundance-plots" class="section level2 unnumbered hasAnchor">
 <h2>Abundance plots<a href="plots.html#abundance-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To plot the abundance estimate with error bars representing the 95% confidence interval, use the function <code>lta_plot()</code>:</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="plots.html#cb247-1" tabindex="-1"></a><span class="fu">lta_plot</span>(lta_result, </span>
-<span id="cb247-2"><a href="plots.html#cb247-2" tabindex="-1"></a>         <span class="at">nrows=</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-324-1.png" width="672" /></p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="plots.html#cb250-1" tabindex="-1"></a><span class="fu">lta_plot</span>(lta_result, </span>
+<span id="cb250-2"><a href="plots.html#cb250-2" tabindex="-1"></a>         <span class="at">nrows=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-327-1.png" width="672" /></p>
 </div>
 <div id="detection-function-plots" class="section level2 unnumbered hasAnchor">
 <h2>Detection function plots<a href="plots.html#detection-function-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To plot the best-fit detection model for a species pool, use the <code>df_plot()</code> function.</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="plots.html#cb248-1" tabindex="-1"></a><span class="fu">df_plot</span>(lta_result)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-325-1.png" width="672" /></p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="plots.html#cb251-1" tabindex="-1"></a><span class="fu">df_plot</span>(lta_result)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-328-1.png" width="672" /></p>
 <p>This function provides various stylization options, including the option to show multiple best-fitting models atop a single histogram of detections:</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="plots.html#cb249-1" tabindex="-1"></a><span class="fu">df_plot</span>(lta_result,</span>
-<span id="cb249-2"><a href="plots.html#cb249-2" tabindex="-1"></a>        <span class="at">model_colors=</span>RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">name =</span> <span class="st">&quot;Dark2&quot;</span>),</span>
-<span id="cb249-3"><a href="plots.html#cb249-3" tabindex="-1"></a>        <span class="at">model_pch =</span> <span class="dv">16</span>,</span>
-<span id="cb249-4"><a href="plots.html#cb249-4" tabindex="-1"></a>        <span class="at">pt_show=</span><span class="dv">2</span>,</span>
-<span id="cb249-5"><a href="plots.html#cb249-5" tabindex="-1"></a>        <span class="at">pt_alpha=</span>.<span class="dv">3</span>,</span>
-<span id="cb249-6"><a href="plots.html#cb249-6" tabindex="-1"></a>        <span class="at">bootstrap_show =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb249-7"><a href="plots.html#cb249-7" tabindex="-1"></a>        <span class="at">legend_show=</span><span class="cn">TRUE</span>,</span>
-<span id="cb249-8"><a href="plots.html#cb249-8" tabindex="-1"></a>        <span class="at">legend_x=</span><span class="fl">2.8</span>)</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-326-1.png" width="672" /></p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="plots.html#cb252-1" tabindex="-1"></a><span class="fu">df_plot</span>(lta_result,</span>
+<span id="cb252-2"><a href="plots.html#cb252-2" tabindex="-1"></a>        <span class="at">model_colors=</span>RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">name =</span> <span class="st">&quot;Dark2&quot;</span>),</span>
+<span id="cb252-3"><a href="plots.html#cb252-3" tabindex="-1"></a>        <span class="at">model_pch =</span> <span class="dv">16</span>,</span>
+<span id="cb252-4"><a href="plots.html#cb252-4" tabindex="-1"></a>        <span class="at">pt_show=</span><span class="dv">2</span>,</span>
+<span id="cb252-5"><a href="plots.html#cb252-5" tabindex="-1"></a>        <span class="at">pt_alpha=</span>.<span class="dv">3</span>,</span>
+<span id="cb252-6"><a href="plots.html#cb252-6" tabindex="-1"></a>        <span class="at">bootstrap_show =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb252-7"><a href="plots.html#cb252-7" tabindex="-1"></a>        <span class="at">legend_show=</span><span class="cn">TRUE</span>,</span>
+<span id="cb252-8"><a href="plots.html#cb252-8" tabindex="-1"></a>        <span class="at">legend_x=</span><span class="fl">2.8</span>)</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-329-1.png" width="672" /></p>
 
 </div>
 </div>

@@ -239,11 +239,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15" data-path="whiceas.html"><a href="whiceas.html"><i class="fa fa-check"></i><b>15</b> WHICEAS</a>
 <ul>
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#data-processing"><i class="fa fa-check"></i>Data processing</a></li>
-<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#data-exploration"><i class="fa fa-check"></i>Data exploration</a></li>
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#rg0-2"><i class="fa fa-check"></i>Rg0</a></li>
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#density-abundance"><i class="fa fa-check"></i>Density &amp; abundance</a></li>
-<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#results"><i class="fa fa-check"></i>Results</a></li>
-<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#validation"><i class="fa fa-check"></i>Validation</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#results-tables"><i class="fa fa-check"></i>Results tables</a></li>
 </ul></li>
 <li class="part"><span><b>VI Appendix</b></span></li>
 <li class="chapter" data-level="16" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>16</b> Strata gallery</a>
@@ -261,9 +259,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#segment-remainder-handling"><i class="fa fa-check"></i>Segment remainder handling</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#typical-settings"><i class="fa fa-check"></i>Typical settings</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="validation-1.html"><a href="validation-1.html"><i class="fa fa-check"></i><b>18</b> Validation</a>
+<li class="chapter" data-level="18" data-path="validation.html"><a href="validation.html"><i class="fa fa-check"></i><b>18</b> Validation</a>
 <ul>
-<li class="chapter" data-level="" data-path="validation-1.html"><a href="validation-1.html#data-processing-1"><i class="fa fa-check"></i>Data processing</a></li>
+<li class="chapter" data-level="" data-path="validation.html"><a href="validation.html#data-processing-1"><i class="fa fa-check"></i>Data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>19</b> NOAA/NMFS species codes</a>
 <ul>
@@ -298,53 +296,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="base-maps" class="section level3 unnumbered hasAnchor">
 <h3>Base maps<a href="maps.html#base-maps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Begin with a basic map of the waters surrounding the Hawaiian archipelago, including EEZ borders:</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="maps.html#cb114-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_base</span>(<span class="at">region=</span><span class="st">&#39;cnp&#39;</span>)</span>
-<span id="cb114-2"><a href="maps.html#cb114-2" tabindex="-1"></a></span>
-<span id="cb114-3"><a href="maps.html#cb114-3" tabindex="-1"></a><span class="co"># Show map</span></span>
-<span id="cb114-4"><a href="maps.html#cb114-4" tabindex="-1"></a>m</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="maps.html#cb117-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_base</span>(<span class="at">region=</span><span class="st">&#39;cnp&#39;</span>)</span>
+<span id="cb117-2"><a href="maps.html#cb117-2" tabindex="-1"></a></span>
+<span id="cb117-3"><a href="maps.html#cb117-3" tabindex="-1"></a><span class="co"># Show map</span></span>
+<span id="cb117-4"><a href="maps.html#cb117-4" tabindex="-1"></a>m</span></code></pre></div>
 <p><img src="img/map_cnp.png" style="width:95.0%" /></p>
 <p>We also have a base map for the California Current …</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="maps.html#cb115-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_base</span>(<span class="at">region=</span><span class="st">&#39;ccs&#39;</span>)</span>
-<span id="cb115-2"><a href="maps.html#cb115-2" tabindex="-1"></a></span>
-<span id="cb115-3"><a href="maps.html#cb115-3" tabindex="-1"></a><span class="co"># Show map</span></span>
-<span id="cb115-4"><a href="maps.html#cb115-4" tabindex="-1"></a>m</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="maps.html#cb118-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_base</span>(<span class="at">region=</span><span class="st">&#39;ccs&#39;</span>)</span>
+<span id="cb118-2"><a href="maps.html#cb118-2" tabindex="-1"></a></span>
+<span id="cb118-3"><a href="maps.html#cb118-3" tabindex="-1"></a><span class="co"># Show map</span></span>
+<span id="cb118-4"><a href="maps.html#cb118-4" tabindex="-1"></a>m</span></code></pre></div>
 <p><img src="img/map_ccs.png" style="width:95.0%" /></p>
 <p>And the ETP:</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="maps.html#cb116-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_base</span>(<span class="at">region=</span><span class="st">&#39;etp&#39;</span>)</span>
-<span id="cb116-2"><a href="maps.html#cb116-2" tabindex="-1"></a></span>
-<span id="cb116-3"><a href="maps.html#cb116-3" tabindex="-1"></a><span class="co"># Show map</span></span>
-<span id="cb116-4"><a href="maps.html#cb116-4" tabindex="-1"></a>m</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="maps.html#cb119-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_base</span>(<span class="at">region=</span><span class="st">&#39;etp&#39;</span>)</span>
+<span id="cb119-2"><a href="maps.html#cb119-2" tabindex="-1"></a></span>
+<span id="cb119-3"><a href="maps.html#cb119-3" tabindex="-1"></a><span class="co"># Show map</span></span>
+<span id="cb119-4"><a href="maps.html#cb119-4" tabindex="-1"></a>m</span></code></pre></div>
 <p><img src="img/map_etp.png" style="width:95.0%" /></p>
 </div>
 <div id="add-strata" class="section level3 unnumbered hasAnchor">
 <h3>Add strata<a href="maps.html#add-strata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Add your research strata to your map:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="maps.html#cb117-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_base</span>(<span class="at">region=</span><span class="st">&#39;cnp&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="maps.html#cb118-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">map_strata</span>(m,</span>
-<span id="cb118-2"><a href="maps.html#cb118-2" tabindex="-1"></a>                cruz_1720<span class="sc">$</span>settings, </span>
-<span id="cb118-3"><a href="maps.html#cb118-3" tabindex="-1"></a>                <span class="at">region=</span><span class="st">&#39;cnp&#39;</span>)</span>
-<span id="cb118-4"><a href="maps.html#cb118-4" tabindex="-1"></a></span>
-<span id="cb118-5"><a href="maps.html#cb118-5" tabindex="-1"></a><span class="co"># Show map</span></span>
-<span id="cb118-6"><a href="maps.html#cb118-6" tabindex="-1"></a>m1</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="maps.html#cb120-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_base</span>(<span class="at">region=</span><span class="st">&#39;cnp&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="maps.html#cb121-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">map_strata</span>(m,</span>
+<span id="cb121-2"><a href="maps.html#cb121-2" tabindex="-1"></a>                cruz_1720<span class="sc">$</span>settings, </span>
+<span id="cb121-3"><a href="maps.html#cb121-3" tabindex="-1"></a>                <span class="at">region=</span><span class="st">&#39;cnp&#39;</span>)</span>
+<span id="cb121-4"><a href="maps.html#cb121-4" tabindex="-1"></a></span>
+<span id="cb121-5"><a href="maps.html#cb121-5" tabindex="-1"></a><span class="co"># Show map</span></span>
+<span id="cb121-6"><a href="maps.html#cb121-6" tabindex="-1"></a>m1</span></code></pre></div>
 <p><img src="img/map_cnp_strata.png" style="width:95.0%" /></p>
 </div>
 <div id="add-survey-tracks" class="section level3 unnumbered hasAnchor">
 <h3>Add survey tracks<a href="maps.html#add-survey-tracks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To demonstrate how to map data, we will use survey data from 2017 and 2020 within the WHICEAS study area:</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="maps.html#cb119-1" tabindex="-1"></a><span class="co"># Load the cruz object we made in the &quot;Processing&quot; chapter</span></span>
-<span id="cb119-2"><a href="maps.html#cb119-2" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&#39;whiceas_cruz.RData&#39;</span>)</span>
-<span id="cb119-3"><a href="maps.html#cb119-3" tabindex="-1"></a></span>
-<span id="cb119-4"><a href="maps.html#cb119-4" tabindex="-1"></a><span class="co"># Filter</span></span>
-<span id="cb119-5"><a href="maps.html#cb119-5" tabindex="-1"></a>cruz_1720 <span class="ot">&lt;-</span> </span>
-<span id="cb119-6"><a href="maps.html#cb119-6" tabindex="-1"></a>  <span class="fu">filter_cruz</span>(cruz,</span>
-<span id="cb119-7"><a href="maps.html#cb119-7" tabindex="-1"></a>              <span class="at">analysis_only =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb119-8"><a href="maps.html#cb119-8" tabindex="-1"></a>              <span class="at">years =</span> <span class="fu">c</span>(<span class="dv">2017</span>, <span class="dv">2020</span>),</span>
-<span id="cb119-9"><a href="maps.html#cb119-9" tabindex="-1"></a>              <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="maps.html#cb122-1" tabindex="-1"></a><span class="co"># Load the cruz object we made in the &quot;Processing&quot; chapter</span></span>
+<span id="cb122-2"><a href="maps.html#cb122-2" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&#39;whiceas_cruz.RData&#39;</span>)</span>
+<span id="cb122-3"><a href="maps.html#cb122-3" tabindex="-1"></a></span>
+<span id="cb122-4"><a href="maps.html#cb122-4" tabindex="-1"></a><span class="co"># Filter</span></span>
+<span id="cb122-5"><a href="maps.html#cb122-5" tabindex="-1"></a>cruz_1720 <span class="ot">&lt;-</span> </span>
+<span id="cb122-6"><a href="maps.html#cb122-6" tabindex="-1"></a>  <span class="fu">filter_cruz</span>(cruz,</span>
+<span id="cb122-7"><a href="maps.html#cb122-7" tabindex="-1"></a>              <span class="at">analysis_only =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb122-8"><a href="maps.html#cb122-8" tabindex="-1"></a>              <span class="at">years =</span> <span class="fu">c</span>(<span class="dv">2017</span>, <span class="dv">2020</span>),</span>
+<span id="cb122-9"><a href="maps.html#cb122-9" tabindex="-1"></a>              <span class="at">regions =</span> <span class="st">&#39;WHICEAS&#39;</span>)</span></code></pre></div>
 <p>Here is the function that maps effort:</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="maps.html#cb120-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">map_effort</span>(m, cruz_1720)</span>
-<span id="cb120-2"><a href="maps.html#cb120-2" tabindex="-1"></a></span>
-<span id="cb120-3"><a href="maps.html#cb120-3" tabindex="-1"></a><span class="co"># Show map</span></span>
-<span id="cb120-4"><a href="maps.html#cb120-4" tabindex="-1"></a>m1</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="maps.html#cb123-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">map_effort</span>(m, cruz_1720)</span>
+<span id="cb123-2"><a href="maps.html#cb123-2" tabindex="-1"></a></span>
+<span id="cb123-3"><a href="maps.html#cb123-3" tabindex="-1"></a><span class="co"># Show map</span></span>
+<span id="cb123-4"><a href="maps.html#cb123-4" tabindex="-1"></a>m1</span></code></pre></div>
 <p><img src="img/map_tracks.png" style="width:95.0%" /></p>
 <p>The defaults of <code>map_effort()</code> assume, for simplicity, that you want to see the segments to be included in density estimation for the first cohort specified in your settings. You can adjust this and other defaults using the function arguments.</p>
 <div id="customizing-effort" class="section level4 unnumbered hasAnchor">
@@ -352,14 +350,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="inputs" class="section level5 unnumbered hasAnchor">
 <h5>Inputs<a href="maps.html#inputs" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>This map changes survey track thickness and color.</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="maps.html#cb121-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">map_effort</span>(m, </span>
-<span id="cb121-2"><a href="maps.html#cb121-2" tabindex="-1"></a>                cruz_1720,</span>
-<span id="cb121-3"><a href="maps.html#cb121-3" tabindex="-1"></a>                <span class="at">effort_color=</span><span class="st">&#39;firebrick&#39;</span>,</span>
-<span id="cb121-4"><a href="maps.html#cb121-4" tabindex="-1"></a>                <span class="at">effort_stroke=</span><span class="fl">2.5</span>,</span>
-<span id="cb121-5"><a href="maps.html#cb121-5" tabindex="-1"></a>                <span class="at">effort_linetype=</span><span class="dv">1</span>,)</span>
-<span id="cb121-6"><a href="maps.html#cb121-6" tabindex="-1"></a></span>
-<span id="cb121-7"><a href="maps.html#cb121-7" tabindex="-1"></a><span class="co"># Show map</span></span>
-<span id="cb121-8"><a href="maps.html#cb121-8" tabindex="-1"></a>m1</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="maps.html#cb124-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">map_effort</span>(m, </span>
+<span id="cb124-2"><a href="maps.html#cb124-2" tabindex="-1"></a>                cruz_1720,</span>
+<span id="cb124-3"><a href="maps.html#cb124-3" tabindex="-1"></a>                <span class="at">effort_color=</span><span class="st">&#39;firebrick&#39;</span>,</span>
+<span id="cb124-4"><a href="maps.html#cb124-4" tabindex="-1"></a>                <span class="at">effort_stroke=</span><span class="fl">2.5</span>,</span>
+<span id="cb124-5"><a href="maps.html#cb124-5" tabindex="-1"></a>                <span class="at">effort_linetype=</span><span class="dv">1</span>,)</span>
+<span id="cb124-6"><a href="maps.html#cb124-6" tabindex="-1"></a></span>
+<span id="cb124-7"><a href="maps.html#cb124-7" tabindex="-1"></a><span class="co"># Show map</span></span>
+<span id="cb124-8"><a href="maps.html#cb124-8" tabindex="-1"></a>m1</span></code></pre></div>
 <p><img src="img/map_tracks2.png" style="width:95.0%" /></p>
 </div>
 <div id="color-code-conditions" class="section level5 unnumbered hasAnchor">
@@ -367,38 +365,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Your second customization option is to add format variables to the <code>segments</code> slot of the cohort of interest in the <code>cruz</code> object. This gives you full control of line color, thickness, and line-type according to whatever specifications you wish to set, e.g., color-coding by effort type or Beaufort sea state.</p>
 <p>This is possible because the function <code>map_effort()</code> looks for the variables <code>col</code> (line color), <code>lwd</code> (line thickness or stroke), and <code>lty</code> (line type) in the columns of <code>cruz$segments</code>. If these columns exist, the values therein will be used instead of the function defaults.</p>
 <p>For example, color-code by Beaufort scale:</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="maps.html#cb122-1" tabindex="-1"></a><span class="co"># Save copy of segments to modify</span></span>
-<span id="cb122-2"><a href="maps.html#cb122-2" tabindex="-1"></a>cruzi <span class="ot">&lt;-</span> cruz_1720</span>
-<span id="cb122-3"><a href="maps.html#cb122-3" tabindex="-1"></a>segments <span class="ot">&lt;-</span> cruzi<span class="sc">$</span>cohorts<span class="sc">$</span>all<span class="sc">$</span>segments</span>
-<span id="cb122-4"><a href="maps.html#cb122-4" tabindex="-1"></a></span>
-<span id="cb122-5"><a href="maps.html#cb122-5" tabindex="-1"></a><span class="co"># Add column `col`: color code by BFT sea state</span></span>
-<span id="cb122-6"><a href="maps.html#cb122-6" tabindex="-1"></a>bft_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;steelblue4&#39;</span>,<span class="st">&#39;steelblue2&#39;</span>,<span class="st">&#39;cadetblue1&#39;</span>,<span class="st">&#39;grey&#39;</span>)</span>
-<span id="cb122-7"><a href="maps.html#cb122-7" tabindex="-1"></a>segments<span class="sc">$</span>col <span class="ot">&lt;-</span> bft_colors[<span class="dv">4</span>]</span>
-<span id="cb122-8"><a href="maps.html#cb122-8" tabindex="-1"></a>segments<span class="sc">$</span>col[ segments<span class="sc">$</span>avgBft <span class="sc">&lt;=</span> <span class="dv">7</span> ] <span class="ot">&lt;-</span> bft_colors[<span class="dv">3</span>] <span class="co"># bft 5 +</span></span>
-<span id="cb122-9"><a href="maps.html#cb122-9" tabindex="-1"></a>segments<span class="sc">$</span>col[ segments<span class="sc">$</span>avgBft <span class="sc">&lt;=</span> <span class="dv">4</span> ] <span class="ot">&lt;-</span> bft_colors[<span class="dv">2</span>] <span class="co"># bft 3 - 4</span></span>
-<span id="cb122-10"><a href="maps.html#cb122-10" tabindex="-1"></a>segments<span class="sc">$</span>col[ segments<span class="sc">$</span>avgBft <span class="sc">&lt;=</span> <span class="dv">2</span> ] <span class="ot">&lt;-</span> bft_colors[<span class="dv">1</span>] <span class="co"># bft 0 -2</span></span>
-<span id="cb122-11"><a href="maps.html#cb122-11" tabindex="-1"></a></span>
-<span id="cb122-12"><a href="maps.html#cb122-12" tabindex="-1"></a><span class="co"># Update sub_segments slot in `cruz` object</span></span>
-<span id="cb122-13"><a href="maps.html#cb122-13" tabindex="-1"></a>cruzi<span class="sc">$</span>cohorts<span class="sc">$</span>all<span class="sc">$</span>segments <span class="ot">&lt;-</span> segments</span>
-<span id="cb122-14"><a href="maps.html#cb122-14" tabindex="-1"></a></span>
-<span id="cb122-15"><a href="maps.html#cb122-15" tabindex="-1"></a><span class="co"># Update map </span></span>
-<span id="cb122-16"><a href="maps.html#cb122-16" tabindex="-1"></a>m_custom2 <span class="ot">&lt;-</span> <span class="fu">map_effort</span>(m, cruzi)</span>
-<span id="cb122-17"><a href="maps.html#cb122-17" tabindex="-1"></a></span>
-<span id="cb122-18"><a href="maps.html#cb122-18" tabindex="-1"></a><span class="co"># Add legend using native functions from mapping package `tmap`</span></span>
-<span id="cb122-19"><a href="maps.html#cb122-19" tabindex="-1"></a>m_custom2 <span class="ot">&lt;-</span> </span>
-<span id="cb122-20"><a href="maps.html#cb122-20" tabindex="-1"></a>  m_custom2 <span class="sc">+</span> </span>
-<span id="cb122-21"><a href="maps.html#cb122-21" tabindex="-1"></a>  tmap<span class="sc">::</span><span class="fu">tm_add_legend</span>(<span class="st">&#39;line&#39;</span>, </span>
-<span id="cb122-22"><a href="maps.html#cb122-22" tabindex="-1"></a>                        <span class="at">col =</span> bft_colors,</span>
-<span id="cb122-23"><a href="maps.html#cb122-23" tabindex="-1"></a>                        <span class="at">lwd =</span> <span class="dv">3</span>,</span>
-<span id="cb122-24"><a href="maps.html#cb122-24" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39; 0 - 2&#39;</span>, </span>
-<span id="cb122-25"><a href="maps.html#cb122-25" tabindex="-1"></a>                                   <span class="st">&#39; 3 - 4&#39;</span>, </span>
-<span id="cb122-26"><a href="maps.html#cb122-26" tabindex="-1"></a>                                   <span class="st">&#39; 5 +&#39;</span>, </span>
-<span id="cb122-27"><a href="maps.html#cb122-27" tabindex="-1"></a>                                   <span class="st">&#39; no data&#39;</span>),</span>
-<span id="cb122-28"><a href="maps.html#cb122-28" tabindex="-1"></a>                         <span class="at">title=</span><span class="st">&quot;Beaufort sea state&quot;</span>) <span class="sc">+</span></span>
-<span id="cb122-29"><a href="maps.html#cb122-29" tabindex="-1"></a>  tmap<span class="sc">::</span><span class="fu">tm_layout</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="st">&#39;left&#39;</span>,<span class="st">&#39;bottom&#39;</span>))</span>
-<span id="cb122-30"><a href="maps.html#cb122-30" tabindex="-1"></a></span>
-<span id="cb122-31"><a href="maps.html#cb122-31" tabindex="-1"></a><span class="co"># Show map</span></span>
-<span id="cb122-32"><a href="maps.html#cb122-32" tabindex="-1"></a>m_custom2</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="maps.html#cb125-1" tabindex="-1"></a><span class="co"># Save copy of segments to modify</span></span>
+<span id="cb125-2"><a href="maps.html#cb125-2" tabindex="-1"></a>cruzi <span class="ot">&lt;-</span> cruz_1720</span>
+<span id="cb125-3"><a href="maps.html#cb125-3" tabindex="-1"></a>segments <span class="ot">&lt;-</span> cruzi<span class="sc">$</span>cohorts<span class="sc">$</span>all<span class="sc">$</span>segments</span>
+<span id="cb125-4"><a href="maps.html#cb125-4" tabindex="-1"></a></span>
+<span id="cb125-5"><a href="maps.html#cb125-5" tabindex="-1"></a><span class="co"># Add column `col`: color code by BFT sea state</span></span>
+<span id="cb125-6"><a href="maps.html#cb125-6" tabindex="-1"></a>bft_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;steelblue4&#39;</span>,<span class="st">&#39;steelblue2&#39;</span>,<span class="st">&#39;cadetblue1&#39;</span>,<span class="st">&#39;grey&#39;</span>)</span>
+<span id="cb125-7"><a href="maps.html#cb125-7" tabindex="-1"></a>segments<span class="sc">$</span>col <span class="ot">&lt;-</span> bft_colors[<span class="dv">4</span>]</span>
+<span id="cb125-8"><a href="maps.html#cb125-8" tabindex="-1"></a>segments<span class="sc">$</span>col[ segments<span class="sc">$</span>avgBft <span class="sc">&lt;=</span> <span class="dv">7</span> ] <span class="ot">&lt;-</span> bft_colors[<span class="dv">3</span>] <span class="co"># bft 5 +</span></span>
+<span id="cb125-9"><a href="maps.html#cb125-9" tabindex="-1"></a>segments<span class="sc">$</span>col[ segments<span class="sc">$</span>avgBft <span class="sc">&lt;=</span> <span class="dv">4</span> ] <span class="ot">&lt;-</span> bft_colors[<span class="dv">2</span>] <span class="co"># bft 3 - 4</span></span>
+<span id="cb125-10"><a href="maps.html#cb125-10" tabindex="-1"></a>segments<span class="sc">$</span>col[ segments<span class="sc">$</span>avgBft <span class="sc">&lt;=</span> <span class="dv">2</span> ] <span class="ot">&lt;-</span> bft_colors[<span class="dv">1</span>] <span class="co"># bft 0 -2</span></span>
+<span id="cb125-11"><a href="maps.html#cb125-11" tabindex="-1"></a></span>
+<span id="cb125-12"><a href="maps.html#cb125-12" tabindex="-1"></a><span class="co"># Update sub_segments slot in `cruz` object</span></span>
+<span id="cb125-13"><a href="maps.html#cb125-13" tabindex="-1"></a>cruzi<span class="sc">$</span>cohorts<span class="sc">$</span>all<span class="sc">$</span>segments <span class="ot">&lt;-</span> segments</span>
+<span id="cb125-14"><a href="maps.html#cb125-14" tabindex="-1"></a></span>
+<span id="cb125-15"><a href="maps.html#cb125-15" tabindex="-1"></a><span class="co"># Update map </span></span>
+<span id="cb125-16"><a href="maps.html#cb125-16" tabindex="-1"></a>m_custom2 <span class="ot">&lt;-</span> <span class="fu">map_effort</span>(m, cruzi)</span>
+<span id="cb125-17"><a href="maps.html#cb125-17" tabindex="-1"></a></span>
+<span id="cb125-18"><a href="maps.html#cb125-18" tabindex="-1"></a><span class="co"># Add legend using native functions from mapping package `tmap`</span></span>
+<span id="cb125-19"><a href="maps.html#cb125-19" tabindex="-1"></a>m_custom2 <span class="ot">&lt;-</span> </span>
+<span id="cb125-20"><a href="maps.html#cb125-20" tabindex="-1"></a>  m_custom2 <span class="sc">+</span> </span>
+<span id="cb125-21"><a href="maps.html#cb125-21" tabindex="-1"></a>  tmap<span class="sc">::</span><span class="fu">tm_add_legend</span>(<span class="st">&#39;line&#39;</span>, </span>
+<span id="cb125-22"><a href="maps.html#cb125-22" tabindex="-1"></a>                        <span class="at">col =</span> bft_colors,</span>
+<span id="cb125-23"><a href="maps.html#cb125-23" tabindex="-1"></a>                        <span class="at">lwd =</span> <span class="dv">3</span>,</span>
+<span id="cb125-24"><a href="maps.html#cb125-24" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39; 0 - 2&#39;</span>, </span>
+<span id="cb125-25"><a href="maps.html#cb125-25" tabindex="-1"></a>                                   <span class="st">&#39; 3 - 4&#39;</span>, </span>
+<span id="cb125-26"><a href="maps.html#cb125-26" tabindex="-1"></a>                                   <span class="st">&#39; 5 +&#39;</span>, </span>
+<span id="cb125-27"><a href="maps.html#cb125-27" tabindex="-1"></a>                                   <span class="st">&#39; no data&#39;</span>),</span>
+<span id="cb125-28"><a href="maps.html#cb125-28" tabindex="-1"></a>                         <span class="at">title=</span><span class="st">&quot;Beaufort sea state&quot;</span>) <span class="sc">+</span></span>
+<span id="cb125-29"><a href="maps.html#cb125-29" tabindex="-1"></a>  tmap<span class="sc">::</span><span class="fu">tm_layout</span>(<span class="at">legend.position=</span><span class="fu">c</span>(<span class="st">&#39;left&#39;</span>,<span class="st">&#39;bottom&#39;</span>))</span>
+<span id="cb125-30"><a href="maps.html#cb125-30" tabindex="-1"></a></span>
+<span id="cb125-31"><a href="maps.html#cb125-31" tabindex="-1"></a><span class="co"># Show map</span></span>
+<span id="cb125-32"><a href="maps.html#cb125-32" tabindex="-1"></a>m_custom2</span></code></pre></div>
 <p><img src="img/map_tracks3.png" style="width:95.0%" /></p>
 </div>
 </div>
@@ -406,62 +404,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="add-sightings" class="section level3 unnumbered hasAnchor">
 <h3>Add sightings<a href="maps.html#add-sightings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Use the function <code>map_sightings()</code> to add sightings to your map:</p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="maps.html#cb123-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">map_sightings</span>(m, cruz_1720)</span>
-<span id="cb123-2"><a href="maps.html#cb123-2" tabindex="-1"></a></span>
-<span id="cb123-3"><a href="maps.html#cb123-3" tabindex="-1"></a><span class="co"># Show map</span></span>
-<span id="cb123-4"><a href="maps.html#cb123-4" tabindex="-1"></a>m1</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="maps.html#cb126-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">map_sightings</span>(m, cruz_1720)</span>
+<span id="cb126-2"><a href="maps.html#cb126-2" tabindex="-1"></a></span>
+<span id="cb126-3"><a href="maps.html#cb126-3" tabindex="-1"></a><span class="co"># Show map</span></span>
+<span id="cb126-4"><a href="maps.html#cb126-4" tabindex="-1"></a>m1</span></code></pre></div>
 <p><img src="img/map_sits.png" style="width:95.0%" /></p>
 <div id="customizing-sightings" class="section level4 unnumbered hasAnchor">
 <h4>Customizing sightings<a href="maps.html#customizing-sightings" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>To demonstrate some of the customization options, consider this map that shows sightings of false killer whales with custom dot color, shape, and size:</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="maps.html#cb124-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">map_sightings</span>(m,</span>
-<span id="cb124-2"><a href="maps.html#cb124-2" tabindex="-1"></a>                    cruz_1720,</span>
-<span id="cb124-3"><a href="maps.html#cb124-3" tabindex="-1"></a>                    <span class="at">include_species =</span> <span class="st">&#39;033&#39;</span>,</span>
-<span id="cb124-4"><a href="maps.html#cb124-4" tabindex="-1"></a>                    <span class="at">color_base =</span> <span class="st">&#39;purple&#39;</span>,</span>
-<span id="cb124-5"><a href="maps.html#cb124-5" tabindex="-1"></a>                    <span class="at">shape_base =</span> <span class="dv">18</span>,</span>
-<span id="cb124-6"><a href="maps.html#cb124-6" tabindex="-1"></a>                    <span class="at">size_base =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="maps.html#cb127-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">map_sightings</span>(m,</span>
+<span id="cb127-2"><a href="maps.html#cb127-2" tabindex="-1"></a>                    cruz_1720,</span>
+<span id="cb127-3"><a href="maps.html#cb127-3" tabindex="-1"></a>                    <span class="at">include_species =</span> <span class="st">&#39;033&#39;</span>,</span>
+<span id="cb127-4"><a href="maps.html#cb127-4" tabindex="-1"></a>                    <span class="at">color_base =</span> <span class="st">&#39;purple&#39;</span>,</span>
+<span id="cb127-5"><a href="maps.html#cb127-5" tabindex="-1"></a>                    <span class="at">shape_base =</span> <span class="dv">18</span>,</span>
+<span id="cb127-6"><a href="maps.html#cb127-6" tabindex="-1"></a>                    <span class="at">size_base =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="img/map_sits2.png" style="width:95.0%" /></p>
 <p>Next is a map of humpback whales and sperm whales, color-coded by species and shape-coded by whether or not the sighting will be included in the analysis:</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="maps.html#cb125-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">map_sightings</span>(m, </span>
-<span id="cb125-2"><a href="maps.html#cb125-2" tabindex="-1"></a>                   cruz_1720,</span>
-<span id="cb125-3"><a href="maps.html#cb125-3" tabindex="-1"></a>                   <span class="at">include_species =</span> <span class="fu">c</span>(<span class="st">&#39;076&#39;</span>,<span class="st">&#39;046&#39;</span>),</span>
-<span id="cb125-4"><a href="maps.html#cb125-4" tabindex="-1"></a>                   <span class="at">color_code =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb125-5"><a href="maps.html#cb125-5" tabindex="-1"></a>                   <span class="at">shape_code =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb125-6"><a href="maps.html#cb125-6" tabindex="-1"></a></span>
-<span id="cb125-7"><a href="maps.html#cb125-7" tabindex="-1"></a><span class="co"># Show map</span></span>
-<span id="cb125-8"><a href="maps.html#cb125-8" tabindex="-1"></a>m1</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="maps.html#cb128-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">map_sightings</span>(m, </span>
+<span id="cb128-2"><a href="maps.html#cb128-2" tabindex="-1"></a>                   cruz_1720,</span>
+<span id="cb128-3"><a href="maps.html#cb128-3" tabindex="-1"></a>                   <span class="at">include_species =</span> <span class="fu">c</span>(<span class="st">&#39;076&#39;</span>,<span class="st">&#39;046&#39;</span>),</span>
+<span id="cb128-4"><a href="maps.html#cb128-4" tabindex="-1"></a>                   <span class="at">color_code =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb128-5"><a href="maps.html#cb128-5" tabindex="-1"></a>                   <span class="at">shape_code =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb128-6"><a href="maps.html#cb128-6" tabindex="-1"></a></span>
+<span id="cb128-7"><a href="maps.html#cb128-7" tabindex="-1"></a><span class="co"># Show map</span></span>
+<span id="cb128-8"><a href="maps.html#cb128-8" tabindex="-1"></a>m1</span></code></pre></div>
 <p><img src="img/map_sits3.png" style="width:95.0%" /></p>
 </div>
 </div>
 <div id="overview-1" class="section level3 unnumbered hasAnchor">
 <h3>Overview<a href="maps.html#overview-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here is an overview of the steps needed to map strata, survey tracks, and sightings all together:</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="maps.html#cb126-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_base</span>(<span class="st">&#39;cnp&#39;</span>) </span>
-<span id="cb126-2"><a href="maps.html#cb126-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_strata</span>(m, cruz_1720<span class="sc">$</span>settings)</span>
-<span id="cb126-3"><a href="maps.html#cb126-3" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_effort</span>(m, cruz_1720)</span>
-<span id="cb126-4"><a href="maps.html#cb126-4" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_sightings</span>(m, cruz_1720, <span class="at">size_base=</span>.<span class="dv">4</span>)</span>
-<span id="cb126-5"><a href="maps.html#cb126-5" tabindex="-1"></a>m </span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="maps.html#cb129-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_base</span>(<span class="st">&#39;cnp&#39;</span>) </span>
+<span id="cb129-2"><a href="maps.html#cb129-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_strata</span>(m, cruz_1720<span class="sc">$</span>settings)</span>
+<span id="cb129-3"><a href="maps.html#cb129-3" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_effort</span>(m, cruz_1720)</span>
+<span id="cb129-4"><a href="maps.html#cb129-4" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">map_sightings</span>(m, cruz_1720, <span class="at">size_base=</span>.<span class="dv">4</span>)</span>
+<span id="cb129-5"><a href="maps.html#cb129-5" tabindex="-1"></a>m </span></code></pre></div>
 <p><img src="img/map_overview.png" style="width:95.0%" /></p>
 </div>
 </div>
 <div id="interactive-maps" class="section level2 unnumbered hasAnchor">
 <h2>Interactive maps<a href="maps.html#interactive-maps" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><code>LTabundR</code> also has an interactive map function, which maps survey data using the <code>leaflet</code> package.</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="maps.html#cb127-1" tabindex="-1"></a> <span class="fu">map_cruz</span>(cruz_1720,</span>
-<span id="cb127-2"><a href="maps.html#cb127-2" tabindex="-1"></a>          <span class="at">cohort=</span><span class="dv">1</span>,</span>
-<span id="cb127-3"><a href="maps.html#cb127-3" tabindex="-1"></a>          <span class="at">eez_show=</span><span class="cn">FALSE</span>,</span>
-<span id="cb127-4"><a href="maps.html#cb127-4" tabindex="-1"></a>          <span class="at">strata_show=</span><span class="cn">FALSE</span>,</span>
-<span id="cb127-5"><a href="maps.html#cb127-5" tabindex="-1"></a>          <span class="at">effort_show=</span><span class="cn">TRUE</span>,</span>
-<span id="cb127-6"><a href="maps.html#cb127-6" tabindex="-1"></a>          <span class="at">effort_resolution=</span><span class="dv">1</span>,</span>
-<span id="cb127-7"><a href="maps.html#cb127-7" tabindex="-1"></a>          <span class="at">sightings_show=</span><span class="cn">TRUE</span>,</span>
-<span id="cb127-8"><a href="maps.html#cb127-8" tabindex="-1"></a>          <span class="at">sightings_color =</span> <span class="st">&#39;firebrick&#39;</span>,</span>
-<span id="cb127-9"><a href="maps.html#cb127-9" tabindex="-1"></a>          <span class="at">verbose=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="maps.html#cb130-1" tabindex="-1"></a> <span class="fu">map_cruz</span>(cruz_1720,</span>
+<span id="cb130-2"><a href="maps.html#cb130-2" tabindex="-1"></a>          <span class="at">cohort=</span><span class="dv">1</span>,</span>
+<span id="cb130-3"><a href="maps.html#cb130-3" tabindex="-1"></a>          <span class="at">eez_show=</span><span class="cn">FALSE</span>,</span>
+<span id="cb130-4"><a href="maps.html#cb130-4" tabindex="-1"></a>          <span class="at">strata_show=</span><span class="cn">FALSE</span>,</span>
+<span id="cb130-5"><a href="maps.html#cb130-5" tabindex="-1"></a>          <span class="at">effort_show=</span><span class="cn">TRUE</span>,</span>
+<span id="cb130-6"><a href="maps.html#cb130-6" tabindex="-1"></a>          <span class="at">effort_resolution=</span><span class="dv">1</span>,</span>
+<span id="cb130-7"><a href="maps.html#cb130-7" tabindex="-1"></a>          <span class="at">sightings_show=</span><span class="cn">TRUE</span>,</span>
+<span id="cb130-8"><a href="maps.html#cb130-8" tabindex="-1"></a>          <span class="at">sightings_color =</span> <span class="st">&#39;firebrick&#39;</span>,</span>
+<span id="cb130-9"><a href="maps.html#cb130-9" tabindex="-1"></a>          <span class="at">verbose=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <p>Note that you can also click on sightings and tracklines to see their details. Refer to the documentation for this function (<code>?map_cruz</code>) to see all the options available for stylizing these maps.</p>
 </div>
 <div id="interactive-dashboard" class="section level2 unnumbered hasAnchor">
 <h2>Interactive dashboard<a href="maps.html#interactive-dashboard" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Finally, note that <code>LTabundR</code> comes with an interactive data explorer app (a <code>Shiny</code> app) for filtering survey data according to effort scenario and species code, toggling <code>map_cruz()</code> settings, and reviewing summary tables of effort and sightings (including inspection of truncation distances).</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="maps.html#cb128-1" tabindex="-1"></a><span class="fu">cruz_explorer</span>(cruz)</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="maps.html#cb131-1" tabindex="-1"></a><span class="fu">cruz_explorer</span>(cruz)</span></code></pre></div>
 <p><em>Screenshots from this app:</em></p>
  <br />
 

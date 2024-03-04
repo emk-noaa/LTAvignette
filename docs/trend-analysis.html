@@ -239,11 +239,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15" data-path="whiceas.html"><a href="whiceas.html"><i class="fa fa-check"></i><b>15</b> WHICEAS</a>
 <ul>
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#data-processing"><i class="fa fa-check"></i>Data processing</a></li>
-<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#data-exploration"><i class="fa fa-check"></i>Data exploration</a></li>
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#rg0-2"><i class="fa fa-check"></i>Rg0</a></li>
 <li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#density-abundance"><i class="fa fa-check"></i>Density &amp; abundance</a></li>
-<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#results"><i class="fa fa-check"></i>Results</a></li>
-<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#validation"><i class="fa fa-check"></i>Validation</a></li>
+<li class="chapter" data-level="" data-path="whiceas.html"><a href="whiceas.html#results-tables"><i class="fa fa-check"></i>Results tables</a></li>
 </ul></li>
 <li class="part"><span><b>VI Appendix</b></span></li>
 <li class="chapter" data-level="16" data-path="stratagallery.html"><a href="stratagallery.html"><i class="fa fa-check"></i><b>16</b> Strata gallery</a>
@@ -261,9 +259,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#segment-remainder-handling"><i class="fa fa-check"></i>Segment remainder handling</a></li>
 <li class="chapter" data-level="" data-path="segmentizing.html"><a href="segmentizing.html#typical-settings"><i class="fa fa-check"></i>Typical settings</a></li>
 </ul></li>
-<li class="chapter" data-level="18" data-path="validation-1.html"><a href="validation-1.html"><i class="fa fa-check"></i><b>18</b> Validation</a>
+<li class="chapter" data-level="18" data-path="validation.html"><a href="validation.html"><i class="fa fa-check"></i><b>18</b> Validation</a>
 <ul>
-<li class="chapter" data-level="" data-path="validation-1.html"><a href="validation-1.html#data-processing-1"><i class="fa fa-check"></i>Data processing</a></li>
+<li class="chapter" data-level="" data-path="validation.html"><a href="validation.html#data-processing-1"><i class="fa fa-check"></i>Data processing</a></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="spp_codes.html"><a href="spp_codes.html"><i class="fa fa-check"></i><b>19</b> NOAA/NMFS species codes</a>
 <ul>
@@ -298,59 +296,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>You will find full analytical details in the Appendix to Bradford et al. (2020) for analytical details, but briefly: in each bootstrap iteration, survey segments are resampled in a way that preserves the proportion of effort occurring within each geostratum in the data. The resampled data are used to calculate the overall ER across all survey years, since the null hypothesis is that the ER does not change across years. This overall ER is used to predict the number of sightings in each year, based on the distance covered by the resampled segments in each year. This process is repeated (typically hundreds to thousands of times) to produce a distribution of predicted sighting counts in each year. This distribution reflects the range of ERs that could be possible due simply to random variation and <em>not</em> to underlying changes in abundance. These distributions are compared to the actual number of sightings observed in their respective year. The fraction of simulated sightings counts that are more extreme than the observed count reflects the probability that the observed count is due to random sample variation alone.</p>
 <p>For example, Bradford et al. (2021) found non-overlapping confidence intervals in their estimates of Bryde’s whale abundance in 2002, 2010, and 2017. To test for the significance of these trends, they carried out the “ER simulator” routine described above. In <code>LTabundR</code>, we would carry out the same analysis as follows:</p>
 <p>Take your processed data:</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="trend-analysis.html#cb188-1" tabindex="-1"></a><span class="fu">data</span>(cnp_150km_1986_2020)</span>
-<span id="cb188-2"><a href="trend-analysis.html#cb188-2" tabindex="-1"></a>cruz <span class="ot">&lt;-</span> cnp_150km_1986_2020</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="trend-analysis.html#cb191-1" tabindex="-1"></a><span class="fu">data</span>(cnp_150km_1986_2020)</span>
+<span id="cb191-2"><a href="trend-analysis.html#cb191-2" tabindex="-1"></a>cruz <span class="ot">&lt;-</span> cnp_150km_1986_2020</span></code></pre></div>
 <p>Filter it to systematic effort in the years of interest:</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="trend-analysis.html#cb189-1" tabindex="-1"></a>cruzi <span class="ot">&lt;-</span> </span>
-<span id="cb189-2"><a href="trend-analysis.html#cb189-2" tabindex="-1"></a>  <span class="fu">filter_cruz</span>(cruz,</span>
-<span id="cb189-3"><a href="trend-analysis.html#cb189-3" tabindex="-1"></a>              <span class="at">analysis_only =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb189-4"><a href="trend-analysis.html#cb189-4" tabindex="-1"></a>              <span class="at">years =</span> <span class="fu">c</span>(<span class="dv">2002</span>, <span class="dv">2010</span>, <span class="dv">2017</span>),</span>
-<span id="cb189-5"><a href="trend-analysis.html#cb189-5" tabindex="-1"></a>              <span class="at">regions =</span> <span class="st">&#39;HI_EEZ&#39;</span>,</span>
-<span id="cb189-6"><a href="trend-analysis.html#cb189-6" tabindex="-1"></a>              <span class="at">eff_types =</span> <span class="st">&#39;S&#39;</span>,</span>
-<span id="cb189-7"><a href="trend-analysis.html#cb189-7" tabindex="-1"></a>              <span class="at">bft_range =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="trend-analysis.html#cb192-1" tabindex="-1"></a>cruzi <span class="ot">&lt;-</span> </span>
+<span id="cb192-2"><a href="trend-analysis.html#cb192-2" tabindex="-1"></a>  <span class="fu">filter_cruz</span>(cruz,</span>
+<span id="cb192-3"><a href="trend-analysis.html#cb192-3" tabindex="-1"></a>              <span class="at">analysis_only =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb192-4"><a href="trend-analysis.html#cb192-4" tabindex="-1"></a>              <span class="at">years =</span> <span class="fu">c</span>(<span class="dv">2002</span>, <span class="dv">2010</span>, <span class="dv">2017</span>),</span>
+<span id="cb192-5"><a href="trend-analysis.html#cb192-5" tabindex="-1"></a>              <span class="at">regions =</span> <span class="st">&#39;HI_EEZ&#39;</span>,</span>
+<span id="cb192-6"><a href="trend-analysis.html#cb192-6" tabindex="-1"></a>              <span class="at">eff_types =</span> <span class="st">&#39;S&#39;</span>,</span>
+<span id="cb192-7"><a href="trend-analysis.html#cb192-7" tabindex="-1"></a>              <span class="at">bft_range =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
 <p>Conduct the ER simulation, passing the species code for the Bryde’s whale (<code>"072"</code>). For the purposes of this example, we will only use 100 iterations.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="trend-analysis.html#cb190-1" tabindex="-1"></a>er_results <span class="ot">&lt;-</span> </span>
-<span id="cb190-2"><a href="trend-analysis.html#cb190-2" tabindex="-1"></a>  <span class="fu">er_simulator</span>(<span class="at">spp =</span> <span class="st">&#39;072&#39;</span>, <span class="at">cruz =</span> cruzi, <span class="at">iterations =</span> <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="trend-analysis.html#cb193-1" tabindex="-1"></a>er_results <span class="ot">&lt;-</span> </span>
+<span id="cb193-2"><a href="trend-analysis.html#cb193-2" tabindex="-1"></a>  <span class="fu">er_simulator</span>(<span class="at">spp =</span> <span class="st">&#39;072&#39;</span>, <span class="at">cruz =</span> cruzi, <span class="at">iterations =</span> <span class="dv">100</span>)</span></code></pre></div>
 <p>This routine provides a list with two slots:</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="trend-analysis.html#cb191-1" tabindex="-1"></a>er_results <span class="sc">%&gt;%</span> names</span>
-<span id="cb191-2"><a href="trend-analysis.html#cb191-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;summary&quot;</span> <span class="st">&quot;details&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="trend-analysis.html#cb194-1" tabindex="-1"></a>er_results <span class="sc">%&gt;%</span> names</span>
+<span id="cb194-2"><a href="trend-analysis.html#cb194-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">&quot;summary&quot;</span> <span class="st">&quot;details&quot;</span></span></code></pre></div>
 <p>The <code>summary</code> slot returns the p-value for each year, i.e., the chances that the observed number of sightings was due purely to random variation in the encounter rate.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="trend-analysis.html#cb192-1" tabindex="-1"></a>er_results<span class="sc">$</span>summary</span>
-<span id="cb192-2"><a href="trend-analysis.html#cb192-2" tabindex="-1"></a>  years observed    p</span>
-<span id="cb192-3"><a href="trend-analysis.html#cb192-3" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">2010</span>       <span class="dv">19</span> <span class="fl">0.00</span></span>
-<span id="cb192-4"><a href="trend-analysis.html#cb192-4" tabindex="-1"></a><span class="dv">2</span>  <span class="dv">2002</span>       <span class="dv">10</span> <span class="fl">0.56</span></span>
-<span id="cb192-5"><a href="trend-analysis.html#cb192-5" tabindex="-1"></a><span class="dv">3</span>  <span class="dv">2017</span>        <span class="dv">2</span> <span class="fl">1.00</span></span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="trend-analysis.html#cb195-1" tabindex="-1"></a>er_results<span class="sc">$</span>summary</span>
+<span id="cb195-2"><a href="trend-analysis.html#cb195-2" tabindex="-1"></a>  years observed    p</span>
+<span id="cb195-3"><a href="trend-analysis.html#cb195-3" tabindex="-1"></a><span class="dv">1</span>  <span class="dv">2010</span>       <span class="dv">19</span> <span class="fl">0.00</span></span>
+<span id="cb195-4"><a href="trend-analysis.html#cb195-4" tabindex="-1"></a><span class="dv">2</span>  <span class="dv">2002</span>       <span class="dv">10</span> <span class="fl">0.56</span></span>
+<span id="cb195-5"><a href="trend-analysis.html#cb195-5" tabindex="-1"></a><span class="dv">3</span>  <span class="dv">2017</span>        <span class="dv">2</span> <span class="fl">1.00</span></span></code></pre></div>
 <p>In this example, the encounter rates observed in 2002 and 2010 are very likely due to some process <em>other</em> than random variation in the encounter rate, such as range shifts, seasonal movement timing shifts, and/or changes in abundance. However, the observed encounter rate in 2017 could easily be explained by random variation in the ER.</p>
 <p>The <code>details</code> slot returns the simulation predictions for each year, which can be used to replicate the histograms that are printed when the function is run.</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="trend-analysis.html#cb193-1" tabindex="-1"></a>er_results<span class="sc">$</span>details[, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span>
-<span id="cb193-2"><a href="trend-analysis.html#cb193-2" tabindex="-1"></a>        bsits sim_sits sim_sits sim_sits sim_sits sim_sits</span>
-<span id="cb193-3"><a href="trend-analysis.html#cb193-3" tabindex="-1"></a>[<span class="dv">1</span>,] <span class="fl">9.744599</span> <span class="fl">10.73243</span> <span class="fl">11.24889</span> <span class="fl">8.654378</span> <span class="fl">9.800787</span> <span class="fl">10.65174</span></span>
-<span id="cb193-4"><a href="trend-analysis.html#cb193-4" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="fl">9.598687</span> <span class="fl">11.15357</span> <span class="fl">10.55692</span> <span class="fl">8.943762</span> <span class="fl">9.792767</span> <span class="fl">10.26057</span></span>
-<span id="cb193-5"><a href="trend-analysis.html#cb193-5" tabindex="-1"></a>[<span class="dv">3</span>,] <span class="fl">8.656714</span> <span class="fl">10.11400</span> <span class="fl">11.19419</span> <span class="fl">8.401860</span> <span class="fl">8.406446</span> <span class="fl">10.08770</span></span></code></pre></div>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="trend-analysis.html#cb194-1" tabindex="-1"></a>spp <span class="ot">&lt;-</span> <span class="st">&#39;072&#39;</span></span>
-<span id="cb194-2"><a href="trend-analysis.html#cb194-2" tabindex="-1"></a>years <span class="ot">&lt;-</span> er_results<span class="sc">$</span>summary<span class="sc">$</span>years</span>
-<span id="cb194-3"><a href="trend-analysis.html#cb194-3" tabindex="-1"></a>obsi <span class="ot">&lt;-</span> er_results<span class="sc">$</span>summary<span class="sc">$</span>observed</span>
-<span id="cb194-4"><a href="trend-analysis.html#cb194-4" tabindex="-1"></a>bsits <span class="ot">&lt;-</span> er_results<span class="sc">$</span>details</span>
-<span id="cb194-5"><a href="trend-analysis.html#cb194-5" tabindex="-1"></a></span>
-<span id="cb194-6"><a href="trend-analysis.html#cb194-6" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="fu">length</span>(years),<span class="dv">1</span>))</span>
-<span id="cb194-7"><a href="trend-analysis.html#cb194-7" tabindex="-1"></a>xmax <span class="ot">&lt;-</span> <span class="fl">1.05</span><span class="sc">*</span><span class="fu">max</span>(<span class="fu">c</span>(bsits, obsi))</span>
-<span id="cb194-8"><a href="trend-analysis.html#cb194-8" tabindex="-1"></a>xmin <span class="ot">&lt;-</span> <span class="fl">0.95</span><span class="sc">*</span><span class="fu">min</span>(<span class="fu">c</span>(bsits, obsi))</span>
-<span id="cb194-9"><a href="trend-analysis.html#cb194-9" tabindex="-1"></a>i<span class="ot">=</span><span class="dv">1</span></span>
-<span id="cb194-10"><a href="trend-analysis.html#cb194-10" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
-<span id="cb194-11"><a href="trend-analysis.html#cb194-11" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(years)){</span>
-<span id="cb194-12"><a href="trend-analysis.html#cb194-12" tabindex="-1"></a>    <span class="co"># Plot</span></span>
-<span id="cb194-13"><a href="trend-analysis.html#cb194-13" tabindex="-1"></a>    main_title <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">paste</span>(<span class="st">&#39;Species &#39;</span>,spp,<span class="at">collapse=</span><span class="st">&#39;-&#39;</span>),<span class="st">&#39; :: &#39;</span>,years[i])</span>
-<span id="cb194-14"><a href="trend-analysis.html#cb194-14" tabindex="-1"></a>    <span class="fu">hist</span>(bsits[i,],</span>
-<span id="cb194-15"><a href="trend-analysis.html#cb194-15" tabindex="-1"></a>       <span class="at">xlim=</span><span class="fu">c</span>(xmin, xmax),</span>
-<span id="cb194-16"><a href="trend-analysis.html#cb194-16" tabindex="-1"></a>       <span class="at">breaks=</span> <span class="fu">seq</span>(xmin, xmax, <span class="at">length=</span><span class="dv">30</span>),</span>
-<span id="cb194-17"><a href="trend-analysis.html#cb194-17" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&#39;grey60&#39;</span>,</span>
-<span id="cb194-18"><a href="trend-analysis.html#cb194-18" tabindex="-1"></a>       <span class="at">border =</span> <span class="st">&#39;grey85&#39;</span>,</span>
-<span id="cb194-19"><a href="trend-analysis.html#cb194-19" tabindex="-1"></a>       <span class="at">main =</span> years[i], <span class="co">#main_title,</span></span>
-<span id="cb194-20"><a href="trend-analysis.html#cb194-20" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&#39;Simulated sightings&#39;</span>)</span>
-<span id="cb194-21"><a href="trend-analysis.html#cb194-21" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v=</span>obsi[i], <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
-<span id="cb194-22"><a href="trend-analysis.html#cb194-22" tabindex="-1"></a>  }</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-263-1.png" width="672" /></p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="trend-analysis.html#cb195-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="trend-analysis.html#cb196-1" tabindex="-1"></a>er_results<span class="sc">$</span>details[, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span>
+<span id="cb196-2"><a href="trend-analysis.html#cb196-2" tabindex="-1"></a>        bsits sim_sits sim_sits sim_sits sim_sits sim_sits</span>
+<span id="cb196-3"><a href="trend-analysis.html#cb196-3" tabindex="-1"></a>[<span class="dv">1</span>,] <span class="fl">9.744599</span> <span class="fl">10.73243</span> <span class="fl">11.24889</span> <span class="fl">8.654378</span> <span class="fl">9.800787</span> <span class="fl">10.65174</span></span>
+<span id="cb196-4"><a href="trend-analysis.html#cb196-4" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="fl">9.598687</span> <span class="fl">11.15357</span> <span class="fl">10.55692</span> <span class="fl">8.943762</span> <span class="fl">9.792767</span> <span class="fl">10.26057</span></span>
+<span id="cb196-5"><a href="trend-analysis.html#cb196-5" tabindex="-1"></a>[<span class="dv">3</span>,] <span class="fl">8.656714</span> <span class="fl">10.11400</span> <span class="fl">11.19419</span> <span class="fl">8.401860</span> <span class="fl">8.406446</span> <span class="fl">10.08770</span></span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="trend-analysis.html#cb197-1" tabindex="-1"></a>spp <span class="ot">&lt;-</span> <span class="st">&#39;072&#39;</span></span>
+<span id="cb197-2"><a href="trend-analysis.html#cb197-2" tabindex="-1"></a>years <span class="ot">&lt;-</span> er_results<span class="sc">$</span>summary<span class="sc">$</span>years</span>
+<span id="cb197-3"><a href="trend-analysis.html#cb197-3" tabindex="-1"></a>obsi <span class="ot">&lt;-</span> er_results<span class="sc">$</span>summary<span class="sc">$</span>observed</span>
+<span id="cb197-4"><a href="trend-analysis.html#cb197-4" tabindex="-1"></a>bsits <span class="ot">&lt;-</span> er_results<span class="sc">$</span>details</span>
+<span id="cb197-5"><a href="trend-analysis.html#cb197-5" tabindex="-1"></a></span>
+<span id="cb197-6"><a href="trend-analysis.html#cb197-6" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="fu">length</span>(years),<span class="dv">1</span>))</span>
+<span id="cb197-7"><a href="trend-analysis.html#cb197-7" tabindex="-1"></a>xmax <span class="ot">&lt;-</span> <span class="fl">1.05</span><span class="sc">*</span><span class="fu">max</span>(<span class="fu">c</span>(bsits, obsi))</span>
+<span id="cb197-8"><a href="trend-analysis.html#cb197-8" tabindex="-1"></a>xmin <span class="ot">&lt;-</span> <span class="fl">0.95</span><span class="sc">*</span><span class="fu">min</span>(<span class="fu">c</span>(bsits, obsi))</span>
+<span id="cb197-9"><a href="trend-analysis.html#cb197-9" tabindex="-1"></a>i<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb197-10"><a href="trend-analysis.html#cb197-10" tabindex="-1"></a>pvals <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb197-11"><a href="trend-analysis.html#cb197-11" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(years)){</span>
+<span id="cb197-12"><a href="trend-analysis.html#cb197-12" tabindex="-1"></a>    <span class="co"># Plot</span></span>
+<span id="cb197-13"><a href="trend-analysis.html#cb197-13" tabindex="-1"></a>    main_title <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">paste</span>(<span class="st">&#39;Species &#39;</span>,spp,<span class="at">collapse=</span><span class="st">&#39;-&#39;</span>),<span class="st">&#39; :: &#39;</span>,years[i])</span>
+<span id="cb197-14"><a href="trend-analysis.html#cb197-14" tabindex="-1"></a>    <span class="fu">hist</span>(bsits[i,],</span>
+<span id="cb197-15"><a href="trend-analysis.html#cb197-15" tabindex="-1"></a>       <span class="at">xlim=</span><span class="fu">c</span>(xmin, xmax),</span>
+<span id="cb197-16"><a href="trend-analysis.html#cb197-16" tabindex="-1"></a>       <span class="at">breaks=</span> <span class="fu">seq</span>(xmin, xmax, <span class="at">length=</span><span class="dv">30</span>),</span>
+<span id="cb197-17"><a href="trend-analysis.html#cb197-17" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&#39;grey60&#39;</span>,</span>
+<span id="cb197-18"><a href="trend-analysis.html#cb197-18" tabindex="-1"></a>       <span class="at">border =</span> <span class="st">&#39;grey85&#39;</span>,</span>
+<span id="cb197-19"><a href="trend-analysis.html#cb197-19" tabindex="-1"></a>       <span class="at">main =</span> years[i], <span class="co">#main_title,</span></span>
+<span id="cb197-20"><a href="trend-analysis.html#cb197-20" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&#39;Simulated sightings&#39;</span>)</span>
+<span id="cb197-21"><a href="trend-analysis.html#cb197-21" tabindex="-1"></a>    <span class="fu">abline</span>(<span class="at">v=</span>obsi[i], <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb197-22"><a href="trend-analysis.html#cb197-22" tabindex="-1"></a>  }</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-266-1.png" width="672" /></p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="trend-analysis.html#cb198-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
 
 </div>
             </section>

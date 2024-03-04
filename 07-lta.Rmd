@@ -334,7 +334,8 @@ new_estimates <- list(
          title = 'Striped dolphin',
          years = 2017,
          regions = 'WHICEAS',
-         g0 = 0.35, g0_cv = 0.19))
+         g0 = 0.35, 
+         g0_cv = 0.19))
 
 # Run it:
 demo <- lta(cruz, Rg0, fit_filters, df_settings, new_estimates, bootstraps = 0)
